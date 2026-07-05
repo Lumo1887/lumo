@@ -54,9 +54,16 @@ export default function Navbar() {
 
         {loaded && email ? (
           <div className="flex items-center gap-3">
-            <span className="hidden max-w-[160px] truncate text-sm text-ink-600 sm:inline">
+            <Link
+              href="/profile"
+              className="hidden max-w-[160px] truncate text-sm text-ink-600 hover:text-brand-700 sm:inline"
+              title="Zum Profil"
+            >
               {email}
-            </span>
+            </Link>
+            <Link href="/profile" className="btn-secondary !px-4 !py-2 text-sm sm:hidden">
+              Profil
+            </Link>
             <button
               onClick={handleLogout}
               className="btn-secondary !px-4 !py-2 text-sm"
