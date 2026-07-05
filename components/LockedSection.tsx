@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { hasAccess } from "@/lib/access";
+import { fetchAccess } from "@/lib/access";
 import { formatEuro } from "@/lib/modules";
 import CheckoutButton from "@/components/CheckoutButton";
 
@@ -17,7 +17,13 @@ export default function LockedSection({
   const [unlocked, setUnlocked] = useState<boolean | null>(null);
 
   useEffect(() => {
-    setUnlocked(hasAccess(moduleSlug));
+    let cancelled = false;
+    fetchAccess().then((info) => {
+      if (!cancelled) setUnlocked(info.purchases.includes(moduleSlug));
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [moduleSlug]);
 
   if (unlocked === null) {

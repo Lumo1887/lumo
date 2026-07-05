@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { questions, TOPICS } from "@/lib/questions";
-import { hasAccess } from "@/lib/access";
+import { fetchAccess } from "@/lib/access";
 import CheckoutButton from "@/components/CheckoutButton";
 
 const ALL_TOPICS = ["Alle", ...TOPICS];
@@ -18,7 +18,13 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
   const [answeredCount, setAnsweredCount] = useState(0);
 
   useEffect(() => {
-    setUnlocked(hasAccess(moduleSlug));
+    let cancelled = false;
+    fetchAccess().then((info) => {
+      if (!cancelled) setUnlocked(info.purchases.includes(moduleSlug));
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [moduleSlug]);
 
   const pool = useMemo(() => {

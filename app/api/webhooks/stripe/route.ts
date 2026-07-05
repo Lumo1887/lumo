@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
+import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import Stripe from "stripe";
 
 // Stripe benötigt den rohen Request-Body, um die Signatur zu prüfen.
@@ -30,27 +31,34 @@ export async function POST(req: NextRequest) {
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Checkout.Session;
       const moduleSlug = session.metadata?.moduleSlug;
+      const userId = session.metadata?.userId ?? session.client_reference_id;
 
-      // -----------------------------------------------------------------
-      // TODO (nächster Schritt für den Produktivbetrieb):
-      // Hier den Kauf persistent speichern, z. B. in einer Datenbank:
-      //
-      //   await db.purchase.create({
-      //     data: {
-      //       email: session.customer_details?.email,
-      //       moduleSlug,
-      //       stripeSessionId: session.id,
-      //       amountTotal: session.amount_total,
-      //     },
-      //   });
-      //
-      // Aktuell wird der Zugriff stattdessen vereinfacht clientseitig über
-      // localStorage freigeschaltet (siehe app/checkout/success/page.tsx und
-      // lib/access.ts). Das reicht für einen Prototypen, ist aber nicht
-      // sicher/robust für echten Verkauf (kein Gerätewechsel, kein Nachweis).
-      // -----------------------------------------------------------------
+      if (!moduleSlug || !userId) {
+        console.error(
+          "Webhook: moduleSlug oder userId fehlt in der Session-Metadata."
+        );
+        break;
+      }
+
+      const { error } = await supabaseAdmin.from("purchases").upsert(
+        {
+          user_id: userId,
+          module_slug: moduleSlug,
+          stripe_session_id: session.id,
+        },
+        { onConflict: "user_id,module_slug" }
+      );
+
+      if (error) {
+        console.error("Fehler beim Speichern des Kaufs in Supabase:", error);
+        return NextResponse.json(
+          { error: "Kauf konnte nicht gespeichert werden." },
+          { status: 500 }
+        );
+      }
+
       console.log(
-        `[stripe webhook] Zahlung abgeschlossen für Modul "${moduleSlug}", Session ${session.id}`
+        `[stripe webhook] Kauf gespeichert: Nutzer ${userId}, Modul "${moduleSlug}"`
       );
       break;
     }

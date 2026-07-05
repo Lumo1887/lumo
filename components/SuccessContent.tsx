@@ -1,17 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { grantAccess } from "@/lib/access";
+import { fetchAccess } from "@/lib/access";
 
-type Status = "checking" | "granted" | "failed";
+type Status = "checking" | "waiting" | "granted" | "failed";
 
 export default function SuccessContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const [status, setStatus] = useState<Status>("checking");
   const [moduleSlug, setModuleSlug] = useState<string | null>(null);
+  const attemptsRef = useRef(0);
 
   useEffect(() => {
     if (!sessionId) {
@@ -19,24 +20,58 @@ export default function SuccessContent() {
       return;
     }
 
-    fetch(`/api/checkout/verify?session_id=${sessionId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.paid && data.moduleSlug) {
-          grantAccess(data.moduleSlug);
-          setModuleSlug(data.moduleSlug);
-          setStatus("granted");
-        } else {
-          setStatus("failed");
-        }
-      })
-      .catch(() => setStatus("failed"));
+    let cancelled = false;
+
+    async function verifyPayment() {
+      const res = await fetch(`/api/checkout/verify?session_id=${sessionId}`);
+      const data = await res.json();
+      if (cancelled) return;
+
+      if (!data.paid || !data.moduleSlug) {
+        setStatus("failed");
+        return;
+      }
+
+      setModuleSlug(data.moduleSlug);
+      setStatus("waiting");
+      pollAccess(data.moduleSlug);
+    }
+
+    async function pollAccess(slug: string) {
+      attemptsRef.current += 1;
+      const access = await fetchAccess();
+      if (cancelled) return;
+
+      if (access.purchases.includes(slug)) {
+        setStatus("granted");
+        return;
+      }
+
+      // Der Stripe-Webhook braucht manchmal ein bis zwei Sekunden, um den
+      // Kauf in der Datenbank zu speichern -> kurz erneut versuchen.
+      if (attemptsRef.current < 8) {
+        setTimeout(() => pollAccess(slug), 1000);
+      } else {
+        // Zahlung war erfolgreich, die Freischaltung ist nur noch nicht
+        // sichtbar -> trotzdem als Erfolg anzeigen, da die Zahlung stimmt.
+        setStatus("granted");
+      }
+    }
+
+    verifyPayment();
+    return () => {
+      cancelled = true;
+    };
   }, [sessionId]);
 
-  if (status === "checking") {
+  if (status === "checking" || status === "waiting") {
     return (
       <div className="card mx-auto max-w-lg p-8 text-center">
-        <p className="text-ink-600">Zahlung wird überprüft …</p>
+        <p className="text-ink-600">
+          {status === "checking"
+            ? "Zahlung wird überprüft …"
+            : "Fast fertig — dein Zugriff wird gerade freigeschaltet …"}
+        </p>
       </div>
     );
   }
@@ -51,8 +86,8 @@ export default function SuccessContent() {
           Falls du gerade wirklich bezahlt hast, kontaktiere uns bitte — oder
           prüfe, ob STRIPE_SECRET_KEY korrekt in .env.local hinterlegt ist.
         </p>
-        <Link href="/module" className="btn-secondary mt-4">
-          Zurück zu den Modulen
+        <Link href="/dashboard" className="btn-secondary mt-4">
+          Zurück zum Dashboard
         </Link>
       </div>
     );

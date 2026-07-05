@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { modules } from "@/lib/modules";
 import ModuleCard from "@/components/ModuleCard";
-import { hasAccess } from "@/lib/access";
+import { fetchAccess } from "@/lib/access";
 
 const comparisonRows = [
   {
@@ -38,12 +38,19 @@ export default function DashboardPage() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const map: Record<string, boolean> = {};
-    modules.forEach((m) => {
-      map[m.slug] = hasAccess(m.slug);
+    let cancelled = false;
+    fetchAccess().then((info) => {
+      if (cancelled) return;
+      const map: Record<string, boolean> = {};
+      info.purchases.forEach((slug) => {
+        map[slug] = true;
+      });
+      setAccessMap(map);
+      setLoaded(true);
     });
-    setAccessMap(map);
-    setLoaded(true);
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (

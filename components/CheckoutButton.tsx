@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabaseClient";
 
 export default function CheckoutButton({
   moduleSlug,
@@ -9,12 +11,25 @@ export default function CheckoutButton({
   moduleSlug: string;
   label?: string;
 }) {
+  const router = useRouter();
+  const pathname = usePathname();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function handleClick() {
     setLoading(true);
     setError(null);
+
+    const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      router.push(`/login?next=${encodeURIComponent(pathname)}`);
+      return;
+    }
+
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
@@ -22,6 +37,12 @@ export default function CheckoutButton({
         body: JSON.stringify({ moduleSlug }),
       });
       const data = await res.json();
+
+      if (data.requiresLogin) {
+        router.push(`/login?next=${encodeURIComponent(pathname)}`);
+        return;
+      }
+
       if (data.url) {
         window.location.href = data.url;
         return;
