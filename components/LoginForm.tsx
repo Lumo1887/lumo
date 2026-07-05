@@ -18,20 +18,6 @@ export default function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
 
-  async function handleGoogleLogin() {
-    setError(null);
-    const supabase = createClient();
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(
-          next
-        )}`,
-      },
-    });
-    if (error) setError(error.message);
-  }
-
   async function handleEmailSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
@@ -109,17 +95,7 @@ export default function LoginForm() {
             : "Registriere dich, um Module freizuschalten und deinen Lernfortschritt zu speichern."}
         </p>
 
-        <button onClick={handleGoogleLogin} className="btn-secondary mt-6 w-full">
-          Mit Google {mode === "login" ? "anmelden" : "registrieren"}
-        </button>
-
-        <div className="my-5 flex items-center gap-3 text-xs text-ink-600">
-          <div className="h-px flex-1 bg-ink-100" />
-          oder mit E-Mail
-          <div className="h-px flex-1 bg-ink-100" />
-        </div>
-
-        <form onSubmit={handleEmailSubmit} className="space-y-3">
+        <form onSubmit={handleEmailSubmit} className="mt-6 space-y-3">
           <input
             type="email"
             required
