@@ -1,6 +1,12 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+interface CookieToSet {
+  name: string;
+  value: string;
+  options: Record<string, unknown>;
+}
+
 // Erneuert die Supabase-Session bei jedem Request (Standard-Pattern für
 // Supabase Auth mit Next.js App Router).
 export async function middleware(request: NextRequest) {
@@ -14,7 +20,7 @@ export async function middleware(request: NextRequest) {
         getAll() {
           return request.cookies.getAll();
         },
-        setAll(cookiesToSet) {
+        setAll(cookiesToSet: CookieToSet[]) {
           cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           );
