@@ -1,0 +1,238 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import { questions, TOPICS } from "@/lib/questions";
+import { hasAccess } from "@/lib/access";
+import CheckoutButton from "@/components/CheckoutButton";
+
+const ALL_TOPICS = ["Alle", ...TOPICS];
+
+export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
+  const [unlocked, setUnlocked] = useState<boolean | null>(null);
+  const [topic, setTopic] = useState<string>("Alle");
+  const [index, setIndex] = useState(0);
+  const [selected, setSelected] = useState<number | null>(null);
+  const [numericInput, setNumericInput] = useState("");
+  const [answered, setAnswered] = useState(false);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [answeredCount, setAnsweredCount] = useState(0);
+
+  useEffect(() => {
+    setUnlocked(hasAccess(moduleSlug));
+  }, [moduleSlug]);
+
+  const pool = useMemo(() => {
+    let list = topic === "Alle" ? questions : questions.filter((q) => q.topic === topic);
+    if (unlocked === false) list = list.filter((q) => q.free);
+    return list;
+  }, [topic, unlocked]);
+
+  const current = pool[index];
+
+  function resetQuestionState() {
+    setSelected(null);
+    setNumericInput("");
+    setAnswered(false);
+  }
+
+  function handleTopicChange(t: string) {
+    setTopic(t);
+    setIndex(0);
+    setCorrectCount(0);
+    setAnsweredCount(0);
+    resetQuestionState();
+  }
+
+  function isCorrect(): boolean {
+    if (!current) return false;
+    if (current.type === "mc") return selected === current.correctIndex;
+    if (current.type === "numeric") {
+      const val = parseFloat(numericInput.replace(",", "."));
+      if (Number.isNaN(val)) return false;
+      const tol = current.tolerance ?? 0.5;
+      return Math.abs(val - (current.correctValue ?? 0)) <= tol;
+    }
+    return false;
+  }
+
+  function handleCheck() {
+    setAnswered(true);
+    setAnsweredCount((c) => c + 1);
+    if (isCorrect()) setCorrectCount((c) => c + 1);
+  }
+
+  function handleNext() {
+    resetQuestionState();
+    setIndex((i) => i + 1);
+  }
+
+  function handleRestart() {
+    setIndex(0);
+    setCorrectCount(0);
+    setAnsweredCount(0);
+    resetQuestionState();
+  }
+
+  if (unlocked === null) {
+    return <div className="h-64 animate-pulse rounded-xl2 bg-ink-100" />;
+  }
+
+  return (
+    <div>
+      <div className="mb-6 flex flex-wrap gap-2">
+        {ALL_TOPICS.map((t) => (
+          <button
+            key={t}
+            onClick={() => handleTopicChange(t)}
+            className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
+              topic === t
+                ? "border-brand-600 bg-brand-600 text-white"
+                : "border-ink-200 text-ink-700 hover:border-brand-300"
+            }`}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
+
+      {!unlocked && (
+        <div className="mb-4 rounded-lg border border-brand-200 bg-brand-50 px-4 py-2 text-xs font-medium text-brand-800">
+          Kostenlose Vorschau — {pool.length} von {questions.length}+ Fragen sichtbar.
+        </div>
+      )}
+
+      {current ? (
+        <div className="card p-6 sm:p-8">
+          <div className="mb-4 flex items-center justify-between text-xs font-medium text-ink-600">
+            <span>
+              Frage {index + 1} von {pool.length}
+            </span>
+            <span>
+              Richtig: {correctCount} / {answeredCount}
+            </span>
+          </div>
+          <div className="mb-1">
+            <span className="badge">{current.topic}</span>
+          </div>
+          <h3 className="mt-3 text-lg font-semibold text-ink-900">
+            {current.prompt}
+          </h3>
+
+          {current.type === "mc" && current.options && (
+            <div className="mt-5 space-y-3">
+              {current.options.map((opt, i) => {
+                const isSelected = selected === i;
+                const isRight = i === current.correctIndex;
+                let style =
+                  "border-ink-200 text-ink-700 hover:border-brand-300";
+                if (answered && isRight) {
+                  style = "border-green-600 bg-green-50 text-green-800";
+                } else if (answered && isSelected && !isRight) {
+                  style = "border-red-500 bg-red-50 text-red-700";
+                } else if (isSelected) {
+                  style = "border-brand-600 bg-brand-50 text-brand-800";
+                }
+                return (
+                  <button
+                    key={i}
+                    disabled={answered}
+                    onClick={() => setSelected(i)}
+                    className={`w-full rounded-xl border px-4 py-3 text-left text-sm font-medium transition ${style}`}
+                  >
+                    {opt}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {current.type === "numeric" && (
+            <div className="mt-5">
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  inputMode="decimal"
+                  disabled={answered}
+                  value={numericInput}
+                  onChange={(e) => setNumericInput(e.target.value)}
+                  placeholder="Deine Antwort"
+                  className="w-full max-w-xs rounded-lg border border-ink-200 px-4 py-2 text-sm focus:border-brand-500 focus:outline-none"
+                />
+                {current.unit && (
+                  <span className="text-sm text-ink-600">{current.unit}</span>
+                )}
+              </div>
+              {answered && (
+                <p
+                  className={`mt-2 text-sm font-medium ${
+                    isCorrect() ? "text-green-700" : "text-red-600"
+                  }`}
+                >
+                  Richtige Antwort: {current.correctValue} {current.unit ?? ""}
+                </p>
+              )}
+            </div>
+          )}
+
+          {answered && (
+            <div className="mt-5 rounded-lg bg-ink-50 p-4 text-sm text-ink-700">
+              <p className="font-semibold text-ink-900">
+                {isCorrect() ? "Richtig! ✓" : "Nicht ganz."}
+              </p>
+              <p className="mt-1">{current.explanation}</p>
+              <p className="mt-2 text-xs text-ink-600">Quelle: {current.source}</p>
+            </div>
+          )}
+
+          <div className="mt-6 flex justify-end">
+            {!answered ? (
+              <button
+                onClick={handleCheck}
+                disabled={
+                  current.type === "mc" ? selected === null : numericInput === ""
+                }
+                className="btn-primary"
+              >
+                Prüfen
+              </button>
+            ) : (
+              <button onClick={handleNext} className="btn-primary">
+                {index + 1 < pool.length ? "Nächste Frage →" : "Ergebnis anzeigen"}
+              </button>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="card p-8 text-center">
+          {unlocked ? (
+            <>
+              <h3 className="text-xl font-bold text-ink-900">Geschafft! 🎉</h3>
+              <p className="mt-2 text-ink-600">
+                Du hast {correctCount} von {answeredCount} Fragen richtig
+                beantwortet.
+              </p>
+              <button onClick={handleRestart} className="btn-secondary mt-4">
+                Nochmal von vorne
+              </button>
+            </>
+          ) : (
+            <>
+              <span className="badge">Kostenlose Vorschau beendet</span>
+              <h3 className="mt-3 text-xl font-bold text-ink-900">
+                Weiter üben mit vollem Zugriff
+              </h3>
+              <p className="mt-2 text-ink-600">
+                Du hast {correctCount} von {answeredCount} Vorschau-Fragen
+                richtig beantwortet. Schalte das Modul frei für alle{" "}
+                {questions.length}+ Übungsfragen.
+              </p>
+              <div className="mx-auto mt-4 max-w-xs">
+                <CheckoutButton moduleSlug={moduleSlug} />
+              </div>
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
