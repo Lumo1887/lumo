@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { skriptChapters } from "@/lib/skript-content";
+import { skriptChapters, type SkriptSection } from "@/lib/skript-content";
 import SkriptFigure from "@/components/SkriptFigures";
 import { fetchAccess } from "@/lib/access";
 
@@ -22,6 +22,49 @@ function ownsModule(purchases: PurchaseLike[] | undefined | null, slug: string):
     if (typeof p === "string") return p === slug;
     return p.moduleSlug === slug || p.module_slug === slug || p.slug === slug;
   });
+}
+
+// Rendert einen einzelnen Abschnitt. Wird sowohl für freigeschaltete als
+// auch für unscharf dargestellte (gesperrte) Abschnitte verwendet, damit der
+// Inhalt nicht doppelt gepflegt werden muss.
+function SectionContent({
+  section,
+  interactive,
+}: {
+  section: SkriptSection;
+  interactive: boolean;
+}) {
+  return (
+    <div
+      id={interactive ? section.id : undefined}
+      data-section-id={interactive ? section.id : undefined}
+      className="mb-10 scroll-mt-24 last:mb-0"
+    >
+      <h3 className="mb-1 text-xl font-semibold text-ink-900">{section.heading}</h3>
+      <div className="skript-heading-rule" />
+      {section.body.map((paragraph, i) => (
+        <p key={i} className="mb-4">
+          {paragraph}
+        </p>
+      ))}
+      {section.figure && (
+        <SkriptFigure type={section.figure.type} caption={section.figure.caption} />
+      )}
+      {section.formulas && section.formulas.length > 0 && (
+        <div className="skript-formula mb-4 space-y-1">
+          {section.formulas.map((f, i) => (
+            <div key={i}>{f}</div>
+          ))}
+        </div>
+      )}
+      {section.example && (
+        <div className="skript-example mt-4">
+          <span className="hand-label mr-1 text-brand-600">Beispiel:</span>
+          {section.example}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function SkriptPage() {
@@ -174,47 +217,31 @@ export default function SkriptPage() {
               <p className="mb-8 text-ink-600">{chapter.intro}</p>
 
               {isLocked ? (
-                <div className="relative overflow-hidden rounded-xl border border-ink-100 bg-[#fffdf9] p-8 text-center">
-                  <p className="mb-4 text-ink-700">
-                    Dieses Kapitel gehört zum Modul <strong>Statistik I</strong> und ist nach dem
-                    Kauf sofort freigeschaltet.
-                  </p>
-                  <Link href={`/module/${MODULE_SLUG}`} className="btn-primary">
-                    Modul freischalten
-                  </Link>
+                <div className="relative overflow-hidden rounded-xl">
+                  {/* Unscharfe Vorschau des echten Inhalts — nicht klickbar,
+                      nicht markierbar, nur als Anreiz zu sehen. */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none select-none blur-sm"
+                  >
+                    {chapter.sections.map((section) => (
+                      <SectionContent key={section.id} section={section} interactive={false} />
+                    ))}
+                  </div>
+
+                  <div className="absolute inset-0 flex flex-col items-center justify-end gap-4 bg-gradient-to-b from-transparent via-white/70 to-white p-8 pb-10 text-center">
+                    <p className="max-w-sm text-ink-700">
+                      Dieses Kapitel gehört zum Modul <strong>Statistik I</strong> und ist nach
+                      dem Kauf sofort freigeschaltet.
+                    </p>
+                    <Link href={`/module/${MODULE_SLUG}`} className="btn-primary">
+                      Modul freischalten
+                    </Link>
+                  </div>
                 </div>
               ) : (
                 chapter.sections.map((section) => (
-                  <div
-                    key={section.id}
-                    id={section.id}
-                    data-section-id={section.id}
-                    className="mb-10 scroll-mt-24 last:mb-0"
-                  >
-                    <h3 className="mb-1 text-xl font-semibold text-ink-900">{section.heading}</h3>
-                    <div className="skript-heading-rule" />
-                    {section.body.map((paragraph, i) => (
-                      <p key={i} className="mb-4">
-                        {paragraph}
-                      </p>
-                    ))}
-                    {section.figure && (
-                      <SkriptFigure type={section.figure.type} caption={section.figure.caption} />
-                    )}
-                    {section.formulas && section.formulas.length > 0 && (
-                      <div className="skript-formula mb-4 space-y-1">
-                        {section.formulas.map((f, i) => (
-                          <div key={i}>{f}</div>
-                        ))}
-                      </div>
-                    )}
-                    {section.example && (
-                      <div className="skript-example mt-4">
-                        <span className="hand-label mr-1 text-brand-600">Beispiel:</span>
-                        {section.example}
-                      </div>
-                    )}
-                  </div>
+                  <SectionContent key={section.id} section={section} interactive />
                 ))
               )}
             </section>
