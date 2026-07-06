@@ -5,6 +5,11 @@ export interface SkriptSection {
   heading: string;
   body: string[];
   formulas?: string[];
+  // Optionale LaTeX-Fassung der Einträge in "formulas" (gleiche Reihenfolge
+  // /Länge) — wird nur für den PDF-Export benutzt, um echte, typografisch
+  // korrekte Formeln zu rendern. Die Webseite selbst zeigt weiterhin die
+  // "formulas"-Unicode-Strings an.
+  formulasLatex?: string[];
   example?: string;
   figure?: { type: FigureType; caption: string };
 }
@@ -44,6 +49,9 @@ export const skriptChapters: SkriptChapter[] = [
           "Die empirische Verteilungsfunktion F(x) gibt an, welcher Anteil der Beobachtungen kleiner oder gleich x ist. Sie ist eine monoton wachsende Treppenfunktion, die bei 0 beginnt und bei 1 endet.",
         ],
         formulas: ["F(x) = Anzahl(Xi ≤ x) / n = Σ f(ai) für alle ai ≤ x"],
+        formulasLatex: [
+          "F(x) = \\dfrac{\\text{Anzahl}(X_i \\le x)}{n} = \\sum_{a_i \\le x} f(a_i)",
+        ],
       },
       {
         id: "2-3",
@@ -57,6 +65,10 @@ export const skriptChapters: SkriptChapter[] = [
         formulas: [
           "x̄ = (1/n) · Σ xi",
           "gewichtetes Mittel: x̄ = Σ wi·xi mit Σ wi = 1",
+        ],
+        formulasLatex: [
+          "\\bar{x} = \\dfrac{1}{n}\\sum_{i=1}^{n} x_i",
+          "\\bar{x} = \\sum_i w_i x_i \\quad \\text{mit} \\quad \\sum_i w_i = 1",
         ],
         example:
           "Bei den Einkommen 1005, 2324, 8432, 3321, 443, 6489, 2231, 3721, 232 (n=9) ist der Median der mittlere Wert der sortierten Liste, das arithmetische Mittel liegt wegen des Ausreißers 8432 deutlich über dem Median.",
@@ -72,6 +84,11 @@ export const skriptChapters: SkriptChapter[] = [
           "Var(x) = (1/n) · Σ (xi − x̄)²",
           "s = √Var(x)",
           "Variationskoeffizient v = s / x̄",
+        ],
+        formulasLatex: [
+          "\\text{Var}(x) = \\dfrac{1}{n}\\sum_{i=1}^{n}(x_i - \\bar{x})^2",
+          "s = \\sqrt{\\text{Var}(x)}",
+          "v = \\dfrac{s}{\\bar{x}}",
         ],
         figure: {
           type: "boxplot",
@@ -114,6 +131,10 @@ export const skriptChapters: SkriptChapter[] = [
           "Cov(x,y) = (1/n) · Σ (xi − x̄)(yi − ȳ)",
           "r = Cov(x,y) / (sx · sy)",
         ],
+        formulasLatex: [
+          "\\text{Cov}(x,y) = \\dfrac{1}{n}\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y})",
+          "r = \\dfrac{\\text{Cov}(x,y)}{s_x\\, s_y}",
+        ],
       },
     ],
   },
@@ -153,6 +174,10 @@ export const skriptChapters: SkriptChapter[] = [
           "Variation ohne Wiederholung: n! / (n−k)!",
           "Kombination ohne Wiederholung: C(n,k) = n! / (k!·(n−k)!)",
         ],
+        formulasLatex: [
+          "\\dfrac{n!}{(n-k)!}",
+          "C(n,k) = \\dfrac{n!}{k!\\,(n-k)!}",
+        ],
         example:
           "Beim Skat werden 10 aus 32 Karten gezogen — die Anzahl möglicher Kartenkombinationen (ohne Reihenfolge, ohne Wiederholung) ist C(32,10), eine astronomisch große Zahl, die auch bei 200 Spielen täglich ein Leben lang nicht ausgeschöpft werden kann.",
       },
@@ -168,6 +193,11 @@ export const skriptChapters: SkriptChapter[] = [
           "P(A∪B) = P(A) + P(B) − P(A∩B)",
           "P(A|B) = P(A∩B) / P(B), sofern P(B) > 0",
           "Multiplikationssatz: P(A∩B) = P(A|B)·P(B)",
+        ],
+        formulasLatex: [
+          "P(A\\cup B) = P(A) + P(B) - P(A\\cap B)",
+          "P(A \\mid B) = \\dfrac{P(A\\cap B)}{P(B)}, \\quad P(B) > 0",
+          "P(A\\cap B) = P(A\\mid B)\\, P(B)",
         ],
         figure: {
           type: "venn",
@@ -185,6 +215,10 @@ export const skriptChapters: SkriptChapter[] = [
         formulas: [
           "Totale Wahrscheinlichkeit: P(A) = Σ P(A|Bi)·P(Bi)",
           "Satz von Bayes: P(Bi|A) = P(A|Bi)·P(Bi) / Σj P(A|Bj)·P(Bj)",
+        ],
+        formulasLatex: [
+          "P(A) = \\sum_i P(A\\mid B_i)\\, P(B_i)",
+          "P(B_i\\mid A) = \\dfrac{P(A\\mid B_i)\\,P(B_i)}{\\sum_j P(A\\mid B_j)\\,P(B_j)}",
         ],
         figure: {
           type: "tree",
@@ -227,6 +261,12 @@ export const skriptChapters: SkriptChapter[] = [
           "E(aX+b) = a·E(X) + b,   Var(aX+b) = a²·Var(X)",
           "Tschebyscheff: P(|X − E(X)| ≥ k) ≤ Var(X)/k²",
         ],
+        formulasLatex: [
+          "E(X) = \\sum_x x\\,f(x) \\quad \\text{(diskret)} \\qquad E(X) = \\int x\\, f(x)\\, dx \\quad \\text{(stetig)}",
+          "\\text{Var}(X) = E(X^2) - \\big(E(X)\\big)^2",
+          "E(aX+b) = a\\,E(X) + b \\qquad \\text{Var}(aX+b) = a^2\\,\\text{Var}(X)",
+          "P\\big(|X-E(X)| \\ge k\\big) \\le \\dfrac{\\text{Var}(X)}{k^2}",
+        ],
       },
       {
         id: "4-3",
@@ -244,6 +284,10 @@ export const skriptChapters: SkriptChapter[] = [
         formulas: [
           "Cov(X,Y) = E(XY) − E(X)·E(Y)",
           "Corr(X,Y) = Cov(X,Y) / (σX·σY)",
+        ],
+        formulasLatex: [
+          "\\text{Cov}(X,Y) = E(XY) - E(X)E(Y)",
+          "\\text{Corr}(X,Y) = \\dfrac{\\text{Cov}(X,Y)}{\\sigma_X\\,\\sigma_Y}",
         ],
       },
     ],
@@ -271,6 +315,11 @@ export const skriptChapters: SkriptChapter[] = [
           "Binomial B(n,p): P(X=k) = C(n,k)·pᵏ·(1−p)ⁿ⁻ᵏ, E(X) = np, Var(X) = np(1−p)",
           "Poisson: P(X=k) = e^(−λ)·λᵏ / k!, E(X) = Var(X) = λ",
         ],
+        formulasLatex: [
+          "E(X) = p \\qquad \\text{Var}(X) = p(1-p)",
+          "P(X=k) = \\binom{n}{k} p^k (1-p)^{n-k}, \\quad E(X) = np, \\quad \\text{Var}(X) = np(1-p)",
+          "P(X=k) = \\dfrac{e^{-\\lambda}\\lambda^k}{k!}, \\quad E(X) = \\text{Var}(X) = \\lambda",
+        ],
         figure: {
           type: "binomial-bars",
           caption: "Abb. 5.1 — Binomialverteilung B(n,p): diskrete, glockenförmige Häufigkeitsverteilung.",
@@ -289,6 +338,10 @@ export const skriptChapters: SkriptChapter[] = [
         formulas: [
           "Standardisierung: Z = (X − μ) / σ",
           "Normalverteilung Dichte: f(x) = 1/(σ√(2π)) · e^(−(x−μ)²/(2σ²))",
+        ],
+        formulasLatex: [
+          "Z = \\dfrac{X-\\mu}{\\sigma}",
+          "f(x) = \\dfrac{1}{\\sigma\\sqrt{2\\pi}}\\, e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}",
         ],
         figure: {
           type: "normal-curve",
