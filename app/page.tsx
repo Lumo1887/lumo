@@ -1,28 +1,28 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import OnboardingFlow from "@/components/OnboardingFlow";
 import { loadOnboardingAnswers } from "@/lib/onboarding";
 
 export default function HomePage() {
-  const router = useRouter();
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const existing = loadOnboardingAnswers();
     if (existing) {
-      router.replace("/dashboard");
+      // Echte Browser-Weiterleitung statt next/navigation-Router: das
+      // umgeht Next.js' internes Routing/Caching, das bei einer per
+      // Zurück-Button ausgelösten Navigation zu dieser Seite manchmal
+      // hängen bleibt und die Seite dauerhaft weiß lässt.
+      window.location.replace("/dashboard");
     } else {
       setReady(true);
     }
-  }, [router]);
+  }, []);
 
-  // Fix: Wenn der Browser diese Seite per Zurück/Vor-Button aus seinem
-  // eigenen Cache (bfcache) wiederherstellt, läuft der obige useEffect NICHT
-  // erneut — die Seite würde sonst für immer auf dem leeren Frame
-  // (ready === false) stehen bleiben. Ein "pageshow"-Listener erzwingt in
-  // diesem Fall einen echten Reload, damit die Prüfung erneut läuft.
+  // Zusätzliche Absicherung: Falls der Browser diese Seite per
+  // Zurück/Vor-Button aus seinem eigenen Cache (bfcache) wiederherstellt,
+  // erzwingt das einen echten Reload, damit die Prüfung oben erneut läuft.
   useEffect(() => {
     function handlePageShow(event: PageTransitionEvent) {
       if (event.persisted) {
