@@ -22,6 +22,11 @@ const comparisonRows = [
     them: "Feste Kurstermine, wenig individuelles Feedback",
   },
   {
+    feature: "KI-Tutor",
+    us: "Eigener KI-Tutor pro Modul, kennt das Skript und beantwortet Fragen sofort — rund um die Uhr",
+    them: "Kein KI-Tutor, nur feste Sprechstunden/Kurstermine",
+  },
+  {
     feature: "Verfügbarkeit",
     us: "24/7, in deinem eigenen Tempo",
     them: "An feste Termine gebunden",
