@@ -39,7 +39,10 @@ export async function GET(_request: NextRequest) {
     React.createElement(SkriptPdfDocument, { chapters }) as any
   );
 
-  return new NextResponse(buffer, {
+  // Node's Buffer-Typ und der von NextResponse erwartete BodyInit-Typ
+  // passen laut TypeScript nicht exakt zusammen (funktioniert zur Laufzeit
+  // trotzdem einwandfrei) — daher auch hier ein bewusster Cast.
+  return new NextResponse(buffer as unknown as BodyInit, {
     headers: {
       "Content-Type": "application/pdf",
       "Content-Disposition": 'attachment; filename="lumo-statistik-1-skript.pdf"',
