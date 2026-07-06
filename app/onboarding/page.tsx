@@ -8,8 +8,8 @@ export default function OnboardingPage() {
           Kurzer Eingangs-Check
         </h1>
         <p className="mx-auto mt-3 max-w-xl text-ink-600">
-          3 kurze Fragen, damit wir dir die richtigen Kapitel und Übungen
-          zuerst zeigen.
+          4 kurze Fragen, damit wir dir für dein Modul die richtigen Kapitel
+          und Übungen zuerst zeigen.
         </p>
       </div>
       <OnboardingFlow />

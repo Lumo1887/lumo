@@ -50,10 +50,11 @@ export default function HomePage() {
       <div className="mb-10 text-center">
         <span className="badge">Willkommen bei Lumo</span>
         <h1 className="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">
-          Bevor es losgeht: 3 kurze Fragen
+          Bevor es losgeht: 4 kurze Fragen
         </h1>
         <p className="mx-auto mt-3 max-w-xl text-ink-600">
-          Damit wir dir direkt die richtigen Kapitel und Übungen empfehlen können.
+          Damit wir sehen, wo du gerade stehst, und dir direkt die richtigen
+          Kapitel und Übungen für dein Modul zeigen können.
         </p>
       </div>
       <OnboardingFlow />
