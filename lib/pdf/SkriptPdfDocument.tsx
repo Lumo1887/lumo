@@ -12,6 +12,7 @@ import {
 } from "@react-pdf/renderer";
 import type { SkriptChapter } from "@/lib/skript-content";
 import { PDF_FORMULA_POINTS_PER_PIXEL, type RenderedFormula } from "@/lib/pdf/renderLatex";
+import PdfFigure from "@/lib/pdf/SkriptPdfFigures";
 
 // Unicode-fähige Schriftart registrieren, damit Sonderzeichen im Fließtext
 // (√, Σ, ≤, σ, μ, λ, x̄ usw.) korrekt dargestellt werden — die eingebauten
@@ -215,6 +216,9 @@ export default function SkriptPdfDocument({
                   {paragraph}
                 </Text>
               ))}
+              {section.figure && (
+                <PdfFigure type={section.figure.type} caption={section.figure.caption} />
+              )}
               {section.formulas?.map((f, i) => {
                 const key = `${chapter.id}__${section.id}__${i}`;
                 return <FormulaBlock key={key} formula={formulaImages[key]} fallbackText={f} />;
