@@ -44,9 +44,6 @@ export default function Navbar() {
           <Link href="/dashboard" className="hover:text-brand-700">
             Dashboard
           </Link>
-          <Link href="/module/statistik-1" className="hover:text-brand-700">
-            Statistik I
-          </Link>
         </nav>
 
         {loaded && email ? (
