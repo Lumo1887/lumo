@@ -30,8 +30,13 @@ export async function GET(_request: NextRequest) {
   // sehen darf (Kapitel 2 immer, der Rest nur nach Kauf).
   const chapters = skriptChapters.filter((chapter) => chapter.free || unlocked);
 
+  // Hinweis: @react-pdf/renderer erwartet laut Typdefinition ein <Document>
+  // -Element direkt. SkriptPdfDocument ist eine Wrapper-Komponente, die
+  // intern <Document> zurückgibt — funktioniert zur Laufzeit einwandfrei,
+  // TypeScript beschwert sich aber über den abweichenden Prop-Typ. Daher
+  // hier bewusst "as any".
   const buffer = await renderToBuffer(
-    React.createElement(SkriptPdfDocument, { chapters })
+    React.createElement(SkriptPdfDocument, { chapters }) as any
   );
 
   return new NextResponse(buffer, {
