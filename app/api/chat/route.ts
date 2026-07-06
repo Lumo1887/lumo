@@ -1,16 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabaseServer";
-import { skriptChapters } from "@/lib/skript-content";
+import { getModuleChapters } from "@/lib/content/registry";
+import { getModule } from "@/lib/modules";
 
 const GEMINI_MODEL = "gemini-2.5-flash";
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
 function buildContext(moduleSlug: string): string {
-  if (moduleSlug !== "statistik-1") {
+  const chapters = getModuleChapters(moduleSlug);
+  if (!chapters) {
     return "Für dieses Modul liegt aktuell noch kein Skript-Inhalt vor.";
   }
 
-  return skriptChapters
+  return chapters
     .map((chapter) => {
       const sections = chapter.sections
         .map((section) => {
@@ -79,18 +81,20 @@ export async function POST(request: NextRequest) {
   }
 
   const context = buildContext(moduleSlug);
+  const moduleTitle = getModule(moduleSlug)?.title ?? "dieses Modul";
 
   const systemInstruction = {
     parts: [
       {
         text:
-          "Du bist ein freundlicher, geduldiger Statistik-Tutor für Studierende der " +
-          "Wirtschaftswissenschaften am KIT. Du kennst das folgende Skript sehr genau und " +
-          "beantwortest Fragen dazu klar, mit konkreten Rechenbeispielen wo hilfreich, auf " +
-          "Deutsch, in einem unterstützenden, nicht-belehrenden Ton. Wenn eine Frage über den " +
-          "Skriptinhalt hinausgeht, beantworte sie trotzdem hilfreich, weise aber kurz darauf " +
-          "hin, dass es nicht direkt im Skript steht. Halte Antworten prägnant (max. ca. 150 " +
-          "Wörter), außer eine ausführliche Rechnung ist wirklich nötig.\n\n" +
+          `Du bist ein freundlicher, geduldiger Tutor für das Modul "${moduleTitle}" ` +
+          "für Studierende der Wirtschaftswissenschaften am KIT. Du kennst das folgende " +
+          "Skript sehr genau und beantwortest Fragen dazu klar, mit konkreten " +
+          "Rechenbeispielen wo hilfreich, auf Deutsch, in einem unterstützenden, " +
+          "nicht-belehrenden Ton. Wenn eine Frage über den Skriptinhalt hinausgeht, " +
+          "beantworte sie trotzdem hilfreich, weise aber kurz darauf hin, dass es nicht " +
+          "direkt im Skript steht. Halte Antworten prägnant (max. ca. 150 Wörter), außer " +
+          "eine ausführliche Rechnung ist wirklich nötig.\n\n" +
           "--- SKRIPT-INHALT ---\n" +
           context,
       },

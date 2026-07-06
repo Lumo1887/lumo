@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { questions, TOPICS } from "@/lib/questions";
+import { getQuestions, getTopics } from "@/lib/content/questions-registry";
 import { fetchAccess } from "@/lib/access";
 import CheckoutButton from "@/components/CheckoutButton";
 
-const ALL_TOPICS = ["Alle", ...TOPICS];
-
 export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
+  const questions = useMemo(() => getQuestions(moduleSlug), [moduleSlug]);
+  const ALL_TOPICS = useMemo(() => ["Alle", ...getTopics(moduleSlug)], [moduleSlug]);
   const [unlocked, setUnlocked] = useState<boolean | null>(null);
   const [topic, setTopic] = useState<string>("Alle");
   const [index, setIndex] = useState(0);
@@ -27,11 +27,23 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
     };
   }, [moduleSlug]);
 
+  // Falls diese Komponente zwischen zwei Modulen wiederverwendet wird (statt
+  // neu gemountet zu werden), Quiz-Zustand zurücksetzen.
+  useEffect(() => {
+    setTopic("Alle");
+    setIndex(0);
+    setSelected(null);
+    setNumericInput("");
+    setAnswered(false);
+    setCorrectCount(0);
+    setAnsweredCount(0);
+  }, [moduleSlug]);
+
   const pool = useMemo(() => {
     let list = topic === "Alle" ? questions : questions.filter((q) => q.topic === topic);
     if (unlocked === false) list = list.filter((q) => q.free);
     return list;
-  }, [topic, unlocked]);
+  }, [topic, unlocked, questions]);
 
   const current = pool[index];
 

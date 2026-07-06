@@ -2,15 +2,22 @@ import { NextRequest, NextResponse } from "next/server";
 import React from "react";
 import { renderToBuffer } from "@react-pdf/renderer";
 import { createClient } from "@/lib/supabaseServer";
-import { skriptChapters } from "@/lib/skript-content";
+import { getModuleChapters } from "@/lib/content/registry";
+import { getModule } from "@/lib/modules";
 import SkriptPdfDocument from "@/lib/pdf/SkriptPdfDocument";
 import { renderLatexToPng, type RenderedFormula } from "@/lib/pdf/renderLatex";
 
 export const runtime = "nodejs";
 
-const MODULE_SLUG = "statistik-1";
+export async function GET(request: NextRequest) {
+  const moduleSlug = request.nextUrl.searchParams.get("module") ?? "statistik-1";
 
-export async function GET(_request: NextRequest) {
+  const mod = getModule(moduleSlug);
+  const allChapters = getModuleChapters(moduleSlug);
+  if (!mod || !allChapters) {
+    return NextResponse.json({ error: "Unbekanntes Modul." }, { status: 404 });
+  }
+
   const supabase = createClient();
   const {
     data: { user },
@@ -22,14 +29,14 @@ export async function GET(_request: NextRequest) {
       .from("purchases")
       .select("module_slug")
       .eq("user_id", user.id)
-      .eq("module_slug", MODULE_SLUG)
+      .eq("module_slug", moduleSlug)
       .maybeSingle();
     unlocked = Boolean(purchase);
   }
 
   // Nur Kapitel einschließen, die dieser Besucher auch auf der Webseite
-  // sehen darf (Kapitel 2 immer, der Rest nur nach Kauf).
-  const chapters = skriptChapters.filter((chapter) => chapter.free || unlocked);
+  // sehen darf (kostenlose Kapitel immer, der Rest nur nach Kauf).
+  const chapters = allChapters.filter((chapter) => chapter.free || unlocked);
 
   // Alle Formeln vorab zu PNG-Bildern rendern. Schlägt eine einzelne Formel
   // fehl (z. B. wegen eines LaTeX-Tippfehlers), wird nur für diese eine der
@@ -59,7 +66,12 @@ export async function GET(_request: NextRequest) {
   // TypeScript beschwert sich aber über den abweichenden Prop-Typ. Daher
   // hier bewusst "as any".
   const buffer = await renderToBuffer(
-    React.createElement(SkriptPdfDocument, { chapters, formulaImages }) as any
+    React.createElement(SkriptPdfDocument, {
+      chapters,
+      formulaImages,
+      moduleTitle: mod.title,
+      moduleSubtitle: mod.subtitle,
+    }) as any
   );
 
   // Node's Buffer-Typ und der von NextResponse erwartete BodyInit-Typ
@@ -68,7 +80,7 @@ export async function GET(_request: NextRequest) {
   return new NextResponse(buffer as unknown as BodyInit, {
     headers: {
       "Content-Type": "application/pdf",
-      "Content-Disposition": 'attachment; filename="lumo-statistik-1-skript.pdf"',
+      "Content-Disposition": `attachment; filename="lumo-${moduleSlug}-skript.pdf"`,
     },
   });
 }

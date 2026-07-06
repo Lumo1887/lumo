@@ -10,7 +10,7 @@ import {
   Font,
   StyleSheet,
 } from "@react-pdf/renderer";
-import type { SkriptChapter } from "@/lib/skript-content";
+import type { SkriptChapter } from "@/lib/content/types";
 import { PDF_FORMULA_POINTS_PER_PIXEL, type RenderedFormula } from "@/lib/pdf/renderLatex";
 import PdfFigure from "@/lib/pdf/SkriptPdfFigures";
 
@@ -203,19 +203,23 @@ function FormulaBlock({
 export default function SkriptPdfDocument({
   chapters,
   formulaImages,
+  moduleTitle,
+  moduleSubtitle,
 }: {
   chapters: SkriptChapter[];
   formulaImages: Record<string, RenderedFormula>;
+  moduleTitle: string;
+  moduleSubtitle: string;
 }) {
   return (
-    <Document title="Lumo Skript — Statistik I">
+    <Document title={`Lumo Skript — ${moduleTitle}`}>
       <Page size="A4" style={styles.page}>
         <View style={styles.coverBrandRow}>
           <LogoMark size={34} />
           <View>
             <Text style={styles.coverTitle}>Lumo Skript</Text>
             <Text style={styles.coverSubtitle}>
-              Statistik I — Deskriptive Statistik bis Verteilungsmodelle
+              {moduleTitle} — {moduleSubtitle}
             </Text>
           </View>
         </View>
