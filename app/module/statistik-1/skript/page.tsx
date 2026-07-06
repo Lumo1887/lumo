@@ -42,7 +42,18 @@ function SectionContent({
     >
       <h3 className="mb-1 text-xl font-semibold text-ink-900">{section.heading}</h3>
       <div className="skript-heading-rule" />
-      {section.body.map((paragraph, i) => (
+      {section.body[0] && <p className="mb-4">{section.body[0]}</p>}
+      {section.terms && section.terms.length > 0 && (
+        <div className="skript-term-grid">
+          {section.terms.map((t, i) => (
+            <div key={i} className="skript-term-box">
+              <p className="skript-term-name">{t.term}</p>
+              <p className="skript-term-def">{t.definition}</p>
+            </div>
+          ))}
+        </div>
+      )}
+      {section.body.slice(1).map((paragraph, i) => (
         <p key={i} className="mb-4">
           {paragraph}
         </p>

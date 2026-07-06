@@ -102,6 +102,30 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     fontSize: 10.5,
   },
+  termRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+    marginVertical: 6,
+  },
+  termBox: {
+    width: "48%",
+    borderWidth: 1,
+    borderColor: "#ddd6fe",
+    borderRadius: 4,
+    padding: 8,
+  },
+  termName: {
+    fontFamily: "Helvetica-Bold",
+    fontSize: 10,
+    color: "#6D46E0",
+    marginBottom: 2,
+  },
+  termDef: {
+    fontSize: 9.5,
+    lineHeight: 1.4,
+    color: "#292524",
+  },
   coverBrandRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -211,7 +235,20 @@ export default function SkriptPdfDocument({
           {chapter.sections.map((section) => (
             <View key={section.id}>
               <Text style={styles.sectionHeading}>{section.heading}</Text>
-              {section.body.map((paragraph, i) => (
+              {section.body[0] && (
+                <Text style={styles.paragraph}>{section.body[0]}</Text>
+              )}
+              {section.terms && section.terms.length > 0 && (
+                <View style={styles.termRow}>
+                  {section.terms.map((t, i) => (
+                    <View key={i} style={styles.termBox}>
+                      <Text style={styles.termName}>{t.term}</Text>
+                      <Text style={styles.termDef}>{t.definition}</Text>
+                    </View>
+                  ))}
+                </View>
+              )}
+              {section.body.slice(1).map((paragraph, i) => (
                 <Text key={i} style={styles.paragraph}>
                   {paragraph}
                 </Text>

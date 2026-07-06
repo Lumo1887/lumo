@@ -15,6 +15,12 @@ function buildContext(moduleSlug: string): string {
       const sections = chapter.sections
         .map((section) => {
           const parts = [`### ${section.heading}`, ...section.body];
+          if (section.terms?.length) {
+            parts.push(
+              "Begriffe: " +
+                section.terms.map((t) => `${t.term} = ${t.definition}`).join(" | ")
+            );
+          }
           if (section.formulas?.length) {
             parts.push("Formeln: " + section.formulas.join(" | "));
           }
