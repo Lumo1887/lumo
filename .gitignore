@@ -10,3 +10,8 @@ npm-debug.log*
 *.tsbuildinfo
 next-env.d.ts
 .vercel
+
+# Rohe Quell-PDFs (Vorlesungsfolien, Übungsblätter etc.) für neue Module —
+# bewusst nie committen/pushen, da urheberrechtlich geschütztes Material.
+# Siehe CLAUDE.md, Abschnitt "Neues Modul anlegen".
+source-material/

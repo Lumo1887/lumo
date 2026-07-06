@@ -58,3 +58,14 @@ an — nicht erst nach Rückfrage.
   offensichtlich nicht zum Dateinamen passt (z. B. falsches Modul/Fach),
   nicht einfach weitermachen — den Nutzer kurz fragen, wie er vorgehen
   möchte, bevor eine Fragenbank auf Basis der falschen Inhalte gebaut wird.
+
+## Neues Modul anlegen — Quellmaterial
+
+Rohe Quell-PDFs für neue Module (Vorlesungsfolien, Übungsblätter, Tutorien)
+kommen NICHT per Chat-Upload rein, sondern liegen im Ordner
+`source-material/<slug>/` im Repo-Root. Dieser Ordner ist in `.gitignore`
+eingetragen und wird nie committed/gepusht (urheberrechtlich geschütztes
+Material). Sagt der Nutzer z. B. "Neues Modul: Mathematik 1, PDFs liegen in
+source-material/mathematik-1/", direkt die Dateien aus diesem Ordner lesen
+statt nach einem Chat-Upload zu fragen. Näheres in
+`source-material/README.md`.
