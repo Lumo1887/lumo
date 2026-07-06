@@ -1,12 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { skriptChapters } from "@/lib/skript-content";
 import SkriptFigure from "@/components/SkriptFigures";
 import { fetchAccess } from "@/lib/access";
 
 const MODULE_SLUG = "statistik-1";
+
+// Flache, geordnete Liste aller Abschnitts-IDs — wird gebraucht, um zu
+// bestimmen, wie "weit" ein gelesener Abschnitt im Skript ist.
+const FLAT_SECTION_IDS = skriptChapters.flatMap((chapter) =>
+  chapter.sections.map((section) => section.id)
+);
 
 type PurchaseLike = string | { moduleSlug?: string; module_slug?: string; slug?: string };
 
@@ -22,6 +28,9 @@ export default function SkriptPage() {
   const [loading, setLoading] = useState(true);
   const [unlocked, setUnlocked] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [resumeSectionId, setResumeSectionId] = useState<string | null>(null);
+  const [showResumeToast, setShowResumeToast] = useState(false);
+  const hasScrolledToResume = useRef(false);
 
   useEffect(() => {
     let active = true;
@@ -40,8 +49,90 @@ export default function SkriptPage() {
     };
   }, []);
 
+  // Gespeicherten Fortschritt laden, sobald klar ist, ob Inhalte gerendert
+  // werden (kein Sinn, vorher zu laden — es gäbe noch nichts zum Scrollen).
+  useEffect(() => {
+    if (loading) return;
+    fetch(`/api/progress?moduleSlug=${MODULE_SLUG}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.sectionId) {
+          setResumeSectionId(data.sectionId as string);
+        }
+      })
+      .catch(() => {});
+  }, [loading]);
+
+  // Einmalig zur gespeicherten Position scrollen, sobald sie geladen und im
+  // DOM vorhanden ist.
+  useEffect(() => {
+    if (!resumeSectionId || hasScrolledToResume.current) return;
+    const timer = setTimeout(() => {
+      const el = document.querySelector(`[data-section-id="${resumeSectionId}"]`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        hasScrolledToResume.current = true;
+        setShowResumeToast(true);
+        setTimeout(() => setShowResumeToast(false), 4000);
+      }
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [resumeSectionId]);
+
+  // Fortschritt verfolgen: sobald ein Abschnitt weit genug sichtbar ist,
+  // wird (gedrosselt) der neue "weitester gelesener Abschnitt" gespeichert.
+  useEffect(() => {
+    if (loading) return;
+    const sectionEls = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-section-id]")
+    );
+    if (sectionEls.length === 0) return;
+
+    let maxIndex = -1;
+    let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const id = entry.target.getAttribute("data-section-id");
+          if (!id) return;
+          const index = FLAT_SECTION_IDS.indexOf(id);
+          if (index > maxIndex) {
+            maxIndex = index;
+            if (debounceTimer) clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+              fetch("/api/progress", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  moduleSlug: MODULE_SLUG,
+                  sectionId: id,
+                  sectionIndex: index,
+                }),
+              }).catch(() => {});
+            }, 1500);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    sectionEls.forEach((el) => observer.observe(el));
+    return () => {
+      observer.disconnect();
+      if (debounceTimer) clearTimeout(debounceTimer);
+    };
+  }, [loading, unlocked]);
+
   return (
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+      {showResumeToast && (
+        <div className="fixed bottom-6 left-1/2 z-40 -translate-x-1/2 rounded-full bg-ink-900 px-4 py-2 text-sm text-white shadow-card">
+          Weiter geht's da, wo du aufgehört hast 👋
+        </div>
+      )}
+
       <header className="mb-10">
         <p className="hand-label text-lg text-brand-600">Statistik I — Skript</p>
         <h1 className="mt-1 text-3xl font-bold text-ink-900 sm:text-4xl">
@@ -94,7 +185,12 @@ export default function SkriptPage() {
                 </div>
               ) : (
                 chapter.sections.map((section) => (
-                  <div key={section.id} id={section.id} className="mb-10 scroll-mt-24 last:mb-0">
+                  <div
+                    key={section.id}
+                    id={section.id}
+                    data-section-id={section.id}
+                    className="mb-10 scroll-mt-24 last:mb-0"
+                  >
                     <h3 className="mb-1 text-xl font-semibold text-ink-900">{section.heading}</h3>
                     <div className="skript-heading-rule" />
                     {section.body.map((paragraph, i) => (
@@ -131,7 +227,7 @@ export default function SkriptPage() {
           <Link href={`/login?next=/module/${MODULE_SLUG}/skript`} className="text-brand-600 underline">
             Melde dich an
           </Link>{" "}
-          um gekaufte Kapitel hier freizuschalten.
+          um deinen Lesefortschritt zu speichern und gekaufte Kapitel freizuschalten.
         </p>
       )}
     </main>
