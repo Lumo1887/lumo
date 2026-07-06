@@ -79,8 +79,31 @@ export default function DashboardPage() {
         <h2 className="mb-6 text-center text-2xl font-bold text-ink-900">
           Warum Lumo statt klassischer Vorbereitungskurse?
         </h2>
+
         <div className="card overflow-hidden">
-          <table className="w-full text-left text-sm">
+          {/* Mobile: gestapelte Karten statt Tabelle — eine Tabelle mit
+              mehreren Textspalten passt auf schmalen Bildschirmen nicht und
+              wurde dort abgeschnitten. */}
+          <div className="divide-y divide-ink-100 sm:hidden">
+            {comparisonRows.map((row) => (
+              <div key={row.feature} className="p-5">
+                <p className="text-sm font-semibold text-ink-900">
+                  {row.feature}
+                </p>
+                <p className="mt-2 text-sm text-brand-700">
+                  <span className="font-semibold">Lumo: </span>
+                  {row.us}
+                </p>
+                <p className="mt-1 text-sm text-ink-600">
+                  <span className="font-semibold">Klassische Kurse: </span>
+                  {row.them}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Ab sm-Breakpoint (Tablet/Desktop): normale Tabelle */}
+          <table className="hidden w-full text-left text-sm sm:table">
             <thead className="bg-ink-50 text-ink-700">
               <tr>
                 <th className="px-6 py-4 font-semibold">Kriterium</th>
