@@ -205,8 +205,8 @@ export const chapters: SkriptChapter[] = [
           caption: "Abb. 1.2 — Wahrscheinlichkeitsbaum: jeder Pfad multipliziert die Wahrscheinlichkeiten entlang der Äste.",
         },
         examples: [
-          "Test: Sensitivität 92%, Spezifität 96%, Prävalenz 3%. P(pos) = 0,92·0,03+0,04·0,97 = 0,0664. P(krank|pos) = 0,0276/0,0664 ≈ 0,42.",
-          "Mara nimmt mit 25% den Bus (55% davon >25min) und mit 75% das Rad (25% davon >25min). Sie war >25min unterwegs: P(Bus|>25min) = 0,1375/0,325 ≈ 0,42.",
+          "Qualitätskontrolle eines Bauteils: Erkennungsrate für fehlerhafte Teile 94%, korrekte Erkennung intakter Teile 98%, 4% aller Teile sind tatsächlich fehlerhaft. P(als fehlerhaft erkannt) = 0,94·0,04+0,02·0,96 = 0,0568. P(fehlerhaft|erkannt) = 0,0376/0,0568 ≈ 0,66.",
+          "Ein Vertriebler nimmt mit 40% Wahrscheinlichkeit das Flugzeug (dann pünktlich in 90% der Fälle) und sonst das Auto (dann pünktlich in 65% der Fälle). Er kam pünktlich an: P(Flugzeug|pünktlich) = 0,36/0,75 = 0,48.",
         ],
       },
     ],

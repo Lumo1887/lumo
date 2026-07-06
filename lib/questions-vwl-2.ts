@@ -39,7 +39,7 @@ export const questions: Question[] = [
     type: "numeric",
     unit: "Geldeinheiten",
     prompt:
-      "Eine Volkswirtschaft produziert nur Fahrräder und Brot. Jahr 2021: Fahrradpreis 350, Brotpreis 1,2, 90 Fahrräder, 4.000 Brote. Wie hoch ist das nominale BIP im Jahr 2021?",
+      "Eine Volkswirtschaft produziert nur Regenschirme und Marmeladengläser. Jahr 2021: Regenschirmpreis 350, Marmeladenpreis 1,2, 90 Regenschirme, 4.000 Marmeladengläser. Wie hoch ist das nominale BIP im Jahr 2021?",
     correctValue: 36300,
     explanation:
       "Nominales BIP 2021 = 350·90 + 1,2·4.000 = 31.500 + 4.800 = 36.300.",
@@ -52,7 +52,7 @@ export const questions: Question[] = [
     type: "numeric",
     unit: "Geldeinheiten",
     prompt:
-      "Dieselbe Volkswirtschaft (nur Fahrräder und Brot). Jahr 2031: Fahrradpreis 550, Brotpreis 2,4, 130 Fahrräder, 3.400 Brote. Wie hoch ist das nominale BIP im Jahr 2031?",
+      "Dieselbe Volkswirtschaft (nur Regenschirme und Marmeladengläser). Jahr 2031: Regenschirmpreis 550, Marmeladenpreis 2,4, 130 Regenschirme, 3.400 Marmeladengläser. Wie hoch ist das nominale BIP im Jahr 2031?",
     correctValue: 79660,
     explanation:
       "Nominales BIP 2031 = 550·130 + 2,4·3.400 = 71.500 + 8.160 = 79.660.",
@@ -66,7 +66,7 @@ export const questions: Question[] = [
     unit: "Geldeinheiten",
     tolerance: 100,
     prompt:
-      "Gleiche Volkswirtschaft: Jahr 2021 (Basisjahr): Fahrradpreis 350, Brotpreis 1,2. Jahr 2031-Mengen: 130 Fahrräder, 3.400 Brote. Wie hoch ist das reale BIP 2031, bewertet zu Preisen des Basisjahres 2021?",
+      "Gleiche Volkswirtschaft: Jahr 2021 (Basisjahr): Regenschirmpreis 350, Marmeladenpreis 1,2. Jahr 2031-Mengen: 130 Regenschirme, 3.400 Marmeladengläser. Wie hoch ist das reale BIP 2031, bewertet zu Preisen des Basisjahres 2021?",
     correctValue: 49580,
     explanation:
       "Reales BIP 2031 (Basis 2021) = 350·130 + 1,2·3.400 = 45.500 + 4.080 = 49.580 — die Mengen von 2031 werden zu den PREISEN von 2021 bewertet.",
@@ -286,7 +286,7 @@ export const questions: Question[] = [
     topic: "Arbeitslosigkeit",
     type: "mc",
     prompt:
-      "Ein Kündigungsschutzgesetz senkt die Job-Separation-Rate s, während die Job-Finding-Rate f unverändert bleibt. Wie verändert sich die natürliche Arbeitslosenquote (U/L)* = s/(s+f)?",
+      "Eine neue arbeitsrechtliche Regelung erschwert es Unternehmen, Beschäftigte kurzfristig zu entlassen, und senkt dadurch die Job-Separation-Rate s, während die Job-Finding-Rate f unverändert bleibt. Wie verändert sich die natürliche Arbeitslosenquote (U/L)* = s/(s+f)?",
     options: ["Sie sinkt", "Sie steigt", "Sie bleibt exakt gleich", "Der Effekt ist unbestimmt"],
     correctIndex: 0,
     explanation:
@@ -299,7 +299,7 @@ export const questions: Question[] = [
     topic: "Arbeitslosigkeit",
     type: "mc",
     prompt:
-      "Warum ist es plausibel, dass ein Kündigungsschutzgesetz nicht nur s (Job-Separation-Rate) senkt, sondern auch f (Job-Finding-Rate)?",
+      "Warum ist es plausibel, dass eine solche Regelung nicht nur s (Job-Separation-Rate) senkt, sondern auch f (Job-Finding-Rate)?",
     options: [
       "Firmen stellen bei hohen Kündigungskosten zurückhaltender neu ein, weil eine Fehleinstellung schwerer rückgängig zu machen ist",
       "Kündigungsschutz hat keinerlei Effekt auf Einstellungsentscheidungen",
@@ -732,16 +732,16 @@ export const questions: Question[] = [
     topic: "Offene VWL II",
     type: "mc",
     prompt:
-      "Der Nominalzins in Kanada sei höher als in den USA, der Realzins sei in beiden Ländern gleich, und es gelte Kaufkraftparität. Welche Aussage ist korrekt?",
+      "Der Nominalzins in Norwegen sei höher als in Schweden, der Realzins sei in beiden Ländern gleich, und es gelte Kaufkraftparität. Welche Aussage ist korrekt?",
     options: [
-      "Die Inflationserwartungen in den USA sind höher; der Wechselkurs des kanadischen Dollars zum US-Dollar wird steigen",
-      "Die Inflationserwartungen in Kanada sind höher; der Wechselkurs des kanadischen Dollars zum US-Dollar wird sinken",
-      "Die Inflationserwartungen in Kanada sind höher; der Wechselkurs des kanadischen Dollars zum US-Dollar wird steigen",
-      "Die Inflationserwartungen in den USA sind höher; der Wechselkurs des kanadischen Dollars zum US-Dollar wird sinken",
+      "Die Inflationserwartungen in Schweden sind höher; der Wechselkurs der norwegischen Krone zur schwedischen Krone wird steigen",
+      "Die Inflationserwartungen in Norwegen sind höher; der Wechselkurs der norwegischen Krone zur schwedischen Krone wird sinken",
+      "Die Inflationserwartungen in Norwegen sind höher; der Wechselkurs der norwegischen Krone zur schwedischen Krone wird steigen",
+      "Die Inflationserwartungen in Schweden sind höher; der Wechselkurs der norwegischen Krone zur schwedischen Krone wird sinken",
     ],
     correctIndex: 1,
     explanation:
-      "Nach der Fisher-Gleichung (i=r+π^e) impliziert der höhere kanadische Nominalzins bei gleichem Realzins höhere kanadische Inflationserwartungen. Nach relativer Kaufkraftparität wertet die Währung des Landes mit höherer erwarteter Inflation ab — der kanadische Dollar wird also gegenüber dem US-Dollar sinken.",
+      "Nach der Fisher-Gleichung (i=r+π^e) impliziert der höhere norwegische Nominalzins bei gleichem Realzins höhere norwegische Inflationserwartungen. Nach relativer Kaufkraftparität wertet die Währung des Landes mit höherer erwarteter Inflation ab — die norwegische Krone wird also gegenüber der schwedischen Krone sinken.",
     source: "Übungsblatt 7, Aufgabe 3",
     free: false,
   },

@@ -58,10 +58,10 @@ export const questions: Question[] = [
     topic: "Deskriptive Statistik",
     type: "numeric",
     prompt:
-      "An einem Wahlkurs nehmen Studierende aus 5 Semestern teil (n=48): 1. Semester: 5, 2. Semester: 8, 3. Semester: 19, 4. Semester: 7, 5. Semester: 9. Wie lautet der Modus der Variable 'Semesterzahl'?",
+      "In einem Fitnessstudio verteilen sich die Mitglieder auf 5 Altersklassen (n=48): Altersklasse 1: 5, Altersklasse 2: 8, Altersklasse 3: 19, Altersklasse 4: 7, Altersklasse 5: 9. Wie lautet der Modus der Variable 'Altersklasse'?",
     correctValue: 3,
     explanation:
-      "Die größte Gruppe (19 Studierende) kommt aus dem 3. Semester — das ist der Modus.",
+      "Die größte Gruppe (19 Mitglieder) gehört zu Altersklasse 3 — das ist der Modus.",
     source: "Übungsaufgabe, Modus",
     free: true,
   },
@@ -72,10 +72,10 @@ export const questions: Question[] = [
     tolerance: 3,
     unit: "Mio. €",
     prompt:
-      "18 Unternehmen einer Branche haben folgenden Personalaufwand (Mio. €): 40.2, 82.5, 35.0, 60.5, 210.0, 135.0, 90.0, 30.0, 95.5, 20.0, 180.0, 145.0, 65.0, 110.0, 380.0, 32.0, 100.0, 120.0. Wie hoch ist das arithmetische Mittel (gerundet)?",
-    correctValue: 107.3,
+      "18 Filialen einer Einzelhandelskette haben folgende jährliche Marketingausgaben (Tsd. €): 38, 79, 33, 58, 205, 130, 88, 29, 92, 19, 175, 140, 62, 108, 365, 31, 98, 118. Wie hoch ist das arithmetische Mittel (gerundet)?",
+    correctValue: 103.8,
     explanation:
-      "Summe ≈ 1930.7 Mio. € geteilt durch 18 Unternehmen ergibt ≈ 107.3 Mio. €. Der Modus wäre hier kein sinnvolles Lagemaß, da fast jeder Wert einzigartig ist.",
+      "Summe = 1868 Tsd. € geteilt durch 18 Filialen ergibt ≈ 103.8 Tsd. €. Der Modus wäre hier kein sinnvolles Lagemaß, da fast jeder Wert einzigartig ist.",
     source: "Übungsaufgabe, Arithmetisches Mittel",
     free: true,
   },
@@ -84,10 +84,10 @@ export const questions: Question[] = [
     topic: "Deskriptive Statistik",
     type: "numeric",
     prompt:
-      "9 Personen verdienen (in €): 1120, 2560, 8890, 3600, 510, 7050, 2480, 4010, 300. Wie lautet der Median?",
-    correctValue: 2560,
+      "9 Freiberufler in einem Coworking Space erzielen folgende Jahreshonorare (in €): 1250, 2700, 9200, 3850, 600, 7400, 2650, 4300, 350. Wie lautet der Median?",
+    correctValue: 2700,
     explanation:
-      "Sortiert: 300, 510, 1120, 2480, 2560, 3600, 4010, 7050, 8890. Der mittlere (5.) Wert ist 2560.",
+      "Sortiert: 350, 600, 1250, 2650, 2700, 3850, 4300, 7400, 9200. Der mittlere (5.) Wert ist 2700.",
     source: "Übungsaufgabe, Median",
     free: true,
   },
@@ -95,12 +95,12 @@ export const questions: Question[] = [
     id: "ds-06",
     topic: "Deskriptive Statistik",
     type: "numeric",
-    tolerance: 20,
+    tolerance: 25,
     prompt:
-      "9 Personen verdienen (in €): 1120, 2560, 8890, 3600, 510, 7050, 2480, 4010, 300. Wie hoch ist das arithmetische Mittel?",
-    correctValue: 3391,
+      "9 Freiberufler in einem Coworking Space erzielen folgende Jahreshonorare (in €): 1250, 2700, 9200, 3850, 600, 7400, 2650, 4300, 350. Wie hoch ist das arithmetische Mittel?",
+    correctValue: 3589,
     explanation:
-      "Summe = 30520, geteilt durch 9 Personen ≈ 3391 €. Beachte: Der Mittelwert liegt wegen des Ausreißers 8890 deutlich über dem Median.",
+      "Summe = 32300, geteilt durch 9 Freiberufler ≈ 3589 €. Beachte: Der Mittelwert liegt wegen des Ausreißers 9200 deutlich über dem Median.",
     source: "Übungsaufgabe, Median",
     free: false,
   },
@@ -109,11 +109,11 @@ export const questions: Question[] = [
     topic: "Deskriptive Statistik",
     type: "mc",
     prompt:
-      "Eine neue Kantine soll dort stehen, wo möglichst wenige Beschäftigte ihre Halle verlassen müssen (Halle 1: 180, Halle 2: 340, Halle 3: 512 Personen). Welches Lagemaß beschreibt dieses Kriterium?",
+      "Ein neuer Kopierer soll dort stehen, wo möglichst wenige Mitarbeitende ihr Stockwerk verlassen müssen (Stockwerk 1: 165, Stockwerk 2: 290, Stockwerk 3: 470 Personen). Welches Lagemaß beschreibt dieses Kriterium?",
     options: ["Arithmetisches Mittel", "Median", "Modus", "Standardabweichung"],
     correctIndex: 2,
     explanation:
-      "Der Modus ist die Ausprägung mit den meisten Beobachtungen — hier Halle 3 mit 512 Beschäftigten.",
+      "Der Modus ist die Ausprägung mit den meisten Beobachtungen — hier Stockwerk 3 mit 470 Mitarbeitenden.",
     source: "Übungsaufgabe, Modus",
     free: false,
   },
@@ -152,7 +152,7 @@ export const questions: Question[] = [
     topic: "Deskriptive Statistik",
     type: "mc",
     prompt:
-      "Fünf Eisverkäufer haben Umsätze 55,55,55,55,55 (Verteilung I). Wie groß ist der Gini-Koeffizient?",
+      "Fünf Marktstände haben Wochenumsätze 58,58,58,58,58 (Verteilung I). Wie groß ist der Gini-Koeffizient?",
     options: ["0 (Gleichverteilung)", "0,5", "1 (maximale Ungleichheit)", "Kann nicht berechnet werden"],
     correctIndex: 0,
     explanation:
@@ -276,10 +276,10 @@ export const questions: Question[] = [
     type: "numeric",
     tolerance: 0.03,
     prompt:
-      "Mara nimmt mit 25% den Bus (dann >25min in 55% der Fälle) und sonst das Fahrrad (dann <25min in 75% der Fälle). Sie brauchte heute >25min. Mit welcher Wahrscheinlichkeit fuhr sie Bus? (Satz von Bayes)",
-    correctValue: 0.42,
+      "Ein Pendler nutzt mit 30% Wahrscheinlichkeit den Zug (dann >20min in 50% der Fälle) und sonst das Auto (dann >20min in 20% der Fälle). Er brauchte heute >20min. Mit welcher Wahrscheinlichkeit fuhr er Zug? (Satz von Bayes)",
+    correctValue: 0.52,
     explanation:
-      "P(>25min) = 0,55·0,25 + 0,25·0,75 = 0,325. P(Bus|>25min) = 0,1375/0,325 ≈ 0,42.",
+      "P(>20min) = 0,5·0,3 + 0,2·0,7 = 0,29. P(Zug|>20min) = 0,15/0,29 ≈ 0,52.",
     source: "Kapitel 1, Satz von Bayes",
     free: false,
   },
@@ -289,10 +289,10 @@ export const questions: Question[] = [
     type: "numeric",
     tolerance: 0.03,
     prompt:
-      "Ein Test hat Sensitivität 92%, Spezifität 96%, Krankheitsanteil 3%. Wie hoch ist P(erkrankt | positiv getestet)?",
+      "Ein Spamfilter markiert tatsächlichen Spam mit 92% Wahrscheinlichkeit korrekt (Erkennungsrate) und normale E-Mails mit 96% Wahrscheinlichkeit korrekt als 'kein Spam' (Spezifität). 3% aller eingehenden E-Mails sind tatsächlich Spam. Wie hoch ist P(tatsächlich Spam | als Spam markiert)?",
     correctValue: 0.42,
     explanation:
-      "P(positiv) = 0,92·0,03 + 0,04·0,97 = 0,0664. P(erkrankt|positiv) = 0,0276/0,0664 ≈ 0,42 — trotz gutem Test also nur ~42%!",
+      "P(als Spam markiert) = 0,92·0,03 + 0,04·0,97 = 0,0664. P(Spam|markiert) = 0,0276/0,0664 ≈ 0,42 — trotz gutem Filter landen also gut die Hälfte der markierten Mails fälschlich im Spam-Ordner!",
     source: "Kapitel 1, Satz von Bayes",
     free: false,
   },
@@ -302,7 +302,7 @@ export const questions: Question[] = [
     type: "numeric",
     tolerance: 0.02,
     prompt:
-      "3 unabhängige Server benötigen mit p=0,12 / 0,18 / 0,10 Aufmerksamkeit. Wie groß ist die Wahrscheinlichkeit, dass keiner Aufmerksamkeit braucht?",
+      "3 unabhängige Bauteile in einer Fertigungsstraße benötigen mit p=0,12 / 0,18 / 0,10 eine Nachjustierung. Wie groß ist die Wahrscheinlichkeit, dass keines eine Nachjustierung braucht?",
     correctValue: 0.649,
     explanation: "P(keiner) = 0,88 · 0,82 · 0,90 ≈ 0,649.",
     source: "Kapitel 1, Multiplikationssatz",
@@ -313,11 +313,11 @@ export const questions: Question[] = [
     topic: "Wahrscheinlichkeitsrechnung",
     type: "mc",
     prompt:
-      "Maschinen M1 (150 Stk., 4% Ausschuss), M2 (300 Stk., 5%), M3 (600 Stk., 2%). Ein zufälliges Ausschussstück wird gezogen. Welche Maschine hat es am wahrscheinlichsten produziert?",
-    options: ["M1", "M2", "M3", "Alle gleich wahrscheinlich"],
+      "Drei Zulieferer liefern Teile: L1 (150 Stk., 4% Ausschuss), L2 (300 Stk., 5%), L3 (600 Stk., 2%). Ein zufälliges Ausschussstück wird gezogen. Von welchem Zulieferer stammt es am wahrscheinlichsten?",
+    options: ["L1", "L2", "L3", "Alle gleich wahrscheinlich"],
     correctIndex: 1,
     explanation:
-      "Erwartete Ausschussstücke: M1=6, M2=15, M3=12 (Summe 33). P(M2|Ausschuss)=15/33≈45,5% — am höchsten.",
+      "Erwartete Ausschussstücke: L1=6, L2=15, L3=12 (Summe 33). P(L2|Ausschuss)=15/33≈45,5% — am höchsten.",
     source: "Kapitel 1, Satz von Bayes",
     free: false,
   },

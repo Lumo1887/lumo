@@ -26,15 +26,27 @@ sagen muss:
    zu stehen. Cross-Referenzen im Text ("siehe Kapitel X", "im nächsten
    Kapitel") müssen zur neuen Reihenfolge passen.
 
-2. **Zahlenbeispiele in Übungsaufgaben immer verändern.** Wird eine Aufgabe
-   aus einem echten Übungsblatt/Tutorium für die Fragenbank
-   (`lib/questions-<slug>.ts`) übernommen, bleibt die Aufgabenstruktur/Logik
-   gleich, aber die konkreten Zahlen (Preise, Mengen, Wahrscheinlichkeiten,
-   Parameter, Namen in Textaufgaben) werden geändert — und das Ergebnis
-   entsprechend neu berechnet. Es darf nie derselbe Zahlensatz wie im
-   Original-Übungsblatt auftauchen. Das gilt auch für Zahlenbeispiele, die
-   direkt im Skript selbst als `examples` auftauchen, falls sie aus echten
-   Übungsblättern stammen.
+2. **Zahlenbeispiele UND Szenarien in Übungsaufgaben immer verändern.** Wird
+   eine Aufgabe aus einem echten Übungsblatt/Tutorium für die Fragenbank
+   (`lib/questions-<slug>.ts`) übernommen, bleibt nur die mathematische/
+   ökonomische Struktur/Logik gleich — sowohl die konkreten Zahlen (Preise,
+   Mengen, Wahrscheinlichkeiten, Parameter) als auch das Szenario selbst
+   (Kontext, Gegenstände, Namen, Länder, Branchen, Institutionen) werden
+   geändert. Es reicht nicht, nur die Zahlen im selben Szenario auszutauschen
+   ("Fahrräder und Brot" bleibt "Fahrräder und Brot" mit anderen Preisen) —
+   das Szenario selbst muss ein anderes sein (z. B. andere Güter, andere
+   Länder/Personen/Branchen, andere Formulierung des politischen/
+   institutionellen Kontexts). Es darf nie derselbe Zahlensatz UND nie
+   dasselbe Szenario wie im Original-Übungsblatt gleichzeitig auftauchen.
+   Das gilt auch für Beispiele, die direkt im Skript selbst als `examples`
+   auftauchen, falls sie aus echten Übungsblättern stammen. Rein abstrakte,
+   symbolische Aufgaben ohne konkretes Szenario (z. B. reine Variablengleichungen
+   wie ΔY = ΔG/(1−b)) brauchen kein Szenario zum Austauschen — dort reicht
+   die Zahlenänderung. Ebenso müssen austauschbare Szenarien nicht verändert
+   werden, wenn sie ohnehin schon allgemeines, nicht-professorenspezifisches
+   Fachwissen sind (z. B. "32 Skatkarten", "zwei faire Würfel") — hier geht es
+   nur um erfundene Kontexte/Geschichten, die der Ersteller des Übungsblatts
+   sich ausgedacht hat.
 
 Diese beiden Regeln gelten rückwirkend bereits für Statistik I und VWL 2
 (beide wurden entsprechend umgebaut) und für jedes künftige Modul von Anfang
