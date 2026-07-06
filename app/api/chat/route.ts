@@ -18,8 +18,8 @@ function buildContext(moduleSlug: string): string {
           if (section.formulas?.length) {
             parts.push("Formeln: " + section.formulas.join(" | "));
           }
-          if (section.example) {
-            parts.push("Beispiel: " + section.example);
+          if (section.examples?.length) {
+            parts.push("Beispiele: " + section.examples.join(" || "));
           }
           return parts.join("\n");
         })

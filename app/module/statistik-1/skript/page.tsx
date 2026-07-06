@@ -57,10 +57,16 @@ function SectionContent({
           ))}
         </div>
       )}
-      {section.example && (
-        <div className="skript-example mt-4">
-          <span className="hand-label mr-1 text-brand-600">Beispiel:</span>
-          {section.example}
+      {section.examples && section.examples.length > 0 && (
+        <div className="mt-4 space-y-3">
+          {section.examples.map((ex, i) => (
+            <div key={i} className="skript-example">
+              <span className="hand-label mr-1 text-brand-600">
+                Beispiel{section.examples!.length > 1 ? ` ${i + 1}` : ""}:
+              </span>
+              {ex}
+            </div>
+          ))}
         </div>
       )}
     </div>

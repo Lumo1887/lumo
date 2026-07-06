@@ -209,7 +209,7 @@ export default function SkriptPdfDocument({
           <Text style={styles.chapterIntro}>{chapter.intro}</Text>
 
           {chapter.sections.map((section) => (
-            <View key={section.id} wrap={false}>
+            <View key={section.id}>
               <Text style={styles.sectionHeading}>{section.heading}</Text>
               {section.body.map((paragraph, i) => (
                 <Text key={i} style={styles.paragraph}>
@@ -223,9 +223,11 @@ export default function SkriptPdfDocument({
                 const key = `${chapter.id}__${section.id}__${i}`;
                 return <FormulaBlock key={key} formula={formulaImages[key]} fallbackText={f} />;
               })}
-              {section.example && (
-                <Text style={styles.exampleBox}>Beispiel: {section.example}</Text>
-              )}
+              {section.examples?.map((ex, i) => (
+                <Text key={i} style={styles.exampleBox}>
+                  Beispiel{section.examples!.length > 1 ? ` ${i + 1}` : ""}: {ex}
+                </Text>
+              ))}
             </View>
           ))}
 
