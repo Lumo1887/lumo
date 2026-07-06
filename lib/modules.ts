@@ -19,7 +19,7 @@ export const modules: ModuleDefinition[] = [
     title: "Statistik I",
     subtitle: "Deskriptive Statistik, Wahrscheinlichkeitsrechnung, Zufallsvariablen & Verteilungsmodelle",
     status: "active",
-    priceCent: 799,
+    priceCent: 499,
     compareAtCent: 1500,
     chapters: [
       "Deskriptive Statistik",
@@ -35,7 +35,7 @@ export const modules: ModuleDefinition[] = [
     title: "VWL 2: Makroökonomie",
     subtitle: "BIP, Wachstum, Arbeitslosigkeit, Geld & Inflation, Konjunktur (IS-LM), offene Volkswirtschaften & Gesamtangebot",
     status: "active",
-    priceCent: 799,
+    priceCent: 499,
     compareAtCent: 1500,
     chapters: [
       "Methodik & BIP",

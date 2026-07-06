@@ -85,7 +85,8 @@ export default function ModulePage({ params }: { params: { slug: string } }) {
         </div>
 
         <aside className="card h-fit p-6">
-          <div className="flex items-baseline gap-2">
+          <span className="badge">Einführungspreis</span>
+          <div className="mt-2 flex items-baseline gap-2">
             <span className="text-3xl font-extrabold text-ink-900">
               {formatEuro(mod.priceCent)}
             </span>
@@ -95,7 +96,8 @@ export default function ModulePage({ params }: { params: { slug: string } }) {
           </div>
           <p className="mt-1 text-sm text-ink-600">
             Einmalig, dauerhafter Zugriff. Günstiger als klassische
-            Vorbereitungskurse.
+            Vorbereitungskurse — der Preis steigt, sobald mehr Module und
+            Funktionen live sind.
           </p>
           <div className="mt-5">
             <CheckoutButton moduleSlug={mod.slug} label="Modul freischalten" />
