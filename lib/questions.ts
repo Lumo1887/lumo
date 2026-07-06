@@ -96,7 +96,8 @@ export const questions: Question[] = [
     topic: "Deskriptive Statistik",
     type: "numeric",
     tolerance: 20,
-    prompt: "Für dieselben 9 Einkommen: wie hoch ist das arithmetische Mittel?",
+    prompt:
+      "9 Personen verdienen (in €): 1005, 2324, 8432, 3321, 443, 6489, 2231, 3721, 232. Wie hoch ist das arithmetische Mittel?",
     correctValue: 3133,
     explanation:
       "Summe = 28198, geteilt durch 9 Personen ≈ 3133 €. Beachte: Der Mittelwert liegt wegen des Ausreißers 8432 deutlich über dem Median.",
@@ -263,7 +264,7 @@ export const questions: Question[] = [
     type: "numeric",
     tolerance: 0.02,
     prompt:
-      "Gleiche Angaben wie oben. Wie groß ist P(S∪B) — die Wahrscheinlichkeit, S-Bahn oder Bus zu nutzen? (P(S∩B)=0,05)",
+      "P(S)=0,3 (S-Bahn) und P(B)=0,15 (Bus), P(S∩B)=0,05. Wie groß ist P(S∪B) — die Wahrscheinlichkeit, S-Bahn oder Bus zu nutzen?",
     correctValue: 0.4,
     explanation: "P(S∪B) = P(S) + P(B) − P(S∩B) = 0,3 + 0,15 − 0,05 = 0,4.",
     source: "Tutorium 7, Aufgabe 2",
@@ -337,7 +338,8 @@ export const questions: Question[] = [
     topic: "Wahrscheinlichkeitsrechnung",
     type: "numeric",
     tolerance: 0.02,
-    prompt: "Gleiche Situation: wie groß ist P(S=1)?",
+    prompt:
+      "X, Y unabhängig Bernoulli mit P(X=1)=0,3, P(Y=1)=0,2. S=X+Y. Wie groß ist P(S=1)?",
     correctValue: 0.38,
     explanation:
       "P(S=1) = P(X=1,Y=0)+P(X=0,Y=1) = 0,3·0,8 + 0,7·0,2 = 0,24+0,14 = 0,38.",
@@ -375,7 +377,8 @@ export const questions: Question[] = [
     topic: "Zufallsvariablen",
     type: "numeric",
     tolerance: 0.02,
-    prompt: "Gleiche Verteilung: wie groß ist P(X ≤ 2)?",
+    prompt:
+      "Eine diskrete Zufallsvariable X hat f(x)=(x²+4)/50 für x=0,1,2,3,4. Wie groß ist P(X ≤ 2)?",
     correctValue: 0.34,
     explanation: "f(0)+f(1)+f(2) = 0,08+0,1+0,16 = 0,34.",
     source: "Tutorium 8, Aufgabe 6",
