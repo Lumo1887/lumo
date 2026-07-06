@@ -23,25 +23,21 @@ export const GOAL_OPTIONS = [
   "Nur auffrischen kurz vor der Prüfung",
 ];
 
-// Diese Punkte erscheinen unabhängig vom gewählten Modul zusätzlich zu den
-// modulspezifischen Kapiteln — bewusst so formuliert, dass sie eine Lücke
-// benennen, die genau das Angebot (Skript + Übungstool + Chatbot) schließt.
-const UNIVERSAL_PROBLEM_OPTIONS = [
-  "Die Vorlesungsfolien sind zu unübersichtlich, um effizient daraus zu lernen",
-  "Mir fehlt Übungsmaterial mit echten, nachvollziehbaren Lösungswegen",
-  "Ich weiß nicht genau, was davon wirklich klausurrelevant ist",
-  "Ich bin mir aktuell unsicher, ob ich die Klausur so bestehen würde",
+// Bewusst KEINE einzelnen Themen/Kapitel als Auswahlpunkte: Wer sich gerade
+// erst orientiert, kennt die Themen des Moduls oft noch gar nicht im Detail
+// (genau deshalb sucht die Person ja ein Skript) — nach "Problemen bei
+// Bayes" oder "Solow-Modell" zu fragen, bevor jemand den Stoff überhaupt
+// gesehen hat, ergibt keinen Sinn. Stattdessen fragen wir nach der
+// allgemeinen Situation/Gefühlslage, die unabhängig vom Modul und ohne
+// Vorwissen beantwortbar ist.
+export const PROBLEM_OPTIONS = [
+  "Ich komme in der Vorlesung nur teilweise mit und hänge oft fest",
+  "Die Vorlesungsfolien sind mir zu unübersichtlich, um allein daraus zu lernen",
+  "Ich hatte bisher kaum Zeit, mich überhaupt mit dem Stoff zu beschäftigen",
+  "Mir fehlt Übungsmaterial mit nachvollziehbaren Lösungswegen zum Üben",
+  "Ich weiß nicht, was davon wirklich klausurrelevant ist",
+  "Ich bin unsicher, ob ich die Klausur aktuell bestehen würde",
 ];
-
-// Liefert die Problembereiche für ein konkretes Modul: die echten Kapitel
-// dieses Moduls (aus lib/modules.ts) plus die modulunabhängigen Punkte oben.
-// Damit ist die Umfrage automatisch für jedes neue Modul korrekt, ohne
-// Code-Änderungen an dieser Stelle.
-export function getProblemAreaOptions(moduleSlug: string): string[] {
-  const mod = modules.find((m) => m.slug === moduleSlug);
-  const chapterOptions = mod?.chapters ?? [];
-  return [...chapterOptions, ...UNIVERSAL_PROBLEM_OPTIONS];
-}
 
 export const TIME_LEFT_OPTIONS = [
   "Weniger als 1 Woche",

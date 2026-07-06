@@ -5,8 +5,8 @@ import Link from "next/link";
 import {
   MODULE_OPTIONS,
   GOAL_OPTIONS,
+  PROBLEM_OPTIONS,
   TIME_LEFT_OPTIONS,
-  getProblemAreaOptions,
   saveOnboardingAnswers,
 } from "@/lib/onboarding";
 
@@ -21,7 +21,6 @@ export default function OnboardingFlow() {
   const [done, setDone] = useState(false);
 
   const selectedModule = MODULE_OPTIONS.find((m) => m.slug === moduleSlug);
-  const problemOptions = moduleSlug ? getProblemAreaOptions(moduleSlug) : [];
 
   function toggleProblemArea(area: string) {
     setProblemAreas((prev) =>
@@ -161,7 +160,7 @@ export default function OnboardingFlow() {
           </h2>
           <p className="mt-1 text-sm text-ink-600">Mehrfachauswahl möglich.</p>
           <div className="mt-5 space-y-3">
-            {problemOptions.map((option) => (
+            {PROBLEM_OPTIONS.map((option) => (
               <button
                 key={option}
                 onClick={() => toggleProblemArea(option)}
