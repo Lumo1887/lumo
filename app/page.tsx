@@ -1,5 +1,11 @@
 "use client";
 
+// Verhindert, dass Next.js diese Seite clientseitig cached und bei
+// Zurück/Vor-Navigation einen alten (leeren) Render-Zustand erneut anzeigt,
+// ohne den Code neu auszuführen — das war die Ursache der dauerhaft weißen
+// Seite beim Zurück-Navigieren.
+export const dynamic = "force-dynamic";
+
 import { useEffect, useState } from "react";
 import OnboardingFlow from "@/components/OnboardingFlow";
 import { loadOnboardingAnswers } from "@/lib/onboarding";
@@ -10,27 +16,27 @@ export default function HomePage() {
   useEffect(() => {
     const existing = loadOnboardingAnswers();
     if (existing) {
-      // Echte Browser-Weiterleitung statt next/navigation-Router: das
-      // umgeht Next.js' internes Routing/Caching, das bei einer per
-      // Zurück-Button ausgelösten Navigation zu dieser Seite manchmal
-      // hängen bleibt und die Seite dauerhaft weiß lässt.
       window.location.replace("/dashboard");
     } else {
       setReady(true);
     }
   }, []);
 
-  // Zusätzliche Absicherung: Falls der Browser diese Seite per
-  // Zurück/Vor-Button aus seinem eigenen Cache (bfcache) wiederherstellt,
-  // erzwingt das einen echten Reload, damit die Prüfung oben erneut läuft.
   useEffect(() => {
     function handlePageShow(event: PageTransitionEvent) {
       if (event.persisted) {
         window.location.reload();
       }
     }
+    function handlePopState() {
+      window.location.reload();
+    }
     window.addEventListener("pageshow", handlePageShow);
-    return () => window.removeEventListener("pageshow", handlePageShow);
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("pageshow", handlePageShow);
+      window.removeEventListener("popstate", handlePopState);
+    };
   }, []);
 
   if (!ready) {
