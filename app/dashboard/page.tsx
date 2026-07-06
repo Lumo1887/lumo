@@ -8,7 +8,7 @@ import { fetchAccess } from "@/lib/access";
 const comparisonRows = [
   {
     feature: "Preis",
-    us: "ab 7,99 € pro Modul",
+    us: "ab 4,99 € pro Modul",
     them: "oft 100–300 € pro Kurs",
   },
   {

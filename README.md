@@ -49,8 +49,9 @@ dann beheben wir es gemeinsam.
    `https://deine-domain.de/api/webhooks/stripe` für das Event
    `checkout.session.completed` anlegen.
 
-Der Preis pro Modul wird über `STATISTIK1_PRICE_CENT` in `.env.local`
-gesteuert (Standard: 799 = 7,99 €).
+Der Preis pro Modul wird pro Modul in `lib/modules.ts` (Feld `priceCent`)
+festgelegt — dort auch für neue Module direkt eintragen, keine separate
+Umgebungsvariable nötig.
 
 ## Projektstruktur (nach dem Einsortieren durch setup.js)
 
