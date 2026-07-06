@@ -58,7 +58,7 @@ export const questions: Question[] = [
     topic: "Deskriptive Statistik",
     type: "numeric",
     prompt:
-      "An einem Wahlkurs nehmen 2, 3, 22, 6 und 14 Studierende aus dem 1.–5. Semester teil (n=47). Wie lautet der Modus der Variable 'Semesterzahl'?",
+      "An einem Wahlkurs nehmen Studierende aus 5 Semestern teil (n=47): 1. Semester: 2, 2. Semester: 3, 3. Semester: 22, 4. Semester: 6, 5. Semester: 14. Wie lautet der Modus der Variable 'Semesterzahl'?",
     correctValue: 3,
     explanation:
       "Die größte Gruppe (22 Studierende) kommt aus dem 3. Semester — das ist der Modus.",
