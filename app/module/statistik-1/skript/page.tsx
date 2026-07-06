@@ -185,6 +185,12 @@ export default function SkriptPage() {
           Kompakt aufbereitetes Skript mit Formeln, Beispielen und Skizzen — Kapitel 2 ist
           komplett kostenlos, Kapitel 3–5 schaltest du mit dem Modul frei.
         </p>
+        <a
+          href="/api/skript-pdf"
+          className="btn-secondary mt-5 inline-flex !px-4 !py-2 text-sm"
+        >
+          📄 Als PDF herunterladen
+        </a>
       </header>
 
       <nav className="skript-toc card mb-10 p-4 sm:p-5">
