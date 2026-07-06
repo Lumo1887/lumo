@@ -16,9 +16,11 @@ import { PDF_FORMULA_POINTS_PER_PIXEL, type RenderedFormula } from "@/lib/pdf/re
 // Unicode-fähige Schriftart registrieren, damit Sonderzeichen im Fließtext
 // (√, Σ, ≤, σ, μ, λ, x̄ usw.) korrekt dargestellt werden — die eingebauten
 // PDF-Standardschriften (Helvetica) unterstützen diese Zeichen nicht.
+// (Getestet/verifiziert: diese URL liefert die echte TTF-Binärdatei zurück,
+// nicht nur eine GitHub-LFS-Zeigerdatei.)
 Font.register({
   family: "Noto Sans",
-  src: "https://cdn.jsdelivr.net/gh/google/fonts/ofl/notosans/NotoSans[wdth,wght].ttf",
+  src: "https://raw.githubusercontent.com/google/fonts/main/ofl/notosans/NotoSans%5Bwdth,wght%5D.ttf",
 });
 
 const BRAND_PURPLE = "#6D46E0";
