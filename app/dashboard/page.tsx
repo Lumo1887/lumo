@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { modules } from "@/lib/modules";
+import { useEffect, useMemo, useState } from "react";
+import { modules, STUDIENGAENGE } from "@/lib/modules";
 import ModuleCard from "@/components/ModuleCard";
 import { fetchAccess } from "@/lib/access";
 
@@ -42,6 +42,12 @@ export default function DashboardPage() {
   const [accessMap, setAccessMap] = useState<Record<string, boolean>>({});
   const [loaded, setLoaded] = useState(false);
 
+  const activeStudiengang =
+    STUDIENGAENGE.find((s) => s.active)?.name ?? STUDIENGAENGE[0]?.name ?? "";
+  const [studiengang, setStudiengang] = useState<string>(activeStudiengang);
+  const [subject, setSubject] = useState<string | null>(null);
+  const [number, setNumber] = useState<string | null>(null);
+
   useEffect(() => {
     let cancelled = false;
     fetchAccess().then((info) => {
@@ -58,6 +64,37 @@ export default function DashboardPage() {
     };
   }, []);
 
+  const modulesForStudiengang = modules.filter(
+    (m) => m.studiengang === studiengang
+  );
+  const subjects = useMemo(
+    () => Array.from(new Set(modulesForStudiengang.map((m) => m.subject))),
+    [modulesForStudiengang]
+  );
+  const modulesForSubject = subject
+    ? modulesForStudiengang.filter((m) => m.subject === subject)
+    : [];
+  // Fächer ohne mehrere Nummern-Varianten (z. B. Buchführung) überspringen
+  // den Nummer-Schritt und zeigen direkt das einzige Modul.
+  const hasNumberStep =
+    modulesForSubject.length > 1 || Boolean(modulesForSubject[0]?.number);
+
+  const selectedModule =
+    subject && (!hasNumberStep || number)
+      ? modulesForSubject.find((m) => !hasNumberStep || m.number === number)
+      : null;
+
+  const visibleModules = selectedModule
+    ? [selectedModule]
+    : subject
+    ? modulesForSubject
+    : modules;
+
+  function resetFilter() {
+    setSubject(null);
+    setNumber(null);
+  }
+
   return (
     <div>
       <div className="mb-10 max-w-2xl">
@@ -65,13 +102,102 @@ export default function DashboardPage() {
           Dein Dashboard
         </h1>
         <p className="mt-3 text-ink-600">
-          Wähle ein Modul. Gekaufte Module sind vollständig freigeschaltet —
-          bei den anderen kannst du zuerst eine kostenlose Vorschau ansehen.
+          Wähle deinen Studiengang, dein Fach und die passende Nummer — oder
+          stöbere direkt unten durch alle Module.
         </p>
       </div>
 
+      <div className="card mb-8 p-5">
+        <p className="text-sm font-semibold text-ink-900">Studiengang</p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {STUDIENGAENGE.map((sg) => (
+            <button
+              key={sg.name}
+              disabled={!sg.active}
+              onClick={() => {
+                if (!sg.active) return;
+                setStudiengang(sg.name);
+                resetFilter();
+              }}
+              className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
+                !sg.active
+                  ? "cursor-not-allowed border-ink-100 text-ink-400"
+                  : studiengang === sg.name
+                  ? "border-brand-600 bg-brand-50 text-brand-800"
+                  : "border-ink-200 text-ink-700 hover:border-brand-300"
+              }`}
+            >
+              {sg.name}
+              {!sg.active && (
+                <span className="ml-1.5 text-xs text-ink-400">
+                  bald verfügbar
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+
+        <p className="mt-5 text-sm font-semibold text-ink-900">Fach</p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {subjects.map((s) => (
+            <button
+              key={s}
+              onClick={() => {
+                setSubject(s);
+                setNumber(null);
+              }}
+              className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
+                subject === s
+                  ? "border-brand-600 bg-brand-50 text-brand-800"
+                  : "border-ink-200 text-ink-700 hover:border-brand-300"
+              }`}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+
+        {subject && hasNumberStep && (
+          <>
+            <p className="mt-5 text-sm font-semibold text-ink-900">Nummer</p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {modulesForSubject.map((m) => (
+                <button
+                  key={m.slug}
+                  disabled={m.status === "coming-soon"}
+                  onClick={() => setNumber(m.number)}
+                  className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
+                    m.status === "coming-soon"
+                      ? "cursor-not-allowed border-ink-100 text-ink-400"
+                      : number === m.number
+                      ? "border-brand-600 bg-brand-50 text-brand-800"
+                      : "border-ink-200 text-ink-700 hover:border-brand-300"
+                  }`}
+                >
+                  {m.number}
+                  {m.status === "coming-soon" && (
+                    <span className="ml-1.5 text-xs text-ink-400">
+                      bald verfügbar
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+
+        {subject && (
+          <button
+            onClick={resetFilter}
+            className="mt-5 text-sm font-medium text-ink-500 underline"
+          >
+            Filter zurücksetzen — alle Module anzeigen
+          </button>
+        )}
+      </div>
+
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {modules.map((mod) => (
+        {visibleModules.map((mod) => (
           <ModuleCard
             key={mod.slug}
             mod={mod}
