@@ -129,7 +129,7 @@ export default function SkriptPage() {
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
       {showResumeToast && (
         <div className="fixed bottom-6 left-1/2 z-40 -translate-x-1/2 rounded-full bg-ink-900 px-4 py-2 text-sm text-white shadow-card">
-          Weiter geht's da, wo du aufgehört hast 👋
+          Weiter geht&apos;s da, wo du aufgehört hast 👋
         </div>
       )}
 
