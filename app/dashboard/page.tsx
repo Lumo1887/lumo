@@ -46,7 +46,6 @@ export default function DashboardPage() {
     STUDIENGAENGE.find((s) => s.active)?.name ?? STUDIENGAENGE[0]?.name ?? "";
   const [studiengang, setStudiengang] = useState<string>(activeStudiengang);
   const [subject, setSubject] = useState<string | null>(null);
-  const [number, setNumber] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -74,25 +73,11 @@ export default function DashboardPage() {
   const modulesForSubject = subject
     ? modulesForStudiengang.filter((m) => m.subject === subject)
     : [];
-  // Fächer ohne mehrere Nummern-Varianten (z. B. Buchführung) überspringen
-  // den Nummer-Schritt und zeigen direkt das einzige Modul.
-  const hasNumberStep =
-    modulesForSubject.length > 1 || Boolean(modulesForSubject[0]?.number);
 
-  const selectedModule =
-    subject && (!hasNumberStep || number)
-      ? modulesForSubject.find((m) => !hasNumberStep || m.number === number)
-      : null;
-
-  const visibleModules = selectedModule
-    ? [selectedModule]
-    : subject
-    ? modulesForSubject
-    : modules;
+  const visibleModules = subject ? modulesForSubject : modules;
 
   function resetFilter() {
     setSubject(null);
-    setNumber(null);
   }
 
   return (
@@ -102,8 +87,8 @@ export default function DashboardPage() {
           Dein Dashboard
         </h1>
         <p className="mt-3 text-ink-600">
-          Wähle deinen Studiengang, dein Fach und die passende Nummer — oder
-          stöbere direkt unten durch alle Module.
+          Wähle deinen Studiengang und dein Fach — oder stöbere direkt unten
+          durch alle Module.
         </p>
       </div>
 
@@ -142,10 +127,7 @@ export default function DashboardPage() {
           {subjects.map((s) => (
             <button
               key={s}
-              onClick={() => {
-                setSubject(s);
-                setNumber(null);
-              }}
+              onClick={() => setSubject(s)}
               className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
                 subject === s
                   ? "border-brand-600 bg-brand-50 text-brand-800"
@@ -156,35 +138,6 @@ export default function DashboardPage() {
             </button>
           ))}
         </div>
-
-        {subject && hasNumberStep && (
-          <>
-            <p className="mt-5 text-sm font-semibold text-ink-900">Nummer</p>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {modulesForSubject.map((m) => (
-                <button
-                  key={m.slug}
-                  disabled={m.status === "coming-soon"}
-                  onClick={() => setNumber(m.number)}
-                  className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
-                    m.status === "coming-soon"
-                      ? "cursor-not-allowed border-ink-100 text-ink-400"
-                      : number === m.number
-                      ? "border-brand-600 bg-brand-50 text-brand-800"
-                      : "border-ink-200 text-ink-700 hover:border-brand-300"
-                  }`}
-                >
-                  {m.number}
-                  {m.status === "coming-soon" && (
-                    <span className="ml-1.5 text-xs text-ink-400">
-                      bald verfügbar
-                    </span>
-                  )}
-                </button>
-              ))}
-            </div>
-          </>
-        )}
 
         {subject && (
           <button
