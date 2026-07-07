@@ -107,8 +107,10 @@ export default function DatenschutzPage() {
         genannten Zwecke erforderlich ist oder gesetzliche
         Aufbewahrungspflichten (z. B. handels- und steuerrechtliche
         Fristen für Rechnungsdaten) dies vorschreiben. Dein Nutzerkonto
-        samt zugehöriger Daten kannst du jederzeit über eine Anfrage an
-        die oben genannte E-Mail-Adresse löschen lassen.
+        samt zugehöriger Daten (Käufe, Lesefortschritt) kannst du
+        jederzeit selbst in deinem Profil unter &bdquo;Konto
+        löschen&ldquo; unwiderruflich entfernen, alternativ über eine
+        Anfrage an die oben genannte E-Mail-Adresse.
       </p>
 
       <h2 className="mt-8 text-lg font-semibold text-ink-900">

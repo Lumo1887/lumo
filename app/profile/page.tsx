@@ -12,6 +12,9 @@ export default function ProfilePage() {
   const [email, setEmail] = useState<string | null>(null);
   const [purchases, setPurchases] = useState<string[]>([]);
   const [loaded, setLoaded] = useState(false);
+  const [confirmText, setConfirmText] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -35,6 +38,28 @@ export default function ProfilePage() {
     await supabase.auth.signOut();
     router.push("/");
     router.refresh();
+  }
+
+  async function handleDeleteAccount() {
+    if (confirmText !== "LÖSCHEN") return;
+    setDeleting(true);
+    setDeleteError(null);
+    try {
+      const res = await fetch("/api/account/delete", { method: "POST" });
+      const data = await res.json();
+      if (!res.ok) {
+        setDeleteError(data.error ?? "Konto konnte nicht gelöscht werden.");
+        setDeleting(false);
+        return;
+      }
+      const supabase = createClient();
+      await supabase.auth.signOut();
+      router.push("/");
+      router.refresh();
+    } catch {
+      setDeleteError("Verbindung fehlgeschlagen. Bitte versuch es erneut.");
+      setDeleting(false);
+    }
   }
 
   if (!loaded) {
@@ -101,6 +126,33 @@ export default function ProfilePage() {
             ))}
           </div>
         )}
+      </div>
+
+      <div className="card mt-6 border-red-100 bg-red-50/40 p-6">
+        <h2 className="text-lg font-bold text-red-900">Konto löschen</h2>
+        <p className="mt-2 text-sm text-red-800">
+          Löscht dein Konto sowie alle zugehörigen Daten (Käufe,
+          Lesefortschritt) unwiderruflich. Der Zugang zu bereits gekauften
+          Modulen geht dabei verloren. Gib zur Bestätigung{" "}
+          <strong>LÖSCHEN</strong> in das Feld ein.
+        </p>
+        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <input
+            type="text"
+            value={confirmText}
+            onChange={(e) => setConfirmText(e.target.value)}
+            placeholder="LÖSCHEN"
+            className="w-full max-w-xs rounded-lg border border-red-200 px-3 py-2 text-sm focus:border-red-400 focus:outline-none"
+          />
+          <button
+            onClick={handleDeleteAccount}
+            disabled={confirmText !== "LÖSCHEN" || deleting}
+            className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {deleting ? "Wird gelöscht …" : "Konto endgültig löschen"}
+          </button>
+        </div>
+        {deleteError && <p className="mt-2 text-xs text-red-700">{deleteError}</p>}
       </div>
 
       <div className="mt-6 text-center">
