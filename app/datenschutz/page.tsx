@@ -86,7 +86,25 @@ export default function DatenschutzPage() {
       </p>
 
       <h2 className="mt-8 text-lg font-semibold text-ink-900">
-        6. Cookies und lokale Speicherung
+        6. E-Mail-Versand (Resend)
+      </h2>
+      <p className="mt-2 text-ink-700">
+        Nutzt du unser Online-Formular zum Widerruf deines Vertrags, senden
+        wir dir zur unmittelbaren elektronischen Eingangsbestätigung (§ 356a
+        BGB) automatisch eine Bestätigungsmail; zusätzlich werden wir selbst
+        über deinen Widerruf benachrichtigt. Dabei werden dein Name, deine
+        E-Mail-Adresse sowie ggf. weitere von dir freiwillig angegebene
+        Angaben (z. B. Modul, Bestellreferenz, Nachricht) über den
+        E-Mail-Versanddienstleister Resend, Inc. (USA) verarbeitet.
+        Rechtsgrundlage ist Art. 6 Abs. 1 lit. c DSGVO (Erfüllung unserer
+        gesetzlichen Informationspflicht) i. V. m. Art. 6 Abs. 1 lit. b DSGVO
+        (Vertragsabwicklung). Da Resend, Inc. in den USA sitzt, kann es
+        dabei zu einer Datenübermittlung in ein Drittland kommen; Resend
+        verpflichtet sich hierzu vertraglich zu den EU-Standardvertragsklauseln.
+      </p>
+
+      <h2 className="mt-8 text-lg font-semibold text-ink-900">
+        7. Cookies und lokale Speicherung
       </h2>
       <p className="mt-2 text-ink-700">
         Wir setzen technisch notwendige Cookies bzw. vergleichbare
@@ -100,7 +118,7 @@ export default function DatenschutzPage() {
       </p>
 
       <h2 className="mt-8 text-lg font-semibold text-ink-900">
-        7. Speicherdauer
+        8. Speicherdauer
       </h2>
       <p className="mt-2 text-ink-700">
         Wir speichern personenbezogene Daten nur so lange, wie es für die
@@ -114,7 +132,7 @@ export default function DatenschutzPage() {
       </p>
 
       <h2 className="mt-8 text-lg font-semibold text-ink-900">
-        8. Deine Rechte
+        9. Deine Rechte
       </h2>
       <p className="mt-2 text-ink-700">
         Du hast im Rahmen der gesetzlichen Vorgaben das Recht auf Auskunft
@@ -129,7 +147,7 @@ export default function DatenschutzPage() {
       </p>
 
       <h2 className="mt-8 text-lg font-semibold text-ink-900">
-        9. Stand
+        10. Stand
       </h2>
       <p className="mt-2 text-ink-700">
         Diese Datenschutzerklärung kann bei Änderungen an der Website
