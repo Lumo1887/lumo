@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { getModuleChapters, type SkriptSection } from "@/lib/content/registry";
 import { getModule } from "@/lib/modules";
@@ -92,9 +92,7 @@ export default function SkriptPage({ params }: { params: { slug: string } }) {
   const [loading, setLoading] = useState(true);
   const [unlocked, setUnlocked] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [resumeSectionId, setResumeSectionId] = useState<string | null>(null);
-  const [showResumeToast, setShowResumeToast] = useState(false);
-  const hasScrolledToResume = useRef(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     let active = true;
@@ -113,35 +111,24 @@ export default function SkriptPage({ params }: { params: { slug: string } }) {
     };
   }, [moduleSlug]);
 
-  // Gespeicherten Fortschritt laden, sobald klar ist, ob Inhalte gerendert
-  // werden (kein Sinn, vorher zu laden — es gäbe noch nichts zum Scrollen).
+  // Lesefortschritts-Balken: füllt sich live beim Runterscrollen, statt beim
+  // erneuten Öffnen automatisch an die letzte Position zu springen — das
+  // war für viele Leser:innen eher verwirrend als hilfreich.
   useEffect(() => {
-    if (loading) return;
-    fetch(`/api/progress?moduleSlug=${moduleSlug}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data?.sectionId) {
-          setResumeSectionId(data.sectionId as string);
-        }
-      })
-      .catch(() => {});
-  }, [loading, moduleSlug]);
-
-  // Einmalig zur gespeicherten Position scrollen, sobald sie geladen und im
-  // DOM vorhanden ist.
-  useEffect(() => {
-    if (!resumeSectionId || hasScrolledToResume.current) return;
-    const timer = setTimeout(() => {
-      const el = document.querySelector(`[data-section-id="${resumeSectionId}"]`);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-        hasScrolledToResume.current = true;
-        setShowResumeToast(true);
-        setTimeout(() => setShowResumeToast(false), 4000);
-      }
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [resumeSectionId]);
+    function updateScrollProgress() {
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - doc.clientHeight;
+      const pct = scrollable > 0 ? (doc.scrollTop / scrollable) * 100 : 0;
+      setScrollProgress(Math.min(100, Math.max(0, pct)));
+    }
+    updateScrollProgress();
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+    window.addEventListener("resize", updateScrollProgress);
+    return () => {
+      window.removeEventListener("scroll", updateScrollProgress);
+      window.removeEventListener("resize", updateScrollProgress);
+    };
+  }, []);
 
   // Fortschritt verfolgen: sobald ein Abschnitt weit genug sichtbar ist,
   // wird (gedrosselt) der neue "weitester gelesener Abschnitt" gespeichert.
@@ -202,11 +189,12 @@ export default function SkriptPage({ params }: { params: { slug: string } }) {
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
-      {showResumeToast && (
-        <div className="fixed bottom-6 left-1/2 z-40 -translate-x-1/2 rounded-full bg-ink-900 px-4 py-2 text-sm text-white shadow-card">
-          Weiter geht&apos;s da, wo du aufgehört hast 👋
-        </div>
-      )}
+      <div className="fixed left-0 top-0 z-50 h-1 w-full bg-transparent">
+        <div
+          className="h-full bg-brand-500 transition-[width] duration-150 ease-out"
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div>
 
       <header className="mb-10">
         <p className="hand-label text-lg text-brand-600">{mod.title} — Skript</p>

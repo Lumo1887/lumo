@@ -15,13 +15,27 @@ import { PDF_FORMULA_POINTS_PER_PIXEL, type RenderedFormula } from "@/lib/pdf/re
 import PdfFigure from "@/lib/pdf/SkriptPdfFigures";
 
 // Unicode-fähige Schriftart registrieren, damit Sonderzeichen im Fließtext
-// (√, Σ, ≤, σ, μ, λ, x̄ usw.) korrekt dargestellt werden — die eingebauten
+// (√, Σ, ≤, ≥, σ, μ, λ, x̄ usw.) korrekt dargestellt werden — die eingebauten
 // PDF-Standardschriften (Helvetica) unterstützen diese Zeichen nicht.
-// (Getestet/verifiziert: diese URL liefert die echte TTF-Binärdatei zurück,
-// nicht nur eine GitHub-LFS-Zeigerdatei.)
+//
+// Hinweis: Vorher war hier die *variable* Schriftdatei "NotoSans[wdth,wght].ttf"
+// registriert. @react-pdf/renderer (genauer: das intern genutzte "fontkit")
+// kommt mit variablen Schriftschnitten unzuverlässig klar und hat bei
+// bestimmten Symbolen wie ≥ und ≤ falsche/verstümmelte Glyphen eingesetzt —
+// genau die "komischen Zeichen", die in den PDF-Exports auftauchten. DejaVu
+// Sans ist ein statischer (kein variabler) Schriftschnitt mit sehr breiter
+// Unicode-/Mathesymbol-Abdeckung und wird deshalb hier stattdessen verwendet.
 Font.register({
   family: "Noto Sans",
-  src: "https://raw.githubusercontent.com/google/fonts/main/ofl/notosans/NotoSans%5Bwdth,wght%5D.ttf",
+  fonts: [
+    {
+      src: "https://raw.githubusercontent.com/dejavu-fonts/dejavu-fonts/master/ttf/DejaVuSans.ttf",
+    },
+    {
+      src: "https://raw.githubusercontent.com/dejavu-fonts/dejavu-fonts/master/ttf/DejaVuSans-Bold.ttf",
+      fontWeight: "bold",
+    },
+  ],
 });
 
 const BRAND_PURPLE = "#6D46E0";
