@@ -65,6 +65,12 @@ export async function POST(request: NextRequest) {
   // noch nicht eingerichtet ist), soll das den Widerruf selbst nicht
   // scheitern lassen — der Eintrag in der Datenbank ist bereits gesichert.
   const resend = getResendClient();
+  console.log(
+    "[widerruf] RESEND_API_KEY gesetzt:",
+    Boolean(process.env.RESEND_API_KEY),
+    "Länge:",
+    process.env.RESEND_API_KEY?.length ?? 0
+  );
   if (resend) {
     const moduleTitle = moduleSlug ? getModule(moduleSlug)?.title : undefined;
 
