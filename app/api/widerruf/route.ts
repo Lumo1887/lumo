@@ -65,32 +65,45 @@ export async function POST(request: NextRequest) {
   // noch nicht eingerichtet ist), soll das den Widerruf selbst nicht
   // scheitern lassen — der Eintrag in der Datenbank ist bereits gesichert.
   const resend = getResendClient();
-  console.log(
-    "[widerruf] RESEND_API_KEY gesetzt:",
-    Boolean(process.env.RESEND_API_KEY),
-    "Länge:",
-    process.env.RESEND_API_KEY?.length ?? 0
-  );
   if (resend) {
     const moduleTitle = moduleSlug ? getModule(moduleSlug)?.title : undefined;
 
-    resend.emails
-      .send({
+    // Wichtig: hier bewusst awaiten (statt fire-and-forget). In der
+    // Serverless-Umgebung von Vercel kann die Funktion sonst beendet
+    // werden, bevor der Request an Resend abgeschlossen ist — die Mail
+    // würde dann nie ankommen, ohne dass ein Fehler sichtbar wird.
+    const results = await Promise.allSettled([
+      resend.emails.send({
         from: MAIL_FROM,
         to: email,
         subject: "Bestätigung deines Widerrufs — Lumo",
         text: `Hallo ${name},\n\nwir haben deinen Widerruf soeben erhalten (unmittelbare elektronische Eingangsbestätigung gemäß § 356a BGB).\n\nBetroffenes Modul: ${moduleTitle ?? "nicht angegeben"}\n\nWir bearbeiten deinen Widerruf und zahlen bereits geleistete Zahlungen unverzüglich, spätestens innerhalb von 14 Tagen, auf demselben Weg zurück, mit dem du bezahlt hast.\n\nBei Rückfragen antworte einfach auf diese E-Mail oder schreib an ${OWNER_EMAIL}.\n\nViele Grüße\nLumo`,
-      })
-      .catch((err) => console.error("Bestätigungsmail an Kunde fehlgeschlagen:", err));
-
-    resend.emails
-      .send({
+      }),
+      resend.emails.send({
         from: MAIL_FROM,
         to: OWNER_EMAIL,
         subject: `Neuer Widerruf: ${name}${moduleTitle ? ` — ${moduleTitle}` : ""}`,
         text: `Neuer Widerruf eingegangen.\n\nName: ${name}\nE-Mail: ${email}\nModul: ${moduleTitle ?? "nicht angegeben"}\nKaufdatum/Referenz: ${orderReference ?? "-"}\nNachricht: ${message ?? "-"}\n\nEintrag in Supabase: withdrawal_requests, id ${data.id}`,
-      })
-      .catch((err) => console.error("Benachrichtigungsmail an Betreiber fehlgeschlagen:", err));
+      }),
+    ]);
+
+    results.forEach((result, i) => {
+      if (result.status === "rejected") {
+        console.error(
+          i === 0
+            ? "Bestätigungsmail an Kunde fehlgeschlagen:"
+            : "Benachrichtigungsmail an Betreiber fehlgeschlagen:",
+          result.reason
+        );
+      } else if (result.value?.error) {
+        console.error(
+          i === 0
+            ? "Resend-Fehler (Kunde):"
+            : "Resend-Fehler (Betreiber):",
+          result.value.error
+        );
+      }
+    });
   }
 
   return NextResponse.json({ ok: true, id: data.id });
