@@ -22,17 +22,21 @@ import PdfFigure from "@/lib/pdf/SkriptPdfFigures";
 // registriert. @react-pdf/renderer (genauer: das intern genutzte "fontkit")
 // kommt mit variablen Schriftschnitten unzuverlässig klar und hat bei
 // bestimmten Symbolen wie ≥ und ≤ falsche/verstümmelte Glyphen eingesetzt —
-// genau die "komischen Zeichen", die in den PDF-Exports auftauchten. DejaVu
-// Sans ist ein statischer (kein variabler) Schriftschnitt mit sehr breiter
-// Unicode-/Mathesymbol-Abdeckung und wird deshalb hier stattdessen verwendet.
+// genau die "komischen Zeichen", die in den PDF-Exports auftauchten.
+//
+// Ersetzt durch die statischen (nicht-variablen) NotoSans-Regular/Bold-Dateien
+// aus dem openmaptiles/fonts-Repository — dieses Repository wird gezielt von
+// Karten-Rendering-Bibliotheken genutzt, die zur Laufzeit echte, direkt
+// eingebettete Schrift-Binärdateien brauchen (keine Git-LFS-Zeigerdateien),
+// weshalb es hier zuverlässiger als andere Quellen ist.
 Font.register({
   family: "Noto Sans",
   fonts: [
     {
-      src: "https://raw.githubusercontent.com/dejavu-fonts/dejavu-fonts/master/ttf/DejaVuSans.ttf",
+      src: "https://raw.githubusercontent.com/openmaptiles/fonts/master/noto-sans/NotoSans-Regular.ttf",
     },
     {
-      src: "https://raw.githubusercontent.com/dejavu-fonts/dejavu-fonts/master/ttf/DejaVuSans-Bold.ttf",
+      src: "https://raw.githubusercontent.com/openmaptiles/fonts/master/noto-sans/NotoSans-Bold.ttf",
       fontWeight: "bold",
     },
   ],
