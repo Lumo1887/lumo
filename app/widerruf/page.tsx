@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import WiderrufForm from "@/components/WiderrufForm";
 
 export const metadata: Metadata = {
   title: "Widerrufsbelehrung — Lumo",
@@ -8,8 +9,17 @@ export default function WiderrufPage() {
   return (
     <div className="card mx-auto max-w-3xl p-8 sm:p-10">
       <h1 className="text-3xl font-bold text-ink-900">Widerrufsbelehrung</h1>
+      <p className="mt-2 text-ink-600">
+        Du kannst deinen Kauf hier direkt online widerrufen — ganz ohne
+        Login. Weiter unten findest du zusätzlich alle Informationen zu
+        deinem Widerrufsrecht.
+      </p>
 
-      <h2 className="mt-8 text-lg font-semibold text-ink-900">Widerrufsrecht</h2>
+      <div className="mt-6">
+        <WiderrufForm />
+      </div>
+
+      <h2 className="mt-10 text-lg font-semibold text-ink-900">Widerrufsrecht</h2>
       <p className="mt-2 text-ink-700">
         Du hast das Recht, binnen vierzehn Tagen ohne Angabe von Gründen
         diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt vierzehn
@@ -23,9 +33,10 @@ export default function WiderrufPage() {
         <br />
         mittels einer eindeutigen Erklärung (z. B. ein mit der Post
         versandter Brief oder eine E-Mail) über deinen Entschluss, diesen
-        Vertrag zu widerrufen, informieren. Du kannst dafür das unten
-        stehende Muster-Widerrufsformular verwenden, es ist aber nicht
-        vorgeschrieben.
+        Vertrag zu widerrufen, informieren. Am schnellsten geht das über
+        das Online-Formular oben auf dieser Seite; alternativ kannst du
+        auch das weiter unten stehende Muster-Widerrufsformular
+        verwenden, es ist aber nicht vorgeschrieben.
       </p>
       <p className="mt-3 text-ink-700">
         Zur Wahrung der Widerrufsfrist reicht es aus, dass du die
@@ -76,11 +87,12 @@ export default function WiderrufPage() {
       </p>
 
       <h2 className="mt-8 text-lg font-semibold text-ink-900">
-        Muster-Widerrufsformular
+        Muster-Widerrufsformular (postalisch/per E-Mail)
       </h2>
       <p className="mt-2 text-ink-700">
-        (Wenn du den Vertrag widerrufen willst, fülle bitte dieses
-        Formular aus und sende es an uns zurück.)
+        Falls du lieber schriftlich statt über das Online-Formular oben
+        widerrufen möchtest, fülle bitte dieses Formular aus und sende es
+        an uns zurück.
       </p>
       <div className="mt-3 rounded-lg border border-ink-100 bg-ink-50 p-4 text-sm text-ink-700">
         <p>An: Carlo Pochert, Gerwigstraße 29, 76131 Karlsruhe, lumolearn@outlook.de</p>

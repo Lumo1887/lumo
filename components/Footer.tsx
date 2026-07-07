@@ -28,6 +28,12 @@ export default function Footer() {
           <Link href="/widerruf" className="hover:text-brand-600 hover:underline">
             Widerrufsbelehrung
           </Link>
+          <Link
+            href="/widerruf#formular"
+            className="font-semibold text-brand-700 hover:underline"
+          >
+            Vertrag widerrufen
+          </Link>
         </div>
       </div>
     </footer>
