@@ -462,6 +462,13 @@ export const chapters: SkriptChapter[] = [
         formulasLatex: [
           "P(X=k) = \\dfrac{e^{-\\lambda}\\lambda^k}{k!}, \\quad E(X) = \\text{Var}(X) = \\lambda",
         ],
+        figure: {
+          type: "binomial-bars",
+          caption: "Abb. 3.2 — Poisson-Verteilung: ebenfalls eine diskrete Balkenverteilung über k=0,1,2,..., mit Schwerpunkt und größter Streuung um λ.",
+        },
+        examples: [
+          "X ~ Poisson(λ=4): E(X) = Var(X) = 4. Der Graph zeigt einzelne, isolierte Balken über k=0,1,2,... (kein durchgezogenes Histogramm), mit dem höchsten Balken in der Nähe von λ=4 und abnehmender Höhe nach beiden Seiten.",
+        ],
       },
       {
         id: "5-5",
@@ -664,8 +671,13 @@ export const chapters: SkriptChapter[] = [
         formulasLatex: [
           "F(x) = \\dfrac{\\text{Anzahl}(X_i \\le x)}{n} = \\sum_{a_i \\le x} f(a_i)",
         ],
+        figure: {
+          type: "distribution-function",
+          caption: "Abb. 4.1 — Empirische Verteilungsfunktion: Treppenfunktion von 0 bis 1, mit einem Sprung an jeder Beobachtungsstelle. Die Sprunghöhe an ai entspricht genau f(ai).",
+        },
         examples: [
           "Bei 10 gewürfelten Zahlen 2,4,4,5,6,2,3,4,5,6 ist f(4) = 3/10 = 0,3. F(4) = f(2)+f(3)+f(4) = 0,2+0,1+0,3 = 0,6 — 60 Prozent der Würfe zeigten höchstens eine 4.",
+          "Der Graph von F(x) ist eine Treppe, keine glatte Kurve: Sie ist konstant zwischen den Ausprägungen und springt genau an jeder beobachteten Stelle a_i um den Betrag f(a_i) nach oben — links von der kleinsten Ausprägung liegt F(x)=0, ab der größten Ausprägung ist F(x)=1. Das ist derselbe Kurvenverlauf wie bei der theoretischen Verteilungsfunktion aus Kapitel 2 — nur dass hier die Sprunghöhen aus echten Daten statt aus Wahrscheinlichkeiten stammen.",
         ],
       },
       {
