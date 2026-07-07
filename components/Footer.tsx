@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="border-t border-ink-100 bg-white">
@@ -12,6 +14,20 @@ export default function Footer() {
             basieren auf öffentlich zugänglichem Vorlesungs- und
             Übungsmaterial.
           </p>
+        </div>
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 border-t border-ink-100 pt-4 sm:justify-start">
+          <Link href="/impressum" className="hover:text-brand-600 hover:underline">
+            Impressum
+          </Link>
+          <Link href="/datenschutz" className="hover:text-brand-600 hover:underline">
+            Datenschutz
+          </Link>
+          <Link href="/agb" className="hover:text-brand-600 hover:underline">
+            AGB
+          </Link>
+          <Link href="/widerruf" className="hover:text-brand-600 hover:underline">
+            Widerrufsbelehrung
+          </Link>
         </div>
       </div>
     </footer>

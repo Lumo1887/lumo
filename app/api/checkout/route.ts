@@ -5,11 +5,21 @@ import { createClient } from "@/lib/supabaseServer";
 
 export async function POST(req: NextRequest) {
   try {
-    const { moduleSlug } = await req.json();
+    const { moduleSlug, withdrawalConsent } = await req.json();
     const mod = getModule(moduleSlug);
 
     if (!mod) {
       return NextResponse.json({ error: "Unbekanntes Modul." }, { status: 400 });
+    }
+
+    // Digitale Inhalte: Ohne diese ausdrückliche, im Checkout-Button
+    // eingeholte Zustimmung (vorzeitiges Erlöschen des Widerrufsrechts nach
+    // § 356 Abs. 5 BGB) darf der Zugang nicht sofort freigeschaltet werden.
+    if (withdrawalConsent !== true) {
+      return NextResponse.json(
+        { error: "Zustimmung zum Widerrufshinweis fehlt." },
+        { status: 400 }
+      );
     }
 
     if (!process.env.STRIPE_SECRET_KEY) {
@@ -59,6 +69,8 @@ export async function POST(req: NextRequest) {
       metadata: {
         moduleSlug: mod.slug,
         userId: user.id,
+        withdrawalConsent: "true",
+        withdrawalConsentAt: new Date().toISOString(),
       },
       success_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/checkout/cancel`,

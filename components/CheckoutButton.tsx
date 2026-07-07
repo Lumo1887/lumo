@@ -15,8 +15,13 @@ export default function CheckoutButton({
   const pathname = usePathname();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [consent, setConsent] = useState(false);
 
   async function handleClick() {
+    if (!consent) {
+      setError("Bitte bestätige zuerst den Hinweis zum Widerrufsrecht.");
+      return;
+    }
     setLoading(true);
     setError(null);
 
@@ -34,7 +39,7 @@ export default function CheckoutButton({
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ moduleSlug }),
+        body: JSON.stringify({ moduleSlug, withdrawalConsent: true }),
       });
       const data = await res.json();
 
@@ -57,7 +62,29 @@ export default function CheckoutButton({
 
   return (
     <div>
-      <button onClick={handleClick} disabled={loading} className="btn-primary w-full">
+      <label className="mb-3 flex items-start gap-2 text-xs text-ink-600">
+        <input
+          type="checkbox"
+          checked={consent}
+          onChange={(e) => setConsent(e.target.checked)}
+          className="mt-0.5"
+        />
+        <span>
+          Ich stimme ausdrücklich zu, dass Lumo mit der Bereitstellung der
+          digitalen Inhalte vor Ablauf der Widerrufsfrist beginnt, und weiß,
+          dass ich dadurch mein Widerrufsrecht verliere, sobald der Zugang
+          freigeschaltet wurde (siehe{" "}
+          <a href="/widerruf" target="_blank" className="underline">
+            Widerrufsbelehrung
+          </a>
+          ).
+        </span>
+      </label>
+      <button
+        onClick={handleClick}
+        disabled={loading || !consent}
+        className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-50"
+      >
         {loading ? "Wird geladen …" : label ?? "Jetzt freischalten"}
       </button>
       {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
