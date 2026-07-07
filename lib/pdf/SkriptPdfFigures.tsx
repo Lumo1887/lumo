@@ -41,7 +41,7 @@ function Frame({
   children: React.ReactNode;
 }) {
   return (
-    <View style={styles.frame}>
+    <View style={styles.frame} wrap={false}>
       <Svg width={DISPLAY_WIDTH} height={DISPLAY_WIDTH / aspect} viewBox={viewBox}>
         {children}
       </Svg>

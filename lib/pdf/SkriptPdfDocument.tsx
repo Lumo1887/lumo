@@ -204,7 +204,7 @@ function FormulaBlock({
     const width = formula.width * PDF_FORMULA_POINTS_PER_PIXEL;
     const height = formula.height * PDF_FORMULA_POINTS_PER_PIXEL;
     return (
-      <View style={styles.formulaBox}>
+      <View style={styles.formulaBox} wrap={false}>
         <Image src={{ data: formula.png, format: "png" }} style={{ width, height }} />
       </View>
     );
@@ -212,7 +212,7 @@ function FormulaBlock({
   // Fallback, falls das Rendern dieser einen Formel fehlgeschlagen ist —
   // dann lieber der ursprüngliche Text als eine kaputte Seite.
   return (
-    <View style={styles.formulaBox}>
+    <View style={styles.formulaBox} wrap={false}>
       <Text style={styles.formulaFallbackText}>{fallbackText}</Text>
     </View>
   );
@@ -263,7 +263,7 @@ export default function SkriptPdfDocument({
               {section.terms && section.terms.length > 0 && (
                 <View style={styles.termRow}>
                   {section.terms.map((t, i) => (
-                    <View key={i} style={styles.termBox}>
+                    <View key={i} style={styles.termBox} wrap={false}>
                       <Text style={styles.termName}>{t.term}</Text>
                       <Text style={styles.termDef}>{t.definition}</Text>
                     </View>
@@ -283,7 +283,7 @@ export default function SkriptPdfDocument({
                 return <FormulaBlock key={key} formula={formulaImages[key]} fallbackText={f} />;
               })}
               {section.examples?.map((ex, i) => (
-                <Text key={i} style={styles.exampleBox}>
+                <Text key={i} style={styles.exampleBox} wrap={false}>
                   Beispiel{section.examples!.length > 1 ? ` ${i + 1}` : ""}: {ex}
                 </Text>
               ))}
