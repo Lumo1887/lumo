@@ -113,7 +113,6 @@ export const modules: ModuleDefinition[] = [
     studiengang: "Wirtschaftsingenieurwesen",
     subject: "VWL",
     number: "1",
-    popular: true,
   },
   {
     slug: "mathematik-1-semester",
