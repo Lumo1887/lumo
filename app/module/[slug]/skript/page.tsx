@@ -220,7 +220,9 @@ export default function SkriptPage({ params }: { params: { slug: string } }) {
             <li key={chapter.id}>
               <a href={`#${chapter.id}`}>
                 Kapitel {chapter.number} — {chapter.title}
-                {!chapter.free && <span className="ml-2 text-xs text-ink-400">🔒</span>}
+                {!chapter.free && !unlocked && (
+                  <span className="ml-2 text-xs text-ink-400">🔒</span>
+                )}
               </a>
             </li>
           ))}
