@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { modules } from "@/lib/modules";
 
-const BASE_URL = "https://lumo-learn.de";
+// www-Version, weil Vercel Nicht-www auf www weiterleitet (siehe app/layout.tsx).
+const BASE_URL = "https://www.lumo-learn.de";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [

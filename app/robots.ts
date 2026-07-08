@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/admin", "/checkout/", "/reset-password"],
       },
     ],
-    sitemap: "https://lumo-learn.de/sitemap.xml",
+    sitemap: "https://www.lumo-learn.de/sitemap.xml",
   };
 }

@@ -3,7 +3,12 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const SITE_URL = "https://lumo-learn.de";
+// Vercel liefert die Seite tatsächlich unter der www-Version aus
+// (lumo-learn.de leitet per Redirect auf www.lumo-learn.de weiter) — diese
+// URL muss daher überall als "offizielle" Adresse verwendet werden
+// (Canonical-Tag, Sitemap, robots.txt, JSON-LD), sonst widersprechen sich
+// Redirect-Ziel und Canonical-Angabe und Google meldet einen "Umleitungsfehler".
+const SITE_URL = "https://www.lumo-learn.de";
 const SITE_NAME = "Lumo";
 const SITE_DESCRIPTION =
   "Günstiger und wertvoller als klassische Vorbereitungskurse: Skript, Altklausur-Aufgaben und ein interaktives Übungstool für dein KIT-Modul.";
