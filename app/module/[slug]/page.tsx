@@ -13,8 +13,8 @@ export function generateMetadata({
   const mod = getModule(params.slug);
   if (!mod) return {};
 
-  const title = `${mod.title} — Skript & Übungstool`;
-  const description = `${mod.subtitle} Skript, Altklausur-Aufgaben und KI-Tutor für ${mod.title} — von Lumo.`;
+  const title = `${mod.title} KIT — Skript & Übungstool`;
+  const description = `${mod.subtitle} Skript, Altklausur-Aufgaben und KI-Tutor für das KIT-Modul ${mod.title} — von Lumo.`;
 
   return {
     title,
@@ -33,9 +33,9 @@ export default function ModulePage({ params }: { params: { slug: string } }) {
   if (mod.status === "coming-soon" || !hasContent) {
     return (
       <div>
-        <span className="badge">{mod.faculty}</span>
+        <span className="badge">KIT · {mod.faculty}</span>
         <h1 className="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">
-          {mod.title}
+          {mod.title} am KIT
         </h1>
         <p className="mt-3 max-w-2xl text-ink-600">{mod.subtitle}</p>
         <div className="card mt-8 max-w-md p-6">
@@ -53,9 +53,9 @@ export default function ModulePage({ params }: { params: { slug: string } }) {
   return (
     <div>
       <div className="mb-10">
-        <span className="badge">{mod.faculty}</span>
+        <span className="badge">KIT · {mod.faculty}</span>
         <h1 className="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">
-          {mod.title}
+          {mod.title} am KIT
         </h1>
         <p className="mt-3 max-w-2xl text-ink-600">{mod.subtitle}</p>
       </div>
