@@ -1,8 +1,28 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getModule, formatEuro } from "@/lib/modules";
 import { getModuleChapters } from "@/lib/content/registry";
 import CheckoutButton from "@/components/CheckoutButton";
+
+export function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Metadata {
+  const mod = getModule(params.slug);
+  if (!mod) return {};
+
+  const title = `${mod.title} — Skript & Übungstool`;
+  const description = `${mod.subtitle} Skript, Altklausur-Aufgaben und KI-Tutor für ${mod.title} — von Lumo.`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/module/${mod.slug}` },
+    openGraph: { title, description },
+  };
+}
 
 export default function ModulePage({ params }: { params: { slug: string } }) {
   const mod = getModule(params.slug);
