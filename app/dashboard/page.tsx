@@ -46,6 +46,7 @@ export default function DashboardPage() {
     STUDIENGAENGE.find((s) => s.active)?.name ?? STUDIENGAENGE[0]?.name ?? "";
   const [studiengang, setStudiengang] = useState<string>(activeStudiengang);
   const [subject, setSubject] = useState<string | null>(null);
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -74,10 +75,17 @@ export default function DashboardPage() {
     ? modulesForStudiengang.filter((m) => m.subject === subject)
     : [];
 
-  const visibleModules = subject ? modulesForSubject : modules;
+  const popularModules = modulesForStudiengang.filter((m) => m.popular);
+
+  const visibleModules = subject
+    ? modulesForSubject
+    : showAll
+    ? modulesForStudiengang
+    : popularModules;
 
   function resetFilter() {
     setSubject(null);
+    setShowAll(false);
   }
 
   return (
@@ -87,8 +95,8 @@ export default function DashboardPage() {
           Dein Dashboard
         </h1>
         <p className="mt-3 text-ink-600">
-          Wähle deinen Studiengang und dein Fach — oder stöbere direkt unten
-          durch alle Module.
+          Hier siehst du unsere beliebtesten Module — wähle dein Fach für eine
+          gezielte Auswahl, oder zeig dir alle Module an.
         </p>
       </div>
 
@@ -149,6 +157,12 @@ export default function DashboardPage() {
         )}
       </div>
 
+      {!subject && (
+        <p className="mb-4 text-sm font-semibold text-ink-900">
+          {showAll ? "Alle Module" : "Beliebteste Module"}
+        </p>
+      )}
+
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {visibleModules.map((mod) => (
           <ModuleCard
@@ -158,6 +172,17 @@ export default function DashboardPage() {
           />
         ))}
       </div>
+
+      {!subject && !showAll && popularModules.length < modulesForStudiengang.length && (
+        <div className="mt-6 text-center">
+          <button
+            onClick={() => setShowAll(true)}
+            className="btn-secondary"
+          >
+            Alle Module anzeigen
+          </button>
+        </div>
+      )}
 
       <section className="mt-16">
         <h2 className="mb-6 text-center text-2xl font-bold text-ink-900">

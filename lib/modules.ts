@@ -14,6 +14,7 @@ export interface ModuleDefinition {
   studiengang: string; // z. B. "Wirtschaftsingenieurwesen"
   subject: string; // Fach-Gruppe, z. B. "Statistik", "VWL"
   number: string; // Nummer/Variante innerhalb des Fachs, z. B. "I", "2" — leer, wenn es (noch) nur eine Variante gibt
+  popular?: boolean; // Wird auf dem Dashboard standardmäßig (ohne Filter) angezeigt
 }
 
 // Studiengänge, die auf dem Dashboard zur Auswahl stehen. Aktuell ist nur
@@ -46,6 +47,7 @@ export const modules: ModuleDefinition[] = [
     studiengang: "Wirtschaftsingenieurwesen",
     subject: "Statistik",
     number: "I",
+    popular: true,
   },
   {
     slug: "vwl-2",
@@ -68,6 +70,7 @@ export const modules: ModuleDefinition[] = [
     studiengang: "Wirtschaftsingenieurwesen",
     subject: "VWL",
     number: "2",
+    popular: true,
   },
   {
     slug: "statistik-2",
@@ -124,6 +127,7 @@ export const modules: ModuleDefinition[] = [
     studiengang: "Wirtschaftsingenieurwesen",
     subject: "Mathematik",
     number: "1 – Semesterklausur",
+    popular: true,
   },
   {
     slug: "mathematik-1-abschluss",
