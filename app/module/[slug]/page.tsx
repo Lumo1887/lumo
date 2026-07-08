@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getModule, formatEuro } from "@/lib/modules";
+import { getModule } from "@/lib/modules";
 import { getModuleChapters } from "@/lib/content/registry";
-import CheckoutButton from "@/components/CheckoutButton";
+import ModulePurchaseCard from "@/components/ModulePurchaseCard";
 
 export function generateMetadata({
   params,
@@ -105,27 +105,11 @@ export default function ModulePage({ params }: { params: { slug: string } }) {
         </div>
 
         <aside className="card h-fit p-6">
-          <span className="badge">Einführungspreis</span>
-          <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-3xl font-extrabold text-ink-900">
-              {formatEuro(mod.priceCent)}
-            </span>
-            <span className="text-ink-600 line-through">
-              {formatEuro(mod.compareAtCent)}
-            </span>
-          </div>
-          <p className="mt-1 text-sm text-ink-600">
-            Einmalig, dauerhafter Zugriff. Günstiger als klassische
-            Vorbereitungskurse — der Preis steigt, sobald mehr Module und
-            Funktionen live sind.
-          </p>
-          <div className="mt-5">
-            <CheckoutButton moduleSlug={mod.slug} label="Modul freischalten" />
-          </div>
-          <p className="mt-3 text-center text-xs text-ink-600">
-            Sichere Zahlung über Stripe. Das erste Kapitel kannst du vorher
-            gratis lesen.
-          </p>
+          <ModulePurchaseCard
+            moduleSlug={mod.slug}
+            priceCent={mod.priceCent}
+            compareAtCent={mod.compareAtCent}
+          />
         </aside>
       </div>
     </div>
