@@ -34,6 +34,35 @@ export default function Footer() {
           >
             Vertrag widerrufen
           </Link>
+          <a
+            href="https://www.instagram.com/lumolearn.de/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Lumo auf Instagram"
+            className="ml-0 flex items-center gap-1.5 hover:text-brand-600 sm:ml-auto"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <rect
+                x="3"
+                y="3"
+                width="18"
+                height="18"
+                rx="5"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              />
+              <circle cx="12" cy="12" r="4.2" stroke="currentColor" strokeWidth="1.8" />
+              <circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" />
+            </svg>
+            Instagram
+          </a>
         </div>
       </div>
     </footer>
