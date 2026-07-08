@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabaseClient";
+import { isAdminEmail } from "@/lib/admin";
 import Logo from "@/components/Logo";
 
 export default function Navbar() {
@@ -44,6 +45,11 @@ export default function Navbar() {
           <Link href="/dashboard" className="hover:text-brand-700">
             Dashboard
           </Link>
+          {loaded && isAdminEmail(email) && (
+            <Link href="/admin" className="hover:text-brand-700">
+              Admin
+            </Link>
+          )}
         </nav>
 
         {loaded && email ? (
