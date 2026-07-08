@@ -7,7 +7,6 @@ const BASE_URL = "https://www.lumo-learn.de";
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${BASE_URL}/`, changeFrequency: "weekly", priority: 1 },
-    { url: `${BASE_URL}/dashboard`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE_URL}/login`, changeFrequency: "monthly", priority: 0.3 },
     { url: `${BASE_URL}/impressum`, changeFrequency: "yearly", priority: 0.1 },
     { url: `${BASE_URL}/datenschutz`, changeFrequency: "yearly", priority: 0.1 },
