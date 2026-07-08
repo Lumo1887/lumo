@@ -24,7 +24,14 @@ export default function ModuleCard({
 
       <div>
         <div className="mb-3 flex items-center justify-between">
-          <span className="badge">{mod.faculty}</span>
+          <div className="flex items-center gap-2">
+            <span className="badge">{mod.faculty}</span>
+            {mod.popular && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-orange-100 px-2.5 py-1 text-xs font-semibold text-orange-700">
+                🔥 Beliebt
+              </span>
+            )}
+          </div>
           {!isActive && (
             <span className="rounded-full bg-ink-100 px-3 py-1 text-xs font-semibold text-ink-600">
               Bald verfügbar
