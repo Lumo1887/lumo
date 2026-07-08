@@ -55,7 +55,7 @@ const jsonLd = {
   name: "Lumo",
   url: SITE_URL,
   description: SITE_DESCRIPTION,
-  sameAs: [] as string[],
+  sameAs: ["https://www.instagram.com/lumolearn.de/"] as string[],
 };
 
 export default function RootLayout({
