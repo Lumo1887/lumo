@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { modules, STUDIENGAENGE } from "@/lib/modules";
 import ModuleCard from "@/components/ModuleCard";
-import ReferralBanner from "@/components/ReferralBanner";
 import { fetchAccess } from "@/lib/access";
 
 const comparisonRows = [
@@ -47,7 +46,6 @@ const comparisonRows = [
 export default function DashboardContent() {
   const [accessMap, setAccessMap] = useState<Record<string, boolean>>({});
   const [loaded, setLoaded] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
 
   const activeStudiengang =
     STUDIENGAENGE.find((s) => s.active)?.name ?? STUDIENGAENGE[0]?.name ?? "";
@@ -64,7 +62,6 @@ export default function DashboardContent() {
         map[slug] = true;
       });
       setAccessMap(map);
-      setLoggedIn(info.loggedIn);
       setLoaded(true);
     });
     return () => {
@@ -108,8 +105,6 @@ export default function DashboardContent() {
           Module an.
         </p>
       </div>
-
-      {loaded && <ReferralBanner loggedIn={loggedIn} />}
 
       <div className="card mb-8 p-5">
         <p className="text-sm font-semibold text-ink-900">Studiengang</p>

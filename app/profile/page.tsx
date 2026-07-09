@@ -6,6 +6,7 @@ import Link from "next/link";
 import { fetchAccess } from "@/lib/access";
 import { modules, formatEuro } from "@/lib/modules";
 import { createClient } from "@/lib/supabaseClient";
+import ReferralBanner from "@/components/ReferralBanner";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -127,6 +128,8 @@ export default function ProfilePage() {
           </div>
         )}
       </div>
+
+      <ReferralBanner />
 
       <div className="card mt-6 border-red-100 bg-red-50/40 p-6">
         <h2 className="text-lg font-bold text-red-900">Konto löschen</h2>
