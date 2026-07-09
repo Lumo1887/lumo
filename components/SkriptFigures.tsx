@@ -21,7 +21,9 @@ export type FigureType =
   | "graph-diagram"
   | "binary-tree"
   | "uml-class-box"
-  | "state-diagram";
+  | "state-diagram"
+  | "gradient-level-curves"
+  | "saddle-surface";
 
 const INK = "#44403c";
 const BRAND = "#7c3aed";
@@ -531,6 +533,41 @@ function StateDiagram() {
   );
 }
 
+function GradientLevelCurves() {
+  return (
+    <svg viewBox="0 0 380 220" className="w-full max-w-md" style={{ transform: "rotate(-0.2deg)" }}>
+      <defs>
+        <marker id="glc-arrow" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto">
+          <path d="M0,0 L9,4.5 L0,9 Z" fill={BRAND} />
+        </marker>
+      </defs>
+      <ellipse cx="190" cy="115" rx="40" ry="28" fill="none" stroke={INK} strokeWidth="1.6" />
+      <ellipse cx="190" cy="115" rx="75" ry="52" fill="none" stroke={INK} strokeWidth="1.6" />
+      <ellipse cx="190" cy="115" rx="110" ry="76" fill="none" stroke={INK} strokeWidth="1.6" />
+      <circle cx="265" cy="115" r="4" fill="#b45309" />
+      <line x1="265" y1="85" x2="265" y2="145" stroke="#b45309" strokeWidth="2" strokeDasharray="5 5" />
+      <line x1="265" y1="115" x2="325" y2="115" stroke={BRAND} strokeWidth="2.4" strokeLinecap="round" markerEnd="url(#glc-arrow)" />
+      <text x="270" y="78" className="hand-label" fontSize="13" fill="#b45309">Tangente an Höhenlinie</text>
+      <text x="295" y="108" className="hand-label" fontSize="14" fill={BRAND}>∇f</text>
+      <text x="150" y="30" className="hand-label" fontSize="13" fill={INK}>Höhenlinien von f</text>
+    </svg>
+  );
+}
+
+function SaddleSurface() {
+  return (
+    <svg viewBox="0 0 380 220" className="w-full max-w-md" style={{ transform: "rotate(0.2deg)" }}>
+      <path d="M40,60 Q190,130 340,60" fill="none" stroke={BRAND} strokeWidth="2.2" />
+      <path d="M40,160 Q190,90 340,160" fill="none" stroke="#b45309" strokeWidth="2.2" />
+      <line x1="40" y1="110" x2="340" y2="110" stroke={INK} strokeWidth="1.2" strokeDasharray="4 5" opacity="0.5" />
+      <circle cx="190" cy="110" r="5" fill={INK} />
+      <text x="200" y="102" className="hand-label" fontSize="14" fill={INK}>Sattelpunkt</text>
+      <text x="330" y="52" className="hand-label" fontSize="13" fill={BRAND}>steigt</text>
+      <text x="330" y="178" className="hand-label" fontSize="13" fill="#b45309">fällt</text>
+    </svg>
+  );
+}
+
 export default function SkriptFigure({
   type,
   caption,
@@ -562,6 +599,8 @@ export default function SkriptFigure({
     "binary-tree": <BinaryTree />,
     "uml-class-box": <UmlClassBox />,
     "state-diagram": <StateDiagram />,
+    "gradient-level-curves": <GradientLevelCurves />,
+    "saddle-surface": <SaddleSurface />,
   };
 
   return <FigureFrame caption={caption}>{map[type]}</FigureFrame>;

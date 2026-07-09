@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { View, Svg, Circle, Line, Rect, Path, Text, StyleSheet } from "@react-pdf/renderer";
+import { View, Svg, Circle, Ellipse, Line, Rect, Path, Text, StyleSheet } from "@react-pdf/renderer";
 import type { FigureType } from "@/components/SkriptFigures";
 
 const INK = "#44403c";
@@ -482,6 +482,37 @@ function StateDiagram() {
   );
 }
 
+function GradientLevelCurves() {
+  return (
+    <>
+      <Ellipse cx={190} cy={115} rx={40} ry={28} fill="none" stroke={INK} strokeWidth={1.6} />
+      <Ellipse cx={190} cy={115} rx={75} ry={52} fill="none" stroke={INK} strokeWidth={1.6} />
+      <Ellipse cx={190} cy={115} rx={110} ry={76} fill="none" stroke={INK} strokeWidth={1.6} />
+      <Circle cx={265} cy={115} r={4} fill="#b45309" />
+      <Line x1={265} y1={85} x2={265} y2={145} stroke="#b45309" strokeWidth={2} strokeDasharray="5 5" />
+      <Line x1={265} y1={115} x2={325} y2={115} stroke={BRAND} strokeWidth={2.4} strokeLinecap="round" />
+      <Path d="M320,110 L330,115 L320,120 Z" fill={BRAND} />
+      <Text x={266} y={80} fill="#b45309" style={label(10)}>Tangente an Höhenlinie</Text>
+      <Text x={296} y={108} fill={BRAND} style={label(12)}>∇f</Text>
+      <Text x={150} y={28} fill={INK} style={label(11)}>Höhenlinien von f</Text>
+    </>
+  );
+}
+
+function SaddleSurface() {
+  return (
+    <>
+      <Path d="M40,60 Q190,130 340,60" fill="none" stroke={BRAND} strokeWidth={2.2} />
+      <Path d="M40,160 Q190,90 340,160" fill="none" stroke="#b45309" strokeWidth={2.2} />
+      <Line x1={40} y1={110} x2={340} y2={110} stroke={INK} strokeWidth={1.2} strokeDasharray="4 5" opacity={0.5} />
+      <Circle cx={190} cy={110} r={5} fill={INK} />
+      <Text x={200} y={104} fill={INK} style={label(12)}>Sattelpunkt</Text>
+      <Text x={330} y={50} fill={BRAND} style={label(11)}>steigt</Text>
+      <Text x={330} y={178} fill="#b45309" style={label(11)}>fällt</Text>
+    </>
+  );
+}
+
 const ASPECTS: Record<FigureType, { viewBox: string; aspect: number }> = {
   boxplot: { viewBox: "0 0 420 160", aspect: 420 / 160 },
   histogram: { viewBox: "0 0 420 200", aspect: 420 / 200 },
@@ -506,6 +537,8 @@ const ASPECTS: Record<FigureType, { viewBox: string; aspect: number }> = {
   "binary-tree": { viewBox: "0 0 380 190", aspect: 380 / 190 },
   "uml-class-box": { viewBox: "0 0 320 220", aspect: 320 / 220 },
   "state-diagram": { viewBox: "0 0 380 160", aspect: 380 / 160 },
+  "gradient-level-curves": { viewBox: "0 0 380 220", aspect: 380 / 220 },
+  "saddle-surface": { viewBox: "0 0 380 220", aspect: 380 / 220 },
 };
 
 export default function PdfFigure({ type, caption }: { type: FigureType; caption: string }) {
@@ -534,6 +567,8 @@ export default function PdfFigure({ type, caption }: { type: FigureType; caption
     "binary-tree": <BinaryTree />,
     "uml-class-box": <UmlClassBox />,
     "state-diagram": <StateDiagram />,
+    "gradient-level-curves": <GradientLevelCurves />,
+    "saddle-surface": <SaddleSurface />,
   };
 
   return (
