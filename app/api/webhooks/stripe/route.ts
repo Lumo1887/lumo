@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe";
+import { stripe, getBaseUrl } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { getResendClient, MAIL_FROM } from "@/lib/resend";
+import { getModule } from "@/lib/modules";
 import Stripe from "stripe";
+
+const OWNER_EMAIL = "lumolearn@outlook.de";
 
 // Stripe benötigt den rohen Request-Body, um die Signatur zu prüfen.
 export const runtime = "nodejs";
@@ -60,6 +64,57 @@ export async function POST(req: NextRequest) {
       console.log(
         `[stripe webhook] Kauf gespeichert: Nutzer ${userId}, Modul "${moduleSlug}"`
       );
+
+      // Kaufbestätigungsmail — "best effort": Schlägt der Versand fehl (z. B.
+      // weil Resend nicht konfiguriert ist), soll das den bereits
+      // gespeicherten Kauf nicht rückgängig machen oder den Webhook wie ein
+      // Fehler aussehen lassen (Stripe würde ihn sonst wiederholt zustellen).
+      // Wichtig: awaiten statt fire-and-forget, da die Serverless-Function
+      // sonst beendet werden kann, bevor die Mail rausgegangen ist.
+      const resend = getResendClient();
+      const customerEmail =
+        session.customer_details?.email ?? session.customer_email ?? undefined;
+      const mod = getModule(moduleSlug);
+
+      if (resend && customerEmail && mod) {
+        const baseUrl = getBaseUrl();
+        const priceEur = (mod.priceCent / 100).toFixed(2).replace(".", ",");
+
+        const results = await Promise.allSettled([
+          resend.emails.send({
+            from: MAIL_FROM,
+            to: customerEmail,
+            subject: `Dein Zugang zu ${mod.title} ist freigeschaltet — Lumo`,
+            text: `Hallo,\n\nvielen Dank für deinen Kauf! Dein Zugang zu "${mod.title}" (${mod.subtitle}) ist ab sofort freigeschaltet.\n\nBezahlter Betrag: ${priceEur} €\n\nSkript öffnen: ${baseUrl}/module/${mod.slug}/skript\nÜbungstool öffnen: ${baseUrl}/module/${mod.slug}/uebungstool\n\nBei Fragen antworte einfach auf diese E-Mail oder schreib an ${OWNER_EMAIL}.\n\nViel Erfolg beim Lernen!\nLumo`,
+          }),
+          resend.emails.send({
+            from: MAIL_FROM,
+            to: OWNER_EMAIL,
+            subject: `Neuer Kauf: ${mod.title}`,
+            text: `Neuer Kauf eingegangen.\n\nModul: ${mod.title}\nKunde: ${customerEmail}\nBetrag: ${priceEur} €\nStripe-Session: ${session.id}\nNutzer-ID: ${userId}`,
+          }),
+        ]);
+
+        results.forEach((result, i) => {
+          if (result.status === "rejected") {
+            console.error(
+              i === 0
+                ? "Kaufbestätigungsmail an Kunde fehlgeschlagen:"
+                : "Kauf-Benachrichtigungsmail an Betreiber fehlgeschlagen:",
+              result.reason
+            );
+          } else if (result.value?.error) {
+            console.error(
+              i === 0 ? "Resend-Fehler (Kunde):" : "Resend-Fehler (Betreiber):",
+              result.value.error
+            );
+          }
+        });
+      } else if (!customerEmail) {
+        console.error(
+          "Kaufbestätigungsmail übersprungen: keine Kunden-E-Mail in der Session gefunden."
+        );
+      }
       break;
     }
     default:

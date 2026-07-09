@@ -96,6 +96,43 @@ export default function SkriptPage({ params }: { params: { slug: string } }) {
   const [unlocked, setUnlocked] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Suche über Kapitel-/Abschnittsüberschriften, Fließtext und Beispiele —
+  // rein clientseitig, da der komplette Skript-Inhalt sowieso schon geladen
+  // ist. Gesperrte Kapitel bleiben durchsuchbar (Anreiz, das Modul
+  // freizuschalten), springen beim Klick aber nur zum Kapitelanfang, nicht
+  // zum genauen Abschnitt (der hat im gesperrten Zustand kein DOM-Anker).
+  const searchResults = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (q.length < 2) return [];
+
+    const results: {
+      anchor: string;
+      chapterNumber: number;
+      sectionHeading: string;
+      locked: boolean;
+    }[] = [];
+
+    for (const chapter of chapters) {
+      const chapterLocked = !chapter.free && !unlocked;
+      for (const section of chapter.sections) {
+        const haystack = [section.heading, ...section.body, ...(section.examples ?? [])]
+          .join(" ")
+          .toLowerCase();
+        if (haystack.includes(q)) {
+          results.push({
+            anchor: chapterLocked ? chapter.id : section.id,
+            chapterNumber: chapter.number,
+            sectionHeading: section.heading,
+            locked: chapterLocked,
+          });
+        }
+      }
+    }
+
+    return results.slice(0, 20);
+  }, [searchQuery, chapters, unlocked]);
 
   useEffect(() => {
     let active = true;
@@ -221,6 +258,43 @@ export default function SkriptPage({ params }: { params: { slug: string } }) {
           </a>
         </div>
       </header>
+
+      <div className="relative mb-6">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="🔍 Im Skript suchen — z. B. „Bayes“ oder „Kettenregel“"
+          className="w-full rounded-lg border border-ink-200 px-4 py-2.5 text-sm focus:border-brand-500 focus:outline-none"
+        />
+        {searchQuery.trim().length >= 2 && (
+          <div className="card absolute z-40 mt-1 w-full overflow-hidden p-0">
+            {searchResults.length === 0 ? (
+              <p className="px-4 py-3 text-sm text-ink-500">
+                Keine Treffer für „{searchQuery.trim()}“.
+              </p>
+            ) : (
+              <ul className="max-h-80 overflow-y-auto py-1">
+                {searchResults.map((r, i) => (
+                  <li key={i}>
+                    <a
+                      href={`#${r.anchor}`}
+                      onClick={() => setSearchQuery("")}
+                      className="flex items-center justify-between gap-3 px-4 py-2 text-sm hover:bg-brand-50"
+                    >
+                      <span>
+                        <span className="text-ink-400">Kap. {r.chapterNumber} · </span>
+                        <span className="font-medium text-ink-800">{r.sectionHeading}</span>
+                      </span>
+                      {r.locked && <span className="shrink-0 text-xs text-ink-400">🔒</span>}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
+      </div>
 
       <nav className="skript-toc card mb-10 p-4 sm:p-5">
         <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wide text-ink-500">

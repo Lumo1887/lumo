@@ -53,6 +53,12 @@ export async function POST(req: NextRequest) {
       payment_method_types: ["card"],
       customer_email: user.email ?? undefined,
       client_reference_id: user.id,
+      // Zeigt im Stripe Checkout ein Rabattcode-Feld an. Die eigentlichen
+      // Gutscheine/Rabatte werden direkt im Stripe-Dashboard angelegt
+      // (Produktkatalog -> Coupons/Promotion codes) — keine Code-Änderung
+      // nötig, um neue Codes herauszugeben (z. B. für Fachschaften,
+      // Ambassador:innen, Social-Media-Aktionen).
+      allow_promotion_codes: true,
       line_items: [
         {
           price_data: {

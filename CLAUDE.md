@@ -59,6 +59,28 @@ an — nicht erst nach Rückfrage.
   nicht einfach weitermachen — den Nutzer kurz fragen, wie er vorgehen
   möchte, bevor eine Fragenbank auf Basis der falschen Inhalte gebaut wird.
 
+## Formeln: echtes Rendering (KaTeX / PDF)
+
+Formeln werden NICHT als reiner Unicode-Text angezeigt, sondern echt
+typografisch gerendert — im Online-Skript per KaTeX (`components/MathFormula.tsx`,
+nutzt `section.formulasLatex`), im PDF-Export (Skript- und Formelsammlung-PDF)
+per MathJax → SVG → PNG (`lib/pdf/renderLatex.ts`, nutzt `@resvg/resvg-wasm`,
+bewusst NICHT `@resvg/resvg-js`, da dessen plattformspezifische native
+Binärdatei bei Next.js/Vercel-Deployments nicht zuverlässig mitgebündelt wird).
+
+Das bedeutet für jedes neue Modul: Jeder Eintrag in `formulas` (Skript-Sections)
+braucht einen exakt passenden Eintrag in `formulasLatex` (gleiche Reihenfolge/
+Länge), und zwar mit echtem LaTeX (`\dfrac{...}{...}` statt `a/b` als Bruch,
+`\land`/`\lor`/`\iff`/`\Rightarrow` statt der reinen Unicode-Zeichen ∧/∨/⇔/⇒
+usw.), damit die Formel überall als echtes Bild/echter Bruch erscheint statt
+als Rohtext-Fallback. `formulas` bleibt trotzdem gepflegt als Text-Fallback,
+falls das Rendering für einen einzelnen Eintrag mal fehlschlägt.
+
+Die Rendering-Pipeline selbst (Font, resvg-wasm, KaTeX-Einbindung) ist
+generisch und muss für neue Module NICHT angefasst werden — nur die
+`formulasLatex`-Einträge in der jeweiligen `lib/content/<slug>.ts` müssen
+stimmen.
+
 ## Neues Modul anlegen — Quellmaterial
 
 Rohe Quell-PDFs für neue Module (Vorlesungsfolien, Übungsblätter, Tutorien)
