@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+// KaTeX-Stylesheet global importieren, damit Formeln im Online-Skript als
+// echte, typografisch korrekte Formeln (mit Bruchstrich usw.) erscheinen,
+// statt als reiner Unicode-Text. Wird von components/MathFormula.tsx benutzt.
+import "katex/dist/katex.min.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 

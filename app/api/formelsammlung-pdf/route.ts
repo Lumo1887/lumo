@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
         if (!latex) continue;
         const key = `${chapter.id}__${section.id}__${i}`;
         try {
-          formulaImages[key] = renderLatexToPng(latex);
+          formulaImages[key] = await renderLatexToPng(latex);
         } catch (err) {
           console.error(`Formel konnte nicht gerendert werden (${key}):`, err);
         }

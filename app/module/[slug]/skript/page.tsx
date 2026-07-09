@@ -5,6 +5,7 @@ import Link from "next/link";
 import { getModuleChapters, type SkriptSection } from "@/lib/content/registry";
 import { getModule } from "@/lib/modules";
 import SkriptFigure from "@/components/SkriptFigures";
+import MathFormula from "@/components/MathFormula";
 import { fetchAccess } from "@/lib/access";
 
 type PurchaseLike = string | { moduleSlug?: string; module_slug?: string; slug?: string };
@@ -57,7 +58,9 @@ function SectionContent({
       {section.formulas && section.formulas.length > 0 && (
         <div className="skript-formula mb-4 space-y-1">
           {section.formulas.map((f, i) => (
-            <div key={i}>{f}</div>
+            <div key={i}>
+              <MathFormula latex={section.formulasLatex?.[i]} fallback={f} />
+            </div>
           ))}
         </div>
       )}

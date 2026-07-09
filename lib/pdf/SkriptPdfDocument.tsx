@@ -203,6 +203,11 @@ function PageFooter() {
   );
 }
 
+// A4 (595pt) minus Seitenränder (48pt beidseitig) minus Zellen-Innenpolsterung
+// (10pt beidseitig) — großzügig abgerundet, damit auch sehr breite Formeln
+// nicht über den Seitenrand hinausragen.
+const MAX_FORMULA_WIDTH = 470;
+
 function FormulaBlock({
   formula,
   fallbackText,
@@ -211,8 +216,11 @@ function FormulaBlock({
   fallbackText: string;
 }) {
   if (formula) {
-    const width = formula.width * PDF_FORMULA_POINTS_PER_PIXEL;
-    const height = formula.height * PDF_FORMULA_POINTS_PER_PIXEL;
+    const rawWidth = formula.width * PDF_FORMULA_POINTS_PER_PIXEL;
+    const rawHeight = formula.height * PDF_FORMULA_POINTS_PER_PIXEL;
+    const scale = rawWidth > MAX_FORMULA_WIDTH ? MAX_FORMULA_WIDTH / rawWidth : 1;
+    const width = rawWidth * scale;
+    const height = rawHeight * scale;
     return (
       <View style={styles.formulaBox} wrap={false}>
         <Image src={{ data: formula.png, format: "png" }} style={{ width, height }} />

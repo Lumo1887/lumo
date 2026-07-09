@@ -154,6 +154,13 @@ function PageFooter() {
   );
 }
 
+// Breite einer Rasterzelle: A4 (595pt) minus Seitenränder (40pt beidseitig)
+// minus Spaltenabstand (8pt), geteilt durch 2 Spalten (48.5% je Zelle), minus
+// die eigene Zellen-Innenpolsterung (7pt beidseitig) — großzügig abgerundet,
+// damit auch breite Formeln (z. B. Additionssatz, Satz von Bayes) sicher in
+// ihre Zelle passen, statt über den Rand hinauszuragen.
+const MAX_FORMULA_WIDTH = 215;
+
 function FormulaCell({
   sectionHeading,
   formula,
@@ -163,18 +170,20 @@ function FormulaCell({
   formula: RenderedFormula | undefined;
   fallbackText: string;
 }) {
+  let imageStyle: { width: number; height: number } | null = null;
+  if (formula) {
+    const rawWidth = formula.width * PDF_FORMULA_POINTS_PER_PIXEL;
+    const rawHeight = formula.height * PDF_FORMULA_POINTS_PER_PIXEL;
+    const scale = rawWidth > MAX_FORMULA_WIDTH ? MAX_FORMULA_WIDTH / rawWidth : 1;
+    imageStyle = { width: rawWidth * scale, height: rawHeight * scale };
+  }
+
   return (
     <View style={styles.formulaBox} wrap={false}>
       <Text style={styles.formulaSectionLabel}>{sectionHeading}</Text>
-      {formula ? (
+      {formula && imageStyle ? (
         <View style={styles.formulaImageWrap}>
-          <Image
-            src={{ data: formula.png, format: "png" }}
-            style={{
-              width: formula.width * PDF_FORMULA_POINTS_PER_PIXEL,
-              height: formula.height * PDF_FORMULA_POINTS_PER_PIXEL,
-            }}
-          />
+          <Image src={{ data: formula.png, format: "png" }} style={imageStyle} />
         </View>
       ) : (
         <Text style={styles.formulaFallbackText}>{fallbackText}</Text>

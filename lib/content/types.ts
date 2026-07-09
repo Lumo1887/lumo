@@ -6,9 +6,11 @@ export interface SkriptSection {
   body: string[];
   formulas?: string[];
   // Optionale LaTeX-Fassung der Einträge in "formulas" (gleiche Reihenfolge
-  // /Länge) — wird nur für den PDF-Export benutzt, um echte, typografisch
-  // korrekte Formeln zu rendern. Die Webseite selbst zeigt weiterhin die
-  // "formulas"-Unicode-Strings an.
+  // /Länge) — wird sowohl im Online-Skript (via KaTeX, components/MathFormula.tsx)
+  // als auch im PDF-Export benutzt, um echte, typografisch korrekte Formeln
+  // (Bruchstriche usw.) zu rendern. "formulas" bleibt der Text-Fallback, falls
+  // für einen Eintrag keine LaTeX-Fassung vorhanden ist oder das Rendering
+  // fehlschlägt.
   formulasLatex?: string[];
   examples?: string[];
   figure?: { type: FigureType; caption: string };
