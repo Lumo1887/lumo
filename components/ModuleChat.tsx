@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { fetchAccess } from "@/lib/access";
+import { getModule } from "@/lib/modules";
 
 type ChatMessage = { role: "user" | "model"; text: string };
 type AccessState = "checking" | "loggedOut" | "locked" | "unlocked";
@@ -40,10 +41,11 @@ export default function ModuleChat({
           setAccess("loggedOut");
         } else if (ownsModule(info?.purchases, moduleSlug)) {
           setAccess("unlocked");
+          const example = getModule(moduleSlug)?.exampleQuestion ?? "Erklär mir ein zentrales Konzept aus dem Skript an einem Beispiel.";
           setMessages([
             {
               role: "model",
-              text: `Hey! Ich bin dein ${moduleTitle}-Experte. Frag mich alles zum Skript — z. B. „Erklär mir den Satz von Bayes an einem Beispiel."`,
+              text: `Hey! Ich bin dein ${moduleTitle}-Experte. Frag mich alles zum Skript — z. B. „${example}"`,
             },
           ]);
         } else {

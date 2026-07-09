@@ -15,6 +15,7 @@ export interface ModuleDefinition {
   subject: string; // Fach-Gruppe, z. B. "Statistik", "VWL"
   number: string; // Nummer/Variante innerhalb des Fachs, z. B. "I", "2" — leer, wenn es (noch) nur eine Variante gibt
   popular?: boolean; // Wird auf dem Dashboard standardmäßig (ohne Filter) angezeigt
+  exampleQuestion?: string; // Beispielfrage, die im Chatbot als Vorschlag angezeigt wird
 }
 
 // Studiengänge, die auf dem Dashboard zur Auswahl stehen. Aktuell ist nur
@@ -48,6 +49,7 @@ export const modules: ModuleDefinition[] = [
     subject: "Statistik",
     number: "I",
     popular: true,
+    exampleQuestion: "Erklär mir den Satz von Bayes an einem Beispiel.",
   },
   {
     slug: "vwl-2",
@@ -71,6 +73,7 @@ export const modules: ModuleDefinition[] = [
     subject: "VWL",
     number: "2",
     popular: true,
+    exampleQuestion: "Erklär mir das IS-LM-Modell an einem Beispiel.",
   },
   {
     slug: "statistik-2",
@@ -113,6 +116,7 @@ export const modules: ModuleDefinition[] = [
     studiengang: "Wirtschaftsingenieurwesen",
     subject: "VWL",
     number: "1",
+    exampleQuestion: "Erklär mir das Gewinnmaximierungsproblem des Monopolisten an einem Beispiel.",
   },
   {
     slug: "mathematik-1-semester",
@@ -142,6 +146,7 @@ export const modules: ModuleDefinition[] = [
     subject: "Mathematik",
     number: "1 – Semesterklausur",
     popular: true,
+    exampleQuestion: "Erklär mir die vollständige Induktion an einem Beispiel.",
   },
   {
     slug: "mathematik-1-abschluss",
@@ -282,6 +287,7 @@ export const modules: ModuleDefinition[] = [
     studiengang: "Wirtschaftsingenieurwesen",
     subject: "Informatik",
     number: "2",
+    exampleQuestion: "Erklär mir binäre Suchbäume an einem Beispiel.",
   },
   {
     slug: "or-1",
