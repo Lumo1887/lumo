@@ -149,6 +149,10 @@ export const chapters: SkriptChapter[] = [
         examples: [
           "Für A = {1, 2, 3, 4} und B = {3, 4, 5} gilt A ∪ B = {1, 2, 3, 4, 5}, A ∩ B = {3, 4} und A \\ B = {1, 2}.",
         ],
+        figure: {
+          type: "venn",
+          caption: "Die Schnittmenge A∩B enthält genau die Elemente, die in beiden Mengen liegen.",
+        },
       },
       {
         id: "2-3",
@@ -593,6 +597,10 @@ export const chapters: SkriptChapter[] = [
         examples: [
           "Für M = (−∞, 5) gilt sup M = 5, aber M besitzt kein Maximum, da 5 ∉ M.",
         ],
+        figure: {
+          type: "number-line",
+          caption: "Ein beschränktes Intervall [a, b] auf dem Zahlenstrahl.",
+        },
       },
       {
         id: "8-4",
@@ -654,6 +662,10 @@ export const chapters: SkriptChapter[] = [
         examples: [
           "Die harmonische Folge aₙ = 1/n ist eine Nullfolge: Zu ε > 0 wähle man (mit dem Satz von Archimedes aus Kapitel 8) n₀ > 1/ε.",
         ],
+        figure: {
+          type: "sequence-convergence",
+          caption: "Ab n₀ verbleiben alle Folgenglieder im ε-Schlauch um den Grenzwert a.",
+        },
       },
       {
         id: "9-3",
@@ -991,6 +1003,10 @@ export const chapters: SkriptChapter[] = [
             definition: "f(−x) = −f(x) für alle x im Definitionsbereich; insbesondere folgt f(0) = 0.",
           },
         ],
+        figure: {
+          type: "unit-circle",
+          caption: "Am Einheitskreis: cos θ und sin θ als Koordinaten des Punkts zum Winkel θ.",
+        },
       },
       {
         id: "13-3",

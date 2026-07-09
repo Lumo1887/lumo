@@ -544,6 +544,10 @@ export const chapters: SkriptChapter[] = [
         examples: [
           "Erhöht eine Regierung die Sparquote s, verschiebt sich die Investitionskurve s·f(k) nach oben. Der neue Schnittpunkt mit der Abschreibungsgeraden δ·k liegt bei einem höheren k* — mehr Kapital, mehr Output pro Kopf im neuen steady state. Der Übergang dorthin ist aber einmalig, kein dauerhaft höheres Wachstum.",
         ],
+        figure: {
+          type: "solow-diagram",
+          caption: "Steady state k*: Schnittpunkt von Investitionskurve s·f(k) und Abschreibungsgerade (n+δ)k.",
+        },
       },
       {
         id: "6-4",
@@ -898,6 +902,10 @@ export const chapters: SkriptChapter[] = [
         examples: [
           "Extremfall f → ∞ (Liquiditätsfalle): die LM-Kurve wird waagrecht — dieser Fall wird in Kapitel 11 vertieft.",
         ],
+        figure: {
+          type: "islm",
+          caption: "Gleichgewicht bei (Y*, i*): Schnittpunkt von IS- und LM-Kurve.",
+        },
       },
     ],
   },
@@ -1060,6 +1068,10 @@ export const chapters: SkriptChapter[] = [
             definition: "Über die Zeit passen sich Preiserwartungen an tatsächliche Preise an, SRAS verschiebt sich, bis Y wieder bei Y̅ liegt.",
           },
         ],
+        figure: {
+          type: "asad",
+          caption: "Kurzfristiges Gleichgewicht (Schnittpunkt AD/SRAS) versus langfristiges Potenzial Yp (LRAS).",
+        },
       },
       {
         id: "12-4",
@@ -1079,6 +1091,10 @@ export const chapters: SkriptChapter[] = [
         ],
         formulas: ["π = π^e − β·(u − u_natürlich) + ν"],
         formulasLatex: ["\\pi = \\pi^{e} - \\beta\\,(u - u_{\\text{natürlich}}) + \\nu"],
+        figure: {
+          type: "phillips-curve",
+          caption: "Kurzfristiger Trade-off zwischen Inflation und Arbeitslosigkeit.",
+        },
       },
       {
         id: "12-5",

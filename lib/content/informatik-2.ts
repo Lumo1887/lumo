@@ -300,6 +300,10 @@ export const chapters: SkriptChapter[] = [
           "Ein Graph G = (V, E) besteht aus einer Menge von Knoten V und einer Menge von Kanten E, die Knotenpaare verbinden. Bei einem gerichteten Graphen sind Kanten geordnete Paare (die Richtung ist relevant), bei einem ungerichteten Graphen ungeordnete Paare. Der Grad eines Knotens ist die Anzahl der an ihm anliegenden Kanten (bei gerichteten Graphen unterscheidet man Eingangs- und Ausgangsgrad); ein Weg ist eine Folge von Kanten, die aufeinanderfolgende Knoten verbindet, ein Zyklus ein Weg, der zu seinem Ausgangsknoten zurückkehrt.",
           "Graphen lassen sich unter anderem als Adjazenzmatrix (eine n×n-Matrix, deren Eintrag (i,j) angibt, ob eine Kante von Knoten i zu Knoten j existiert) oder als Adjazenzliste (jeder Knoten verwaltet eine Liste seiner Nachbarn) darstellen. Bei einem ungerichteten Graphen ist die Adjazenzmatrix stets symmetrisch, bei einem gerichteten Graphen im Allgemeinen nicht. Ein Graph heißt zusammenhängend, wenn zwischen je zwei Knoten ein Weg existiert.",
         ],
+        figure: {
+          type: "graph-diagram",
+          caption: "Ein ungerichteter Graph mit 6 Knoten und 8 Kanten.",
+        },
       },
       {
         id: "6-2",
@@ -324,6 +328,10 @@ export const chapters: SkriptChapter[] = [
           "Ein binärer Suchbaum ist ein binärer Baum mit einer zusätzlichen Ordnungseigenschaft: Für jeden Knoten gilt, dass alle Elemente im linken Teilbaum kleiner und alle Elemente im rechten Teilbaum größer sind als der Knoten selbst (bezüglich einer zugrunde liegenden Ordnungsrelation). Suchen, Einfügen und Löschen orientieren sich an dieser Eigenschaft: Beim Suchen wird in jedem Knoten verglichen und je nach Ergebnis links oder rechts weitergegangen; neue Elemente werden an der Stelle eingefügt, an der die Suche erfolglos endet.",
           "Beim Löschen unterscheidet man drei Fälle: Ein Blatt kann direkt entfernt werden; ein Knoten mit genau einem Kind wird durch dieses Kind ersetzt; ein Knoten mit zwei Kindern wird durch seinen In-Order-Nachfolger (das kleinste Element im rechten Teilbaum) oder seinen In-Order-Vorgänger (das größte Element im linken Teilbaum) ersetzt, der anschließend an seiner ursprünglichen Stelle gelöscht wird. Bei der Traversierung unterscheidet man Pre-Order (Knoten, linker Teilbaum, rechter Teilbaum), Post-Order (linker Teilbaum, rechter Teilbaum, Knoten) und In-Order (linker Teilbaum, Knoten, rechter Teilbaum) — die In-Order-Traversierung liefert bei einem binären Suchbaum stets die Elemente in aufsteigend sortierter Reihenfolge.",
         ],
+        figure: {
+          type: "binary-tree",
+          caption: "Ein binärer Suchbaum über dem Alphabet als Ordnungsrelation.",
+        },
       },
     ],
   },
@@ -574,6 +582,10 @@ export const chapters: SkriptChapter[] = [
           "Vererbung wird durch einen durchgezogenen Pfeil mit unausgefüllter, dreieckiger Pfeilspitze dargestellt, der von der spezialisierten zur allgemeineren Klasse zeigt ('erbt von'). Eine abstrakte Klasse (kursiv geschriebener Klassenname) kann nicht direkt instanziiert werden und enthält mindestens eine abstrakte Operation; ein Interface («interface»-Stereotyp) geht noch weiter und enthält ausschließlich Operationssignaturen ohne jede Implementierung und ohne Attribute. Die Realisierung eines Interfaces wird durch einen gestrichelten Pfeil mit unausgefüllter Pfeilspitze dargestellt.",
           "Ein klassisches, professorunabhängiges Lehrbuchbeispiel: Eine abstrakte Klasse 'Geometrische Figur' mit der abstrakten Operation getFarbe() wird durch konkrete Klassen wie Rechteck und Quadrat spezialisiert, die diese Operation jeweils konkret implementieren. Über Vererbung lässt sich zugleich Redundanz vermeiden: Statt gemeinsame Attribute wie Name oder Adresse in mehreren Unterklassen zu duplizieren, werden sie einmalig in einer gemeinsamen (gegebenenfalls abstrakten) Oberklasse definiert, von der die spezialisierten Klassen erben.",
         ],
+        figure: {
+          type: "uml-class-box",
+          caption: "Vererbung: die konkrete Klasse PKW erbt von der abstrakten Klasse Fahrzeug.",
+        },
       },
       {
         id: "12-4",
@@ -618,6 +630,10 @@ export const chapters: SkriptChapter[] = [
           "Zustandsdiagramme gehen auf David Harels 1987 vorgestellte Statecharts zurück und eignen sich zur Modellierung aktiver, ereignisgesteuerter Systeme: Ein System befindet sich stets in genau einem Zustand (abgerundetes Rechteck, optional mit einer do-Aktivität, die während des gesamten Aufenthalts im Zustand läuft) und wechselt über Transitionen (Pfeile, optional beschriftet mit dem auslösenden Ereignis, einer Wächterbedingung in eckigen Klammern und/oder einer auszuführenden Aktion) in einen anderen Zustand. Ein Anfangszustand wird als ausgefüllter Kreis, ein Endzustand als Kreis-in-Kreis dargestellt; Zustände dürfen ineinander verschachtelt werden, um komplexes Verhalten modular zu strukturieren.",
           "Ein Beispiel: Ein Medienplayer wechselt vom Zustand 'Gestoppt' durch das Ereignis 'Play' in den Zustand 'Wiedergabe' und von dort durch 'Pause' in den Zustand 'Pausiert', der durch erneutes 'Play' wieder zu 'Wiedergabe' zurückführt. Zustandsdiagramme eignen sich gut für diskretes, ereignisgesteuertes Verhalten, stoßen aber an ihre Grenzen bei kontinuierlichem Verhalten (etwa einem sich stetig verändernden Messwert), das sich nicht sinnvoll in eine endliche Anzahl diskreter Zustände zerlegen lässt.",
         ],
+        figure: {
+          type: "state-diagram",
+          caption: "Ausschnitt des Medienplayer-Zustandsdiagramms: Gestoppt ⇄ Wiedergabe über Play/Pause.",
+        },
       },
       {
         id: "13-4",

@@ -267,6 +267,10 @@ export const chapters: SkriptChapter[] = [
             definition: "Güter, die stets im festen Verhältnis konsumiert werden (zusätzliche Einheiten nur eines Gutes bringen keinen Zusatznutzen) — L-förmige Indifferenzkurven.",
           },
         ],
+        figure: {
+          type: "budget-line",
+          caption: "Optimum E*: die höchste erreichbare Indifferenzkurve tangiert die Budgetgerade.",
+        },
       },
       {
         id: "3-3",
@@ -342,6 +346,10 @@ export const chapters: SkriptChapter[] = [
         examples: [
           "Eine Monopolistin sehe sich der inversen Nachfrage p(y) = 120 − 4y und der Kostenfunktion C(y) = y² gegenüber. Grenzerlös MR(y) = 120 − 8y, Grenzkosten C'(y) = 2y. Aus 120 − 8y = 2y folgt y* = 12, p* = 120 − 48 = 72, Gewinn π* = 72·12 − 144 = 720. Ein Preisnehmer bei gleicher Kostenfunktion würde dagegen y = 20 anbieten (p = MC ⟹ 120−4y=2y).",
         ],
+        figure: {
+          type: "monopoly-graph",
+          caption: "Gewinnmaximum: MR = MC bestimmt Qm, der Preis Pm wird von der Nachfragekurve abgelesen.",
+        },
       },
       {
         id: "4-2",
@@ -479,6 +487,10 @@ export const chapters: SkriptChapter[] = [
         examples: [
           "Für C(y) = 50 + 2y² gilt AC(y) = 50/y + 2y und MC(y) = 4y. Am Minimum von AC gilt AC = MC: 50/y + 2y = 4y ⟹ y = 5, AC(5) = 10+10 = 20 = MC(5).",
         ],
+        figure: {
+          type: "cost-curves",
+          caption: "MC schneidet AC und AVC jeweils in deren Minimum.",
+        },
       },
       {
         id: "5-4",
@@ -646,6 +658,10 @@ export const chapters: SkriptChapter[] = [
         examples: [
           "Sei D(p) = 60 − 4p die Marktnachfrage und S(p) = 2p das Marktangebot für ein Gut. Im Gleichgewicht gilt 60−4p = 2p ⟹ p* = 10, X* = 20. Die Konsumentenrente beträgt hier 50 GE, die Produzentenrente 100 GE.",
         ],
+        figure: {
+          type: "supply-demand",
+          caption: "Marktgleichgewicht: Schnittpunkt von Angebots- und Nachfragekurve bei (Q*, P*).",
+        },
       },
       {
         id: "7-4",

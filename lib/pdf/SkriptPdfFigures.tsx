@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { View, Svg, Circle, Line, Rect, Path, Text, StyleSheet } from "@react-pdf/renderer";
 import type { FigureType } from "@/components/SkriptFigures";
 
@@ -197,6 +198,290 @@ function BinomialBars() {
   );
 }
 
+function SupplyDemand() {
+  return (
+    <>
+      <Line x1={35} y1={190} x2={360} y2={190} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={35} y1={190} x2={35} y2={20} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={55} y1={30} x2={330} y2={175} stroke={BRAND} strokeWidth={2.4} strokeLinecap="round" />
+      <Line x1={55} y1={175} x2={330} y2={30} stroke="#b45309" strokeWidth={2.4} strokeLinecap="round" />
+      <Line x1={192} y1={102} x2={192} y2={190} stroke={INK} strokeWidth={1.2} strokeDasharray="4,5" />
+      <Line x1={35} y1={102} x2={192} y2={102} stroke={INK} strokeWidth={1.2} strokeDasharray="4,5" />
+      <Circle cx={192} cy={102} r={4.5} fill={INK} />
+      <Text x={280} y={24} fill={BRAND} style={label(13)}>Nachfrage</Text>
+      <Text x={260} y={44} fill="#b45309" style={label(13)}>Angebot</Text>
+      <Text x={14} y={98} fill={INK} style={label(13)}>P*</Text>
+      <Text x={185} y={210} fill={INK} style={label(13)}>Q*</Text>
+      <Text x={150} y={205} fill={INK} style={label(14)}>Menge</Text>
+      <Text x={4} y={16} fill={INK} style={label(14)}>Preis</Text>
+    </>
+  );
+}
+
+function BudgetLine() {
+  return (
+    <>
+      <Line x1={35} y1={190} x2={360} y2={190} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={35} y1={190} x2={35} y2={20} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={35} y1={30} x2={300} y2={190} stroke={INK} strokeWidth={2.2} strokeLinecap="round" />
+      <Path d="M90,190 C 110,90 190,55 320,60" fill="none" stroke={BRAND} strokeWidth={2.4} strokeLinecap="round" />
+      <Circle cx={197} cy={112} r={4.5} fill={BRAND} />
+      <Text x={205} y={108} fill={BRAND} style={label(13)}>E*</Text>
+      <Text x={215} y={52} fill={BRAND} style={label(12)}>Indifferenzkurve</Text>
+      <Text x={215} y={183} fill={INK} style={label(12)}>Budgetgerade</Text>
+      <Text x={150} y={205} fill={INK} style={label(14)}>Gut 1</Text>
+      <Text x={4} y={16} fill={INK} style={label(14)}>Gut 2</Text>
+    </>
+  );
+}
+
+function CostCurves() {
+  return (
+    <>
+      <Line x1={35} y1={185} x2={360} y2={185} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={35} y1={185} x2={35} y2={20} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Path d="M70,150 C 130,80 260,80 330,150" fill="none" stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Path d="M70,175 C 140,110 250,110 330,175" fill="none" stroke={BRAND} strokeWidth={2.2} strokeLinecap="round" />
+      <Path d="M110,185 C 150,60 230,60 300,185" fill="none" stroke="#b45309" strokeWidth={2.2} strokeLinecap="round" />
+      <Text x={335} y={150} fill={INK} style={label(13)}>AC</Text>
+      <Text x={335} y={178} fill={BRAND} style={label(13)}>AVC</Text>
+      <Text x={280} y={65} fill="#b45309" style={label(13)}>MC</Text>
+      <Text x={160} y={205} fill={INK} style={label(14)}>Menge</Text>
+      <Text x={4} y={16} fill={INK} style={label(13)}>Kosten/Stück</Text>
+    </>
+  );
+}
+
+function MonopolyGraph() {
+  return (
+    <>
+      <Line x1={35} y1={190} x2={360} y2={190} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={35} y1={190} x2={35} y2={20} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={55} y1={35} x2={330} y2={175} stroke={INK} strokeWidth={2.2} strokeLinecap="round" />
+      <Line x1={55} y1={35} x2={200} y2={175} stroke={BRAND} strokeWidth={2.2} strokeLinecap="round" />
+      <Path d="M70,175 C 140,110 250,110 320,175" fill="none" stroke="#b45309" strokeWidth={2.2} strokeLinecap="round" />
+      <Line x1={150} y1={112} x2={150} y2={190} stroke={INK} strokeWidth={1.2} strokeDasharray="4,5" />
+      <Line x1={35} y1={112} x2={150} y2={112} stroke={INK} strokeWidth={1.2} strokeDasharray="4,5" />
+      <Line x1={35} y1={66} x2={150} y2={66} stroke={INK} strokeWidth={1.2} strokeDasharray="4,5" />
+      <Circle cx={150} cy={112} r={4} fill="#b45309" />
+      <Text x={275} y={30} fill={INK} style={label(11)}>Nachfrage (AR)</Text>
+      <Text x={205} y={70} fill={BRAND} style={label(11)}>Grenzerlös (MR)</Text>
+      <Text x={280} y={150} fill="#b45309" style={label(12)}>MC</Text>
+      <Text x={10} y={62} fill={INK} style={label(12)}>Pm</Text>
+      <Text x={140} y={205} fill={INK} style={label(12)}>Qm</Text>
+    </>
+  );
+}
+
+function ISLM() {
+  return (
+    <>
+      <Line x1={35} y1={190} x2={360} y2={190} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={35} y1={190} x2={35} y2={20} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={55} y1={30} x2={330} y2={175} stroke={BRAND} strokeWidth={2.4} strokeLinecap="round" />
+      <Path d="M55,175 C 120,175 200,60 330,35" fill="none" stroke="#b45309" strokeWidth={2.4} strokeLinecap="round" />
+      <Line x1={196} y1={94} x2={196} y2={190} stroke={INK} strokeWidth={1.2} strokeDasharray="4,5" />
+      <Line x1={35} y1={94} x2={196} y2={94} stroke={INK} strokeWidth={1.2} strokeDasharray="4,5" />
+      <Circle cx={196} cy={94} r={4.5} fill={INK} />
+      <Text x={300} y={24} fill={BRAND} style={label(14)}>IS</Text>
+      <Text x={300} y={44} fill="#b45309" style={label(14)}>LM</Text>
+      <Text x={14} y={90} fill={INK} style={label(13)}>i*</Text>
+      <Text x={190} y={210} fill={INK} style={label(13)}>Y*</Text>
+      <Text x={150} y={205} fill={INK} style={label(13)}>Y (Einkommen)</Text>
+      <Text x={4} y={16} fill={INK} style={label(14)}>Zins i</Text>
+    </>
+  );
+}
+
+function ASAD() {
+  return (
+    <>
+      <Line x1={35} y1={190} x2={360} y2={190} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={35} y1={190} x2={35} y2={20} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={220} y1={190} x2={220} y2={30} stroke={INK} strokeWidth={1.8} strokeDasharray="3,5" />
+      <Line x1={55} y1={35} x2={330} y2={175} stroke={BRAND} strokeWidth={2.4} strokeLinecap="round" />
+      <Line x1={80} y1={175} x2={300} y2={55} stroke="#b45309" strokeWidth={2.4} strokeLinecap="round" />
+      <Circle cx={205} cy={98} r={4.5} fill={INK} />
+      <Text x={280} y={28} fill={BRAND} style={label(13)}>AD</Text>
+      <Text x={260} y={52} fill="#b45309" style={label(13)}>SRAS</Text>
+      <Text x={225} y={35} fill={INK} style={label(12)}>LRAS</Text>
+      <Text x={200} y={210} fill={INK} style={label(13)}>Yp</Text>
+      <Text x={150} y={205} fill={INK} style={label(13)}>Output Y</Text>
+      <Text x={4} y={16} fill={INK} style={label(13)}>Preisniveau P</Text>
+    </>
+  );
+}
+
+function PhillipsCurve() {
+  return (
+    <>
+      <Line x1={35} y1={170} x2={360} y2={170} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={35} y1={170} x2={35} y2={20} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Path d="M55,40 C 120,90 160,140 330,160" fill="none" stroke={BRAND} strokeWidth={2.4} strokeLinecap="round" />
+      <Text x={225} y={115} fill={BRAND} style={label(13)}>Phillipskurve</Text>
+      <Text x={150} y={188} fill={INK} style={label(13)}>Arbeitslosigkeit u</Text>
+      <Text x={4} y={16} fill={INK} style={label(13)}>Inflation π</Text>
+    </>
+  );
+}
+
+function SolowDiagram() {
+  return (
+    <>
+      <Line x1={35} y1={190} x2={360} y2={190} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={35} y1={190} x2={35} y2={20} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={35} y1={190} x2={320} y2={45} stroke="#b45309" strokeWidth={2.2} strokeLinecap="round" />
+      <Path d="M35,190 C 130,80 220,45 330,32" fill="none" stroke={BRAND} strokeWidth={2.4} strokeLinecap="round" />
+      <Line x1={222} y1={93} x2={222} y2={190} stroke={INK} strokeWidth={1.2} strokeDasharray="4,5" />
+      <Circle cx={222} cy={93} r={4.5} fill={INK} />
+      <Text x={310} y={28} fill={BRAND} style={label(12)}>s·f(k)</Text>
+      <Text x={300} y={45} fill="#b45309" style={label(12)}>(n+δ)k</Text>
+      <Text x={212} y={210} fill={INK} style={label(13)}>k*</Text>
+      <Text x={150} y={205} fill={INK} style={label(13)}>Kapital pro Kopf k</Text>
+    </>
+  );
+}
+
+function NumberLine() {
+  return (
+    <>
+      <Line x1={20} y1={55} x2={360} y2={55} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={140} y1={45} x2={140} y2={65} stroke={INK} strokeWidth={1.6} />
+      <Line x1={260} y1={45} x2={260} y2={65} stroke={INK} strokeWidth={1.6} />
+      <Line x1={140} y1={55} x2={260} y2={55} stroke={BRAND} strokeWidth={5} strokeLinecap="round" />
+      <Text x={132} y={35} fill={INK} style={label(14)}>a</Text>
+      <Text x={252} y={35} fill={INK} style={label(14)}>b</Text>
+      <Text x={175} y={88} fill={BRAND} style={label(13)}>[a, b]</Text>
+    </>
+  );
+}
+
+function SequenceConvergence() {
+  const points: [number, number][] = [
+    [50, 30], [85, 145], [120, 60], [150, 118], [180, 85], [210, 105], [240, 92], [270, 102], [300, 96], [330, 100],
+  ];
+  return (
+    <>
+      <Line x1={30} y1={155} x2={360} y2={155} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={30} y1={155} x2={30} y2={15} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={30} y1={98} x2={360} y2={98} stroke={INK} strokeWidth={1.4} strokeDasharray="5,5" opacity={0.6} />
+      <Rect x={30} y={88} width={330} height={20} fill="#ede9fe" fillOpacity={0.5} />
+      {points.map(([x, y], i) => (
+        <Circle key={i} cx={x} cy={y} r={4} fill={BRAND} />
+      ))}
+      <Text x={340} y={102} fill={INK} style={label(14)}>a</Text>
+      <Text x={150} y={172} fill={INK} style={label(14)}>n</Text>
+      <Text x={4} y={16} fill={INK} style={label(13)}>aₙ</Text>
+    </>
+  );
+}
+
+function UnitCircle() {
+  return (
+    <>
+      <Line x1={20} y1={150} x2={240} y2={150} stroke={INK} strokeWidth={1.6} strokeLinecap="round" />
+      <Line x1={130} y1={260} x2={130} y2={30} stroke={INK} strokeWidth={1.6} strokeLinecap="round" />
+      <Circle cx={130} cy={150} r={100} fill="none" stroke={BRAND} strokeWidth={2.2} />
+      <Line x1={130} y1={150} x2={200} y2={80} stroke={INK} strokeWidth={2.2} strokeLinecap="round" />
+      <Line x1={200} y1={80} x2={200} y2={150} stroke="#b45309" strokeWidth={2} strokeDasharray="4,5" />
+      <Line x1={130} y1={150} x2={200} y2={150} stroke="#b45309" strokeWidth={2} strokeDasharray="4,5" />
+      <Text x={158} y={122} fill={INK} style={label(13)}>θ</Text>
+      <Text x={205} y={115} fill="#b45309" style={label(12)}>sin θ</Text>
+      <Text x={150} y={168} fill="#b45309" style={label(12)}>cos θ</Text>
+    </>
+  );
+}
+
+function GraphDiagram() {
+  const nodes: [number, number, string][] = [
+    [50, 100, "1"], [150, 40, "2"], [150, 160, "3"], [250, 40, "4"], [250, 160, "5"], [330, 100, "6"],
+  ];
+  const edges: [number, number][] = [[0, 1], [0, 2], [1, 2], [1, 3], [2, 4], [3, 5], [4, 5], [3, 4]];
+  return (
+    <>
+      {edges.map(([a, b], i) => (
+        <Line key={i} x1={nodes[a][0]} y1={nodes[a][1]} x2={nodes[b][0]} y2={nodes[b][1]} stroke={INK} strokeWidth={1.8} />
+      ))}
+      {nodes.map(([x, y, txt], i) => (
+        <Fragment key={i}>
+          <Circle cx={x} cy={y} r={16} fill="#ede9fe" stroke={BRAND} strokeWidth={2.2} />
+          <Text x={x - 4} y={y + 5} fill={BRAND} style={label(13)}>{txt}</Text>
+        </Fragment>
+      ))}
+    </>
+  );
+}
+
+function BinaryTree() {
+  const edges: [number, number, number, number][] = [
+    [190, 35, 100, 95], [190, 35, 280, 95],
+    [100, 95, 55, 155], [100, 95, 145, 155],
+    [280, 95, 235, 155], [280, 95, 325, 155],
+  ];
+  const nodes: [number, number, string][] = [
+    [190, 35, "M"], [100, 95, "C"], [280, 95, "P"], [55, 155, "B"], [145, 155, "F"], [235, 155, "N"], [325, 155, "R"],
+  ];
+  return (
+    <>
+      {edges.map(([x1, y1, x2, y2], i) => (
+        <Line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={INK} strokeWidth={1.8} />
+      ))}
+      {nodes.map(([x, y, txt], i) => (
+        <Fragment key={i}>
+          <Circle cx={x} cy={y} r={17} fill="#ede9fe" stroke={BRAND} strokeWidth={2.2} />
+          <Text x={x - 5} y={y + 5} fill={BRAND} style={label(14)}>{txt}</Text>
+        </Fragment>
+      ))}
+    </>
+  );
+}
+
+function UmlClassBox() {
+  return (
+    <>
+      <Rect x={40} y={20} width={150} height={52} fill="#ede9fe" stroke={BRAND} strokeWidth={2} />
+      <Line x1={40} y1={42} x2={190} y2={42} stroke={BRAND} strokeWidth={1.6} />
+      <Text x={78} y={35} fill={BRAND} style={label(13)}>Fahrzeug</Text>
+      <Text x={50} y={62} fill={INK} style={label(10)}>+ getFarbe(): Color</Text>
+
+      <Path d="M115,145 L115,90" stroke={INK} strokeWidth={1.8} fill="none" />
+      <Path d="M105,105 L115,88 L125,105 Z" fill="white" stroke={INK} strokeWidth={1.8} />
+
+      <Rect x={30} y={145} width={150} height={60} fill="white" stroke={INK} strokeWidth={2} />
+      <Line x1={30} y1={167} x2={180} y2={167} stroke={INK} strokeWidth={1.4} />
+      <Line x1={30} y1={186} x2={180} y2={186} stroke={INK} strokeWidth={1.4} />
+      <Text x={62} y={160} fill={INK} style={label(12)}>PKW</Text>
+      <Text x={36} y={181} fill={INK} style={label(9.5)}>− sitzplaetze: int</Text>
+      <Text x={36} y={200} fill={INK} style={label(9.5)}>+ getFarbe(): Color</Text>
+
+      <Text x={210} y={55} fill={INK} style={label(11)}>abstrakte Klasse</Text>
+      <Text x={198} y={185} fill={INK} style={label(11)}>erbt von Fahrzeug</Text>
+    </>
+  );
+}
+
+function StateDiagram() {
+  return (
+    <>
+      <Circle cx={30} cy={80} r={7} fill={INK} />
+      <Line x1={37} y1={80} x2={85} y2={80} stroke={INK} strokeWidth={1.8} />
+      <Path d="M78,74 L88,80 L78,86 Z" fill={INK} />
+      <Rect x={90} y={52} width={90} height={56} rx={14} fill="#ede9fe" stroke={BRAND} strokeWidth={2.2} />
+      <Text x={108} y={86} fill={BRAND} style={label(13)}>Gestoppt</Text>
+
+      <Line x1={180} y1={65} x2={250} y2={65} stroke={INK} strokeWidth={1.8} />
+      <Path d="M243,60 L253,65 L243,70 Z" fill={INK} />
+      <Text x={185} y={58} fill={INK} style={label(10)}>Play</Text>
+      <Line x1={250} y1={100} x2={180} y2={100} stroke={INK} strokeWidth={1.8} />
+      <Path d="M187,95 L177,100 L187,105 Z" fill={INK} />
+      <Text x={190} y={116} fill={INK} style={label(10)}>Pause</Text>
+
+      <Rect x={255} y={52} width={100} height={56} rx={14} fill="#fef3c7" stroke="#b45309" strokeWidth={2.2} />
+      <Text x={268} y={86} fill="#b45309" style={label(13)}>Wiedergabe</Text>
+    </>
+  );
+}
+
 const ASPECTS: Record<FigureType, { viewBox: string; aspect: number }> = {
   boxplot: { viewBox: "0 0 420 160", aspect: 420 / 160 },
   histogram: { viewBox: "0 0 420 200", aspect: 420 / 200 },
@@ -206,6 +491,21 @@ const ASPECTS: Record<FigureType, { viewBox: string; aspect: number }> = {
   "distribution-function": { viewBox: "0 0 380 200", aspect: 380 / 200 },
   "normal-curve": { viewBox: "0 0 380 180", aspect: 380 / 180 },
   "binomial-bars": { viewBox: "0 0 400 170", aspect: 400 / 170 },
+  "supply-demand": { viewBox: "0 0 380 220", aspect: 380 / 220 },
+  "budget-line": { viewBox: "0 0 380 220", aspect: 380 / 220 },
+  "cost-curves": { viewBox: "0 0 380 210", aspect: 380 / 210 },
+  "monopoly-graph": { viewBox: "0 0 380 220", aspect: 380 / 220 },
+  islm: { viewBox: "0 0 380 220", aspect: 380 / 220 },
+  asad: { viewBox: "0 0 380 220", aspect: 380 / 220 },
+  "phillips-curve": { viewBox: "0 0 380 200", aspect: 380 / 200 },
+  "solow-diagram": { viewBox: "0 0 380 220", aspect: 380 / 220 },
+  "number-line": { viewBox: "0 0 380 100", aspect: 380 / 100 },
+  "sequence-convergence": { viewBox: "0 0 380 180", aspect: 380 / 180 },
+  "unit-circle": { viewBox: "0 0 260 260", aspect: 1 },
+  "graph-diagram": { viewBox: "0 0 380 200", aspect: 380 / 200 },
+  "binary-tree": { viewBox: "0 0 380 190", aspect: 380 / 190 },
+  "uml-class-box": { viewBox: "0 0 320 220", aspect: 320 / 220 },
+  "state-diagram": { viewBox: "0 0 380 160", aspect: 380 / 160 },
 };
 
 export default function PdfFigure({ type, caption }: { type: FigureType; caption: string }) {
@@ -219,6 +519,21 @@ export default function PdfFigure({ type, caption }: { type: FigureType; caption
     "distribution-function": <DistributionFunction />,
     "normal-curve": <NormalCurve />,
     "binomial-bars": <BinomialBars />,
+    "supply-demand": <SupplyDemand />,
+    "budget-line": <BudgetLine />,
+    "cost-curves": <CostCurves />,
+    "monopoly-graph": <MonopolyGraph />,
+    islm: <ISLM />,
+    asad: <ASAD />,
+    "phillips-curve": <PhillipsCurve />,
+    "solow-diagram": <SolowDiagram />,
+    "number-line": <NumberLine />,
+    "sequence-convergence": <SequenceConvergence />,
+    "unit-circle": <UnitCircle />,
+    "graph-diagram": <GraphDiagram />,
+    "binary-tree": <BinaryTree />,
+    "uml-class-box": <UmlClassBox />,
+    "state-diagram": <StateDiagram />,
   };
 
   return (
