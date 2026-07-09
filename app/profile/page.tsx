@@ -34,6 +34,14 @@ export default function ProfilePage() {
     };
   }, [router]);
 
+  // Nach dem Einlösen eines Empfehlungs-Guthabens die Käufe neu laden, damit
+  // das frisch freigeschaltete Modul sofort in "Deine Module" auftaucht.
+  function refreshPurchases() {
+    fetchAccess().then((info) => {
+      if (info.loggedIn) setPurchases(info.purchases);
+    });
+  }
+
   async function handleLogout() {
     const supabase = createClient();
     await supabase.auth.signOut();
@@ -129,7 +137,11 @@ export default function ProfilePage() {
         )}
       </div>
 
-      <ReferralBanner />
+      <ReferralBanner
+        allModules={modules}
+        ownedSlugs={purchases}
+        onRedeemed={refreshPurchases}
+      />
 
       <div className="card mt-6 border-red-100 bg-red-50/40 p-6">
         <h2 className="text-lg font-bold text-red-900">Konto löschen</h2>

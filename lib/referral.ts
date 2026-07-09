@@ -81,3 +81,52 @@ export async function findReferralCodeOwner(
   if (error || !data) return null;
   return { userId: data.user_id, code: data.code };
 }
+
+/**
+ * Schreibt der werbenden Person 1 Guthaben gut (1 Freischaltung eines
+ * beliebigen Moduls ihrer Wahl). Wird vom Stripe-Webhook aufgerufen, nachdem
+ * ein über ihren Code geworbener Freund erfolgreich (zum vollen Preis)
+ * gekauft hat. Atomar über eine Postgres-Funktion (siehe
+ * referral-credits-table.sql), damit zwei gleichzeitige Webhook-Aufrufe sich
+ * nicht überschreiben.
+ */
+export async function awardReferralCredit(userId: string): Promise<void> {
+  const { error } = await supabaseAdmin.rpc("increment_referral_credits", {
+    p_user_id: userId,
+  });
+  if (error) {
+    throw new Error(`Guthaben konnte nicht gutgeschrieben werden: ${error.message}`);
+  }
+}
+
+/**
+ * Liefert, wie viele Guthaben (freie Modul-Freischaltungen) eine Person noch
+ * hat.
+ */
+export async function getReferralCredits(userId: string): Promise<number> {
+  const { data, error } = await supabaseAdmin
+    .from("referral_credits")
+    .select("credits")
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(`Guthaben konnte nicht geladen werden: ${error.message}`);
+  }
+  return data?.credits ?? 0;
+}
+
+/**
+ * Löst 1 Guthaben ein (atomar, verhindert doppeltes Einlösen durch zwei
+ * gleichzeitige Anfragen). Gibt zurück, ob ein Guthaben vorhanden war und
+ * jetzt verbraucht wurde.
+ */
+export async function redeemReferralCredit(userId: string): Promise<boolean> {
+  const { data, error } = await supabaseAdmin.rpc("redeem_referral_credit", {
+    p_user_id: userId,
+  });
+  if (error) {
+    throw new Error(`Guthaben konnte nicht eingelöst werden: ${error.message}`);
+  }
+  return Boolean(data);
+}

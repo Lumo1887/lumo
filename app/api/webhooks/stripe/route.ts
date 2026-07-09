@@ -3,6 +3,7 @@ import { stripe, getBaseUrl } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { getResendClient, MAIL_FROM } from "@/lib/resend";
 import { getModule } from "@/lib/modules";
+import { awardReferralCredit } from "@/lib/referral";
 import Stripe from "stripe";
 
 const OWNER_EMAIL = "lumolearn@outlook.de";
@@ -85,7 +86,7 @@ export async function POST(req: NextRequest) {
             from: MAIL_FROM,
             to: customerEmail,
             subject: `Dein Zugang zu ${mod.title} ist freigeschaltet — Lumo`,
-            text: `Hallo,\n\nvielen Dank für deinen Kauf! Dein Zugang zu "${mod.title}" (${mod.subtitle}) ist ab sofort freigeschaltet.\n\nBezahlter Betrag: ${priceEur} €\n\nSkript öffnen: ${baseUrl}/module/${mod.slug}/skript\nÜbungstool öffnen: ${baseUrl}/module/${mod.slug}/uebungstool\n\nÜbrigens: Kennst du jemanden, der/die auch ein KIT-Modul lernen muss? Auf deinem Dashboard (${baseUrl}/dashboard) findest du deinen persönlichen Empfehlungscode — ihr bekommt beide 20% Rabatt.\n\nBei Fragen antworte einfach auf diese E-Mail oder schreib an ${OWNER_EMAIL}.\n\nViel Erfolg beim Lernen!\nLumo`,
+            text: `Hallo,\n\nvielen Dank für deinen Kauf! Dein Zugang zu "${mod.title}" (${mod.subtitle}) ist ab sofort freigeschaltet.\n\nBezahlter Betrag: ${priceEur} €\n\nSkript öffnen: ${baseUrl}/module/${mod.slug}/skript\nÜbungstool öffnen: ${baseUrl}/module/${mod.slug}/uebungstool\n\nÜbrigens: Kennst du jemanden, der/die auch ein KIT-Modul lernen muss? In deinem Profil (${baseUrl}/profile) findest du deinen persönlichen Empfehlungslink — für jeden Freund, der darüber kauft, bekommst du selbst ein komplettes Modul gratis.\n\nBei Fragen antworte einfach auf diese E-Mail oder schreib an ${OWNER_EMAIL}.\n\nViel Erfolg beim Lernen!\nLumo`,
           }),
           resend.emails.send({
             from: MAIL_FROM,
@@ -118,48 +119,46 @@ export async function POST(req: NextRequest) {
 
       // Freunde-werben-Freunde: Wurde beim Checkout ein gültiger
       // Empfehlungscode benutzt (siehe app/api/checkout/route.ts), bekommt
-      // die werbende Person jetzt ihrerseits einen frischen 20%-Code für ihr
-      // nächstes Modul. Komplett "best effort" — schlägt das fehl, bleibt
-      // der bereits abgeschlossene Kauf trotzdem unangetastet.
+      // die werbende Person jetzt 1 Guthaben gutgeschrieben (einlösbar gegen
+      // ein beliebiges Modul ihrer Wahl im Profil, siehe
+      // app/api/referral/redeem/route.ts). Der Freund selbst zahlt den
+      // vollen Preis. Komplett "best effort" — schlägt das fehl, bleibt der
+      // bereits abgeschlossene Kauf trotzdem unangetastet.
       const referrerUserId = session.metadata?.referrerUserId;
-      const referralCouponId = process.env.STRIPE_REFERRAL_COUPON_ID;
 
-      if (referrerUserId && referralCouponId && resend) {
+      if (referrerUserId) {
         try {
-          const { data: referrerData, error: referrerError } =
-            await supabaseAdmin.auth.admin.getUserById(referrerUserId);
+          await awardReferralCredit(referrerUserId);
+          console.log(
+            `[stripe webhook] Empfehlungs-Guthaben gutgeschrieben an Nutzer ${referrerUserId}`
+          );
 
-          const referrerEmail = referrerData?.user?.email;
+          if (resend) {
+            const { data: referrerData } =
+              await supabaseAdmin.auth.admin.getUserById(referrerUserId);
+            const referrerEmail = referrerData?.user?.email;
 
-          if (referrerError || !referrerEmail) {
-            console.error(
-              "Empfehlungs-Belohnung übersprungen: Werber-E-Mail nicht gefunden.",
-              referrerError
-            );
-          } else {
-            const rewardCode = await stripe.promotionCodes.create({
-              coupon: referralCouponId,
-              max_redemptions: 1,
-            });
+            if (referrerEmail) {
+              const baseUrl = getBaseUrl();
+              const rewardResult = await resend.emails.send({
+                from: MAIL_FROM,
+                to: referrerEmail,
+                subject: "Dein Freund hat gekauft — 1 Modul gratis für dich! 🎉",
+                text: `Hallo,\n\njemand hat gerade mit deinem Empfehlungscode bei Lumo gekauft — danke, dass du uns weiterempfiehlst!\n\nAls Dankeschön hast du jetzt 1 komplettes Modul deiner Wahl gratis. Wähl es in deinem Profil aus: ${baseUrl}/profile\n\nViele Grüße\nLumo`,
+              });
 
-            const rewardResult = await resend.emails.send({
-              from: MAIL_FROM,
-              to: referrerEmail,
-              subject: "Dein Freund hat gekauft — hier ist dein 20%-Code! 🎉",
-              text: `Hallo,\n\njemand hat gerade mit deinem Empfehlungscode bei Lumo gekauft — danke, dass du uns weiterempfiehlst!\n\nAls Dankeschön bekommst du 20% Rabatt für dein nächstes Modul:\n\n${rewardCode.code}\n\nEinfach beim nächsten Checkout im Rabattcode-Feld eingeben.\n\nViele Grüße\nLumo`,
-            });
-
-            if (rewardResult.error) {
-              console.error("Resend-Fehler (Empfehlungs-Belohnung):", rewardResult.error);
+              if (rewardResult.error) {
+                console.error("Resend-Fehler (Empfehlungs-Belohnung):", rewardResult.error);
+              }
             } else {
-              console.log(
-                `[stripe webhook] Empfehlungs-Belohnung verschickt an ${referrerEmail} (Code ${rewardCode.code})`
+              console.error(
+                "Empfehlungs-Benachrichtigung übersprungen: Werber-E-Mail nicht gefunden."
               );
             }
           }
         } catch (referralRewardErr) {
           console.error(
-            "Fehler beim Erstellen/Verschicken der Empfehlungs-Belohnung:",
+            "Fehler beim Gutschreiben/Verschicken der Empfehlungs-Belohnung:",
             referralRewardErr
           );
         }

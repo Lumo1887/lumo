@@ -51,30 +51,18 @@ export async function POST(req: NextRequest) {
 
     // Freunde-werben-Freunde: Wurde ein Empfehlungscode mitgeschickt (siehe
     // components/CheckoutButton.tsx, liest ihn aus localStorage), prüfen wir,
-    // wem er gehört. Eigene Codes ("Selbst-Empfehlung") und unbekannte Codes
-    // werden stillschweigend ignoriert — der Checkout läuft dann ganz normal
-    // weiter, nur eben ohne Rabatt.
-    let referralApplied = false;
-    let referralError: string | null = null;
+    // wem er gehört. Der Freund selbst zahlt den vollen Preis — es geht hier
+    // nur darum, im Webhook (nach erfolgreichem Kauf) zu wissen, wem ein
+    // Guthaben gutgeschrieben werden soll. Eigene Codes ("Selbst-Empfehlung")
+    // und unbekannte Codes werden stillschweigend ignoriert.
     let referrerUserId: string | null = null;
-
-    const referralCouponId = process.env.STRIPE_REFERRAL_COUPON_ID;
     const trimmedReferralCode =
       typeof referralCode === "string" ? referralCode.trim() : "";
 
     if (trimmedReferralCode) {
-      if (!referralCouponId) {
-        referralError = "Empfehlungscodes sind aktuell nicht verfügbar.";
-      } else {
-        const owner = await findReferralCodeOwner(trimmedReferralCode);
-        if (!owner) {
-          referralError = "Dieser Empfehlungscode ist ungültig.";
-        } else if (owner.userId === user.id) {
-          referralError = "Du kannst deinen eigenen Empfehlungscode nicht verwenden.";
-        } else {
-          referrerUserId = owner.userId;
-          referralApplied = true;
-        }
+      const owner = await findReferralCodeOwner(trimmedReferralCode);
+      if (owner && owner.userId !== user.id) {
+        referrerUserId = owner.userId;
       }
     }
 
@@ -83,14 +71,10 @@ export async function POST(req: NextRequest) {
       payment_method_types: ["card"],
       customer_email: user.email ?? undefined,
       client_reference_id: user.id,
-      // Ein gültiger Empfehlungscode wendet den 20%-Rabatt automatisch als
-      // Coupon an. Ohne Empfehlungscode bleibt stattdessen das allgemeine
-      // Rabattcode-Feld aktiv (für Codes, die du selbst im Stripe-Dashboard
-      // anlegst, z. B. für Fachschaften/Aktionen) — Stripe erlaubt nicht
-      // beides gleichzeitig auf derselben Checkout-Session.
-      ...(referralApplied && referralCouponId
-        ? { discounts: [{ coupon: referralCouponId }] }
-        : { allow_promotion_codes: true }),
+      // Rabattcode-Feld für Codes, die du selbst im Stripe-Dashboard anlegst
+      // (z. B. für Fachschaften/Aktionen). Empfehlungscodes laufen separat
+      // (siehe oben) und geben dem Freund selbst keinen Rabatt.
+      allow_promotion_codes: true,
       line_items: [
         {
           price_data: {
@@ -115,7 +99,7 @@ export async function POST(req: NextRequest) {
       cancel_url: `${baseUrl}/checkout/cancel`,
     });
 
-    return NextResponse.json({ url: session.url, referralApplied, referralError });
+    return NextResponse.json({ url: session.url });
   } catch (err) {
     console.error("Fehler beim Erstellen der Checkout Session:", err);
     return NextResponse.json(
