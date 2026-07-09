@@ -134,7 +134,7 @@ export default function ReferralBanner({
           </p>
           {redeemedTitle && (
             <p className="mt-2 text-sm font-medium text-green-700">
-              "{redeemedTitle}" wurde freigeschaltet ✓
+              „{redeemedTitle}“ wurde freigeschaltet ✓
             </p>
           )}
           {redeemableModules.length > 0 ? (
