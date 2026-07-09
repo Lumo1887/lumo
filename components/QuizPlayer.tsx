@@ -16,6 +16,11 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
   const [answered, setAnswered] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [answeredCount, setAnsweredCount] = useState(0);
+  // Trefferquote je Thema, über die ganze Sitzung hinweg gesammelt (bleibt
+  // beim Wechseln des Themenfilters oder "Nochmal von vorne" bestehen, damit
+  // die Schwachstellen-Übersicht unten den vollen Überblick behält — nur ein
+  // Moduswechsel oder der explizite Reset-Link darin setzt sie zurück).
+  const [topicStats, setTopicStats] = useState<Record<string, { correct: number; total: number }>>({});
 
   useEffect(() => {
     let cancelled = false;
@@ -37,6 +42,7 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
     setAnswered(false);
     setCorrectCount(0);
     setAnsweredCount(0);
+    setTopicStats({});
   }, [moduleSlug]);
 
   const pool = useMemo(() => {
@@ -46,6 +52,13 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
   }, [topic, unlocked, questions]);
 
   const current = pool[index];
+
+  // Schwachstellen-Übersicht: Trefferquote je Thema, schwächste zuerst.
+  const topicBreakdown = useMemo(() => {
+    return Object.entries(topicStats)
+      .map(([t, s]) => ({ topic: t, ...s, pct: s.total > 0 ? Math.round((s.correct / s.total) * 100) : 0 }))
+      .sort((a, b) => a.pct - b.pct);
+  }, [topicStats]);
 
   function resetQuestionState() {
     setSelected(null);
@@ -76,7 +89,23 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
   function handleCheck() {
     setAnswered(true);
     setAnsweredCount((c) => c + 1);
-    if (isCorrect()) setCorrectCount((c) => c + 1);
+    const correct = isCorrect();
+    if (correct) setCorrectCount((c) => c + 1);
+
+    const topicKey = current?.topic;
+    if (topicKey) {
+      setTopicStats((prev) => {
+        const prior = prev[topicKey] ?? { correct: 0, total: 0 };
+        return {
+          ...prev,
+          [topicKey]: { correct: prior.correct + (correct ? 1 : 0), total: prior.total + 1 },
+        };
+      });
+    }
+  }
+
+  function handleResetStats() {
+    setTopicStats({});
   }
 
   function handleNext() {
@@ -116,6 +145,44 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
       {!unlocked && (
         <div className="mb-4 rounded-lg border border-brand-200 bg-brand-50 px-4 py-2 text-xs font-medium text-brand-800">
           Kostenlose Vorschau — {pool.length} von {questions.length}+ Fragen sichtbar.
+        </div>
+      )}
+
+      {topicBreakdown.length > 0 && (
+        <div className="card mb-6 p-4 sm:p-5">
+          <div className="mb-3 flex items-center justify-between">
+            <p className="text-sm font-semibold text-ink-900">Deine Schwachstellen</p>
+            <button
+              onClick={handleResetStats}
+              className="text-xs font-medium text-ink-400 hover:text-ink-600 hover:underline"
+            >
+              Statistik zurücksetzen
+            </button>
+          </div>
+          <div className="space-y-2">
+            {topicBreakdown.map(({ topic: t, correct, total, pct }) => {
+              const barColor =
+                pct < 50 ? "bg-red-500" : pct < 80 ? "bg-amber-500" : "bg-green-600";
+              const textColor =
+                pct < 50 ? "text-red-700" : pct < 80 ? "text-amber-700" : "text-green-700";
+              return (
+                <div key={t}>
+                  <div className="mb-1 flex items-center justify-between gap-3 text-xs">
+                    <span className="truncate font-medium text-ink-700">{t}</span>
+                    <span className={`shrink-0 font-semibold ${textColor}`}>
+                      {correct}/{total} ({pct}%)
+                    </span>
+                  </div>
+                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-ink-100">
+                    <div
+                      className={`h-full rounded-full ${barColor} transition-[width]`}
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
 

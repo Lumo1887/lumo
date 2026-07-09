@@ -203,12 +203,20 @@ export default function SkriptPage({ params }: { params: { slug: string } }) {
           Kompakt aufbereitetes Skript mit Formeln, Beispielen und Skizzen — das erste
           Kapitel ist komplett kostenlos, der Rest schaltest du mit dem Modul frei.
         </p>
-        <a
-          href={`/api/skript-pdf?module=${moduleSlug}`}
-          className="btn-secondary mt-5 inline-flex !px-4 !py-2 text-sm"
-        >
-          📄 Als PDF herunterladen
-        </a>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <a
+            href={`/api/skript-pdf?module=${moduleSlug}`}
+            className="btn-secondary inline-flex !px-4 !py-2 text-sm"
+          >
+            📄 Skript als PDF herunterladen
+          </a>
+          <a
+            href={`/api/formelsammlung-pdf?module=${moduleSlug}`}
+            className="btn-secondary inline-flex !px-4 !py-2 text-sm"
+          >
+            📐 Formelsammlung (PDF)
+          </a>
+        </div>
       </header>
 
       <nav className="skript-toc card mb-10 p-4 sm:p-5">
