@@ -7,14 +7,20 @@ import { PDF_FORMULA_POINTS_PER_PIXEL, type RenderedFormula } from "@/lib/pdf/re
 // bewusst dieselbe Registrierung wie in SkriptPdfDocument.tsx dupliziert,
 // statt eine gemeinsame Abhängigkeit zwischen den beiden PDF-Dokumenten zu
 // erzeugen.
+//
+// DejaVu Sans statt Noto Sans (openmaptiles/fonts-Subset): Letzteres ist ein
+// für Kartenbeschriftungen zugeschnittener Font-Subset ohne logische/
+// mathematische Operatoren (∧, ∨, ⇔ usw.) — genau die Zeichen, die in den
+// Formel-Fallback-Texten dieser Formelsammlung verstümmelt dargestellt
+// wurden (z. B. ∧ → ', ⇔ → Ô). DejaVu Sans deckt diese Unicode-Blöcke ab.
 Font.register({
-  family: "Noto Sans",
+  family: "DejaVu Sans",
   fonts: [
     {
-      src: "https://raw.githubusercontent.com/openmaptiles/fonts/master/noto-sans/NotoSans-Regular.ttf",
+      src: "https://cdn.jsdelivr.net/npm/dejavu-fonts-ttf@2.37.3/ttf/DejaVuSans.ttf",
     },
     {
-      src: "https://raw.githubusercontent.com/openmaptiles/fonts/master/noto-sans/NotoSans-Bold.ttf",
+      src: "https://cdn.jsdelivr.net/npm/dejavu-fonts-ttf@2.37.3/ttf/DejaVuSans-Bold.ttf",
       fontWeight: "bold",
     },
   ],
@@ -29,7 +35,7 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
     paddingHorizontal: 40,
     fontSize: 10,
-    fontFamily: "Noto Sans",
+    fontFamily: "DejaVu Sans",
     color: "#1e1b2e",
   },
   headerRow: {
@@ -110,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   formulaFallbackText: {
-    fontFamily: "Noto Sans",
+    fontFamily: "DejaVu Sans",
     fontSize: 9,
     textAlign: "center",
   },

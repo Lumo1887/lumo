@@ -24,19 +24,29 @@ import PdfFigure from "@/lib/pdf/SkriptPdfFigures";
 // bestimmten Symbolen wie ≥ und ≤ falsche/verstümmelte Glyphen eingesetzt —
 // genau die "komischen Zeichen", die in den PDF-Exports auftauchten.
 //
-// Ersetzt durch die statischen (nicht-variablen) NotoSans-Regular/Bold-Dateien
-// aus dem openmaptiles/fonts-Repository — dieses Repository wird gezielt von
-// Karten-Rendering-Bibliotheken genutzt, die zur Laufzeit echte, direkt
-// eingebettete Schrift-Binärdateien brauchen (keine Git-LFS-Zeigerdateien),
-// weshalb es hier zuverlässiger als andere Quellen ist.
+// Danach wurde auf die statischen NotoSans-Regular/Bold-Dateien aus dem
+// openmaptiles/fonts-Repository umgestellt — das behob die ≥/≤/√-Probleme,
+// aber dieses Repository liefert nur einen für Kartenbeschriftungen
+// zugeschnittenen Font-SUBSET, der logische/mathematische Operatoren wie
+// ∧, ∨, ⇔ gar nicht enthält (Karten brauchen sie nicht). Fehlten diese
+// Glyphen, wurden sie falsch/verstümmelt dargestellt — die als Nächstes
+// gemeldeten "Zeichenfehler" (z. B. ∧ → ', ⇔ → Ô) in Formelsammlung- und
+// Skript-PDFs.
+//
+// Jetzt auf DejaVu Sans umgestellt: eine statische (nicht-variable) Schrift
+// mit einer der breitesten Unicode-Abdeckungen unter frei verfügbaren
+// Schriften, die gezielt auch mathematische Operatoren, Pfeile und weitere
+// Sonderzeichen enthält. Bezogen über den jsdelivr-CDN-Spiegel des
+// dejavu-fonts-ttf-npm-Pakets (liefert direkt eingebettete TTF-Binärdateien,
+// keine Git-LFS-Zeigerdateien).
 Font.register({
-  family: "Noto Sans",
+  family: "DejaVu Sans",
   fonts: [
     {
-      src: "https://raw.githubusercontent.com/openmaptiles/fonts/master/noto-sans/NotoSans-Regular.ttf",
+      src: "https://cdn.jsdelivr.net/npm/dejavu-fonts-ttf@2.37.3/ttf/DejaVuSans.ttf",
     },
     {
-      src: "https://raw.githubusercontent.com/openmaptiles/fonts/master/noto-sans/NotoSans-Bold.ttf",
+      src: "https://cdn.jsdelivr.net/npm/dejavu-fonts-ttf@2.37.3/ttf/DejaVuSans-Bold.ttf",
       fontWeight: "bold",
     },
   ],
@@ -51,7 +61,7 @@ const styles = StyleSheet.create({
     paddingBottom: 56,
     paddingHorizontal: 48,
     fontSize: 11,
-    fontFamily: "Noto Sans",
+    fontFamily: "DejaVu Sans",
     color: "#1e1b2e",
   },
   footer: {
@@ -109,7 +119,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   formulaFallbackText: {
-    fontFamily: "Noto Sans",
+    fontFamily: "DejaVu Sans",
     fontSize: 10.5,
   },
   exampleBox: {

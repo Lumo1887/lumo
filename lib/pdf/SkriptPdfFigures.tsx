@@ -4,7 +4,10 @@ import type { FigureType } from "@/components/SkriptFigures";
 
 const INK = "#44403c";
 const BRAND = "#7c3aed";
-const FONT = "Noto Sans";
+// Muss mit dem in SkriptPdfDocument.tsx registrierten Font.register-Namen
+// übereinstimmen (dort auf "DejaVu Sans" umgestellt wegen fehlender
+// Logik-/Mathe-Operator-Glyphen im vorherigen Noto-Sans-Subset).
+const FONT = "DejaVu Sans";
 const DISPLAY_WIDTH = 280;
 
 const styles = StyleSheet.create({
