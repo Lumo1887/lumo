@@ -134,6 +134,36 @@ export default function SkriptPage({ params }: { params: { slug: string } }) {
     return results.slice(0, 20);
   }, [searchQuery, chapters, unlocked]);
 
+  // Zwei Beispielbegriffe für den Platzhaltertext der Suche — aus den
+  // tatsächlichen Kapitelüberschriften DIESES Moduls abgeleitet (statt fest
+  // codierter Beispiele wie "Bayes", die nur für ein einzelnes Modul Sinn
+  // ergeben). Dadurch passt der Platzhalter automatisch zu jedem Modul,
+  // auch zu künftigen, ohne dass diese Seite dafür angefasst werden muss.
+  const searchPlaceholderExamples = useMemo(() => {
+    const candidates: string[] = [];
+    for (const chapter of chapters) {
+      for (const section of chapter.sections) {
+        const short = section.heading
+          .replace(/^[\d.]+\s*/, "")
+          .split(":")[0]
+          .trim();
+        if (short.length >= 4 && short.length <= 30 && !candidates.includes(short)) {
+          candidates.push(short);
+        }
+      }
+    }
+    if (candidates.length < 2) return candidates;
+    const mid = candidates[Math.floor(candidates.length / 2)];
+    return mid !== candidates[0] ? [candidates[0], mid] : [candidates[0], candidates[candidates.length - 1]];
+  }, [chapters]);
+
+  const searchPlaceholder =
+    searchPlaceholderExamples.length > 0
+      ? `🔍 Im Skript suchen — z. B. „${searchPlaceholderExamples[0]}“${
+          searchPlaceholderExamples[1] ? ` oder „${searchPlaceholderExamples[1]}“` : ""
+        }`
+      : "🔍 Im Skript suchen";
+
   useEffect(() => {
     let active = true;
     fetchAccess()
@@ -264,7 +294,7 @@ export default function SkriptPage({ params }: { params: { slug: string } }) {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="🔍 Im Skript suchen — z. B. „Bayes“ oder „Kettenregel“"
+          placeholder={searchPlaceholder}
           className="w-full rounded-lg border border-ink-200 px-4 py-2.5 text-sm focus:border-brand-500 focus:outline-none"
         />
         {searchQuery.trim().length >= 2 && (

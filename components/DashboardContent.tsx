@@ -5,36 +5,6 @@ import { modules, STUDIENGAENGE } from "@/lib/modules";
 import ModuleCard from "@/components/ModuleCard";
 import { fetchAccess } from "@/lib/access";
 
-// TODO: Platzhalter-Testimonials — vor dem nächsten Live-Push durch echte
-// Kundenzitate ersetzen (z. B. aus Instagram-DMs, Support-Mails oder einer
-// kurzen Umfrage bei bestehenden Käufer:innen). Absichtlich als
-// unübersehbare Platzhalter formuliert (nicht als plausibel klingende
-// Fake-Zitate), damit hier nichts versehentlich als echte Stimme durchgeht,
-// falls sie doch mal ungeprüft live gehen.
-const testimonials = [
-  {
-    quote:
-      "[Platzhalter — echtes Zitat einfügen, z. B. wie Lumo beim Bestehen der Klausur geholfen hat]",
-    name: "Platzhalter Name",
-    detail: "Modul, Semester",
-    rating: 5,
-  },
-  {
-    quote:
-      "[Platzhalter — echtes Zitat einfügen, z. B. zum Preis-Leistungs-Verhältnis]",
-    name: "Platzhalter Name",
-    detail: "Modul, Semester",
-    rating: 5,
-  },
-  {
-    quote:
-      "[Platzhalter — echtes Zitat einfügen, z. B. zum KI-Tutor oder den Übungsaufgaben]",
-    name: "Platzhalter Name",
-    detail: "Modul, Semester",
-    rating: 5,
-  },
-];
-
 const comparisonRows = [
   {
     feature: "Preis",
@@ -265,25 +235,6 @@ export default function DashboardContent() {
               ))}
             </tbody>
           </table>
-        </div>
-      </section>
-
-      <section className="mt-16">
-        <h2 className="mb-6 text-center text-2xl font-bold text-ink-900">
-          Was Studierende sagen
-        </h2>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {testimonials.map((t, i) => (
-            <div key={i} className="card p-6">
-              <div className="text-amber-400" aria-hidden="true">
-                {"★".repeat(t.rating)}
-                {"☆".repeat(5 - t.rating)}
-              </div>
-              <p className="mt-3 text-sm italic text-ink-700">„{t.quote}“</p>
-              <p className="mt-4 text-sm font-semibold text-ink-900">{t.name}</p>
-              <p className="text-xs text-ink-500">{t.detail}</p>
-            </div>
-          ))}
         </div>
       </section>
     </div>
