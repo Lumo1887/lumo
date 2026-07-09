@@ -109,8 +109,8 @@ export default function ReferralBanner({
     <div className="card mt-6 p-5">
       <h2 className="text-base font-bold text-ink-900">Freunde werben</h2>
       <p className="mt-1 text-sm text-ink-600">
-        Teile deinen Link — für jeden Freund, der darüber (zum vollen Preis)
-        kauft, bekommst du 1 komplettes Modul deiner Wahl gratis.
+        Teile deinen Link — für jeden Freund, der darüber kauft, bekommst du 1
+        komplettes Modul deiner Wahl gratis.
       </p>
 
       {code ? (
