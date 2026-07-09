@@ -36,10 +36,22 @@ export default function CheckoutButton({
     }
 
     try {
+      let referralCode: string | null = null;
+      try {
+        referralCode = window.localStorage.getItem("lumo_referral_code");
+      } catch {
+        // localStorage nicht verfügbar — Checkout läuft trotzdem, nur ohne
+        // automatisch angewendeten Empfehlungscode.
+      }
+
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ moduleSlug, withdrawalConsent: true }),
+        body: JSON.stringify({
+          moduleSlug,
+          withdrawalConsent: true,
+          referralCode: referralCode || undefined,
+        }),
       });
       const data = await res.json();
 

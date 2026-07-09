@@ -6,6 +6,7 @@ import "./globals.css";
 import "katex/dist/katex.min.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ReferralCapture from "@/components/ReferralCapture";
 
 // Vercel liefert die Seite tatsächlich unter der www-Version aus
 // (lumo-learn.de leitet per Redirect auf www.lumo-learn.de weiter) — diese
@@ -80,6 +81,7 @@ export default function RootLayout({
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <ReferralCapture />
         <Navbar />
         <main className="mx-auto max-w-6xl px-6 py-12">{children}</main>
         <Footer />

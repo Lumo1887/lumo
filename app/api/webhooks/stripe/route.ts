@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
             from: MAIL_FROM,
             to: customerEmail,
             subject: `Dein Zugang zu ${mod.title} ist freigeschaltet — Lumo`,
-            text: `Hallo,\n\nvielen Dank für deinen Kauf! Dein Zugang zu "${mod.title}" (${mod.subtitle}) ist ab sofort freigeschaltet.\n\nBezahlter Betrag: ${priceEur} €\n\nSkript öffnen: ${baseUrl}/module/${mod.slug}/skript\nÜbungstool öffnen: ${baseUrl}/module/${mod.slug}/uebungstool\n\nBei Fragen antworte einfach auf diese E-Mail oder schreib an ${OWNER_EMAIL}.\n\nViel Erfolg beim Lernen!\nLumo`,
+            text: `Hallo,\n\nvielen Dank für deinen Kauf! Dein Zugang zu "${mod.title}" (${mod.subtitle}) ist ab sofort freigeschaltet.\n\nBezahlter Betrag: ${priceEur} €\n\nSkript öffnen: ${baseUrl}/module/${mod.slug}/skript\nÜbungstool öffnen: ${baseUrl}/module/${mod.slug}/uebungstool\n\nÜbrigens: Kennst du jemanden, der/die auch ein KIT-Modul lernen muss? Auf deinem Dashboard (${baseUrl}/dashboard) findest du deinen persönlichen Empfehlungscode — ihr bekommt beide 20% Rabatt.\n\nBei Fragen antworte einfach auf diese E-Mail oder schreib an ${OWNER_EMAIL}.\n\nViel Erfolg beim Lernen!\nLumo`,
           }),
           resend.emails.send({
             from: MAIL_FROM,
@@ -114,6 +114,55 @@ export async function POST(req: NextRequest) {
         console.error(
           "Kaufbestätigungsmail übersprungen: keine Kunden-E-Mail in der Session gefunden."
         );
+      }
+
+      // Freunde-werben-Freunde: Wurde beim Checkout ein gültiger
+      // Empfehlungscode benutzt (siehe app/api/checkout/route.ts), bekommt
+      // die werbende Person jetzt ihrerseits einen frischen 20%-Code für ihr
+      // nächstes Modul. Komplett "best effort" — schlägt das fehl, bleibt
+      // der bereits abgeschlossene Kauf trotzdem unangetastet.
+      const referrerUserId = session.metadata?.referrerUserId;
+      const referralCouponId = process.env.STRIPE_REFERRAL_COUPON_ID;
+
+      if (referrerUserId && referralCouponId && resend) {
+        try {
+          const { data: referrerData, error: referrerError } =
+            await supabaseAdmin.auth.admin.getUserById(referrerUserId);
+
+          const referrerEmail = referrerData?.user?.email;
+
+          if (referrerError || !referrerEmail) {
+            console.error(
+              "Empfehlungs-Belohnung übersprungen: Werber-E-Mail nicht gefunden.",
+              referrerError
+            );
+          } else {
+            const rewardCode = await stripe.promotionCodes.create({
+              coupon: referralCouponId,
+              max_redemptions: 1,
+            });
+
+            const rewardResult = await resend.emails.send({
+              from: MAIL_FROM,
+              to: referrerEmail,
+              subject: "Dein Freund hat gekauft — hier ist dein 20%-Code! 🎉",
+              text: `Hallo,\n\njemand hat gerade mit deinem Empfehlungscode bei Lumo gekauft — danke, dass du uns weiterempfiehlst!\n\nAls Dankeschön bekommst du 20% Rabatt für dein nächstes Modul:\n\n${rewardCode.code}\n\nEinfach beim nächsten Checkout im Rabattcode-Feld eingeben.\n\nViele Grüße\nLumo`,
+            });
+
+            if (rewardResult.error) {
+              console.error("Resend-Fehler (Empfehlungs-Belohnung):", rewardResult.error);
+            } else {
+              console.log(
+                `[stripe webhook] Empfehlungs-Belohnung verschickt an ${referrerEmail} (Code ${rewardCode.code})`
+              );
+            }
+          }
+        } catch (referralRewardErr) {
+          console.error(
+            "Fehler beim Erstellen/Verschicken der Empfehlungs-Belohnung:",
+            referralRewardErr
+          );
+        }
       }
       break;
     }
