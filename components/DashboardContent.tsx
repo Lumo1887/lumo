@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { modules, STUDIENGAENGE } from "@/lib/modules";
 import ModuleCard from "@/components/ModuleCard";
 import { fetchAccess } from "@/lib/access";
@@ -93,6 +94,12 @@ export default function DashboardContent() {
     setShowAll(false);
   }
 
+  // Nur echten Kund:innen (mind. 1 Kauf) zeigen — für neue/anonyme
+  // Besucher:innen wäre ein Empfehlungshinweis hier nur verwirrende
+  // Ablenkung vom eigentlichen Ziel der Seite (Modul finden). Der volle
+  // Code/Guthaben-Bereich lebt im Profil, hier nur ein kleiner Verweis.
+  const isCustomer = loaded && Object.values(accessMap).some(Boolean);
+
   return (
     <div>
       <div className="mb-10 max-w-2xl">
@@ -104,6 +111,14 @@ export default function DashboardContent() {
           Wähle dein Fach für eine gezielte Auswahl, oder zeig dir gleich alle
           Module an.
         </p>
+        {isCustomer && (
+          <Link
+            href="/profile"
+            className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-brand-700 hover:underline"
+          >
+            💡 Freunde werben — 1 Modul gratis
+          </Link>
+        )}
       </div>
 
       <div className="card mb-8 p-5">
