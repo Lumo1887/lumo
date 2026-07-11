@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { fetchAccess } from "@/lib/access";
 import { getModule } from "@/lib/modules";
@@ -31,6 +31,14 @@ export default function ModuleChat({
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  // Immer aktueller Nachrichtenverlauf als Ref — damit sendMessage() nicht an
+  // eine bestimmte Render-Closure von "messages" gebunden ist. Wird u. a.
+  // gebraucht, damit der Event-Listener unten (window "lumo:chat-ask") auch
+  // Wochen nach dem Mounten noch mit dem echten, aktuellen Verlauf sendet.
+  const messagesRef = useRef<ChatMessage[]>([]);
+  useEffect(() => {
+    messagesRef.current = messages;
+  }, [messages]);
 
   useEffect(() => {
     let active = true;
@@ -62,37 +70,68 @@ export default function ModuleChat({
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, open]);
 
-  async function handleSend() {
-    const text = input.trim();
-    if (!text || sending) return;
-    const next = [...messages, { role: "user" as const, text }];
-    setMessages(next);
-    setInput("");
-    setSending(true);
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ moduleSlug, messages: next }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
+  // Gemeinsame Sendefunktion für die Eingabezeile UND für Fragen, die von
+  // außerhalb (z. B. "Frag den Chatbot dazu" im Übungstool bei einer falsch
+  // beantworteten Frage) per Event angestoßen werden. useCallback statt einer
+  // normalen Funktion, damit der weiter unten registrierte Event-Listener
+  // keine veraltete ("stale") Closure über moduleSlug/sending/access behält.
+  const sendMessage = useCallback(
+    async (rawText: string) => {
+      const text = rawText.trim();
+      if (!text || sending || access !== "unlocked") return;
+      const next = [...messagesRef.current, { role: "user" as const, text }];
+      setMessages(next);
+      messagesRef.current = next;
+      setInput("");
+      setSending(true);
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ moduleSlug, messages: next }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          setMessages((m) => [
+            ...m,
+            { role: "model", text: data?.error ?? "Da ist etwas schiefgelaufen." },
+          ]);
+        } else {
+          setMessages((m) => [...m, { role: "model", text: data.reply as string }]);
+        }
+      } catch {
         setMessages((m) => [
           ...m,
-          { role: "model", text: data?.error ?? "Da ist etwas schiefgelaufen." },
+          { role: "model", text: "Verbindung fehlgeschlagen. Versuch es gleich nochmal." },
         ]);
-      } else {
-        setMessages((m) => [...m, { role: "model", text: data.reply as string }]);
+      } finally {
+        setSending(false);
       }
-    } catch {
-      setMessages((m) => [
-        ...m,
-        { role: "model", text: "Verbindung fehlgeschlagen. Versuch es gleich nochmal." },
-      ]);
-    } finally {
-      setSending(false);
-    }
+    },
+    [moduleSlug, sending, access]
+  );
+
+  async function handleSend() {
+    await sendMessage(input);
   }
+
+  // Bridge zum Übungstool: QuizPlayer sitzt (im Layout) als Geschwister-
+  // Komponente neben diesem Chat-Widget, ohne gemeinsamen State. Ein
+  // "Frag den Chatbot dazu"-Klick bei einer falsch beantworteten Frage
+  // feuert stattdessen ein window-CustomEvent mit der vorformulierten
+  // Frage — das öffnet den Chat und schickt sie direkt ab (bzw. zeigt bei
+  // fehlendem Kauf/Login den passenden Hinweis, was zusätzlich als
+  // Kaufanreiz funktioniert).
+  useEffect(() => {
+    function handleAsk(e: Event) {
+      const detail = (e as CustomEvent<{ prompt?: string }>).detail;
+      if (!detail?.prompt) return;
+      setOpen(true);
+      sendMessage(detail.prompt);
+    }
+    window.addEventListener("lumo:chat-ask", handleAsk as EventListener);
+    return () => window.removeEventListener("lumo:chat-ask", handleAsk as EventListener);
+  }, [sendMessage]);
 
   return (
     <div className="fixed bottom-6 right-6 z-50">

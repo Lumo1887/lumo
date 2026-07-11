@@ -108,6 +108,36 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
     setTopicStats({});
   }
 
+  // Baut aus der aktuellen (falsch beantworteten) Frage eine vorformulierte
+  // Nachricht und schickt sie per window-Event an ModuleChat weiter — das
+  // Chat-Widget sitzt im Layout als Geschwister-Komponente ohne gemeinsamen
+  // State, daher die Event-Brücke statt eines direkten Funktionsaufrufs.
+  function askChatbotAboutCurrent() {
+    if (!current) return;
+    const lines = [`Ich habe diese Übungsfrage falsch beantwortet: "${current.prompt}"`];
+
+    if (current.type === "mc" && current.options) {
+      const mine = selected !== null ? current.options[selected] : "(keine Angabe)";
+      const correct =
+        current.correctIndex !== undefined ? current.options[current.correctIndex] : "";
+      lines.push(`Meine Antwort war: "${mine}"`);
+      lines.push(`Richtig wäre: "${correct}"`);
+    } else if (current.type === "numeric") {
+      const mine = numericInput.trim() !== "" ? numericInput : "(keine Angabe)";
+      lines.push(`Meine Antwort war: ${mine} ${current.unit ?? ""}`.trim());
+      lines.push(`Richtig wäre: ${current.correctValue} ${current.unit ?? ""}`.trim());
+    }
+
+    lines.push(`Die Lösung erklärt: "${current.explanation}"`);
+    lines.push(
+      "Kannst du mir das nochmal Schritt für Schritt anders erklären, idealerweise mit einem zusätzlichen Beispiel?"
+    );
+
+    window.dispatchEvent(
+      new CustomEvent("lumo:chat-ask", { detail: { prompt: lines.join("\n") } })
+    );
+  }
+
   function handleNext() {
     resetQuestionState();
     setIndex((i) => i + 1);
@@ -266,6 +296,14 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
               </p>
               <p className="mt-1">{current.explanation}</p>
               <p className="mt-2 text-xs text-ink-600">Quelle: {current.source}</p>
+              {!isCorrect() && (
+                <button
+                  onClick={() => askChatbotAboutCurrent()}
+                  className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-white px-3 py-1.5 text-xs font-semibold text-brand-700 transition hover:border-brand-300 hover:bg-brand-50"
+                >
+                  💬 Frag den Chatbot dazu
+                </button>
+              )}
             </div>
           )}
 

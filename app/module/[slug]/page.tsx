@@ -93,11 +93,28 @@ export default function ModulePage({ params }: { params: { slug: string } }) {
             </div>
           </Link>
 
+          <Link
+            href={`/module/${mod.slug}/karteikarten`}
+            className="card block p-6 transition hover:-translate-y-0.5 hover:shadow-glow"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-lg font-bold text-ink-900">🗂️ Karteikarten</h2>
+                <p className="mt-1 text-sm text-ink-600">
+                  Zentrale Begriffe aus dem Skript zum schnellen Wiederholen —
+                  umdrehen, einschätzen, weiter.
+                </p>
+              </div>
+              <span className="text-brand-700 font-semibold">Öffnen →</span>
+            </div>
+          </Link>
+
           <div className="card p-6">
             <h2 className="text-lg font-bold text-ink-900">Was ist enthalten?</h2>
             <ul className="mt-3 space-y-2 text-sm text-ink-700">
               <li>✓ Vollständiges Skript zu allen Kapiteln (erstes Kapitel gratis testen)</li>
               <li>✓ Interaktives Übungstool mit echten Tutorien-Aufgaben</li>
+              <li>✓ Karteikarten zu allen zentralen Begriffen</li>
               <li>✓ Sofortiges Feedback & Lösungswege statt fester Kurstermine</li>
               <li>✓ Zeitlich unbegrenzter Zugriff, lernen in deinem eigenen Tempo</li>
             </ul>
