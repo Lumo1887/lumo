@@ -516,6 +516,173 @@ function SaddleSurface() {
   );
 }
 
+function FreeBodyDiagram() {
+  return (
+    <>
+      <Line x1={55} y1={100} x2={325} y2={100} stroke={INK} strokeWidth={3} strokeLinecap="round" />
+      {/* Festlager links */}
+      <Path d="M40,100 L70,100 L55,130 Z" fill={INK} />
+      <Line x1={40} y1={138} x2={70} y2={138} stroke={INK} strokeWidth={1.6} />
+      <Line x1={44} y1={138} x2={38} y2={148} stroke={INK} strokeWidth={1.2} />
+      <Line x1={52} y1={138} x2={46} y2={148} stroke={INK} strokeWidth={1.2} />
+      <Line x1={60} y1={138} x2={54} y2={148} stroke={INK} strokeWidth={1.2} />
+      <Line x1={68} y1={138} x2={62} y2={148} stroke={INK} strokeWidth={1.2} />
+      {/* Loslager rechts */}
+      <Path d="M305,100 L335,100 L320,130 Z" fill={INK} />
+      <Circle cx={313} cy={136} r={3.5} fill="none" stroke={INK} strokeWidth={1.4} />
+      <Circle cx={327} cy={136} r={3.5} fill="none" stroke={INK} strokeWidth={1.4} />
+      <Line x1={305} y1={144} x2={335} y2={144} stroke={INK} strokeWidth={1.6} />
+      {/* Äußere Kraft F */}
+      <Line x1={190} y1={45} x2={190} y2={97} stroke={BRAND} strokeWidth={2.4} strokeLinecap="round" />
+      <Path d="M183,88 L190,100 L197,88 Z" fill={BRAND} />
+      <Text x={198} y={55} fill={BRAND} style={label(15)}>F</Text>
+      {/* Reaktionskräfte */}
+      <Line x1={55} y1={100} x2={55} y2={60} stroke="#b45309" strokeWidth={2} strokeLinecap="round" />
+      <Path d="M49,70 L55,58 L61,70 Z" fill="#b45309" />
+      <Text x={30} y={72} fill="#b45309" style={label(12)}>Ay</Text>
+      <Line x1={55} y1={100} x2={95} y2={100} stroke="#b45309" strokeWidth={2} strokeLinecap="round" />
+      <Path d="M85,94 L97,100 L85,106 Z" fill="#b45309" />
+      <Text x={68} y={92} fill="#b45309" style={label(12)}>Ax</Text>
+      <Line x1={320} y1={100} x2={320} y2={60} stroke="#b45309" strokeWidth={2} strokeLinecap="round" />
+      <Path d="M314,70 L320,58 L326,70 Z" fill="#b45309" />
+      <Text x={326} y={72} fill="#b45309" style={label(12)}>By</Text>
+    </>
+  );
+}
+
+function TrussDiagram() {
+  const A: [number, number] = [60, 180];
+  const B: [number, number] = [190, 180];
+  const C: [number, number] = [320, 180];
+  const D: [number, number] = [125, 85];
+  const E: [number, number] = [255, 85];
+  const line = (p1: [number, number], p2: [number, number], color: string, width: number) => (
+    <Line x1={p1[0]} y1={p1[1]} x2={p2[0]} y2={p2[1]} stroke={color} strokeWidth={width} strokeLinecap="round" />
+  );
+  return (
+    <>
+      {line(A, B, "#b45309", 4)}
+      {line(B, C, BRAND, 2.6)}
+      {line(A, D, BRAND, 2.6)}
+      {line(D, B, BRAND, 2.6)}
+      {line(D, E, BRAND, 2.6)}
+      {line(B, E, BRAND, 2.6)}
+      {line(E, C, BRAND, 2.6)}
+      {[A, B, C, D, E].map(([x, y], i) => (
+        <Circle key={i} cx={x} cy={y} r={5} fill="white" stroke={INK} strokeWidth={1.8} />
+      ))}
+      {/* Festlager bei A */}
+      <Path d={`M${A[0] - 15},${A[1]} L${A[0] + 15},${A[1]} L${A[0]},${A[1] + 26} Z`} fill={INK} />
+      {/* Loslager bei C */}
+      <Path d={`M${C[0] - 15},${C[1]} L${C[0] + 15},${C[1]} L${C[0]},${C[1] + 26} Z`} fill={INK} />
+      <Circle cx={C[0] - 8} cy={C[1] + 32} r={3.2} fill="none" stroke={INK} strokeWidth={1.3} />
+      <Circle cx={C[0] + 8} cy={C[1] + 32} r={3.2} fill="none" stroke={INK} strokeWidth={1.3} />
+      {/* Kraft F bei E */}
+      <Line x1={E[0]} y1={30} x2={E[0]} y2={E[1] - 8} stroke="#b45309" strokeWidth={2.4} strokeLinecap="round" />
+      <Path d={`M${E[0] - 7},${E[1] - 17} L${E[0]},${E[1] - 5} L${E[0] + 7},${E[1] - 17} Z`} fill="#b45309" />
+      <Text x={E[0] + 10} y={45} fill="#b45309" style={label(14)}>F</Text>
+      <Text x={A[0] - 10} y={A[1] - 10} fill="#b45309" style={label(10)}>Druckstab</Text>
+      <Text x={B[0] + 25} y={B[1] - 10} fill={BRAND} style={label(10)}>Zugstab</Text>
+    </>
+  );
+}
+
+function ShearMomentDiagram() {
+  return (
+    <>
+      {/* N(s) */}
+      <Line x1={40} y1={45} x2={340} y2={45} stroke={INK} strokeWidth={1.4} />
+      <Line x1={60} y1={45} x2={320} y2={45} stroke={BRAND} strokeWidth={2.4} strokeLinecap="round" />
+      <Text x={6} y={49} fill={INK} style={label(12)}>N(s)</Text>
+
+      {/* Q(s) */}
+      <Line x1={40} y1={115} x2={340} y2={115} stroke={INK} strokeWidth={1.4} />
+      <Line x1={60} y1={100} x2={190} y2={100} stroke={BRAND} strokeWidth={2.4} strokeLinecap="round" />
+      <Line x1={190} y1={100} x2={190} y2={135} stroke={BRAND} strokeWidth={1.4} strokeDasharray="3,4" />
+      <Line x1={190} y1={135} x2={320} y2={135} stroke={BRAND} strokeWidth={2.4} strokeLinecap="round" />
+      <Text x={6} y={119} fill={INK} style={label(12)}>Q(s)</Text>
+
+      {/* M(s) */}
+      <Line x1={40} y1={225} x2={340} y2={225} stroke={INK} strokeWidth={1.4} />
+      <Path d="M60,225 L190,165 L320,225" fill="none" stroke={BRAND} strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" />
+      <Text x={6} y={229} fill={INK} style={label(12)}>M(s)</Text>
+      <Text x={130} y={252} fill={INK} style={label(11)}>Sprung in Q, Knick in M unter Einzellast</Text>
+    </>
+  );
+}
+
+function FrictionIncline() {
+  return (
+    <>
+      <Path d="M35,195 L35,195 L300,60" fill="none" stroke={INK} strokeWidth={2.4} strokeLinecap="round" />
+      <Line x1={20} y1={195} x2={320} y2={195} stroke={INK} strokeWidth={2} strokeLinecap="round" />
+      <Line x1={30} y1={205} x2={22} y2={215} stroke={INK} strokeWidth={1.2} />
+      <Line x1={55} y1={205} x2={47} y2={215} stroke={INK} strokeWidth={1.2} />
+      <Line x1={80} y1={205} x2={72} y2={215} stroke={INK} strokeWidth={1.2} />
+      {/* Block, angenähert rotiert auf der schiefen Ebene */}
+      <Path d="M150,118 L215,90 L233,124 L168,152 Z" fill="#ede9fe" stroke="#b45309" strokeWidth={2.2} />
+      {/* Gewichtskraft G */}
+      <Line x1={195} y1={128} x2={195} y2={178} stroke={BRAND} strokeWidth={2.2} strokeLinecap="round" />
+      <Path d="M189,168 L195,180 L201,168 Z" fill={BRAND} />
+      <Text x={200} y={172} fill={BRAND} style={label(13)}>G</Text>
+      {/* Normalkraft N */}
+      <Line x1={195} y1={128} x2={168} y2={82} stroke="#b45309" strokeWidth={2.2} strokeLinecap="round" />
+      <Path d="M162,92 L166,78 L178,88 Z" fill="#b45309" />
+      <Text x={140} y={78} fill="#b45309" style={label(13)}>N</Text>
+      {/* Haftkraft H entlang der Ebene */}
+      <Line x1={195} y1={128} x2={245} y2={110} stroke={INK} strokeWidth={2.2} strokeLinecap="round" />
+      <Path d="M234,118 L248,110 L238,102 Z" fill={INK} />
+      <Text x={250} y={104} fill={INK} style={label(13)}>H</Text>
+      {/* Kraftkegel-Winkel */}
+      <Path d="M195,128 A20,20 0 0 0 178,113" fill="none" stroke={INK} strokeWidth={1.2} />
+      <Text x={165} y={108} fill={INK} style={label(11)}>φ₀</Text>
+    </>
+  );
+}
+
+function StressElement() {
+  return (
+    <>
+      {/* Isometrischer Würfel */}
+      <Path d="M80,150 L160,190 L240,150 L160,110 Z" fill="#ede9fe" fillOpacity={0.6} stroke={INK} strokeWidth={1.8} />
+      <Path d="M80,150 L80,80 L160,40 L160,110 Z" fill="#f5f3ff" fillOpacity={0.7} stroke={INK} strokeWidth={1.8} />
+      <Path d="M160,110 L160,40 L240,80 L240,150 Z" fill="#ede9fe" fillOpacity={0.5} stroke={INK} strokeWidth={1.8} />
+      {/* sigma_x */}
+      <Line x1={240} y1={115} x2={275} y2={115} stroke={BRAND} strokeWidth={2.4} strokeLinecap="round" />
+      <Path d="M265,109 L277,115 L265,121 Z" fill={BRAND} />
+      <Text x={280} y={119} fill={BRAND} style={label(13)}>σx</Text>
+      {/* sigma_y */}
+      <Line x1={160} y1={40} x2={160} y2={12} stroke={BRAND} strokeWidth={2.4} strokeLinecap="round" />
+      <Path d="M154,22 L160,10 L166,22 Z" fill={BRAND} />
+      <Text x={168} y={16} fill={BRAND} style={label(13)}>σy</Text>
+      {/* tau_xy */}
+      <Line x1={90} y1={95} x2={125} y2={82} stroke="#b45309" strokeWidth={2.2} strokeLinecap="round" />
+      <Path d="M114,90 L127,82 L117,74 Z" fill="#b45309" />
+      <Text x={62} y={100} fill="#b45309" style={label(12)}>τxy</Text>
+    </>
+  );
+}
+
+function BeamBending() {
+  return (
+    <>
+      <Line x1={45} y1={110} x2={335} y2={110} stroke={INK} strokeWidth={1.4} strokeDasharray="5,5" />
+      <Path d="M45,110 C 130,190 250,190 335,110" fill="none" stroke={BRAND} strokeWidth={2.6} strokeLinecap="round" />
+      {/* Festlager links */}
+      <Path d="M30,110 L60,110 L45,138 Z" fill={INK} />
+      {/* Loslager rechts */}
+      <Path d="M320,110 L350,110 L335,138 Z" fill={INK} />
+      <Circle cx={328} cy={144} r={3.2} fill="none" stroke={INK} strokeWidth={1.3} />
+      <Circle cx={342} cy={144} r={3.2} fill="none" stroke={INK} strokeWidth={1.3} />
+      {/* Durchbiegung f */}
+      <Line x1={190} y1={112} x2={190} y2={160} stroke="#b45309" strokeWidth={1.6} strokeDasharray="3,4" />
+      <Path d="M184,152 L190,163 L196,152 Z" fill="#b45309" />
+      <Text x={198} y={148} fill="#b45309" style={label(13)}>f</Text>
+      <Text x={150} y={95} fill={BRAND} style={label(13)}>w(x): Biegelinie</Text>
+    </>
+  );
+}
+
 const ASPECTS: Record<FigureType, { viewBox: string; aspect: number }> = {
   boxplot: { viewBox: "0 0 420 160", aspect: 420 / 160 },
   histogram: { viewBox: "0 0 420 200", aspect: 420 / 200 },
@@ -542,6 +709,12 @@ const ASPECTS: Record<FigureType, { viewBox: string; aspect: number }> = {
   "state-diagram": { viewBox: "0 0 380 160", aspect: 380 / 160 },
   "gradient-level-curves": { viewBox: "0 0 380 220", aspect: 380 / 220 },
   "saddle-surface": { viewBox: "0 0 380 220", aspect: 380 / 220 },
+  "free-body-diagram": { viewBox: "0 0 380 200", aspect: 380 / 200 },
+  "truss-diagram": { viewBox: "0 0 380 220", aspect: 380 / 220 },
+  "shear-moment-diagram": { viewBox: "0 0 380 260", aspect: 380 / 260 },
+  "friction-incline": { viewBox: "0 0 380 220", aspect: 380 / 220 },
+  "stress-element": { viewBox: "0 0 300 260", aspect: 300 / 260 },
+  "beam-bending": { viewBox: "0 0 380 200", aspect: 380 / 200 },
 };
 
 export default function PdfFigure({ type, caption }: { type: FigureType; caption: string }) {
@@ -572,6 +745,12 @@ export default function PdfFigure({ type, caption }: { type: FigureType; caption
     "state-diagram": <StateDiagram />,
     "gradient-level-curves": <GradientLevelCurves />,
     "saddle-surface": <SaddleSurface />,
+    "free-body-diagram": <FreeBodyDiagram />,
+    "truss-diagram": <TrussDiagram />,
+    "shear-moment-diagram": <ShearMomentDiagram />,
+    "friction-incline": <FrictionIncline />,
+    "stress-element": <StressElement />,
+    "beam-bending": <BeamBending />,
   };
 
   return (
