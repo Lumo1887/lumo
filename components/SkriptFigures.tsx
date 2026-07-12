@@ -23,7 +23,13 @@ export type FigureType =
   | "uml-class-box"
   | "state-diagram"
   | "gradient-level-curves"
-  | "saddle-surface";
+  | "saddle-surface"
+  | "free-body-diagram"
+  | "truss-diagram"
+  | "shear-moment-diagram"
+  | "friction-incline"
+  | "stress-element"
+  | "beam-bending";
 
 const INK = "#44403c";
 const BRAND = "#7c3aed";
@@ -568,6 +574,190 @@ function SaddleSurface() {
   );
 }
 
+function FreeBodyDiagram() {
+  return (
+    <svg viewBox="0 0 380 200" className="w-full max-w-md" style={{ transform: "rotate(-0.2deg)" }}>
+      <defs>
+        <marker id="fbd-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill={BRAND} />
+        </marker>
+      </defs>
+      {/* Balken */}
+      <rect x="50" y="90" width="280" height="14" fill="#fef3c7" stroke={INK} strokeWidth="2" />
+      {/* Festlager links (zweiwertig) */}
+      <path d="M65,104 L45,134 L85,134 Z" fill="none" stroke={INK} strokeWidth="2" />
+      <line x1="40" y1="134" x2="90" y2="134" stroke={INK} strokeWidth="2" />
+      {[0, 1, 2, 3, 4].map((i) => (
+        <line key={i} x1={45 + i * 11} y1="134" x2={35 + i * 11} y2="146" stroke={INK} strokeWidth="1.4" />
+      ))}
+      {/* Loslager rechts (einwertig) */}
+      <path d="M290,104 L270,134 L310,134 Z" fill="none" stroke={INK} strokeWidth="2" />
+      <circle cx="280" cy="140" r="4" fill="none" stroke={INK} strokeWidth="1.6" />
+      <circle cx="300" cy="140" r="4" fill="none" stroke={INK} strokeWidth="1.6" />
+      <line x1="270" y1="147" x2="310" y2="147" stroke={INK} strokeWidth="2" />
+      {[0, 1, 2, 3, 4].map((i) => (
+        <line key={i} x1={275 + i * 9} y1="147" x2={267 + i * 9} y2="158" stroke={INK} strokeWidth="1.4" />
+      ))}
+      {/* Äußere Kraft F */}
+      <line x1="190" y1="35" x2="190" y2="88" stroke={BRAND} strokeWidth="2.6" markerEnd="url(#fbd-arrow)" />
+      <text x="198" y="45" className="hand-label" fontSize="15" fill={BRAND}>F</text>
+      {/* Reaktionskräfte am Festlager */}
+      <line x1="65" y1="104" x2="65" y2="78" stroke="#b45309" strokeWidth="2.2" markerEnd="url(#fbd-arrow)" />
+      <text x="40" y="72" className="hand-label" fontSize="13" fill="#b45309">Ay</text>
+      <line x1="65" y1="104" x2="95" y2="104" stroke="#b45309" strokeWidth="2.2" markerEnd="url(#fbd-arrow)" />
+      <text x="98" y="118" className="hand-label" fontSize="13" fill="#b45309">Ax</text>
+      {/* Reaktionskraft am Loslager */}
+      <line x1="295" y1="104" x2="295" y2="78" stroke="#b45309" strokeWidth="2.2" markerEnd="url(#fbd-arrow)" />
+      <text x="300" y="72" className="hand-label" fontSize="13" fill="#b45309">By</text>
+      <text x="150" y="185" className="hand-label" fontSize="14" fill={INK}>Freikörperbild: Lager durch Reaktionskräfte ersetzt</text>
+    </svg>
+  );
+}
+
+function TrussDiagram() {
+  const A: [number, number] = [50, 150];
+  const B: [number, number] = [150, 150];
+  const C: [number, number] = [250, 150];
+  const D: [number, number] = [100, 60];
+  const E: [number, number] = [200, 60];
+  return (
+    <svg viewBox="0 0 320 200" className="w-full max-w-md" style={{ transform: "rotate(0.2deg)" }}>
+      <defs>
+        <marker id="truss-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill={INK} />
+        </marker>
+      </defs>
+      {/* Untergurt (Druckstab, gestaucht dargestellt) */}
+      <line x1={A[0]} y1={A[1]} x2={B[0]} y2={B[1]} stroke="#b45309" strokeWidth="3.2" />
+      <line x1={B[0]} y1={B[1]} x2={C[0]} y2={C[1]} stroke={BRAND} strokeWidth="2.2" />
+      {/* Diagonalen/Obergurt */}
+      <line x1={A[0]} y1={A[1]} x2={D[0]} y2={D[1]} stroke={BRAND} strokeWidth="2.2" />
+      <line x1={D[0]} y1={D[1]} x2={E[0]} y2={E[1]} stroke={BRAND} strokeWidth="2.2" />
+      <line x1={E[0]} y1={E[1]} x2={C[0]} y2={C[1]} stroke={BRAND} strokeWidth="2.2" />
+      <line x1={D[0]} y1={D[1]} x2={B[0]} y2={B[1]} stroke={BRAND} strokeWidth="2.2" />
+      <line x1={E[0]} y1={E[1]} x2={B[0]} y2={B[1]} stroke={BRAND} strokeWidth="2.2" />
+      {/* Knoten */}
+      {[A, B, C, D, E].map(([x, y], i) => (
+        <circle key={i} cx={x} cy={y} r="5.5" fill="#fffdf9" stroke={INK} strokeWidth="2" />
+      ))}
+      {/* Lager */}
+      <path d={`M${A[0] - 14},${A[1] + 20} L${A[0]},${A[1]} L${A[0] + 14},${A[1] + 20} Z`} fill="none" stroke={INK} strokeWidth="2" />
+      <line x1={A[0] - 18} y1={A[1] + 20} x2={A[0] + 18} y2={A[1] + 20} stroke={INK} strokeWidth="2" />
+      <circle cx={C[0] - 6} cy={C[1] + 14} r="3.5" fill="none" stroke={INK} strokeWidth="1.4" />
+      <circle cx={C[0] + 6} cy={C[1] + 14} r="3.5" fill="none" stroke={INK} strokeWidth="1.4" />
+      <line x1={C[0] - 14} y1={C[1] + 20} x2={C[0] + 14} y2={C[1] + 20} stroke={INK} strokeWidth="2" />
+      {/* äußere Kraft */}
+      <line x1={E[0]} y1={E[1] - 40} x2={E[0]} y2={E[1] - 4} stroke={INK} strokeWidth="2.4" markerEnd="url(#truss-arrow)" />
+      <text x={E[0] + 8} y={E[1] - 30} className="hand-label" fontSize="15" fill={INK}>F</text>
+      <text x="55" y="130" className="hand-label" fontSize="12" fill="#b45309">Druckstab</text>
+      <text x="205" y="130" className="hand-label" fontSize="12" fill={BRAND}>Zugstab</text>
+    </svg>
+  );
+}
+
+function ShearMomentDiagram() {
+  return (
+    <svg viewBox="0 0 380 260" className="w-full max-w-md" style={{ transform: "rotate(-0.2deg)" }}>
+      {/* N(s) */}
+      <line x1="30" y1="35" x2="360" y2="35" stroke={INK} strokeWidth="1.6" opacity="0.5" />
+      <line x1="30" y1="60" x2="360" y2="60" stroke={INK} strokeWidth="1.8" strokeLinecap="round" />
+      <text x="4" y="40" className="hand-label" fontSize="14" fill={INK}>N(s)</text>
+      {/* Q(s): Sprung an Lastangriffspunkt */}
+      <line x1="30" y1="105" x2="30" y2="105" stroke={INK} strokeWidth="0" />
+      <path d="M30,120 L200,120 L200,150 L360,150" fill="none" stroke={BRAND} strokeWidth="2.4" strokeLinecap="round" />
+      <line x1="200" y1="120" x2="200" y2="150" stroke={BRAND} strokeWidth="1.4" strokeDasharray="3 4" />
+      <line x1="30" y1="135" x2="360" y2="135" stroke={INK} strokeWidth="1.2" opacity="0.35" />
+      <text x="4" y="125" className="hand-label" fontSize="14" fill={BRAND}>Q(s)</text>
+      {/* M(s): Knick am Lastangriffspunkt */}
+      <path d="M30,240 L200,175 L360,225" fill="none" stroke="#b45309" strokeWidth="2.6" strokeLinecap="round" />
+      <line x1="30" y1="240" x2="360" y2="240" stroke={INK} strokeWidth="1.2" opacity="0.35" />
+      <text x="4" y="200" className="hand-label" fontSize="14" fill="#b45309">M(s)</text>
+      <text x="150" y="255" className="hand-label" fontSize="13" fill={INK}>Sprung in Q, Knick in M unter Einzellast</text>
+    </svg>
+  );
+}
+
+function FrictionIncline() {
+  return (
+    <svg viewBox="0 0 380 220" className="w-full max-w-md" style={{ transform: "rotate(0.2deg)" }}>
+      <defs>
+        <marker id="fric-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill={INK} />
+        </marker>
+      </defs>
+      <path d="M30,190 L340,190 L340,60 Z" fill="#fef3c7" opacity="0.5" stroke={INK} strokeWidth="2" />
+      <rect x="180" y="118" width="60" height="40" fill="#ede9fe" stroke={BRAND} strokeWidth="2.2" transform="rotate(-21 180 158)" />
+      {/* Gewichtskraft */}
+      <line x1="205" y1="150" x2="205" y2="200" stroke={INK} strokeWidth="2.2" markerEnd="url(#fric-arrow)" />
+      <text x="210" y="195" className="hand-label" fontSize="13" fill={INK}>G</text>
+      {/* Normalkraft */}
+      <line x1="205" y1="150" x2="175" y2="105" stroke={BRAND} strokeWidth="2.2" markerEnd="url(#fric-arrow)" />
+      <text x="150" y="100" className="hand-label" fontSize="13" fill={BRAND}>N</text>
+      {/* Haftkraft (Kraftkegel) */}
+      <line x1="205" y1="150" x2="255" y2="163" stroke="#b45309" strokeWidth="2.2" markerEnd="url(#fric-arrow)" />
+      <text x="260" y="160" className="hand-label" fontSize="13" fill="#b45309">H</text>
+      <path d="M225,140 A 30,30 0 0 1 245,150" fill="none" stroke={INK} strokeWidth="1.4" />
+      <text x="238" y="128" className="hand-label" fontSize="12" fill={INK}>φ₀</text>
+      <text x="40" y="205" className="hand-label" fontSize="13" fill={INK}>Schiefe Ebene mit Haftreibungskegel</text>
+    </svg>
+  );
+}
+
+function StressElement() {
+  return (
+    <svg viewBox="0 0 340 220" className="w-full max-w-md" style={{ transform: "rotate(-0.2deg)" }}>
+      <defs>
+        <marker id="stress-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill={BRAND} />
+        </marker>
+      </defs>
+      {/* Würfel (isometrisch angedeutet) */}
+      <polygon points="90,150 220,150 250,110 120,110" fill="#ede9fe" opacity="0.5" stroke={INK} strokeWidth="2" />
+      <polygon points="90,150 90,60 120,20 120,110" fill="#ede9fe" opacity="0.7" stroke={INK} strokeWidth="2" />
+      <polygon points="90,60 220,60 250,20 120,20" fill="#fef3c7" opacity="0.6" stroke={INK} strokeWidth="2" />
+      <line x1="220" y1="150" x2="220" y2="60" stroke={INK} strokeWidth="2" />
+      <line x1="250" y1="110" x2="250" y2="20" stroke={INK} strokeWidth="2" />
+      {/* Normalspannungen sigma_x auf rechter Fläche */}
+      <line x1="220" y1="105" x2="270" y2="105" stroke={BRAND} strokeWidth="2.4" markerEnd="url(#stress-arrow)" />
+      <text x="272" y="100" className="hand-label" fontSize="14" fill={BRAND}>σx</text>
+      {/* sigma_y oben */}
+      <line x1="170" y1="40" x2="170" y2="0" stroke={BRAND} strokeWidth="2.4" markerEnd="url(#stress-arrow)" />
+      <text x="176" y="10" className="hand-label" fontSize="14" fill={BRAND}>σy</text>
+      {/* tau_xy Schubspannung */}
+      <line x1="220" y1="130" x2="220" y2="90" stroke="#b45309" strokeWidth="2.2" markerEnd="url(#stress-arrow)" />
+      <text x="226" y="118" className="hand-label" fontSize="13" fill="#b45309">τxy</text>
+      <text x="60" y="200" className="hand-label" fontSize="13" fill={INK}>Spannungszustand am Volumenelement</text>
+    </svg>
+  );
+}
+
+function BeamBending() {
+  return (
+    <svg viewBox="0 0 380 180" className="w-full max-w-md" style={{ transform: "rotate(-0.2deg)" }}>
+      <defs>
+        <marker id="bend-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill={BRAND} />
+        </marker>
+      </defs>
+      {/* unverformte Lage */}
+      <line x1="30" y1="70" x2="350" y2="70" stroke={INK} strokeWidth="1.6" strokeDasharray="5 5" opacity="0.5" />
+      {/* Biegelinie */}
+      <path d="M30,70 C 130,70 150,140 190,140 C 230,140 250,70 350,70" fill="none" stroke={BRAND} strokeWidth="2.6" strokeLinecap="round" />
+      {/* Lager */}
+      <path d="M20,70 L30,70 L38,90 L22,90 Z" fill="none" stroke={INK} strokeWidth="2" />
+      <line x1="15" y1="90" x2="45" y2="90" stroke={INK} strokeWidth="2" />
+      <circle cx="342" cy="82" r="3.6" fill="none" stroke={INK} strokeWidth="1.4" />
+      <path d="M340,70 L350,70 L358,90 L342,90 Z" fill="none" stroke={INK} strokeWidth="2" />
+      <line x1="335" y1="90" x2="363" y2="90" stroke={INK} strokeWidth="2" />
+      {/* Durchbiegung f */}
+      <line x1="190" y1="70" x2="190" y2="140" stroke={INK} strokeWidth="1.4" strokeDasharray="3 4" />
+      <line x1="200" y1="70" x2="200" y2="140" stroke={INK} strokeWidth="1" markerEnd="url(#bend-arrow)" />
+      <text x="205" y="108" className="hand-label" fontSize="14" fill={INK}>f</text>
+      <text x="130" y="30" className="hand-label" fontSize="14" fill={INK}>w(x): Biegelinie</text>
+    </svg>
+  );
+}
+
 export default function SkriptFigure({
   type,
   caption,
@@ -601,6 +791,12 @@ export default function SkriptFigure({
     "state-diagram": <StateDiagram />,
     "gradient-level-curves": <GradientLevelCurves />,
     "saddle-surface": <SaddleSurface />,
+    "free-body-diagram": <FreeBodyDiagram />,
+    "truss-diagram": <TrussDiagram />,
+    "shear-moment-diagram": <ShearMomentDiagram />,
+    "friction-incline": <FrictionIncline />,
+    "stress-element": <StressElement />,
+    "beam-bending": <BeamBending />,
   };
 
   return <FigureFrame caption={caption}>{map[type]}</FigureFrame>;

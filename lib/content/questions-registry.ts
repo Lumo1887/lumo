@@ -5,6 +5,7 @@ import { questions as vwl1Questions, TOPICS as vwl1Topics } from "@/lib/question
 import { questions as informatik2Questions, TOPICS as informatik2Topics } from "@/lib/questions-informatik-2";
 import { questions as mathematik2AbschlussQuestions, TOPICS as mathematik2AbschlussTopics } from "@/lib/questions-mathematik-2-abschluss";
 import { questions as bwl1Questions, TOPICS as bwl1Topics } from "@/lib/questions-bwl-1";
+import { questions as ing2Questions, TOPICS as ing2Topics } from "@/lib/questions-ing-2";
 
 // Zentrale Zuordnung moduleSlug -> Fragenbank fürs Übungstool. Ein neues
 // Modul braucht eine eigene Datei wie "@/lib/questions" (Export "questions"
@@ -18,6 +19,7 @@ const questionBank: Record<string, { questions: Question[]; topics: readonly str
   "informatik-2": { questions: informatik2Questions, topics: informatik2Topics },
   "mathematik-2-abschluss": { questions: mathematik2AbschlussQuestions, topics: mathematik2AbschlussTopics },
   "bwl-1": { questions: bwl1Questions, topics: bwl1Topics },
+  "ing-2": { questions: ing2Questions, topics: ing2Topics },
 };
 
 export function getQuestions(moduleSlug: string): Question[] {
