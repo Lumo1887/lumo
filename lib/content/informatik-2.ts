@@ -328,6 +328,11 @@ export const chapters: SkriptChapter[] = [
           "Ein binärer Suchbaum ist ein binärer Baum mit einer zusätzlichen Ordnungseigenschaft: Für jeden Knoten gilt, dass alle Elemente im linken Teilbaum kleiner und alle Elemente im rechten Teilbaum größer sind als der Knoten selbst (bezüglich einer zugrunde liegenden Ordnungsrelation). Suchen, Einfügen und Löschen orientieren sich an dieser Eigenschaft: Beim Suchen wird in jedem Knoten verglichen und je nach Ergebnis links oder rechts weitergegangen; neue Elemente werden an der Stelle eingefügt, an der die Suche erfolglos endet.",
           "Beim Löschen unterscheidet man drei Fälle: Ein Blatt kann direkt entfernt werden; ein Knoten mit genau einem Kind wird durch dieses Kind ersetzt; ein Knoten mit zwei Kindern wird durch seinen In-Order-Nachfolger (das kleinste Element im rechten Teilbaum) oder seinen In-Order-Vorgänger (das größte Element im linken Teilbaum) ersetzt, der anschließend an seiner ursprünglichen Stelle gelöscht wird. Bei der Traversierung unterscheidet man Pre-Order (Knoten, linker Teilbaum, rechter Teilbaum), Post-Order (linker Teilbaum, rechter Teilbaum, Knoten) und In-Order (linker Teilbaum, Knoten, rechter Teilbaum) — die In-Order-Traversierung liefert bei einem binären Suchbaum stets die Elemente in aufsteigend sortierter Reihenfolge.",
         ],
+        formulas: ["Suchen/Einfügen/Löschen: O(h), h = Höhe des Baums — O(log₂n) balanciert, O(n) entartet"],
+        formulasLatex: ["O(h), \\quad h=O(\\log_2 n) \\ \\text{(balanciert)}, \\quad h=O(n) \\ \\text{(entartet, z. B. sortiert eingefügt)}"],
+        examples: [
+          "Werden die Werte 1,2,3,4,5 in dieser (bereits sortierten) Reihenfolge eingefügt, entsteht ein vollständig entarteter Baum (jeder Knoten hat nur ein rechtes Kind) mit Höhe h=5=n — Suchen kostet dann O(n) statt der im balancierten Fall möglichen O(log₂n). Fügt man dieselben Werte dagegen in der Reihenfolge 3,1,4,2,5 ein, ergibt sich ein deutlich flacherer Baum.",
+        ],
         figure: {
           type: "binary-tree",
           caption: "Ein binärer Suchbaum über dem Alphabet als Ordnungsrelation.",
@@ -390,6 +395,8 @@ export const chapters: SkriptChapter[] = [
           "Insertion Sort arbeitet den Bereich zwischen dem zweiten und letzten Element schrittweise ab: In Schritt i ist der Teilbereich bis Position i−1 bereits sortiert, und das Element an Position i wird an der richtigen Stelle innerhalb dieses bereits sortierten Teilbereichs eingefügt, indem größere Elemente jeweils eine Position nach rechts verschoben werden.",
           "Da im schlechtesten Fall (absteigend sortierte Eingabe) für jedes der n Elemente bis zu n Vergleiche und Verschiebungen nötig sind, liegt die Laufzeit bei O(n²) — Insertion Sort ist bei kleinen oder bereits fast sortierten Folgen jedoch effizient und wird deshalb oft als Teilverfahren in Kombination mit anderen Sortierverfahren eingesetzt.",
         ],
+        formulas: ["Tmax(n) = O(n²), Tmin(n) = O(n) (bereits sortierte Eingabe)"],
+        formulasLatex: ["T_{\\max}(n) = O(n^2), \\quad T_{\\min}(n) = O(n)"],
         examples: [
           "Für die Folge (9, 4, 6, 2, 8) wird zunächst 4 vor 9 einsortiert (4, 9, 6, 2, 8), dann 6 zwischen 4 und 9 (4, 6, 9, 2, 8), dann 2 an den Anfang (2, 4, 6, 9, 8) und schließlich 8 zwischen 6 und 9 (2, 4, 6, 8, 9).",
         ],
@@ -401,6 +408,11 @@ export const chapters: SkriptChapter[] = [
           "Quicksort ist ein Divide-&-Conquer-Verfahren (Abschnitt 5.3): Ein Pivotelement wird ausgewählt, und die restlichen Elemente werden so umsortiert (partitioniert), dass alle kleineren Elemente links und alle größeren Elemente rechts vom Pivot stehen. Anschließend wird Quicksort rekursiv auf beide entstandenen Teilfolgen angewendet, bis die Teilfolgen höchstens ein Element enthalten.",
           "Die Laufzeit hängt stark von der Wahl des Pivots ab: Im ungünstigsten Fall (z. B. bereits sortierte Eingabe bei Wahl des jeweils ersten Elements als Pivot) entstehen völlig unausgeglichene Partitionen, und die Laufzeit liegt bei Tmax = O(n²). Im Durchschnitt teilt das Pivotelement die Folge jedoch einigermaßen ausgeglichen, was zu Tavg = O(n log₂n) führt — deshalb ist Quicksort trotz seines quadratischen Worst-Case in der Praxis meist eines der schnellsten Sortierverfahren.",
         ],
+        formulas: ["Tavg(n) = O(n·log₂n), Tmax(n) = O(n²)"],
+        formulasLatex: ["T_{\\text{avg}}(n) = O(n\\log_2 n), \\quad T_{\\max}(n) = O(n^2)"],
+        examples: [
+          "Für (6, 2, 8, 5, 1, 9) mit Pivot = erstes Element (6): Partitionierung liefert (2, 5, 1, 6, 8, 9) — alle Elemente < 6 links, alle > 6 rechts vom nun an seiner Endposition stehenden Pivot. Quicksort wird anschließend rekursiv auf (2,5,1) und (8,9) angewendet.",
+        ],
       },
       {
         id: "8-3",
@@ -408,6 +420,11 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Ein (Max-)Heap ist ein binärer Baum (in Array-Form gespeichert), in dem jeder Elternknoten größer oder gleich seinen Kindknoten ist — insbesondere steht das größte Element stets an der Wurzel. Beim 'Versickern' (sift-down) wird ein Knoten, der die Heap-Eigenschaft verletzt, so lange mit seinem größeren Kind vertauscht, bis die Eigenschaft lokal wiederhergestellt ist.",
           "Heapsort baut zunächst durch wiederholtes Versickern (von der Mitte des Arrays rückwärts bis zum Anfang) einen initialen Heap auf und tauscht anschließend wiederholt das Wurzelelement (das jeweils größte verbleibende Element) mit dem letzten Element des noch unsortierten Bereichs, verkleinert den Heap um eins und stellt die Heap-Eigenschaft durch erneutes Versickern wieder her. Da sowohl der Aufbau als auch das Sortieren jeweils O(n log₂n) Zeit benötigen, gilt Tmax = Tavg = O(n log₂n) — dies ist zugleich die theoretische untere Schranke für vergleichsbasierte Sortierverfahren, Heapsort ist also asymptotisch optimal. Eine praxisrelevante Verbesserung ist BottomUp-Heapsort, das die Anzahl benötigter Vergleiche gegenüber dem Standardverfahren etwa halbiert.",
+        ],
+        formulas: ["Tmax(n) = Tavg(n) = O(n·log₂n)"],
+        formulasLatex: ["T_{\\max}(n) = T_{\\text{avg}}(n) = O(n\\log_2 n)"],
+        examples: [
+          "Array (3, 9, 2, 7, 5): Aufbau des Max-Heaps liefert (9, 7, 2, 3, 5) (9 an der Wurzel). Erster Schritt: Wurzel 9 mit letztem Element 5 tauschen → (5,7,2,3,9), Heap-Bereich verkleinert auf 4 Elemente, Versickern von 5 liefert (7,5,2,3,9) — 9 steht bereits sortiert am Ende.",
         ],
       },
     ],
@@ -437,6 +454,11 @@ export const chapters: SkriptChapter[] = [
           "Der Algorithmus von Dijkstra (1959) bestimmt in einem gerichteten, kantengewichteten Graphen die kürzesten Wege von einem Startknoten zu allen anderen Knoten. Er arbeitet greedy: In jedem Schritt wird der noch nicht endgültig bearbeitete Knoten mit der kleinsten bekannten Distanz zum Startknoten ausgewählt, als endgültig markiert, und die Distanzen seiner Nachbarn werden aktualisiert, falls der Weg über den neu markierten Knoten kürzer ist.",
           "Der Algorithmus setzt voraus, dass alle Kantengewichte nicht-negativ sind — bei negativen Gewichten kann ein bereits als endgültig markierter Knoten fälschlich zu kurz eingeschätzt werden. Die Laufzeit liegt bei O(n²) mit einer einfachen array-basierten Umsetzung bzw. bei O((|E|+n)·log n) mit einer heap-basierten Prioritätswarteschlange. Der konkrete kürzeste Weg (nicht nur seine Länge) lässt sich rekonstruieren, indem zusätzlich zu jeder Distanz der jeweilige Vorgängerknoten mitgeführt wird.",
         ],
+        formulas: ["O(n²) (array-basiert)  |  O((|E|+n)·log n) (heap-basiert)"],
+        formulasLatex: ["O(n^2) \\ \\text{(array-basiert)} \\qquad O\\big((|E|+n)\\log n\\big) \\ \\text{(heap-basiert)}"],
+        examples: [
+          "Graph mit Knoten A(Start),B,C,D und Kanten A–B(4), A–C(1), C–B(1), B–D(1), C–D(5). Dijkstra markiert zuerst A (Distanz 0), dann C (1, über A), dann B (2, über C statt direkt über A mit 4), dann D (3, über B) — kürzester Weg A→D hat Länge 3 über A-C-B-D, nicht 5 über A-C-D.",
+        ],
       },
       {
         id: "9-3",
@@ -445,6 +467,11 @@ export const chapters: SkriptChapter[] = [
           "Der Algorithmus von Bellman-Ford löst dasselbe Problem wie Dijkstra, funktioniert aber auch bei negativen Kantengewichten: Er iteriert |V|−1-mal über alle Kanten und aktualisiert (relaxiert) dabei jede Distanzschätzung, sofern ein kürzerer Weg gefunden wird. Da nach |V|−1 Iterationen jeder kürzeste Weg (der aus höchstens |V|−1 Kanten besteht) korrekt berechnet ist, terminiert das Verfahren mit dem richtigen Ergebnis.",
           "Enthält der Graph einen vom Startknoten aus erreichbaren negativen Zyklus, existiert kein kürzester Weg (er ließe sich beliebig weiter verkürzen), und der Algorithmus terminiert nicht mit einem korrekten endlichen Ergebnis — dies lässt sich durch eine zusätzliche Kontrolliteration erkennen. Die Laufzeit liegt bei O(|E|·|V|) und damit typischerweise deutlich höher als bei Dijkstra, weshalb Bellman-Ford nur eingesetzt wird, wenn negative Kantengewichte tatsächlich vorkommen können.",
         ],
+        formulas: ["O(|E|·|V|), |V|−1 Iterationen über alle Kanten"],
+        formulasLatex: ["O(|E|\\cdot|V|), \\quad |V|-1 \\text{ Iterationen}"],
+        examples: [
+          "Graph mit Knoten A(Start),B,C und Kanten A–B(4), A–C(5), B–C(−2). Nach Iteration 1: dist(B)=4, dist(C)=min(5, 4+(−2))=2. Da |V|−1=2 Iterationen für 3 Knoten genügen und sich in Iteration 2 nichts mehr ändert, ist der kürzeste Weg A→C über B (Länge 2) korrekt erkannt — trotz der negativen Kante B–C, an der Dijkstra scheitern würde.",
+        ],
       },
       {
         id: "9-4",
@@ -452,6 +479,11 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Ein minimaler Spannbaum eines zusammenhängenden, kantengewichteten, ungerichteten Graphen ist ein azyklischer Teilgraph (also ein Baum), der alle Knoten verbindet und unter allen solchen Teilgraphen die minimale Summe der Kantengewichte besitzt — etwa gesucht, wenn ein Leitungsnetz mit minimalen Baukosten alle Standorte verbinden soll.",
           "Der Algorithmus von Kruskal (1956) sortiert alle Kanten aufsteigend nach Gewicht und fügt sie in dieser Reihenfolge zum Spannbaum hinzu, sofern sie keinen Zyklus mit den bereits gewählten Kanten bilden würden; er endet, sobald |V|−1 Kanten gewählt wurden. Die Laufzeit liegt bei O(|E|·log|E|), dominiert vom Sortieren der Kanten. Der Algorithmus von Prim wählt stattdessen ausgehend von einem einzelnen Startknoten in jedem Schritt die billigste Kante, die den bisher aufgebauten Teilbaum um einen neuen Knoten erweitert; seine Laufzeit liegt bei O(|E|+|V|·log|V|) und ist damit bei sehr dichten Graphen (|E| ≫ |V|) günstiger als Kruskal.",
+        ],
+        formulas: ["Kruskal: O(|E|·log|E|)", "Prim: O(|E| + |V|·log|V|)"],
+        formulasLatex: ["\\text{Kruskal: } O(|E|\\log|E|) \\qquad \\text{Prim: } O(|E|+|V|\\log|V|)"],
+        examples: [
+          "Graph mit Knoten A,B,C,D und Kanten A–B(1), B–C(2), C–D(3), A–D(4), A–C(5). Kruskal wählt aufsteigend: A–B(1), B–C(2), C–D(3) — nach 3=|V|−1 Kanten fertig, Gesamtgewicht 6 (A–D und A–C würden Zyklen schließen und werden übersprungen).",
         ],
       },
     ],
@@ -481,6 +513,11 @@ export const chapters: SkriptChapter[] = [
           "Für einen Algorithmus A mit Eingabegröße n und die Menge Eₙ aller Eingaben dieser Größe bezeichnet man mit t(A;n,e) die Anzahl der Elementaroperationen für eine konkrete Eingabe e ∈ Eₙ. Daraus werden drei Kenngrößen abgeleitet: Tmin(A;n) = min t(A;n,e) (bester Fall), Tmax(A;n) = max t(A;n,e) (schlechtester Fall) und Tavg(A;n) (Durchschnitt über alle e ∈ Eₙ, meist unter Annahme einer Gleichverteilung).",
           "Bei einem Algorithmus ohne Fallunterscheidungen (z. B. der Berechnung der Summe der ersten n Zahlen mit T = 5n+3 Elementaroperationen) fallen alle drei Kenngrößen zusammen, da jede Eingabe der Größe n denselben Aufwand verursacht. Bei der sequentiellen Suche nach einem Element unterscheiden sie sich dagegen deutlich: Tmin liegt bei einer konstanten Anzahl von Schritten (Treffer an erster Position), Tmax bei etwa 6n Schritten (Element nicht vorhanden oder an letzter Position) und Tavg bei etwa 3n Schritten unter der Annahme, dass der gesuchte Wert mit gleicher Wahrscheinlichkeit an jeder Position steht.",
         ],
+        formulas: ["Tmin(A;n) = min_e t(A;n,e), Tmax(A;n) = max_e t(A;n,e), Tavg(A;n) = Durchschnitt über e∈Eₙ"],
+        formulasLatex: ["T_{\\min}(A;n) = \\min_{e} t(A;n,e), \\quad T_{\\max}(A;n) = \\max_e t(A;n,e), \\quad T_{\\text{avg}}(A;n) = \\dfrac{1}{|E_n|}\\sum_{e\\in E_n} t(A;n,e)"],
+        examples: [
+          "Sequentielle Suche in einem Array der Länge n=100 (Zuweisung + Vergleich pro Schritt ≈ 2 ELOP): Steht der gesuchte Wert an Position 1, sind Tmin ≈ 2 Operationen nötig. Steht er an letzter Position oder fehlt ganz, sind Tmax ≈ 2·100=200 Operationen nötig. Im Mittel (gleichverteilte Trefferposition) liegt Tavg bei ungefähr der Hälfte, also ≈100 Operationen.",
+        ],
       },
       {
         id: "10-3",
@@ -493,6 +530,9 @@ export const chapters: SkriptChapter[] = [
         formulasLatex: [
           "f \\in O(g) \\iff \\exists c>0\\, \\exists n_0\\, \\forall n>n_0: f(n) \\le c\\cdot g(n)",
           "f \\in \\Theta(g) \\iff f \\in O(g) \\land f \\in \\Omega(g)",
+        ],
+        examples: [
+          "Für f(n)=5n+3 gilt f∈O(n): mit c=6 und n₀=3 ist 5n+3 ≤ 6n für alle n>3. Für f(n)=n²+1000n gilt f∈Θ(n²): einerseits f(n)≤1001n² (also O(n²)), andererseits f(n)≥n² (also Ω(n²)) — beide Bedingungen zusammen ergeben Θ(n²), obwohl der lineare Term für kleine n dominiert.",
         ],
       },
       {

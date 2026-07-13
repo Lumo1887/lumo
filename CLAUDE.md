@@ -48,9 +48,24 @@ sagen muss:
    nur um erfundene Kontexte/Geschichten, die der Ersteller des Übungsblatts
    sich ausgedacht hat.
 
-Diese beiden Regeln gelten rückwirkend bereits für Statistik I und VWL 2
-(beide wurden entsprechend umgebaut) und für jedes künftige Modul von Anfang
-an — nicht erst nach Rückfrage.
+3. **Klausurtauglichkeit: keine Konzepte ohne Formel/Rechenbeispiel.** Für
+   jedes Konzept im Skript (`lib/content/<slug>.ts`), zu dem es in einer
+   echten Klausur eine Rechenaufgabe geben könnte (nicht nur Verständnisfragen),
+   muss die jeweilige Section ein `formulas`/`formulasLatex`-Paar UND mindestens
+   ein durchgerechnetes Zahlenbeispiel in `examples` enthalten — nicht nur eine
+   Begriffsdefinition in `terms`. Ziel: Man muss mit dem Skript allein (ohne
+   Zugriff auf die Originalquelle) eine Klausur zu dem Thema schreiben können.
+   Rein konzeptionelle/einordnende Abschnitte (z. B. Skalenniveaus, Grundbegriffe
+   ohne eigene Rechnung) brauchen keine Formel. Diese Regel gilt beim
+   Neuanlegen eines Moduls von Anfang an — die Section-Liste des geplanten
+   Kapitels sollte am Ende noch einmal daraufhin durchgegangen werden, ob
+   irgendwo eine Formel fehlt, die in einer Klausur drankäme.
+
+Diese Regeln gelten rückwirkend bereits für Statistik I und VWL 2 (Regeln 1+2,
+beide wurden entsprechend umgebaut) sowie für Statistik I (Regel 3, wurde
+nachträglich um fehlende Formeln wie den Gini-Koeffizienten bei maximaler
+Disparität, Schiefe/Kurtosis, hypergeometrische Verteilung u. a. ergänzt) —
+und für jedes künftige Modul von Anfang an, nicht erst nach Rückfrage.
 
 ## Sonstiges
 

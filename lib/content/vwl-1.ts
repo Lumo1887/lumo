@@ -181,6 +181,14 @@ export const chapters: SkriptChapter[] = [
             definition: "f(t·x1, t·x2) < t·f(x1, x2) für t > 1 — der Output wächst unterproportional zu den Inputs.",
           },
         ],
+        formulas: [
+          "Cobb-Douglas f(x1,x2)=x1^a·x2^b: f(t·x1,t·x2) = t^(a+b)·f(x1,x2)",
+          "a+b=1: konstant  |  a+b>1: zunehmend  |  a+b<1: abnehmend",
+        ],
+        formulasLatex: [
+          "f(t x_1, t x_2) = t^{a+b}\\, f(x_1,x_2) \\quad \\text{für } f(x_1,x_2)=x_1^a x_2^b",
+          "a+b=1:\\ \\text{konstant} \\quad a+b>1:\\ \\text{zunehmend} \\quad a+b<1:\\ \\text{abnehmend}",
+        ],
         examples: [
           "Für f(x1, x2) = x1^0,5·x2^0,3 gilt f(tx1, tx2) = t^0,8·f(x1, x2): da 0,8 < 1, liegen abnehmende Skalenerträge vor. Bei f(x1, x2) = x1·x2 dagegen ist f(tx1, tx2) = t²·f(x1, x2) — zunehmende Skalenerträge.",
         ],
@@ -406,6 +414,15 @@ export const chapters: SkriptChapter[] = [
             definition: "Jeder Käufer zahlt individuell genau seine Zahlungsbereitschaft — effizient in der Menge, aber ohne Konsumentenrente.",
           },
         ],
+        formulas: [
+          "Preisdiskriminierung 3. Grades, Teilmarkt i: MR_i(y_i) = MC, mit MR_i = p_i·(1+1/εi)",
+        ],
+        formulasLatex: [
+          "MR_i(y_i) = MC, \\quad MR_i = p_i\\left(1+\\dfrac{1}{\\varepsilon_i}\\right)",
+        ],
+        examples: [
+          "Ein Softwareanbieter (konstante Grenzkosten MC=10) bedient Studierende (Elastizität ε1=−4) und Berufstätige (ε2=−2) getrennt. Aus MRi=p_i(1+1/εi)=MC folgt p1=MC/(1+1/ε1)=10/(1−0,25)≈13,33 für Studierende und p2=10/(1−0,5)=20 für Berufstätige — der unelastischere Teilmarkt (Berufstätige) zahlt den höheren Preis.",
+        ],
       },
     ],
   },
@@ -459,6 +476,15 @@ export const chapters: SkriptChapter[] = [
             term: "Quasi-Fixkosten",
             definition: "Kosten, die nur anfallen, sobald überhaupt produziert wird (y > 0), aber nicht mit der Höhe von y variieren.",
           },
+        ],
+        formulas: [
+          "Für f(x1,x2)=x1·x2: C(w1,w2,y) = 2√(y·w1·w2)",
+        ],
+        formulasLatex: [
+          "C(w_1,w_2,y) = 2\\sqrt{y\\,w_1 w_2}",
+        ],
+        examples: [
+          "Bei w1=w2=4 und y=9 ergibt sich C = 2√(9·4·4) = 2·12 = 24 GE. Verdoppelt man y auf 18, steigt C auf 2√(18·16)=2·√288≈33,94 GE — die Kosten wachsen unterproportional zum Output, da f(x1,x2)=x1x2 zunehmende Skalenerträge aufweist.",
         ],
       },
       {
@@ -622,6 +648,17 @@ export const chapters: SkriptChapter[] = [
             definition: "η = (∂D/∂m)·(m/D) — das Verhältnis der relativen Mengenänderung zur relativen Einkommensänderung.",
           },
         ],
+        formulas: [
+          "ε = (∂D/∂p)·(p/D)",
+          "η = (∂D/∂m)·(m/D)",
+        ],
+        formulasLatex: [
+          "\\varepsilon = \\dfrac{\\partial D}{\\partial p}\\cdot\\dfrac{p}{D}",
+          "\\eta = \\dfrac{\\partial D}{\\partial m}\\cdot\\dfrac{m}{D}",
+        ],
+        examples: [
+          "Für D(p) = 60 − 4p bei p=10: D=20, ∂D/∂p=−4. ε = −4·(10/20) = −2 — die Nachfrage reagiert elastisch: Eine Preiserhöhung um 1 Prozent senkt die Menge um 2 Prozent.",
+        ],
       },
       {
         id: "7-2",
@@ -680,8 +717,16 @@ export const chapters: SkriptChapter[] = [
             definition: "Der Verlust an gesamter Rente (Konsumenten- plus Produzentenrente), der entsteht, weil eine Steuer die gehandelte Menge unter das effiziente Niveau drückt.",
           },
         ],
+        formulas: [
+          "pD − pS = t, mit D(pD) = S(pS)",
+          "DWL = 0,5 · t · (Q0 − Q1)",
+        ],
+        formulasLatex: [
+          "p_D - p_S = t, \\quad D(p_D) = S(p_S)",
+          "DWL = \\tfrac{1}{2}\\, t\\, (Q_0 - Q_1)",
+        ],
         examples: [
-          "Bei D(p) = 60−4p, S(p) = 2p und einer Mengensteuer von t = 3 ergibt sich pS* = 8 (Anbieterpreis), pD* = 11 (Nachfragerpreis), Menge 16, Deadweight Loss = 6. Da das Angebot (Steigung 2) elastischer reagiert als hier implizit unterstellt, tragen die Nachfrager 2/3 und die Anbieter 1/3 der Steuerlast.",
+          "Bei D(p) = 60−4p, S(p) = 2p und einer Mengensteuer von t = 3 ergibt sich pS* = 8 (Anbieterpreis), pD* = 11 (Nachfragerpreis), Menge Q1=16 (vorher Q0=20 ohne Steuer). DWL = 0,5·3·(20−16) = 6. Da das Angebot (Steigung 2) elastischer reagiert als hier implizit unterstellt, tragen die Nachfrager 2/3 und die Anbieter 1/3 der Steuerlast.",
         ],
       },
     ],
@@ -735,8 +780,16 @@ export const chapters: SkriptChapter[] = [
             definition: "Die restliche Nachfrageänderung, die durch die Veränderung der realen Kaufkraft (bei unverändertem Preisverhältnis) entsteht.",
           },
         ],
+        formulas: [
+          "Slutsky-Gleichung: ∂x1/∂p1 = ∂x1^S/∂p1 − x1·(∂x1/∂m)",
+          "(Substitutionseffekt) − x1·(Einkommenseffekt), mit Slutsky-Einkommen m' = p1·x1 + p2·x2 (altes Bündel zu neuen Preisen)",
+        ],
+        formulasLatex: [
+          "\\dfrac{\\partial x_1}{\\partial p_1} = \\dfrac{\\partial x_1^{S}}{\\partial p_1} - x_1\\,\\dfrac{\\partial x_1}{\\partial m}",
+          "m' = p_1' x_1^{0} + p_2 x_2^{0} \\quad \\text{(Slutsky-kompensiertes Einkommen)}",
+        ],
         examples: [
-          "Bei u(x1,x2)=x1x2, m=100, p2=5 steigt p1 von 10 auf 40. Ursprüngliche Nachfrage x1=5. Slutsky-Einkommen m' = 40·5+5·(m/(2·5)) ... nach Kompensation kauft der Haushalt zu den neuen Preisen ein Bündel mit geringerem x1 als vorher rein durch die Substitution, zusätzlich sinkt x1 weiter durch den Einkommenseffekt, da bei geringerem realem Einkommen weniger von beiden (normalen) Gütern nachgefragt wird.",
+          "Bei u(x1,x2)=x1·x2, m=100, p2=5 steigt p1 von 10 auf 40. Cobb-Douglas-Nachfrage: x1=0,5m/p1. Ursprünglich x1⁰=0,5·100/10=5. Slutsky-Einkommen m'=p1'·x1⁰+p2·x2⁰=40·5+5·10=250. Bei m' und p1'=40: x1'=0,5·250/40=3,125 — das ist der Substitutionseffekt (5→3,125). Beim tatsächlichen neuen Einkommen m=100: x1*=0,5·100/40=1,25 — der restliche Rückgang (3,125→1,25) ist der Einkommenseffekt.",
         ],
       },
       {
@@ -751,6 +804,15 @@ export const chapters: SkriptChapter[] = [
             term: "Hicks-Kompensation",
             definition: "Das fiktive Einkommen m̂, bei dem der Haushalt zu den neuen Preisen genau das ursprüngliche Nutzenniveau erreicht.",
           },
+        ],
+        formulas: [
+          "Hicks-Zerlegung (Slutsky-Gleichung in Hicksscher Form): ∂x1/∂p1 = ∂h1/∂p1 − x1·(∂x1/∂m)",
+        ],
+        formulasLatex: [
+          "\\dfrac{\\partial x_1}{\\partial p_1} = \\dfrac{\\partial h_1}{\\partial p_1} - x_1\\,\\dfrac{\\partial x_1}{\\partial m}",
+        ],
+        examples: [
+          "Formal identisch zur Slutsky-Gleichung, nur dass ∂h1/∂p1 die Änderung der Hicksschen (nutzenkonstanten statt bündelkonstanten) Nachfrage ist. Für infinitesimale Preisänderungen ist ∂h1/∂p1 ≈ ∂x1^S/∂p1 — der Unterschied zwischen Slutsky- und Hicks-Substitutionseffekt fällt erst bei diskret großen Preisänderungen quantitativ ins Gewicht.",
         ],
       },
       {
@@ -889,6 +951,11 @@ export const chapters: SkriptChapter[] = [
             definition: "Eine Firma produziert kurzfristig nur, solange p ≥ min AVC(y) gilt — sonst ist y = 0 optimal, da die Fixkosten ohnehin anfallen.",
           },
         ],
+        formulas: ["Stilllegung: y=0 falls p < min AVC(y), sonst p = MC(y)"],
+        formulasLatex: ["y=0 \\ \\text{falls}\\ p < \\min_y AVC(y), \\quad \\text{sonst}\\ p = MC(y)"],
+        examples: [
+          "Für C(y) = 100 + y³ − 8y² + 30y (Fixkosten 100, variable Kosten VC(y)=y³−8y²+30y, sodass VC(0)=0) gilt AVC(y) = y²−8y+30. Minimum bei dAVC/dy=2y−8=0 ⟹ y=4, AVC(4)=16−32+30=14 (dort gilt auch AVC=MC, da MC(y)=3y²−16y+30, MC(4)=48−64+30=14). Bei einem Marktpreis p<14 lohnt es sich für die Firma, kurzfristig auf y=0 stillzulegen, statt mit Verlust unterhalb der variablen Kosten zu produzieren.",
+        ],
       },
       {
         id: "10-3",
@@ -901,6 +968,11 @@ export const chapters: SkriptChapter[] = [
             term: "Produzentenrente",
             definition: "Die Fläche zwischen Marktpreis und Grenzkostenkurve bis zur angebotenen Menge — entspricht Erlös minus variable Kosten.",
           },
+        ],
+        formulas: ["PR = ∫₀^y* (p − MC(y)) dy = p·y* − VC(y*)"],
+        formulasLatex: ["PR = \\int_0^{y^{*}} \\big(p - MC(y)\\big)\\, dy = p\\, y^{*} - VC(y^{*})"],
+        examples: [
+          "Bei MC(y)=2y und p=20 ist y*=10 (aus p=MC). PR = ∫₀¹⁰(20−2y)dy = [20y−y²]₀¹⁰ = 200−100 = 100 GE. Äquivalent: VC(y)=y² (Stammfunktion von MC), also PR=p·y*−VC(y*)=20·10−100=100 GE.",
         ],
       },
       {
@@ -997,6 +1069,11 @@ export const chapters: SkriptChapter[] = [
             definition: "Die Marktnachfrage abzüglich der von preisnehmenden Konkurrenten bereits bedienten Menge — die Nachfrage, die einer Preisführerin verbleibt.",
           },
         ],
+        formulas: ["Bertrand-Gleichgewicht (homogenes Gut, identische MC): p1* = p2* = MC"],
+        formulasLatex: ["p_1^{*} = p_2^{*} = MC"],
+        examples: [
+          "Zwei Firmen mit identischen Grenzkosten MC=8 konkurrieren im Preis um ein homogenes Gut. Im Bertrand-Nash-Gleichgewicht gilt p1=p2=8: Bei jedem Preis über 8 hätte eine Firma einen Anreiz, geringfügig zu unterbieten und den gesamten Markt zu übernehmen — das einzige stabile Ergebnis ist Preis = Grenzkosten, obwohl nur zwei Anbieter im Markt sind.",
+        ],
       },
       {
         id: "11-5",
@@ -1014,6 +1091,17 @@ export const chapters: SkriptChapter[] = [
             term: "Trigger-Strategie",
             definition: "Eine Bestrafungsstrategie: Solange alle kooperieren, wird die Kartellmenge produziert; weicht eine Firma ab, wird dauerhaft zum unkooperativen Gleichgewicht zurückgekehrt.",
           },
+        ],
+        formulas: [
+          "Kollusion ist selbsttragend, wenn: πKollusion/(1−δ) ≥ πAbweichen + δ·πBestrafung/(1−δ)",
+          "Kritischer Diskontfaktor: δ ≥ (πAbweichen − πKollusion) / (πAbweichen − πBestrafung)",
+        ],
+        formulasLatex: [
+          "\\dfrac{\\pi_{\\text{Kollusion}}}{1-\\delta} \\ge \\pi_{\\text{Abweichen}} + \\delta\\,\\dfrac{\\pi_{\\text{Bestrafung}}}{1-\\delta}",
+          "\\delta \\ge \\dfrac{\\pi_{\\text{Abweichen}} - \\pi_{\\text{Kollusion}}}{\\pi_{\\text{Abweichen}} - \\pi_{\\text{Bestrafung}}}",
+        ],
+        examples: [
+          "Zwei Firmen erzielen bei Kollusion je πK=50 pro Periode, bei einseitigem Abweichen kurzfristig πA=70 (danach dauerhaft Bestrafung mit Cournot-Gewinn πB=30). Kritischer Diskontfaktor: δ ≥ (70−50)/(70−30) = 20/40 = 0,5. Gewichten die Firmen die Zukunft mit δ≥0,5 (z. B. hohe Überlebenswahrscheinlichkeit/geringe Ungeduld), ist Kollusion stabil.",
         ],
       },
     ],
@@ -1162,6 +1250,15 @@ export const chapters: SkriptChapter[] = [
             term: "Gemischte Strategie",
             definition: "Eine Wahrscheinlichkeitsverteilung über die reinen Strategien eines Spielers — relevant, wenn kein Gleichgewicht in reinen Strategien existiert.",
           },
+        ],
+        formulas: [
+          "Indifferenzbedingung: Spieler mischt so, dass der Gegner zwischen seinen reinen Strategien indifferent ist",
+        ],
+        formulasLatex: [
+          "E[\\text{Payoff Gegner} \\mid \\text{Strategie 1}] = E[\\text{Payoff Gegner} \\mid \\text{Strategie 2}]",
+        ],
+        examples: [
+          "Elfmeter-Spiel: Schütze schießt links (L) oder rechts (R), Torhüter hält L oder R. Hält der Torhüter L bei Schuss L, wird pariert (Auszahlung Schütze 0), sonst trifft der Schütze (Auszahlung 1) — symmetrisch für R. Der Torhüter mischt mit Wahrscheinlichkeit q für 'hält L' so, dass der Schütze indifferent ist: Erwarteter Ertrag bei Schuss L = (1−q)·1 + q·0, bei Schuss R = q·1+(1−q)·0. Gleichsetzen: 1−q = q ⟹ q=1/2 — im symmetrischen Fall hält der Torhüter mit Wahrscheinlichkeit 1/2 auf jede Seite, und der Schütze schießt ebenfalls mit Wahrscheinlichkeit 1/2 auf jede Seite.",
         ],
       },
       {

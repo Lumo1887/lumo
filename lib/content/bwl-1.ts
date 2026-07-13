@@ -681,6 +681,9 @@ export const chapters: SkriptChapter[] = [
             definition: "Portfolio-Werkzeug, das Geschäftsfelder nach relativem Marktanteil und Marktwachstum den Feldern Star, Cash Cow, Question Mark und Poor Dog zuordnet.",
           },
         ],
+        examples: [
+          "Ein Geschäftsfeld hat einen eigenen Marktanteil von 20%, der größte Wettbewerber kommt auf 40%. Relativer Marktanteil = 20/40 = 0,5. Liegt gleichzeitig ein hohes Marktwachstum vor, wird das Feld als Question Mark eingeordnet (geringer relativer Marktanteil, aber wachsender Markt); bei geringem Marktwachstum wäre es ein Poor Dog.",
+        ],
       },
       {
         id: "9-4",
@@ -903,6 +906,9 @@ export const chapters: SkriptChapter[] = [
             definition: "Verzerrung eines geschätzten Zusammenhangs, die entsteht, wenn Daten aus unterschiedlichen Kontexten (z. B. Filialen mit unterschiedlichem Preisniveau) zusammengefasst werden.",
           },
         ],
+        examples: [
+          "Werbeausgaben x (in 1.000€) und Umsatz y (in 1.000€) über 5 Monate: x=1,2,3,4,5; y=3,5,4,6,8. Es gilt Σx=15, Σy=26, Σxy=89, Σx²=55. b = (5·89−15·26)/(5·55−15²) = 55/50 = 1,1. a = 5,2 − 1,1·3 = 1,9, also ŷ = 1,9 + 1,1·x. Für x=6 (6.000€ Werbebudget) prognostiziert das Modell einen Umsatz von 1,9+6,6=8,5 (also 8.500€). Das Bestimmtheitsmaß beträgt hier r²≈0,82 — 82% der Umsatzstreuung werden durch die Werbeausgaben erklärt.",
+        ],
       },
       {
         id: "12-3",
@@ -917,6 +923,9 @@ export const chapters: SkriptChapter[] = [
             term: "Luce-Modell",
             definition: "Attraktionsmodell der Produktwahl: Die Wahrscheinlichkeit, dass eine Person ein Objekt wählt, ist proportional zu dessen (potenziertem) Nutzen im Verhältnis zum Nutzen aller Alternativen.",
           },
+        ],
+        examples: [
+          "Drei Marken haben (bei β=1) die Nutzenwerte U1=4, U2=2, U3=2. Wahlwahrscheinlichkeiten: P1 = 4/(4+2+2) = 0,5, P2 = P3 = 2/8 = 0,25 — Marke 1 wird doppelt so oft gewählt wie jede der beiden anderen, obwohl ihr Nutzen nicht doppelt, sondern nur relativ höher ist als der Durchschnitt der Alternativen.",
         ],
       },
     ],
@@ -945,6 +954,9 @@ export const chapters: SkriptChapter[] = [
             definition: "Verfahren zur Ermittlung des Gesamtnutzens eines Produktprofils aus den Teilnutzen seiner einzelnen Merkmalsausprägungen.",
           },
         ],
+        examples: [
+          "Ein Rucksack wird über zwei Merkmale beschrieben: Farbe (Teilnutzen Schwarz=3, Grau=1) und Preis (Teilnutzen 40€=2, 60€=0). Profil 'Schwarz, 40€' hat Up = 3+2 = 5, Profil 'Grau, 60€' hat Up = 1+0 = 1 — das erste Profil hätte den höheren erwarteten Kundennutzen.",
+        ],
       },
       {
         id: "13-2",
@@ -959,6 +971,9 @@ export const chapters: SkriptChapter[] = [
             term: "Preis-Absatz-Funktion (PAF)",
             definition: "Funktion, die die abgesetzte Menge in Abhängigkeit vom verlangten Preis beschreibt.",
           },
+        ],
+        examples: [
+          "Für die lineare PAF x = 1.000 − 20·p ergibt sich bei p=30€ ein Absatz von x = 1.000−600 = 400 Stück. Bei p=50€ läge der (rechnerische) Absatz bei 0 — die PAF ist also nur für p<50€ sinnvoll interpretierbar.",
         ],
       },
       {
@@ -981,6 +996,9 @@ export const chapters: SkriptChapter[] = [
             term: "Kreuzpreiselastizität",
             definition: "Prozentuale Änderung des Absatzes eines Gutes bei einprozentiger Preisänderung eines anderen Gutes; positiv bei Substituten, negativ bei Komplementen.",
           },
+        ],
+        examples: [
+          "Für die PAF x = 1.000 − 20·p ist dx/dp = −20 konstant. Bei p=30€, x=400: ε = −20·(30/400) = −1,5 — eine Preiserhöhung um 1% senkt den Absatz um 1,5% (elastische Nachfrage).",
         ],
       },
       {
@@ -1049,6 +1067,9 @@ export const chapters: SkriptChapter[] = [
             definition: "Funktion, die den Absatz in Abhängigkeit vom eingesetzten Werbebudget beschreibt — degressiv (ohne Sättigung) oder S-förmig (mit Sättigungsmenge).",
           },
         ],
+        examples: [
+          "Für x(W) = 200 + 50·√W (W in 1.000€) ergibt sich bei W=4 ein Absatz von 200+50·2=300 Stück, bei W=16 (viermal so viel Budget) nur 200+50·4=400 Stück — der Zuwachs pro zusätzlichem Euro nimmt ab (Sättigungstendenz ohne feste Obergrenze).",
+        ],
       },
       {
         id: "14-2",
@@ -1085,6 +1106,9 @@ export const chapters: SkriptChapter[] = [
             definition: "Kosten, um mit einem Werbeträger 1.000 Personen zu erreichen — zentrale Kennzahl zum Vergleich der Kosteneffizienz verschiedener Medien.",
           },
         ],
+        examples: [
+          "Eine Anzeige in Magazin A kostet 8.000€ bei 400.000 Lesern: TKP_A = (8.000/400.000)·1.000 = 20€. Eine Anzeige in Magazin B kostet 5.000€ bei 200.000 Lesern: TKP_B = (5.000/200.000)·1.000 = 25€ — trotz geringerer absoluter Kosten ist Magazin B pro erreichter 1.000 Personen teurer.",
+        ],
       },
     ],
   },
@@ -1111,6 +1135,9 @@ export const chapters: SkriptChapter[] = [
             term: "Customer Lifetime Value (CLV)",
             definition: "Summe der abgezinsten erwarteten Nettoeinzahlungen (Umsatz minus Investition) aus einer Kundenbeziehung über den gesamten Analysehorizont.",
           },
+        ],
+        examples: [
+          "Ein Kunde bringt über 3 Jahre (t=0,1,2) Nettobeiträge (et−at) von 100€, 120€, 90€ bei einem Zinssatz i=10%. CLV = 100/1,1⁰ + 120/1,1¹ + 90/1,1² = 100 + 109,09 + 74,38 ≈ 283,47€.",
         ],
       },
       {
@@ -1154,6 +1181,9 @@ export const chapters: SkriptChapter[] = [
             term: "Customer Equity",
             definition: "Summe der Customer Lifetime Values aller (aktuellen und potenziellen) Kunden eines Unternehmens.",
           },
+        ],
+        examples: [
+          "Ein Unternehmen hat 3 Kundensegmente mit je 1.000 Kunden und durchschnittlichen CLVs von 200€, 500€ und 900€. Customer Equity = 1.000·(200+500+900) = 1.600.000€. Eine Marketingmaßnahme, die 50.000€ kostet, aber den durchschnittlichen CLV des schwächsten Segments um 30€ erhöht (+30.000€ CE), würde sich rein finanziell NICHT lohnen.",
         ],
       },
     ],

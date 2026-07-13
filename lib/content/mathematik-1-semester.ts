@@ -511,8 +511,17 @@ export const chapters: SkriptChapter[] = [
             definition: "Anzahl ungeordneter Auswahlen von k aus n Elementen mit Zurücklegen: C(n+k−1, k).",
           },
         ],
+        formulas: [
+          "Variation ohne Wiederholung: n!/(n−k)!  |  mit Wiederholung: nᵏ",
+          "Kombination ohne Wiederholung: C(n,k)  |  mit Wiederholung: C(n+k−1, k)",
+        ],
+        formulasLatex: [
+          "\\dfrac{n!}{(n-k)!} \\quad \\text{(ohne Wdh.)} \\qquad n^k \\quad \\text{(mit Wdh.)}",
+          "\\binom{n}{k} \\quad \\text{(ohne Wdh.)} \\qquad \\binom{n+k-1}{k} \\quad \\text{(mit Wdh.)}",
+        ],
         examples: [
           "Ein 3-stelliges Zahlenschloss mit Ziffern 0–9 (Wiederholung erlaubt, Reihenfolge zählt) hat 10³ = 1000 Kombinationen.",
+          "Eine Eisdiele bietet 5 Sorten an; man wählt 3 Kugeln, Reihenfolge egal, Sorten dürfen mehrfach gewählt werden: C(5+3−1,3) = C(7,3) = 35 mögliche Kombinationen.",
         ],
       },
       {
@@ -596,6 +605,7 @@ export const chapters: SkriptChapter[] = [
         ],
         examples: [
           "Für M = (−∞, 5) gilt sup M = 5, aber M besitzt kein Maximum, da 5 ∉ M.",
+          "Für M = {1/n : n ∈ N} = {1, 1/2, 1/3, ...} gilt sup M = 1 (wird angenommen, bei n=1, also Maximum) und inf M = 0 (wird NICHT angenommen, da 1/n > 0 für alle n — kein Minimum).",
         ],
         figure: {
           type: "number-line",
@@ -679,6 +689,11 @@ export const chapters: SkriptChapter[] = [
             term: "Sandwichsatz",
             definition: "Aus aₙ ≤ cₙ ≤ bₙ und aₙ, bₙ → α folgt cₙ → α.",
           },
+        ],
+        formulas: ["aₙ ≤ cₙ ≤ bₙ für fast alle n, aₙ,bₙ → α ⟹ cₙ → α"],
+        formulasLatex: ["a_n \\le c_n \\le b_n \\ (\\text{fast alle } n),\\ a_n, b_n \\to \\alpha \\implies c_n \\to \\alpha"],
+        examples: [
+          "Für cₙ = n/(n²+1) + n/(n²+2) + ... + n/(n²+n) (n Summanden) gilt n²/(n²+n) ≤ cₙ ≤ n²/(n²+1). Beide Schranken konvergieren gegen 1 (Zähler- und Nennergrad gleich), also cₙ → 1 nach dem Sandwichsatz — ohne cₙ selbst explizit aufsummieren zu müssen.",
         ],
       },
       {
@@ -837,6 +852,11 @@ export const chapters: SkriptChapter[] = [
           "Da eine Reihe als Folge von Partialsummen definiert ist, überträgt sich das Cauchy-Kriterium aus Kapitel 10 direkt: Σaₖ konvergiert genau dann, wenn die Partialsummen eine Cauchy-Folge bilden. Eine unmittelbare Folgerung ist das notwendige Kriterium: Konvergiert Σaₖ, so ist (aₖ) eine Nullfolge. Die Umkehrung gilt nicht — die harmonische Reihe Σ1/n ist das Standardgegenbeispiel: (1/n) ist Nullfolge, doch die Reihe divergiert.",
           "Für alternierende Reihen liefert das Leibniz-Kriterium eine einfache hinreichende Bedingung: Ist (bₖ) eine monoton fallende Nullfolge, so konvergiert Σ(−1)ᵏ bₖ. Die alternierende harmonische Reihe Σ(−1)ᵏ/k konvergiert damit, obwohl Σ1/k divergiert — ein Beispiel für Konvergenz ohne absolute Konvergenz (siehe 11.3).",
         ],
+        formulas: ["Leibniz-Kriterium: (bₖ) monoton fallende Nullfolge ⟹ Σ(−1)ᵏbₖ konvergiert"],
+        formulasLatex: ["(b_k) \\text{ monoton fallende Nullfolge} \\implies \\sum (-1)^k b_k \\text{ konvergiert}"],
+        examples: [
+          "Σ(−1)ᵏ/k konvergiert nach Leibniz, da bₖ=1/k monoton fällt und eine Nullfolge ist — obwohl Σ1/k (ohne Vorzeichenwechsel) divergiert. Σ(−1)ᵏ·k dagegen erfüllt das notwendige Kriterium nicht (kein Nullfolge-Faktor) und divergiert daher sofort.",
+        ],
         terms: [
           {
             term: "Notwendiges Kriterium",
@@ -865,6 +885,11 @@ export const chapters: SkriptChapter[] = [
             definition: "|aₖ| ≤ bₖ und Σbₖ konvergent ⟹ Σaₖ absolut konvergent.",
           },
         ],
+        formulas: ["|aₖ| ≤ bₖ für fast alle k, Σbₖ konvergent ⟹ Σaₖ absolut konvergent"],
+        formulasLatex: ["|a_k| \\le b_k \\ \\text{für fast alle } k, \\ \\sum b_k \\text{ konvergent} \\implies \\sum a_k \\text{ absolut konvergent}"],
+        examples: [
+          "Σ 1/(k²+k) konvergiert absolut, da 1/(k²+k) ≤ 1/k² für alle k≥1 gilt und die Majorante Σ1/k² (verallgemeinerte harmonische Reihe mit Exponent 2>1) konvergiert.",
+        ],
       },
       {
         id: "11-4",
@@ -882,6 +907,18 @@ export const chapters: SkriptChapter[] = [
             term: "Wurzelkriterium",
             definition: "ᵏ√|aₖ| ≤ q < 1 für fast alle k ⟹ absolute Konvergenz.",
           },
+        ],
+        formulas: [
+          "Quotientenkriterium: lim |a_{k+1}/aₖ| = L < 1 ⟹ absolute Konvergenz (L>1 ⟹ Divergenz)",
+          "Wurzelkriterium: lim ᵏ√|aₖ| = L < 1 ⟹ absolute Konvergenz (L>1 ⟹ Divergenz)",
+        ],
+        formulasLatex: [
+          "\\lim_{k\\to\\infty}\\left|\\dfrac{a_{k+1}}{a_k}\\right| = L < 1 \\implies \\text{abs. konvergent} \\quad (L>1 \\implies \\text{divergent})",
+          "\\lim_{k\\to\\infty} \\sqrt[k]{|a_k|} = L < 1 \\implies \\text{abs. konvergent} \\quad (L>1 \\implies \\text{divergent})",
+        ],
+        examples: [
+          "Σ kⁿ/n! (k fest): mit aₙ=kⁿ/n! ist |a_{n+1}/aₙ| = k/(n+1) → 0 < 1 für n→∞ — die Reihe konvergiert absolut für jedes feste k (Quotientenkriterium).",
+          "Σ (n/(2n+1))ⁿ: mit dem Wurzelkriterium ⁿ√|aₙ| = n/(2n+1) → 1/2 < 1 — die Reihe konvergiert absolut, obwohl das Quotientenkriterium hier deutlich unhandlicher wäre.",
         ],
       },
       {

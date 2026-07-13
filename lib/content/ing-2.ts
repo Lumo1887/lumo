@@ -442,6 +442,11 @@ export const chapters: SkriptChapter[] = [
           "Die notwendige Bedingung für statische Bestimmtheit aus Kapitel 6 überträgt sich unmittelbar: Bei n Teilkörpern stehen N = 3n Gleichungen zur Verfügung, denen R = Σ Ri (Summe aller Lager- und Gelenkwertigkeiten) gegenübersteht. Ein zweiwertiges Gelenk zwischen zwei Teilkörpern liefert dabei genau zwei zusätzliche Unbekannte (die beiden Komponenten der Gelenkkraft), erhöht aber gleichzeitig die Anzahl der Teilkörper n und damit die Anzahl der Gleichungen um drei — ein Gelenk 'kostet' also stets eine Gleichgewichtsbedingung mehr, als es an zusätzlichen Unbekannten einbringt.",
           "Wie im einteiligen Fall ist N = R nur die notwendige Bedingung; die hinreichende Bedingung det A ≠ 0 muss zusätzlich geprüft werden, insbesondere wenn mehrere Gelenke oder Lager ungünstig angeordnet sind (Ausnahmefall, siehe 6.3).",
         ],
+        formulas: ["N = 3n, R = Σ Ri (Lager- und Gelenkwertigkeiten)"],
+        formulasLatex: ["N = 3n, \\quad R = \\sum_i R_i \\ \\text{(Lager- und Gelenkwertigkeiten)}"],
+        examples: [
+          "Ein Gelenkbalken besteht aus n=2 Teilträgern, verbunden durch ein zweiwertiges Gelenk (2), gelagert mit einem Festlager (2) und zwei Loslagern (je 1). N=3·2=6, R=2+2+1+1=6 — die notwendige Bedingung N=R ist erfüllt.",
+        ],
       },
     ],
   },
@@ -529,6 +534,9 @@ export const chapters: SkriptChapter[] = [
           "Beim Knotenschnittverfahren wird jeder Knoten des Fachwerks einzeln freigeschnitten. An einem Knoten treffen sich alle dort angeschlossenen Stabkräfte sowie ggf. äußere Lasten oder Lagerreaktionen in einem Punkt — es liegt also ein zentrales Kräftesystem vor (Kapitel 4), für das kein Momentengleichgewicht benötigt wird, sondern nur Σ Fx = 0 und Σ Fy = 0.",
           "Da jeder Knoten nur zwei Gleichungen liefert, sollte man mit einem Knoten beginnen, an dem höchstens zwei unbekannte Stabkräfte auftreten. Nach dessen Auswertung sind i. A. weitere Stabkräfte bekannt, sodass sich am nächsten Knoten wieder höchstens zwei Unbekannte ergeben — man arbeitet sich so systematisch durch das gesamte Fachwerk.",
         ],
+        examples: [
+          "An einem Knoten greift eine vertikale Last F=100 N an; zwei Stäbe schließen Winkel von 60° bzw. 30° zur Horizontalen ein und sind die einzigen Anschlüsse an diesem Knoten. Aus ΣFx=0: S1·cos60° = S2·cos30° ⟹ S1 = 1,732·S2. Aus ΣFy=0: S1·sin60°+S2·sin30°=100 ⟹ (1,732·S2)·0,866+S2·0,5=100 ⟹ 2·S2=100 ⟹ S2=50 N, S1=86,6 N.",
+        ],
       },
       {
         id: "10-4",
@@ -536,6 +544,9 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Interessiert nur die Kraft in einem einzelnen, tiefer im Fachwerk liegenden Stab, ist das Knotenschnittverfahren oft umständlich, da man sich erst durch viele Knoten 'vorarbeiten' müsste. Das Rittersche Schnittverfahren schneidet stattdessen das gesamte Fachwerk mit einem Rundschnitt durch (i. d. R. drei) Stäbe, sodass ein Teilkörper mit allen daran angreifenden äußeren Kräften, Lagerreaktionen und den Schnittkräften der geschnittenen Stäbe entsteht.",
           "An diesem Teilkörper liegt kein zentrales Kräftesystem mehr vor (die geschnittenen Stäbe treffen sich i. A. nicht in einem Punkt), sodass zusätzlich zu den Kräftegleichgewichten auch ein Momentengleichgewicht zur Verfügung steht — insgesamt also die volle ebene Gleichgewichtsbedingung mit drei Gleichungen. Wählt man den Momentenbezugspunkt geschickt (im Schnittpunkt zweier der drei geschnittenen Stäbe), lässt sich die dritte Stabkraft direkt und ohne Gleichungssystem berechnen.",
+        ],
+        examples: [
+          "Ein Fachwerkträger (Spannweite 8 m, Höhe 2 m, Festlager A links, Loslager B rechts) trägt eine Einzellast F=40 kN in Trägermitte; aus Symmetrie folgt Ay=By=20 kN. Ein Rundschnitt bei x=2 m trennt Ober-, Untergurt und eine Diagonale. Der Momentenbezugspunkt im Schnittpunkt von Untergurt und Diagonale (bei x=2 m auf Untergurthöhe) eliminiert beide Stäbe aus der Momentenbilanz: ΣM = Ay·2 m − O·2 m = 0 ⟹ O = 20 kN — die Obergurtkraft ergibt sich direkt, ohne die restlichen Stabkräfte zu kennen.",
         ],
       },
       {

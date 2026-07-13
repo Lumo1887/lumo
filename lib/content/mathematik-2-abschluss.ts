@@ -168,6 +168,11 @@ export const chapters: SkriptChapter[] = [
           "Der Jordan-Inhalt ist invariant unter Translation und Spiegelung: Für Jordan-messbares M ⊂ ℝⁿ, ⃗a ∈ ℝⁿ und die Spiegelung an einer Koordinatenachse gilt |M + ⃗a| = |M| bzw. |Spiegelung von M| = |M|. Unter einer Streckung um den Faktor λ > 0 in jeder Koordinate skaliert der Inhalt mit λⁿ, das heißt |λ·M| = λⁿ·|M|.",
           "Weiter ist der Jordan-Inhalt monoton (M₁ ⊂ M₂ ⟹ |M₁| ≤ |M₂|) und additiv: Sind M₁, M₂ Jordan-messbar mit |M₁ ∩ M₂| = 0 (etwa weil der Schnitt in einer gemeinsamen Randkurve liegt), so ist auch M₁ ∪ M₂ Jordan-messbar mit |M₁ ∪ M₂| = |M₁| + |M₂|.",
         ],
+        formulas: ["|λ·M| = λⁿ·|M|", "|M1|=0 (Schnitt) ⟹ |M1∪M2| = |M1|+|M2|"],
+        formulasLatex: ["|\\lambda\\cdot M| = \\lambda^n |M|", "|M_1\\cap M_2|=0 \\implies |M_1\\cup M_2| = |M_1|+|M_2|"],
+        examples: [
+          "Ein Quader M=[0,2]×[0,3] hat |M|=6. Gestreckt um λ=3 in jeder Koordinate (n=2) ergibt sich |3M| = 3²·6 = 54.",
+        ],
       },
       {
         id: "5-2",
@@ -490,6 +495,11 @@ export const chapters: SkriptChapter[] = [
           "Es sei D ⊂ ℝⁿ offen, f : D → ℝ differenzierbar und ⃗x₀ ∈ D eine lokale Extremstelle von f. Dann ist ⃗x₀ notwendigerweise ein stationärer Punkt, das heißt ∇f(⃗x₀) = ⃗0. Diese notwendige Bedingung ist die direkte Verallgemeinerung von f′(x₀) = 0 aus Mathematik 1 und liefert eine endliche Kandidatenliste, aus der man anschließend die tatsächlichen Extremstellen herausfiltern muss.",
           "Wichtig ist, dass die Umkehrung falsch ist: Nicht jeder stationäre Punkt ist eine Extremstelle. Um zu entscheiden, welcher Fall vorliegt, betrachtet man im nächsten Abschnitt die zweiten Ableitungen, gesammelt in der Hessematrix.",
         ],
+        formulas: ["Notwendige Bedingung: ∇f(⃗x₀) = ⃗0"],
+        formulasLatex: ["\\nabla f(\\vec x_0) = \\vec 0"],
+        examples: [
+          "Für f(x,y) = x² + y² − 4x + 2y ist ∇f(x,y) = (2x−4, 2y+2)ᵀ. Aus ∇f(x,y)=⃗0 folgt x=2, y=−1 — der einzige stationäre Punkt ist (2,−1), der einzige Kandidat für eine lokale Extremstelle.",
+        ],
       },
       {
         id: "14-2",
@@ -502,8 +512,17 @@ export const chapters: SkriptChapter[] = [
           { term: "Positiv definit", definition: "⃗vᵀ H ⃗v > 0 für alle ⃗v ≠ ⃗0 — liefert eine strenge lokale Minimalstelle." },
           { term: "Indefinit", definition: "Es gibt ⃗v, ⃗w mit ⃗vᵀH⃗v > 0 und ⃗wᵀH⃗w < 0 — liefert einen Sattelpunkt." },
         ],
+        formulas: [
+          "Für n=2: D := det Hf(⃗x₀) = fxx·fyy − (fxy)²",
+          "D>0, fxx>0: Minimum  |  D>0, fxx<0: Maximum  |  D<0: Sattelpunkt  |  D=0: keine Entscheidung",
+        ],
+        formulasLatex: [
+          "D := \\det H_f(\\vec x_0) = f_{xx}f_{yy} - f_{xy}^2",
+          "D>0, f_{xx}>0: \\text{Min} \\quad D>0, f_{xx}<0: \\text{Max} \\quad D<0: \\text{Sattelpunkt} \\quad D=0: \\text{keine Entscheidung}",
+        ],
         examples: [
           "Für f(x,y) := x⁴ + y⁴ − 8x² − 8y² sind die stationären Punkte genau die Paare (x,y) mit x,y ∈ {−2,0,2}. Die Hessematrix Hf(x,y) = diag(12x²−16, 12y²−16) ist in (0,0) negativ definit (lokales Maximum), in (±2,±2) positiv definit (lokale Minima) und in (±2,0) sowie (0,±2) indefinit (Sattelpunkte).",
+          "Für f(x,y)=x²+xy+y²−3x: fxx=2, fyy=2, fxy=1. D=2·2−1²=3>0 und fxx=2>0 ⟹ jeder stationäre Punkt ist ein lokales Minimum. Aus ∇f=(2x+y−3, x+2y)=⃗0 folgt (x,y)=(2,−1) als einzige (globale) Minimalstelle.",
         ],
       },
       {

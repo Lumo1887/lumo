@@ -463,6 +463,9 @@ export const chapters: SkriptChapter[] = [
         ],
         formulas: ["Δu ≈ −c · (g_Y − g_Y*)"],
         formulasLatex: ["\\Delta u \\approx -c\\,(g_Y - g_Y^{*})"],
+        examples: [
+          "Bei Trendwachstum g_Y*=2% und einem Koeffizienten c=0,5: Wächst das BIP tatsächlich nur um 0%, ist Δu ≈ −0,5·(0−2) = 1 Prozentpunkt — die Arbeitslosenquote steigt um etwa 1 Prozentpunkt.",
+        ],
       },
     ],
   },
@@ -541,8 +544,11 @@ export const chapters: SkriptChapter[] = [
             definition: "Tendenz von Volkswirtschaften mit wenig Kapital, schneller zu wachsen und sich dem steady state (und damit tendenziell reicheren Ländern) anzunähern.",
           },
         ],
+        formulas: ["Steady-State-Bedingung: s·f(k*) = δ·k*"],
+        formulasLatex: ["s\\, f(k^{*}) = \\delta\\, k^{*}"],
         examples: [
           "Erhöht eine Regierung die Sparquote s, verschiebt sich die Investitionskurve s·f(k) nach oben. Der neue Schnittpunkt mit der Abschreibungsgeraden δ·k liegt bei einem höheren k* — mehr Kapital, mehr Output pro Kopf im neuen steady state. Der Übergang dorthin ist aber einmalig, kein dauerhaft höheres Wachstum.",
+          "Für f(k)=√k, s=0,2, δ=0,1: Steady State aus 0,2·√k* = 0,1·k* ⟹ √k* = 2 ⟹ k*=4. Output pro Kopf y*=√4=2, Konsum pro Kopf c*=(1−s)·y*=0,8·2=1,6.",
         ],
         figure: {
           type: "solow-diagram",
@@ -568,6 +574,9 @@ export const chapters: SkriptChapter[] = [
         ],
         formulas: ["Bedingung Goldene Regel: MPK = δ"],
         formulasLatex: ["\\text{MPK}(k^{*}_{\\text{gold}}) = \\delta"],
+        examples: [
+          "Für f(k)=√k ist MPK(k)=0,5·k^(−0,5). Bei δ=0,1: 0,5·k^(−0,5)=0,1 ⟹ k^(−0,5)=0,2 ⟹ k*gold=(1/0,2)²=25. Die zugehörige Goldene-Regel-Sparquote ergibt sich aus s·f(k*gold)=δ·k*gold: s·5=0,1·25=2,5 ⟹ s=0,5.",
+        ],
       },
     ],
   },
@@ -1133,6 +1142,11 @@ export const chapters: SkriptChapter[] = [
             definition: "These, dass die natürliche Arbeitslosenquote selbst von der Vergangenheit der tatsächlichen (zyklischen) Arbeitslosigkeit abhängt, statt fix zu sein.",
           },
         ],
+        formulas: ["Sacrifice Ratio = kumulierter BIP-Verlust (% vom BIP) / Δπ (Prozentpunkte)"],
+        formulasLatex: ["\\text{Sacrifice Ratio} = \\dfrac{\\text{kumulierter BIP-Verlust (\\%)}}{\\Delta \\pi \\ (\\text{Prozentpunkte})}"],
+        examples: [
+          "Eine Zentralbank senkt die Inflation von 8% auf 3% (Δπ=5 Prozentpunkte) durch eine Rezession, die über mehrere Jahre kumuliert 10% des BIP kostet. Sacrifice Ratio = 10/5 = 2 — pro Prozentpunkt dauerhafter Inflationssenkung gehen 2% des jährlichen BIP verloren.",
+        ],
       },
     ],
   },
@@ -1255,6 +1269,17 @@ export const chapters: SkriptChapter[] = [
             definition: "Der Nettoverlust an gesamtwirtschaftlicher Wohlfahrt (Konsumenten- + Produzentenrente + Staatseinnahmen), verursacht durch die Verzerrung von Konsum- und Produktionsentscheidungen.",
           },
         ],
+        formulas: [
+          "Zolleinnahmen = t · Importe(Pw+t)",
+          "DWL = 0,5·t·(Qd(Pw)−Qd(Pw+t)) + 0,5·t·(Qs(Pw+t)−Qs(Pw))",
+        ],
+        formulasLatex: [
+          "\\text{Zolleinnahmen} = t \\cdot \\text{Importe}(P_w+t)",
+          "DWL = 0{,}5\\,t\\,\\big(Q_d(P_w)-Q_d(P_w+t)\\big) + 0{,}5\\,t\\,\\big(Q_s(P_w+t)-Q_s(P_w)\\big)",
+        ],
+        examples: [
+          "Kleines Land, Weltmarktpreis Pw=10, D(p)=100−2p, S(p)=2p. Bei Freihandel: Qd=80, Qs=20, Importe=60. Ein Zoll t=5 hebt den Inlandspreis auf 15: Qd=70, Qs=30, Importe=40. Zolleinnahmen = 5·40=200. DWL = 0,5·5·(80−70) + 0,5·5·(30−20) = 25+25 = 50.",
+        ],
       },
       {
         id: "14-2",
@@ -1304,6 +1329,11 @@ export const chapters: SkriptChapter[] = [
             term: "Realer Wechselkurs ε = e·P/P*",
             definition: "Berücksichtigt zusätzlich die Preisniveaus im In- und Ausland — bestimmt, wie teuer heimische Güter relativ zu ausländischen sind.",
           },
+        ],
+        formulas: ["ε = e · P / P*"],
+        formulasLatex: ["\\varepsilon = e\\cdot\\dfrac{P}{P^{*}}"],
+        examples: [
+          "Nominaler Wechselkurs e=1,1 (1,1 US-Dollar pro Euro), inländisches Preisniveau P=105, ausländisches P*=100. Realer Wechselkurs ε = 1,1·(105/100) = 1,155 — inländische Güter sind real teurer geworden als vor der Preisniveau-Differenz, was die preisliche Wettbewerbsfähigkeit des Inlands verschlechtert (reale Aufwertung).",
         ],
       },
       {
