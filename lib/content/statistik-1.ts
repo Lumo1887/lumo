@@ -349,13 +349,24 @@ export const chapters: SkriptChapter[] = [
         ],
         terms: [
           {
-            term: "Schiefe",
-            definition: "Beschreibt die Asymmetrie um den Erwartungswert. Rechtsschief: Mittelwert > Median > Modus. Symmetrisch: alle drei gleich.",
+            term: "Schiefe γ1",
+            definition: "Beschreibt die Asymmetrie um den Erwartungswert. Rechtsschief: Mittelwert > Median > Modus, γ1>0. Symmetrisch: alle drei gleich, γ1=0. Linksschief: γ1<0.",
           },
           {
-            term: "Kurtosis",
-            definition: "Beschreibt, wie spitz oder flach eine Verteilung im Vergleich zur Normalverteilung ist.",
+            term: "Kurtosis (Exzess) γ2",
+            definition: "Beschreibt, wie spitz oder flach eine Verteilung im Vergleich zur Normalverteilung ist. Die Normalverteilung hat per Definition γ2=0 — daher der Name 'Exzess' als Abweichung von ihr.",
           },
+        ],
+        formulas: [
+          "Schiefe: γ1 = E[(X−μ)³] / σ³",
+          "Kurtosis (Exzess): γ2 = E[(X−μ)⁴] / σ⁴ − 3",
+        ],
+        formulasLatex: [
+          "\\gamma_1 = \\dfrac{E\\big[(X-\\mu)^3\\big]}{\\sigma^3}",
+          "\\gamma_2 = \\dfrac{E\\big[(X-\\mu)^4\\big]}{\\sigma^4} - 3",
+        ],
+        examples: [
+          "Eine rechtsschiefe Einkommensverteilung (wenige sehr hohe Einkommen ziehen den Mittelwert nach oben) hat γ1>0. Eine Normalverteilung hat immer γ1=0 und γ2=0, egal welche konkreten μ und σ sie hat.",
         ],
       },
       {
@@ -445,6 +456,19 @@ export const chapters: SkriptChapter[] = [
             definition: "z. B. Anzahl defekter Teile in einer Stichprobe von 5, gezogen aus 50, ohne Zurücklegen. Ist die Grundgesamtheit sehr groß, ist die Binomialverteilung eine gute Näherung.",
           },
         ],
+        formulas: [
+          "P(X=k) = [C(M,k)·C(N−M,n−k)] / C(N,n)",
+          "E(X) = n·M/N",
+          "Var(X) = n·(M/N)·(1−M/N)·((N−n)/(N−1))",
+        ],
+        formulasLatex: [
+          "P(X=k) = \\dfrac{\\binom{M}{k}\\binom{N-M}{n-k}}{\\binom{N}{n}}",
+          "E(X) = n\\,\\dfrac{M}{N}",
+          "\\text{Var}(X) = n\\,\\dfrac{M}{N}\\left(1-\\dfrac{M}{N}\\right)\\dfrac{N-n}{N-1}",
+        ],
+        examples: [
+          "Ein Lieferant liefert N=50 Bauteile, davon M=8 fehlerhaft. Eine Qualitätsprüfung zieht ohne Zurücklegen n=5 Teile. P(X=2) = [C(8,2)·C(42,3)] / C(50,5) = (28·11 480)/2 118 760 ≈ 0,152. E(X) = 5·8/50 = 0,8. Var(X) = 5·0,16·0,84·(45/49) ≈ 0,617.",
+        ],
       },
       {
         id: "5-4",
@@ -487,6 +511,18 @@ export const chapters: SkriptChapter[] = [
             definition: "z. B. Zeit bis zum nächsten Anruf oder bis zum Ausfall eines Bauteils.",
           },
         ],
+        formulas: [
+          "Gleichverteilung U(a,b): f(x) = 1/(b−a) für a≤x≤b, E(X) = (a+b)/2, Var(X) = (b−a)²/12",
+          "Exponentialverteilung: f(x) = λ·e^(−λx), F(x) = 1 − e^(−λx), E(X) = 1/λ, Var(X) = 1/λ²",
+        ],
+        formulasLatex: [
+          "f(x) = \\dfrac{1}{b-a} \\ (a\\le x\\le b), \\quad E(X) = \\dfrac{a+b}{2}, \\quad \\text{Var}(X) = \\dfrac{(b-a)^2}{12}",
+          "f(x) = \\lambda e^{-\\lambda x}, \\quad F(x) = 1 - e^{-\\lambda x}, \\quad E(X) = \\dfrac{1}{\\lambda}, \\quad \\text{Var}(X) = \\dfrac{1}{\\lambda^2}",
+        ],
+        examples: [
+          "Zugankunft gleichverteilt zwischen 0 und 10 Minuten nach der vollen Stunde: E(X) = 5 Minuten, Var(X) = 100/12 ≈ 8,33.",
+          "Lebensdauer eines Bauteils exponentialverteilt mit λ=0,5 pro Jahr (E(X)=1/0,5=2 Jahre). P(X≤1) = 1 − e^(−0,5) ≈ 0,393.",
+        ],
       },
       {
         id: "5-6",
@@ -527,6 +563,15 @@ export const chapters: SkriptChapter[] = [
             definition: "Der theoretische Grund, warum Stichprobenmittelwerte in Statistik II fast immer mit der Normalverteilung approximiert werden dürfen.",
           },
         ],
+        formulas: [
+          "Für unabhängige, identisch verteilte X1,...,Xn mit E(Xi)=μ, Var(Xi)=σ²: Z = (X̄ − μ) / (σ/√n) ≈ N(0,1) für großes n",
+        ],
+        formulasLatex: [
+          "Z = \\dfrac{\\bar{X}-\\mu}{\\sigma/\\sqrt{n}} \\ \\overset{\\text{approx.}}{\\sim}\\ N(0,1) \\quad \\text{für großes } n",
+        ],
+        examples: [
+          "100-facher Würfelwurf: μ=3,5, σ²=35/12≈2,917. Der Mittelwert X̄ der 100 Würfe ist näherungsweise N(3,5; 2,917/100) — obwohl die einzelne Augenzahl selbst nicht normalverteilt, sondern gleichverteilt ist.",
+        ],
       },
       {
         id: "5-8",
@@ -544,6 +589,17 @@ export const chapters: SkriptChapter[] = [
             term: "Poisson-Approximation",
             definition: "Für großes n und kleines p approximiert die Poisson-Verteilung mit λ=np die Binomialverteilung.",
           },
+        ],
+        formulas: [
+          "Normalapproximation: X ~ B(n,p) ≈ N(np, np(1−p)), sofern np(1−p) ≥ 9",
+          "Poisson-Approximation: X ~ B(n,p) ≈ Poisson(λ=np), sofern n groß und p klein (Faustregel: n≥50, p≤0,05)",
+        ],
+        formulasLatex: [
+          "X \\sim B(n,p) \\ \\approx \\ N\\big(np,\\, np(1-p)\\big), \\quad np(1-p) \\ge 9",
+          "X \\sim B(n,p) \\ \\approx \\ \\text{Poisson}(\\lambda = np), \\quad n \\ge 50,\\ p \\le 0{,}05",
+        ],
+        examples: [
+          "X ~ B(200; 0,04): np(1−p) = 200·0,04·0,96 = 7,68 < 9 — Normalapproximation wäre grenzwertig. Da aber n=200 groß und p=0,04 klein ist, approximiert man stattdessen mit Poisson(λ=200·0,04=8).",
         ],
       },
     ],
@@ -696,6 +752,18 @@ export const chapters: SkriptChapter[] = [
             definition: "Teilt die sortierten Daten in zwei gleich große Hälften. Bei ungeradem n der mittlere Wert, bei geradem n der Mittelwert der beiden mittleren Werte.",
           },
         ],
+        formulas: [
+          "Ungerades n: x0,5 = x((n+1)/2)",
+          "Gerades n: x0,5 = (x(n/2) + x(n/2 + 1)) / 2",
+        ],
+        formulasLatex: [
+          "n \\text{ ungerade: } x_{0{,}5} = x_{\\left(\\frac{n+1}{2}\\right)}",
+          "n \\text{ gerade: } x_{0{,}5} = \\dfrac{x_{(n/2)} + x_{(n/2+1)}}{2}",
+        ],
+        examples: [
+          "Daten (sortiert): 2,4,5,7,9 (n=5, ungerade). Median = x(3) = 5.",
+          "Daten (sortiert): 2,4,5,7,9,10 (n=6, gerade). Median = (x(3)+x(4))/2 = (5+7)/2 = 6.",
+        ],
       },
       {
         id: "2-7",
@@ -743,6 +811,17 @@ export const chapters: SkriptChapter[] = [
             definition: "Teilen den Datensatz in Viertel. Grundlage für den Interquartilsabstand und den Boxplot.",
           },
         ],
+        formulas: [
+          "Ist n·p keine ganze Zahl: xp = x(⌈n·p⌉)",
+          "Ist n·p = k eine ganze Zahl: xp = (x(k) + x(k+1)) / 2",
+        ],
+        formulasLatex: [
+          "n\\cdot p \\notin \\mathbb{Z}: \\ x_p = x_{(\\lceil n\\,p \\rceil)}",
+          "n\\cdot p = k \\in \\mathbb{Z}: \\ x_p = \\dfrac{x_{(k)} + x_{(k+1)}}{2}",
+        ],
+        examples: [
+          "8 sortierte Werte: 3,5,6,8,9,11,12,15 (n=8). Für p=0,25: n·p=2 (ganzzahlig) → x0,25 = (x(2)+x(3))/2 = (5+6)/2 = 5,5. Für p=0,75: n·p=6 (ganzzahlig) → x0,75 = (x(6)+x(7))/2 = (11+12)/2 = 11,5.",
+        ],
       },
       {
         id: "2-9",
@@ -761,12 +840,20 @@ export const chapters: SkriptChapter[] = [
             definition: "x0,75 minus x0,25. Entspricht genau der Breite der Box in einem Boxplot.",
           },
         ],
+        formulas: [
+          "Spannweite R = xmax − xmin",
+          "IQR = x0,75 − x0,25",
+        ],
+        formulasLatex: [
+          "R = x_{\\max} - x_{\\min}",
+          "\\text{IQR} = x_{0{,}75} - x_{0{,}25}",
+        ],
         figure: {
           type: "boxplot",
           caption: "Abb. 4.1 — Boxplot: Median, Quartile (Box = IQR) und Ausreißer auf einen Blick.",
         },
         examples: [
-          "Klausurnoten-Boxplot: Min=1,0, Q1=1,7, Median=2,3, Q3=3,0, Max=4,0. IQR = 3,0−1,7 = 1,3.",
+          "Klausurnoten-Boxplot: Min=1,0, Q1=1,7, Median=2,3, Q3=3,0, Max=4,0. R = 4,0−1,0 = 3,0. IQR = 3,0−1,7 = 1,3.",
         ],
       },
       {
@@ -823,6 +910,7 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Die Lorenzkurve zeigt, welcher kumulierte Anteil einer Größe (z. B. Einkommen) auf den kumulierten Anteil der sortierten Einheiten entfällt.",
           "Bei perfekter Gleichverteilung liegt die Kurve auf der Diagonalen. Je stärker sie darunter durchhängt, desto ungleicher ist die Verteilung.",
+          "Rechnerisch lässt sich der Gini-Koeffizient direkt aus den (aufsteigend sortierten) Einzelwerten bestimmen, ohne die Lorenzkurve zeichnen zu müssen. Wichtig dabei: Dieser 'unkorrigierte' Gini-Koeffizient erreicht bei maximaler Disparität (eine Einheit besitzt alles, alle anderen nichts) nicht den Wert 1, sondern nur (n−1)/n — er hängt also von n ab. Erst der normierte (korrigierte) Gini-Koeffizient G* erreicht bei maximaler Disparität exakt 1, unabhängig von n.",
         ],
         terms: [
           {
@@ -830,9 +918,23 @@ export const chapters: SkriptChapter[] = [
             definition: "x-Achse: kumulierter Anteil der Einheiten (aufsteigend sortiert). y-Achse: kumulierter Anteil der Größe selbst.",
           },
           {
-            term: "Gini-Koeffizient",
-            definition: "Doppelte Fläche zwischen Diagonale und Lorenzkurve. Liegt zwischen 0 (Gleichverteilung) und nahe 1 (maximale Konzentration).",
+            term: "Gini-Koeffizient G",
+            definition: "Doppelte Fläche zwischen Diagonale und Lorenzkurve. Liegt zwischen 0 (Gleichverteilung) und (n−1)/n (maximale Konzentration bei n Einheiten).",
           },
+          {
+            term: "Normierter Gini-Koeffizient G*",
+            definition: "G* = n/(n−1) · G. Korrigiert G so, dass der Wertebereich unabhängig von n immer 0 bis 1 ist — bei maximaler Disparität also exakt G*=1.",
+          },
+        ],
+        formulas: [
+          "G = (2·Σ i·xi) / (n·Σ xi) − (n+1)/n   (xi aufsteigend sortiert, i=1,...,n)",
+          "Maximale Disparität: Gmax = (n−1) / n",
+          "Normierter Gini-Koeffizient: G* = n/(n−1) · G",
+        ],
+        formulasLatex: [
+          "G = \\dfrac{2\\sum_{i=1}^{n} i\\,x_i}{n\\sum_{i=1}^{n} x_i} - \\dfrac{n+1}{n}",
+          "G_{\\max} = \\dfrac{n-1}{n}",
+          "G^{*} = \\dfrac{n}{n-1}\\, G",
         ],
         figure: {
           type: "lorenz",
@@ -840,7 +942,8 @@ export const chapters: SkriptChapter[] = [
         },
         examples: [
           "5 Eisverkäufer mit Umsätzen 55,55,55,55,55 (alle gleich): Gini = 0.",
-          "5 Eisverkäufer mit Umsätzen 0,0,0,0,275 (einer hat alles): Gini nähert sich 1.",
+          "5 Freelancer mit Monatsumsätzen (sortiert) 1200, 1800, 2000, 2500, 3000 €. n=5, Σxi=10 500. Σ i·xi = 1·1200+2·1800+3·2000+4·2500+5·3000 = 1200+3600+6000+10000+15000 = 35 800. G = (2·35 800)/(5·10 500) − 6/5 = 71 600/52 500 − 1,2 ≈ 1,364 − 1,2 = 0,164.",
+          "Maximale Disparität bei n=5 (ein Eisverkäufer mit Umsätzen 0,0,0,0,275 hat alles): Σxi=275, Σ i·xi = 5·275 = 1375. G = (2·1375)/(5·275) − 6/5 = 2750/1375 − 1,2 = 2 − 1,2 = 0,8 — exakt Gmax=(n−1)/n=4/5, NICHT 1. Erst normiert: G* = (5/4)·0,8 = 1,0.",
         ],
       },
       {
