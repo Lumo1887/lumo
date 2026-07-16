@@ -15,14 +15,12 @@ export async function GET(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    // Nicht eingeloggt -> kein gespeicherter Fortschritt, aber kein Fehler
-    // (Vorschau-Leser:innen sollen die Karteikarten trotzdem sehen können).
     return NextResponse.json({ cards: [] });
   }
 
   const { data, error } = await supabase
     .from("flashcard_progress")
-    .select("card_key, box, due_at")
+    .select("card_key, box, due_at, ease_factor, repetitions, interval_days")
     .eq("user_id", user.id)
     .eq("module_slug", moduleSlug);
 
@@ -36,6 +34,9 @@ export async function GET(request: NextRequest) {
       cardKey: row.card_key,
       box: row.box,
       dueAt: row.due_at,
+      easeFactor: row.ease_factor ?? 2.5,
+      repetitions: row.repetitions ?? 0,
+      intervalDays: row.interval_days ?? 0,
     })),
   });
 }
@@ -46,6 +47,9 @@ export async function POST(request: NextRequest) {
   const cardKey = body?.cardKey as string | undefined;
   const box = body?.box as number | undefined;
   const dueAt = body?.dueAt as string | undefined;
+  const easeFactor = body?.easeFactor as number | undefined;
+  const repetitions = body?.repetitions as number | undefined;
+  const intervalDays = body?.intervalDays as number | undefined;
 
   if (
     !moduleSlug ||
@@ -53,9 +57,12 @@ export async function POST(request: NextRequest) {
     typeof box !== "number" ||
     !VALID_BOXES.has(box) ||
     !dueAt ||
-    Number.isNaN(Date.parse(dueAt))
+    Number.isNaN(Date.parse(dueAt)) ||
+    typeof easeFactor !== "number" ||
+    typeof repetitions !== "number" ||
+    typeof intervalDays !== "number"
   ) {
-    return NextResponse.json({ error: "Ungültige Anfrage." }, { status: 400 });
+    return NextResponse.json({ error: "Ungueltige Anfrage." }, { status: 400 });
   }
 
   const supabase = createClient();
@@ -64,7 +71,6 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    // Ohne Login gibt's nichts zu speichern (kein Fehler an den Client).
     return NextResponse.json({ ok: true });
   }
 
@@ -75,6 +81,9 @@ export async function POST(request: NextRequest) {
       card_key: cardKey,
       box,
       due_at: dueAt,
+      ease_factor: easeFactor,
+      repetitions,
+      interval_days: intervalDays,
       updated_at: new Date().toISOString(),
     },
     { onConflict: "user_id,module_slug,card_key" }

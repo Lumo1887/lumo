@@ -5,6 +5,18 @@ import { getQuestions, getTopics } from "@/lib/content/questions-registry";
 import { fetchAccess } from "@/lib/access";
 import CheckoutButton from "@/components/CheckoutButton";
 
+interface PracticeQuestion {
+  topic: string;
+  type: "mc" | "numeric";
+  prompt: string;
+  options?: string[];
+  correctIndex?: number;
+  correctValue?: number;
+  tolerance?: number;
+  unit?: string;
+  explanation: string;
+}
+
 export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
   const questions = useMemo(() => getQuestions(moduleSlug), [moduleSlug]);
   const ALL_TOPICS = useMemo(() => ["Alle", ...getTopics(moduleSlug)], [moduleSlug]);
@@ -21,6 +33,16 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
   // die Schwachstellen-Übersicht unten den vollen Überblick behält — nur ein
   // Moduswechsel oder der explizite Reset-Link darin setzt sie zurück).
   const [topicStats, setTopicStats] = useState<Record<string, { correct: number; total: number }>>({});
+
+  // "Warum war das falsch"-Vertiefungsloop: nach einer falschen Antwort kann
+  // sofort eine frische, ähnliche Frage zum selben Thema generiert und direkt
+  // hier beantwortet werden, statt nur die Erklärung zu lesen.
+  const [practiceLoading, setPracticeLoading] = useState(false);
+  const [practiceError, setPracticeError] = useState<string | null>(null);
+  const [practiceQuestion, setPracticeQuestion] = useState<PracticeQuestion | null>(null);
+  const [practiceSelected, setPracticeSelected] = useState<number | null>(null);
+  const [practiceNumericInput, setPracticeNumericInput] = useState("");
+  const [practiceAnswered, setPracticeAnswered] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -60,10 +82,20 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
       .sort((a, b) => a.pct - b.pct);
   }, [topicStats]);
 
+  function resetPracticeState() {
+    setPracticeLoading(false);
+    setPracticeError(null);
+    setPracticeQuestion(null);
+    setPracticeSelected(null);
+    setPracticeNumericInput("");
+    setPracticeAnswered(false);
+  }
+
   function resetQuestionState() {
     setSelected(null);
     setNumericInput("");
     setAnswered(false);
+    resetPracticeState();
   }
 
   function handleTopicChange(t: string) {
@@ -86,6 +118,15 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
     return false;
   }
 
+  function isPracticeCorrect(): boolean {
+    if (!practiceQuestion) return false;
+    if (practiceQuestion.type === "mc") return practiceSelected === practiceQuestion.correctIndex;
+    const val = parseFloat(practiceNumericInput.replace(",", "."));
+    if (Number.isNaN(val)) return false;
+    const tol = practiceQuestion.tolerance ?? 0.5;
+    return Math.abs(val - (practiceQuestion.correctValue ?? 0)) <= tol;
+  }
+
   function handleCheck() {
     setAnswered(true);
     setAnsweredCount((c) => c + 1);
@@ -101,6 +142,45 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
           [topicKey]: { correct: prior.correct + (correct ? 1 : 0), total: prior.total + 1 },
         };
       });
+    }
+  }
+
+  function handlePracticeCheck() {
+    setPracticeAnswered(true);
+  }
+
+  async function handlePracticeAgain() {
+    if (!current) return;
+    resetPracticeState();
+    setPracticeLoading(true);
+    try {
+      const res = await fetch("/api/practice-question", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          moduleSlug,
+          question: {
+            topic: current.topic,
+            type: current.type,
+            prompt: current.prompt,
+            options: current.options,
+            correctIndex: current.correctIndex,
+            correctValue: current.correctValue,
+            unit: current.unit,
+            explanation: current.explanation,
+          },
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data?.question) {
+        setPracticeError(data?.error ?? "Konnte keine Übungsfrage erstellen.");
+      } else {
+        setPracticeQuestion(data.question);
+      }
+    } catch {
+      setPracticeError("Konnte keine Übungsfrage erstellen. Versuch es gleich nochmal.");
+    } finally {
+      setPracticeLoading(false);
     }
   }
 
@@ -297,12 +377,119 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
               <p className="mt-1">{current.explanation}</p>
               <p className="mt-2 text-xs text-ink-600">Quelle: {current.source}</p>
               {!isCorrect() && (
-                <button
-                  onClick={() => askChatbotAboutCurrent()}
-                  className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-white px-3 py-1.5 text-xs font-semibold text-brand-700 transition hover:border-brand-300 hover:bg-brand-50"
-                >
-                  💬 Frag den Chatbot dazu
-                </button>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <button
+                    onClick={() => askChatbotAboutCurrent()}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-white px-3 py-1.5 text-xs font-semibold text-brand-700 transition hover:border-brand-300 hover:bg-brand-50"
+                  >
+                    💬 Frag den Chatbot dazu
+                  </button>
+                  <button
+                    onClick={() => handlePracticeAgain()}
+                    disabled={practiceLoading}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-ink-200 bg-white px-3 py-1.5 text-xs font-semibold text-ink-700 transition hover:border-ink-300 hover:bg-ink-50 disabled:opacity-60"
+                  >
+                    {practiceLoading ? "Generiere Übungsfrage…" : "🔁 Warum war das falsch? Nochmal üben"}
+                  </button>
+                </div>
+              )}
+
+              {practiceError && (
+                <p className="mt-3 text-xs font-medium text-red-600">{practiceError}</p>
+              )}
+
+              {practiceQuestion && (
+                <div className="mt-4 rounded-lg border border-dashed border-brand-300 bg-white p-4">
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-brand-700">
+                    Zusatzübung zum selben Thema
+                  </p>
+                  <p className="text-sm font-semibold text-ink-900">{practiceQuestion.prompt}</p>
+
+                  {practiceQuestion.type === "mc" && practiceQuestion.options && (
+                    <div className="mt-3 space-y-2">
+                      {practiceQuestion.options.map((opt, i) => {
+                        const isSelected = practiceSelected === i;
+                        const isRight = i === practiceQuestion.correctIndex;
+                        let style = "border-ink-200 text-ink-700 hover:border-brand-300";
+                        if (practiceAnswered && isRight) {
+                          style = "border-green-600 bg-green-50 text-green-800";
+                        } else if (practiceAnswered && isSelected && !isRight) {
+                          style = "border-red-500 bg-red-50 text-red-700";
+                        } else if (isSelected) {
+                          style = "border-brand-600 bg-brand-50 text-brand-800";
+                        }
+                        return (
+                          <button
+                            key={i}
+                            disabled={practiceAnswered}
+                            onClick={() => setPracticeSelected(i)}
+                            className={`w-full rounded-lg border px-3 py-2 text-left text-sm font-medium transition ${style}`}
+                          >
+                            {opt}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {practiceQuestion.type === "numeric" && (
+                    <div className="mt-3">
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="text"
+                          inputMode="decimal"
+                          disabled={practiceAnswered}
+                          value={practiceNumericInput}
+                          onChange={(e) => setPracticeNumericInput(e.target.value)}
+                          placeholder="Deine Antwort"
+                          className="w-full max-w-xs rounded-lg border border-ink-200 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none"
+                        />
+                        {practiceQuestion.unit && (
+                          <span className="text-sm text-ink-600">{practiceQuestion.unit}</span>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {practiceAnswered && (
+                    <p
+                      className={`mt-3 text-sm font-medium ${
+                        isPracticeCorrect() ? "text-green-700" : "text-red-600"
+                      }`}
+                    >
+                      {isPracticeCorrect() ? "Richtig! ✓" : "Nicht ganz."}{" "}
+                      {practiceQuestion.type === "numeric" &&
+                        `Richtige Antwort: ${practiceQuestion.correctValue} ${practiceQuestion.unit ?? ""}`}
+                    </p>
+                  )}
+                  {practiceAnswered && (
+                    <p className="mt-1 text-sm text-ink-700">{practiceQuestion.explanation}</p>
+                  )}
+
+                  <div className="mt-3 flex justify-end gap-2">
+                    {!practiceAnswered ? (
+                      <button
+                        onClick={handlePracticeCheck}
+                        disabled={
+                          practiceQuestion.type === "mc"
+                            ? practiceSelected === null
+                            : practiceNumericInput === ""
+                        }
+                        className="btn-primary px-4 py-1.5 text-sm"
+                      >
+                        Prüfen
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handlePracticeAgain()}
+                        disabled={practiceLoading}
+                        className="btn-secondary px-4 py-1.5 text-sm disabled:opacity-60"
+                      >
+                        {practiceLoading ? "Generiere…" : "Noch eine Übungsfrage"}
+                      </button>
+                    )}
+                  </div>
+                </div>
               )}
             </div>
           )}

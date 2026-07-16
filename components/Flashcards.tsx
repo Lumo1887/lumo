@@ -17,17 +17,17 @@ interface Card {
 interface CardProgress {
   box: number;
   dueAt: string;
+  easeFactor: number;
+  repetitions: number;
+  intervalDays: number;
 }
 
-// Leitner-System: je höher die Box, desto seltener wird eine Karte wieder
-// fällig. Box 0 = noch nie beantwortet (immer fällig), Box 1-5 = zunehmender
-// Abstand in Tagen.
-const BOX_INTERVAL_DAYS: Record<number, number> = { 1: 0, 2: 1, 3: 3, 4: 7, 5: 16 };
-const MAX_BOX = 5;
+const MIN_EASE_FACTOR = 1.3;
+const DEFAULT_EASE_FACTOR = 2.5;
 
 function addDays(date: Date, days: number): string {
   const d = new Date(date);
-  d.setDate(d.getDate() + days);
+  d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
   return d.toISOString();
 }
 
@@ -35,6 +35,41 @@ function isDue(card: Card, progress: Record<string, CardProgress>): boolean {
   const p = progress[card.key];
   if (!p) return true;
   return new Date(p.dueAt).getTime() <= Date.now();
+}
+
+// SM-2-Algorithmus (wie bei Anki): quality 0-5, wobei < 3 als "nicht gewusst"
+// zählt und Wiederholungen + Intervall zurücksetzt. Ab 3 wächst das Intervall
+// abhängig vom Ease-Factor, der sich je nach Bewertung leicht anpasst.
+function sm2(prev: CardProgress | undefined, quality: number): { easeFactor: number; repetitions: number; intervalDays: number } {
+  const priorEase = prev?.easeFactor ?? DEFAULT_EASE_FACTOR;
+  const priorReps = prev?.repetitions ?? 0;
+  const priorInterval = prev?.intervalDays ?? 0;
+
+  let easeFactor =
+    priorEase + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
+  if (easeFactor < MIN_EASE_FACTOR) easeFactor = MIN_EASE_FACTOR;
+
+  if (quality < 3) {
+    return { easeFactor, repetitions: 0, intervalDays: 1 };
+  }
+
+  let repetitions = priorReps + 1;
+  let intervalDays: number;
+  if (repetitions === 1) {
+    intervalDays = 1;
+  } else if (repetitions === 2) {
+    intervalDays = 6;
+  } else {
+    intervalDays = Math.round(priorInterval * easeFactor);
+  }
+
+  return { easeFactor, repetitions, intervalDays };
+}
+
+// Box nur noch fürs Datenbankschema/Anzeige — grober Fortschrittsindikator
+// (1 = neu/frisch falsch, 5 = sehr gefestigt), abgeleitet aus repetitions.
+function boxFromRepetitions(repetitions: number): number {
+  return Math.min(5, Math.max(1, repetitions + 1));
 }
 
 // Einfacher Fisher-Yates-Shuffle statt Array.sort(() => Math.random() - 0.5)
@@ -112,7 +147,7 @@ export default function Flashcards({ moduleSlug, questionCount }: { moduleSlug: 
     };
   }, [moduleSlug]);
 
-  // Gespeicherten Lernfortschritt (Leitner-Boxen) laden — nur relevant für
+  // Gespeicherten Lernfortschritt (SM-2-Werte) laden — nur relevant für
   // freigeschaltete Module, die kostenlose Vorschau soll bei jedem Besuch
   // unverändert den vollen (kleinen) Kartensatz zeigen, statt Karten wegen
   // Spaced Repetition "wegzuräumen" und die Vorschau leer wirken zu lassen.
@@ -128,7 +163,15 @@ export default function Flashcards({ moduleSlug, questionCount }: { moduleSlug: 
         if (cancelled) return;
         const map: Record<string, CardProgress> = {};
         for (const c of data?.cards ?? []) {
-          if (c?.cardKey) map[c.cardKey] = { box: c.box, dueAt: c.dueAt };
+          if (c?.cardKey) {
+            map[c.cardKey] = {
+              box: c.box,
+              dueAt: c.dueAt,
+              easeFactor: c.easeFactor ?? DEFAULT_EASE_FACTOR,
+              repetitions: c.repetitions ?? 0,
+              intervalDays: c.intervalDays ?? 0,
+            };
+          }
         }
         setProgressMap(map);
         setProgressLoaded(true);
@@ -157,8 +200,8 @@ export default function Flashcards({ moduleSlug, questionCount }: { moduleSlug: 
   // Neue Runde starten, sobald Zugriffsstatus + (bei freigeschalteten
   // Modulen) der gespeicherte Fortschritt feststehen, oder der Filter
   // wechselt. Hängt bewusst NICHT von progressMap ab — sonst würde jede
-  // einzelne Bewertung während der Runde (handleKnow/handleRepeat) die
-  // laufende Runde neu starten, statt sie einfach fortzusetzen.
+  // einzelne Bewertung während der Runde (rate()) die laufende Runde neu
+  // starten, statt sie einfach fortzusetzen.
   useEffect(() => {
     if (unlocked === null || !progressLoaded) return;
     const cards = unlocked ? availableCards.filter((c) => isDue(c, progressMap)) : availableCards;
@@ -167,38 +210,58 @@ export default function Flashcards({ moduleSlug, questionCount }: { moduleSlug: 
   }, [availableCards, unlocked, progressLoaded]);
 
   const current = queue[0];
+  const currentProgress = current ? progressMap[current.key] : undefined;
 
-  function persistProgress(cardKey: string, box: number, dueAt: string) {
-    setProgressMap((prev) => ({ ...prev, [cardKey]: { box, dueAt } }));
+  function persistProgress(cardKey: string, next: { easeFactor: number; repetitions: number; intervalDays: number }, dueAt: string) {
+    const box = boxFromRepetitions(next.repetitions);
+    setProgressMap((prev) => ({
+      ...prev,
+      [cardKey]: { box, dueAt, easeFactor: next.easeFactor, repetitions: next.repetitions, intervalDays: next.intervalDays },
+    }));
     if (!unlocked || !loggedIn) return;
     fetch("/api/flashcards/progress", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ moduleSlug, cardKey, box, dueAt }),
+      body: JSON.stringify({
+        moduleSlug,
+        cardKey,
+        box,
+        dueAt,
+        easeFactor: next.easeFactor,
+        repetitions: next.repetitions,
+        intervalDays: next.intervalDays,
+      }),
     }).catch(() => {});
   }
 
-  function handleKnow() {
+  // quality: 0 = Nochmal, 3 = Schwer, 4 = Gut, 5 = Einfach (SM-2-Skala)
+  function rate(quality: number) {
     if (!current) return;
-    const priorBox = progressMap[current.key]?.box ?? 0;
-    const nextBox = Math.min(priorBox + 1, MAX_BOX);
-    const dueAt = addDays(new Date(), BOX_INTERVAL_DAYS[nextBox]);
-    persistProgress(current.key, nextBox, dueAt);
-    setDoneCount((c) => c + 1);
-    setQueue((q) => q.slice(1));
+    const next = sm2(currentProgress, quality);
+    const dueAt = addDays(new Date(), next.intervalDays);
+    persistProgress(current.key, next, dueAt);
+
+    if (quality < 3) {
+      setQueue((q) => {
+        const [first, ...rest] = q;
+        return [...rest, first];
+      });
+      setReviewLater((r) => [...r, current]);
+    } else {
+      setDoneCount((c) => c + 1);
+      setQueue((q) => q.slice(1));
+    }
     setFlipped(false);
   }
 
-  function handleRepeat() {
-    if (!current) return;
-    const dueAt = addDays(new Date(), BOX_INTERVAL_DAYS[1]);
-    persistProgress(current.key, 1, dueAt);
-    setQueue((q) => {
-      const [first, ...rest] = q;
-      return [...rest, first];
-    });
-    setReviewLater((r) => [...r, current]);
-    setFlipped(false);
+  function previewInterval(quality: number): string {
+    if (!current) return "";
+    const next = sm2(currentProgress, quality);
+    if (next.intervalDays < 1) return "<1 Tag";
+    if (next.intervalDays === 1) return "1 Tag";
+    if (next.intervalDays < 30) return `${Math.round(next.intervalDays)} Tage`;
+    const months = next.intervalDays / 30;
+    return `${months < 2 ? months.toFixed(1) : Math.round(months)} Monate`;
   }
 
   // Für die Abschlussansicht: nochmal alle verfügbaren Karten üben, unabhängig
@@ -281,12 +344,34 @@ export default function Flashcards({ moduleSlug, questionCount }: { moduleSlug: 
           </button>
 
           {flipped && (
-            <div className="mt-5 flex justify-center gap-3">
-              <button onClick={handleRepeat} className="btn-secondary">
-                🔁 Nochmal üben
+            <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
+              <button
+                onClick={() => rate(0)}
+                className="rounded-xl border border-red-200 bg-red-50 px-3 py-2.5 text-sm font-semibold text-red-700 transition hover:border-red-300"
+              >
+                ✗ Nochmal
+                <span className="block text-[11px] font-normal text-red-500">{previewInterval(0)}</span>
               </button>
-              <button onClick={handleKnow} className="btn-primary">
-                ✓ Kann ich
+              <button
+                onClick={() => rate(3)}
+                className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2.5 text-sm font-semibold text-amber-700 transition hover:border-amber-300"
+              >
+                😐 Schwer
+                <span className="block text-[11px] font-normal text-amber-600">{previewInterval(3)}</span>
+              </button>
+              <button
+                onClick={() => rate(4)}
+                className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2.5 text-sm font-semibold text-emerald-700 transition hover:border-emerald-300"
+              >
+                ✓ Gut
+                <span className="block text-[11px] font-normal text-emerald-600">{previewInterval(4)}</span>
+              </button>
+              <button
+                onClick={() => rate(5)}
+                className="rounded-xl border border-brand-200 bg-brand-50 px-3 py-2.5 text-sm font-semibold text-brand-700 transition hover:border-brand-300"
+              >
+                🚀 Einfach
+                <span className="block text-[11px] font-normal text-brand-600">{previewInterval(5)}</span>
               </button>
             </div>
           )}
