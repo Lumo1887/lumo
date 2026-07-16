@@ -352,7 +352,7 @@ export const chapters: SkriptChapter[] = [
         formulas: ["MR(y) = C'(y)"],
         formulasLatex: ["MR(y) = C'(y)"],
         examples: [
-          "Eine Monopolistin sehe sich der inversen Nachfrage p(y) = 120 − 4y und der Kostenfunktion C(y) = y² gegenüber. Grenzerlös MR(y) = 120 − 8y, Grenzkosten C'(y) = 2y. Aus 120 − 8y = 2y folgt y* = 12, p* = 120 − 48 = 72, Gewinn π* = 72·12 − 144 = 720. Ein Preisnehmer bei gleicher Kostenfunktion würde dagegen y = 20 anbieten (p = MC ⟹ 120−4y=2y).",
+          "Eine Monopolistin sehe sich der inversen Nachfrage p(y) = 180 − 6y und der Kostenfunktion C(y) = 3y² gegenüber. Grenzerlös MR(y) = 180 − 12y, Grenzkosten C'(y) = 6y. Aus 180 − 12y = 6y folgt y* = 10, p* = 180 − 60 = 120, Gewinn π* = 120·10 − 3·100 = 900. Ein Preisnehmer bei gleicher Kostenfunktion würde dagegen y = 15 anbieten (p = MC ⟹ 180−6y=6y ⟹ y=15, p=90, Gewinn=90·15−3·225=675) — deutlich mehr Menge zu einem niedrigeren Preis, aber mit geringerem Gewinn.",
         ],
         figure: {
           type: "monopoly-graph",

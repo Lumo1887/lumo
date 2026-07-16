@@ -313,11 +313,11 @@ export const questions: Question[] = [
     topic: "Wahrscheinlichkeitsrechnung",
     type: "mc",
     prompt:
-      "Drei Zulieferer liefern Teile: L1 (150 Stk., 4% Ausschuss), L2 (300 Stk., 5%), L3 (600 Stk., 2%). Ein zufälliges Ausschussstück wird gezogen. Von welchem Zulieferer stammt es am wahrscheinlichsten?",
-    options: ["L1", "L2", "L3", "Alle gleich wahrscheinlich"],
+      "Drei Ärztinnen einer Praxis stellen Krankschreibungen aus: Dr. A (150 Diagnosen, 4% davon werden nachträglich als Fehldiagnose korrigiert), Dr. B (300 Diagnosen, 5%), Dr. C (600 Diagnosen, 2%). Eine zufällig herausgegriffene Akte enthält eine solche Korrektur. Von welcher Ärztin stammt sie am wahrscheinlichsten?",
+    options: ["Dr. A", "Dr. B", "Dr. C", "Alle gleich wahrscheinlich"],
     correctIndex: 1,
     explanation:
-      "Erwartete Ausschussstücke: L1=6, L2=15, L3=12 (Summe 33). P(L2|Ausschuss)=15/33≈45,5% — am höchsten.",
+      "Erwartete Korrekturen: Dr. A=6, Dr. B=15, Dr. C=12 (Summe 33). P(Dr. B|Korrektur)=15/33≈45,5% — am höchsten.",
     source: "Kapitel 1, Satz von Bayes",
     free: false,
   },

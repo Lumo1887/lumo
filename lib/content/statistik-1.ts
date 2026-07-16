@@ -941,9 +941,9 @@ export const chapters: SkriptChapter[] = [
           caption: "Abb. 4.3 — Lorenzkurve: Fläche zwischen Diagonale und Kurve bestimmt den Gini-Koeffizienten.",
         },
         examples: [
-          "5 Eisverkäufer mit Umsätzen 55,55,55,55,55 (alle gleich): Gini = 0.",
+          "5 Filialen einer Fahrradwerkstatt-Kette mit Monatsgewinnen 62,62,62,62,62 € (alle gleich): Gini = 0.",
           "5 Freelancer mit Monatsumsätzen (sortiert) 1200, 1800, 2000, 2500, 3000 €. n=5, Σxi=10 500. Σ i·xi = 1·1200+2·1800+3·2000+4·2500+5·3000 = 1200+3600+6000+10000+15000 = 35 800. G = (2·35 800)/(5·10 500) − 6/5 = 71 600/52 500 − 1,2 ≈ 1,364 − 1,2 = 0,164.",
-          "Maximale Disparität bei n=5 (ein Eisverkäufer mit Umsätzen 0,0,0,0,275 hat alles): Σxi=275, Σ i·xi = 5·275 = 1375. G = (2·1375)/(5·275) − 6/5 = 2750/1375 − 1,2 = 2 − 1,2 = 0,8 — exakt Gmax=(n−1)/n=4/5, NICHT 1. Erst normiert: G* = (5/4)·0,8 = 1,0.",
+          "Maximale Disparität bei n=5 (eine Filiale erwirtschaftet mit Monatsgewinnen 0,0,0,0,310 den gesamten Gewinn): Σxi=310, Σ i·xi = 5·310 = 1550. G = (2·1550)/(5·310) − 6/5 = 3100/1550 − 1,2 = 2 − 1,2 = 0,8 — exakt Gmax=(n−1)/n=4/5, NICHT 1. Erst normiert: G* = (5/4)·0,8 = 1,0.",
         ],
       },
       {

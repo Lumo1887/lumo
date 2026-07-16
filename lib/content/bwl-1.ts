@@ -446,7 +446,7 @@ export const chapters: SkriptChapter[] = [
           },
         ],
         examples: [
-          "Bei der Entwicklung eines Indoor-Lokalisierungssystems für eine Lagerhalle beobachtete ein Team zunächst, wie Mitarbeitende tatsächlich nach Paletten suchen (Beobachten), bevor es aus den gewonnenen Erkenntnissen einen Prototyp für ein Ortungsarmband baute und mit dem Lagerpersonal testete.",
+          "Bei der Entwicklung einer digitalen Warteschlangenanzeige für ein öffentliches Schwimmbad beobachtete ein Team zunächst, wie Badegäste tatsächlich an Kassenhäuschen und Umkleiden warten (Beobachten), bevor es aus den gewonnenen Erkenntnissen einen Prototyp für eine Ampelanzeige an den Eingängen baute und mit dem Badepersonal testete.",
         ],
       },
     ],

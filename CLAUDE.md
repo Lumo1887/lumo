@@ -48,6 +48,32 @@ sagen muss:
    nur um erfundene Kontexte/Geschichten, die der Ersteller des Übungsblatts
    sich ausgedacht hat.
 
+   **Ein reiner Wortaustausch bei sonst identischer Aufgabenstruktur zählt
+   NICHT als verändertes Szenario.** Ein Copyright-Audit über alle 8 Module
+   (Juli 2026) hat genau diesen Fehler mehrfach gefunden: z. B. "3 Maschinen
+   M1/M2/M3 mit je unterschiedlicher Ausschussquote, welche hat das
+   Ausschussstück am wahrscheinlichsten produziert?" wurde zu "3 Zulieferer
+   L1/L2/L3 mit Ausschussquote" — nur ein Nomen ersetzt, Aufbau, Rollen und
+   Fragestellung blieben identisch. Das reicht nicht. Bei jeder Übernahme
+   muss man sich aktiv fragen: "Wenn ich Szenario A gegen Szenario B tausche,
+   aber sonst alles (Anzahl Akteure, Art der Fragestellung, Aufbau) gleich
+   lasse — ist das wirklich ein anderer Fall, oder nur eine Umbenennung?"
+   Im Zweifel die Textform ändern, nicht nur die Substantive (z. B. anderer
+   Fragetyp, andere Anzahl Akteure/Alternativen, andere Blickrichtung der
+   Frage).
+
+   **Diese Regel gilt genauso für benannte Beispiele/Fallstudien aus
+   Vorlesungsfolien, nicht nur für Übungsblatt-Aufgaben.** Folien enthalten
+   oft eigene, teils extern zitierte Fallbeispiele mit einem eigenen Titel
+   (z. B. "Beispiel XY", ein Fallstudienname, eine bestimmte Firma/Software/
+   ein bestimmtes System). Auch wenn daraus im Skript ein durchgerechnetes
+   `examples`-Beispiel gebaut wird, darf der Fallname/-titel nicht übernommen
+   werden (das Audit fand z. B. ein Design-Thinking-Beispiel, dessen Name
+   fast wortgleich vom Folientitel kopiert war). Realer, öffentlich
+   dokumentierter Fakt (z. B. eine bekannte, mit Quelle zitierte
+   Firmengeschichte wie Groupon) ist davon ausgenommen — dort geht es nicht
+   um ein erfundenes Szenario, sondern um zitierbare Fakten.
+
 3. **Klausurtauglichkeit: keine Konzepte ohne Formel/Rechenbeispiel.** Für
    jedes Konzept im Skript (`lib/content/<slug>.ts`), zu dem es in einer
    echten Klausur eine Rechenaufgabe geben könnte (nicht nur Verständnisfragen),
@@ -61,11 +87,32 @@ sagen muss:
    Kapitels sollte am Ende noch einmal daraufhin durchgegangen werden, ob
    irgendwo eine Formel fehlt, die in einer Klausur drankäme.
 
+4. **Pflicht-Selbstcheck vor Abschluss eines Moduls (neu oder Audit).** Jedes
+   `examples`-Beispiel im Skript und jede Aufgabe in der Fragenbank, die auf
+   einer echten Quelle beruht, muss aktiv gegen den tatsächlichen Quelltext
+   gegengelesen werden — nicht nur aus der Erinnerung/dem Eindruck heraus als
+   "wahrscheinlich schon anders genug" eingeschätzt werden. Konkret: nach dem
+   Schreiben eines neuen Beispiels kurz im eingelesenen Quellmaterial nach den
+   auffälligsten Stichwörtern des NEUEN Beispiels suchen (bzw. bei sehr langen
+   Foliensätzen den Text vorher z. B. per `pdftotext -layout` extrahieren,
+   falls das normale Einlesen leer bleibt) und prüfen, ob dort ein Original
+   mit sehr ähnlichem Aufbau existiert. Erst wenn das nicht der Fall ist (oder
+   das Beispiel sich strukturell klar unterscheidet), gilt Regel 2 als erfüllt.
+   Dieser Check killt genau die Fehler, die trotz Regel 1–3 im Juli-2026-Audit
+   noch gefunden wurden (siehe oben) — die Regeln allein reichen nicht, wenn
+   man sie nicht aktiv gegen die Quelle verifiziert.
+
 Diese Regeln gelten rückwirkend bereits für Statistik I und VWL 2 (Regeln 1+2,
 beide wurden entsprechend umgebaut) sowie für Statistik I (Regel 3, wurde
 nachträglich um fehlende Formeln wie den Gini-Koeffizienten bei maximaler
 Disparität, Schiefe/Kurtosis, hypergeometrische Verteilung u. a. ergänzt) —
 und für jedes künftige Modul von Anfang an, nicht erst nach Rückfrage.
+
+Ein vollständiges Copyright-Audit aller 8 Module (Juli 2026) hat zusätzlich
+10 Verstöße gegen Regel 2 gefunden und behoben (7× Informatik 2, 1× BWL 1,
+2× Statistik 1) — durchweg Fälle von reinem Wortaustausch bei identischer
+Struktur bzw. übernommenen Fallbeispiel-Titeln, siehe die neuen Absätze in
+Regel 2 und den neuen Selbstcheck in Regel 4.
 
 ## Sonstiges
 
