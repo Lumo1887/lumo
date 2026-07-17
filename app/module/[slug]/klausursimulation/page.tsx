@@ -1,7 +1,27 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getModule } from "@/lib/modules";
 import ExamSimulation from "@/components/ExamSimulation";
+
+export function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Metadata {
+  const mod = getModule(params.slug);
+  if (!mod) return {};
+
+  const title = `${mod.title} KIT — Klausursimulation`;
+  const description = `Simuliere die Klausur zu ${mod.title} am KIT (${mod.subtitle}) unter echtem Zeitdruck, mit zufällig gemischten Fragen und Notenauswertung — von Lumo.`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/module/${mod.slug}/klausursimulation` },
+    openGraph: { title, description },
+  };
+}
 
 export default function KlausursimulationPage({ params }: { params: { slug: string } }) {
   const mod = getModule(params.slug);

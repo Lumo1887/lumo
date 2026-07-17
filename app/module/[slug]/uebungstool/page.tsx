@@ -1,7 +1,27 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getModule } from "@/lib/modules";
 import QuizPlayer from "@/components/QuizPlayer";
+
+export function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Metadata {
+  const mod = getModule(params.slug);
+  if (!mod) return {};
+
+  const title = `${mod.title} KIT — Übungsaufgaben mit Lösungen`;
+  const description = `${mod.questionCount}+ Übungsaufgaben aus echten Tutorien und Klausuren zu ${mod.title} am KIT (${mod.subtitle}), mit sofortigem Feedback und Lösungsweg — von Lumo.`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/module/${mod.slug}/uebungstool` },
+    openGraph: { title, description },
+  };
+}
 
 export default function UebungstoolPage({ params }: { params: { slug: string } }) {
   const mod = getModule(params.slug);

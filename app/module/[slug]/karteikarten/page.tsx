@@ -1,7 +1,27 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getModule } from "@/lib/modules";
 import Flashcards from "@/components/Flashcards";
+
+export function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Metadata {
+  const mod = getModule(params.slug);
+  if (!mod) return {};
+
+  const title = `${mod.title} KIT — Karteikarten mit Spaced Repetition`;
+  const description = `Karteikarten zu allen zentralen Begriffen aus ${mod.title} am KIT (${mod.subtitle}), mit Spaced Repetition zum effizienten Wiederholen — von Lumo.`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/module/${mod.slug}/karteikarten` },
+    openGraph: { title, description },
+  };
+}
 
 export default function KarteikartenPage({ params }: { params: { slug: string } }) {
   const mod = getModule(params.slug);

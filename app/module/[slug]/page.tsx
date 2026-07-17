@@ -50,8 +50,34 @@ export default function ModulePage({ params }: { params: { slug: string } }) {
     );
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: `${mod.title} — KIT`,
+    description: mod.subtitle,
+    provider: {
+      "@type": "Organization",
+      name: "Lumo",
+      sameAs: "https://www.lumo-learn.de",
+    },
+    educationalLevel: "Hochschule",
+    inLanguage: "de",
+    offers: {
+      "@type": "Offer",
+      price: (mod.priceCent / 100).toFixed(2),
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      url: `https://www.lumo-learn.de/module/${mod.slug}`,
+    },
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="mb-10">
         <span className="badge">KIT · {mod.faculty}</span>
         <h1 className="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">
