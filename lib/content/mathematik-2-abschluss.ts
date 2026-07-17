@@ -108,6 +108,10 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Stimmen oberes und unteres Riemann-Integral überein, heißt f Riemann-integrierbar über Q, und man schreibt ∫_Q f(⃗x) d⃗x für den gemeinsamen Wert. Äquivalent ist f genau dann integrierbar, wenn es zu jedem ε > 0 eine Partition 𝒵 gibt mit O(f;𝒵) − U(f;𝒵) < ε — das ε-Kriterium für Integrierbarkeit, das man in Klausuraufgaben meist direkt auf konkrete Partitionenfolgen anwendet.",
           "Für Jordan-messbare, aber nicht notwendig quaderförmige Mengen M ⊂ ℝⁿ definiert man das Integral einer auf M beschränkten Funktion f über die Fortsetzung f̃ := f auf M und f̃ := 0 außerhalb von M, angewandt auf einen M umfassenden Quader: ∫_M f(⃗x) d⃗x := ∫_Q f̃(⃗x) d⃗x. Diese Definition ist unabhängig von der Wahl von Q, solange M ⊂ Q gilt.",
+          "Formal lässt sich diese Fortsetzung über die Indikatorfunktion (charakteristische Funktion) 1_M schreiben, die auf M den Wert 1 und außerhalb von M den Wert 0 annimmt: f̃ = f·1_M. Diese Schreibweise begegnet einem auch in Statistik- oder Wahrscheinlichkeitsvorlesungen wieder, wo dieselbe Funktion oft 𝟙_M oder χ_M genannt wird.",
+        ],
+        terms: [
+          { term: "Indikatorfunktion 1_M", definition: "Die Funktion mit 1_M(⃗x) = 1 für ⃗x ∈ M und 1_M(⃗x) = 0 sonst. Multipliziert man f mit 1_M, erhält man genau die auf M eingeschränkte, außerhalb M durch 0 fortgesetzte Funktion f̃." },
         ],
         examples: [
           "Für f : [0,1]² → ℝ, f(x,y) := 3y und die Partition 𝒵ₙ in n gleich breite Vertikalstreifen [(i−1)/n, i/n] × [0,1] gilt sup f(Qᵢ) = 3 und inf f(Qᵢ) = 0 auf jedem Streifen, also O(f;𝒵ₙ) = 3 und U(f;𝒵ₙ) = 0 für jedes n ∈ ℕ — diese beiden Werte allein zeigen noch nicht die Integrierbarkeit von f, die man stattdessen über eine feinere, in beide Richtungen verlaufende Partition nachweist.",
@@ -219,6 +223,7 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Ist f : D → ℝ in (x₀,y₀) ∈ D ⊂ ℝ² total differenzierbar, so heißt die Ebene Tf(x₀,y₀) := {(x,y,z) ∈ ℝ³ : z = f(x₀,y₀) + ⟨∇f(x₀,y₀), (x−x₀,y−y₀)⟩} die Tangentialebene an den Graphen von f im Punkt (x₀,y₀). Sie ist das mehrdimensionale Analogon zur Tangente an den Graphen einer eindimensionalen Funktion.",
           "Ein Normalenvektor der Tangentialebene ist gegeben durch ⃗v = (∇f(x₀,y₀), −1)ᵀ ∈ ℝ³ — dieser Vektor steht senkrecht auf der Tangentialebene und wird häufig direkt aus dem Gradienten abgelesen, ohne den Umweg über die Ebenengleichung.",
+          "Klausuraufgaben unterscheiden gezielt zwischen zwei möglichen Fragestellungen: Ist nur die Tangentengleichung gesucht, reicht die Angabe z = f(x₀,y₀) + ⟨∇f(x₀,y₀),(x−x₀,y−y₀)⟩. Ist dagegen die Tangentialebene selbst gesucht, muss die vollständige Punktmenge Tf(x₀,y₀) ⊂ ℝ³ angegeben werden, die diese Gleichung erfüllt — genaues Lesen der Aufgabenstellung entscheidet hier über volle Punktzahl.",
         ],
         formulas: ["z = f(x₀,y₀) + ⟨∇f(x₀,y₀), (x−x₀, y−y₀)⟩", "Normalenvektor: ⃗v = (∇f(x₀,y₀), −1)ᵀ"],
         formulasLatex: [
@@ -503,10 +508,11 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "14-2",
-        heading: "14.2 Hinreichende Bedingung über die Hessematrix",
+        heading: "14.2 Hinreichende Bedingung über die Hessematrix (n=2)",
         body: [
           "Ist f : D → ℝ von der Klasse C² und ⃗x₀ ∈ D ein stationärer Punkt, so heißt Hf(⃗x₀) := (∂²f/(∂xᵢ∂xⱼ)(⃗x₀))ᵢⱼ ∈ ℝ^{n×n} die Hessematrix von f in ⃗x₀ — nach dem Satz von Schwarz (Kapitel 10) ist Hf(⃗x₀) stets symmetrisch. Ist Hf(⃗x₀) positiv definit, liegt in ⃗x₀ eine strenge lokale Minimalstelle vor; ist Hf(⃗x₀) negativ definit, liegt eine strenge lokale Maximalstelle vor; ist Hf(⃗x₀) indefinit, liegt ein Sattelpunkt vor.",
           "Ist Hf(⃗x₀) dagegen semidefinit (aber nicht definit), liefert die Hessematrix keine Entscheidung — hier muss man f in einer Umgebung von ⃗x₀ direkt untersuchen, etwa über geeignete Schnittfunktionen entlang verschiedener Richtungen durch ⃗x₀.",
+          "Für n=2 lässt sich die Definitheit besonders schnell über eine einzige 2×2-Determinante entscheiden. Bei drei oder mehr Veränderlichen reicht diese einfache Formel nicht mehr aus — dafür liefert 14.3 die allgemeinen Kriterien.",
         ],
         terms: [
           { term: "Positiv definit", definition: "⃗vᵀ H ⃗v > 0 für alle ⃗v ≠ ⃗0 — liefert eine strenge lokale Minimalstelle." },
@@ -527,7 +533,36 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "14-3",
-        heading: "14.3 Sattelpunkte und Grenzfälle",
+        heading: "14.3 Definitheitskriterien im ℝⁿ",
+        body: [
+          "Für n=2 reicht die einfache Determinantenformel aus 14.2 aus. Bei Funktionen von drei oder mehr Veränderlichen (etwa in Taylorpolynom-Aufgaben wie in 13.2, wo f von x,y,z abhängt) braucht man dagegen ein Kriterium, das direkt auf die dann größere Hessematrix Hf(⃗x₀) ∈ ℝ^{n×n} anwendbar ist.",
+          "Am direktesten ist das Eigenwert-Kriterium: Da Hf(⃗x₀) nach dem Satz von Schwarz (Kapitel 10) stets symmetrisch ist, besitzt sie ausschließlich reelle Eigenwerte λ₁,...,λₙ, und deren Vorzeichen bestimmen die Definitheit vollständig.",
+          "Eigenwerte zu berechnen ist bei größeren Matrizen aber aufwendig. Für positive Definitheit reicht deshalb das Hauptminoren-Kriterium (Sylvester-Kriterium): Es genügt, die führenden Hauptminoren zu prüfen, also die Determinanten der 'oberen linken' k×k-Teilmatrizen für k=1,...,n. Für (positive) Semidefinitheit reicht das dagegen NICHT — hier müssen ausnahmslos alle Hauptminoren (nicht nur die führenden) betrachtet werden, ein häufiger Fehler in Klausuren.",
+          "Negative (Semi-)Definitheit prüft man am einfachsten, indem man −Hf(⃗x₀) auf positive (Semi-)Definitheit testet. Dabei kippt aber das Vorzeichen der Determinante: det(−A) = (−1)ⁿ·det(A) — bei ungeradem n wird dieses Vorzeichen in der Klausur gerne übersehen.",
+        ],
+        terms: [
+          { term: "Eigenwert-Kriterium", definition: "Eine symmetrische Matrix A ist genau dann positiv (semi)definit, wenn alle Eigenwerte positiv (nicht-negativ) sind; entsprechend negativ (semi)definit bei ausschließlich negativen (nicht-positiven) Eigenwerten. Indefinit, wenn sowohl positive als auch negative Eigenwerte auftreten." },
+          { term: "Hauptminoren-Kriterium (Sylvester)", definition: "Für positive Definitheit genügt es, die k führenden Hauptminoren (Determinanten der oberen linken k×k-Teilmatrizen, k=1,...,n) zu prüfen: Alle müssen positiv sein." },
+          { term: "Kriterium für Semidefinitheit", definition: "Für positive Semidefinitheit reichen die führenden Hauptminoren NICHT aus — hier müssen die Determinanten ALLER (nicht nur der linken oberen) Hauptuntermatrizen ≥ 0 sein." },
+        ],
+        formulas: [
+          "Eigenwerte λ1,...,λn von Hf(⃗x₀): positiv definit ⟺ alle λi>0; negativ definit ⟺ alle λi<0; indefinit ⟺ es gibt λi<0<λj",
+          "Positiv definit (Sylvester): det(A[1..k]) > 0 für alle k=1,...,n",
+          "Vorzeichen-Fallstrick: det(−A) = (−1)ⁿ · det(A)",
+        ],
+        formulasLatex: [
+          "\\lambda_1,\\dots,\\lambda_n \\text{ Eigenwerte von } H_f(\\vec x_0):\\quad \\text{pos. definit} \\iff \\lambda_i>0\\ \\forall i",
+          "\\text{pos. definit (Sylvester):}\\quad \\det(A_{[1,\\dots,k]})>0 \\quad \\forall k=1,\\dots,n",
+          "\\det(-A) = (-1)^n \\det(A)",
+        ],
+        examples: [
+          "Für f(x,y,z) := x² + xy + 2y² + 3z² ist Hf konstant gleich [[2,1,0],[1,4,0],[0,0,6]]. Führende Hauptminoren: det(A₁)=2>0, det(A₁,₂)=2·4−1²=7>0, det(A₁,₂,₃)=6·7=42>0 (Entwicklung nach der 3. Zeile, da z entkoppelt ist) — alle positiv, also ist Hf positiv definit und der einzige stationäre Punkt (0,0,0) ein strenges (sogar globales) Minimum.",
+          "Die 2×2-Matrix A=diag(0,−1) zeigt, warum für Semidefinitheit ALLE Hauptminoren nötig sind: Die führenden Hauptminoren sind det(A₁)=0≥0 und det(A)=0·(−1)−0=0≥0 — beide erfüllen die '≥0'-Bedingung. Trotzdem ist A NICHT positiv semidefinit, denn der Eigenwert −1 ist negativ (A ist stattdessen negativ semidefinit). Der fehlende Hauptminor det(A₂)=−1<0 (allein der zweite Diagonaleintrag) deckt das sofort auf.",
+        ],
+      },
+      {
+        id: "14-4",
+        heading: "14.4 Sattelpunkte und Grenzfälle",
         body: [
           "Ein Sattelpunkt ist ein stationärer Punkt, in dem f in manchen Richtungen wächst und in anderen fällt — anschaulich wie ein Gebirgspass, der von einer Seite ein Tiefpunkt und von der anderen ein Hochpunkt ist. Ein besonders eindrückliches Beispiel ist der 'Affensattel' f(x,y) := x³ − 3xy², dessen Hessematrix im Ursprung die Nullmatrix ist (ein semidefiniter Grenzfall), obwohl f dort keine Extremstelle besitzt: Entlang dreier verschiedener Richtungen wechselt f das Vorzeichen.",
           "Ein zweites klassisches Beispiel für den semidefiniten Grenzfall ist f(x,y) := (y−x²)(y−3x²): Die Hessematrix im Ursprung ist positiv semidefinit, doch f nimmt in jeder Umgebung von (0,0) sowohl positive als auch negative Werte an (etwa entlang der Kurve y = 2x²), sodass (0,0) trotz semidefiniter Hessematrix kein lokales Minimum ist. Solche Beispiele zeigen, warum man bei semidefiniten Hessematrizen nicht vorschnell auf eine Extremstelle schließen darf.",
