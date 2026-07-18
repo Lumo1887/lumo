@@ -194,6 +194,7 @@ function PageFooter() {
         <LogoMark size={11} />
         <Text style={styles.footerBold}>Lumo</Text>
         <Text style={styles.footerText}>Skript</Text>
+        <Text style={styles.footerText}>· www.lumo-learn.de</Text>
       </View>
       <Text
         style={styles.footerText}
