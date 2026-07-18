@@ -71,6 +71,8 @@ export async function GET(request: NextRequest) {
       formulaImages,
       moduleTitle: mod.title,
       moduleSubtitle: mod.subtitle,
+      buyerEmail: unlocked ? user?.email ?? null : null,
+      generatedAt: new Date().toLocaleDateString("de-DE"),
     }) as any
   );
 

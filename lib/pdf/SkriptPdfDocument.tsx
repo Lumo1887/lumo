@@ -169,6 +169,26 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#57534e",
   },
+  warningBox: {
+    marginTop: 18,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderWidth: 1,
+    borderColor: "#c0392b",
+    borderStyle: "solid",
+    backgroundColor: "#fdf1f0",
+  },
+  warningTitle: {
+    fontSize: 10,
+    fontFamily: "Helvetica-Bold",
+    color: "#9a2b1f",
+    marginBottom: 4,
+  },
+  warningText: {
+    fontSize: 9,
+    color: "#7a2a20",
+    lineHeight: 1.4,
+  },
 });
 
 function LogoMark({ size = 16 }: { size?: number }) {
@@ -242,11 +262,15 @@ export default function SkriptPdfDocument({
   formulaImages,
   moduleTitle,
   moduleSubtitle,
+  buyerEmail,
+  generatedAt,
 }: {
   chapters: SkriptChapter[];
   formulaImages: Record<string, RenderedFormula>;
   moduleTitle: string;
   moduleSubtitle: string;
+  buyerEmail?: string | null;
+  generatedAt?: string;
 }) {
   return (
     <Document title={`Lumo Skript — ${moduleTitle}`}>
@@ -260,9 +284,23 @@ export default function SkriptPdfDocument({
             </Text>
           </View>
         </View>
-        <Text style={{ marginTop: 10, fontSize: 10, color: "#8b8398" }}>
-          Erstellt für den persönlichen Gebrauch. Bitte nicht ohne Erlaubnis weiterverbreiten.
-        </Text>
+        <View style={styles.warningBox} wrap={false}>
+          <Text style={styles.warningTitle}>Urheberrechtlich geschützt — nur für den persönlichen Gebrauch</Text>
+          <Text style={styles.warningText}>
+            Jede Vervielfältigung, Weitergabe oder Veröffentlichung dieses Dokuments — auch
+            auszugsweise, auch in Chats, Foren oder Cloud-Ordnern — ist ohne ausdrückliche
+            Genehmigung untersagt und stellt eine Urheberrechtsverletzung nach §§ 106 ff. UrhG
+            dar. Verstöße können zivilrechtlich (Abmahnung, Schadensersatz) und strafrechtlich
+            verfolgt werden. Jedes Exemplar ist einem Kauf zugeordnet und individuell
+            nachverfolgbar.
+          </Text>
+          {buyerEmail && (
+            <Text style={[styles.warningText, { marginTop: 6, fontFamily: "Helvetica-Bold" }]}>
+              Dieses Exemplar wurde erstellt für: {buyerEmail}
+              {generatedAt ? ` · ${generatedAt}` : ""}
+            </Text>
+          )}
+        </View>
         <PageFooter />
       </Page>
 
