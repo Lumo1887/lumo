@@ -14,7 +14,7 @@ export function generateMetadata({
   if (!mod) return {};
 
   const title = `${mod.title} KIT — Skript & Übungstool`;
-  const description = `${mod.subtitle} Skript, Altklausur-Aufgaben und KI-Tutor für das KIT-Modul ${mod.title} — von Lumo.`;
+  const description = `${mod.subtitle} Skript, Altklausur-Aufgaben und KI-Tutor für das KIT-Modul ${mod.title} — von Lumo Learn.`;
 
   return {
     title,
@@ -57,7 +57,7 @@ export default function ModulePage({ params }: { params: { slug: string } }) {
     description: mod.subtitle,
     provider: {
       "@type": "Organization",
-      name: "Lumo",
+      name: "Lumo Learn",
       sameAs: "https://www.lumo-learn.de",
     },
     educationalLevel: "Hochschule",

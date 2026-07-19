@@ -13,7 +13,7 @@ export function generateMetadata({
   if (!mod) return {};
 
   const title = `${mod.title} KIT — Übungsaufgaben mit Lösungen`;
-  const description = `${mod.questionCount}+ Übungsaufgaben aus echten Tutorien und Klausuren zu ${mod.title} am KIT (${mod.subtitle}), mit sofortigem Feedback und Lösungsweg — von Lumo.`;
+  const description = `${mod.questionCount}+ Übungsaufgaben aus echten Tutorien und Klausuren zu ${mod.title} am KIT (${mod.subtitle}), mit sofortigem Feedback und Lösungsweg — von Lumo Learn.`;
 
   return {
     title,

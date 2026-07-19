@@ -76,8 +76,8 @@ export async function POST(request: NextRequest) {
       resend.emails.send({
         from: MAIL_FROM,
         to: email,
-        subject: "Bestätigung deines Widerrufs — Lumo",
-        text: `Hallo ${name},\n\nwir haben deinen Widerruf soeben erhalten (unmittelbare elektronische Eingangsbestätigung gemäß § 356a BGB).\n\nBetroffenes Modul: ${moduleTitle ?? "nicht angegeben"}\n\nWir bearbeiten deinen Widerruf und zahlen bereits geleistete Zahlungen unverzüglich, spätestens innerhalb von 14 Tagen, auf demselben Weg zurück, mit dem du bezahlt hast.\n\nBei Rückfragen antworte einfach auf diese E-Mail oder schreib an ${OWNER_EMAIL}.\n\nViele Grüße\nLumo`,
+        subject: "Bestätigung deines Widerrufs — Lumo Learn",
+        text: `Hallo ${name},\n\nwir haben deinen Widerruf soeben erhalten (unmittelbare elektronische Eingangsbestätigung gemäß § 356a BGB).\n\nBetroffenes Modul: ${moduleTitle ?? "nicht angegeben"}\n\nWir bearbeiten deinen Widerruf und zahlen bereits geleistete Zahlungen unverzüglich, spätestens innerhalb von 14 Tagen, auf demselben Weg zurück, mit dem du bezahlt hast.\n\nBei Rückfragen antworte einfach auf diese E-Mail oder schreib an ${OWNER_EMAIL}.\n\nViele Grüße\nLumo Learn`,
       }),
       resend.emails.send({
         from: MAIL_FROM,

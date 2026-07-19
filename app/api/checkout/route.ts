@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
             currency: "eur",
             unit_amount: mod.priceCent,
             product_data: {
-              name: `Lumo — ${mod.title}`,
+              name: `Lumo Learn — ${mod.title}`,
               description: mod.subtitle,
             },
           },

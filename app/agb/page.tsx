@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AGB — Lumo",
+  title: "AGB — Lumo Learn",
 };
 
 export default function AgbPage() {
@@ -16,17 +16,17 @@ export default function AgbPage() {
       </h2>
       <p className="mt-2 text-ink-700">
         Diese AGB gelten für alle Verträge zwischen Carlo Pochert,
-        Gerwigstraße 29, 76131 Karlsruhe (nachfolgend &bdquo;Lumo&ldquo;)
+        Gerwigstraße 29, 76131 Karlsruhe (nachfolgend &bdquo;Lumo Learn&ldquo;)
         und Nutzer:innen (nachfolgend &bdquo;du&ldquo;/&bdquo;Kunde&ldquo;)
         über die kostenpflichtigen digitalen Inhalte auf lumo-learn.de.
-        Lumo richtet sich an Verbraucher:innen im Sinne des § 13 BGB.
+        Lumo Learn richtet sich an Verbraucher:innen im Sinne des § 13 BGB.
       </p>
 
       <h2 className="mt-8 text-lg font-semibold text-ink-900">
         2. Leistungsbeschreibung
       </h2>
       <p className="mt-2 text-ink-700">
-        Lumo bietet für einzelne Hochschulmodule digitale Lernmaterialien
+        Lumo Learn bietet für einzelne Hochschulmodule digitale Lernmaterialien
         an: ein digitales Skript, ein interaktives Übungstool mit
         Altklausur- und Tutoriumsaufgaben, einen KI-gestützten Chatbot zum
         jeweiligen Modul sowie einen PDF-Export des Skripts. Der

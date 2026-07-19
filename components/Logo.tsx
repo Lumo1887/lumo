@@ -22,7 +22,7 @@ export default function Logo({
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden={withWordmark}
         role={withWordmark ? undefined : "img"}
-        aria-label={withWordmark ? undefined : "Lumo"}
+        aria-label={withWordmark ? undefined : "Lumo Learn"}
       >
         <circle cx="32" cy="32" r="9" fill="#6D46E0" />
         <g stroke="#7C5CFF" strokeWidth={4} strokeLinecap="round">

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Datenschutzerklärung — Lumo",
+  title: "Datenschutzerklärung — Lumo Learn",
 };
 
 export default function DatenschutzPage() {
@@ -10,7 +10,7 @@ export default function DatenschutzPage() {
       <h1 className="text-3xl font-bold text-ink-900">Datenschutzerklärung</h1>
       <p className="mt-3 text-ink-600">
         Diese Erklärung informiert dich darüber, welche personenbezogenen
-        Daten bei der Nutzung von Lumo verarbeitet werden, zu welchem Zweck
+        Daten bei der Nutzung von Lumo Learn verarbeitet werden, zu welchem Zweck
         und auf welcher Rechtsgrundlage — gemäß Art. 13, 14 DSGVO.
       </p>
 

@@ -210,7 +210,7 @@ export default function FormulaSheetPdfDocument({
   );
 
   return (
-    <Document title={`Lumo Formelsammlung — ${moduleTitle}`}>
+    <Document title={`Lumo Learn Formelsammlung — ${moduleTitle}`}>
       <Page size="A4" style={styles.page} wrap>
         <View style={styles.headerRow}>
           <LogoMark size={22} />

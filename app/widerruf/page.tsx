@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import WiderrufForm from "@/components/WiderrufForm";
 
 export const metadata: Metadata = {
-  title: "Widerrufsbelehrung — Lumo",
+  title: "Widerrufsbelehrung — Lumo Learn",
 };
 
 export default function WiderrufPage() {

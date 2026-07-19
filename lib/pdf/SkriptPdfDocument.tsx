@@ -273,12 +273,12 @@ export default function SkriptPdfDocument({
   generatedAt?: string;
 }) {
   return (
-    <Document title={`Lumo Skript — ${moduleTitle}`}>
+    <Document title={`Lumo Learn Skript — ${moduleTitle}`}>
       <Page size="A4" style={styles.page}>
         <View style={styles.coverBrandRow}>
           <LogoMark size={34} />
           <View>
-            <Text style={styles.coverTitle}>Lumo Skript</Text>
+            <Text style={styles.coverTitle}>Lumo Learn Skript</Text>
             <Text style={styles.coverSubtitle}>
               {moduleTitle} — {moduleSubtitle}
             </Text>

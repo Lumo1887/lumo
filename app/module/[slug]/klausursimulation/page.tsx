@@ -13,7 +13,7 @@ export function generateMetadata({
   if (!mod) return {};
 
   const title = `${mod.title} KIT — Klausursimulation`;
-  const description = `Simuliere die Klausur zu ${mod.title} am KIT (${mod.subtitle}) unter echtem Zeitdruck, mit zufällig gemischten Fragen und Notenauswertung — von Lumo.`;
+  const description = `Simuliere die Klausur zu ${mod.title} am KIT (${mod.subtitle}) unter echtem Zeitdruck, mit zufällig gemischten Fragen und Notenauswertung — von Lumo Learn.`;
 
   return {
     title,

@@ -11,7 +11,7 @@ export function generateMetadata({
   if (!mod) return {};
 
   const title = `${mod.title} KIT — Online-Skript mit allen Kapiteln`;
-  const description = `Kostenloses Online-Skript zu ${mod.subtitle} für das KIT-Modul ${mod.title}: Formeln, Beispiele und Übersichten zum Nachlesen — das erste Kapitel gratis, von Lumo.`;
+  const description = `Kostenloses Online-Skript zu ${mod.subtitle} für das KIT-Modul ${mod.title}: Formeln, Beispiele und Übersichten zum Nachlesen — das erste Kapitel gratis, von Lumo Learn.`;
 
   return {
     title,

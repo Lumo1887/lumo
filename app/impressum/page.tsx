@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Impressum — Lumo",
+  title: "Impressum — Lumo Learn",
 };
 
 export default function ImpressumPage() {
@@ -67,7 +67,7 @@ export default function ImpressumPage() {
         Haftung für Inhalte
       </h2>
       <p className="mt-2 text-ink-700">
-        Lumo ist ein privates, von Studierenden betriebenes Projekt und
+        Lumo Learn ist ein privates, von Studierenden betriebenes Projekt und
         steht in keiner Verbindung zur Fachschaft oder zum Karlsruher
         Institut für Technologie (KIT). Die Skript- und Übungsinhalte
         wurden mit größtmöglicher Sorgfalt auf Basis öffentlich

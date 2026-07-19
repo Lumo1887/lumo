@@ -13,7 +13,7 @@ export function generateMetadata({
   if (!mod) return {};
 
   const title = `${mod.title} KIT — Karteikarten mit Spaced Repetition`;
-  const description = `Karteikarten zu allen zentralen Begriffen aus ${mod.title} am KIT (${mod.subtitle}), mit Spaced Repetition zum effizienten Wiederholen — von Lumo.`;
+  const description = `Karteikarten zu allen zentralen Begriffen aus ${mod.title} am KIT (${mod.subtitle}), mit Spaced Repetition zum effizienten Wiederholen — von Lumo Learn.`;
 
   return {
     title,

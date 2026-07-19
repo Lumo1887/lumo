@@ -82,7 +82,7 @@ export default function CheckoutButton({
           className="mt-0.5"
         />
         <span>
-          Ich stimme ausdrücklich zu, dass Lumo mit der Bereitstellung der
+          Ich stimme ausdrücklich zu, dass Lumo Learn mit der Bereitstellung der
           digitalen Inhalte vor Ablauf der Widerrufsfrist beginnt, und weiß,
           dass ich dadurch mein Widerrufsrecht verliere, sobald der Zugang
           freigeschaltet wurde (siehe{" "}

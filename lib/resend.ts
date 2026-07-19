@@ -14,4 +14,4 @@ export function getResendClient(): Resend | null {
 // Absenderadresse für ausgehende E-Mails. Muss zu einer bei Resend
 // verifizierten Domain gehören (siehe RESEND_SETUP.md).
 export const MAIL_FROM =
-  process.env.RESEND_FROM_EMAIL ?? "Lumo <no-reply@lumo-learn.de>";
+  process.env.RESEND_FROM_EMAIL ?? "Lumo Learn <no-reply@lumo-learn.de>";

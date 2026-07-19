@@ -85,8 +85,8 @@ export async function POST(req: NextRequest) {
           resend.emails.send({
             from: MAIL_FROM,
             to: customerEmail,
-            subject: `Dein Zugang zu ${mod.title} ist freigeschaltet — Lumo`,
-            text: `Hallo,\n\nvielen Dank für deinen Kauf! Dein Zugang zu "${mod.title}" (${mod.subtitle}) ist ab sofort freigeschaltet.\n\nBezahlter Betrag: ${priceEur} €\n\nSkript öffnen: ${baseUrl}/module/${mod.slug}/skript\nÜbungstool öffnen: ${baseUrl}/module/${mod.slug}/uebungstool\n\nÜbrigens: Kennst du jemanden, der/die auch ein KIT-Modul lernen muss? In deinem Profil (${baseUrl}/profile) findest du deinen persönlichen Empfehlungslink — für jeden Freund, der darüber kauft, bekommst du selbst ein komplettes Modul gratis.\n\nBei Fragen antworte einfach auf diese E-Mail oder schreib an ${OWNER_EMAIL}.\n\nViel Erfolg beim Lernen!\nLumo`,
+            subject: `Dein Zugang zu ${mod.title} ist freigeschaltet — Lumo Learn`,
+            text: `Hallo,\n\nvielen Dank für deinen Kauf! Dein Zugang zu "${mod.title}" (${mod.subtitle}) ist ab sofort freigeschaltet.\n\nBezahlter Betrag: ${priceEur} €\n\nSkript öffnen: ${baseUrl}/module/${mod.slug}/skript\nÜbungstool öffnen: ${baseUrl}/module/${mod.slug}/uebungstool\n\nÜbrigens: Kennst du jemanden, der/die auch ein KIT-Modul lernen muss? In deinem Profil (${baseUrl}/profile) findest du deinen persönlichen Empfehlungslink — für jeden Freund, der darüber kauft, bekommst du selbst ein komplettes Modul gratis.\n\nBei Fragen antworte einfach auf diese E-Mail oder schreib an ${OWNER_EMAIL}.\n\nViel Erfolg beim Lernen!\nLumo Learn`,
           }),
           resend.emails.send({
             from: MAIL_FROM,
@@ -144,7 +144,7 @@ export async function POST(req: NextRequest) {
                 from: MAIL_FROM,
                 to: referrerEmail,
                 subject: "Dein Freund hat gekauft — 1 Modul gratis für dich! 🎉",
-                text: `Hallo,\n\njemand hat gerade mit deinem Empfehlungscode bei Lumo gekauft — danke, dass du uns weiterempfiehlst!\n\nAls Dankeschön hast du jetzt 1 komplettes Modul deiner Wahl gratis. Wähl es in deinem Profil aus: ${baseUrl}/profile\n\nViele Grüße\nLumo`,
+                text: `Hallo,\n\njemand hat gerade mit deinem Empfehlungscode bei Lumo Learn gekauft — danke, dass du uns weiterempfiehlst!\n\nAls Dankeschön hast du jetzt 1 komplettes Modul deiner Wahl gratis. Wähl es in deinem Profil aus: ${baseUrl}/profile\n\nViele Grüße\nLumo Learn`,
               });
 
               if (rewardResult.error) {

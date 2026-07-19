@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-10 text-sm text-ink-600">
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <p>
-            © {new Date().getFullYear()} Lumo — von Studierenden für
+            © {new Date().getFullYear()} Lumo Learn — von Studierenden für
             Studierende am KIT.
           </p>
           <p className="text-ink-600/80">

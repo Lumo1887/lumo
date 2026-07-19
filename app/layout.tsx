@@ -14,21 +14,25 @@ import ReferralCapture from "@/components/ReferralCapture";
 // (Canonical-Tag, Sitemap, robots.txt, JSON-LD), sonst widersprechen sich
 // Redirect-Ziel und Canonical-Angabe und Google meldet einen "Umleitungsfehler".
 const SITE_URL = "https://www.lumo-learn.de";
-const SITE_NAME = "Lumo";
+// "Lumo Learn" ist der offizielle, durchgängig verwendete Name (Titel, Meta,
+// JSON-LD, E-Mails, Footer, PDF-Exporte). "Lumo" bleibt als kurze, informelle
+// Anrede in der Produkt-UI erhalten (Begrüßungen, Buttons u. Ä.).
+const SITE_NAME = "Lumo Learn";
 const SITE_DESCRIPTION =
   "Günstiger und wertvoller als klassische Vorbereitungskurse: Skript, Altklausur-Aufgaben und ein interaktives Übungstool für dein KIT-Modul.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Lumo — Skripte & Übungstool für KIT-Module",
-    template: "%s — Lumo",
+    default: "Lumo Learn — Skripte & Übungstool für KIT-Module",
+    template: "%s — Lumo Learn",
   },
   description: SITE_DESCRIPTION,
   keywords: [
+    "Lumo Learn",
     "Lumo",
     "Lumo Lernen",
-    "Lumo KIT",
+    "Lumo Learn KIT",
     "KIT Klausurvorbereitung",
     "Statistik 1 KIT",
     "VWL 1 Mikroökonomie KIT",
@@ -45,12 +49,12 @@ export const metadata: Metadata = {
     locale: "de_DE",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: "Lumo — Skripte & Übungstool für KIT-Module",
+    title: "Lumo Learn — Skripte & Übungstool für KIT-Module",
     description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary",
-    title: "Lumo — Skripte & Übungstool für KIT-Module",
+    title: "Lumo Learn — Skripte & Übungstool für KIT-Module",
     description: SITE_DESCRIPTION,
   },
   robots: {
@@ -62,7 +66,8 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Lumo",
+  name: "Lumo Learn",
+  alternateName: "Lumo",
   url: SITE_URL,
   description: SITE_DESCRIPTION,
   sameAs: ["https://www.instagram.com/lumolearn.de/"] as string[],
