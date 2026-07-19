@@ -1,200 +1,152 @@
 import type { SkriptChapter } from "./types";
 
-// Hinweis zur Kapitelreihenfolge: Die Reihenfolge und Nummerierung hier
-// folgt bewusst NICHT 1:1 der Reihenfolge der Vorlesungsfolien. Wahrscheinlichkeitsrechnung
-// bildet hier den Einstieg, Deskriptive Statistik steht am Ende.
+// Eigenständiges Lehrwerk zu "Statistik 1" (Wahrscheinlichkeitsrechnung,
+// Zufallsvariablen, Verteilungsmodelle, deskriptive Statistik), verfasst wie
+// ein unabhängiges Lehrbuch zum Modulthema — nicht als Paraphrase einer
+// bestimmten Vorlesung. Erklärungen, Beispiele und Aufbau sind eigenständig
+// entwickelt; nur die fachliche Themenabdeckung orientiert sich am üblichen
+// Inhalt eines einführenden Statistik-Moduls für Wirtschaftsingenieurwesen.
 export const chapters: SkriptChapter[] = [
+  // ==================== Kapitel 1 ====================
   {
     id: "wahrscheinlichkeitsrechnung",
     number: 1,
     title: "Wahrscheinlichkeitsrechnung",
     free: true,
     intro:
-      "Die Wahrscheinlichkeitsrechnung liefert das Fundament, um Unsicherheit zu quantifizieren. Sie bildet hier den Einstieg und legt die Grundlage für die Zufallsvariablen im nächsten Kapitel (was könnte theoretisch passieren) — später greifen auch die Verteilungsmodelle und die deskriptive Statistik immer wieder auf diese Grundbegriffe zurück.",
+      "Bevor man mit Daten arbeitet, lohnt sich ein Blick auf die Theorie dahinter: Wie lässt sich Unsicherheit überhaupt sauber in Zahlen fassen? Dieses Kapitel legt mit Ergebnisräumen, Ereignissen und den Grundregeln der Wahrscheinlichkeitsrechnung das Fundament, auf dem die späteren Kapitel zu Zufallsvariablen, Verteilungsmodellen und deskriptiver Statistik aufbauen.",
     sections: [
       {
-        id: "3-1",
-        heading: "1.1 Zufallsexperiment und Ergebnisraum",
+        id: "1-1",
+        heading: "1.1 Zufallsexperimente, Ergebnisraum und Ereignisse",
         body: [
-          "Ein Zufallsexperiment ist ein Vorgang, dessen Ergebnis nicht sicher vorhersagbar ist, der aber unter denselben Bedingungen beliebig oft wiederholbar wäre, z. B. ein Würfelwurf oder eine Klausur.",
+          "Ein Zufallsexperiment ist ein Vorgang mit ungewissem Ausgang, der sich aber unter denselben Bedingungen beliebig oft wiederholen lässt — der Münzwurf, die Wartezeit an einer Supermarktkasse, die Anzahl fehlerhafter Teile in einer Tagesproduktion. Die Menge aller denkbaren Ausgänge eines solchen Experiments heißt Ergebnisraum Ω (Omega); ein einzelner möglicher Ausgang wird als Elementarereignis ω bezeichnet.",
+          "Ein Ereignis A ist eine Teilmenge des Ergebnisraums, also eine Zusammenfassung mehrerer (oder auch nur eines) Elementarereignisse zu einer inhaltlich sinnvollen Aussage — etwa 'die gezogene Zahl ist gerade' oder 'die Wartezeit liegt unter 5 Minuten'. Tritt eines der zu A gehörenden Elementarereignisse ein, sagt man, das Ereignis A sei eingetreten.",
         ],
         terms: [
           {
-            term: "Ergebnisraum Ω",
-            definition: "Enthält alle möglichen, sich gegenseitig ausschließenden Ausgänge, z. B. beim Würfeln Ω={1,2,3,4,5,6}.",
+            term: "Ergebnisraum (Ω)",
+            definition: "Die Menge aller möglichen Ausgänge eines Zufallsexperiments.",
           },
           {
-            term: "Elementarereignis",
-            definition: "Ein einzelnes Ergebnis aus Ω, z. B. die gewürfelte Zahl 4.",
+            term: "Ereignis",
+            definition: "Eine Teilmenge des Ergebnisraums, die einen oder mehrere mögliche Ausgänge zu einer Aussage zusammenfasst.",
           },
         ],
-      },
-      {
-        id: "3-2",
-        heading: "1.2 Ereignisse und Mengenoperationen",
-        body: [
-          "Ein Ereignis A ist eine Teilmenge von Ω und tritt ein, wenn das tatsächliche Ergebnis in dieser Teilmenge liegt.",
-          "Fast jeder Fehler bei Wahrscheinlichkeitsaufgaben lässt sich vermeiden, indem man sich zuerst sauber überlegt, welche Menge genau gemeint ist, bevor man rechnet.",
-        ],
-        terms: [
-          {
-            term: "Vereinigung A∪B",
-            definition: "A oder B oder beide treten ein.",
-          },
-          {
-            term: "Schnitt A∩B",
-            definition: "A und B treten beide ein.",
-          },
-          {
-            term: "Komplement Ā",
-            definition: "A tritt nicht ein (Ω ohne A).",
-          },
-          {
-            term: "Disjunkt",
-            definition: "A∩B = ∅ — A und B können nicht gleichzeitig eintreten.",
-          },
-        ],
-        figure: {
-          type: "venn",
-          caption: "Abb. 1.1 — Venn-Diagramm: die Schnittmenge A∩B wird beim Additionssatz nur einmal gezählt.",
-        },
         examples: [
-          "Zwei Würfel: A = Augensumme ist gerade, B = mindestens eine 6. A∩B = Augensumme gerade und mindestens eine 6, z. B. (6,2), (6,4), (6,6).",
+          "Beim Werfen eines Tetraeders mit den Seiten 1 bis 4 ist Ω = {1,2,3,4}. Das Ereignis 'Ergebnis größer als 2' entspricht der Teilmenge A = {3,4}.",
         ],
       },
       {
-        id: "3-3",
-        heading: "1.3 Wahrscheinlichkeitsbegriffe",
+        id: "1-2",
+        heading: "1.2 Mengenoperationen und der Additionssatz",
         body: [
-          "Es gibt drei unterschiedliche Zugänge, was Wahrscheinlichkeit überhaupt bedeutet. In der Klausur wird gerne gefragt, welcher Begriff in einer konkreten Situation zutrifft.",
-        ],
-        terms: [
-          {
-            term: "Laplace-Wahrscheinlichkeit",
-            definition: "P(A) = günstige Fälle / mögliche Fälle. Setzt gleichwahrscheinliche Elementarereignisse voraus, z. B. einen fairen Würfel.",
-          },
-          {
-            term: "Statistische Wahrscheinlichkeit",
-            definition: "Nähert P(A) durch die relative Häufigkeit bei sehr vielen Wiederholungen an. Funktioniert auch bei nicht gleichwahrscheinlichen Ausgängen.",
-          },
-          {
-            term: "Axiomatische Wahrscheinlichkeit (Kolmogorov)",
-            definition: "Definiert Wahrscheinlichkeit rein formal über drei Axiome: P(A)≥0, P(Ω)=1, und Additivität für disjunkte Ereignisse.",
-          },
-        ],
-      },
-      {
-        id: "3-4",
-        heading: "1.4 Kombinatorik: Permutation und Variation",
-        body: [
-          "Kombinatorik zählt, wie viele Möglichkeiten es für eine Auswahl oder Anordnung gibt. Die zentrale Frage: Kommt es auf die Reihenfolge an, und ist Wiederholung erlaubt?",
-        ],
-        terms: [
-          {
-            term: "Permutation",
-            definition: "Anordnungen von n unterscheidbaren Objekten in einer Reihe: n! Möglichkeiten.",
-          },
-          {
-            term: "Variation",
-            definition: "Geordnete Auswahl von k aus n Objekten. Mit Wiederholung: nᵏ. Ohne Wiederholung: n!/(n−k)!.",
-          },
-        ],
-        formulas: ["Variation ohne Wiederholung: n! / (n−k)!"],
-        formulasLatex: ["\\dfrac{n!}{(n-k)!}"],
-        examples: [
-          "5 Personen in einer Schlange: 5! = 120 Reihenfolgen. Ein 4-stelliger PIN aus Ziffern 0–9 mit Wiederholung: 10⁴.",
-        ],
-      },
-      {
-        id: "3-5",
-        heading: "1.5 Kombinatorik: Kombination",
-        body: [
-          "Kombinationen zählen ungeordnete Auswahlen — die Reihenfolge zählt hier nicht.",
-          "Merkregel: Wird nach Anordnungen oder Reihenfolgen gefragt, ist es eine Variation oder Permutation. Wird nach Auswahlen oder Teams gefragt, ist es eine Kombination.",
-        ],
-        terms: [
-          {
-            term: "Kombination",
-            definition: "Ungeordnete Auswahl von k aus n Objekten ohne Wiederholung.",
-          },
-          {
-            term: "Binomialkoeffizient C(n,k)",
-            definition: "n! / (k! · (n−k)!). Zählt die Anzahl der Kombinationen.",
-          },
-        ],
-        formulas: ["Kombination ohne Wiederholung: C(n,k) = n! / (k!·(n−k)!)"],
-        formulasLatex: ["C(n,k) = \\dfrac{n!}{k!\\,(n-k)!}"],
-        examples: [
-          "Beim Skat werden 10 aus 32 Karten gezogen: C(32,10) ≈ 64,5 Millionen Möglichkeiten.",
-          "Jonas wählt 2 Sportarten aus 3 (Fußball, Schwimmen, Tennis), Reihenfolge egal: C(3,2) = 3 Möglichkeiten.",
-        ],
-      },
-      {
-        id: "3-6",
-        heading: "1.6 Additionssatz",
-        body: [
-          "Naiv würde man P(A)+P(B) rechnen, aber dabei wird die Schnittmenge A∩B doppelt gezählt — deshalb muss sie einmal abgezogen werden.",
-        ],
-        terms: [
-          {
-            term: "Additionssatz",
-            definition: "P(A∪B) = P(A) + P(B) − P(A∩B). Sind A und B disjunkt, vereinfacht sich das zu P(A)+P(B).",
-          },
+          "Weil Ereignisse Mengen sind, lassen sie sich mit den bekannten Mengenoperationen verknüpfen: Die Vereinigung A∪B beschreibt 'A oder B (oder beide) treten ein', der Durchschnitt A∩B beschreibt 'A und B treten beide ein', und das Komplement A^c beschreibt 'A tritt nicht ein'. Zwei Ereignisse heißen disjunkt (unvereinbar), wenn A∩B = ∅ gilt — sie können nicht gleichzeitig eintreten.",
+          "Der Additionssatz beantwortet die Frage, wie wahrscheinlich es ist, dass A oder B eintritt: P(A∪B) = P(A) + P(B) − P(A∩B). Die Schnittmenge muss abgezogen werden, weil sie sonst doppelt gezählt würde — einmal als Teil von A, einmal als Teil von B. Sind A und B disjunkt, entfällt der Korrekturterm, weil P(A∩B) = 0 ist.",
         ],
         formulas: ["P(A∪B) = P(A) + P(B) − P(A∩B)"],
         formulasLatex: ["P(A\\cup B) = P(A) + P(B) - P(A\\cap B)"],
+        figure: {
+          type: "venn",
+          caption: "Abb. 1.1 — Venn-Diagramm: Die Schnittmenge A∩B wird beim Additionssatz nur einmal gezählt.",
+        },
+        terms: [
+          {
+            term: "Disjunkte (unvereinbare) Ereignisse",
+            definition: "Zwei Ereignisse, die nicht gleichzeitig eintreten können (A∩B = ∅).",
+          },
+        ],
         examples: [
-          "32 Skatkarten: P(Ass)=4/32, P(Pik)=8/32, P(Ass∩Pik)=1/32 (Pik-Ass). P(Ass∪Pik) = 4/32+8/32−1/32 = 11/32.",
+          "In einer Umfrage unter 200 Beschäftigten nutzen 90 die Kantine (A), 70 nutzen die Firmenparkgarage (B), 25 nutzen beides. P(A∪B) = 90/200 + 70/200 − 25/200 = 0,45 + 0,35 − 0,125 = 0,675 — 67,5% nutzen mindestens eines der beiden Angebote.",
         ],
       },
       {
-        id: "3-7",
-        heading: "1.7 Bedingte Wahrscheinlichkeit und Unabhängigkeit",
+        id: "1-3",
+        heading: "1.3 Axiome der Wahrscheinlichkeit und Laplace-Wahrscheinlichkeit",
         body: [
-          "Die bedingte Wahrscheinlichkeit P(A|B) gibt an, wie wahrscheinlich A ist, wenn man bereits weiß, dass B eingetreten ist.",
-          "Achtung: Disjunktheit und Unabhängigkeit sind nicht dasselbe. Zwei Ereignisse mit positiver Wahrscheinlichkeit, die disjunkt sind, können nie unabhängig sein — wenn B eintritt, weiß man ja sofort, dass A nicht eingetreten ist.",
+          "Formal ordnet eine Wahrscheinlichkeitsfunktion P jedem Ereignis A eine Zahl P(A) zu, die drei Axiomen genügt: P(A) ≥ 0 für jedes Ereignis, P(Ω) = 1 (irgendein Ergebnis tritt sicher ein), und für disjunkte Ereignisse addieren sich die Wahrscheinlichkeiten. Aus diesen drei Axiomen lassen sich alle weiteren Rechenregeln — darunter der Additionssatz aus 1.2 — herleiten.",
+          "Ein wichtiger Spezialfall ist die Laplace-Wahrscheinlichkeit: Sind alle n Elementarereignisse eines endlichen Ergebnisraums gleich wahrscheinlich, gilt für ein Ereignis A mit |A| günstigen Ausgängen P(A) = |A| / |Ω| — die Anzahl der günstigen Fälle geteilt durch die Anzahl aller möglichen Fälle. Diese Annahme gleicher Wahrscheinlichkeiten ist nur gerechtfertigt, wenn es dafür einen echten Grund gibt (Symmetrie eines Würfels, ein durchmischtes Kartenspiel) — nicht bei jedem beliebigen Zufallsexperiment.",
+        ],
+        formulas: ["P(A) = |A| / |Ω|  (Laplace-Wahrscheinlichkeit)"],
+        formulasLatex: ["P(A) = \\dfrac{|A|}{|\\Omega|}"],
+        terms: [
+          {
+            term: "Laplace-Experiment",
+            definition: "Ein Zufallsexperiment mit endlich vielen, gleich wahrscheinlichen Elementarereignissen.",
+          },
+        ],
+        examples: [
+          "Bei einem fairen sechsseitigen Würfel ist P(Augenzahl durch 3 teilbar) = |{3,6}| / |{1,...,6}| = 2/6 = 1/3.",
+        ],
+      },
+      {
+        id: "1-4",
+        heading: "1.4 Kombinatorik: Anordnen und Auswählen",
+        body: [
+          "Kombinatorische Zählformeln helfen, |Ω| bzw. |A| zu bestimmen, ohne alle Möglichkeiten einzeln aufzuschreiben. Sollen n unterscheidbare Objekte vollständig angeordnet werden, gibt es dafür n! (n Fakultät) Reihenfolgen. Sollen dagegen nur k von n unterscheidbaren Objekten in einer bestimmten Reihenfolge ausgewählt werden (eine Variation ohne Wiederholung), gibt es dafür n! / (n−k)! Möglichkeiten.",
+          "Kommt es auf die Reihenfolge der k ausgewählten Objekte dagegen nicht an (eine Kombination ohne Wiederholung), muss man durch die Anzahl der Anordnungen der ausgewählten k Objekte teilen: C(n,k) = n! / (k! · (n−k)!) — der Binomialkoeffizient. Er beantwortet z. B. die Frage, auf wie viele Arten man k Personen aus einer Gruppe von n Personen für ein Team auswählen kann.",
+        ],
+        formulas: [
+          "Variation ohne Wiederholung: n! / (n − k)!",
+          "Kombination ohne Wiederholung: C(n,k) = n! / (k! · (n−k)!)",
+        ],
+        formulasLatex: [
+          "\\dfrac{n!}{(n-k)!}",
+          "C(n,k) = \\dfrac{n!}{k!\\,(n-k)!}",
+        ],
+        terms: [
+          {
+            term: "Fakultät (n!)",
+            definition: "Produkt aller natürlichen Zahlen von 1 bis n; Anzahl der Reihenfolgen, in denen sich n unterscheidbare Objekte anordnen lassen.",
+          },
+          {
+            term: "Binomialkoeffizient C(n,k)",
+            definition: "Anzahl der Möglichkeiten, k von n unterscheidbaren Objekten ohne Berücksichtigung der Reihenfolge auszuwählen.",
+          },
+        ],
+        examples: [
+          "Ein Vereinsvorstand mit 12 Mitgliedern wählt ein Gremium aus 4 Personen ohne feste Rollenverteilung: C(12,4) = 12! / (4!·8!) = 495 Möglichkeiten. Sollten die 4 Positionen dagegen unterschiedliche Rollen (Vorsitz, Kasse, Schriftführung, Beisitz) sein, wären es 12!/8! = 11.880 Variationen.",
+        ],
+      },
+      {
+        id: "1-5",
+        heading: "1.5 Bedingte Wahrscheinlichkeit und Unabhängigkeit",
+        body: [
+          "Die bedingte Wahrscheinlichkeit P(A|B) gibt an, wie wahrscheinlich Ereignis A ist, wenn man bereits weiß, dass B eingetreten ist: P(A|B) = P(A∩B) / P(B), definiert für P(B) > 0. Die zusätzliche Information über B verändert dabei effektiv den relevanten Ergebnisraum von Ω auf B.",
+          "Zwei Ereignisse A und B heißen (stochastisch) unabhängig, wenn das Eintreten von B keinen Einfluss auf die Wahrscheinlichkeit von A hat, also P(A|B) = P(A) gilt. Äquivalent dazu — und oft einfacher zu prüfen — gilt für unabhängige Ereignisse P(A∩B) = P(A) · P(B). Unabhängigkeit darf nicht mit Disjunktheit verwechselt werden: Disjunkte Ereignisse mit positiver Wahrscheinlichkeit sind sogar zwangsläufig abhängig, weil das Eintreten des einen das andere ausschließt.",
+        ],
+        formulas: [
+          "P(A|B) = P(A∩B) / P(B)",
+          "Unabhängigkeit: P(A∩B) = P(A) · P(B)",
+        ],
+        formulasLatex: [
+          "P(A \\mid B) = \\dfrac{P(A\\cap B)}{P(B)}",
+          "P(A\\cap B) = P(A)\\cdot P(B)",
         ],
         terms: [
           {
             term: "Bedingte Wahrscheinlichkeit",
-            definition: "P(A|B) = P(A∩B) / P(B). Der Anteil von A∩B innerhalb von B.",
+            definition: "Wahrscheinlichkeit eines Ereignisses A unter der Voraussetzung, dass ein anderes Ereignis B bereits eingetreten ist.",
           },
           {
             term: "Stochastische Unabhängigkeit",
-            definition: "P(A∩B) = P(A)·P(B), äquivalent zu P(A|B) = P(A). Das Wissen um B verändert die Wahrscheinlichkeit von A nicht.",
-          },
-          {
-            term: "Multiplikationssatz",
-            definition: "P(A∩B) = P(A|B)·P(B). Nützlich, wenn bedingte Wahrscheinlichkeiten bekannt sind, z. B. aus einem Wahrscheinlichkeitsbaum.",
+            definition: "Zwei Ereignisse beeinflussen sich nicht gegenseitig: P(A∩B) = P(A)·P(B).",
           },
         ],
-        formulas: ["P(A|B) = P(A∩B) / P(B), sofern P(B) > 0"],
-        formulasLatex: ["P(A \\mid B) = \\dfrac{P(A\\cap B)}{P(B)}, \\quad P(B) > 0"],
         examples: [
-          "40 Prozent Frauen, 25 Prozent aller Studierenden mit Auslandssemester, davon 60 Prozent Frauen. P(A∩F) = 0,6·0,25 = 0,15. P(A|F) = 0,15/0,4 = 0,375.",
+          "In einem Betrieb sind 55% der Beschäftigten in Vollzeit tätig, 30% aller Beschäftigten arbeiten im Homeoffice, und 18% aller Beschäftigten arbeiten in Vollzeit und im Homeoffice. P(Homeoffice | Vollzeit) = 0,18 / 0,55 ≈ 0,327 — unter den Vollzeitkräften arbeitet also etwa jede Dritte im Homeoffice.",
         ],
       },
       {
-        id: "3-8",
-        heading: "1.8 Totale Wahrscheinlichkeit und Satz von Bayes",
+        id: "1-6",
+        heading: "1.6 Satz von Bayes und totale Wahrscheinlichkeit",
         body: [
-          "Bilden B1 bis Bk eine vollständige Zerlegung von Ω, lässt sich P(A) aus den bedingten Wahrscheinlichkeiten P(A|Bi) berechnen. Ein Wahrscheinlichkeitsbaum ist dafür die ideale Visualisierung.",
-          "Der Satz von Bayes kehrt die Bedingungsrichtung um: Man kennt P(A|Bi), sucht aber P(Bi|A) — diese beiden sind meist nicht gleich, ein sehr häufiger Denkfehler.",
-          "Klassisches Beispiel: medizinische Tests. Selbst ein Test mit hoher Sensitivität und Spezifität kann bei seltenen Krankheiten dazu führen, dass P(krank | positiv getestet) überraschend niedrig ausfällt, weil es viel mehr Gesunde gibt.",
-        ],
-        terms: [
-          {
-            term: "Vollständige Zerlegung",
-            definition: "B1,...,Bk sind paarweise disjunkt und decken zusammen ganz Ω ab.",
-          },
-          {
-            term: "Satz von Bayes",
-            definition: "Berechnet P(Bi|A) aus P(A|Bi) und den Wahrscheinlichkeiten P(Bi).",
-          },
+          "Zerlegen B1, ..., Bn den gesamten Ergebnisraum in disjunkte Teile (eine sogenannte vollständige Zerlegung), lässt sich die Wahrscheinlichkeit eines beliebigen Ereignisses A über den Satz der totalen Wahrscheinlichkeit berechnen: P(A) = Σ P(A|Bi) · P(Bi). Man summiert also über alle Szenarien Bi, gewichtet mit deren jeweiliger Wahrscheinlichkeit.",
+          "Oft kennt man P(A|Bi) (z. B. wie wahrscheinlich ein positiver Test bei tatsächlicher Erkrankung ist), möchte aber die umgekehrte Frage beantworten: Wie wahrscheinlich ist Bi, wenn man weiß, dass A eingetreten ist? Genau das leistet der Satz von Bayes: P(Bi|A) = [P(A|Bi) · P(Bi)] / Σj P(A|Bj) · P(Bj). Er 'dreht' eine bedingte Wahrscheinlichkeit um und ist die Grundlage vieler Diagnose- und Klassifikationsverfahren.",
         ],
         formulas: [
-          "Totale Wahrscheinlichkeit: P(A) = Σ P(A|Bi)·P(Bi)",
-          "Satz von Bayes: P(Bi|A) = P(A|Bi)·P(Bi) / Σj P(A|Bj)·P(Bj)",
+          "P(A) = Σ P(A|Bi) · P(Bi)  (totale Wahrscheinlichkeit)",
+          "P(Bi|A) = [P(A|Bi) · P(Bi)] / Σj P(A|Bj)·P(Bj)  (Satz von Bayes)",
         ],
         formulasLatex: [
           "P(A) = \\sum_i P(A\\mid B_i)\\, P(B_i)",
@@ -202,1109 +154,626 @@ export const chapters: SkriptChapter[] = [
         ],
         figure: {
           type: "tree",
-          caption: "Abb. 1.2 — Wahrscheinlichkeitsbaum: jeder Pfad multipliziert die Wahrscheinlichkeiten entlang der Äste.",
+          caption: "Abb. 1.2 — Wahrscheinlichkeitsbaum: Entlang jedes Pfades werden die Wahrscheinlichkeiten multipliziert, am Ende über alle zu A führenden Pfade summiert.",
         },
+        terms: [
+          {
+            term: "Vollständige Zerlegung",
+            definition: "Eine Menge disjunkter Ereignisse B1,...,Bn, die zusammen den gesamten Ergebnisraum abdecken.",
+          },
+          {
+            term: "Satz von Bayes",
+            definition: "Formel, um aus P(A|Bi) und den Wahrscheinlichkeiten P(Bi) die umgekehrte bedingte Wahrscheinlichkeit P(Bi|A) zu berechnen.",
+          },
+        ],
         examples: [
-          "Qualitätskontrolle eines Bauteils: Erkennungsrate für fehlerhafte Teile 94%, korrekte Erkennung intakter Teile 98%, 4% aller Teile sind tatsächlich fehlerhaft. P(als fehlerhaft erkannt) = 0,94·0,04+0,02·0,96 = 0,0568. P(fehlerhaft|erkannt) = 0,0376/0,0568 ≈ 0,66.",
-          "Ein Vertriebler nimmt mit 40% Wahrscheinlichkeit das Flugzeug (dann pünktlich in 90% der Fälle) und sonst das Auto (dann pünktlich in 65% der Fälle). Er kam pünktlich an: P(Flugzeug|pünktlich) = 0,36/0,75 = 0,48.",
+          "Ein Schnelltest erkennt eine Krankheit, an der 2% der Bevölkerung leiden, mit 95% Wahrscheinlichkeit korrekt (P(pos|krank) = 0,95); bei Gesunden schlägt er in 4% der Fälle fälschlich an (P(pos|gesund) = 0,04). Gesucht: P(krank|pos). Totale Wahrscheinlichkeit: P(pos) = 0,95·0,02 + 0,04·0,98 = 0,019 + 0,0392 = 0,0582. Bayes: P(krank|pos) = 0,019 / 0,0582 ≈ 0,326 — trotz eines auf den ersten Blick zuverlässig wirkenden Tests ist bei positivem Ergebnis nur etwa jede dritte getestete Person tatsächlich erkrankt, weil die Krankheit selten ist.",
         ],
       },
     ],
   },
+  // ==================== Kapitel 2 ====================
   {
     id: "zufallsvariablen",
     number: 2,
     title: "Zufallsvariablen",
     free: false,
     intro:
-      "Zufallsvariablen übersetzen Zufallsexperimente in Zahlen und erlauben es, Erwartungswert, Streuung und Zusammenhang formal zu berechnen — das Bindeglied zwischen der Wahrscheinlichkeitsrechnung in Kapitel 1 und den Verteilungsmodellen im nächsten Kapitel.",
+      "Eine Zufallsvariable übersetzt den Ausgang eines Zufallsexperiments in eine Zahl, mit der sich rechnen lässt. Dieses Kapitel führt Erwartungswert, Varianz und weitere Kennzahlen ein, mit denen sich das Verhalten einer Zufallsvariable zusammenfassen lässt — die Grundlage für die konkreten Verteilungsmodelle in Kapitel 3.",
     sections: [
       {
-        id: "4-1",
-        heading: "2.1 Was ist eine Zufallsvariable?",
+        id: "2-1",
+        heading: "2.1 Diskrete und stetige Zufallsvariablen",
         body: [
-          "Eine Zufallsvariable X ordnet jedem Ergebnis eines Zufallsexperiments eine reelle Zahl zu — z. B. die Augensumme zweier Würfel statt das konkrete Zahlenpaar.",
+          "Eine Zufallsvariable X ordnet jedem Ergebnis eines Zufallsexperiments eine reelle Zahl zu. Kann X nur endlich oder abzählbar unendlich viele Werte annehmen (z. B. die Anzahl fehlerhafter Teile in einer Stichprobe: 0, 1, 2, ...), heißt sie diskret. Kann X dagegen jeden Wert in einem Intervall annehmen (z. B. die exakte Füllmenge einer Flasche), heißt sie stetig.",
+          "Bei diskreten Zufallsvariablen beschreibt die Wahrscheinlichkeitsfunktion f(x) = P(X = x), wie wahrscheinlich jeder einzelne Wert ist. Bei stetigen Zufallsvariablen ist die Wahrscheinlichkeit eines einzelnen exakten Werts stets null; stattdessen beschreibt eine Dichtefunktion f(x), wie sich die Wahrscheinlichkeit über Intervalle verteilt — P(a ≤ X ≤ b) entspricht der Fläche unter f(x) zwischen a und b.",
         ],
         terms: [
           {
-            term: "Zufallsvariable X",
-            definition: "Formal eine Funktion X: Ω → ℝ.",
+            term: "Diskrete Zufallsvariable",
+            definition: "Zufallsvariable, die nur endlich oder abzählbar unendlich viele Werte annehmen kann.",
           },
-        ],
-      },
-      {
-        id: "4-2",
-        heading: "2.2 Diskrete Zufallsvariablen",
-        body: [
-          "X heißt diskret, wenn sie höchstens abzählbar viele Werte annehmen kann.",
-        ],
-        terms: [
           {
-            term: "Wahrscheinlichkeitsfunktion f(x)",
-            definition: "f(x) = P(X=x). Für eine gültige Wahrscheinlichkeitsfunktion muss f(x)≥0 gelten und die Summe über alle f(x) muss 1 ergeben.",
+            term: "Stetige Zufallsvariable",
+            definition: "Zufallsvariable, die jeden Wert in einem Intervall reeller Zahlen annehmen kann.",
           },
         ],
         examples: [
-          "X = Augensumme zweier fairer Würfel. f(7) = 6/36, die häufigste Summe.",
+          "Die Anzahl der Kunden, die in einer Stunde eine Bäckerei betreten, ist diskret (0, 1, 2, ...). Die tatsächliche Zeit zwischen zwei Kundenankünften ist dagegen stetig, da sie jeden positiven reellen Wert annehmen kann.",
         ],
       },
       {
-        id: "4-3",
-        heading: "2.3 Stetige Zufallsvariablen",
+        id: "2-2",
+        heading: "2.2 Die Verteilungsfunktion",
         body: [
-          "X heißt stetig, wenn sie jeden Wert in einem Intervall theoretisch annehmen kann.",
-          "Wichtig: bei stetigen Zufallsvariablen ist P(X=x) für jeden einzelnen Wert x immer exakt 0. Sinnvoll interpretierbar sind nur Wahrscheinlichkeiten für Intervalle.",
-        ],
-        terms: [
-          {
-            term: "Dichtefunktion f(x)",
-            definition: "Beschreibt eine stetige Zufallsvariable. Wahrscheinlichkeiten ergeben sich als Fläche unter f(x) über einem Intervall.",
-          },
-        ],
-        examples: [
-          "X = Wartezeit an einer Bushaltestelle in Minuten. P(X=5,000...) ist exakt 0, aber P(4≤X≤6) kann z. B. 0,3 sein.",
-        ],
-      },
-      {
-        id: "4-4",
-        heading: "2.4 Verteilungsfunktion F(x)",
-        body: [
-          "Die Verteilungsfunktion F(x) = P(X≤x) existiert für beide Typen und ist immer monoton wachsend von 0 nach 1.",
-          "Bei diskreten Zufallsvariablen ist sie eine Treppenfunktion, bei stetigen eine glatte Kurve — die Ableitung von F ist genau die Dichte f.",
+          "Die Verteilungsfunktion F(x) = P(X ≤ x) gibt für jeden Wert x an, mit welcher Wahrscheinlichkeit die Zufallsvariable höchstens x annimmt. Sie ist für diskrete und stetige Zufallsvariablen gleichermaßen definiert und immer monoton wachsend von 0 (für x gegen −∞) bis 1 (für x gegen +∞).",
+          "Bei diskreten Zufallsvariablen ist F(x) eine Treppenfunktion, die an jeder möglichen Ausprägung um f(x) nach oben springt. Bei stetigen Zufallsvariablen ist F(x) dagegen eine stetige Kurve, und es gilt der Zusammenhang F(x) = ∫ f(t) dt von −∞ bis x — die Verteilungsfunktion ist die aufsummierte (integrierte) Dichte.",
         ],
         figure: {
           type: "distribution-function",
-          caption: "Abb. 2.1 — Verteilungsfunktion einer diskreten Zufallsvariable: Sprünge an jeder möglichen Ausprägung.",
+          caption: "Abb. 2.1 — Verteilungsfunktion einer diskreten Zufallsvariable: Sprünge an jeder möglichen Ausprägung, Sprunghöhe = Einzelwahrscheinlichkeit.",
         },
+        terms: [
+          {
+            term: "Verteilungsfunktion F(x)",
+            definition: "Funktion, die für jeden Wert x die Wahrscheinlichkeit P(X ≤ x) angibt.",
+          },
+        ],
+        examples: [
+          "Bei einem fairen Würfel gilt F(3) = P(X ≤ 3) = P(X=1)+P(X=2)+P(X=3) = 3/6 = 0,5 — mit 50% Wahrscheinlichkeit würfelt man höchstens eine 3.",
+        ],
       },
       {
-        id: "4-5",
-        heading: "2.5 Erwartungswert",
+        id: "2-3",
+        heading: "2.3 Erwartungswert",
         body: [
-          "Der Erwartungswert E(X) ist das mit den Wahrscheinlichkeiten gewichtete Mittel aller möglichen Werte — das theoretische Gegenstück zum arithmetischen Mittel.",
-          "Bei diskreten Zufallsvariablen wird summiert, bei stetigen integriert. Dieses Muster zieht sich durch das ganze Kapitel: Σ wird zu ∫.",
+          "Der Erwartungswert E(X) einer Zufallsvariable beschreibt ihren durchschnittlichen Wert bei (gedanklich) unendlich häufiger Wiederholung des zugrunde liegenden Zufallsexperiments. Bei diskreten Zufallsvariablen berechnet er sich als E(X) = Σ xi · f(xi) — jeder mögliche Wert wird mit seiner Wahrscheinlichkeit gewichtet und aufsummiert. Bei stetigen Zufallsvariablen tritt an die Stelle der Summe ein Integral über x·f(x).",
+          "Der Erwartungswert ist linear: Für eine Konstante a und b gilt E(aX + b) = a·E(X) + b, und für zwei Zufallsvariablen X und Y gilt stets E(X+Y) = E(X) + E(Y) — unabhängig davon, ob X und Y voneinander abhängen.",
         ],
+        formulas: ["E(X) = Σ xi · f(xi)"],
+        formulasLatex: ["E(X) = \\sum_i x_i \\cdot f(x_i)"],
         terms: [
           {
             term: "Erwartungswert E(X)",
-            definition: "Der Wert, gegen den der Durchschnitt bei unendlich vielen Wiederholungen konvergieren würde.",
+            definition: "Der mit den Eintrittswahrscheinlichkeiten gewichtete Durchschnittswert einer Zufallsvariable.",
           },
         ],
-        formulas: ["Diskret: E(X) = Σ x·f(x)   |   Stetig: E(X) = ∫ x·f(x) dx"],
-        formulasLatex: [
-          "E(X) = \\sum_x x\\,f(x) \\quad \\text{(diskret)} \\qquad E(X) = \\int x\\, f(x)\\, dx \\quad \\text{(stetig)}",
-        ],
         examples: [
-          "Diskrete ZV: f(0)=0,5, f(3)=f(5)=0,25. E(X) = 0·0,5+3·0,25+5·0,25 = 2,0.",
+          "Ein Losverkäufer verkauft Lose zu 2 €. Mit Wahrscheinlichkeit 0,01 gewinnt man 50 €, mit Wahrscheinlichkeit 0,99 gewinnt man nichts. Der erwartete Gewinn beträgt E(X) = 0,01·50 + 0,99·0 = 0,50 € — im Schnitt gewinnt man also weniger, als das Los kostet.",
         ],
       },
       {
-        id: "4-6",
-        heading: "2.6 Varianz von Zufallsvariablen",
+        id: "2-4",
+        heading: "2.4 Varianz und Standardabweichung",
         body: [
-          "Die Verschiebungsformel Var(X) = E(X²) − (E(X))² ist in der Praxis fast immer einfacher als die direkte Definition.",
+          "Die Varianz Var(X) misst, wie stark die Werte einer Zufallsvariable im Mittel um ihren Erwartungswert streuen: Var(X) = E[(X − μ)²], wobei μ = E(X). Rechnerisch praktischer ist häufig der Verschiebungssatz: Var(X) = E(X²) − [E(X)]², bei dem man nur den Erwartungswert von X und von X² braucht.",
+          "Weil die Varianz in quadrierten Einheiten gemessen wird (z. B. €² statt €), zieht man für eine anschauliche Streuungsangabe meist die Wurzel und erhält die Standardabweichung σ = √Var(X), die wieder in der ursprünglichen Einheit von X vorliegt.",
         ],
+        formulas: ["Var(X) = E(X²) − [E(X)]²"],
+        formulasLatex: ["\\text{Var}(X) = E(X^2) - [E(X)]^2"],
         terms: [
           {
-            term: "Varianz Var(X)",
-            definition: "Die erwartete quadrierte Abweichung vom Erwartungswert.",
-          },
-        ],
-        formulas: ["Var(X) = E(X²) − (E(X))²"],
-        formulasLatex: ["\\text{Var}(X) = E(X^2) - \\big(E(X)\\big)^2"],
-        examples: [
-          "E(X)=4, E(X²)=25: Var(X) = 25−16 = 9, Standardabweichung σ = 3.",
-        ],
-      },
-      {
-        id: "4-7",
-        heading: "2.7 Lineare Transformation",
-        body: [
-          "Für Y = aX + b transformiert sich der Erwartungswert genauso wie X selbst. Die Varianz reagiert dagegen nur auf den Faktor a, und zwar quadriert — eine Verschiebung um b ändert an der Streuung nichts.",
-        ],
-        formulas: ["E(aX+b) = a·E(X) + b,   Var(aX+b) = a²·Var(X)"],
-        formulasLatex: [
-          "E(aX+b) = a\\,E(X) + b \\qquad \\text{Var}(aX+b) = a^2\\,\\text{Var}(X)",
-        ],
-      },
-      {
-        id: "4-8",
-        heading: "2.8 Tschebyscheff-Ungleichung",
-        body: [
-          "Die Tschebyscheff-Ungleichung liefert eine verteilungsunabhängige obere Schranke dafür, wie wahrscheinlich große Abweichungen vom Erwartungswert sind — funktioniert für jede Zufallsvariable mit endlicher Varianz, ist dafür aber meist grob.",
-        ],
-        formulas: ["Tschebyscheff: P(|X − E(X)| ≥ k) ≤ Var(X)/k²"],
-        formulasLatex: [
-          "P\\big(|X-E(X)| \\ge k\\big) \\le \\dfrac{\\text{Var}(X)}{k^2}",
-        ],
-        examples: [
-          "Var(X)=9, k=4: P(|X−4|≥4) ≤ 9/16 = 0,5625 — höchstens 56,25 Prozent.",
-        ],
-      },
-      {
-        id: "4-9",
-        heading: "2.9 Schiefe und Kurtosis",
-        body: [
-          "Erwartungswert und Varianz beschreiben Lage und Streuung, aber nichts über die Form der Verteilung.",
-        ],
-        terms: [
-          {
-            term: "Schiefe γ1",
-            definition: "Beschreibt die Asymmetrie um den Erwartungswert. Rechtsschief: Mittelwert > Median > Modus, γ1>0. Symmetrisch: alle drei gleich, γ1=0. Linksschief: γ1<0.",
+            term: "Varianz",
+            definition: "Erwartete quadratische Abweichung einer Zufallsvariable von ihrem Erwartungswert.",
           },
           {
-            term: "Kurtosis (Exzess) γ2",
-            definition: "Beschreibt, wie spitz oder flach eine Verteilung im Vergleich zur Normalverteilung ist. Die Normalverteilung hat per Definition γ2=0 — daher der Name 'Exzess' als Abweichung von ihr.",
+            term: "Standardabweichung",
+            definition: "Quadratwurzel der Varianz; Streuungsmaß in derselben Einheit wie die Zufallsvariable selbst.",
           },
+        ],
+        examples: [
+          "Für das Losbeispiel aus 2.3: E(X²) = 0,01·50² + 0,99·0² = 25. Var(X) = 25 − 0,5² = 25 − 0,25 = 24,75. Standardabweichung σ = √24,75 ≈ 4,97 € — trotz eines geringen Erwartungswerts ist das Ergebnis im Einzelfall stark schwankend.",
+        ],
+      },
+      {
+        id: "2-5",
+        heading: "2.5 Lineare Transformationen",
+        body: [
+          "Wird eine Zufallsvariable X linear transformiert zu Y = aX + b, verändern sich Erwartungswert und Varianz auf vorhersagbare Weise: Der Erwartungswert transformiert sich wie X selbst, E(Y) = a·E(X) + b, während additive Verschiebungen b die Varianz nicht beeinflussen — nur die Streckung mit a geht (quadriert) in die Varianz ein: Var(Y) = a² · Var(X).",
+          "Das erklärt z. B., warum eine Umrechnung von Grad Celsius in Grad Fahrenheit (eine lineare Transformation) den Mittelwert verschiebt und streckt, während eine reine Einheitenverschiebung (z. B. 'alle Werte um 10 erhöhen') die Streuung der Daten überhaupt nicht verändert.",
         ],
         formulas: [
-          "Schiefe: γ1 = E[(X−μ)³] / σ³",
-          "Kurtosis (Exzess): γ2 = E[(X−μ)⁴] / σ⁴ − 3",
+          "E(aX + b) = a·E(X) + b",
+          "Var(aX + b) = a² · Var(X)",
         ],
         formulasLatex: [
-          "\\gamma_1 = \\dfrac{E\\big[(X-\\mu)^3\\big]}{\\sigma^3}",
-          "\\gamma_2 = \\dfrac{E\\big[(X-\\mu)^4\\big]}{\\sigma^4} - 3",
+          "E(aX+b) = a\\,E(X) + b",
+          "\\text{Var}(aX+b) = a^2\\,\\text{Var}(X)",
         ],
         examples: [
-          "Eine rechtsschiefe Einkommensverteilung (wenige sehr hohe Einkommen ziehen den Mittelwert nach oben) hat γ1>0. Eine Normalverteilung hat immer γ1=0 und γ2=0, egal welche konkreten μ und σ sie hat.",
+          "Eine Zufallsvariable X (Tagesumsatz in Tausend €) hat E(X) = 8 und Var(X) = 4. Wird der Umsatz stattdessen in Hundert € gemessen (Y = 10X), gilt E(Y) = 10·8 = 80 und Var(Y) = 10²·4 = 400.",
         ],
       },
       {
-        id: "4-10",
-        heading: "2.10 Bivariate Zufallsvariablen",
+        id: "2-6",
+        heading: "2.6 Tschebyscheff-Ungleichung",
         body: [
-          "Bei zwei Zufallsvariablen X und Y beschreibt die gemeinsame Verteilung, wie wahrscheinlich bestimmte Kombinationen von Werten sind.",
-          "X und Y heißen unabhängig, wenn die gemeinsame Verteilung in das Produkt der Randverteilungen zerfällt. Für unabhängige Variablen addieren sich die Varianzen bei einer Summe.",
-          "Im Allgemeinen (auch bei Abhängigkeit) gilt für eine Linearkombination Z=aX+bY eine Formel mit einem zusätzlichen Kovarianz-Term — der Unabhängigkeitsfall oben ist genau der Spezialfall Cov(X,Y)=0.",
+          "Die Tschebyscheff-Ungleichung liefert eine grobe, aber universelle Abschätzung dafür, wie wahrscheinlich große Abweichungen vom Erwartungswert sind — und zwar für jede Zufallsvariable mit endlicher Varianz, unabhängig von ihrer konkreten Verteilung: P(|X − μ| ≥ k·σ) ≤ 1/k² für jedes k > 0.",
+          "Für k = 2 folgt daraus z. B., dass höchstens 25% der Werte mehr als zwei Standardabweichungen vom Erwartungswert entfernt liegen können — eine Aussage, die für jede Verteilung gilt, auch wenn man außer μ und σ nichts über sie weiß. Bei bekannter Verteilung (z. B. der Normalverteilung in Kapitel 3) lassen sich meist deutlich schärfere Aussagen treffen.",
+        ],
+        formulas: ["P(|X − μ| ≥ k·σ) ≤ 1/k²"],
+        formulasLatex: ["P(|X-\\mu| \\ge k\\sigma) \\le \\dfrac{1}{k^2}"],
+        terms: [
+          {
+            term: "Tschebyscheff-Ungleichung",
+            definition: "Verteilungsunabhängige obere Schranke für die Wahrscheinlichkeit, dass eine Zufallsvariable um mehr als k Standardabweichungen vom Erwartungswert abweicht.",
+          },
+        ],
+        examples: [
+          "Eine Maschine befüllt Tüten mit μ = 500 g und σ = 5 g. Für k = 3 (also Abweichungen von mehr als 15 g) gilt P(|X−500| ≥ 15) ≤ 1/9 ≈ 11,1% — höchstens etwa jede neunte Tüte weicht so stark ab, unabhängig davon, welche genaue Form die Füllmengenverteilung hat.",
+        ],
+      },
+      {
+        id: "2-7",
+        heading: "2.7 Schiefe, Kurtosis und bivariate Zufallsvariablen",
+        body: [
+          "Über Erwartungswert und Varianz hinaus beschreiben höhere Momente die Form einer Verteilung genauer. Die Schiefe (Skewness) misst die Asymmetrie: Ist sie positiv, hat die Verteilung einen längeren rechten Ausläufer (z. B. Einkommensverteilungen), bei negativer Schiefe einen längeren linken Ausläufer. Die Kurtosis (Wölbung) misst, wie spitz oder flach eine Verteilung im Vergleich zur Normalverteilung ist — ein Exzess über 0 deutet auf schwerere Ränder (mehr Extremwerte) hin als bei der Normalverteilung.",
+          "Betrachtet man zwei Zufallsvariablen X und Y gemeinsam (bivariat), interessiert zusätzlich, wie sie zusammenhängen. Die gemeinsame Wahrscheinlichkeitsfunktion f(x,y) beschreibt, mit welcher Wahrscheinlichkeit bestimmte Kombinationen (X=x, Y=y) auftreten; daraus lassen sich die Randverteilungen von X und Y einzeln zurückgewinnen, indem man über die jeweils andere Variable summiert.",
         ],
         terms: [
           {
-            term: "Kovarianz von Zufallsvariablen",
-            definition: "Cov(X,Y) = E(XY) − E(X)·E(Y). Positive Kovarianz: X und Y liegen tendenziell gemeinsam über bzw. unter ihrem Erwartungswert.",
+            term: "Schiefe (Skewness)",
+            definition: "Kennzahl für die Asymmetrie einer Verteilung um ihren Erwartungswert.",
+          },
+          {
+            term: "Kurtosis (Wölbung)",
+            definition: "Kennzahl für die Steilheit bzw. Schwere der Ränder einer Verteilung im Vergleich zur Normalverteilung.",
+          },
+          {
+            term: "Bivariate Zufallsvariable",
+            definition: "Gemeinsame Betrachtung zweier Zufallsvariablen X und Y über ihre gemeinsame Wahrscheinlichkeitsfunktion f(x,y).",
           },
         ],
-        formulas: [
-          "Cov(X,Y) = E(XY) − E(X)·E(Y)",
-          "Corr(X,Y) = Cov(X,Y) / (σX·σY)",
-          "Var(aX+bY) = a²Var(X) + b²Var(Y) + 2ab·Cov(X,Y)",
-          "Var(aX−bY) = a²Var(X) + b²Var(Y) − 2ab·Cov(X,Y)",
-        ],
-        formulasLatex: [
-          "\\text{Cov}(X,Y) = E(XY) - E(X)E(Y)",
-          "\\text{Corr}(X,Y) = \\dfrac{\\text{Cov}(X,Y)}{\\sigma_X\\,\\sigma_Y}",
-          "\\text{Var}(aX+bY) = a^2\\text{Var}(X) + b^2\\text{Var}(Y) + 2ab\\,\\text{Cov}(X,Y)",
-          "\\text{Var}(aX-bY) = a^2\\text{Var}(X) + b^2\\text{Var}(Y) - 2ab\\,\\text{Cov}(X,Y)",
-        ],
         examples: [
-          "X,Y unabhängig, P(X=1)=0,4, P(Y=1)=0,25. P(S=2)=P(X=1)·P(Y=1)=0,10.",
-          "Var(X)=4, Var(Y)=9, Cov(X,Y)=2 (X und Y sind hier NICHT unabhängig). Für Z=2X+3Y: Var(Z) = 4·4 + 9·9 + 2·2·3·2 = 16+81+24 = 121.",
+          "Vermögensverteilungen sind typischerweise rechtsschief: Die meisten Personen liegen im unteren bis mittleren Bereich, wenige extrem hohe Vermögen ziehen den Mittelwert nach rechts und erzeugen einen langen rechten Ausläufer.",
         ],
       },
     ],
   },
+  // ==================== Kapitel 3 ====================
   {
     id: "verteilungsmodelle",
     number: 3,
     title: "Verteilungsmodelle",
     free: false,
     intro:
-      "Verteilungsmodelle sind Standard-Bausteine, mit denen sich viele reale Zufallsphänomene modellieren lassen. Statt jede Situation neu zu analysieren, erkennt man ein wiederkehrendes Muster und wendet direkt die passenden Formeln an — aufbauend auf Erwartungswert und Varianz aus Kapitel 2.",
+      "Statt für jedes neue Zufallsexperiment eine völlig neue Verteilung herzuleiten, greift man in der Praxis meist auf ein kleines Repertoire bewährter Verteilungsmodelle zurück, die jeweils zu bestimmten Situationstypen passen. Dieses Kapitel stellt die wichtigsten diskreten und stetigen Verteilungen vor und zeigt, woran man erkennt, welches Modell zu welcher Situation passt.",
     sections: [
       {
-        id: "5-1",
-        heading: "3.1 Diskrete Gleichverteilung und Bernoulli",
+        id: "3-1",
+        heading: "3.1 Diskrete Gleichverteilung und Bernoulli-Verteilung",
         body: [
-          "Die diskrete Gleichverteilung modelliert endlich viele, gleichwahrscheinliche Ausprägungen, z. B. einen fairen Würfel.",
+          "Bei der diskreten Gleichverteilung sind alle n möglichen Werte einer Zufallsvariable gleich wahrscheinlich, f(x) = 1/n für jeden der n Werte — das Modell für Laplace-Experimente wie Würfeln oder Ziehen aus einem gut gemischten Kartenspiel.",
+          "Die Bernoulli-Verteilung modelliert dagegen ein einzelnes Experiment mit genau zwei möglichen Ausgängen, üblicherweise 'Erfolg' (X=1) mit Wahrscheinlichkeit p und 'Misserfolg' (X=0) mit Wahrscheinlichkeit 1−p. Für sie gilt E(X) = p und Var(X) = p·(1−p) — die Varianz ist am größten bei p = 0,5 (maximale Unsicherheit) und sinkt gegen 0, je näher p an 0 oder 1 liegt.",
         ],
+        formulas: ["E(X) = p, Var(X) = p·(1−p)  (Bernoulli-Verteilung)"],
+        formulasLatex: ["E(X) = p, \\quad \\text{Var}(X) = p(1-p)"],
         terms: [
           {
             term: "Bernoulli-Verteilung",
-            definition: "Beschreibt ein einzelnes Experiment mit zwei Ausgängen (Erfolg=1, Misserfolg=0) und Erfolgswahrscheinlichkeit p. Der Grundbaustein fast aller anderen diskreten Verteilungen.",
+            definition: "Verteilung eines einzelnen Experiments mit genau zwei Ausgängen (Erfolg mit Wahrscheinlichkeit p, Misserfolg mit 1−p).",
           },
         ],
-        formulas: ["Bernoulli: E(X) = p, Var(X) = p(1−p)"],
-        formulasLatex: ["E(X) = p \\qquad \\text{Var}(X) = p(1-p)"],
+        examples: [
+          "Ob ein einzelnes produziertes Bauteil fehlerhaft ist (p = 0,03) oder nicht, lässt sich als Bernoulli-Variable modellieren: E(X) = 0,03, Var(X) = 0,03·0,97 = 0,0291.",
+        ],
       },
       {
-        id: "5-2",
+        id: "3-2",
         heading: "3.2 Binomialverteilung",
         body: [
-          "Die Binomialverteilung B(n,p) zählt die Anzahl der Erfolge bei n unabhängigen Bernoulli-Versuchen mit jeweils gleicher Erfolgswahrscheinlichkeit p.",
-          "Wichtig: unabhängig und gleiches p müssen wirklich erfüllt sein — sonst ist B(n,p) das falsche Modell.",
+          "Wiederholt man ein Bernoulli-Experiment n-mal unabhängig voneinander mit stets gleicher Erfolgswahrscheinlichkeit p, folgt die Anzahl der Erfolge X einer Binomialverteilung B(n,p). Ihre Wahrscheinlichkeitsfunktion lautet f(x) = C(n,x) · p^x · (1−p)^(n−x) — der Binomialkoeffizient zählt, auf wie viele Arten sich x Erfolge auf n Versuche verteilen können.",
+          "Für die Binomialverteilung gilt E(X) = n·p und Var(X) = n·p·(1−p). Typische Anwendungsfälle sind die Anzahl fehlerhafter Teile in einer Stichprobe fester Größe (bei Ziehen mit Zurücklegen bzw. aus einer sehr großen Grundgesamtheit) oder die Anzahl der Ja-Stimmen bei n unabhängigen Befragten.",
         ],
-        terms: [
-          {
-            term: "Binomialverteilung B(n,p)",
-            definition: "z. B. Anzahl Kopf bei n Münzwürfen, oder Anzahl defekter Teile bei n unabhängigen Produkten.",
-          },
+        formulas: [
+          "f(x) = C(n,x) · p^x · (1−p)^(n−x)",
+          "E(X) = n·p, Var(X) = n·p·(1−p)",
         ],
-        formulas: ["P(X=k) = C(n,k)·pᵏ·(1−p)ⁿ⁻ᵏ, E(X) = np, Var(X) = np(1−p)"],
         formulasLatex: [
-          "P(X=k) = \\binom{n}{k} p^k (1-p)^{n-k}, \\quad E(X) = np, \\quad \\text{Var}(X) = np(1-p)",
+          "f(x) = \\binom{n}{x} p^x (1-p)^{n-x}",
+          "E(X) = np, \\quad \\text{Var}(X) = np(1-p)",
         ],
         figure: {
           type: "binomial-bars",
-          caption: "Abb. 3.1 — Binomialverteilung B(n,p): diskrete, glockenförmige Häufigkeitsverteilung.",
+          caption: "Abb. 3.1 — Binomialverteilung B(n,p): diskrete, für p=0,5 symmetrische Balkenverteilung.",
         },
+        terms: [
+          {
+            term: "Binomialverteilung B(n,p)",
+            definition: "Verteilung der Anzahl der Erfolge bei n unabhängigen Wiederholungen eines Bernoulli-Experiments mit Erfolgswahrscheinlichkeit p.",
+          },
+        ],
         examples: [
-          "X ~ B(16, 0,25): E(X) = 4, Var(X) = 3.",
+          "Von 20 unabhängig befragten Passanten geben erfahrungsgemäß 40% an, Fahrrad zu fahren (p=0,4). Die erwartete Anzahl Radfahrender unter den 20 Befragten ist E(X) = 20·0,4 = 8, mit Var(X) = 20·0,4·0,6 = 4,8.",
         ],
       },
       {
-        id: "5-3",
+        id: "3-3",
         heading: "3.3 Hypergeometrische Verteilung",
         body: [
-          "Modelliert das Ziehen ohne Zurücklegen aus einer endlichen Grundgesamtheit mit zwei Gruppen — hier ändert sich die Erfolgswahrscheinlichkeit von Ziehung zu Ziehung.",
+          "Zieht man dagegen ohne Zurücklegen aus einer endlichen Grundgesamtheit vom Umfang N, von denen K die gesuchte Eigenschaft besitzen, folgt die Anzahl X der 'Treffer' unter n gezogenen Elementen einer hypergeometrischen Verteilung: f(x) = [C(K,x) · C(N−K, n−x)] / C(N,n). Anders als bei der Binomialverteilung verändert sich die Trefferwahrscheinlichkeit nach jedem Zug, weil die Grundgesamtheit kleiner wird.",
+          "Für sie gilt E(X) = n · K/N — dieselbe Formel wie bei der Binomialverteilung mit p = K/N. Die Varianz ist jedoch kleiner: Var(X) = n · (K/N) · (1−K/N) · (N−n)/(N−1); der zusätzliche Korrekturfaktor (N−n)/(N−1) heißt Endlichkeitskorrektur und wird für große N im Vergleich zu n vernachlässigbar — dann nähert sich die hypergeometrische Verteilung der Binomialverteilung an.",
+        ],
+        formulas: [
+          "f(x) = [C(K,x)·C(N−K,n−x)] / C(N,n)",
+          "E(X) = n·K/N",
+        ],
+        formulasLatex: [
+          "f(x) = \\dfrac{\\binom{K}{x}\\binom{N-K}{n-x}}{\\binom{N}{n}}",
+          "E(X) = n\\cdot\\dfrac{K}{N}",
         ],
         terms: [
           {
             term: "Hypergeometrische Verteilung",
-            definition: "z. B. Anzahl defekter Teile in einer Stichprobe von 5, gezogen aus 50, ohne Zurücklegen. Ist die Grundgesamtheit sehr groß, ist die Binomialverteilung eine gute Näherung.",
+            definition: "Verteilung der Trefferanzahl beim Ziehen ohne Zurücklegen aus einer endlichen Grundgesamtheit.",
           },
         ],
-        formulas: [
-          "P(X=k) = [C(M,k)·C(N−M,n−k)] / C(N,n)",
-          "E(X) = n·M/N",
-          "Var(X) = n·(M/N)·(1−M/N)·((N−n)/(N−1))",
-        ],
-        formulasLatex: [
-          "P(X=k) = \\dfrac{\\binom{M}{k}\\binom{N-M}{n-k}}{\\binom{N}{n}}",
-          "E(X) = n\\,\\dfrac{M}{N}",
-          "\\text{Var}(X) = n\\,\\dfrac{M}{N}\\left(1-\\dfrac{M}{N}\\right)\\dfrac{N-n}{N-1}",
-        ],
         examples: [
-          "Ein Lieferant liefert N=50 Bauteile, davon M=8 fehlerhaft. Eine Qualitätsprüfung zieht ohne Zurücklegen n=5 Teile. P(X=2) = [C(8,2)·C(42,3)] / C(50,5) = (28·11 480)/2 118 760 ≈ 0,152. E(X) = 5·8/50 = 0,8. Var(X) = 5·0,16·0,84·(45/49) ≈ 0,617.",
+          "Ein Lagerbestand von 50 Bauteilen enthält 6 fehlerhafte. Bei einer Stichprobe von 10 Bauteilen (ohne Zurücklegen) beträgt die erwartete Anzahl fehlerhafter Teile in der Stichprobe E(X) = 10 · 6/50 = 1,2.",
         ],
       },
       {
-        id: "5-4",
+        id: "3-4",
         heading: "3.4 Poisson-Verteilung",
         body: [
-          "Die Poisson-Verteilung modelliert die Anzahl seltener Ereignisse in einem festen Zeit- oder Raumintervall und ergibt sich als Grenzwert der Binomialverteilung für großes n und kleines p bei konstantem λ=np.",
+          "Die Poisson-Verteilung modelliert die Anzahl seltener Ereignisse in einem festen Zeit- oder Raumintervall, wenn ein konstanter durchschnittlicher Rate-Parameter λ (Lambda) bekannt ist — etwa die Anzahl der Anrufe in einer Hotline pro Stunde oder die Anzahl der Druckfehler pro Buchseite. Ihre Wahrscheinlichkeitsfunktion lautet f(x) = (λ^x · e^(−λ)) / x! für x = 0, 1, 2, ...",
+          "Für die Poisson-Verteilung gilt die bemerkenswerte Eigenschaft E(X) = Var(X) = λ — Erwartungswert und Varianz sind identisch. Sie ergibt sich außerdem als Grenzfall der Binomialverteilung, wenn n sehr groß und p sehr klein wird, während n·p konstant bei λ bleibt (siehe 3.7).",
+        ],
+        formulas: [
+          "f(x) = (λ^x · e^(−λ)) / x!",
+          "E(X) = Var(X) = λ",
+        ],
+        formulasLatex: [
+          "f(x) = \\dfrac{\\lambda^x e^{-\\lambda}}{x!}",
+          "E(X) = \\text{Var}(X) = \\lambda",
         ],
         terms: [
           {
             term: "Poisson-Verteilung",
-            definition: "z. B. Anzahl Kundenanrufe pro Stunde. Nützlich, wenn n selbst nicht genau bekannt ist, aber λ gut schätzbar ist.",
+            definition: "Verteilung der Anzahl seltener, unabhängig auftretender Ereignisse in einem festen Intervall bei konstanter Rate λ.",
           },
         ],
-        formulas: ["P(X=k) = e^(−λ)·λᵏ / k!, E(X) = Var(X) = λ"],
-        formulasLatex: [
-          "P(X=k) = \\dfrac{e^{-\\lambda}\\lambda^k}{k!}, \\quad E(X) = \\text{Var}(X) = \\lambda",
-        ],
-        figure: {
-          type: "binomial-bars",
-          caption: "Abb. 3.2 — Poisson-Verteilung: ebenfalls eine diskrete Balkenverteilung über k=0,1,2,..., mit Schwerpunkt und größter Streuung um λ.",
-        },
         examples: [
-          "X ~ Poisson(λ=4): E(X) = Var(X) = 4. Der Graph zeigt einzelne, isolierte Balken über k=0,1,2,... (kein durchgezogenes Histogramm), mit dem höchsten Balken in der Nähe von λ=4 und abnehmender Höhe nach beiden Seiten.",
+          "Eine Werkstatt erhält im Schnitt λ = 3 Notfallaufträge pro Tag. Die Wahrscheinlichkeit für genau 5 Notfallaufträge an einem Tag beträgt f(5) = (3^5 · e^(−3)) / 5! = (243 · 0,0498) / 120 ≈ 0,1008.",
         ],
       },
       {
-        id: "5-5",
+        id: "3-5",
         heading: "3.5 Stetige Gleichverteilung und Exponentialverteilung",
         body: [
-          "Die stetige Gleichverteilung modelliert Situationen ohne bevorzugten Bereich innerhalb eines Intervalls.",
-          "Die Exponentialverteilung modelliert Wartezeiten zwischen zufälligen Ereignissen und ist eng mit der Poisson-Verteilung verwandt: Poisson zählt, wie viele Ereignisse passieren, Exponential beschreibt, wie lange man bis zum nächsten wartet.",
+          "Bei der stetigen Gleichverteilung auf einem Intervall [a,b] ist die Dichte über das gesamte Intervall konstant, f(x) = 1/(b−a); jeder gleich lange Teilabschnitt des Intervalls ist gleich wahrscheinlich. Es gilt E(X) = (a+b)/2 und Var(X) = (b−a)²/12.",
+          "Die Exponentialverteilung modelliert Wartezeiten zwischen zufälligen Ereignissen bei konstanter Rate λ (verwandt mit der Poisson-Verteilung: Wenn Ereignisse Poisson-verteilt mit Rate λ auftreten, ist die Zeit bis zum nächsten Ereignis exponentialverteilt). Ihre Dichte lautet f(x) = λ·e^(−λx) für x ≥ 0, mit E(X) = 1/λ und Var(X) = 1/λ².",
+        ],
+        formulas: [
+          "Gleichverteilung: E(X) = (a+b)/2, Var(X) = (b−a)²/12",
+          "Exponentialverteilung: E(X) = 1/λ, Var(X) = 1/λ²",
+        ],
+        formulasLatex: [
+          "E(X) = \\dfrac{a+b}{2}, \\quad \\text{Var}(X) = \\dfrac{(b-a)^2}{12}",
+          "E(X) = \\dfrac{1}{\\lambda}, \\quad \\text{Var}(X) = \\dfrac{1}{\\lambda^2}",
         ],
         terms: [
           {
             term: "Stetige Gleichverteilung",
-            definition: "z. B. der Ankunftszeitpunkt eines Zugs innerhalb eines 10-Minuten-Fensters.",
+            definition: "Verteilung mit konstanter Dichte über ein Intervall [a,b].",
           },
           {
             term: "Exponentialverteilung",
-            definition: "z. B. Zeit bis zum nächsten Anruf oder bis zum Ausfall eines Bauteils.",
+            definition: "Verteilung der Wartezeit bis zum nächsten Ereignis bei konstanter Ereignisrate λ.",
           },
         ],
-        formulas: [
-          "Gleichverteilung U(a,b): f(x) = 1/(b−a) für a≤x≤b, E(X) = (a+b)/2, Var(X) = (b−a)²/12",
-          "Exponentialverteilung: f(x) = λ·e^(−λx), F(x) = 1 − e^(−λx), E(X) = 1/λ, Var(X) = 1/λ²",
-        ],
-        formulasLatex: [
-          "f(x) = \\dfrac{1}{b-a} \\ (a\\le x\\le b), \\quad E(X) = \\dfrac{a+b}{2}, \\quad \\text{Var}(X) = \\dfrac{(b-a)^2}{12}",
-          "f(x) = \\lambda e^{-\\lambda x}, \\quad F(x) = 1 - e^{-\\lambda x}, \\quad E(X) = \\dfrac{1}{\\lambda}, \\quad \\text{Var}(X) = \\dfrac{1}{\\lambda^2}",
-        ],
         examples: [
-          "Zugankunft gleichverteilt zwischen 0 und 10 Minuten nach der vollen Stunde: E(X) = 5 Minuten, Var(X) = 100/12 ≈ 8,33.",
-          "Lebensdauer eines Bauteils exponentialverteilt mit λ=0,5 pro Jahr (E(X)=1/0,5=2 Jahre). P(X≤1) = 1 − e^(−0,5) ≈ 0,393.",
+          "Kommen an einem Bankschalter im Schnitt λ = 4 Kund:innen pro Stunde an, beträgt die erwartete Wartezeit bis zur nächsten Ankunft E(X) = 1/4 Stunde = 15 Minuten.",
         ],
       },
       {
-        id: "5-6",
+        id: "3-6",
         heading: "3.6 Normalverteilung",
         body: [
-          "Die Normalverteilung N(μ,σ²) ist die zentrale Verteilung der Statistik: glockenförmig und symmetrisch um μ.",
-          "Jede Normalverteilung lässt sich durch Standardisierung auf die Standardnormalverteilung zurückführen — deshalb reicht eine Tabelle aus, um Wahrscheinlichkeiten für jede beliebige Normalverteilung zu berechnen.",
+          "Die Normalverteilung N(μ,σ²) ist die bekannteste stetige Verteilung: eine symmetrische, glockenförmige Dichte um den Erwartungswert μ mit Streuung σ. Ihre Dichtefunktion lautet f(x) = 1/(σ√(2π)) · e^(−(x−μ)²/(2σ²)). Viele natürliche Messgrößen (Körpergröße, Messfehler, Summen vieler unabhängiger Einflüsse) sind näherungsweise normalverteilt — ein Grund dafür liefert der zentrale Grenzwertsatz in 3.7.",
+          "Zur Berechnung von Wahrscheinlichkeiten wird jede Normalverteilung auf die Standardnormalverteilung Z ~ N(0,1) zurückgeführt, indem man standardisiert: Z = (X − μ)/σ. Für Z liegen tabellierte Werte der Verteilungsfunktion Φ(z) vor. Als Faustregel gilt: Etwa 68% aller Werte liegen innerhalb einer Standardabweichung um μ, etwa 95% innerhalb von zwei und etwa 99,7% innerhalb von drei Standardabweichungen.",
         ],
-        terms: [
-          {
-            term: "Standardnormalverteilung",
-            definition: "Spezialfall μ=0, σ²=1, notiert mit Φ(z) und Tabellenwerten.",
-          },
-          {
-            term: "Standardisierung",
-            definition: "Z = (X−μ)/σ. Eine der am häufigsten gebrauchten Rechentechniken der Vorlesung.",
-          },
-        ],
-        formulas: ["Standardisierung: Z = (X − μ) / σ"],
+        formulas: ["Z = (X − μ) / σ  (Standardisierung)"],
         formulasLatex: ["Z = \\dfrac{X-\\mu}{\\sigma}"],
         figure: {
           type: "normal-curve",
-          caption: "Abb. 3.2 — Normalverteilung: symmetrische Glockenkurve um den Erwartungswert μ.",
+          caption: "Abb. 3.2 — Normalverteilung: symmetrische Glockenkurve um den Erwartungswert μ, Breite bestimmt durch σ.",
         },
+        terms: [
+          {
+            term: "Normalverteilung N(μ,σ²)",
+            definition: "Symmetrische, glockenförmige stetige Verteilung, festgelegt durch Erwartungswert μ und Varianz σ².",
+          },
+          {
+            term: "Standardisierung",
+            definition: "Umrechnung einer normalverteilten Zufallsvariable X in die Standardnormalverteilung über Z = (X−μ)/σ.",
+          },
+        ],
         examples: [
-          "X ~ N(100,15). P(X≤115): Z=(115−100)/15=1. Φ(1) ≈ 0,8413.",
+          "Füllmengen einer Abfüllanlage sind N(500, 16) verteilt (μ=500 ml, σ=4 ml). Die Wahrscheinlichkeit für eine Füllmenge unter 492 ml entspricht Z = (492−500)/4 = −2, also P(X<492) = Φ(−2) ≈ 0,0228 — etwa 2,3%.",
         ],
       },
       {
-        id: "5-7",
-        heading: "3.7 Zentraler Grenzwertsatz",
+        id: "3-7",
+        heading: "3.7 Zentraler Grenzwertsatz und Approximationen",
         body: [
-          "Erklärt, warum die Normalverteilung in der Praxis so allgegenwärtig ist: Die Summe bzw. der Mittelwert vieler unabhängiger Zufallsvariablen ist näherungsweise normalverteilt — unabhängig davon, welcher Verteilung die einzelnen Summanden selbst folgen.",
+          "Der zentrale Grenzwertsatz erklärt, warum die Normalverteilung in der Praxis so häufig auftritt: Die Summe (bzw. der Mittelwert) vieler unabhängiger, identisch verteilter Zufallsvariablen ist — unabhängig von der Form der zugrunde liegenden Einzelverteilung — für hinreichend großes n näherungsweise normalverteilt, mit Erwartungswert n·μ und Varianz n·σ² (bzw. μ und σ²/n für den Mittelwert).",
+          "Diese Eigenschaft erlaubt praktische Näherungen zwischen Verteilungen: Eine Binomialverteilung B(n,p) lässt sich für großes n und moderates p gut durch eine Normalverteilung N(np, np(1−p)) annähern (Faustregel: np(1−p) ≥ 9); ist p dagegen sehr klein und n groß bei konstantem n·p = λ, ist die Poisson-Approximation B(n,p) ≈ Poisson(λ) treffender.",
         ],
         terms: [
           {
             term: "Zentraler Grenzwertsatz",
-            definition: "Der theoretische Grund, warum Stichprobenmittelwerte in Statistik II fast immer mit der Normalverteilung approximiert werden dürfen.",
+            definition: "Die Summe vieler unabhängiger, identisch verteilter Zufallsvariablen ist für großes n näherungsweise normalverteilt, unabhängig von der Form der Einzelverteilung.",
           },
         ],
-        formulas: [
-          "Für unabhängige, identisch verteilte X1,...,Xn mit E(Xi)=μ, Var(Xi)=σ²: Z = (X̄ − μ) / (σ/√n) ≈ N(0,1) für großes n",
-        ],
-        formulasLatex: [
-          "Z = \\dfrac{\\bar{X}-\\mu}{\\sigma/\\sqrt{n}} \\ \\overset{\\text{approx.}}{\\sim}\\ N(0,1) \\quad \\text{für großes } n",
-        ],
         examples: [
-          "100-facher Würfelwurf: μ=3,5, σ²=35/12≈2,917. Der Mittelwert X̄ der 100 Würfe ist näherungsweise N(3,5; 2,917/100) — obwohl die einzelne Augenzahl selbst nicht normalverteilt, sondern gleichverteilt ist.",
+          "Bei n = 200 unabhängigen Ja/Nein-Befragungen mit p = 0,5 lässt sich die Anzahl der Ja-Antworten durch N(100, 50) approximieren, da np(1−p) = 50 ≥ 9 deutlich erfüllt ist.",
         ],
       },
       {
-        id: "5-8",
-        heading: "3.8 Approximationen zwischen Verteilungen",
+        id: "3-8",
+        heading: "3.8 Chi-Quadrat- und F-Verteilung",
         body: [
-          "Manche Verteilungen sind rechnerisch aufwendig, lassen sich aber unter bestimmten Bedingungen gut annähern.",
-          "Merkregel: Normalapproximation für großes n und p nicht extrem. Poisson-Approximation für großes n, aber sehr kleines p.",
+          "Die Chi-Quadrat-Verteilung mit k Freiheitsgraden entsteht als Verteilung der Summe der Quadrate von k unabhängigen standardnormalverteilten Zufallsvariablen: χ² = Z1² + ... + Zk². Sie ist rechtsschief, nimmt nur nicht-negative Werte an, und wird u. a. bei Anpassungstests und zur Konstruktion von Konfidenzintervallen für Varianzen verwendet. Es gilt E(χ²) = k und Var(χ²) = 2k.",
+          "Die F-Verteilung entsteht als Verhältnis zweier unabhängiger, jeweils durch ihre Freiheitsgrade skalierter Chi-Quadrat-Verteilungen: F = (χ₁²/k1) / (χ₂²/k2), mit Freiheitsgraden k1 (Zähler) und k2 (Nenner). Sie ist die Grundlage z. B. für den Vergleich zweier Varianzen und für die Varianzanalyse (ANOVA).",
         ],
+        formulas: ["E(χ²) = k, Var(χ²) = 2k"],
+        formulasLatex: ["E(\\chi^2) = k, \\quad \\text{Var}(\\chi^2) = 2k"],
         terms: [
           {
-            term: "Normalapproximation",
-            definition: "Für großes n lässt sich die Binomialverteilung durch die Normalverteilung annähern. Faustregel: np(1−p) ≥ 9.",
+            term: "Chi-Quadrat-Verteilung",
+            definition: "Verteilung der Summe der Quadrate von k unabhängigen standardnormalverteilten Zufallsvariablen.",
           },
           {
-            term: "Poisson-Approximation",
-            definition: "Für großes n und kleines p approximiert die Poisson-Verteilung mit λ=np die Binomialverteilung.",
+            term: "F-Verteilung",
+            definition: "Verteilung des Verhältnisses zweier durch ihre Freiheitsgrade skalierter Chi-Quadrat-Verteilungen.",
           },
         ],
-        formulas: [
-          "Normalapproximation: X ~ B(n,p) ≈ N(np, np(1−p)), sofern np(1−p) ≥ 9",
-          "Poisson-Approximation: X ~ B(n,p) ≈ Poisson(λ=np), sofern n groß und p klein (Faustregel: n≥50, p≤0,05)",
-        ],
-        formulasLatex: [
-          "X \\sim B(n,p) \\ \\approx \\ N\\big(np,\\, np(1-p)\\big), \\quad np(1-p) \\ge 9",
-          "X \\sim B(n,p) \\ \\approx \\ \\text{Poisson}(\\lambda = np), \\quad n \\ge 50,\\ p \\le 0{,}05",
-        ],
         examples: [
-          "X ~ B(200; 0,04): np(1−p) = 200·0,04·0,96 = 7,68 < 9 — Normalapproximation wäre grenzwertig. Da aber n=200 groß und p=0,04 klein ist, approximiert man stattdessen mit Poisson(λ=200·0,04=8).",
-        ],
-      },
-      {
-        id: "5-9",
-        heading: "3.9 Chi-Quadrat-Verteilung",
-        body: [
-          "Summiert man k unabhängige, standardnormalverteilte Zufallsvariablen quadriert auf, ist die Summe χ²-verteilt mit k Freiheitsgraden. Diese Verteilung taucht typischerweise auf, sobald irgendwo eine Varianz oder eine Summe quadrierter Abweichungen im Spiel ist.",
-          "Für Statistik I reicht die Definition und die beiden Kennwerte — die praktische Anwendung (Varianz-Tests, Anpassungstests) folgt erst in Statistik II.",
-        ],
-        terms: [
-          {
-            term: "Chi-Quadrat-Verteilung χ²(k)",
-            definition: "Verteilung der Summe von k quadrierten, unabhängigen standardnormalverteilten Zufallsvariablen. k heißt Freiheitsgrad.",
-          },
-        ],
-        formulas: [
-          "X = Σ Zi², Zi ~ N(0,1) unabhängig, i=1,...,k ⇒ X ~ χ²(k)",
-          "E(X) = k, Var(X) = 2k",
-        ],
-        formulasLatex: [
-          "X = \\sum_{i=1}^{k} Z_i^2, \\quad Z_i \\overset{iid}{\\sim} N(0,1) \\ \\Rightarrow\\ X \\sim \\chi^2(k)",
-          "E(X) = k, \\qquad \\text{Var}(X) = 2k",
-        ],
-        examples: [
-          "Bei k=10 unabhängigen, standardnormalverteilten Messfehlern ist die Summe ihrer Quadrate χ²-verteilt mit 10 Freiheitsgraden: E(X)=10, Var(X)=2·10=20.",
-        ],
-      },
-      {
-        id: "5-10",
-        heading: "3.10 F-Verteilung",
-        body: [
-          "Die F-Verteilung entsteht als Verhältnis zweier (durch ihre Freiheitsgrade skalierter) unabhängiger χ²-verteilter Zufallsvariablen. Sie ist die Grundlage dafür, in Statistik II zwei Varianzen miteinander zu vergleichen.",
-        ],
-        terms: [
-          {
-            term: "F-Verteilung F(n1,n2)",
-            definition: "Verteilung des Quotienten zweier skalierter, unabhängiger χ²-Verteilungen mit n1 bzw. n2 Freiheitsgraden.",
-          },
-        ],
-        formulas: [
-          "F = (X1/n1) / (X2/n2), X1~χ²(n1), X2~χ²(n2) unabhängig ⇒ F ~ F(n1,n2)",
-        ],
-        formulasLatex: [
-          "F = \\dfrac{X_1/n_1}{X_2/n_2}, \\quad X_1 \\sim \\chi^2(n_1),\\ X_2 \\sim \\chi^2(n_2) \\text{ unabhängig} \\ \\Rightarrow\\ F \\sim F(n_1,n_2)",
-        ],
-        examples: [
-          "Zwei Produktionslinien messen unabhängig voneinander Bauteillängen. Um später (in Statistik II) zu testen, ob beide Linien gleich stark streuen, bildet man das Verhältnis der beiden (geeignet skalierten) Stichprobenvarianzen — dieses Verhältnis folgt unter der Annahme gleicher Varianzen einer F-Verteilung.",
+          "Eine Chi-Quadrat-Verteilung mit k=10 Freiheitsgraden hat Erwartungswert 10 und Varianz 20 — je mehr Freiheitsgrade, desto symmetrischer und breiter wird die Verteilung.",
         ],
       },
     ],
   },
+  // ==================== Kapitel 4 ====================
   {
     id: "deskriptive-statistik",
     number: 4,
     title: "Deskriptive Statistik",
     free: false,
     intro:
-      "Zum Abschluss wechseln wir die Perspektive: Statt wie in den vorherigen Kapiteln von einem theoretischen Zufallsmodell auszugehen, fasst die deskriptive Statistik bereits erhobene, reale Daten übersichtlich zusammen — mit Kennzahlen (Lage, Streuung, Zusammenhang) und mit Grafiken (Histogramm, Boxplot, Lorenzkurve). Wir gehen die Bausteine hier Schritt für Schritt durch, jeweils mit den wichtigsten Begriffen zuerst.",
+      "Während die vorherigen Kapitel Wahrscheinlichkeitsmodelle für zukünftige, noch unbekannte Ergebnisse entwickelt haben, geht es in der deskriptiven Statistik um bereits vorliegende, konkrete Daten: Wie lassen sie sich übersichtlich zusammenfassen, beschreiben und vergleichen? Dieses Kapitel behandelt Lage-, Streuungs- und Zusammenhangsmaße sowie die passenden grafischen Darstellungen.",
     sections: [
       {
-        id: "2-1",
-        heading: "4.1 Grundgesamtheit und Stichprobe",
+        id: "4-1",
+        heading: "4.1 Grundgesamtheit, Stichprobe und Skalenniveaus",
         body: [
-          "Bevor überhaupt gerechnet wird, muss klar sein, wer oder was untersucht wird und woher die Daten kommen.",
-          "In der Praxis wird fast nie die komplette Grundgesamtheit erhoben, sondern nur eine Stichprobe. Aus dieser Teilmenge schließt man dann auf die Grundgesamtheit zurück — genau das ist später der Kern der schließenden Statistik in Statistik II.",
+          "Die Grundgesamtheit umfasst alle Untersuchungseinheiten, über die eine Aussage getroffen werden soll (z. B. alle Studierenden einer Hochschule); eine Stichprobe ist eine Teilmenge davon, die tatsächlich erhoben wird, meist weil eine Vollerhebung zu aufwändig oder unmöglich wäre. Aus der Stichprobe werden Kennzahlen berechnet, die die Grundgesamtheit möglichst gut repräsentieren sollen.",
+          "Merkmale lassen sich nach ihrem Skalenniveau unterscheiden, was bestimmt, welche Rechenoperationen sinnvoll sind. Nominalskalierte Merkmale (z. B. Geschlecht, Studienfach) lassen sich nur auf Gleichheit prüfen. Ordinalskalierte Merkmale (z. B. Schulnoten) lassen sich zusätzlich ordnen, aber Abstände sind nicht sinnvoll interpretierbar. Intervallskalierte Merkmale (z. B. Temperatur in °C) haben gleichmäßige Abstände, aber keinen absoluten Nullpunkt. Verhältnisskalierte Merkmale (z. B. Gewicht, Einkommen) besitzen zusätzlich einen echten Nullpunkt, wodurch auch Verhältnisse ('doppelt so viel') sinnvoll sind.",
         ],
         terms: [
           {
             term: "Grundgesamtheit",
-            definition: "Die Menge aller statistischen Einheiten, die untersucht werden sollen, z. B. alle Studierenden einer Fakultät im aktuellen Semester.",
-          },
-          {
-            term: "Statistische Einheit",
-            definition: "Ein einzelnes Element der Grundgesamtheit, z. B. eine Person, ein Unternehmen oder ein Produkt.",
-          },
-          {
-            term: "Merkmal",
-            definition: "Eine Eigenschaft, die bei jeder Einheit erhoben wird, z. B. Note, Einkommen oder Geschlecht.",
+            definition: "Menge aller Untersuchungseinheiten, über die eine statistische Aussage getroffen werden soll.",
           },
           {
             term: "Stichprobe",
-            definition: "Ein Teil der Grundgesamtheit, der tatsächlich erhoben wird, weil eine Vollerhebung meist zu teuer oder gar nicht möglich ist.",
-          },
-        ],
-      },
-      {
-        id: "2-2",
-        heading: "4.2 Skalenniveaus",
-        body: [
-          "Merkmale werden nach ihrem Skalenniveau unterschieden, weil das Skalenniveau bestimmt, welche Rechenoperationen überhaupt sinnvoll sind.",
-        ],
-        terms: [
-          {
-            term: "Nominal",
-            definition: "Nur Gleichheit oder Ungleichheit ist sinnvoll, z. B. Geschlecht oder Studienfach. Keine Rangfolge, kein Mittelwert.",
+            definition: "Tatsächlich erhobene Teilmenge der Grundgesamtheit.",
           },
           {
-            term: "Ordinal",
-            definition: "Zusätzlich ist eine Rangfolge sinnvoll, z. B. Schulnote oder Zufriedenheit von 1 bis 5. Die Abstände zwischen den Rängen sind aber nicht zwingend gleich groß.",
-          },
-          {
-            term: "Metrisch",
-            definition: "Zusätzlich sind Abstände und Verhältnisse sinnvoll, z. B. Einkommen, Größe, Alter. Hier sind Mittelwert und alle Rechenarten erlaubt.",
+            term: "Skalenniveau",
+            definition: "Einordnung eines Merkmals (nominal, ordinal, intervall- oder verhältnisskaliert), die bestimmt, welche Rechenoperationen zulässig sind.",
           },
         ],
         examples: [
-          "Ein häufiger Klausur-Stolperstein: Schulnoten sehen aus wie Zahlen und werden oft wie metrische Daten behandelt (z. B. Notendurchschnitt), sind aber strenggenommen nur ordinal, weil der Abstand zwischen 1 und 2 nicht zwangsläufig so groß ist wie zwischen 3 und 4.",
+          "Die Postleitzahl ist trotz ihrer Zahlenform nominalskaliert (die Differenz zweier Postleitzahlen hat keine sinnvolle Bedeutung), während der Jahresumsatz eines Unternehmens verhältnisskaliert ist (ein Umsatz von 2 Mio. € ist tatsächlich doppelt so hoch wie einer von 1 Mio. €).",
         ],
       },
       {
-        id: "2-3",
-        heading: "4.3 Weitere Unterscheidungen",
+        id: "4-2",
+        heading: "4.2 Häufigkeitsverteilungen und Klassierung",
         body: [
-          "Metrische Merkmale werden außerdem in diskret und stetig unterteilt, und es gibt noch ein paar weitere Unterscheidungen, die in der Klausur gerne abgefragt werden.",
+          "Für ein Merkmal mit wenigen unterschiedlichen Ausprägungen lässt sich direkt auszählen, wie oft (absolute Häufigkeit) bzw. welcher Anteil der Stichprobe (relative Häufigkeit) auf jede Ausprägung entfällt. Die relative Häufigkeit ergibt sich als absolute Häufigkeit geteilt durch den Stichprobenumfang n.",
+          "Bei stetigen oder sehr feingliedrigen Merkmalen (z. B. exaktes Gehalt in Euro und Cent) wird stattdessen klassiert: Der Wertebereich wird in disjunkte Klassen (Intervalle) eingeteilt, und man zählt, wie viele Beobachtungen in jede Klasse fallen. Die Klassenbreite beeinflusst dabei maßgeblich, wie detailliert oder grob die resultierende Verteilung erscheint — zu breite Klassen verschleiern Struktur, zu schmale Klassen erzeugen ein verrauschtes Bild.",
         ],
+        formulas: ["relative Häufigkeit = absolute Häufigkeit / n"],
+        formulasLatex: ["h_i = \\dfrac{n_i}{n}"],
         terms: [
           {
-            term: "Diskret",
-            definition: "Abzählbare, meist ganzzahlige Ausprägungen, z. B. Kinderzahl oder Anzahl Semester.",
+            term: "Absolute Häufigkeit",
+            definition: "Anzahl der Beobachtungen mit einer bestimmten Ausprägung.",
           },
           {
-            term: "Stetig",
-            definition: "Jeder Wert in einem Intervall ist theoretisch möglich, z. B. Körpergröße oder Zeit.",
+            term: "Relative Häufigkeit",
+            definition: "Absolute Häufigkeit geteilt durch den Stichprobenumfang n.",
           },
           {
-            term: "Häufbares Merkmal",
-            definition: "Eine Einheit kann mehrere Ausprägungen gleichzeitig haben, z. B. gesprochene Sprachen.",
-          },
-          {
-            term: "Bestands- und Bewegungsmasse",
-            definition: "Bestandsmasse ist eine Momentaufnahme zu einem Stichtag (z. B. Einwohnerzahl am 31.12.), Bewegungsmasse sind Ereignisse über einen Zeitraum (z. B. Geburten pro Monat).",
+            term: "Klassierung",
+            definition: "Einteilung eines stetigen oder feingliedrigen Wertebereichs in disjunkte Intervalle (Klassen) zur übersichtlicheren Auswertung.",
           },
         ],
         examples: [
-          "Ordne die Merkmale ein: (a) Matrikelnummer ist nominal, auch wenn es Zahlen sind, es gibt keine sinnvolle Rangfolge. (b) Abschlussnote ist ordinal. (c) Anzahl bestandener Prüfungen ist metrisch und diskret. (d) Bearbeitungszeit einer Klausur in Minuten ist metrisch und stetig.",
+          "Von 80 befragten Haushalten geben 20 an, kein Auto zu besitzen. Die absolute Häufigkeit ist 20, die relative Häufigkeit 20/80 = 0,25 (25%).",
         ],
       },
       {
-        id: "2-4",
-        heading: "4.4 Klassierung",
+        id: "4-3",
+        heading: "4.3 Empirische Verteilungsfunktion",
         body: [
-          "Bei sehr vielen unterschiedlichen oder stetigen Merkmalswerten verliert eine reine Urliste schnell an Übersicht. Deshalb werden die Werte häufig in Klassen zusammengefasst — mit bewusstem Informationsverlust zugunsten der Übersichtlichkeit.",
-          "Eine Klasse ist ein Intervall zwischen einer unteren und einer oberen Grenze, wobei die obere Grenze einer Klasse zugleich die untere Grenze der nächsten Klasse ist. Innerhalb einer Klasse wird meist eine Gleichverteilung angenommen, sodass die Klasse durch ihre Mitte repräsentiert werden kann.",
-        ],
-        terms: [
-          {
-            term: "Klasse j",
-            definition: "Intervall zwischen unterer Grenze ξju und oberer Grenze ξjo. Die Anzahl der Klassen k kann frei gewählt werden — zu wenige Klassen verwischen die Struktur der Daten, zu viele erzeugen ein unruhiges, kaum interpretierbares Bild.",
-          },
-          {
-            term: "Klassenmitte xj",
-            definition: "Der Mittelpunkt einer Klasse. Repräsentiert unter der Annahme einer Gleichverteilung innerhalb der Klasse alle Werte dieser Klasse.",
-          },
-          {
-            term: "Klassenbreite Δxj",
-            definition: "Die Länge einer Klasse. Muss nicht für alle Klassen gleich groß sein, auch wenn das in der Praxis (äquidistante Klassen) der Regelfall ist.",
-          },
-        ],
-        formulas: [
-          "Klassenmitte: xj = (ξju + ξjo) / 2",
-          "Klassenbreite: Δxj = ξjo − ξju",
-        ],
-        formulasLatex: [
-          "x_j = \\dfrac{1}{2}\\big(\\xi_j^u + \\xi_j^o\\big)",
-          "\\Delta x_j = \\xi_j^o - \\xi_j^u",
-        ],
-        examples: [
-          "Die Bearbeitungszeiten von 40 Support-Tickets (in Minuten) werden in vier gleich breite Klassen eingeteilt: (0,10], (10,20], (20,30], (30,40]. Klasse 2 hat die Grenzen ξ2u=10 und ξ2o=20, also Klassenmitte x2=15 und Klassenbreite Δx2=10.",
-        ],
-      },
-      {
-        id: "2-5",
-        heading: "4.5 Häufigkeiten unklassierter und klassierter Daten",
-        body: [
-          "Für ein Merkmal mit Ausprägungen a1 bis ak zählt man zunächst, wie oft jede Ausprägung vorkommt.",
-          "Sind die Daten klassiert, zählt man stattdessen, wie viele Beobachtungen in jede Klasse fallen — als zusätzliche Kennzahl kommt dabei die Häufigkeitsdichte hinzu, weil unterschiedlich breite Klassen sonst im Histogramm nicht fair vergleichbar wären.",
-        ],
-        terms: [
-          {
-            term: "Absolute Häufigkeit h(ai)",
-            definition: "Wie oft die Ausprägung ai im Datensatz vorkommt.",
-          },
-          {
-            term: "Relative Häufigkeit f(ai)",
-            definition: "h(ai) geteilt durch den Stichprobenumfang n. Macht Datensätze unterschiedlicher Größe vergleichbar.",
-          },
-          {
-            term: "Klassenhäufigkeit hj",
-            definition: "Anzahl der Beobachtungen in Klasse j — das klassierte Gegenstück zur absoluten Häufigkeit.",
-          },
-          {
-            term: "Klassenhäufigkeitsdichte ĥj",
-            definition: "Klassenhäufigkeit geteilt durch die Klassenbreite. Entspricht der Höhe des Rechtecks im Histogramm — die Fläche des Rechtecks entspricht dann der Klassenhäufigkeit selbst.",
-          },
-        ],
-        formulas: [
-          "Absolute/relative Häufigkeit: h(ai), f(ai) = h(ai)/n, Σ f(ai) = 1",
-          "Klassenhäufigkeit: hj = Anzahl in Klasse j, fj = hj/n, Σ hj = n, Σ fj = 1",
-          "Klassenhäufigkeitsdichte: ĥj = hj/Δxj (absolut), f̂j = fj/Δxj (relativ)",
-        ],
-        formulasLatex: [
-          "h(a_i), \\quad f(a_i) = \\dfrac{h(a_i)}{n}, \\quad \\sum_i f(a_i) = 1",
-          "h_j = \\#\\{\\text{Beob. in Klasse } j\\}, \\quad f_j = \\dfrac{h_j}{n}, \\quad \\sum_j h_j = n,\\ \\sum_j f_j = 1",
-          "\\hat h_j = \\dfrac{h_j}{\\Delta x_j}, \\qquad \\hat f_j = \\dfrac{f_j}{\\Delta x_j}",
-        ],
-        examples: [
-          "30 von 50 Studierenden bestehen eine Klausur. Absolute Häufigkeit: 30. Relative Häufigkeit: 30/50 = 0,6 bzw. 60 Prozent.",
-          "Bei den 40 Support-Tickets aus 4.4 liegen h1=6, h2=12, h3=17, h4=5 Tickets in den vier 10-Minuten-Klassen (Σhj=40 ✓). f3 = 17/40 = 0,425. Da alle Klassen gleich breit sind (Δxj=10), ist ĥ3 = 17/10 = 1,7 und f̂3 = 0,0425.",
-        ],
-      },
-      {
-        id: "2-6",
-        heading: "4.6 Empirische Verteilungsfunktion",
-        body: [
-          "Die kumulierte relative Häufigkeit gibt an, welcher Anteil der Beobachtungen kleiner oder gleich einem Wert x ist.",
-          "Sie ist eine monoton wachsende Treppenfunktion, die bei 0 beginnt und bei 1 endet, mit Sprüngen genau an den Stellen, an denen Beobachtungen liegen. Wichtig: F(x) ist nicht dasselbe wie f(x) — f(ai) ist die Häufigkeit genau der Ausprägung ai, F(x) ist die Summe aller f(ai) mit ai ≤ x.",
-          "Bei klassierten Daten kennt man die Einzelwerte nicht mehr, F(x) kann also nicht mehr exakt aus der Urliste berechnet werden. Unter der Annahme einer Gleichverteilung innerhalb der Klasse wird stattdessen linear zwischen den Klassengrenzen interpoliert — der Graph wird dadurch von einer Treppenfunktion zu einem stückweise linearen, stetigen Polygonzug.",
-        ],
-        terms: [
-          {
-            term: "Empirische Verteilungsfunktion F(x)",
-            definition: "Der Anteil der Beobachtungen, der höchstens x beträgt. Das empirische Gegenstück zur theoretischen Verteilungsfunktion aus Kapitel 2.",
-          },
-          {
-            term: "F(x) klassierter Daten",
-            definition: "Interpoliert linear innerhalb der Klasse, die x enthält, unter der Annahme einer Gleichverteilung innerhalb dieser Klasse.",
-          },
-        ],
-        formulas: [
-          "Unklassiert: F(x) = Anzahl(Xi ≤ x) / n = Σ f(ai) für alle ai ≤ x",
-          "Klassiert: F(x) = F(ξju) + (x−ξju)/Δxj · fj, für ξju ≤ x < ξjo",
-        ],
-        formulasLatex: [
-          "F(x) = \\dfrac{\\text{Anzahl}(X_i \\le x)}{n} = \\sum_{a_i \\le x} f(a_i)",
-          "F(x) = F(\\xi_j^u) + \\dfrac{x-\\xi_j^u}{\\Delta x_j}\\,f_j, \\quad \\xi_j^u \\le x < \\xi_j^o",
+          "Analog zur theoretischen Verteilungsfunktion aus Kapitel 2.2 lässt sich auch für eine konkrete Stichprobe eine empirische Verteilungsfunktion F(x) bilden: Sie gibt an, welcher Anteil der Beobachtungen höchstens den Wert x aufweist. Für n geordnete Beobachtungswerte ist F(x) eine Treppenfunktion, die an jedem beobachteten Wert um dessen relative Häufigkeit nach oben springt.",
+          "Die empirische Verteilungsfunktion ist die Grundlage vieler weiterer Kennzahlen: Median und Quantile (4.5) lassen sich direkt als Umkehrfunktion von F ablesen, und der Vergleich zweier empirischer Verteilungsfunktionen (z. B. verschiedener Gruppen) zeigt anschaulich, welche Gruppe tendenziell höhere oder niedrigere Werte aufweist.",
         ],
         figure: {
           type: "distribution-function",
-          caption: "Abb. 4.1 — Empirische Verteilungsfunktion: Treppenfunktion von 0 bis 1, mit einem Sprung an jeder Beobachtungsstelle. Die Sprunghöhe an ai entspricht genau f(ai).",
+          caption: "Abb. 4.1 — Empirische Verteilungsfunktion: Treppenfunktion von 0 bis 1, ein Sprung an jedem beobachteten Wert.",
         },
+        terms: [
+          {
+            term: "Empirische Verteilungsfunktion",
+            definition: "Treppenfunktion, die für eine konkrete Stichprobe angibt, welcher Anteil der Beobachtungen höchstens x beträgt.",
+          },
+        ],
         examples: [
-          "Bei 10 gewürfelten Zahlen 2,4,4,5,6,2,3,4,5,6 ist f(4) = 3/10 = 0,3. F(4) = f(2)+f(3)+f(4) = 0,2+0,1+0,3 = 0,6 — 60 Prozent der Würfe zeigten höchstens eine 4.",
-          "Der Graph von F(x) ist eine Treppe, keine glatte Kurve: Sie ist konstant zwischen den Ausprägungen und springt genau an jeder beobachteten Stelle a_i um den Betrag f(a_i) nach oben — links von der kleinsten Ausprägung liegt F(x)=0, ab der größten Ausprägung ist F(x)=1. Das ist derselbe Kurvenverlauf wie bei der theoretischen Verteilungsfunktion aus Kapitel 2 — nur dass hier die Sprunghöhen aus echten Daten statt aus Wahrscheinlichkeiten stammen.",
-          "Für die klassierten Support-Tickets (F(10)=f1=0,15, F(20)=0,15+0,30=0,45): F(15) = F(10) + (15−10)/10 · f2 = 0,15 + 0,5·0,30 = 0,30 — geschätzt haben 30 Prozent der Tickets eine Bearbeitungszeit von höchstens 15 Minuten.",
+          "Bei den Beobachtungswerten 2, 4, 4, 7 (n=4) gilt F(4) = 3/4 = 0,75, weil drei der vier Werte höchstens 4 betragen.",
         ],
       },
       {
-        id: "2-7",
-        heading: "4.7 Modus und Median",
+        id: "4-4",
+        heading: "4.4 Lagemaße: Modus, Median und Mittelwerte",
         body: [
-          "Lageparameter fassen einen Datensatz in einer Zahl zusammen, die zeigt, wo die Daten typischerweise liegen. Welches Lagemaß sinnvoll ist, hängt vom Skalenniveau ab.",
-          "Bei klassierten Daten kennt man die Einzelwerte nicht mehr — Modus und Median müssen deshalb aus den Klasseninformationen geschätzt werden, statt exakt berechnet zu werden.",
+          "Lagemaße fassen zusammen, wo sich die 'Mitte' einer Verteilung befindet. Der Modus ist der am häufigsten auftretende Wert und als einziges Lagemaß auch für nominalskalierte Daten sinnvoll definiert. Der Median ist der Wert, der die der Größe nach sortierten Beobachtungen in zwei gleich große Hälften teilt; er ist robust gegenüber Ausreißern, weil extreme Werte seine Position kaum verändern.",
+          "Das arithmetische Mittel x̄ = (1/n)·Σxi ist das bekannteste Lagemaß, reagiert aber empfindlich auf Ausreißer, da jeder einzelne Wert direkt eingeht. Bei stark schiefen Verteilungen (z. B. Einkommen) weicht das arithmetische Mittel deshalb oft deutlich vom Median ab. Für Verhältniszahlen (z. B. Wachstumsraten, Geschwindigkeiten über gleiche Strecken) ist statt des arithmetischen häufig das geometrische bzw. harmonische Mittel das angemessenere Lagemaß.",
         ],
+        formulas: ["x̄ = (1/n) · Σ xi"],
+        formulasLatex: ["\\bar{x} = \\dfrac{1}{n}\\sum_{i=1}^n x_i"],
         terms: [
           {
-            term: "Modus xD",
-            definition: "Die am häufigsten auftretende Ausprägung. Als einziges Lagemaß auf jedem Skalenniveau definiert, auch bei rein nominalen Daten.",
+            term: "Modus",
+            definition: "Der am häufigsten auftretende Wert einer Verteilung.",
           },
           {
-            term: "Median x0,5",
-            definition: "Teilt die sortierten Daten in zwei gleich große Hälften. Bei ungeradem n der mittlere Wert, bei geradem n der Mittelwert der beiden mittleren Werte.",
+            term: "Median",
+            definition: "Der Wert, der die geordneten Beobachtungen in zwei gleich große Hälften teilt.",
           },
           {
-            term: "Modalklasse",
-            definition: "Bei klassierten Daten die Klasse mit der größten Häufigkeitsdichte ĥj (nicht zwingend der größten Häufigkeit hj, falls die Klassen unterschiedlich breit sind!). Ihre Klassenmitte dient als Schätzwert für den Modus.",
+            term: "Arithmetisches Mittel",
+            definition: "Summe aller Beobachtungswerte geteilt durch die Anzahl der Beobachtungen.",
           },
-          {
-            term: "Median klassierter Daten",
-            definition: "Wird über die Klasse geschätzt, in der die kumulierte relative Häufigkeit F(ξju) ≤ 0,5 ≤ F(ξjo) liegt, per linearer Interpolation innerhalb dieser Klasse.",
-          },
-        ],
-        formulas: [
-          "Ungerades n: x0,5 = x((n+1)/2)",
-          "Gerades n: x0,5 = (x(n/2) + x(n/2 + 1)) / 2",
-          "Modalklasse (klassiert): max ĥj",
-          "Median klassiert: x0,5 = ξju + (0,5 − F(ξju))/fj · Δxj",
-        ],
-        formulasLatex: [
-          "n \\text{ ungerade: } x_{0{,}5} = x_{\\left(\\frac{n+1}{2}\\right)}",
-          "n \\text{ gerade: } x_{0{,}5} = \\dfrac{x_{(n/2)} + x_{(n/2+1)}}{2}",
-          "\\text{Modalklasse} = \\arg\\max_j \\hat h_j",
-          "x_{0{,}5} = \\xi_j^u + \\dfrac{0{,}5 - F(\\xi_j^u)}{f_j}\\,\\Delta x_j",
         ],
         examples: [
-          "Daten (sortiert): 2,4,5,7,9 (n=5, ungerade). Median = x(3) = 5.",
-          "Daten (sortiert): 2,4,5,7,9,10 (n=6, gerade). Median = (x(3)+x(4))/2 = (5+7)/2 = 6.",
-          "Für die klassierten Support-Tickets (ĥ = 0,6 / 1,2 / 1,7 / 0,5) ist Klasse 3 (20,30] die Modalklasse — Modus-Schätzwert ist ihre Klassenmitte, also 25 Minuten. Da F(20)=0,45 ≤ 0,5 ≤ F(30)=0,875 in Klasse 3 liegt: x0,5 = 20 + (0,5−0,45)/0,425 · 10 ≈ 21,2 Minuten.",
+          "Die Monatsgehälter eines kleinen Teams betragen 2.800, 2.900, 3.000, 3.100 und 15.000 € (Geschäftsführung). Median = 3.000 €, arithmetisches Mittel = (2.800+2.900+3.000+3.100+15.000)/5 = 5.360 € — das arithmetische Mittel wird durch den einen Ausreißer stark verzerrt, der Median beschreibt die 'typische' Situation im Team deutlich besser.",
         ],
       },
       {
-        id: "2-8",
-        heading: "4.8 Arithmetisches und harmonisches Mittel",
+        id: "4-5",
+        heading: "4.5 Quantile, Spannweite und Interquartilsabstand",
         body: [
-          "Das arithmetische Mittel ist nur für metrische Merkmale sinnvoll und reagiert empfindlich auf Ausreißer.",
-          "Genau deshalb wird bei Einkommensstatistiken oft der Median statt des Mittelwerts berichtet: wenige sehr hohe Einkommen würden den Mittelwert nach oben verzerren.",
-          "Bei klassierten Daten wird für jede Beobachtung einer Klasse ersatzweise die Klassenmitte verwendet, weil die echten Einzelwerte ja nicht mehr bekannt sind.",
-          "Das harmonische Mittel ist eine dritte, seltener gebrauchte Mittelwertart: Sie ist immer dann korrekt, wenn Verhältniszahlen (z. B. Geschwindigkeiten) gemittelt werden sollen und die Information über den jeweiligen Zähler (z. B. gleiche Streckenlängen) bekannt ist.",
+          "Ein p-Quantil ist derjenige Wert, unterhalb dessen genau ein Anteil p der Beobachtungen liegt; der Median ist damit das 0,5-Quantil. Besonders gebräuchlich sind die Quartile: das untere Quartil Q1 (0,25-Quantil), der Median (0,5-Quantil) und das obere Quartil Q3 (0,75-Quantil), die eine Verteilung in vier gleich große Teile zerlegen.",
+          "Die Spannweite (Maximum minus Minimum) ist das einfachste Streuungsmaß, aber sehr anfällig für einzelne Ausreißer. Robuster ist der Interquartilsabstand IQR = Q3 − Q1, der den Bereich beschreibt, in dem die 'mittleren' 50% der Daten liegen, ohne von extremen Rand-Beobachtungen beeinflusst zu werden.",
         ],
+        formulas: ["IQR = Q3 − Q1"],
+        formulasLatex: ["IQR = Q_3 - Q_1"],
         terms: [
           {
-            term: "Arithmetisches Mittel x̄",
-            definition: "Die Summe aller Werte geteilt durch n. Setzt metrisches Skalenniveau voraus.",
-          },
-          {
-            term: "Gewichtetes Mittel",
-            definition: "Wie das arithmetische Mittel, aber jede Ausprägung zählt mit ihrer relativen Häufigkeit oder einem Gewicht — z. B. bei einem Notendurchschnitt, wo CP-Zahlen unterschiedlich stark zählen.",
-          },
-          {
-            term: "Arithmetisches Mittel klassierter Daten",
-            definition: "Wie das normale arithmetische Mittel, nur dass für jede Klasse ihre Klassenmitte anstelle der (unbekannten) Einzelwerte verwendet wird.",
-          },
-          {
-            term: "Harmonisches Mittel x̄H",
-            definition: "Voraussetzung: verhältnisskalierte Daten ohne Nullwerte. Wird z. B. für Durchschnittsgeschwindigkeiten über gleich lange Streckenabschnitte benötigt — das arithmetische Mittel wäre hier falsch.",
-          },
-        ],
-        formulas: [
-          "x̄ = (1/n) · Σ xi",
-          "Gewichtetes Mittel: x̄ = Σ wi·xi mit Σ wi = 1",
-          "Klassiert: x̄ = (1/n) · Σ xj·hj (mit Klassenmitten xj)",
-          "Harmonisches Mittel: x̄H = n / Σ (1/xi)",
-        ],
-        formulasLatex: [
-          "\\bar{x} = \\dfrac{1}{n}\\sum_{i=1}^{n} x_i",
-          "\\bar{x} = \\sum_i w_i x_i \\quad \\text{mit} \\quad \\sum_i w_i = 1",
-          "\\bar{x} = \\dfrac{1}{n}\\sum_{j=1}^{k} x_j\\,h_j",
-          "\\bar{x}_H = \\dfrac{n}{\\sum_{i=1}^n \\frac{1}{x_i}}",
-        ],
-        examples: [
-          "Einkommen (sortiert): 310, 480, 1140, 2480, 2610, 3560, 3980, 6980, 9010 (n=9). Median (5. Wert) = 2610 Euro. Mittelwert ≈ 3350 Euro — deutlich höher, weil der Ausreißer 9010 ihn nach oben zieht.",
-          "Notendurchschnitt mit Gewichtung: Modul A (5 CP, Note 1,3), Modul B (4 CP, Note 2,7), Modul C (8 CP, Note 1,8). Gewichtetes Mittel = (5·1,3 + 4·2,7 + 8·1,8) / 17 ≈ 1,86.",
-          "Für die klassierten Support-Tickets (Klassenmitten 5,15,25,35; hj = 6,12,17,5): x̄ = (5·6+15·12+25·17+35·5)/40 = (30+180+425+175)/40 = 810/40 = 20,25 Minuten.",
-          "Ein Sparer investiert in drei aufeinanderfolgenden Monaten jeweils denselben Betrag von 300 € in einen Fonds, zu Kursen von 20 €, 25 € bzw. 30 € pro Anteil. Der durchschnittliche Kaufpreis pro Anteil ist NICHT das arithmetische Mittel (25 €), sondern das harmonische Mittel, weil hier gleiche Geldbeträge, aber unterschiedliche Stückzahlen gekauft werden: x̄H = 3 / (1/20+1/25+1/30) = 3/0,12333 ≈ 24,32 € — günstiger als der arithmetische Durchschnittspreis, weil bei niedrigeren Kursen automatisch mehr Anteile gekauft wurden.",
-        ],
-      },
-      {
-        id: "2-9",
-        heading: "4.9 Quantile",
-        body: [
-          "p-Quantile verallgemeinern den Median: das p-Quantil xp lässt einen Anteil p der Daten darunter und (1−p) darüber liegen.",
-          "Bei klassierten Daten wird xp analog zum klassierten Median durch lineare Interpolation innerhalb der Klasse geschätzt, in der F(ξju) ≤ p ≤ F(ξjo) liegt.",
-        ],
-        terms: [
-          {
-            term: "p-Quantil xp",
-            definition: "Der Median ist genau das 0,5-Quantil. Besonders häufig gefragt: die Quartile (0,25- und 0,75-Quantil).",
-          },
-          {
-            term: "Quartile",
-            definition: "Teilen den Datensatz in Viertel. Grundlage für den Interquartilsabstand und den Boxplot.",
-          },
-        ],
-        formulas: [
-          "Ist n·p keine ganze Zahl: xp = x(⌈n·p⌉)",
-          "Ist n·p = k eine ganze Zahl: xp = (x(k) + x(k+1)) / 2",
-          "Klassiert: xp = ξju + (p − F(ξju))/fj · Δxj",
-        ],
-        formulasLatex: [
-          "n\\cdot p \\notin \\mathbb{Z}: \\ x_p = x_{(\\lceil n\\,p \\rceil)}",
-          "n\\cdot p = k \\in \\mathbb{Z}: \\ x_p = \\dfrac{x_{(k)} + x_{(k+1)}}{2}",
-          "x_p = \\xi_j^u + \\dfrac{p - F(\\xi_j^u)}{f_j}\\,\\Delta x_j",
-        ],
-        examples: [
-          "8 sortierte Werte: 3,5,6,8,9,11,12,15 (n=8). Für p=0,25: n·p=2 (ganzzahlig) → x0,25 = (x(2)+x(3))/2 = (5+6)/2 = 5,5. Für p=0,75: n·p=6 (ganzzahlig) → x0,75 = (x(6)+x(7))/2 = (11+12)/2 = 11,5.",
-          "Für die klassierten Support-Tickets soll x0,25 geschätzt werden: F(10)=0,15 ≤ 0,25 ≤ F(20)=0,45, also liegt es in Klasse 2. x0,25 = 10 + (0,25−0,15)/0,30 · 10 ≈ 13,33 Minuten.",
-        ],
-      },
-      {
-        id: "2-10",
-        heading: "4.10 Spannweite und Interquartilsabstand",
-        body: [
-          "Ein Lagemaß allein sagt nichts darüber aus, wie breit gestreut die Daten liegen. Streuungsmaße schließen diese Lücke.",
-          "Die Spannweite ist einfach, aber sehr ausreißeranfällig. Der Interquartilsabstand ist deutlich robuster, weil er nur die mittleren 50 Prozent der Daten betrachtet.",
-        ],
-        terms: [
-          {
-            term: "Spannweite",
-            definition: "Maximum minus Minimum. Ein einziger extremer Wert bestimmt sie komplett.",
+            term: "Quantil",
+            definition: "Wert, unterhalb dessen ein bestimmter Anteil p der Beobachtungen liegt.",
           },
           {
             term: "Interquartilsabstand (IQR)",
-            definition: "x0,75 minus x0,25. Entspricht genau der Breite der Box in einem Boxplot.",
+            definition: "Differenz zwischen oberem und unterem Quartil; Streuungsmaß für die mittleren 50% der Daten.",
           },
         ],
-        formulas: [
-          "Spannweite R = xmax − xmin",
-          "IQR = x0,75 − x0,25",
+        examples: [
+          "Bei einer Lieferzeit-Stichprobe mit Q1 = 2 Tage und Q3 = 5 Tage beträgt der IQR = 5−2 = 3 Tage — die mittleren 50% aller Lieferungen treffen innerhalb dieser Spanne ein.",
         ],
-        formulasLatex: [
-          "R = x_{\\max} - x_{\\min}",
-          "\\text{IQR} = x_{0{,}75} - x_{0{,}25}",
+      },
+      {
+        id: "4-6",
+        heading: "4.6 Streuungsmaße: Varianz und Standardabweichung",
+        body: [
+          "Analog zur Varianz einer Zufallsvariable (Kapitel 2.4) misst die Stichprobenvarianz s² die durchschnittliche quadrierte Abweichung der Beobachtungen vom arithmetischen Mittel: s² = (1/(n−1)) · Σ(xi − x̄)². Die Division durch n−1 statt n (statt der 'naiven' Variante) korrigiert einen sonst systematischen Fehler, wenn s² zur Schätzung der Varianz einer Grundgesamtheit verwendet wird.",
+          "Die Stichprobenstandardabweichung s = √s² liegt wieder in der ursprünglichen Einheit der Daten vor und ist damit meist anschaulicher interpretierbar als die Varianz selbst.",
+        ],
+        formulas: ["s² = (1/(n−1)) · Σ (xi − x̄)²"],
+        formulasLatex: ["s^2 = \\dfrac{1}{n-1}\\sum_{i=1}^n (x_i - \\bar{x})^2"],
+        terms: [
+          {
+            term: "Stichprobenvarianz",
+            definition: "Durchschnittliche quadrierte Abweichung der Beobachtungen vom arithmetischen Mittel, geteilt durch n−1.",
+          },
+        ],
+        examples: [
+          "Für die Werte 4, 6, 8 (x̄=6, n=3): s² = [(4−6)²+(6−6)²+(8−6)²]/(3−1) = (4+0+4)/2 = 4, also s = 2.",
+        ],
+      },
+      {
+        id: "4-7",
+        heading: "4.7 Relative Streuungsmaße und gepoolte Datensätze",
+        body: [
+          "Um die Streuung zweier Datensätze mit unterschiedlichem Niveau (z. B. Gehälter in verschiedenen Ländern mit unterschiedlicher Kaufkraft) fair zu vergleichen, normiert der Variationskoeffizient VK = s / x̄ die Standardabweichung am arithmetischen Mittel — er ist dimensionslos und damit unabhängig von der Einheit oder dem Niveau der Ursprungsdaten.",
+          "Werden mehrere Teilstichproben zu einem Gesamtdatensatz zusammengefasst (gepoolt), lässt sich der Gesamtmittelwert als gewichteter Durchschnitt der Teilmittelwerte berechnen; die Gesamtvarianz setzt sich dagegen sowohl aus der durchschnittlichen Streuung innerhalb der Teilgruppen als auch aus der Streuung der Teilgruppen-Mittelwerte untereinander zusammen — zwei Gruppen mit identischer interner Streuung, aber stark unterschiedlichen Mittelwerten, erzeugen insgesamt eine höhere Gesamtvarianz.",
+        ],
+        formulas: ["VK = s / x̄"],
+        formulasLatex: ["VK = \\dfrac{s}{\\bar{x}}"],
+        terms: [
+          {
+            term: "Variationskoeffizient",
+            definition: "Standardabweichung geteilt durch das arithmetische Mittel; dimensionsloses, relatives Streuungsmaß.",
+          },
+        ],
+        examples: [
+          "Abteilung A hat x̄=3.000 € und s=300 €, Abteilung B hat x̄=5.000 € und s=400 €. VK(A) = 300/3.000 = 0,10, VK(B) = 400/5.000 = 0,08 — obwohl B die höhere absolute Streuung hat, ist die relative Streuung in A größer.",
+        ],
+      },
+      {
+        id: "4-8",
+        heading: "4.8 Boxplot, Histogramm und Fünf-Zahlen-Zusammenfassung",
+        body: [
+          "Die Fünf-Zahlen-Zusammenfassung fasst eine Verteilung kompakt über Minimum, Q1, Median, Q3 und Maximum zusammen. Grafisch wird sie im Boxplot dargestellt: eine Box von Q1 bis Q3 mit einer Linie beim Median, sowie 'Whiskers', die bis zum letzten Wert innerhalb des 1,5-fachen IQR reichen; Werte außerhalb dieses Bereichs werden häufig einzeln als potenzielle Ausreißer markiert.",
+          "Das Histogramm stellt dagegen klassierte Häufigkeiten (siehe 4.2) als aneinandergrenzende Balken dar, deren Höhe (bzw. bei ungleichen Klassenbreiten: Fläche) proportional zur Häufigkeit der jeweiligen Klasse ist. Während der Boxplot besonders gut zum schnellen Vergleich mehrerer Gruppen geeignet ist, zeigt das Histogramm die Form der Verteilung (z. B. Schiefe oder mehrere Gipfel) deutlich detaillierter.",
         ],
         figure: {
           type: "boxplot",
-          caption: "Abb. 4.1 — Boxplot: Median, Quartile (Box = IQR) und Ausreißer auf einen Blick.",
+          caption: "Abb. 4.2 — Boxplot: Median, Quartile (Box = IQR) und Ausreißer auf einen Blick.",
         },
-        examples: [
-          "Klausurnoten-Boxplot: Min=1,0, Q1=1,7, Median=2,3, Q3=3,0, Max=4,0. R = 4,0−1,0 = 3,0. IQR = 3,0−1,7 = 1,3.",
-        ],
-      },
-      {
-        id: "2-11",
-        heading: "4.11 Streuungsmaße vom Bezugspunkt",
-        body: [
-          "Varianz und die mittlere absolute Abweichung sind eigentlich Spezialfälle eines allgemeineren Prinzips: Man wählt einen beliebigen Bezugspunkt c und misst, wie weit die Daten im Mittel von c entfernt liegen.",
-          "Für zwei ganz bestimmte Wahlen von c ergeben sich die bekannten Kenngrößen — und zwar jeweils als Minimum der jeweiligen Abweichungsfunktion: Bei absoluten Abständen |xi−c| wird die Summe durch c = Median minimiert. Bei quadrierten Abständen (xi−c)² wird sie durch c = arithmetisches Mittel minimiert — und genau dieses Minimum nennt man dann Varianz (siehe 4.12).",
-        ],
-        terms: [
-          {
-            term: "Mittlere absolute Abweichung d(c)",
-            definition: "Durchschnittlicher absoluter Abstand aller Werte von einem Bezugspunkt c. Wird durch c = Median minimiert.",
-          },
-          {
-            term: "Mittlere quadratische Abweichung MQ(c)",
-            definition: "Durchschnittlicher quadrierter Abstand aller Werte von einem Bezugspunkt c. Wird durch c = arithmetisches Mittel minimiert — dieses Minimum ist die Varianz.",
-          },
-        ],
-        formulas: [
-          "d(c) = (1/n) · Σ |xi − c|",
-          "MQ(c) = (1/n) · Σ (xi − c)²",
-        ],
-        formulasLatex: [
-          "d(c) = \\dfrac{1}{n}\\sum_{i=1}^n |x_i - c|",
-          "MQ(c) = \\dfrac{1}{n}\\sum_{i=1}^n (x_i-c)^2",
-        ],
-        examples: [
-          "Daten 2,4,4,10 (x̄=5, Median=4). d(4) = (2+0+0+6)/4 = 2,0. d(5) = (3+1+1+5)/4 = 2,5 — d(c) ist bei c=Median=4 kleiner als beim Mittelwert c=5, genau wie die Theorie vorhersagt.",
-          "Für dieselben Daten gilt umgekehrt: MQ(4) = (4+0+0+36)/4 = 10,0, aber MQ(5) = (9+1+1+25)/4 = 9,0 — beim quadrierten Abstand gewinnt jetzt der Mittelwert c=5, nicht der Median.",
-        ],
-      },
-      {
-        id: "2-12",
-        heading: "4.12 Varianz und Standardabweichung",
-        body: [
-          "Die Varianz misst die mittlere quadrierte Abweichung vom Mittelwert (siehe 4.11: sie ist MQ(x̄), also das Minimum von MQ(c)). Quadriert wird, damit sich positive und negative Abweichungen nicht gegenseitig aufheben.",
-          "Der Nachteil der Varianz: Sie hat eine ungewohnte Einheit, z. B. Euro-Quadrat statt Euro. Deshalb gibt man in der Praxis meist die Standardabweichung an, die wieder dieselbe Einheit wie die Ausgangsdaten hat.",
-          "Rechnerisch oft einfacher als die Definitionsformel ist der Verschiebungssatz: Varianz als mittleres Quadrat minus Quadrat des Mittels.",
-        ],
-        terms: [
-          {
-            term: "Varianz Var(x)",
-            definition: "Mittlere quadrierte Abweichung vom Mittelwert.",
-          },
-          {
-            term: "Standardabweichung s",
-            definition: "Die Wurzel der Varianz. Das gebräuchlichste Streuungsmaß in Berichten und Grafiken.",
-          },
-        ],
-        formulas: [
-          "Var(x) = (1/n) · Σ (xi − x̄)²",
-          "Verschiebungssatz: Var(x) = (1/n)·Σ xi² − x̄²",
-          "Klassiert: Var(x) = (1/n) · Σ (xj − x̄)²·hj (mit Klassenmitten xj)",
-          "s = √Var(x)",
-        ],
-        formulasLatex: [
-          "\\text{Var}(x) = \\dfrac{1}{n}\\sum_{i=1}^{n}(x_i - \\bar{x})^2",
-          "\\text{Var}(x) = \\dfrac{1}{n}\\sum_{i=1}^n x_i^2 - \\bar{x}^2",
-          "\\text{Var}(x) = \\dfrac{1}{n}\\sum_{j=1}^{k} (x_j-\\bar x)^2\\, h_j",
-          "s = \\sqrt{\\text{Var}(x)}",
-        ],
-        examples: [
-          "Daten: 3,5,5,7. x̄=5. Abweichungen: −2,0,0,2. Quadriert: 4,0,0,4. Var(x) = 8/4 = 2. s = √2 ≈ 1,41.",
-          "Für die klassierten Support-Tickets (x̄=20,25, Klassenmitten 5,15,25,35, hj=6,12,17,5): Var(x) = [(5−20,25)²·6+(15−20,25)²·12+(25−20,25)²·17+(35−20,25)²·5]/40 = [1395,4+330,75+383,6+1087,8]/40 ≈ 3197,5/40 ≈ 79,94. s ≈ √79,94 ≈ 8,94 Minuten.",
-        ],
-      },
-      {
-        id: "2-13",
-        heading: "4.13 Relative Streuungsmaße",
-        body: [
-          "Absolute Streuungsmaße wie die Standardabweichung hängen von der Maßeinheit ab und lassen sich deshalb nicht direkt zwischen unterschiedlichen Datensätzen vergleichen (z. B. Streuung in Euro vs. Streuung in Kilogramm, oder unterschiedlich große Stichproben). Relative Streuungsmaße normieren dieses Problem weg.",
-        ],
-        terms: [
-          {
-            term: "Variationskoeffizient v",
-            definition: "Standardabweichung geteilt durch Mittelwert (s/x̄). Ein dimensionsloses Maß, das den Streuungsvergleich unabhängig von der Maßeinheit erlaubt.",
-          },
-          {
-            term: "Normierter Variationskoeffizient v*",
-            definition: "Korrigiert v so, dass der Wertebereich unabhängig von der Stichprobengröße n immer zwischen 0 und 1 liegt — dadurch werden Variationskoeffizienten unterschiedlich großer Stichproben besser vergleichbar.",
-          },
-          {
-            term: "Quartilsdispersionskoeffizient vr",
-            definition: "Verhältnis von Interquartilsabstand zu Median. Da IQR und Median beide robust gegenüber Ausreißern sind, ist auch vr ein robustes relatives Streuungsmaß — im Gegensatz zum Variationskoeffizienten, der über x̄ und s empfindlich auf Ausreißer reagiert.",
-          },
-        ],
-        formulas: [
-          "v = s / x̄, mit 0 ≤ v ≤ √(n−1)",
-          "Normiert: v* = v / √(n−1), mit 0 ≤ v* ≤ 1",
-          "Quartilsdispersionskoeffizient: vr = IQR / x0,5",
-        ],
-        formulasLatex: [
-          "v = \\dfrac{s}{\\bar x}, \\quad 0 \\le v \\le \\sqrt{n-1}",
-          "v^{*} = \\dfrac{v}{\\sqrt{n-1}}, \\quad 0 \\le v^{*} \\le 1",
-          "v_r = \\dfrac{\\text{IQR}}{x_{0{,}5}}",
-        ],
-        examples: [
-          "Zwei Abteilungen mit je n=25 Beobachtungen: Gehälter 3200 € (s=280€) bzw. 5200 € (s=390€). v1=280/3200≈0,0875, v2=390/5200≈0,075 — Abteilung 1 streut relativ stärker, obwohl ihre absolute Standardabweichung kleiner ist. Normiert (√24≈4,899): v1*≈0,0179, v2*≈0,0153 — gleiche Rangfolge, jetzt aber auf [0,1] normiert.",
-          "Für den Klausurnoten-Boxplot aus 4.10 (Median=2,3, IQR=1,3): vr = 1,3/2,3 ≈ 0,565 — die mittleren 50 Prozent der Noten streuen relativ stark um den Median.",
-        ],
-      },
-      {
-        id: "2-14",
-        heading: "4.14 Parameter gepoolter Datensätze",
-        body: [
-          "Manchmal liegen mehrere disjunkte Teilstichproben desselben Merkmals vor, z. B. weil unterschiedliche Filialen oder Erhebungswellen getrennt ausgewertet wurden. Mittelwert und Varianz des gesamten, zusammengefassten (gepoolten) Datensatzes lassen sich direkt aus den Kennzahlen der Teildatensätze berechnen, ohne die Einzeldaten erneut zu benötigen.",
-          "Die gepoolte Varianz zerlegt sich dabei in zwei interpretierbare Bestandteile: die mittlere Varianz innerhalb der Teildatensätze und die Varianz zwischen den Teildatensätzen (wie stark die Teil-Mittelwerte selbst streuen). Dieses Prinzip der Streuungszerlegung taucht in Statistik II bei der Varianzanalyse in ähnlicher Form wieder auf.",
-        ],
-        terms: [
-          {
-            term: "Gepooltes arithmetisches Mittel",
-            definition: "Gewichtetes Mittel der Teil-Mittelwerte, gewichtet mit dem jeweiligen Stichprobenumfang.",
-          },
-          {
-            term: "Gepoolte Varianz",
-            definition: "Setzt sich zusammen aus der Varianz innerhalb der Teildatensätze und der Varianz zwischen den Teildatensätzen.",
-          },
-        ],
-        formulas: [
-          "x̄ = (1/n) · Σ np·x̄p, mit n = Σ np",
-          "s² = Σ (np/n)·sp² + Σ (np/n)·(x̄p − x̄)²",
-        ],
-        formulasLatex: [
-          "\\bar x = \\dfrac{1}{n}\\sum_{p=1}^{r} n_p\\,\\bar x_p, \\quad n=\\sum_{p=1}^r n_p",
-          "s^2 = \\sum_{p=1}^{r}\\dfrac{n_p}{n}\\,s_p^2 \\;+\\; \\sum_{p=1}^{r}\\dfrac{n_p}{n}\\,(\\bar x_p - \\bar x)^2",
-        ],
-        examples: [
-          "Drei Filialen einer Bäckereikette (Tagesumsatz in €): Filiale A (nA=20, x̄A=340, sA²=900), Filiale B (nB=15, x̄B=310, sB²=625), Filiale C (nC=25, x̄C=365, sC²=1024). n=60. Gepooltes Mittel: x̄ = (20·340+15·310+25·365)/60 = 20575/60 ≈ 342,92 €. Varianz innerhalb: (20/60)·900+(15/60)·625+(25/60)·1024 ≈ 300+156,25+426,67 ≈ 882,92. Varianz zwischen: (20/60)·(340−342,92)²+(15/60)·(310−342,92)²+(25/60)·(365−342,92)² ≈ 2,84+270,88+203,20 ≈ 476,91. Gesamtvarianz s² ≈ 882,92+476,91 ≈ 1359,83.",
-        ],
-      },
-      {
-        id: "2-15",
-        heading: "4.15 Histogramm, Boxplot und Fünf-Zahlen-Zusammenfassung",
-        body: [
-          "Ein Histogramm zeigt die Häufigkeitsdichte klassierter metrischer Daten. Zu breite Klassen verwischen Strukturen, zu schmale erzeugen ein verrauschtes Bild.",
-          "Der Boxplot stellt fünf Kennzahlen gleichzeitig dar und macht auf einen Blick sichtbar, ob eine Verteilung schief ist. Boxplots sind besonders stark beim Vergleich mehrerer Gruppen nebeneinander.",
-        ],
         terms: [
           {
             term: "Fünf-Zahlen-Zusammenfassung",
-            definition: "Fasst eine Verteilung in fünf Kennzahlen zusammen: Minimum, unteres Quartil (x0,25), Median, oberes Quartil (x0,75) und Maximum. Historischer Vorläufer des Boxplots, der genau diese fünf Werte grafisch darstellt.",
+            definition: "Kompakte Beschreibung einer Verteilung durch Minimum, unteres Quartil, Median, oberes Quartil und Maximum.",
           },
         ],
-        figure: {
-          type: "histogram",
-          caption: "Abb. 4.2 — Histogramm: Balkenhöhe entspricht der Häufigkeitsdichte je Klasse.",
-        },
+        examples: [
+          "Ein Boxplot der Bearbeitungszeiten zweier Teams zeigt für Team A eine deutlich kleinere Box (geringere Streuung) bei ähnlichem Median wie Team B — ein Hinweis auf gleichmäßigere Arbeitsprozesse bei Team A.",
+        ],
       },
       {
-        id: "2-16",
-        heading: "4.16 Lorenzkurve und Gini-Koeffizient",
+        id: "4-9",
+        heading: "4.9 Lorenzkurve und Gini-Koeffizient",
         body: [
-          "Die Lorenzkurve zeigt, welcher kumulierte Anteil einer Größe (z. B. Einkommen) auf den kumulierten Anteil der sortierten Einheiten entfällt.",
-          "Bei perfekter Gleichverteilung liegt die Kurve auf der Diagonalen. Je stärker sie darunter durchhängt, desto ungleicher ist die Verteilung.",
-          "Rechnerisch lässt sich der Gini-Koeffizient direkt aus den (aufsteigend sortierten) Einzelwerten bestimmen, ohne die Lorenzkurve zeichnen zu müssen. Wichtig dabei: Dieser 'unkorrigierte' Gini-Koeffizient erreicht bei maximaler Disparität (eine Einheit besitzt alles, alle anderen nichts) nicht den Wert 1, sondern nur (n−1)/n — er hängt also von n ab. Erst der normierte (korrigierte) Gini-Koeffizient G* erreicht bei maximaler Disparität exakt 1, unabhängig von n.",
+          "Die Lorenzkurve stellt dar, welcher kumulierte Anteil einer Größe (z. B. Einkommen) auf welchen kumulierten Anteil der Bevölkerung entfällt, sortiert vom kleinsten zum größten Wert. Bei vollkommener Gleichverteilung fällt die Lorenzkurve mit der Diagonalen zusammen (die untersten 20% der Bevölkerung besitzen auch genau 20% des Einkommens); je stärker sie unterhalb der Diagonalen durchhängt, desto ungleicher ist die Verteilung.",
+          "Der Gini-Koeffizient verdichtet diese grafische Information zu einer einzigen Zahl zwischen 0 und 1: das Verhältnis der Fläche zwischen Diagonale und Lorenzkurve zur gesamten Fläche unter der Diagonalen. Ein Gini-Koeffizient von 0 bedeutet vollkommene Gleichverteilung, ein Wert nahe 1 maximale Ungleichverteilung (eine einzelne Einheit besitzt praktisch alles).",
         ],
-        terms: [
-          {
-            term: "Lorenzkurve",
-            definition: "x-Achse: kumulierter Anteil der Einheiten (aufsteigend sortiert). y-Achse: kumulierter Anteil der Größe selbst.",
-          },
-          {
-            term: "Gini-Koeffizient G",
-            definition: "Doppelte Fläche zwischen Diagonale und Lorenzkurve. Liegt zwischen 0 (Gleichverteilung) und (n−1)/n (maximale Konzentration bei n Einheiten).",
-          },
-          {
-            term: "Normierter Gini-Koeffizient G*",
-            definition: "G* = n/(n−1) · G. Korrigiert G so, dass der Wertebereich unabhängig von n immer 0 bis 1 ist — bei maximaler Disparität also exakt G*=1.",
-          },
-        ],
-        formulas: [
-          "G = (2·Σ i·xi) / (n·Σ xi) − (n+1)/n   (xi aufsteigend sortiert, i=1,...,n)",
-          "Maximale Disparität: Gmax = (n−1) / n",
-          "Normierter Gini-Koeffizient: G* = n/(n−1) · G",
-        ],
-        formulasLatex: [
-          "G = \\dfrac{2\\sum_{i=1}^{n} i\\,x_i}{n\\sum_{i=1}^{n} x_i} - \\dfrac{n+1}{n}",
-          "G_{\\max} = \\dfrac{n-1}{n}",
-          "G^{*} = \\dfrac{n}{n-1}\\, G",
-        ],
+        formulas: ["G = Fläche(Diagonale, Lorenzkurve) / Fläche(Diagonale, x-Achse)"],
+        formulasLatex: ["G = \\dfrac{\\text{Fl\\\"ache zwischen Diagonale und Lorenzkurve}}{\\text{Fl\\\"ache unter der Diagonalen}}"],
         figure: {
           type: "lorenz",
           caption: "Abb. 4.3 — Lorenzkurve: Fläche zwischen Diagonale und Kurve bestimmt den Gini-Koeffizienten.",
         },
+        terms: [
+          {
+            term: "Lorenzkurve",
+            definition: "Grafische Darstellung des kumulierten Anteils einer Größe in Abhängigkeit vom kumulierten Bevölkerungsanteil, sortiert nach Größe.",
+          },
+          {
+            term: "Gini-Koeffizient",
+            definition: "Kennzahl zwischen 0 (Gleichverteilung) und 1 (maximale Ungleichverteilung), abgeleitet aus der Fläche zwischen Lorenzkurve und Diagonale.",
+          },
+        ],
         examples: [
-          "5 Filialen einer Fahrradwerkstatt-Kette mit Monatsgewinnen 62,62,62,62,62 € (alle gleich): Gini = 0.",
-          "5 Freelancer mit Monatsumsätzen (sortiert) 1200, 1800, 2000, 2500, 3000 €. n=5, Σxi=10 500. Σ i·xi = 1·1200+2·1800+3·2000+4·2500+5·3000 = 1200+3600+6000+10000+15000 = 35 800. G = (2·35 800)/(5·10 500) − 6/5 = 71 600/52 500 − 1,2 ≈ 1,364 − 1,2 = 0,164.",
-          "Maximale Disparität bei n=5 (eine Filiale erwirtschaftet mit Monatsgewinnen 0,0,0,0,310 den gesamten Gewinn): Σxi=310, Σ i·xi = 5·310 = 1550. G = (2·1550)/(5·310) − 6/5 = 3100/1550 − 1,2 = 2 − 1,2 = 0,8 — exakt Gmax=(n−1)/n=4/5, NICHT 1. Erst normiert: G* = (5/4)·0,8 = 1,0.",
+          "Ein Gini-Koeffizient von 0,29 für die Vermögensverteilung einer Region deutet auf eine vergleichsweise gleichmäßige Verteilung hin, während ein Wert von 0,65 auf eine deutlich konzentriertere Verteilung hindeutet, bei der ein kleiner Bevölkerungsanteil einen großen Vermögensanteil hält.",
         ],
       },
       {
-        id: "2-17",
-        heading: "4.17 Lineare Transformation der Daten",
+        id: "4-10",
+        heading: "4.10 Zusammenhangsmaße: Kontingenz, Kovarianz und Korrelation",
         body: [
-          "Manchmal werden alle Datenpunkte gleichermaßen umgerechnet, z. B. bei einem Einheiten- oder Währungswechsel. Eine solche lineare Transformation yi = a + b·xi verschiebt und/oder streckt die Daten — und die meisten Lage- und Streuungsparameter transformieren sich auf vorhersagbare Weise mit, ohne aus den neuen Daten komplett neu berechnet werden zu müssen.",
-          "Besonders wichtig ist der Spezialfall a=−x̄/s, b=1/s: die Standardisierung. Sie erzeugt einen neuen Datensatz mit Mittelwert 0 und Varianz 1 — unabhängig von der ursprünglichen Einheit.",
+          "Für zwei nominalskalierte Merkmale lässt sich der Zusammenhang über eine Kontingenztabelle (Kreuztabelle der gemeinsamen Häufigkeiten) untersuchen; darauf aufbauende Maße wie Cramérs V verdichten die Stärke des Zusammenhangs zu einer einzigen Zahl zwischen 0 (kein Zusammenhang) und 1 (perfekter Zusammenhang).",
+          "Für zwei metrisch skalierte Merkmale X und Y misst die Kovarianz Cov(X,Y) = (1/(n−1))·Σ(xi−x̄)(yi−ȳ), ob hohe X-Werte tendenziell mit hohen oder niedrigen Y-Werten einhergehen. Weil ihr Vorzeichen zwar die Richtung, ihr Betrag aber keine direkt interpretierbare Stärke des Zusammenhangs anzeigt (er hängt von den Einheiten ab), normiert man sie zum Korrelationskoeffizienten nach Pearson: r = Cov(X,Y) / (sx · sy), der stets zwischen −1 und +1 liegt und damit unabhängig von den Einheiten der Ausgangsdaten vergleichbar ist.",
         ],
+        formulas: ["r = Cov(X,Y) / (sx · sy)"],
+        formulasLatex: ["r = \\dfrac{\\text{Cov}(X,Y)}{s_x\\,s_y}"],
         terms: [
           {
-            term: "Lineare Transformation",
-            definition: "yi = a + b·xi für alle i. a verschiebt, b staucht (|b|<1) oder streckt (|b|>1) die Daten; negatives b spiegelt sie zusätzlich am Ursprung.",
+            term: "Kovarianz",
+            definition: "Maß für den linearen Zusammenhang zweier metrischer Merkmale; Vorzeichen zeigt die Richtung des Zusammenhangs an.",
           },
           {
-            term: "Standardisierung zi",
-            definition: "Spezialfall mit a=−x̄/s und b=1/s. Der standardisierte Datensatz hat immer Mittelwert 0 und Varianz 1, egal welche Einheit die Ausgangsdaten hatten.",
+            term: "Korrelationskoeffizient nach Pearson (r)",
+            definition: "Auf den Bereich [−1,1] normierte Kovarianz; misst Stärke und Richtung eines linearen Zusammenhangs unabhängig von den Einheiten der Daten.",
           },
-        ],
-        formulas: [
-          "ȳ = a + b·x̄,   y0,5 = a + b·x0,5,   yp = a + b·xp",
-          "sy² = b²·sx²,   sy = |b|·sx,   Ry = |b|·Rx",
-          "Standardisierung: zi = (xi − x̄) / sx  ⇒  z̄ = 0, sz² = 1",
-        ],
-        formulasLatex: [
-          "\\bar y = a+b\\bar x, \\quad y_{0{,}5}=a+b\\,x_{0{,}5}, \\quad y_p = a+b\\,x_p",
-          "s_y^2 = b^2 s_x^2, \\quad s_y = |b|\\,s_x, \\quad R_y = |b|\\,R_x",
-          "z_i = \\dfrac{x_i-\\bar x}{s_x} \\ \\Rightarrow\\ \\bar z = 0,\\ s_z^2=1",
         ],
         examples: [
-          "Ein Datensatz mit Materialkosten in US-Dollar hat x̄=120 USD, sx=18 USD. Umrechnung in Euro zum Kurs 1 USD = 0,92 EUR (a=0, b=0,92): ȳ = 0,92·120 = 110,4 EUR, sy = 0,92·18 = 16,56 EUR — die Streuung schrumpft um denselben Faktor wie der Mittelwert, weil hier nur skaliert (a=0), nicht verschoben wird.",
-          "Klausurpunkte mit x̄=68, s=12: eine Punktzahl von x=80 wird standardisiert zu z=(80−68)/12=1,0 — die Punktzahl liegt eine Standardabweichung über dem Mittelwert.",
-        ],
-      },
-      {
-        id: "2-18",
-        heading: "4.18 Kontingenztabelle und Zusammenhangsmaße für nominale Merkmale",
-        body: [
-          "Bisher ging es um ein Merkmal — jetzt untersuchen wir, wie zwei Merkmale gemeinsam variieren. Bei rein nominalen (oder ordinalen, aber ohne Ausnutzung der Rangfolge) Merkmalen liefert die Kontingenztabelle die Ausgangsbasis, aus der sich Zusammenhangsmaße berechnen lassen, die — anders als die Korrelation — keine metrische Skalierung voraussetzen.",
-        ],
-        terms: [
-          {
-            term: "Kontingenztabelle",
-            definition: "Kreuztabelle für zwei nominale oder ordinale Merkmale, zeigt die gemeinsame Häufigkeitsverteilung.",
-          },
-          {
-            term: "Quadratische Kontingenz K²",
-            definition: "Vergleicht die beobachteten Häufigkeiten hij mit den Häufigkeiten, die bei empirischer Unabhängigkeit zu erwarten wären. K²=0 genau dann, wenn die Merkmale empirisch unabhängig sind.",
-          },
-          {
-            term: "Kontingenzkoeffizient C",
-            definition: "Normiert K² grob auf den Bereich [0,1), ist aber vom Tabellenformat (Anzahl Zeilen/Spalten) abhängig — deshalb wird für Vergleiche zwischen unterschiedlich großen Tabellen meist der korrigierte Koeffizient Ckorr verwendet.",
-          },
-          {
-            term: "Korrigierter Kontingenzkoeffizient Ckorr",
-            definition: "Korrigiert C so, dass der Wertebereich unabhängig von der Tabellengröße immer 0 bis 1 ist.",
-          },
-        ],
-        formulas: [
-          "K² = n · ΣΣ (fij − fi•·f•j)² / (fi•·f•j)",
-          "C = √(K² / (n+K²)), mit 0 ≤ C < 1",
-          "Ckorr = C · √(C* / (C*−1)), mit C* = min(m,r)",
-        ],
-        formulasLatex: [
-          "K^2 = n\\sum_{i}\\sum_{j}\\dfrac{(f_{ij}-f_{i\\bullet}f_{\\bullet j})^2}{f_{i\\bullet}f_{\\bullet j}}",
-          "C = \\sqrt{\\dfrac{K^2}{n+K^2}}, \\quad 0\\le C<1",
-          "C_{\\text{korr}} = C\\sqrt{\\dfrac{C^{*}}{C^{*}-1}}, \\quad C^{*}=\\min(m,r)",
-        ],
-        examples: [
-          "80 Auszubildende werden nach bevorzugtem Lernformat (Präsenz/Online) und Ausbildungsberuf (3 Berufe) befragt. Fällt die Verteilung des Lernformats in allen drei Berufen nahezu gleich aus, ist K² nahe 0 und damit auch C und Ckorr nahe 0 — kein erkennbarer Zusammenhang zwischen Beruf und Lernformat-Präferenz.",
-        ],
-      },
-      {
-        id: "2-19",
-        heading: "4.19 Kovarianz, Korrelation und Rangkorrelation",
-        body: [
-          "Für metrisch skalierte Merkmale misst die Kovarianz die gemeinsame Richtung der Abweichung vom jeweiligen Mittelwert. Wichtig: Cov(x,y) = 0 folgt aus Unabhängigkeit, aber nicht umgekehrt. Der Korrelationskoeffizient r misst außerdem nur lineare Zusammenhänge — bei einem nicht-linearen (z. B. U-förmigen) Zusammenhang kann r trotzdem nahe 0 liegen.",
-          "Sind die Merkmale nur ordinal skaliert (oder liegen Ausreißer vor, die r verzerren würden), verwendet man stattdessen Rangkorrelationskoeffizienten, die nur auf den Rangplätzen der Daten basieren, nicht auf den Werten selbst.",
-        ],
-        terms: [
-          {
-            term: "Kovarianz Cov(x,y)",
-            definition: "Misst die gemeinsame Richtung der Abweichung vom jeweiligen Mittelwert zweier metrischer Merkmale.",
-          },
-          {
-            term: "Korrelationskoeffizient r",
-            definition: "Normiert die Kovarianz auf den Bereich −1 bis 1. r=1 perfekter positiver, r=−1 perfekter negativer, r=0 kein linearer Zusammenhang.",
-          },
-          {
-            term: "Spearman'scher Rangkorrelationskoeffizient rR",
-            definition: "Ersetzt die Werte durch ihre Rangplätze und berechnet dann eine Korrelation der Ränge. Bei fehlenden Bindungen (keine gleichen Werte) vereinfacht sich die Formel deutlich.",
-          },
-          {
-            term: "Kendalls τ",
-            definition: "Basiert auf dem Anteil konkordanter (gleichsinnig geordneter) minus diskordanter (gegensinnig geordneter) Paare an allen Paaren. Robuster gegenüber Bindungen als Spearman, dafür rechenintensiver bei großem n.",
-          },
-        ],
-        formulas: [
-          "Cov(x,y) = (1/n) · Σ (xi − x̄)(yi − ȳ)",
-          "r = Cov(x,y) / (sx · sy)",
-          "Spearman (ohne Bindungen): rR = 1 − 6·Σ di² / (n·(n²−1)), di = Rang(xi) − Rang(yi)",
-          "Kendall: τ = (P − Q) / (P + Q), P=konkordante, Q=diskordante Paare",
-        ],
-        formulasLatex: [
-          "\\text{Cov}(x,y) = \\dfrac{1}{n}\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y})",
-          "r = \\dfrac{\\text{Cov}(x,y)}{s_x\\, s_y}",
-          "r_R = 1 - \\dfrac{6\\sum_{i=1}^n d_i^2}{n(n^2-1)}, \\quad d_i = R(x_i)-R(y_i)",
-          "\\tau = \\dfrac{P-Q}{P+Q}",
-        ],
-        examples: [
-          "Lernzeit (h): 3,5,7,9; Klausurpunkte: 45,58,74,92. Beide Reihen wachsen gleichzeitig, r liegt nahe +1.",
-          "Zwei Sommeliers ranken dieselben 5 Weine (Rang 1 = bester). Sommelier 1: 1,2,3,4,5. Sommelier 2: 2,1,3,5,4. Differenzen di=(−1,1,0,−1,1), di²=(1,1,0,1,1), Σdi²=4. rR = 1 − 6·4/(5·24) = 1 − 24/120 = 0,8 — die beiden Sommeliers bewerten die Weine sehr ähnlich.",
+          "Für Werbeausgaben (X) und Umsatz (Y) mehrerer Filialen ergibt sich Cov(X,Y) = 850, sx = 20, sy = 60. Der Korrelationskoeffizient beträgt r = 850/(20·60) ≈ 0,71 — ein deutlicher, aber nicht perfekter positiver linearer Zusammenhang zwischen Werbeausgaben und Umsatz.",
         ],
       },
     ],
