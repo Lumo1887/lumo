@@ -93,14 +93,18 @@ export default function ModulePage({ params }: { params: { slug: string } }) {
             className="card block p-6 transition hover:-translate-y-0.5 hover:shadow-glow"
           >
             <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-lg font-bold text-ink-900">📘 Skript</h2>
-                <p className="mt-1 text-sm text-ink-600">
-                  Kompakt aufbereitete Kapitel: {mod.chapters.join(", ")}.
-                </p>
-              </div>
+              <h2 className="text-lg font-bold text-ink-900">📘 Skript</h2>
               <span className="text-brand-700 font-semibold">Öffnen →</span>
             </div>
+            <p className="mt-1 text-sm text-ink-600">Kompakt aufbereitete Kapitel:</p>
+            <ol className="mt-3 grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-2">
+              {mod.chapters.map((chapter, i) => (
+                <li key={chapter} className="flex gap-2 text-sm text-ink-600">
+                  <span className="shrink-0 text-ink-400">{i + 1}.</span>
+                  <span>{chapter}</span>
+                </li>
+              ))}
+            </ol>
           </Link>
 
           <Link
