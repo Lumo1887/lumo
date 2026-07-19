@@ -1,686 +1,606 @@
 import type { SkriptChapter } from "./types";
 
-// Hinweis zur Kapitelreihenfolge: Die Reihenfolge und Nummerierung hier folgt
-// bewusst NICHT 1:1 der Reihenfolge der Vorlesungsfolien (V01–V13). So steht
-// "Algorithmen: Grundbegriffe" hier z. B. an erster Stelle statt (wie in der
-// Vorlesung) nach der gesamten Logik, die Boolesche Algebra ist von Kapitel 4
-// auf Kapitel 7 verschoben, und die drei Datenstrukturen-Blöcke sind mit den
-// Logik- und Algorithmen-Kapiteln verzahnt statt als zusammenhängender Block
-// aufzutreten. Der Exkurs zu KI-Werkzeugen beim automatisierten Schließen
-// (ursprünglich Zusatzmaterial) ist in Kapitel 2 eingebettet statt an das
-// Skriptende angehängt zu sein. Die Nummerierung ist eigenständig, und
-// Querverweise im Text beziehen sich auf diese neue Reihenfolge.
+// Eigenständiges Lehrwerk zu "Grundlagen der Informatik" (Logik, Algorithmen,
+// Datenstrukturen, Sortieren, Komplexität, UML), verfasst wie ein
+// unabhängiges Lehrbuch zum Modulthema — nicht als Paraphrase einer
+// bestimmten Vorlesung.
 export const chapters: SkriptChapter[] = [
-  // ============ Kapitel 1 — Algorithmen: Grundbegriffe und Eigenschaften ============
+  // ==================== Kapitel 1 ====================
   {
-    id: "algorithmen-grundbegriffe",
+    id: "aussagenlogik",
     number: 1,
-    title: "Algorithmen: Grundbegriffe und Eigenschaften",
+    title: "Aussagenlogik",
     free: true,
     intro:
-      "Informatik befasst sich mit der systematischen, automatisierten Verarbeitung von Information. Der zentrale Baustein dafür ist der Algorithmus — bevor wir in späteren Kapiteln konkrete Verfahren zum Sortieren (Kapitel 8), zur Wegsuche in Graphen (Kapitel 9) oder zur formalen Modellierung (Kapitel 11–13) besprechen, brauchen wir ein präzises Vokabular dafür, was einen Algorithmus überhaupt ausmacht und welche Eigenschaften er erfüllen muss.",
+      "Die Aussagenlogik ist das formale Fundament, auf dem Programmiersprachen, Schaltkreise und algorithmische Bedingungen aufbauen. Dieses Kapitel führt die Grundoperationen und wichtigsten Rechenregeln ein.",
     sections: [
       {
         id: "1-1",
-        heading: "1.1 Algorithmus versus Programm",
+        heading: "1.1 Aussagen, Junktoren und Wahrheitstafeln",
         body: [
-          "Ein Algorithmus ist eine eindeutige, endlich formulierte Handlungsvorschrift, die ein Problem durch eine endliche Folge elementarer, ausführbarer Schritte löst: Er verarbeitet eine zulässige Eingabe und erzeugt daraus in endlich vielen Schritten eine Ausgabe. Wird ein Algorithmus in einer konkreten Programmiersprache formuliert, sodass ein Rechner ihn ausführen kann, spricht man von einem Programm.",
-          "Der Unterschied ist der zwischen Abstraktion und Realisierung: Ein Algorithmus ist sprachunabhängig und lässt sich auf Papier, als Flussdiagramm oder in Pseudocode notieren. Ein Programm ist eine konkrete Implementierung eines Algorithmus in genau einer Programmiersprache — derselbe Algorithmus kann als beliebig viele unterschiedliche Programme (in Java, Python, C, ...) realisiert werden, ohne dass sich an seiner grundsätzlichen Logik etwas ändert.",
+          "Eine Aussage besitzt genau einen Wahrheitswert (wahr/falsch). Aus Aussagen A, B lassen sich mit Junktoren zusammengesetzte Aussagen bilden: Negation ¬A, Konjunktion A∧B, Disjunktion A∨B, Implikation A⇒B und Äquivalenz A⇔B. Eine Wahrheitstafel listet systematisch den Wahrheitswert der zusammengesetzten Aussage für jede mögliche Kombination der Wahrheitswerte ihrer Bestandteile auf.",
+          "Bei n Teilaussagen besitzt die zugehörige Wahrheitstafel 2ⁿ Zeilen, da jede Teilaussage unabhängig zwei Werte annehmen kann — dieses exponentielle Wachstum ist ein früher Vorgeschmack auf Komplexitätsbetrachtungen in späteren Kapiteln.",
         ],
-        terms: [
-          {
-            term: "Algorithmus",
-            definition: "Eine eindeutige, endlich beschriebene Handlungsvorschrift, die aus einer zulässigen Eingabe in endlich vielen Schritten eine Ausgabe erzeugt.",
-          },
-          {
-            term: "Programm",
-            definition: "Die Implementierung eines Algorithmus in einer konkreten Programmiersprache, sodass er auf einem Rechner gespeichert und ausgeführt werden kann.",
-          },
+        formulas: ["A ⇒ B ≡ ¬A ∨ B"],
+        formulasLatex: ["A \\Rightarrow B \\equiv \\lnot A \\lor B"],
+        terms: [{ term: "Wahrheitstafel", definition: "Tabellarische Auflistung des Wahrheitswerts einer Aussage für jede Kombination der Teilaussagen." }],
+        examples: [
+          "Für die Aussage (A∧B)⇒C mit drei Teilaussagen besitzt die Wahrheitstafel 2³=8 Zeilen; nur wenn A und B beide wahr sind, muss zusätzlich C wahr sein, damit die Gesamtaussage wahr ist.",
         ],
       },
       {
         id: "1-2",
-        heading: "1.2 Determiniertheit und Determinismus",
+        heading: "1.2 Äquivalenzumformungen und Normalformen",
         body: [
-          "Ein Algorithmus heißt deterministisch, wenn in jedem Schritt der Ausführung eindeutig feststeht, welcher nächste Schritt folgt — es gibt also keine Wahlfreiheit im Ablauf, etwa durch eine Zufallsfunktion. Ein Algorithmus heißt determiniert, wenn er bei gleicher Eingabe stets zum selben Ergebnis führt, unabhängig davon, ob der Ablauf selbst deterministisch war.",
-          "Diese beiden Eigenschaften sind unabhängig voneinander: Ein nicht-deterministischer Algorithmus, der intern eine Zufallszahl zieht, kann trotzdem determiniert sein, wenn am Ende immer dasselbe Ergebnis herauskommt — etwa weil der Zufall nur den Weg, nicht aber das Ziel beeinflusst. In der Praxis prüft man deshalb zuerst den Ablauf (Determinismus) und erst danach das Ergebnis (Determiniertheit): Ist bereits der Ablauf uneindeutig, lohnt sich die aufwendigere Prüfung der Determiniertheit meist erst, nachdem man verstanden hat, an welchen Stellen genau Zufall ins Spiel kommt.",
+          "Die De Morganschen Regeln ¬(A∧B)≡¬A∨¬B und ¬(A∨B)≡¬A∧¬B erlauben es, Negationen durch die Formel hindurchzuziehen. Jede aussagenlogische Formel lässt sich in disjunktive Normalform (DNF: Disjunktion von Konjunktionen von Literalen) oder konjunktive Normalform (KNF: Konjunktion von Disjunktionen von Literalen) überführen.",
+          "Normalformen sind praktisch wichtig, weil viele algorithmische Verfahren (z. B. das Erfüllbarkeitsproblem SAT) auf einer bestimmten Normalform aufsetzen — die Umformung in KNF ist z. B. ein Standardschritt in automatisierten Beweissystemen.",
         ],
+        formulas: ["¬(A∧B) ≡ ¬A ∨ ¬B"],
+        formulasLatex: ["\\lnot(A\\land B) \\equiv \\lnot A \\lor \\lnot B"],
+        terms: [{ term: "Disjunktive Normalform (DNF)", definition: "Formel als Disjunktion von Konjunktionen einzelner Literale." }],
         examples: [
-          "Ein Algorithmus zieht mit random(1,6) einen Würfelwurf w und gibt anschließend aus, ob w gerade oder ungerade ist. Der Ablauf ist nicht-deterministisch (w ist zufällig), das Ergebnis 'gerade'/'ungerade' ist es aber ebenfalls nicht determiniert, da unterschiedliche w zu unterschiedlichen Ausgaben führen. Würde der Algorithmus dagegen unabhängig von w immer 'liegt zwischen 1 und 6' ausgeben, wäre er trotz nicht-deterministischem Ablauf determiniert.",
+          "Die Formel ¬(A∧¬B) lässt sich per De-Morgan umformen zu ¬A∨¬¬B = ¬A∨B — bereits in disjunktiver Normalform.",
         ],
       },
       {
         id: "1-3",
-        heading: "1.3 Finitheit, Terminierung und Universalität",
+        heading: "1.3 Erfüllbarkeit und Allgemeingültigkeit",
         body: [
-          "Ein Algorithmus muss endlich beschrieben sein (statische Finitheit: die Vorschrift selbst hat endliche Länge) und bei jeder zulässigen Eingabe nach endlich vielen Schritten anhalten (dynamische Finitheit bzw. Terminierung). Ein implementiertes Programm erfüllt die statische Finitheit automatisch, da der Quelltext endlich ist — die Terminierung dagegen muss gesondert nachgewiesen werden, denn eine Schleife kann bei bestimmten Eingaben unbeabsichtigt unendlich weiterlaufen.",
-          "Universalität fordert, dass ein Algorithmus nicht nur für einen Einzelfall, sondern für die gesamte spezifizierte Klasse von Eingaben das korrekte Ergebnis liefert. Ein Algorithmus, der nur innerhalb eines bestimmten Wertebereichs richtig arbeitet und außerhalb dieses Bereichs falsche oder undefinierte Ausgaben produziert, ist für die vollständige Eingabemenge nicht universell — selbst wenn er für die 'üblichen' Eingaben funktioniert.",
+          "Eine Formel heißt erfüllbar, wenn mindestens eine Belegung ihrer Variablen sie wahr macht, und allgemeingültig (Tautologie), wenn JEDE Belegung sie wahr macht. Eine Formel ist unerfüllbar, wenn keine Belegung sie wahr macht — äquivalent dazu, dass ihre Negation eine Tautologie ist.",
+          "Das Erfüllbarkeitsproblem (SAT) — die Frage, ob eine gegebene aussagenlogische Formel erfüllbar ist — ist algorithmisch bedeutsam: Es ist das erste bewiesene NP-vollständige Problem und damit ein zentraler Referenzpunkt der Komplexitätstheorie (siehe Kapitel 10).",
         ],
         terms: [
-          { term: "Terminierung", definition: "Die Eigenschaft eines Algorithmus, bei jeder zulässigen Eingabe nach endlich vielen Schritten anzuhalten." },
-          { term: "Universalität", definition: "Die Eigenschaft eines Algorithmus, für die gesamte spezifizierte Eingabemenge (nicht nur Einzelfälle) korrekt zu arbeiten." },
-        ],
-      },
-      {
-        id: "1-4",
-        heading: "1.4 Rekursion: direkt, indirekt und ein erstes Beispiel",
-        body: [
-          "Bei der Rekursion löst ein Algorithmus ein Problem, indem er sich selbst zur Lösung eines kleineren Teilproblems aufruft. Man unterscheidet direkte Rekursion, bei der eine Funktion sich unmittelbar selbst aufruft, von indirekter Rekursion, bei der eine Funktion f eine andere Funktion g aufruft, die (gegebenenfalls über weitere Zwischenschritte) wieder f aufruft.",
-          "Jeder rekursive Algorithmus benötigt mindestens einen Basisfall, der ohne weiteren rekursiven Aufruf direkt gelöst wird, sowie einen Rekursionsschritt, der das Problem auf eine echt kleinere Instanz zurückführt. Fehlt der Basisfall oder wird die Instanz nicht kleiner, ist die Terminierung aus Abschnitt 1.3 nicht mehr gewährleistet.",
-        ],
-        formulas: ["fakultaet(n) = 1, falls n ≤ 1", "fakultaet(n) = n · fakultaet(n − 1), falls n > 1"],
-        formulasLatex: [
-          "\\text{fakultaet}(n) = 1, \\quad n \\le 1",
-          "\\text{fakultaet}(n) = n \\cdot \\text{fakultaet}(n-1), \\quad n > 1",
+          { term: "Erfüllbarkeit", definition: "Eigenschaft einer Formel, für mindestens eine Variablenbelegung wahr zu sein." },
+          { term: "SAT-Problem", definition: "Entscheidungsproblem, ob eine aussagenlogische Formel erfüllbar ist; erstes bekanntes NP-vollständiges Problem." },
         ],
         examples: [
-          "fakultaet(4) ruft fakultaet(3) auf, das fakultaet(2) aufruft, das fakultaet(1) aufruft — dort greift der Basisfall und liefert 1. Die Aufrufe werden danach in umgekehrter Reihenfolge aufgelöst: 1, 2·1=2, 3·2=6, 4·6=24.",
+          "Die Formel A∧¬A ist unerfüllbar (kein Wahrheitswert von A macht sie wahr), während A∨¬A eine Tautologie ist (jede Belegung macht sie wahr).",
         ],
       },
     ],
   },
-
-  // ============ Kapitel 2 — Aussagenlogik ============
+  // ==================== Kapitel 2 ====================
   {
-    id: "aussagenlogik",
+    id: "praedikatenlogik",
     number: 2,
-    title: "Aussagenlogik",
+    title: "Prädikatenlogik",
     free: false,
     intro:
-      "Ob ein Algorithmus (Kapitel 1) eine Spezifikation korrekt erfüllt oder ob zwei Bedingungen in einem Programm gleichwertig sind, lässt sich nur präzise begründen, wenn wir Aussagen eindeutig formulieren und miteinander verknüpfen können. Die Aussagenlogik liefert dafür das Vokabular, das in praktisch jedem späteren Kapitel — von Bedingungen in Algorithmen bis zu Wächtern in UML-Zustandsdiagrammen (Kapitel 13) — implizit vorausgesetzt wird.",
+      "Die Aussagenlogik kann keine Aussagen über Objekte und ihre Eigenschaften ausdrücken. Die Prädikatenlogik erweitert sie um Variablen, Prädikate und Quantoren und ist damit ausdrucksstark genug für die meisten mathematischen und informatischen Aussagen.",
     sections: [
       {
         id: "2-1",
-        heading: "2.1 Aussagen und Junktoren",
+        heading: "2.1 Prädikate und Quantoren",
         body: [
-          "Eine Aussage ist ein sprachliches Gebilde, dem eindeutig genau einer der Wahrheitswerte wahr (w) oder falsch (f) zugeordnet werden kann. Aus einfachen Aussagen A, B lassen sich mit Junktoren neue Aussagen bilden: die Negation ¬A ('nicht A'), die Konjunktion A ∧ B ('A und B'), die Disjunktion A ∨ B ('A oder B', nicht ausschließend), die Implikation A ⇒ B ('wenn A, dann B') und die Äquivalenz A ⇔ B ('A genau dann, wenn B').",
-          "Der Wahrheitswert der zusammengesetzten Aussage hängt ausschließlich von den Wahrheitswerten ihrer Bestandteile ab und lässt sich vollständig in einer Wahrheitstafel auflisten. Besonders gewöhnungsbedürftig ist die Implikation: A ⇒ B ist nur dann falsch, wenn A wahr und B falsch ist. Ist A bereits falsch, ist A ⇒ B automatisch wahr, unabhängig vom Wahrheitswert von B.",
+          "Ein Prädikat P(x) ist eine Aussageform, die erst durch Einsetzen eines konkreten Objekts für x zu einer Aussage mit Wahrheitswert wird. Der Allquantor ∀x: P(x) besagt, dass P für alle Objekte des Diskursbereichs gilt; der Existenzquantor ∃x: P(x) besagt, dass mindestens ein Objekt existiert, für das P gilt.",
+          "Die Negation eines quantifizierten Ausdrucks vertauscht den Quantor: ¬∀x:P(x) ≡ ∃x:¬P(x), und ¬∃x:P(x) ≡ ∀x:¬P(x) — eine Regel, die beim formalen Widerlegen von Aussagen ständig gebraucht wird.",
         ],
-        terms: [
-          { term: "Aussage", definition: "Ein sprachliches Gebilde, dem genau einer der Wahrheitswerte wahr oder falsch zugeordnet werden kann." },
-          { term: "Implikation A ⇒ B", definition: "Falsch genau dann, wenn A wahr und B falsch ist; sonst wahr." },
-        ],
+        formulas: ["¬∀x: P(x) ≡ ∃x: ¬P(x)"],
+        formulasLatex: ["\\lnot \\forall x: P(x) \\equiv \\exists x: \\lnot P(x)"],
+        terms: [{ term: "Prädikat", definition: "Aussageform mit freien Variablen, die erst durch Einsetzen konkreter Objekte zu einer Aussage wird." }],
         examples: [
-          "'Ein Server ist überlastet, aber erreichbar' lässt sich als P ∧ Q darstellen (P: 'Server ist überlastet', Q: 'Server ist erreichbar'). 'Der Server ist weder überlastet noch erreichbar' entspricht ¬P ∧ ¬Q.",
+          "Für P(x): 'x ist eine Primzahl' auf dem Diskursbereich der natürlichen Zahlen ist ∃x: P(x) wahr (z. B. x=7), während ∀x: P(x) falsch ist (z. B. x=8 ist keine Primzahl).",
         ],
       },
       {
         id: "2-2",
-        heading: "2.2 Äquivalenzumformung und Normalformen",
+        heading: "2.2 Mehrstellige Prädikate und Quantorenreihenfolge",
         body: [
-          "Zwei Formeln heißen logisch äquivalent, wenn sie unter jeder Belegung ihrer Variablen denselben Wahrheitswert annehmen — nachweisbar entweder durch Vergleich der vollständigen Wahrheitstafeln oder durch schrittweise syntaktische Umformung mit bekannten Äquivalenzen (u. a. den Regeln von De Morgan, der Kontraposition, dem Distributivgesetz und der doppelten Negation). Für größere Formeln ist die syntaktische Umformung meist vorzuziehen, da eine Wahrheitstafel bei n Variablen 2ⁿ Zeilen benötigt und damit exponentiell wächst.",
-          "Zwei besonders wichtige Normalformen sind die konjunktive Normalform (KNF), eine Konjunktion von Disjunktionen von Literalen, und die disjunktive Normalform (DNF), eine Disjunktion von Konjunktionen von Literalen. Jede aussagenlogische Formel lässt sich in beide Normalformen überführen, was insbesondere für automatisierte Verfahren wie die Resolution (Abschnitt 2.4) benötigt wird.",
+          "Mehrstellige Prädikate wie R(x,y) drücken Beziehungen zwischen mehreren Objekten aus. Bei mehreren Quantoren ist die Reihenfolge entscheidend: ∀x∃y: R(x,y) bedeutet, dass zu jedem x ein (möglicherweise von x abhängiges) y existiert, während ∃y∀x: R(x,y) ein einziges y verlangt, das für ALLE x gleichzeitig funktioniert — eine deutlich stärkere Aussage.",
+          "Diese Unterscheidung ist in der Informatik z. B. bei der Definition von Grenzwerten, Sicherheitsgarantien (für jeden Input existiert eine korrekte Antwort) oder verteilten Protokollen (existiert ein Koordinator, der für alle Knoten funktioniert) von praktischer Bedeutung.",
         ],
-        formulas: ["¬(A ∧ B) ⇔ ¬A ∨ ¬B", "¬(A ∨ B) ⇔ ¬A ∧ ¬B", "(A ⇒ B) ⇔ (¬B ⇒ ¬A)"],
-        formulasLatex: [
-          "\\neg(A \\land B) \\iff \\neg A \\lor \\neg B",
-          "\\neg(A \\lor B) \\iff \\neg A \\land \\neg B",
-          "(A \\Rightarrow B) \\iff (\\neg B \\Rightarrow \\neg A)",
+        examples: [
+          "'Für jede natürliche Zahl x existiert eine größere natürliche Zahl y' (∀x∃y: y>x) ist wahr. 'Es existiert eine natürliche Zahl y, die größer ist als jede natürliche Zahl x' (∃y∀x: y>x) ist dagegen falsch.",
         ],
       },
       {
         id: "2-3",
-        heading: "2.3 Erfüllbarkeit, Allgemeingültigkeit und Modelle",
+        heading: "2.3 Formalisierung natürlichsprachlicher Aussagen",
         body: [
-          "Eine Formel heißt erfüllbar, wenn mindestens eine Belegung ihrer Variablen sie wahr macht; eine solche Belegung heißt Modell der Formel. Eine Formel heißt allgemeingültig (Tautologie), wenn sie unter jeder Belegung wahr ist, und unerfüllbar, wenn sie unter keiner Belegung wahr ist.",
-          "Für eine Menge M von Formeln überträgt sich der Begriff: M ist erfüllbar, wenn es eine gemeinsame Belegung gibt, die alle Formeln in M gleichzeitig wahr macht. Ob eine Formel oder Formelmenge erfüllbar ist, lässt sich prinzipiell durch Ausprobieren aller Belegungen in einer Wahrheitstafel bestimmen, in der Praxis aber effizienter über Umformung in KNF und anschließende Resolution (Abschnitt 2.4).",
+          "Eine zentrale Fertigkeit der Prädikatenlogik ist die korrekte Formalisierung natürlichsprachlicher Sätze. 'Alle Studierenden bestehen die Klausur, wenn sie lernen' formalisiert man als ∀x: (Studierender(x) ∧ Lernt(x)) ⇒ Besteht(x) — NICHT als ∀x: Studierender(x) ⇒ (Lernt(x)⇒Besteht(x)), obwohl beide Formeln oft verwechselt werden.",
+          "Ein häufiger Fehler ist die falsche Kombination von Quantor und Junktor: Bei Allaussagen verwendet man typischerweise die Implikation (⇒), bei Existenzaussagen typischerweise die Konjunktion (∧) — 'Es gibt einen Studierenden, der lernt UND besteht' wäre ∃x: Studierender(x)∧Lernt(x)∧Besteht(x).",
         ],
-        terms: [
-          { term: "Modell", definition: "Eine Belegung der Variablen, unter der eine Formel wahr wird." },
-          { term: "Allgemeingültigkeit", definition: "Eine Formel ist allgemeingültig, wenn sie unter jeder möglichen Belegung wahr ist." },
-        ],
-      },
-      {
-        id: "2-4",
-        heading: "2.4 Exkurs: Resolution und automatisiertes Schließen",
-        body: [
-          "Das Resolutionskalkül prüft die Unerfüllbarkeit einer Formelmenge, die in KNF vorliegt, rein syntaktisch: Zwei Klauseln, die ein Literal L bzw. dessen Negation ¬L enthalten, lassen sich zu einer neuen Klausel (der Resolvente) verschmelzen, in der L und ¬L entfernt sind. Lässt sich auf diesem Weg die leere Klausel ableiten, ist die ursprüngliche Formelmenge unerfüllbar. Über das Deduktionstheorem — M ⊨ F gilt genau dann, wenn M ∪ {¬F} unerfüllbar ist — lässt sich damit auch zeigen, dass eine Aussage F aus einer Formelmenge M logisch folgt.",
-          "Werkzeuge wie automatisierte Beweiser, Wahrheitstafel-Rechner oder generative KI-Systeme können solche Äquivalenzen heute schnell prüfen oder sogar selbstständig Umformungsschritte vorschlagen. Dabei lohnt sich Vorsicht: Ein Sprachmodell greift oft auf Äquivalenzregeln zurück, die über den im Kurs behandelten Regelsatz hinausgehen, und liefert damit zwar ein korrektes Endergebnis, aber einen Beweisweg, der sich nicht ohne Weiteres anhand der gelernten Axiome nachvollziehen und in einer Klausur so nicht verwenden lässt. Ein Wahrheitstafel-Rechner kann umgekehrt zuverlässig bestätigen, ob zwei Formeln überhaupt äquivalent sind — ersetzt aber nicht den Nachweis über die zulässigen Umformungsschritte, der in der Prüfung verlangt wird. Die sinnvolle Nutzung solcher Werkzeuge besteht deshalb darin, sie zur Kontrolle des Endergebnisses einzusetzen, den eigentlichen Beweis aber selbst mit den bekannten Äquivalenzen Schritt für Schritt zu führen.",
+        terms: [{ term: "Formalisierung", definition: "Übersetzung natürlichsprachlicher Aussagen in prädikatenlogische Formeln." }],
+        examples: [
+          "'Jeder Vogel kann fliegen, außer Pinguine' formalisiert man als ∀x: (Vogel(x) ∧ ¬Pinguin(x)) ⇒ Fliegt(x) — die Ausnahme wird als zusätzliche Bedingung in die Prämisse der Implikation aufgenommen.",
         ],
       },
     ],
   },
-
-  // ============ Kapitel 3 — Datenstrukturen I ============
+  // ==================== Kapitel 3 ====================
   {
-    id: "datenstrukturen-1",
+    id: "boolesche-algebra",
     number: 3,
-    title: "Datenstrukturen I: Abstrakte Datentypen, Listen, Keller und Schlangen",
+    title: "Boolesche Algebra",
     free: false,
     intro:
-      "Nachdem Kapitel 2 gezeigt hat, wie man Aussagen präzise formuliert, wenden wir uns nun der Frage zu, wie ein Computer Daten organisiert im Speicher ablegt. Dieses erste von drei Datenstrukturen-Kapiteln (fortgesetzt in Kapitel 6 und Kapitel 9) behandelt die Grundbausteine: abstrakte Datentypen, Listen, Keller und Schlangen.",
+      "Die Boolesche Algebra überträgt die Gesetze der Aussagenlogik in eine algebraische Struktur, die die Grundlage jeder digitalen Schaltung bildet. Dieses Kapitel behandelt ihre Axiome und die Vereinfachung boolescher Ausdrücke.",
     sections: [
       {
         id: "3-1",
-        heading: "3.1 Datenstrukturen und abstrakte Datentypen",
+        heading: "3.1 Boolesche Operationen und Gesetze",
         body: [
-          "Eine Datenstruktur ist eine Art, Daten im Speicher eines Computers zu organisieren und zu verwalten; sie bietet mindestens die drei Operationen Erzeugen, Einfügen und Zugriff auf gespeicherte Elemente. Man unterscheidet statische Datenstrukturen, deren Größe zur Laufzeit fest ist (z. B. das Array, mit direktem indexbasiertem Zugriff in konstanter Zeit, aber ohne Möglichkeit der Größenänderung), von dynamischen Datenstrukturen, die eine im Voraus unbekannte Anzahl miteinander verketteter Objekte speichern und deren Größe zur Laufzeit wächst oder schrumpft (z. B. die Liste).",
-          "Ein abstrakter Datentyp (ADT) beschreibt einen Datentyp allein über die auf ihm erlaubten Operationen und deren Verhalten, unabhängig von der konkreten Implementierung. Keller und Schlange (Abschnitte 3.3 und 3.4) sind klassische Beispiele für ADTs, die sowohl auf Basis eines Arrays als auch auf Basis einer verketteten Liste realisiert werden können, ohne dass sich ihr nach außen sichtbares Verhalten ändert.",
+          "Die Boolesche Algebra arbeitet mit den Werten {0,1} und den Operationen UND (·), ODER (+) und NICHT (¯). Es gelten Kommutativ-, Assoziativ- und Distributivgesetze sowie die booleschen De-Morgan-Regeln: (a·b)‾ = ā+b̄ und (a+b)‾ = ā·b̄.",
+          "Zusätzlich gelten Absorptionsgesetze a+(a·b) = a und a·(a+b) = a, die beim Vereinfachen boolescher Ausdrücke helfen, überflüssige Terme zu erkennen und zu eliminieren.",
         ],
-        terms: [
-          { term: "Statische Datenstruktur", definition: "Datenstruktur mit fester Größe, z. B. das Array; Größe kann zur Laufzeit nicht verändert werden." },
-          { term: "Abstrakter Datentyp (ADT)", definition: "Ein Datentyp, definiert allein über seine erlaubten Operationen, unabhängig von der konkreten Implementierung." },
+        formulas: ["(a·b)‾ = ā + b̄"],
+        formulasLatex: ["\\overline{a\\cdot b} = \\bar{a} + \\bar{b}"],
+        terms: [{ term: "Absorptionsgesetz", definition: "a+(a·b)=a bzw. a·(a+b)=a; erlaubt das Eliminieren überflüssiger Terme." }],
+        examples: [
+          "Der Ausdruck a·b + a·b̄ vereinfacht sich über das Distributivgesetz zu a·(b+b̄) = a·1 = a — ein häufiges Muster bei der Vereinfachung von Schaltfunktionen.",
         ],
       },
       {
         id: "3-2",
-        heading: "3.2 Einfach und doppelt verkettete Listen",
+        heading: "3.2 Schaltfunktionen und Karnaugh-Diagramme",
         body: [
-          "Eine Liste besteht aus Knoten, die jeweils ein Datenelement und einen Zeiger auf den Nachfolgeknoten speichern (bei einer doppelt verketteten Liste zusätzlich einen Zeiger auf den Vorgängerknoten). Ein Listenelement kennt zusätzlich den Anfangsknoten (head) und bei manchen Implementierungen auch den letzten Knoten (tail), um das Anfügen neuer Elemente effizient zu gestalten.",
-          "Das Einfügen eines neuen Knotens nach Position i erfordert bei einer einfach verketteten Liste, zunächst bis zum Vorgängerknoten zu laufen, dessen next-Zeiger auf den neuen Knoten zu setzen und den next-Zeiger des neuen Knotens auf den bisherigen Nachfolger zu setzen — wichtig ist dabei die richtige Reihenfolge dieser beiden Zuweisungen, da sonst der Verweis auf den ursprünglichen Nachfolger verloren geht. Eine doppelt verkettete Liste erlaubt zusätzlich das Rückwärtstraversieren und ermöglicht das Entfernen eines gegebenen Knotens in konstanter Zeit, da der Vorgänger direkt bekannt ist und nicht erst gesucht werden muss.",
+          "Eine Schaltfunktion bildet n boolesche Eingänge auf einen booleschen Ausgang ab und lässt sich als Wahrheitstafel, boolescher Ausdruck oder Schaltbild (aus UND-, ODER- und NICHT-Gattern) darstellen. Karnaugh-Diagramme ordnen die Wahrheitstafel so an, dass sich benachbarte Zellen jeweils nur in einer Variablen unterscheiden, wodurch sich minimale boolesche Ausdrücke grafisch ablesen lassen.",
+          "Das Ziel der Minimierung ist eine Schaltfunktion mit möglichst wenigen Gattern und Eingängen — dies reduziert Kosten, Energieverbrauch und Verzögerung realer Schaltkreise.",
         ],
-      },
-      {
-        id: "3-3",
-        heading: "3.3 Der Keller (Stack)",
-        body: [
-          "Ein Keller (Stack) ist eine Datenstruktur, die nach dem LIFO-Prinzip (Last In, First Out) funktioniert: Das zuletzt eingefügte Element wird als erstes wieder entnommen. Die beiden zentralen Operationen sind das Ablegen eines Elements auf dem Keller sowie das Entnehmen des zuletzt abgelegten Elements; zusätzlich kann geprüft werden, ob der Keller leer ist.",
-          "Ein Keller lässt sich sowohl mit einem Array (mit einem Zeiger auf das oberste belegte Element) als auch mit einer einfach verketteten Liste implementieren, bei der stets am Kopf eingefügt und entnommen wird.",
-        ],
-      },
-      {
-        id: "3-4",
-        heading: "3.4 Die Schlange (Queue)",
-        body: [
-          "Eine Schlange (Queue) funktioniert nach dem FIFO-Prinzip (First In, First Out): Das zuerst eingefügte Element wird auch zuerst wieder entnommen. Die zentralen Operationen sind das Anhängen eines Elements ans Ende der Schlange und das Entnehmen des vordersten Elements.",
-          "Eine effiziente Array-Implementierung nutzt ein zirkuläres Array: Zwei Indizes (Kopf und Ende) wandern bei jeder Operation zyklisch durch das Array, sodass der frei werdende Platz am Anfang wiederverwendet werden kann, ohne die restlichen Elemente verschieben zu müssen. Eine Schlange lässt sich außerdem allein mit zwei Kellern realisieren: Neue Elemente werden stets auf den ersten Keller gelegt; beim Entnehmen wird — falls der zweite Keller leer ist — der gesamte Inhalt des ersten Kellers auf den zweiten umgeschichtet, wodurch sich die Reihenfolge umkehrt und das älteste Element oben zu liegen kommt.",
+        terms: [{ term: "Karnaugh-Diagramm", definition: "Grafische Darstellung einer Wahrheitstafel zur systematischen Minimierung boolescher Ausdrücke." }],
+        examples: [
+          "Für eine Schaltfunktion mit drei Eingängen, die nur bei den Belegungen (1,1,0) und (1,1,1) wahr ist, lässt sich im Karnaugh-Diagramm ablesen, dass beide Zeilen zusammengefasst werden können zu a·b (unabhängig vom dritten Eingang c).",
         ],
       },
     ],
   },
-
-  // ============ Kapitel 4 — Prädikatenlogik ============
+  // ==================== Kapitel 4 ====================
   {
-    id: "praedikatenlogik",
+    id: "algorithmen-grundbegriffe",
     number: 4,
-    title: "Prädikatenlogik",
+    title: "Algorithmen: Grundbegriffe und Eigenschaften",
     free: false,
     intro:
-      "Die Aussagenlogik aus Kapitel 2 stößt an ihre Grenzen, sobald wir über Eigenschaften von Objekten, deren Beziehungen zueinander und Aussagen wie 'für alle x gilt...' sprechen wollen. Die Prädikatenlogik erweitert die Aussagenlogik um Variablen, Funktionen, Prädikate und Quantoren und liefert damit die Sprache für die formalen Beweise dieses und späterer Kapitel.",
+      "Bevor konkrete Algorithmen und Datenstrukturen behandelt werden, klärt dieses Kapitel, was einen Algorithmus überhaupt ausmacht und welche Eigenschaften ihn korrekt und nützlich machen.",
     sections: [
       {
         id: "4-1",
-        heading: "4.1 Terme, Formeln und Quantoren",
+        heading: "4.1 Was ist ein Algorithmus?",
         body: [
-          "Eine Basis B = (V, FZ, PZ) legt die Menge der Variablen V, der Funktionszeichen FZ und der Prädikatzeichen PZ fest. Terme werden induktiv aus Variablen, Konstanten und Funktionsanwendungen gebildet; Formeln entstehen aus Prädikatanwendungen auf Terme, den aussagenlogischen Junktoren sowie den Quantoren ∀ (Allquantor, 'für alle') und ∃ (Existenzquantor, 'es existiert').",
-          "Ein Vorkommen einer Variablen x heißt gebunden, wenn es im Wirkungsbereich eines Quantors ∀x oder ∃x liegt, und andernfalls frei. Eine Formel ohne freie Variablen heißt geschlossen; nur geschlossenen Formeln lässt sich (unabhängig von einer konkreten Belegung) ein Wahrheitswert zuordnen.",
+          "Ein Algorithmus ist eine endliche, eindeutige Handlungsvorschrift, die aus einer Eingabe in endlich vielen Schritten eine Ausgabe erzeugt. Zentrale Eigenschaften: Determiniertheit (bei gleicher Eingabe immer dieselbe Ausgabe), Terminierung (er hält nach endlich vielen Schritten an), und Effektivität (jeder Schritt ist mit endlichem Aufwand ausführbar).",
+          "Ein Algorithmus lässt sich auf verschiedenen Abstraktionsebenen beschreiben: in natürlicher Sprache, als Pseudocode, als Flussdiagramm oder in einer konkreten Programmiersprache — alle Darstellungen beschreiben dasselbe zugrundeliegende Verfahren.",
         ],
         terms: [
-          { term: "Freies Vorkommen", definition: "Ein Vorkommen einer Variablen, das nicht im Wirkungsbereich eines Quantors liegt, der genau diese Variable bindet." },
-          { term: "Geschlossene Formel", definition: "Eine Formel ohne freie Variablenvorkommen." },
+          { term: "Determiniertheit", definition: "Eigenschaft eines Algorithmus, bei gleicher Eingabe stets dieselbe Ausgabe zu liefern." },
+          { term: "Terminierung", definition: "Eigenschaft eines Algorithmus, nach endlich vielen Schritten anzuhalten." },
+        ],
+        examples: [
+          "Ein Kochrezept ist im Alltag anschaulich ein Algorithmus: endliche, eindeutige Schritte, die aus Zutaten (Eingabe) ein Gericht (Ausgabe) erzeugen — es terminiert, sobald das letzte Schritt ausgeführt ist.",
         ],
       },
       {
         id: "4-2",
-        heading: "4.2 Bereinigung, Pränexnormalform und Skolemform",
+        heading: "4.2 Terminierungsnachweis mit Invarianten",
         body: [
-          "Eine Formel heißt bereinigt, wenn jede Variable höchstens einmal quantifiziert wird und keine Variable sowohl frei als auch gebunden vorkommt — nötig, um Verwechslungen bei nachfolgenden Umformungen auszuschließen. Eine bereinigte Formel lässt sich in Pränexnormalform überführen, in der alle Quantoren an den Anfang der Formel gezogen werden und nur noch eine quantorenfreie Matrix folgt.",
-          "Die Skolemform ersetzt anschließend jede existenzquantifizierte Variable durch eine neue Funktion (Skolemfunktion), deren Argumente die vorausgehenden allquantifizierten Variablen sind (bzw. durch eine Skolemkonstante, falls keine Allquantoren vorausgehen). Die so entstehende Matrix lässt sich in Klauselform — einer Konjunktion von Disjunktionen von Literalen — darstellen und bildet die Grundlage für die Resolution (Abschnitt 4.4).",
+          "Um zu zeigen, dass eine Schleife terminiert, sucht man eine Terminierungsfunktion (oft eine Variante genannt): eine Größe, die bei jedem Schleifendurchlauf strikt kleiner wird und dabei stets nicht-negativ (bzw. nach unten beschränkt) bleibt. Da eine solche Größe nicht unendlich oft strikt fallen kann, muss die Schleife nach endlich vielen Durchläufen enden.",
+          "Eine Schleifeninvariante ist dagegen eine Aussage, die vor und nach jedem Schleifendurchlauf wahr bleibt und zusammen mit der Abbruchbedingung die Korrektheit des Ergebnisses beweist — Terminierung und Korrektheit sind zwei getrennte Beweisaufgaben.",
+        ],
+        terms: [
+          { term: "Terminierungsfunktion (Variante)", definition: "Größe, die bei jedem Schleifendurchlauf strikt abnimmt und nach unten beschränkt bleibt; garantiert Terminierung." },
+          { term: "Schleifeninvariante", definition: "Aussage, die vor und nach jedem Schleifendurchlauf gilt; Grundlage für Korrektheitsbeweise." },
+        ],
+        examples: [
+          "Bei einer Schleife, die einen Zähler i von n auf 0 herunterzählt, ist i selbst eine gültige Terminierungsfunktion: i nimmt bei jedem Durchlauf um 1 ab und bleibt ≥0, also muss die Schleife nach höchstens n Durchläufen enden.",
         ],
       },
       {
         id: "4-3",
-        heading: "4.3 Unifikation",
+        heading: "4.3 Rekursive Algorithmen",
         body: [
-          "Zwei Literale sind unifizierbar, wenn sich eine Substitution σ (eine Zuordnung von Variablen zu Termen) finden lässt, die beide Literale syntaktisch identisch macht. Eine solche Substitution heißt allgemeinster Unifikator (most general unifier, mgu), wenn sich jede andere unifizierende Substitution aus ihr durch weitere Substitution ableiten lässt.",
-          "Der Unifikationsalgorithmus vergleicht zwei Terme rekursiv Position für Position: Stimmen Funktionssymbole nicht überein, ist keine Unifikation möglich; trifft er auf eine Variable, wird sie (sofern sie nicht bereits im gegenüberliegenden Term vorkommt — sogenannter Occurs-Check) an den entsprechenden Term gebunden.",
+          "Ein rekursiver Algorithmus löst ein Problem, indem er es auf eine oder mehrere kleinere Instanzen desselben Problems zurückführt (Rekursionsschritt) und für eine minimale Instanz direkt eine Lösung angibt (Basisfall/Rekursionsanker). Ohne Basisfall oder ohne echte Verkleinerung der Probleminstanz terminiert die Rekursion nicht.",
+          "Viele Algorithmen lassen sich sowohl iterativ (mit Schleifen) als auch rekursiv formulieren; rekursive Formulierungen sind oft näher an der mathematischen Problemdefinition, können aber bei tiefer Rekursion höheren Speicherbedarf durch den Aufrufstapel (Call-Stack) verursachen.",
         ],
+        terms: [{ term: "Rekursionsanker (Basisfall)", definition: "Kleinste Probleminstanz, die direkt (ohne weiteren Rekursionsaufruf) gelöst wird." }],
         examples: [
-          "Für {p(f(x), y), p(y, f(z))} liefert σ = {x/z, y/f(z)} eine Unifikation: Beide Literale werden zu p(f(z), f(z)).",
-        ],
-      },
-      {
-        id: "4-4",
-        heading: "4.4 Resolution in der Prädikatenlogik",
-        body: [
-          "Die Grundresolution überträgt das aussagenlogische Resolutionsprinzip (Abschnitt 2.4) auf die Prädikatenlogik: Zwei Klauseln, die (nach passender Substitution mittels Unifikation) ein Literal L bzw. ¬L enthalten, werden zu einer Resolvente verschmolzen, in der L und ¬L entfernt sind. Lässt sich aus einer Klauselmenge auf diesem Weg die leere Klausel ableiten, ist die Menge unerfüllbar.",
-          "Ein klassisches Anwendungsbeispiel ist der Nachweis eines logischen Schlusses über zwei Prämissen: Aus 'Alle Fahrzeuge, die elektrisch angetrieben werden und autonom fahren können, sind Robotaxis' und 'Das Fahrzeug X wird elektrisch angetrieben und kann autonom fahren' folgt durch Instanziierung des Allquantors und anschließende Resolution (bzw. äquivalent durch den Modus Ponens) direkt 'Das Fahrzeug X ist ein Robotaxi'.",
+          "Die Fakultätsfunktion fak(n) lässt sich rekursiv definieren: fak(0)=1 (Basisfall), fak(n)=n·fak(n−1) für n>0 (Rekursionsschritt) — jeder Aufruf reduziert das Problem auf eine echt kleinere Instanz.",
         ],
       },
     ],
   },
-
-  // ============ Kapitel 5 — Entwurfsprinzipien und Testen von Algorithmen ============
+  // ==================== Kapitel 5 ====================
   {
-    id: "algorithmen-entwurf-test",
+    id: "entwurfsprinzipien-testen",
     number: 5,
     title: "Entwurfsprinzipien und Testen von Algorithmen",
     free: false,
     intro:
-      "Kapitel 1 hat die Eigenschaften eines Algorithmus eingeführt. Dieses Kapitel behandelt, wie man Algorithmen systematisch entwirft — und wie man nach der Implementierung prüft, ob sie tatsächlich korrekt arbeiten.",
+      "Einen Algorithmus zu entwerfen ist nur die halbe Aufgabe — er muss auch systematisch auf Korrektheit geprüft werden. Dieses Kapitel behandelt gängige Entwurfsstrategien und Testmethoden.",
     sections: [
       {
         id: "5-1",
-        heading: "5.1 Entwurfsprinzipien versus Entwurfstechniken",
+        heading: "5.1 Entwurfsstrategien: Divide-and-Conquer und Greedy",
         body: [
-          "Entwurfsprinzipien sind grundsätzliche Denkweisen, mit denen man sich einem Problem nähert — etwa die Idee, ein Problem systematisch durch Ausprobieren mit Zurücknehmen (Backtracking, Abschnitt 5.2) oder durch Zerlegung in gleichartige Teilprobleme (Divide & Conquer, Abschnitt 5.3) zu lösen. Entwurfstechniken sind demgegenüber konkretere, oft algorithmenklassen-spezifische Vorgehensweisen, etwa das gierige (greedy) Vorgehen, das wir bei Kruskal und Dijkstra in Kapitel 9 wiedersehen werden.",
-          "Die beiden wichtigsten Entwurfsprinzipien unterscheiden sich vor allem in der Richtung, in der sie ein Problem angehen: Backtracking sucht sich schrittweise voran und macht Schritte rückgängig, sobald ein Pfad sich als Sackgasse erweist. Divide & Conquer zerlegt das Ausgangsproblem zunächst top-down in kleinere Instanzen desselben Problems, löst diese (meist rekursiv) und setzt die Teillösungen anschließend wieder zusammen.",
+          "Divide-and-Conquer löst ein Problem, indem es in kleinere Teilprobleme derselben Art zerlegt wird, diese (oft rekursiv) gelöst werden, und die Teillösungen zu einer Gesamtlösung kombiniert werden (typisches Beispiel: Mergesort, siehe Kapitel 8). Greedy-Algorithmen treffen in jedem Schritt die lokal beste Entscheidung, ohne spätere Konsequenzen zu berücksichtigen — dies liefert nicht immer, aber bei geeigneter Problemstruktur eine global optimale Lösung.",
+          "Ob ein Greedy-Ansatz zulässig ist, hängt von der Problemstruktur ab: Besitzt das Problem die 'Greedy-Choice-Eigenschaft' (eine lokal optimale Wahl lässt sich immer zu einer global optimalen Lösung erweitern), liefert Greedy garantiert das Optimum — andernfalls kann Greedy beliebig weit vom Optimum entfernt liegen.",
+        ],
+        terms: [
+          { term: "Divide-and-Conquer", definition: "Entwurfsstrategie: Problem in Teilprobleme zerlegen, rekursiv lösen, Teillösungen kombinieren." },
+          { term: "Greedy-Algorithmus", definition: "Algorithmus, der in jedem Schritt die lokal beste Entscheidung trifft." },
+        ],
+        examples: [
+          "Beim Wechselgeldproblem mit Standardmünzsystemen (1,2,5,10,...) liefert die Greedy-Strategie ('immer die größte passende Münze nehmen') das Optimum; bei künstlichen Münzsystemen (z. B. {1,3,4}) für den Betrag 6 kann Greedy (4+1+1=3 Münzen) suboptimal gegenüber der optimalen Lösung (3+3=2 Münzen) sein.",
         ],
       },
       {
         id: "5-2",
-        heading: "5.2 Backtracking",
+        heading: "5.2 Testfallentwurf: Äquivalenzklassen und Grenzwertanalyse",
         body: [
-          "Backtracking geht davon aus, dass eine Lösung schrittweise aus einer Folge von Entscheidungen aufgebaut wird. Erweist sich eine bisher getroffene Wahl als unvereinbar mit einer gültigen Lösung, wird sie zurückgenommen (das Programm 'geht zurück') und die nächste Alternative an derselben Stelle probiert. Zentrale Annahme ist, dass sich der Suchraum als Baum von Entscheidungen darstellen lässt, in dem nicht erfolgversprechende Teilbäume frühzeitig abgeschnitten werden können.",
-          "Ein klassisches Beispiel für ein Backtracking-Verfahren ist die Tiefensuche in einem Baum oder Graphen (vertieft in Kapitel 6): Sie steigt entlang eines Pfades so weit wie möglich ab und kehrt erst um, wenn kein weiterer unbesuchter Kindknoten mehr existiert.",
+          "Da erschöpfendes Testen aller möglichen Eingaben praktisch unmöglich ist, teilt man den Eingaberaum in Äquivalenzklassen ein: Teilmengen von Eingaben, von denen man annimmt, dass sie den Algorithmus gleichartig testen. Aus jeder Klasse wird typischerweise nur ein repräsentativer Testfall gewählt.",
+          "Die Grenzwertanalyse ergänzt dies gezielt um Testfälle an den Rändern der Äquivalenzklassen (und knapp innerhalb/außerhalb), da Fehler in der Praxis überproportional häufig an solchen Grenzen auftreten (sogenannte 'Off-by-one'-Fehler).",
+        ],
+        terms: [
+          { term: "Äquivalenzklassenbildung", definition: "Aufteilung des Eingaberaums in Teilmengen, die als gleichartig für Testzwecke angenommen werden." },
+          { term: "Grenzwertanalyse", definition: "Gezielte Testfallauswahl an den Rändern von Äquivalenzklassen." },
+        ],
+        examples: [
+          "Testet man eine Funktion, die nur Eingaben zwischen 1 und 100 akzeptieren soll, wählt die Grenzwertanalyse gezielt die Testfälle 0, 1, 100 und 101 — genau an den kritischen Übergängen der Gültigkeitsgrenze.",
         ],
       },
       {
         id: "5-3",
-        heading: "5.3 Divide & Conquer",
+        heading: "5.3 Weiße-Box- und Schwarze-Box-Tests",
         body: [
-          "Divide & Conquer ('Teile und herrsche') zerlegt ein Problem der Größe n in mehrere kleinere Teilprobleme desselben Typs, löst diese rekursiv und setzt aus den Teillösungen die Gesamtlösung zusammen. Der Vorteil liegt oft in einer besseren asymptotischen Laufzeit: Statt ein Problem mit n Elementen in einem Schritt mit n-fachem Aufwand zu bearbeiten, kann eine geschickte Zerlegung den Aufwand pro Rekursionsebene deutlich senken.",
-          "Ein einfaches Beispiel ist die Potenzierung xⁿ: Statt x n-mal hintereinander zu multiplizieren (n Multiplikationen), lässt sich xⁿ = (x^⌊n/2⌋)² (mit einem zusätzlichen Faktor x bei ungeradem n) rekursiv berechnen — das senkt den Aufwand von linear vielen auf logarithmisch viele Multiplikationen. Wir werden Divide & Conquer in Kapitel 8 bei Quicksort in voller Ausprägung wiedersehen.",
+          "Beim Blackbox-Test wird der Algorithmus nur über seine Ein-/Ausgabe-Beziehung getestet, ohne Kenntnis der internen Implementierung — Testfälle werden aus der Spezifikation abgeleitet. Beim Whitebox-Test kennt man die interne Struktur und leitet Testfälle so ab, dass bestimmte Code-Pfade oder -Zweige tatsächlich durchlaufen werden (z. B. Zweigüberdeckung: jeder if/else-Zweig wird mindestens einmal ausgeführt).",
+          "Beide Testarten ergänzen sich: Blackbox-Tests prüfen, ob die Spezifikation korrekt umgesetzt wurde, Whitebox-Tests stellen sicher, dass auch selten ausgeführte Code-Pfade (z. B. Fehlerbehandlung) tatsächlich getestet werden.",
         ],
-      },
-      {
-        id: "5-4",
-        heading: "5.4 Verifikation, Test, Black-Box und White-Box",
-        body: [
-          "Verifikation ist der formale Nachweis, dass ein Algorithmus seine Spezifikation für alle zulässigen Eingaben erfüllt — sie erfordert keine Ausführung des Programms, sondern einen mathematischen Beweis. Ein Test führt das Programm dagegen tatsächlich mit ausgewählten, endlich vielen Eingaben aus und vergleicht das tatsächliche mit dem erwarteten Ergebnis. Ein Test kann damit die Anwesenheit von Fehlern nachweisen, niemals aber deren Abwesenheit beweisen, da der Eingaberaum bei nicht-trivialen Programmen praktisch nie vollständig abgedeckt werden kann.",
-          "Beim Black-Box-Test werden Testfälle allein aus der Spezifikation bzw. dem Ein-/Ausgabeverhalten abgeleitet, ohne die interne Struktur des Programms zu kennen — Vorteil: unabhängig von der Implementierung, Nachteil: interne Sonderfälle können übersehen werden. Beim White-Box-Test ist die Programmstruktur bekannt, sodass Testfälle gezielt so gewählt werden, dass z. B. jeder Zweig oder jeder Pfad mindestens einmal durchlaufen wird — Vorteil: strukturell begründete Abdeckung, Nachteil: hoher Aufwand und Abhängigkeit von der konkreten Implementierung. Bei großem Eingaberaum werden Testfälle sinnvollerweise über Äquivalenzklassen (Gruppen von Eingaben, die vermutlich gleich behandelt werden) und Grenzwertanalyse (Testfälle genau an den Rändern zulässiger Bereiche) ausgewählt, statt den Eingaberaum naiv zu durchprobieren.",
+        terms: [
+          { term: "Blackbox-Test", definition: "Test, der nur die Ein-/Ausgabe-Beziehung prüft, ohne die interne Implementierung zu kennen." },
+          { term: "Whitebox-Test", definition: "Test, der gezielt interne Code-Pfade auf Basis der bekannten Implementierung überdeckt." },
+        ],
+        examples: [
+          "Ein Blackbox-Test einer Sortierfunktion prüft nur, ob die Ausgabe für verschiedene Eingabelisten korrekt sortiert ist; ein Whitebox-Test stellt zusätzlich sicher, dass auch der Sonderfall einer bereits sortierten oder leeren Liste den entsprechenden Code-Zweig durchläuft.",
         ],
       },
     ],
   },
-
-  // ============ Kapitel 6 — Datenstrukturen II ============
+  // ==================== Kapitel 6 ====================
   {
-    id: "datenstrukturen-2",
+    id: "datenstrukturen-listen-keller-schlangen",
     number: 6,
-    title: "Datenstrukturen II: Graphen, Bäume und binäre Suchbäume",
+    title: "Datenstrukturen I: Abstrakte Datentypen, Listen, Keller und Schlangen",
     free: false,
     intro:
-      "Wir setzen die Datenstrukturen aus Kapitel 3 fort und wenden uns komplexeren, vernetzten Strukturen zu: Graphen und den aus ihnen abgeleiteten Bäumen. Diese bilden die Grundlage für die Wegsuchprobleme in Kapitel 9.",
+      "Datenstrukturen organisieren, wie Daten im Speicher abgelegt und zugänglich gemacht werden. Dieses Kapitel behandelt das Konzept des abstrakten Datentyps sowie die grundlegenden linearen Strukturen.",
     sections: [
       {
         id: "6-1",
-        heading: "6.1 Graphen: Grundbegriffe",
+        heading: "6.1 Abstrakte Datentypen",
         body: [
-          "Ein Graph G = (V, E) besteht aus einer Menge von Knoten V und einer Menge von Kanten E, die Knotenpaare verbinden. Bei einem gerichteten Graphen sind Kanten geordnete Paare (die Richtung ist relevant), bei einem ungerichteten Graphen ungeordnete Paare. Der Grad eines Knotens ist die Anzahl der an ihm anliegenden Kanten (bei gerichteten Graphen unterscheidet man Eingangs- und Ausgangsgrad); ein Weg ist eine Folge von Kanten, die aufeinanderfolgende Knoten verbindet, ein Zyklus ein Weg, der zu seinem Ausgangsknoten zurückkehrt.",
-          "Graphen lassen sich unter anderem als Adjazenzmatrix (eine n×n-Matrix, deren Eintrag (i,j) angibt, ob eine Kante von Knoten i zu Knoten j existiert) oder als Adjazenzliste (jeder Knoten verwaltet eine Liste seiner Nachbarn) darstellen. Bei einem ungerichteten Graphen ist die Adjazenzmatrix stets symmetrisch, bei einem gerichteten Graphen im Allgemeinen nicht. Ein Graph heißt zusammenhängend, wenn zwischen je zwei Knoten ein Weg existiert.",
+          "Ein abstrakter Datentyp (ADT) definiert eine Menge von Werten zusammen mit den auf ihnen erlaubten Operationen, unabhängig von der konkreten Implementierung. Diese Trennung von Schnittstelle und Implementierung erlaubt es, die interne Realisierung (z. B. Array vs. verkettete Liste) auszutauschen, ohne den Code zu verändern, der den ADT verwendet.",
+          "Diese Abstraktion ist ein zentrales Prinzip guten Software-Designs: Nutzer eines ADT müssen nur die Schnittstelle (welche Operationen mit welchem Verhalten existieren) kennen, nicht die konkrete Datenrepräsentation dahinter.",
         ],
-        figure: {
-          type: "graph-diagram",
-          caption: "Ein ungerichteter Graph mit 6 Knoten und 8 Kanten.",
-        },
+        terms: [{ term: "Abstrakter Datentyp (ADT)", definition: "Definition von Werten und erlaubten Operationen, unabhängig von der konkreten Implementierung." }],
+        examples: [
+          "Der ADT 'Menge' definiert Operationen wie Einfügen, Enthaltensein-Prüfen und Löschen — ob dahinter ein Array, eine Hashtabelle oder ein balancierter Baum implementiert ist, bleibt für den Nutzer der Menge unsichtbar.",
+        ],
       },
       {
         id: "6-2",
-        heading: "6.2 Tiefensuche und Breitensuche",
+        heading: "6.2 Listen: Array- und verkettete Implementierung",
         body: [
-          "Die Tiefensuche (Depth-First Search, DFS) besucht von einem Startknoten aus jeweils einen noch unbesuchten Nachbarn und steigt so weit wie möglich in die Tiefe ab, bevor sie zurückkehrt (Backtracking, Abschnitt 5.2) und die nächste Alternative probiert. Sie lässt sich rekursiv oder iterativ mit einem Keller implementieren.",
-          "Die Breitensuche (Breadth-First Search, BFS) besucht dagegen zunächst alle direkten Nachbarn des Startknotens, bevor sie zur nächsten Ebene übergeht — implementiert mit einer Schlange statt einem Keller. Während die Tiefensuche gut geeignet ist, um überhaupt einen Weg oder eine Zusammenhangskomponente zu finden, liefert die Breitensuche in einem ungewichteten Graphen automatisch den kürzesten Weg (gemessen in Anzahl Kanten) vom Startknoten zu jedem erreichten Knoten.",
+          "Eine Liste speichert Elemente in einer bestimmten Reihenfolge. Bei einer Array-basierten Implementierung ist der Zugriff auf ein beliebiges Element in konstanter Zeit O(1) möglich, aber das Einfügen/Löschen in der Mitte erfordert das Verschieben nachfolgender Elemente (O(n)). Bei einer verketteten Liste (jedes Element speichert einen Zeiger auf das nächste) ist Einfügen/Löschen an bekannter Position in O(1) möglich, aber der Zugriff auf ein beliebiges Element erfordert das sequentielle Durchlaufen (O(n)).",
+          "Die Wahl zwischen beiden Implementierungen hängt vom Nutzungsmuster ab: häufiger wahlfreier Zugriff spricht für Arrays, häufiges Einfügen/Löschen an beliebiger Stelle spricht für verkettete Listen.",
+        ],
+        terms: [{ term: "Verkettete Liste", definition: "Listenimplementierung, bei der jedes Element einen Zeiger auf das nächste Element speichert." }],
+        examples: [
+          "Fügt man wiederholt Elemente am Anfang einer Liste ein, ist eine verkettete Liste (O(1) pro Einfügung) einem Array (O(n) pro Einfügung, da alle Elemente verschoben werden müssen) deutlich überlegen.",
         ],
       },
       {
         id: "6-3",
-        heading: "6.3 Bäume und Wurzelgraphen",
+        heading: "6.3 Keller (Stack) und Schlange (Queue)",
         body: [
-          "Ein Baum ist ein zusammenhängender, azyklischer (ungerichteter) Graph. Ein Wurzelgraph ist ein gerichteter Graph mit einem ausgezeichneten Wurzelknoten, von dem aus jeder andere Knoten über einen gerichteten Weg erreichbar ist. Nicht jeder Wurzelgraph ist zugleich ein Baum: Erlaubt man, dass mehrere Wege von der Wurzel auf demselben Knoten zusammenlaufen (der Knoten also mehr als einen Vorgänger hat), entsteht ein gerichteter azyklischer Graph (DAG), der kein Baum mehr ist, weil in einem Baum jeder Knoten außer der Wurzel genau einen Vorgänger besitzt.",
-          "Für einen Baum sind Tiefe eines Knotens (Anzahl Kanten vom Wurzelknoten bis zu diesem Knoten), Höhe des Baumes (maximale Tiefe eines Knotens) und Ordnung (maximale Anzahl an Kindern je Knoten) zentrale Kenngrößen. Ein binärer Baum mit n Elementen hat im besten Fall (vollständig balanciert) eine minimale Höhe von ⌈log₂(n+1)⌉ − 1, im schlechtesten Fall (entartet zu einer linearen Kette) eine Höhe von n − 1.",
+          "Ein Keller (Stack) folgt dem LIFO-Prinzip (Last In, First Out): Nur das zuletzt eingefügte Element (oben) kann entnommen werden (push/pop, beide O(1) bei geeigneter Implementierung). Eine Schlange (Queue) folgt dagegen dem FIFO-Prinzip (First In, First Out): Elemente werden am Ende eingefügt (enqueue) und am Anfang entnommen (dequeue).",
+          "Beide Strukturen sind Spezialisierungen der allgemeinen Liste mit eingeschränkter Zugriffsreihenfolge — diese Einschränkung erlaubt gleichzeitig besonders effiziente Implementierungen und ist algorithmisch fundamental (z. B. Keller für Rekursion/Backtracking, Schlangen für Breitensuche).",
         ],
-      },
-      {
-        id: "6-4",
-        heading: "6.4 Binäre Suchbäume",
-        body: [
-          "Ein binärer Suchbaum ist ein binärer Baum mit einer zusätzlichen Ordnungseigenschaft: Für jeden Knoten gilt, dass alle Elemente im linken Teilbaum kleiner und alle Elemente im rechten Teilbaum größer sind als der Knoten selbst (bezüglich einer zugrunde liegenden Ordnungsrelation). Suchen, Einfügen und Löschen orientieren sich an dieser Eigenschaft: Beim Suchen wird in jedem Knoten verglichen und je nach Ergebnis links oder rechts weitergegangen; neue Elemente werden an der Stelle eingefügt, an der die Suche erfolglos endet.",
-          "Beim Löschen unterscheidet man drei Fälle: Ein Blatt kann direkt entfernt werden; ein Knoten mit genau einem Kind wird durch dieses Kind ersetzt; ein Knoten mit zwei Kindern wird durch seinen In-Order-Nachfolger (das kleinste Element im rechten Teilbaum) oder seinen In-Order-Vorgänger (das größte Element im linken Teilbaum) ersetzt, der anschließend an seiner ursprünglichen Stelle gelöscht wird. Bei der Traversierung unterscheidet man Pre-Order (Knoten, linker Teilbaum, rechter Teilbaum), Post-Order (linker Teilbaum, rechter Teilbaum, Knoten) und In-Order (linker Teilbaum, Knoten, rechter Teilbaum) — die In-Order-Traversierung liefert bei einem binären Suchbaum stets die Elemente in aufsteigend sortierter Reihenfolge.",
+        terms: [
+          { term: "Keller (Stack, LIFO)", definition: "Datenstruktur, bei der nur das zuletzt eingefügte Element entnommen werden kann." },
+          { term: "Schlange (Queue, FIFO)", definition: "Datenstruktur, bei der das zuerst eingefügte Element zuerst entnommen wird." },
         ],
-        formulas: ["Suchen/Einfügen/Löschen: O(h), h = Höhe des Baums — O(log₂n) balanciert, O(n) entartet"],
-        formulasLatex: ["O(h), \\quad h=O(\\log_2 n) \\ \\text{(balanciert)}, \\quad h=O(n) \\ \\text{(entartet, z. B. sortiert eingefügt)}"],
         examples: [
-          "Werden die Werte 1,2,3,4,5 in dieser (bereits sortierten) Reihenfolge eingefügt, entsteht ein vollständig entarteter Baum (jeder Knoten hat nur ein rechtes Kind) mit Höhe h=5=n — Suchen kostet dann O(n) statt der im balancierten Fall möglichen O(log₂n). Fügt man dieselben Werte dagegen in der Reihenfolge 3,1,4,2,5 ein, ergibt sich ein deutlich flacherer Baum.",
+          "Der Rückgängig-Button (Undo) einer Textverarbeitung nutzt typischerweise einen Keller: die zuletzt ausgeführte Aktion wird zuerst rückgängig gemacht. Eine Warteschlange am Bankschalter folgt dagegen dem FIFO-Prinzip einer Queue.",
         ],
-        figure: {
-          type: "binary-tree",
-          caption: "Ein binärer Suchbaum über dem Alphabet als Ordnungsrelation.",
-        },
       },
     ],
   },
-
-  // ============ Kapitel 7 — Boolesche Algebra ============
+  // ==================== Kapitel 7 ====================
   {
-    id: "boolesche-algebra",
+    id: "datenstrukturen-graphen-baeume",
     number: 7,
-    title: "Boolesche Algebra",
+    title: "Datenstrukturen II: Graphen, Bäume und binäre Suchbäume",
     free: false,
     intro:
-      "Die Aussagenlogik aus Kapitel 2 lässt sich algebraisch verallgemeinern: Die Boolesche Algebra abstrahiert von konkreten Wahrheitswerten und untersucht Strukturen, die denselben Gesetzen genügen — mit direkten Anwendungen von Schaltnetzen bis zur Datenbankabfrage.",
+      "Über lineare Strukturen hinaus benötigen viele Probleme hierarchische oder vernetzte Datenstrukturen. Dieses Kapitel führt Graphen und Bäume als zentrale nichtlineare Strukturen ein.",
     sections: [
       {
         id: "7-1",
-        heading: "7.1 Die Huntingtonschen Axiome",
+        heading: "7.1 Graphen: Grundbegriffe",
         body: [
-          "Eine Boolesche Algebra ist eine Menge M mit zwei zweistelligen Verknüpfungen · (Boolesches Produkt) und + (Boolesche Summe), einer einstelligen Verknüpfung ′ (Komplement) sowie zwei ausgezeichneten Elementen 0 und 1, die den Huntingtonschen Axiomen genügt: Kommutativität von · und +, Distributivität von · über + und von + über ·, Existenz neutraler Elemente (a·1 = a, a+0 = a) sowie Existenz von Komplementen (a·a′ = 0, a+a′ = 1) für jedes a ∈ M.",
-          "Aus diesen Axiomen lassen sich weitere Gesetze wie a·0 = 0 herleiten (durch Ausnutzen des neutralen Elements und der Distributivität), ohne dass sie zusätzlich gefordert werden müssen. Wichtig ist, dass · und + hier reine algebraische Symbole sind und nicht mit der arithmetischen Multiplikation bzw. Addition verwechselt werden dürfen.",
+          "Ein Graph G=(V,E) besteht aus einer Knotenmenge V und einer Kantenmenge E⊆V×V. Bei einem ungerichteten Graphen sind Kanten ungeordnete Paare (die Kante {u,v} verbindet u und v symmetrisch), bei einem gerichteten Graphen sind Kanten geordnete Paare (u,v) mit einer Richtung von u nach v. Der Grad eines Knotens gibt die Anzahl der mit ihm verbundenen Kanten an.",
+          "Graphen lassen sich als Adjazenzmatrix (n×n-Matrix, Eintrag 1 falls Kante vorhanden) oder als Adjazenzliste (jeder Knoten speichert eine Liste seiner Nachbarn) implementieren. Adjazenzlisten sind bei dünn besetzten Graphen (wenige Kanten relativ zu Knoten) speichereffizienter.",
+        ],
+        terms: [
+          { term: "Adjazenzmatrix", definition: "n×n-Matrix zur Repräsentation eines Graphen; Eintrag zeigt Vorhandensein einer Kante an." },
+          { term: "Adjazenzliste", definition: "Speicherung eines Graphen, bei der jeder Knoten eine Liste seiner Nachbarn führt." },
+        ],
+        examples: [
+          "Ein soziales Netzwerk mit 1 Million Nutzern, aber im Schnitt nur 200 Verbindungen pro Nutzer, wird effizienter als Adjazenzliste (200 Millionen Einträge) statt als Adjazenzmatrix (1 Billion Einträge) gespeichert.",
         ],
       },
       {
         id: "7-2",
-        heading: "7.2 Das Dualitätsprinzip",
+        heading: "7.2 Bäume als spezielle Graphen",
         body: [
-          "Das Dualitätsprinzip besagt: Vertauscht man in einer gültigen Aussage über eine Boolesche Algebra durchgängig · mit + und 0 mit 1, erhält man wieder eine gültige Aussage — die duale Aussage. Der Grund liegt darin, dass die Huntingtonschen Axiome selbst paarweise dual zueinander formuliert sind.",
-          "Aus dem bewiesenen Gesetz a·0 = 0 folgt so unmittelbar, ohne erneuten Beweis, die duale Aussage a+1 = 1.",
+          "Ein Baum ist ein zusammenhängender, kreisfreier ungerichteter Graph. Ein Baum mit n Knoten besitzt stets genau n−1 Kanten. Wählt man einen Knoten als Wurzel aus, entsteht ein gewurzelter Baum mit Eltern-Kind-Beziehungen; Knoten ohne Kinder heißen Blätter.",
+          "Die Höhe eines Baumes (die Länge des längsten Pfads von der Wurzel zu einem Blatt) bestimmt maßgeblich die Effizienz vieler Algorithmen auf Bäumen — je flacher (balancierter) der Baum, desto schneller viele Operationen.",
         ],
-        formulas: ["a · 0 = 0", "a + 1 = 1 (dual)"],
-        formulasLatex: ["a \\cdot 0 = 0", "a + 1 = 1 \\quad \\text{(dual)}"],
+        formulas: ["Kantenanzahl eines Baumes = n − 1"],
+        formulasLatex: ["|E| = n - 1"],
+        terms: [{ term: "Gewurzelter Baum", definition: "Baum mit ausgezeichnetem Wurzelknoten und daraus abgeleiteten Eltern-Kind-Beziehungen." }],
+        examples: [
+          "Ein Dateisystem lässt sich als gewurzelter Baum modellieren: das Wurzelverzeichnis ist die Wurzel, Unterordner sind innere Knoten, Dateien sind Blätter.",
+        ],
       },
       {
         id: "7-3",
-        heading: "7.3 Abgeleitete Gesetze und Bezug zur Aussagenlogik",
+        heading: "7.3 Binäre Suchbäume",
         body: [
-          "Aus den Axiomen lassen sich weitere nützliche Gesetze herleiten, etwa (a·b)·(a′+b′) = 0: Durch Distributivität wird die linke Seite zu a·b·a′ + a·b·b′, und da a·a′ = 0 sowie b·b′ = 0 gilt, verschwinden beide Summanden. Ähnlich lässt sich (a′·b′)+(a+b) = 1 durch Anwendung des Dualitätsprinzips auf das erste Ergebnis zeigen, ohne die Rechnung erneut komplett durchzuführen.",
-          "Die Boolesche Algebra mit M = {0,1} entspricht genau der Aussagenlogik aus Kapitel 2: · entspricht ∧, + entspricht ∨, ′ entspricht ¬. Diese Übereinstimmung ist kein Zufall, sondern der Grund, warum sich Schaltungen digitaler Systeme (die letztlich mit den zwei Zuständen 0 und 1 arbeiten) mit denselben Gesetzen beschreiben lassen wie aussagenlogische Formeln.",
+          "Ein binärer Suchbaum ist ein Binärbaum (jeder Knoten hat höchstens zwei Kinder), bei dem für jeden Knoten gilt: alle Werte im linken Teilbaum sind kleiner, alle Werte im rechten Teilbaum sind größer als der Knotenwert. Diese Ordnungseigenschaft erlaubt Suchen, Einfügen und Löschen in O(h), wobei h die Höhe des Baumes ist.",
+          "Im ungünstigsten Fall (z. B. Einfügen bereits sortierter Werte) entartet ein unbalancierter binärer Suchbaum zu einer Liste mit Höhe h=n, wodurch Operationen auf O(n) verschlechtern. Balancierte Suchbäume (z. B. AVL-Bäume, Rot-Schwarz-Bäume) garantieren dagegen h=O(log n) durch aktive Ausgleichsoperationen bei jeder Änderung.",
+        ],
+        terms: [{ term: "Binärer Suchbaum", definition: "Binärbaum mit Ordnungseigenschaft: linker Teilbaum kleiner, rechter Teilbaum größer als der Knoten." }],
+        examples: [
+          "Fügt man die Werte 1,2,3,4,5 in dieser Reihenfolge in einen (unbalancierten) binären Suchbaum ein, entsteht eine reine 'Rechtskette' mit Höhe 5 — die Suche nach dem Wert 5 benötigt dann 5 statt der bei Balance möglichen ~3 Schritte (log₂5≈2,3).",
         ],
       },
     ],
   },
-
-  // ============ Kapitel 8 — Sortierverfahren ============
+  // ==================== Kapitel 8 ====================
   {
     id: "sortierverfahren",
     number: 8,
     title: "Sortierverfahren",
     free: false,
     intro:
-      "Mit den Entwurfsprinzipien aus Kapitel 5 und den Grundstrukturen aus Kapitel 3 ausgestattet, betrachten wir nun eines der klassischen Grundprobleme der Informatik: das Sortieren einer Folge von Elementen. Die genaue Laufzeit der hier vorgestellten Verfahren quantifizieren wir formal in Kapitel 10.",
+      "Sortieren ist eines der am häufigsten untersuchten algorithmischen Grundprobleme. Dieses Kapitel behandelt mehrere klassische Sortierverfahren mit unterschiedlichen Laufzeit- und Speichereigenschaften.",
     sections: [
       {
         id: "8-1",
-        heading: "8.1 Sortieren durch direktes Einfügen (Insertion Sort)",
+        heading: "8.1 Einfache Sortierverfahren: Insertion Sort und Selection Sort",
         body: [
-          "Insertion Sort arbeitet den Bereich zwischen dem zweiten und letzten Element schrittweise ab: In Schritt i ist der Teilbereich bis Position i−1 bereits sortiert, und das Element an Position i wird an der richtigen Stelle innerhalb dieses bereits sortierten Teilbereichs eingefügt, indem größere Elemente jeweils eine Position nach rechts verschoben werden.",
-          "Da im schlechtesten Fall (absteigend sortierte Eingabe) für jedes der n Elemente bis zu n Vergleiche und Verschiebungen nötig sind, liegt die Laufzeit bei O(n²) — Insertion Sort ist bei kleinen oder bereits fast sortierten Folgen jedoch effizient und wird deshalb oft als Teilverfahren in Kombination mit anderen Sortierverfahren eingesetzt.",
+          "Insertion Sort baut die sortierte Ausgabe schrittweise auf, indem es jedes Element an der richtigen Stelle in den bereits sortierten Teil der Liste einfügt — effizient bei bereits fast sortierten Listen (bestenfalls O(n)), im Mittel und schlechtesten Fall O(n²). Selection Sort sucht in jedem Durchlauf das kleinste (verbleibende) Element und tauscht es an die richtige Position — stets O(n²), unabhängig von der Vorsortierung, aber mit minimaler Anzahl an Vertauschungen.",
+          "Beide Verfahren benötigen nur konstanten zusätzlichen Speicherplatz (In-Place-Sortierung) und sind für kleine oder fast sortierte Datenmengen praktisch durchaus konkurrenzfähig, trotz ihrer quadratischen Worst-Case-Laufzeit.",
         ],
-        formulas: ["Tmax(n) = O(n²), Tmin(n) = O(n) (bereits sortierte Eingabe)"],
-        formulasLatex: ["T_{\\max}(n) = O(n^2), \\quad T_{\\min}(n) = O(n)"],
+        terms: [{ term: "In-Place-Sortierung", definition: "Sortierverfahren, das nur konstanten zusätzlichen Speicherplatz benötigt." }],
         examples: [
-          "Für die Folge (9, 4, 6, 2, 8) wird zunächst 4 vor 9 einsortiert (4, 9, 6, 2, 8), dann 6 zwischen 4 und 9 (4, 6, 9, 2, 8), dann 2 an den Anfang (2, 4, 6, 9, 8) und schließlich 8 zwischen 6 und 9 (2, 4, 6, 8, 9).",
+          "Bei der fast sortierten Liste [1,2,4,3,5] benötigt Insertion Sort nur einen einzigen Vertauschungsschritt (4 und 3 tauschen), während Selection Sort unabhängig von der Vorsortierung immer alle Positionen durchsucht.",
         ],
       },
       {
         id: "8-2",
-        heading: "8.2 Quicksort",
+        heading: "8.2 Mergesort",
         body: [
-          "Quicksort ist ein Divide-&-Conquer-Verfahren (Abschnitt 5.3): Ein Pivotelement wird ausgewählt, und die restlichen Elemente werden so umsortiert (partitioniert), dass alle kleineren Elemente links und alle größeren Elemente rechts vom Pivot stehen. Anschließend wird Quicksort rekursiv auf beide entstandenen Teilfolgen angewendet, bis die Teilfolgen höchstens ein Element enthalten.",
-          "Die Laufzeit hängt stark von der Wahl des Pivots ab: Im ungünstigsten Fall (z. B. bereits sortierte Eingabe bei Wahl des jeweils ersten Elements als Pivot) entstehen völlig unausgeglichene Partitionen, und die Laufzeit liegt bei Tmax = O(n²). Im Durchschnitt teilt das Pivotelement die Folge jedoch einigermaßen ausgeglichen, was zu Tavg = O(n log₂n) führt — deshalb ist Quicksort trotz seines quadratischen Worst-Case in der Praxis meist eines der schnellsten Sortierverfahren.",
+          "Mergesort ist ein Divide-and-Conquer-Verfahren: Die Liste wird rekursiv in zwei Hälften geteilt, bis Teillisten der Länge 1 entstehen (per Definition sortiert), und anschließend werden je zwei sortierte Teillisten in linearer Zeit zu einer sortierten Liste verschmolzen (Merge-Schritt). Die Laufzeit beträgt in jedem Fall (bestenfalls, mittel, schlechtestenfalls) O(n log n).",
+          "Mergesort ist stabil (die relative Reihenfolge gleicher Elemente bleibt erhalten), benötigt aber zusätzlichen Speicherplatz O(n) für den Merge-Schritt — ein klassischer Zeit-gegen-Speicher-Kompromiss gegenüber In-Place-Verfahren wie Quicksort.",
         ],
-        formulas: ["Tavg(n) = O(n·log₂n), Tmax(n) = O(n²)"],
-        formulasLatex: ["T_{\\text{avg}}(n) = O(n\\log_2 n), \\quad T_{\\max}(n) = O(n^2)"],
+        formulas: ["T(n) = 2T(n/2) + O(n) ⇒ T(n) = O(n log n)"],
+        formulasLatex: ["T(n) = 2T(n/2) + O(n) \\;\\Rightarrow\\; T(n) = O(n\\log n)"],
+        terms: [{ term: "Stabiles Sortierverfahren", definition: "Sortierverfahren, das die relative Reihenfolge gleicher Elemente unverändert lässt." }],
         examples: [
-          "Für (6, 2, 8, 5, 1, 9) mit Pivot = erstes Element (6): Partitionierung liefert (2, 5, 1, 6, 8, 9) — alle Elemente < 6 links, alle > 6 rechts vom nun an seiner Endposition stehenden Pivot. Quicksort wird anschließend rekursiv auf (2,5,1) und (8,9) angewendet.",
+          "Beim Mergen der sortierten Teillisten [2,5,8] und [1,3,9] vergleicht man jeweils die vordersten Elemente beider Listen und übernimmt das kleinere: Ergebnis [1,2,3,5,8,9] nach 5 Vergleichen, in linearer Zeit zur Gesamtlänge.",
         ],
       },
       {
         id: "8-3",
-        heading: "8.3 Heapsort",
+        heading: "8.3 Quicksort",
         body: [
-          "Ein (Max-)Heap ist ein binärer Baum (in Array-Form gespeichert), in dem jeder Elternknoten größer oder gleich seinen Kindknoten ist — insbesondere steht das größte Element stets an der Wurzel. Beim 'Versickern' (sift-down) wird ein Knoten, der die Heap-Eigenschaft verletzt, so lange mit seinem größeren Kind vertauscht, bis die Eigenschaft lokal wiederhergestellt ist.",
-          "Heapsort baut zunächst durch wiederholtes Versickern (von der Mitte des Arrays rückwärts bis zum Anfang) einen initialen Heap auf und tauscht anschließend wiederholt das Wurzelelement (das jeweils größte verbleibende Element) mit dem letzten Element des noch unsortierten Bereichs, verkleinert den Heap um eins und stellt die Heap-Eigenschaft durch erneutes Versickern wieder her. Da sowohl der Aufbau als auch das Sortieren jeweils O(n log₂n) Zeit benötigen, gilt Tmax = Tavg = O(n log₂n) — dies ist zugleich die theoretische untere Schranke für vergleichsbasierte Sortierverfahren, Heapsort ist also asymptotisch optimal. Eine praxisrelevante Verbesserung ist BottomUp-Heapsort, das die Anzahl benötigter Vergleiche gegenüber dem Standardverfahren etwa halbiert.",
+          "Quicksort wählt ein Pivot-Element, partitioniert die Liste in Elemente kleiner und größer als das Pivot, und sortiert beide Partitionen rekursiv. Im Durchschnitt (bei guter Pivot-Wahl) beträgt die Laufzeit O(n log n); im ungünstigsten Fall (z. B. Pivot ist stets das kleinste/größte Element, etwa bei bereits sortierten Listen und naiver Pivot-Wahl) verschlechtert sie sich auf O(n²).",
+          "Anders als Mergesort arbeitet Quicksort In-Place (kein wesentlicher zusätzlicher Speicherbedarf) — in der Praxis ist Quicksort deshalb bei zufälligen Daten häufig schneller als Mergesort, trotz der schlechteren Worst-Case-Garantie.",
         ],
-        formulas: ["Tmax(n) = Tavg(n) = O(n·log₂n)"],
-        formulasLatex: ["T_{\\max}(n) = T_{\\text{avg}}(n) = O(n\\log_2 n)"],
+        formulas: ["T_mittel(n) = O(n log n), T_worst(n) = O(n²)"],
+        formulasLatex: ["T_{\\text{mittel}}(n) = O(n\\log n),\\quad T_{\\text{worst}}(n) = O(n^2)"],
+        terms: [{ term: "Pivot-Element", definition: "Vergleichselement in Quicksort, das die Liste in kleinere/größere Teile partitioniert." }],
         examples: [
-          "Array (3, 9, 2, 7, 5): Aufbau des Max-Heaps liefert (9, 7, 2, 3, 5) (9 an der Wurzel). Erster Schritt: Wurzel 9 mit letztem Element 5 tauschen → (5,7,2,3,9), Heap-Bereich verkleinert auf 4 Elemente, Versickern von 5 liefert (7,5,2,3,9) — 9 steht bereits sortiert am Ende.",
+          "Wählt man bei der bereits absteigend sortierten Liste [9,8,7,6,5] stets das erste Element als Pivot, entsteht bei jedem Partitionierungsschritt eine leere und eine um 1 kleinere Partition — der ungünstigste Fall mit O(n²) Laufzeit.",
         ],
       },
     ],
   },
-
-  // ============ Kapitel 9 — Datenstrukturen III ============
+  // ==================== Kapitel 9 ====================
   {
-    id: "datenstrukturen-3",
+    id: "kuerzeste-wege-spannbaeume",
     number: 9,
     title: "Datenstrukturen III: Kürzeste Wege und minimale Spannbäume",
     free: false,
     intro:
-      "Wir kehren zu den Graphen aus Kapitel 6 zurück und behandeln zwei ihrer wichtigsten algorithmischen Fragestellungen: die Suche nach kürzesten Wegen und nach kostengünstigsten Verbindungsstrukturen.",
+      "Graphalgorithmen lösen praktisch bedeutsame Probleme wie Routenplanung und Netzwerkdesign. Dieses Kapitel behandelt die klassischen Algorithmen zur Bestimmung kürzester Wege und minimaler Spannbäume.",
     sections: [
       {
         id: "9-1",
-        heading: "9.1 Eulersche und Hamiltonsche Kreise",
+        heading: "9.1 Breiten- und Tiefensuche",
         body: [
-          "Ein Eulerscher Weg durchläuft jede Kante eines Graphen genau einmal; ein Eulerscher Kreis ist ein solcher Weg, der zum Ausgangsknoten zurückkehrt. Ein Eulerscher Kreis existiert in einem zusammenhängenden Graphen genau dann, wenn jeder Knoten geraden Grad hat — dieses Kriterium löst historisch das Königsberger Brückenproblem, das als Ursprung der Graphentheorie gilt.",
-          "Ein Hamiltonscher Kreis durchläuft dagegen jeden Knoten (statt jeder Kante) genau einmal. Anders als beim Eulerschen Kreis ist kein einfaches, effizient prüfbares Kriterium für seine Existenz bekannt: Der naive Algorithmus muss im schlechtesten Fall alle m! Permutationen der Knoten durchprobieren. Bis heute ist unbekannt, ob ein wesentlich schnelleres (polynomielles) Verfahren existiert — die Frage ist Teil des P-versus-NP-Problems, für dessen Lösung das Clay Mathematics Institute eines von sieben Millennium-Preisproblemen mit 1 Million US-Dollar ausgelobt hat.",
+          "Die Breitensuche (BFS) durchläuft einen Graphen ebenenweise ausgehend von einem Startknoten und findet dabei in ungewichteten Graphen den kürzesten Weg (gemessen in Kantenanzahl) zu jedem erreichbaren Knoten. Die Tiefensuche (DFS) verfolgt dagegen jeden Pfad so weit wie möglich, bevor sie zurückgeht (Backtracking), und eignet sich u. a. zur Erkennung von Zusammenhangskomponenten und Zyklen.",
+          "Beide Verfahren besitzen eine Laufzeit von O(|V|+|E|) bei Adjazenzlisten-Darstellung, unterscheiden sich aber in der verwendeten Hilfsstruktur: BFS nutzt eine Schlange (FIFO), DFS nutzt einen Keller (LIFO) bzw. Rekursion.",
+        ],
+        terms: [
+          { term: "Breitensuche (BFS)", definition: "Graphdurchlauf ebenenweise vom Startknoten; findet kürzeste Wege in ungewichteten Graphen." },
+          { term: "Tiefensuche (DFS)", definition: "Graphdurchlauf, der jeden Pfad maximal verfolgt, bevor er zurückgeht." },
+        ],
+        examples: [
+          "Um in einem sozialen Netzwerk den kürzesten Bekanntschaftspfad zwischen zwei Personen zu finden (gemessen in Anzahl der Zwischenpersonen), ist BFS das geeignete Verfahren, da es garantiert den kürzesten Pfad zuerst findet.",
         ],
       },
       {
         id: "9-2",
-        heading: "9.2 Kürzeste Wege: der Algorithmus von Dijkstra",
+        heading: "9.2 Der Dijkstra-Algorithmus",
         body: [
-          "Der Algorithmus von Dijkstra (1959) bestimmt in einem gerichteten, kantengewichteten Graphen die kürzesten Wege von einem Startknoten zu allen anderen Knoten. Er arbeitet greedy: In jedem Schritt wird der noch nicht endgültig bearbeitete Knoten mit der kleinsten bekannten Distanz zum Startknoten ausgewählt, als endgültig markiert, und die Distanzen seiner Nachbarn werden aktualisiert, falls der Weg über den neu markierten Knoten kürzer ist.",
-          "Der Algorithmus setzt voraus, dass alle Kantengewichte nicht-negativ sind — bei negativen Gewichten kann ein bereits als endgültig markierter Knoten fälschlich zu kurz eingeschätzt werden. Die Laufzeit liegt bei O(n²) mit einer einfachen array-basierten Umsetzung bzw. bei O((|E|+n)·log n) mit einer heap-basierten Prioritätswarteschlange. Der konkrete kürzeste Weg (nicht nur seine Länge) lässt sich rekonstruieren, indem zusätzlich zu jeder Distanz der jeweilige Vorgängerknoten mitgeführt wird.",
+          "Der Dijkstra-Algorithmus berechnet kürzeste Wege von einem Startknoten zu allen anderen Knoten in einem Graphen mit nichtnegativen Kantengewichten. Er hält für jeden Knoten eine vorläufige Distanzschätzung, wählt in jedem Schritt greedy den noch nicht endgültig bestimmten Knoten mit kleinster vorläufiger Distanz, und aktualisiert (relaxiert) die Distanzen seiner Nachbarn.",
+          "Die Korrektheit von Dijkstra beruht entscheidend auf der Nichtnegativität der Kantengewichte: Bei negativen Gewichten kann ein bereits als 'endgültig' markierter Knoten später doch noch über einen anderen Pfad günstiger erreichbar sein, wodurch der Algorithmus fehlerhafte Ergebnisse liefern würde.",
         ],
-        formulas: ["O(n²) (array-basiert)  |  O((|E|+n)·log n) (heap-basiert)"],
-        formulasLatex: ["O(n^2) \\ \\text{(array-basiert)} \\qquad O\\big((|E|+n)\\log n\\big) \\ \\text{(heap-basiert)}"],
+        terms: [{ term: "Dijkstra-Algorithmus", definition: "Greedy-Algorithmus zur Berechnung kürzester Wege in Graphen mit nichtnegativen Kantengewichten." }],
         examples: [
-          "Graph mit Knoten A(Start),B,C,D und Kanten A–B(4), A–C(1), C–B(1), B–D(1), C–D(5). Dijkstra markiert zuerst A (Distanz 0), dann C (1, über A), dann B (2, über C statt direkt über A mit 4), dann D (3, über B) — kürzester Weg A→D hat Länge 3 über A-C-B-D, nicht 5 über A-C-D.",
+          "In einem Straßennetz mit Fahrzeiten als Kantengewichten berechnet Dijkstra ausgehend vom Startpunkt die schnellste Route zu jedem anderen Ort — er versagt aber, sobald 'negative Fahrzeiten' (z. B. modellierte Belohnungen) im Graphen vorkommen.",
         ],
       },
       {
         id: "9-3",
-        heading: "9.3 Der Algorithmus von Bellman-Ford",
+        heading: "9.3 Minimale Spannbäume: Kruskal und Prim",
         body: [
-          "Der Algorithmus von Bellman-Ford löst dasselbe Problem wie Dijkstra, funktioniert aber auch bei negativen Kantengewichten: Er iteriert |V|−1-mal über alle Kanten und aktualisiert (relaxiert) dabei jede Distanzschätzung, sofern ein kürzerer Weg gefunden wird. Da nach |V|−1 Iterationen jeder kürzeste Weg (der aus höchstens |V|−1 Kanten besteht) korrekt berechnet ist, terminiert das Verfahren mit dem richtigen Ergebnis.",
-          "Enthält der Graph einen vom Startknoten aus erreichbaren negativen Zyklus, existiert kein kürzester Weg (er ließe sich beliebig weiter verkürzen), und der Algorithmus terminiert nicht mit einem korrekten endlichen Ergebnis — dies lässt sich durch eine zusätzliche Kontrolliteration erkennen. Die Laufzeit liegt bei O(|E|·|V|) und damit typischerweise deutlich höher als bei Dijkstra, weshalb Bellman-Ford nur eingesetzt wird, wenn negative Kantengewichte tatsächlich vorkommen können.",
+          "Ein Spannbaum eines zusammenhängenden Graphen ist ein Teilgraph, der alle Knoten mit der minimal möglichen Anzahl an Kanten (n−1) verbindet, ohne Kreise. Ein minimaler Spannbaum minimiert zusätzlich die Summe der Kantengewichte. Der Kruskal-Algorithmus fügt Kanten in aufsteigender Gewichtsreihenfolge hinzu, sofern sie keinen Kreis erzeugen; der Prim-Algorithmus wächst stattdessen einen einzigen zusammenhängenden Baum, indem er in jedem Schritt die günstigste Kante zu einem neuen, noch nicht enthaltenen Knoten hinzufügt.",
+          "Beide Algorithmen sind Greedy-Verfahren und liefern (anders als beim allgemeinen Wechselgeldproblem aus Kapitel 5) nachweislich immer die global optimale Lösung — eine direkte Folge der sogenannten Schnitteigenschaft minimaler Spannbäume.",
         ],
-        formulas: ["O(|E|·|V|), |V|−1 Iterationen über alle Kanten"],
-        formulasLatex: ["O(|E|\\cdot|V|), \\quad |V|-1 \\text{ Iterationen}"],
+        terms: [{ term: "Minimaler Spannbaum", definition: "Spannbaum mit minimaler Summe der Kantengewichte." }],
         examples: [
-          "Graph mit Knoten A(Start),B,C und Kanten A–B(4), A–C(5), B–C(−2). Nach Iteration 1: dist(B)=4, dist(C)=min(5, 4+(−2))=2. Da |V|−1=2 Iterationen für 3 Knoten genügen und sich in Iteration 2 nichts mehr ändert, ist der kürzeste Weg A→C über B (Länge 2) korrekt erkannt — trotz der negativen Kante B–C, an der Dijkstra scheitern würde.",
-        ],
-      },
-      {
-        id: "9-4",
-        heading: "9.4 Minimale Spannbäume: Kruskal und Prim",
-        body: [
-          "Ein minimaler Spannbaum eines zusammenhängenden, kantengewichteten, ungerichteten Graphen ist ein azyklischer Teilgraph (also ein Baum), der alle Knoten verbindet und unter allen solchen Teilgraphen die minimale Summe der Kantengewichte besitzt — etwa gesucht, wenn ein Leitungsnetz mit minimalen Baukosten alle Standorte verbinden soll.",
-          "Der Algorithmus von Kruskal (1956) sortiert alle Kanten aufsteigend nach Gewicht und fügt sie in dieser Reihenfolge zum Spannbaum hinzu, sofern sie keinen Zyklus mit den bereits gewählten Kanten bilden würden; er endet, sobald |V|−1 Kanten gewählt wurden. Die Laufzeit liegt bei O(|E|·log|E|), dominiert vom Sortieren der Kanten. Der Algorithmus von Prim wählt stattdessen ausgehend von einem einzelnen Startknoten in jedem Schritt die billigste Kante, die den bisher aufgebauten Teilbaum um einen neuen Knoten erweitert; seine Laufzeit liegt bei O(|E|+|V|·log|V|) und ist damit bei sehr dichten Graphen (|E| ≫ |V|) günstiger als Kruskal.",
-        ],
-        formulas: ["Kruskal: O(|E|·log|E|)", "Prim: O(|E| + |V|·log|V|)"],
-        formulasLatex: ["\\text{Kruskal: } O(|E|\\log|E|) \\qquad \\text{Prim: } O(|E|+|V|\\log|V|)"],
-        examples: [
-          "Graph mit Knoten A,B,C,D und Kanten A–B(1), B–C(2), C–D(3), A–D(4), A–C(5). Kruskal wählt aufsteigend: A–B(1), B–C(2), C–D(3) — nach 3=|V|−1 Kanten fertig, Gesamtgewicht 6 (A–D und A–C würden Zyklen schließen und werden übersprungen).",
+          "Beim Verlegen von Glasfaserkabeln zwischen mehreren Städten mit bekannten Verlegungskosten pro Verbindung liefert ein minimaler Spannbaum die kostengünstigste Verkabelung, die alle Städte verbindet.",
         ],
       },
     ],
   },
-
-  // ============ Kapitel 10 — Komplexität ============
+  // ==================== Kapitel 10 ====================
   {
-    id: "komplexitaet",
+    id: "komplexitaet-algorithmen",
     number: 10,
     title: "Komplexität von Algorithmen",
     free: false,
     intro:
-      "In den vorangegangenen Kapiteln ist wiederholt von 'O(n log n)' oder 'O(n²)' die Rede gewesen — Zeit, diese Begriffe zu präzisieren. Dieses Kapitel liefert das formale Werkzeug, um den Rechenzeitbedarf eines Algorithmus unabhängig von der konkreten Hardware zu quantifizieren.",
+      "Um Algorithmen fair zu vergleichen, braucht es ein von konkreter Hardware unabhängiges Effizienzmaß. Dieses Kapitel führt die Landau-Notation ein und behandelt die Grundzüge der Komplexitätsklassifikation.",
     sections: [
       {
         id: "10-1",
-        heading: "10.1 Einflussfaktoren und Elementaroperationen",
+        heading: "10.1 Die Landau-Notation (O-Notation)",
         body: [
-          "Der Rechenzeitbedarf eines Algorithmus hängt von drei Faktoren ab: der Eingabegröße n, der Komplexität des Algorithmus selbst (wie oft welche Operationen in Abhängigkeit von n ausgeführt werden) und den Eigenschaften der ausführenden Rechenanlage. Um vom konkreten Rechner zu abstrahieren, verwendet man abstrakte Maschinenmodelle wie die Registermaschine (RAM) oder die Turing-Maschine und zählt Elementaroperationen (ELOP) statt reale Sekunden.",
-          "Als Elementaroperationen gelten üblicherweise Zuweisungen, die vier Grundrechenarten, Vergleiche sowie logisches Und/Oder — jede davon wird als ein Schritt konstanter Dauer gezählt, unabhängig von der tatsächlichen Hardware. Eine einfache for-Schleife, die einen Rumpf mit c Elementaroperationen n-mal durchläuft, benötigt in dieser Zählweise insgesamt c·n Operationen zuzüglich einer konstanten Anzahl für Initialisierung und Abbruchtest.",
+          "Die O-Notation beschreibt das asymptotische Wachstum des Ressourcenbedarfs (Zeit/Speicher) eines Algorithmus in Abhängigkeit von der Eingabegröße n, unabhängig von konstanten Faktoren und niedrigeren Ordnungstermen. f(n)=O(g(n)) bedeutet formal: es existieren Konstanten c>0 und n₀, sodass f(n)≤c·g(n) für alle n≥n₀.",
+          "Neben der oberen Schranke O (Worst-Case-Abschätzung nach oben) gibt es Ω (untere Schranke) und Θ (exakte asymptotische Ordnung, wenn obere und untere Schranke übereinstimmen). In der Praxis wird meist O verwendet, da es die relevante Garantie für den ungünstigsten Fall liefert.",
+        ],
+        formulas: ["f(n) = O(g(n)) ⇔ ∃c,n₀: f(n) ≤ c·g(n) ∀n≥n₀"],
+        formulasLatex: ["f(n)=O(g(n)) \\iff \\exists c,n_0:\\, f(n)\\le c\\cdot g(n)\\;\\forall n\\ge n_0"],
+        terms: [{ term: "O-Notation", definition: "Asymptotische obere Schranke des Ressourcenbedarfs eines Algorithmus in Abhängigkeit von der Eingabegröße." }],
+        examples: [
+          "Ein Algorithmus mit exakter Laufzeit f(n)=3n²+5n+2 ist O(n²): für n₀=1 und c=10 gilt 3n²+5n+2 ≤ 10n² für alle n≥1 — die niedrigeren Terme und der konstante Faktor werden in der O-Notation ignoriert.",
         ],
       },
       {
         id: "10-2",
-        heading: "10.2 Tmin, Tavg und Tmax",
+        heading: "10.2 Wichtige Komplexitätsklassen im Vergleich",
         body: [
-          "Für einen Algorithmus A mit Eingabegröße n und die Menge Eₙ aller Eingaben dieser Größe bezeichnet man mit t(A;n,e) die Anzahl der Elementaroperationen für eine konkrete Eingabe e ∈ Eₙ. Daraus werden drei Kenngrößen abgeleitet: Tmin(A;n) = min t(A;n,e) (bester Fall), Tmax(A;n) = max t(A;n,e) (schlechtester Fall) und Tavg(A;n) (Durchschnitt über alle e ∈ Eₙ, meist unter Annahme einer Gleichverteilung).",
-          "Bei einem Algorithmus ohne Fallunterscheidungen (z. B. der Berechnung der Summe der ersten n Zahlen mit T = 5n+3 Elementaroperationen) fallen alle drei Kenngrößen zusammen, da jede Eingabe der Größe n denselben Aufwand verursacht. Bei der sequentiellen Suche nach einem Element unterscheiden sie sich dagegen deutlich: Tmin liegt bei einer konstanten Anzahl von Schritten (Treffer an erster Position), Tmax bei etwa 6n Schritten (Element nicht vorhanden oder an letzter Position) und Tavg bei etwa 3n Schritten unter der Annahme, dass der gesuchte Wert mit gleicher Wahrscheinlichkeit an jeder Position steht.",
+          "Gängige Laufzeitklassen in aufsteigender Reihenfolge: O(1) (konstant), O(log n) (logarithmisch, z. B. binäre Suche), O(n) (linear), O(n log n) (z. B. Mergesort), O(n²) (quadratisch, z. B. Insertion Sort), O(2ⁿ) (exponentiell) und O(n!) (faktoriell). Bereits bei moderaten n unterscheidet sich das praktische Laufzeitverhalten dieser Klassen dramatisch.",
+          "Diese Unterschiede sind praktisch bedeutsam: Ein O(n²)-Algorithmus mag für n=1.000 noch akzeptabel sein (1 Million Schritte), wird aber für n=1.000.000 (1 Billion Schritte) unbrauchbar, während ein O(n log n)-Algorithmus für dieselbe Eingabegröße nur etwa 20 Millionen Schritte benötigt.",
         ],
-        formulas: ["Tmin(A;n) = min_e t(A;n,e), Tmax(A;n) = max_e t(A;n,e), Tavg(A;n) = Durchschnitt über e∈Eₙ"],
-        formulasLatex: ["T_{\\min}(A;n) = \\min_{e} t(A;n,e), \\quad T_{\\max}(A;n) = \\max_e t(A;n,e), \\quad T_{\\text{avg}}(A;n) = \\dfrac{1}{|E_n|}\\sum_{e\\in E_n} t(A;n,e)"],
         examples: [
-          "Sequentielle Suche in einem Array der Länge n=100 (Zuweisung + Vergleich pro Schritt ≈ 2 ELOP): Steht der gesuchte Wert an Position 1, sind Tmin ≈ 2 Operationen nötig. Steht er an letzter Position oder fehlt ganz, sind Tmax ≈ 2·100=200 Operationen nötig. Im Mittel (gleichverteilte Trefferposition) liegt Tavg bei ungefähr der Hälfte, also ≈100 Operationen.",
+          "Für n=20 benötigt ein O(2ⁿ)-Algorithmus bereits über 1 Million Schritte, ein O(n!)-Algorithmus über 2×10¹⁸ Schritte — beide Klassen werden für praktische Eingabegrößen schnell unbrauchbar, weshalb NP-vollständige Probleme (die aktuell keine bekannten Polynomialzeit-Algorithmen besitzen) als praktisch schwer gelten.",
         ],
       },
       {
         id: "10-3",
-        heading: "10.3 Groß-O-, Ω- und Θ-Notation",
+        heading: "10.3 P, NP und NP-Vollständigkeit",
         body: [
-          "Eine Funktion f liegt in O(g), wenn f asymptotisch höchstens so stark wächst wie g: Es existieren eine Konstante c > 0 und ein n₀, sodass f(n) ≤ c·g(n) für alle n > n₀ gilt. Analog liegt f in Ω(g), wenn f mindestens so stark wächst wie g, und in Θ(g) = O(g) ∩ Ω(g), wenn f genau so stark wächst wie g.",
-          "Für Polynome gilt ein einfaches Ordnungskriterium: Ein Polynom vom Grad k liegt in O(Polynom vom Grad j) genau dann, wenn k ≤ j gilt, in Ω genau dann, wenn k ≥ j, und in Θ genau dann, wenn k = j. So gilt etwa 5n+3 ∈ O(n) (mit c=6, n₀=3) und n²+1000n ∈ O(n²), aber n²+1000n ∉ O(n). Bei der Θ-Notation spielt die Basis eines Logarithmus keine Rolle, da sich Logarithmen zu unterschiedlichen Basen nur um einen konstanten Faktor unterscheiden: Θ(log₂n) = Θ(log_b n) für jede Basis b > 1.",
+          "Die Klasse P umfasst Probleme, die in Polynomialzeit (O(n^k) für eine Konstante k) lösbar sind. Die Klasse NP umfasst Probleme, deren Lösung sich in Polynomialzeit VERIFIZIEREN lässt (auch wenn das Finden der Lösung selbst länger dauern könnte). Es gilt offensichtlich P⊆NP; ob P=NP gilt, ist eines der bedeutendsten ungelösten Probleme der Informatik.",
+          "Ein Problem heißt NP-vollständig, wenn es in NP liegt und jedes andere NP-Problem sich in Polynomialzeit darauf reduzieren lässt — NP-vollständige Probleme (wie SAT aus Kapitel 1, oder das Problem des Handlungsreisenden) gelten als die 'schwersten' Probleme in NP: Fände man für eines von ihnen einen Polynomialzeit-Algorithmus, würde daraus P=NP folgen.",
         ],
-        formulas: ["f ∈ O(g) ⟺ ∃c>0 ∃n₀ ∀n>n₀: f(n) ≤ c·g(n)", "f ∈ Θ(g) ⟺ f ∈ O(g) ∧ f ∈ Ω(g)"],
-        formulasLatex: [
-          "f \\in O(g) \\iff \\exists c>0\\, \\exists n_0\\, \\forall n>n_0: f(n) \\le c\\cdot g(n)",
-          "f \\in \\Theta(g) \\iff f \\in O(g) \\land f \\in \\Omega(g)",
+        terms: [
+          { term: "P", definition: "Klasse der in Polynomialzeit lösbaren Entscheidungsprobleme." },
+          { term: "NP", definition: "Klasse der Entscheidungsprobleme, deren Lösung sich in Polynomialzeit verifizieren lässt." },
+          { term: "NP-Vollständigkeit", definition: "Eigenschaft eines NP-Problems, mindestens so schwer wie jedes andere NP-Problem zu sein." },
         ],
         examples: [
-          "Für f(n)=5n+3 gilt f∈O(n): mit c=6 und n₀=3 ist 5n+3 ≤ 6n für alle n>3. Für f(n)=n²+1000n gilt f∈Θ(n²): einerseits f(n)≤1001n² (also O(n²)), andererseits f(n)≥n² (also Ω(n²)) — beide Bedingungen zusammen ergeben Θ(n²), obwohl der lineare Term für kleine n dominiert.",
-        ],
-      },
-      {
-        id: "10-4",
-        heading: "10.4 Komplexitätsklassen und ihre praktische Bedeutung",
-        body: [
-          "Gängige Komplexitätsklassen lassen sich anschaulich interpretieren: O(log₂n) (logarithmisch, etwa binäre Suche) wächst so langsam, dass eine Verdopplung von n nur einen zusätzlichen konstanten Schritt kostet; O(n) (linear) verdoppelt den Aufwand bei doppelter Eingabegröße; O(n log₂n) (leicht überlinear, etwa Quicksort/Heapsort im Mittel) verhält sich fast wie linear; O(n²) und O(n³) (quadratisch/kubisch) werden bei wachsendem n schnell unpraktikabel; O(2ⁿ) (exponentiell) wird schon bei moderaten n praktisch unberechenbar, da bereits eine Verdopplung von n den Aufwand quadriert statt nur zu verdoppeln.",
-          "Ein Algorithmus heißt polynomiell, wenn seine Komplexität ein Polynom in n ist (Klasse O(nᵏ) für ein festes k); er heißt exponentiell, wenn seine Komplexität in O(aⁿ) für eine Konstante a > 1 liegt. In der Praxis gelten polynomielle Algorithmen mit kleinem Exponenten (bis etwa O(n³)) noch als brauchbar, exponentielle Algorithmen dagegen selbst für vergleichsweise kleine Eingaben als praktisch unbenutzbar: Schon bei n=300 übersteigt 2ⁿ Werte, die in der Größenordnung der Anzahl der Protonen im beobachtbaren Universum liegen (eine rund 126-stellige Zahl) — ein Grund, warum für Probleme wie den Hamiltonschen Kreis (Abschnitt 9.1), für die nur exponentielle Algorithmen bekannt sind, praktikable Lösungen für große Instanzen bislang fehlen.",
+          "Das Problem des Handlungsreisenden (kürzeste Rundreise durch n Städte) ist NP-vollständig: Eine vorgeschlagene Route lässt sich schnell auf ihre Gesamtlänge prüfen (NP), aber kein Polynomialzeit-Algorithmus zum FINDEN der optimalen Route ist bekannt.",
         ],
       },
     ],
   },
-
-  // ============ Kapitel 11 — UML: Einführung und Anwendungsfalldiagramme ============
+  // ==================== Kapitel 11 ====================
   {
-    id: "uml-einfuehrung",
+    id: "uml-anwendungsfall-klassen-objekte",
     number: 11,
-    title: "Einführung in UML und Anwendungsfalldiagramme",
+    title: "UML: Anwendungsfall-, Klassen- und Objektdiagramme",
     free: false,
     intro:
-      "Nachdem die vorangegangenen Kapitel Algorithmen und Datenstrukturen behandelt haben, wenden wir uns nun der Frage zu, wie man den Entwurf größerer Softwaresysteme modelliert, bevor sie implementiert werden — mit der Unified Modeling Language (UML).",
+      "Die Unified Modeling Language (UML) liefert eine standardisierte grafische Notation, um Softwaresysteme zu entwerfen und zu dokumentieren. Dieses Kapitel behandelt die strukturellen Diagrammtypen zur Modellierung von Anforderungen und Datenmodellen.",
     sections: [
       {
         id: "11-1",
-        heading: "11.1 Warum modellieren?",
+        heading: "11.1 Anwendungsfalldiagramme",
         body: [
-          "Die Geschichte der Softwareentwicklung kennt zahlreiche kostspielige Fehlschläge, bei denen unklare oder unzureichend dokumentierte Anforderungen und mangelhafte Systementwürfe zu massiven Zeit- und Kostenüberschreitungen führten, teils mit Budgetüberschreitungen im dreistelligen Millionenbereich. Ein wiederkehrender Grund solcher Fehlschläge ist, dass Modellierung und Anforderungsanalyse zugunsten des reinen Programmierens unterschätzt werden — dabei durchzieht die Modellierung idealerweise den gesamten Software-Lebenszyklus, von der Problemstellung über Analyse und Entwurf bis zu Implementierung, Test und Wartung.",
-          "UML ist eine vereinheitlichte, standardisierte Notation zur Modellierung objektorientierter Systeme. Sie dient gleichzeitig der Spezifikation, Visualisierung, Konstruktion und Dokumentation eines Systems und wird typischerweise auf drei Arten eingesetzt: als informelle Skizze zur Ideenfindung, als präziser Bauplan (Blueprint) für die Implementierung, oder — mit entsprechender Werkzeugunterstützung — direkt als ausführbare bzw. codegenerierende Notation.",
+          "Ein Anwendungsfalldiagramm (Use-Case-Diagramm) beschreibt aus Nutzersicht, welche Funktionalitäten ('Anwendungsfälle') ein System bereitstellt, und welche Akteure (Nutzer oder externe Systeme) mit welchen Anwendungsfällen interagieren. Es abstrahiert bewusst von der internen Implementierung und konzentriert sich auf das WAS (welche Funktionen), nicht das WIE.",
+          "Beziehungen zwischen Anwendungsfällen wie «include» (ein Anwendungsfall schließt einen anderen zwingend ein) und «extend» (ein Anwendungsfall erweitert einen anderen optional) strukturieren komplexere Anforderungen, ohne Funktionalität mehrfach zu beschreiben.",
+        ],
+        terms: [{ term: "Anwendungsfall (Use Case)", definition: "Beschreibung einer vom System bereitgestellten Funktionalität aus Nutzersicht." }],
+        examples: [
+          "Ein Online-Shop-System könnte die Anwendungsfälle 'Bestellung aufgeben' (Akteur: Kunde) und 'Zahlung verarbeiten' (Akteur: Zahlungsdienstleister) modellieren, wobei 'Bestellung aufgeben' den Anwendungsfall 'Zahlung verarbeiten' per «include» einschließt.",
         ],
       },
       {
         id: "11-2",
-        heading: "11.2 UML-Diagrammarten im Überblick",
+        heading: "11.2 Klassendiagramme",
         body: [
-          "UML unterscheidet grob drei Diagrammfamilien: Strukturdiagramme (u. a. Klassen-, Objekt-, Paket- und Komponentendiagramme), das Anwendungsfalldiagramm sowie Verhaltensdiagramme (u. a. Sequenz-, Zustands- und Aktivitätsdiagramme). Wir behandeln in diesem und den folgenden zwei Kapiteln das Anwendungsfalldiagramm, die wichtigsten Strukturdiagramme (Klassen- und Objektdiagramme, Kapitel 12) sowie die wichtigsten Verhaltensdiagramme (Sequenz-, Zustands- und Aktivitätsdiagramme, Kapitel 13).",
-          "Die verschiedenen Diagrammarten passen zu unterschiedlichen Phasen der Softwareentwicklung: Anwendungsfalldiagramme eignen sich für die Anforderungsermittlung, Paket- und Komponentendiagramme für die Architekturkonzeption, Klassendiagramme für den Grobentwurf, und Klassen-, Zustands-, Aktivitäts- sowie Sequenzdiagramme gemeinsam für den Feinentwurf. In der Praxis verfeinert man ein System schrittweise: von Anwendungsfalldiagrammen über Paket-/Komponentendiagramme und Klassen-/Objektdiagramme bis zu den Verhaltensdiagrammen.",
+          "Ein Klassendiagramm modelliert die statische Struktur eines Systems: Klassen mit ihren Attributen und Methoden, sowie Beziehungen zwischen Klassen. Wichtige Beziehungstypen sind Assoziation (allgemeine strukturelle Verbindung), Aggregation (Ganzes-Teil-Beziehung, Teile existieren auch unabhängig vom Ganzen) und Komposition (starke Ganzes-Teil-Beziehung, Teile existieren nicht ohne das Ganze).",
+          "Vererbung (Generalisierung) modelliert eine Ist-Ein-Beziehung zwischen einer allgemeineren Oberklasse und spezielleren Unterklassen, die deren Attribute und Methoden erben und um eigene ergänzen oder überschreiben können.",
+        ],
+        terms: [
+          { term: "Aggregation", definition: "Ganzes-Teil-Beziehung, bei der die Teile auch unabhängig vom Ganzen existieren können." },
+          { term: "Komposition", definition: "Starke Ganzes-Teil-Beziehung, bei der die Teile nicht ohne das Ganze existieren." },
+        ],
+        examples: [
+          "Ein 'Auto' und seine 'Räder' stehen in einer Kompositionsbeziehung (Räder existieren typischerweise nicht unabhängig vom konkreten Auto), während ein 'Auto' und sein 'Fahrer' eher eine Aggregation bilden (der Fahrer existiert unabhängig vom Auto weiter).",
         ],
       },
       {
         id: "11-3",
-        heading: "11.3 Anwendungsfalldiagramme: Akteure und Anwendungsfälle",
+        heading: "11.3 Objektdiagramme und Multiplizitäten",
         body: [
-          "Ein Anwendungsfalldiagramm gibt einen Gesamtüberblick über die Interaktionen zwischen Nutzern und einem System und ist damit ein zentrales Werkzeug der Anforderungsermittlung. Die drei Kernelemente sind der Anwendungsfall (als Oval dargestellt, ein konkretes Nutzungsszenario), der Akteur (als Strichfigur dargestellt, eine Rolle außerhalb des Systems, die mit ihm interagiert) und die Systemgrenze (ein Rechteck, das die im System enthaltenen Anwendungsfälle umschließt).",
-          "Ein einfaches Beispiel: In einer Fitnessstudio-Verwaltungssoftware soll ein Trainer die Mitgliedsbeiträge berechnen können, während die Studioleitung neue Mitglieder anmelden und bestehende Mitgliedschaften kündigen kann. Assoziationen zwischen Akteur und Anwendungsfall werden als einfache Linien dargestellt, gegebenenfalls mit Multiplizitäten an den Enden, wenn z. B. ein Akteur mehrere Instanzen eines Anwendungsfalls gleichzeitig ausführen kann.",
+          "Ein Objektdiagramm zeigt eine konkrete Momentaufnahme von Objekten (Instanzen von Klassen) und ihren tatsächlichen Verbindungen zu einem bestimmten Zeitpunkt — im Unterschied zum Klassendiagramm, das die allgemeine, zeitunabhängige Struktur beschreibt. Multiplizitäten an den Enden einer Assoziation (z. B. 1, 0..1, 1..*, 0..*) geben an, wie viele Objekte auf jeder Seite einer Beziehung minimal/maximal beteiligt sein können.",
+          "Objektdiagramme sind besonders nützlich, um komplexe oder potenziell missverständliche Multiplizitäten anhand eines konkreten Beispiels zu verdeutlichen, bevor das allgemeine Klassendiagramm final festgelegt wird.",
         ],
-      },
-      {
-        id: "11-4",
-        heading: "11.4 include, extend und Generalisierung",
-        body: [
-          "Eine include-Beziehung (gestrichelter Pfeil mit Beschriftung «include») zeigt, dass ein Anwendungsfall einen anderen zwingend als Teilschritt mit einschließt — etwa wenn 'Mitgliederhistorie protokollieren' bei jeder Anmeldung oder Kündigung eines Mitglieds automatisch mit ausgeführt wird. Eine extend-Beziehung (gestrichelter Pfeil mit Beschriftung «extend») zeigt dagegen eine optionale Erweiterung eines Anwendungsfalls unter einer bestimmten Bedingung, verankert an einem benannten Erweiterungspunkt: Die Kündigung eines Standortleiters ist beispielsweise eine Erweiterung des Anwendungsfalls 'Mitgliedschaft kündigen', die nur dann eintritt, wenn gegen den Standortleiter wiederholt begründete Beschwerden von Mitgliedern vorliegen.",
-          "Eine Generalisierung zwischen zwei Anwendungsfällen (durchgezogener Pfeil mit offener Pfeilspitze) drückt aus, dass ein spezialisierter Anwendungsfall eine besondere Ausprägung eines allgemeineren ist — etwa wenn 'Zahlungserinnerung versenden' durch die spezielleren Fälle 'Mahnung per Post versenden' und 'Mahnung per E-Mail versenden' konkretisiert wird. Generalisierung lässt sich auch zwischen Akteuren einsetzen, wenn ein spezialisierter Akteur (z. B. ein Standortleiter) alle Anwendungsfälle eines allgemeineren Akteurs (z. B. eines gewöhnlichen Trainers) übernimmt und zusätzlich eigene besitzt.",
+        terms: [{ term: "Multiplizität", definition: "Angabe der minimalen und maximalen Anzahl beteiligter Objekte an einem Ende einer Assoziation." }],
+        examples: [
+          "Eine Assoziation zwischen 'Kunde' und 'Bestellung' mit Multiplizität 1 auf Kundenseite und 0..* auf Bestellungsseite bedeutet: jede Bestellung gehört zu genau einem Kunden, aber ein Kunde kann beliebig viele (auch null) Bestellungen haben.",
         ],
       },
     ],
   },
-
-  // ============ Kapitel 12 — UML: Klassen- und Objektdiagramme ============
+  // ==================== Kapitel 12 ====================
   {
-    id: "uml-klassendiagramme",
+    id: "uml-verhaltensdiagramme",
     number: 12,
-    title: "Klassen- und Objektdiagramme",
+    title: "UML: Verhaltensdiagramme",
     free: false,
     intro:
-      "Nachdem Kapitel 11 mit dem Anwendungsfalldiagramm die Außensicht auf ein System modelliert hat, wenden wir uns nun der inneren Struktur zu: Klassendiagramme (und die aus ihnen abgeleiteten Objektdiagramme) legen fest, aus welchen Bausteinen ein System besteht und wie diese zusammenhängen.",
+      "Während Klassen- und Objektdiagramme die statische Struktur zeigen, beschreiben Verhaltensdiagramme, wie sich ein System über die Zeit verhält. Dieses Kapitel behandelt Sequenz-, Zustands- und Aktivitätsdiagramme.",
     sections: [
       {
         id: "12-1",
-        heading: "12.1 Klassennotation: Attribute und Operationen",
+        heading: "12.1 Sequenzdiagramme",
         body: [
-          "Eine Klasse wird als Rechteck mit drei Abschnitten dargestellt: Klassenname, Attribute und Operationen. Ein Attribut wird notiert als Sichtbarkeit (+ öffentlich, # geschützt, − privat) gefolgt von Name, Typ und optionaler Kardinalität (z. B. [0..1] für höchstens ein Vorkommen, [*] für beliebig viele). Eine Operation folgt demselben Sichtbarkeitsschema und wird ergänzt um Argumentliste und Rückgabetyp; kursiv gesetzte Operationen sind abstrakt, also ohne konkrete Implementierung in dieser Klasse.",
-          "Bei einer Assoziation zwischen zwei Klassen gibt eine optionale Pfeilspitze die Navigationsrichtung an, ein Rollenname an jedem Ende beschreibt, in welcher Funktion die verbundene Klasse auftritt, und eine Kardinalität an jedem Ende gibt an, wie viele Instanzen jeweils an der Beziehung teilnehmen können.",
+          "Ein Sequenzdiagramm zeigt den zeitlichen Ablauf von Nachrichten (Methodenaufrufen) zwischen Objekten für ein konkretes Szenario. Objekte werden als vertikale Lebenslinien dargestellt, Nachrichten als horizontale (meist beschriftete) Pfeile zwischen ihnen — die vertikale Achse repräsentiert die Zeit, typischerweise von oben nach unten.",
+          "Aktivierungsbalken auf den Lebenslinien markieren, während welcher Zeitspanne ein Objekt aktiv Verarbeitung durchführt (z. B. weil es gerade eine Methode ausführt oder auf eine Antwort wartet) — dies macht auch komplexe, verschachtelte Aufrufsequenzen übersichtlich nachvollziehbar.",
+        ],
+        terms: [{ term: "Lebenslinie", definition: "Vertikale Linie in einem Sequenzdiagramm, die ein Objekt über die Zeit repräsentiert." }],
+        examples: [
+          "Ein Sequenzdiagramm für den Checkout-Prozess eines Online-Shops zeigt den zeitlichen Ablauf: Kunde→Bestellsystem ('Bestellung aufgeben'), Bestellsystem→Zahlungsdienst ('Zahlung anfordern'), Zahlungsdienst→Bestellsystem ('Zahlung bestätigt').",
         ],
       },
       {
         id: "12-2",
-        heading: "12.2 Assoziation, Aggregation und Komposition",
+        heading: "12.2 Zustandsdiagramme",
         body: [
-          "Aggregation (dargestellt durch eine unausgefüllte Raute am Ganzen) modelliert eine 'Teil-von'-Beziehung ohne Existenzabhängigkeit: Ein Rad gehört zu einem Auto, existiert aber auch unabhängig davon weiter, wenn das Auto entfernt wird. Komposition (dargestellt durch eine ausgefüllte Raute) modelliert dieselbe 'Teil-von'-Beziehung, aber mit Existenzabhängigkeit: Ein Raum gehört zu genau einem Gebäude und hat ohne dieses Gebäude keinen Bestand — die Kardinalität auf der Seite des Ganzen muss deshalb bei einer Komposition immer genau 1 betragen.",
-          "Zwei allgemeine Entwurfsprinzipien leiten die Modellierung von Klassendiagrammen: das Geheimnisprinzip (Kapselung), nach dem die interne Struktur einer Klasse nach außen verborgen und nur über klar definierte Schnittstellen zugänglich gemacht wird, sowie die Vermeidung von Redundanz, nach der gemeinsame Attribute und Operationen mehrerer Klassen mittels Vererbung, Aggregation oder Komposition in eine gemeinsame Struktur ausgelagert werden, statt sie in jeder Klasse zu duplizieren — wichtig für die spätere Wartbarkeit des Systems.",
+          "Ein Zustandsdiagramm (Statechart) modelliert die möglichen Zustände eines Objekts und die Übergänge zwischen ihnen als Reaktion auf Ereignisse. Zustände werden als abgerundete Rechtecke, Übergänge als beschriftete Pfeile dargestellt; ein ausgefüllter Kreis markiert den Startzustand, ein umkreister ausgefüllter Kreis den Endzustand.",
+          "Zustandsdiagramme eignen sich besonders für Objekte mit komplexem, ereignisgesteuertem Verhalten (z. B. eine Bestellung, die verschiedene Stadien von 'Aufgegeben' über 'Versendet' bis 'Zugestellt' oder 'Storniert' durchläuft), bei denen zu jedem Zeitpunkt nur bestimmte Übergänge zulässig sind.",
+        ],
+        terms: [{ term: "Zustandsdiagramm", definition: "Diagramm, das Zustände eines Objekts und ereignisgesteuerte Übergänge zwischen ihnen modelliert." }],
+        examples: [
+          "Ein Zustandsdiagramm für eine Bestellung könnte die Zustände 'Aufgegeben', 'Bezahlt', 'Versendet' und 'Storniert' zeigen, wobei ein Übergang von 'Aufgegeben' zu 'Storniert' möglich ist, ein Übergang von 'Versendet' zu 'Storniert' aber nicht mehr zulässig ist.",
         ],
       },
       {
         id: "12-3",
-        heading: "12.3 Vererbung, abstrakte Klassen und Interfaces",
+        heading: "12.3 Aktivitätsdiagramme",
         body: [
-          "Vererbung wird durch einen durchgezogenen Pfeil mit unausgefüllter, dreieckiger Pfeilspitze dargestellt, der von der spezialisierten zur allgemeineren Klasse zeigt ('erbt von'). Eine abstrakte Klasse (kursiv geschriebener Klassenname) kann nicht direkt instanziiert werden und enthält mindestens eine abstrakte Operation; ein Interface («interface»-Stereotyp) geht noch weiter und enthält ausschließlich Operationssignaturen ohne jede Implementierung und ohne Attribute. Die Realisierung eines Interfaces wird durch einen gestrichelten Pfeil mit unausgefüllter Pfeilspitze dargestellt.",
-          "Ein klassisches, professorunabhängiges Lehrbuchbeispiel: Eine abstrakte Klasse 'Geometrische Figur' mit der abstrakten Operation getFarbe() wird durch konkrete Klassen wie Rechteck und Quadrat spezialisiert, die diese Operation jeweils konkret implementieren. Über Vererbung lässt sich zugleich Redundanz vermeiden: Statt gemeinsame Attribute wie Name oder Adresse in mehreren Unterklassen zu duplizieren, werden sie einmalig in einer gemeinsamen (gegebenenfalls abstrakten) Oberklasse definiert, von der die spezialisierten Klassen erben.",
+          "Ein Aktivitätsdiagramm modelliert den Kontrollfluss eines Prozesses oder Algorithmus — ähnlich einem klassischen Flussdiagramm, aber mit zusätzlichen UML-spezifischen Notationselementen für Nebenläufigkeit (Gabelung/Vereinigung paralleler Abläufe) und Entscheidungen (Verzweigung basierend auf Bedingungen).",
+          "Anders als Sequenzdiagramme (die auf die Interaktion zwischen konkreten Objekten fokussieren) modellieren Aktivitätsdiagramme den GESAMTABLAUF eines Geschäftsprozesses oder Algorithmus, unabhängig davon, welches Objekt welchen Schritt konkret ausführt.",
         ],
-        figure: {
-          type: "uml-class-box",
-          caption: "Vererbung: die konkrete Klasse PKW erbt von der abstrakten Klasse Fahrzeug.",
-        },
-      },
-      {
-        id: "12-4",
-        heading: "12.4 Objektdiagramme",
-        body: [
-          "Ein Objektdiagramm zeigt eine konkrete Momentaufnahme von Instanzen eines Klassendiagramms zu einem bestimmten Zeitpunkt: Statt einer Klasse mit Attributtypen zeigt es konkrete Objekte mit tatsächlichen Attributwerten. Ein Objekt wird notiert als Instanzname:Klassenname (unterstrichen), wobei Instanzname oder Klassenname auch weggelassen werden können, wenn sie nicht bekannt oder nicht relevant sind.",
-          "Ein Beispiel: Zu einem Klassendiagramm mit den Klassen Leser, Ausleihe und Buch könnte ein Objektdiagramm die konkrete Situation zeigen, dass die Leserin m.schmidt:Leser über die Ausleihe a1:Ausleihe am 03.03.2026 das Exemplar b1:Buch entliehen hat — jede im Objektdiagramm dargestellte Verbindung muss dabei einer im zugehörigen Klassendiagramm modellierten Assoziation entsprechen.",
-        ],
-      },
-    ],
-  },
-
-  // ============ Kapitel 13 — UML: Verhaltensdiagramme ============
-  {
-    id: "uml-verhaltensdiagramme",
-    number: 13,
-    title: "Verhaltensdiagramme: Sequenz, Zustand und Aktivität",
-    free: false,
-    intro:
-      "Während Klassen- und Objektdiagramme (Kapitel 12) die statische Struktur eines Systems zeigen, modellieren die drei Verhaltensdiagramme dieses letzten Kapitels, wie sich das System über die Zeit verhält: im Dialog zwischen Objekten, in Reaktion auf Ereignisse und im Ablauf von Geschäftsprozessen.",
-    sections: [
-      {
-        id: "13-1",
-        heading: "13.1 Sequenzdiagramme: Lebenslinien und Nachrichten",
-        body: [
-          "Ein Sequenzdiagramm modelliert das Verhalten mehrerer Objekte in einem konkreten Szenario mit besonderem Fokus auf die zeitliche Reihenfolge der ausgetauschten Nachrichten. Die beteiligten Objekte werden horizontal angeordnet, jedes mit einer vertikalen Lebenslinie, entlang derer die Zeit von oben nach unten fortschreitet; ein Aktivierungsbalken zeigt, während welchem Zeitraum ein Objekt aktiv Kontrolle über eine Methode ausübt.",
-          "Ein synchroner Methodenaufruf wird als durchgezogener Pfeil mit gefüllter Pfeilspitze dargestellt, ein asynchroner Aufruf mit offener Pfeilspitze; die Rückgabe wird als gestrichelter Pfeil notiert. Die Erzeugung eines neuen Objekts während des Ablaufs wird durch einen auf «create» beschrifteten Pfeil zu einer versetzt beginnenden Lebenslinie dargestellt. Wichtig ist die Konsistenz mit dem zugrunde liegenden Klassendiagramm: Ein Objekt kann nur dann direkt eine Methode eines anderen Objekts aufrufen, wenn zwischen den beiden Klassen tatsächlich eine Assoziation modelliert ist.",
-        ],
-      },
-      {
-        id: "13-2",
-        heading: "13.2 Kontrollstrukturen in Sequenzdiagrammen",
-        body: [
-          "Sequenzdiagramme kennen mehrere Operatoren zur Modellierung von Kontrollfluss, die als beschrifteter Rahmen um den betroffenen Ausschnitt gezeichnet werden: alt für alternative, sich gegenseitig ausschließende Abläufe (mit Wächterbedingungen in eckigen Klammern), opt für einen optionalen Ablauf, der nur unter einer Bedingung eintritt, und loop für einen wiederholt ausgeführten Ablauf.",
-          "Ergänzend existieren strict (Nachrichten müssen strikt in der gezeigten Reihenfolge ablaufen), par (mehrere Abläufe finden parallel statt) und critical (ein Ablauf, der als atomare Einheit nicht durch andere Nachrichten unterbrochen werden darf). Ein typisches Beispiel kombiniert loop und opt: Eine Bestellung durchläuft eine Schleife, solange weitere Artikel hinzugefügt werden, und löst optional eine zusätzliche Benachrichtigung an einen Sachbearbeiter aus, falls es sich um eine Eilbestellung handelt.",
-        ],
-      },
-      {
-        id: "13-3",
-        heading: "13.3 Zustandsdiagramme",
-        body: [
-          "Zustandsdiagramme gehen auf David Harels 1987 vorgestellte Statecharts zurück und eignen sich zur Modellierung aktiver, ereignisgesteuerter Systeme: Ein System befindet sich stets in genau einem Zustand (abgerundetes Rechteck, optional mit einer do-Aktivität, die während des gesamten Aufenthalts im Zustand läuft) und wechselt über Transitionen (Pfeile, optional beschriftet mit dem auslösenden Ereignis, einer Wächterbedingung in eckigen Klammern und/oder einer auszuführenden Aktion) in einen anderen Zustand. Ein Anfangszustand wird als ausgefüllter Kreis, ein Endzustand als Kreis-in-Kreis dargestellt; Zustände dürfen ineinander verschachtelt werden, um komplexes Verhalten modular zu strukturieren.",
-          "Ein Beispiel: Ein Medienplayer wechselt vom Zustand 'Gestoppt' durch das Ereignis 'Play' in den Zustand 'Wiedergabe' und von dort durch 'Pause' in den Zustand 'Pausiert', der durch erneutes 'Play' wieder zu 'Wiedergabe' zurückführt. Zustandsdiagramme eignen sich gut für diskretes, ereignisgesteuertes Verhalten, stoßen aber an ihre Grenzen bei kontinuierlichem Verhalten (etwa einem sich stetig verändernden Messwert), das sich nicht sinnvoll in eine endliche Anzahl diskreter Zustände zerlegen lässt.",
-        ],
-        figure: {
-          type: "state-diagram",
-          caption: "Ausschnitt des Medienplayer-Zustandsdiagramms: Gestoppt ⇄ Wiedergabe über Play/Pause.",
-        },
-      },
-      {
-        id: "13-4",
-        heading: "13.4 Aktivitätsdiagramme und Swimlanes",
-        body: [
-          "Ein Aktivitätsdiagramm modelliert prozedurales und parallel ablaufendes Verhalten und eignet sich besonders für kontroll- und datenflussorientierte Abläufe wie Geschäftsprozesse, im Unterschied zum ereignisgesteuerten Zustandsdiagramm (Abschnitt 13.3). Eine Aktivität wird als abgerundetes Rechteck dargestellt; ein Fork/Join (dicker horizontaler Balken) spaltet den Kontrollfluss in parallele Zweige auf bzw. führt sie wieder zusammen, während eine Raute mit mehreren beschrifteten Ausgängen eine bedingte Verzweigung zwischen alternativen Abläufen darstellt.",
-          "Objekte können zwischen Aktivitäten über gestrichelte Pfeile und ein Objektsymbol fließen, um Datenabhängigkeiten sichtbar zu machen. Swimlanes (senkrechte oder waagrechte Bahnen) ordnen die einzelnen Aktivitäten den dafür verantwortlichen Akteuren oder Abteilungen zu — etwa wenn ein Umzugsprozess auf die Bahnen Spedition, Hausverwaltung und Möbelmontage aufgeteilt wird: Die Hausverwaltung übergibt die Schlüssel für die neue Wohnung, während parallel die Spedition den Transport organisiert und die Möbelmontage bereits die Aufbauanleitungen vorbereitet, bevor die Möbel tatsächlich aufgebaut werden.",
+        terms: [{ term: "Aktivitätsdiagramm", definition: "Diagramm zur Modellierung des Kontrollflusses eines Prozesses, inklusive Verzweigungen und Nebenläufigkeit." }],
+        examples: [
+          "Ein Aktivitätsdiagramm für die Kreditvergabe einer Bank könnte nach der Aktivität 'Bonität prüfen' eine Verzweigung zeigen: bei ausreichender Bonität weiter zu 'Kredit genehmigen', andernfalls zu 'Kredit ablehnen'.",
         ],
       },
     ],

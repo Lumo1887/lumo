@@ -1,1282 +1,573 @@
 import type { SkriptChapter } from "./types";
 
-// Hinweis zur Kapitelreihenfolge: Die Reihenfolge und Nummerierung hier
-// folgt bewusst NICHT 1:1 der Reihenfolge der Vorlesungsfolien. Themen aus
-// der Produktions- und Markttheorie sind zwischen die Kapitel der
-// Haushaltstheorie gemischt statt in denselben Blöcken wie in der Vorlesung
-// zu stehen, und die Nummerierung ist eigenständig.
+// Eigenständiges Lehrwerk zur Mikroökonomik ("VWL 1"), verfasst wie ein
+// unabhängiges Lehrbuch zum Modulthema — nicht als Paraphrase einer
+// bestimmten Vorlesung.
 export const chapters: SkriptChapter[] = [
-  // ==================== Kapitel 1 — Markt und Budgetmenge ====================
+  // ==================== Kapitel 1 ====================
   {
-    id: "markt-budget",
+    id: "markt-und-budgetmenge",
     number: 1,
     title: "Markt und Budgetmenge",
     free: true,
     intro:
-      "Die Mikroökonomik untersucht, wie einzelne Haushalte und Unternehmen Entscheidungen treffen und wie diese Entscheidungen über Märkte koordiniert werden. Wir beginnen mit dem einfachsten Marktmodell und der Budgetmenge — der Menge aller Güterbündel, die sich ein Haushalt bei gegebenen Preisen und gegebenem Einkommen überhaupt leisten kann.",
+      "Mikroökonomik untersucht, wie einzelne Haushalte und Unternehmen unter Knappheit Entscheidungen treffen und wie diese Entscheidungen sich über Märkte koordinieren. Den Ausgangspunkt bildet die Budgetrestriktion eines Haushalts.",
     sections: [
       {
         id: "1-1",
-        heading: "1.1 Ein einfaches Marktmodell: Reservationspreise",
+        heading: "1.1 Güterbündel und Budgetgerade",
         body: [
-          "Betrachten wir einen Markt für ein homogenes Gut (z. B. Stellplätze in einer Fahrradgarage), auf dem jeder potenzielle Nachfrager einen individuellen Reservationspreis hat — den höchsten Preis, den er bereit ist zu zahlen. Ordnet man alle Reservationspreise der Größe nach absteigend an, erhält man die Marktnachfragekurve: Bei einem Preis p fragen genau die Personen nach, deren Reservationspreis mindestens p beträgt.",
-          "Ist die Anzahl der angebotenen Einheiten fest vorgegeben (vollkommen unelastisches Angebot), bestimmt sich der Gleichgewichtspreis dadurch, dass Angebot und Nachfrage sich gerade treffen. Bei einer diskreten (kleinen) Anzahl an Marktteilnehmern ist dieser Preis oft nicht eindeutig bestimmt, sondern liegt in einem ganzen Intervall zwischen dem Reservationspreis des letzten noch versorgten und des ersten nicht mehr versorgten Nachfragers.",
+          "Ein Güterbündel (x₁,x₂) beschreibt die konsumierten Mengen zweier Güter. Bei Preisen p₁,p₂ und Einkommen m umfasst die Budgetmenge alle Bündel, die sich der Haushalt leisten kann: p₁x₁+p₂x₂ ≤ m. Die Budgetgerade (die Grenze dieser Menge) ergibt sich aus p₁x₁+p₂x₂ = m.",
+          "Die Steigung der Budgetgeraden beträgt −p₁/p₂ und gibt an, wie viele Einheiten von Gut 2 aufgegeben werden müssen, um eine zusätzliche Einheit von Gut 1 zu konsumieren (die relative Opportunitätskosten der beiden Güter zueinander).",
         ],
-        terms: [
-          {
-            term: "Reservationspreis",
-            definition: "Der maximale Preis, den ein einzelner Nachfrager für eine Einheit eines Gutes zu zahlen bereit ist.",
-          },
-          {
-            term: "Marktnachfragekurve",
-            definition: "Die absteigend sortierte Folge aller individuellen Reservationspreise — zeigt, wie viele Einheiten bei jedem Preis nachgefragt werden.",
-          },
-        ],
+        formulas: ["p₁x₁ + p₂x₂ = m"],
+        formulasLatex: ["p_1 x_1 + p_2 x_2 = m"],
+        terms: [{ term: "Budgetgerade", definition: "Menge der Güterbündel, die das gesamte Einkommen genau ausschöpfen." }],
         examples: [
-          "Sechs Studierende möchten je einen Platz in einem Fahrrad-Sharing-Programm mieten. Ihre Reservationspreise (in GE pro Monat) seien 22, 18, 15, 12, 8 und 5. Werden nur 3 Plätze angeboten, liegt der Gleichgewichtspreis irgendwo im Intervall (12, 15] — bei jedem Preis in diesem Bereich fragen genau die drei Studierenden mit den höchsten Reservationspreisen (22, 18, 15) nach.",
+          "Bei m=100€, p₁=4€ (Kaffee), p₂=10€ (Bücher) lautet die Budgetgerade 4x₁+10x₂=100. Verzichtet der Haushalt auf 5 Tassen Kaffee, kann er sich dafür 2 zusätzliche Bücher leisten (Steigung −4/10=−0,4: für jedes Buch weniger braucht man 2,5 Kaffee weniger, bzw. andersherum).",
         ],
       },
       {
         id: "1-2",
-        heading: "1.2 Monopol und Preisdiskriminierung im einfachen Marktmodell",
+        heading: "1.2 Verschiebungen der Budgetgeraden",
         body: [
-          "Gehört das gesamte Angebot einem einzigen Anbieter (gewöhnlicher Monopolist), maximiert dieser seinen Gewinn, indem er nicht den markträumenden Preis wählt, sondern eine Menge zurückhält: Er bewegt sich entlang der Nachfragekurve so weit nach oben, bis der Grenzerlös einer zusätzlich verkauften Einheit gerade auf null fällt (bei Grenzkosten von null entspricht das dem Punkt mit der größten Fläche Preis mal Menge). Das Ergebnis ist im Allgemeinen nicht Pareto-effizient, da es Nachfrager gibt, deren Reservationspreis über dem Grenzkosten, aber unter dem Monopolpreis liegt und die deshalb leer ausgehen, obwohl ein Tausch beide Seiten besserstellen würde.",
-          "Kennt der Anbieter dagegen die Reservationspreise aller Nachfrager individuell (perfekte/diskriminierende Preissetzung), kann er jedem genau seinen Reservationspreis in Rechnung stellen. Dann verkauft er an alle, deren Reservationspreis die Grenzkosten übersteigt — das Ergebnis ist wieder effizient, allerdings verteilt sich die gesamte Rente anders: Der Anbieter vereinnahmt die komplette Rente, die beim gewöhnlichen Monopol und bei vollständiger Konkurrenz teilweise bei den Nachfragern verbliebe.",
+          "Eine Einkommensänderung verschiebt die Budgetgerade parallel (die Steigung −p₁/p₂ bleibt gleich), da sich das maximal konsumierbare Bündel proportional zu m ändert. Eine Preisänderung eines Gutes dreht die Budgetgerade dagegen um den Achsenabschnitt des jeweils anderen Gutes, da sich die relative Opportunitätskostenrelation ändert.",
+          "Steuern und Subventionen lassen sich als Preis- bzw. Einkommensänderungen modellieren: eine Mengensteuer auf Gut 1 erhöht den effektiven Preis p₁ (Drehung), eine Pauschalsubvention erhöht m (Parallelverschiebung).",
         ],
-        terms: [
-          {
-            term: "Gewöhnlicher Monopolist",
-            definition: "Ein Anbieter, der für alle verkauften Einheiten denselben Preis verlangt und diesen so wählt, dass sein Gewinn maximal wird.",
-          },
-          {
-            term: "Diskriminierender Monopolist",
-            definition: "Ein Anbieter, der die Reservationspreise der Nachfrager kennt und jedem individuell genau seinen Reservationspreis abverlangt.",
-          },
-        ],
-      },
-      {
-        id: "1-3",
-        heading: "1.3 Die Budgetmenge und die Budgetgerade",
-        body: [
-          "Ein Haushalt verfüge über ein Einkommen m und stehe vor Preisen p1 und p2 für zwei Güter. Die Budgetmenge ist die Menge aller Güterbündel (x1, x2), die er sich mit seinem Einkommen leisten kann: p1·x1 + p2·x2 ≤ m, x1, x2 ≥ 0. Der Rand dieser Menge — also die Bündel, bei denen das Einkommen exakt ausgeschöpft wird — heißt Budgetgerade.",
-          "Die Steigung der Budgetgeraden ist −p1/p2: Gibt der Haushalt eine Einheit weniger von Gut 2 aus, kann er sich p2/p1 Einheiten mehr von Gut 1 leisten. Diese Steigung ist die Opportunitätskostenrate zwischen den beiden Gütern am Markt.",
-        ],
-        terms: [
-          {
-            term: "Budgetmenge",
-            definition: "{(x1, x2) : p1·x1 + p2·x2 ≤ m, x1 ≥ 0, x2 ≥ 0} — alle bei gegebenem Einkommen und gegebenen Preisen erschwinglichen Güterbündel.",
-          },
-          {
-            term: "Budgetgerade",
-            definition: "Der Rand der Budgetmenge, also {(x1, x2) : p1·x1 + p2·x2 = m} — Güterbündel, bei denen das Einkommen vollständig ausgegeben wird.",
-          },
-          {
-            term: "Numeraire-Gut",
-            definition: "Ein Gut, dessen Preis auf 1 normiert wird, sodass alle anderen Preise relativ zu diesem Gut ausgedrückt werden können.",
-          },
-        ],
-        formulas: ["Budgetgerade: p1·x1 + p2·x2 = m", "Steigung der Budgetgeraden: −p1/p2"],
-        formulasLatex: ["p_1 x_1 + p_2 x_2 = m", "\\text{Steigung} = -\\dfrac{p_1}{p_2}"],
         examples: [
-          "Ein Haushalt ernährt sich ausschließlich von Reis (Gut 1, Preis 4 GE/kg) und Linsen (Gut 2, Preis 6 GE/kg) bei einem Einkommen von 240 GE. Die Budgetgerade lautet 4x1 + 6x2 = 240, also x2 = 40 − (2/3)x1. Maximal könnte er sich 60 kg Reis oder 40 kg Linsen leisten.",
-        ],
-      },
-      {
-        id: "1-4",
-        heading: "1.4 Veränderungen des Budgets: Preise, Steuern und Rationierung",
-        body: [
-          "Eine Einkommenserhöhung verschiebt die Budgetgerade parallel nach außen; eine Preissenkung von Gut 1 dreht sie um den Achsenabschnitt auf der x2-Achse nach außen (die maximale Menge von Gut 1 steigt, die maximale Menge von Gut 2 bleibt gleich). Eine Mengensteuer t auf Gut 1 wirkt wie eine Preiserhöhung um t und dreht die Gerade entsprechend nach innen; eine Pauschal- bzw. Lump-Sum-Steuer verschiebt sie dagegen parallel nach innen, ohne die Steigung zu verändern.",
-          "Rationierungen (z. B. eine Obergrenze für den Konsum eines Gutes) schneiden Teile der ursprünglichen Budgetmenge ab, ohne die Steigung der Geraden in den erlaubten Bereichen zu verändern. Mengenrabatte, die erst ab einer bestimmten Abnahmemenge gelten, erzeugen dagegen einen Knick: Die Budgetgerade wird ab der Rabattschwelle flacher, weil zusätzliche Einheiten des Gutes billiger werden.",
-        ],
-        terms: [
-          {
-            term: "Mengensteuer",
-            definition: "Eine Steuer von t Geldeinheiten pro verkaufter Einheit — wirkt wie eine Preiserhöhung um t und verändert die Steigung der Budgetgeraden.",
-          },
-          {
-            term: "Lump-Sum-Steuer (Pauschalsteuer)",
-            definition: "Eine fixe Steuer, die unabhängig von der Konsummenge anfällt — verringert nur das verfügbare Einkommen und verschiebt die Budgetgerade parallel nach innen.",
-          },
-          {
-            term: "Rationierung",
-            definition: "Eine mengenmäßige Konsumobergrenze für ein Gut — schneidet Teile der Budgetmenge ab, ohne deren Steigung zu verändern.",
-          },
+          "Verdoppelt sich das Einkommen m bei konstanten Preisen, verschiebt sich die Budgetgerade parallel nach außen — jedes vorher erschwingliche Bündel bleibt erschwinglich, und zusätzliche Bündel werden erreichbar.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 2 — Technologie und Gewinnmaximierung ====================
+  // ==================== Kapitel 2 ====================
   {
-    id: "technologie-gewinnmax",
+    id: "praeferenzen-und-nutzen",
     number: 2,
-    title: "Technologie und Gewinnmaximierung der Unternehmung",
+    title: "Präferenzen und Nutzen",
     free: false,
     intro:
-      "Bevor wir das Haushaltsoptimierungsproblem vertiefen, wechseln wir die Perspektive zur Unternehmung: Wie beschreibt man die technologischen Möglichkeiten einer Firma, und wie leitet man daraus ihre gewinnmaximale Entscheidung ab? Die Struktur dieses Problems ist der Haushaltstheorie erstaunlich ähnlich — nur dass an die Stelle des Nutzens der Gewinn tritt.",
+      "Um zu modellieren, welches Güterbündel ein Haushalt innerhalb seiner Budgetmenge bevorzugt, braucht es ein formales Modell von Präferenzen. Dieses Kapitel führt Indifferenzkurven und die Nutzenfunktion ein.",
     sections: [
       {
         id: "2-1",
-        heading: "2.1 Technologiemenge und Produktionsfunktion",
+        heading: "2.1 Präferenzrelationen und Indifferenzkurven",
         body: [
-          "Die Technologiemenge einer Firma beschreibt alle technisch möglichen Kombinationen aus Inputs (x1, x2, …) und Output y. Meist arbeitet man mit der Produktionsfunktion f, die für gegebene Inputs den maximal möglichen Output angibt: y = f(x1, x2). Ein Input-Output-Paar heißt technisch effizient, wenn es auf dem Rand der Technologiemenge liegt — es lässt sich kein Input reduzieren, ohne den Output zu senken.",
-          "Wichtige Produktionsfunktionstypen sind die lineare Technologie f(x1, x2) = ax1 + bx2 (Inputs sind perfekte Substitute), die Leontief-Technologie f(x1, x2) = min{ax1, bx2} (Inputs müssen in festem Verhältnis kombiniert werden — perfekte Komplemente) und die Cobb-Douglas-Technologie f(x1, x2) = x1^a·x2^b.",
+          "Präferenzen werden meist über drei Grundannahmen modelliert: Vollständigkeit (je zwei Bündel sind vergleichbar), Transitivität (aus A≻B und B≻C folgt A≻C) und (meist) Monotonie (mehr von jedem Gut ist mindestens so gut). Eine Indifferenzkurve verbindet alle Güterbündel, zwischen denen der Haushalt indifferent ist (gleich gut bewertet).",
+          "Bei monotonen Präferenzen können sich zwei verschiedene Indifferenzkurven nie schneiden — ein Schnittpunkt würde der Transitivität widersprechen, da beide Kurven durch diesen Punkt liefen, aber unterschiedliche Nutzenniveaus repräsentieren müssten.",
         ],
-        terms: [
-          {
-            term: "Produktionsfunktion",
-            definition: "f(x1, x2) gibt den maximal möglichen Output bei gegebenen Inputmengen x1, x2 an.",
-          },
-          {
-            term: "Technische Effizienz",
-            definition: "Ein Input-Output-Bündel ist technisch effizient, wenn keine Inputmenge reduziert werden kann, ohne den Output zu verringern.",
-          },
-          {
-            term: "Grenzprodukt (MP)",
-            definition: "MPi = ∂f/∂xi — der zusätzliche Output aus einer marginalen Einheit mehr von Input i, bei sonst konstanten Inputs.",
-          },
+        terms: [{ term: "Indifferenzkurve", definition: "Menge der Güterbündel, zwischen denen ein Haushalt indifferent ist." }],
+        examples: [
+          "Bewertet ein Haushalt (2 Kaffee, 6 Tee) genauso wie (4 Kaffee, 3 Tee), liegen beide Bündel auf derselben Indifferenzkurve — der Haushalt ist zwischen ihnen indifferent, auch wenn sich die Mengen der einzelnen Güter unterscheiden.",
         ],
       },
       {
         id: "2-2",
-        heading: "2.2 Isoquanten, Grenzprodukt und die Grenzrate der technischen Substitution",
+        heading: "2.2 Die Grenzrate der Substitution",
         body: [
-          "Eine Isoquante fasst alle Inputkombinationen zusammen, die denselben Output y liefern — analog zur Indifferenzkurve beim Haushalt. Ihre Steigung ist die Grenzrate der technischen Substitution (MRTS): Sie gibt an, wie viel von Input 2 zusätzlich nötig ist, um eine Einheit weniger von Input 1 auszugleichen, ohne den Output zu ändern.",
-          "Die meisten Technologien zeigen abnehmendes Grenzprodukt: Erhöht man einen Input bei konstantem anderen Input immer weiter, nimmt der zusätzliche Output pro weiterer Einheit ab (Gesetz vom abnehmenden Grenzertrag).",
+          "Die Grenzrate der Substitution (GRS) misst die Steigung der Indifferenzkurve in einem Punkt: Sie gibt an, wie viele Einheiten von Gut 2 der Haushalt bereit ist aufzugeben, um eine zusätzliche (marginale) Einheit von Gut 1 zu erhalten, ohne sein Nutzenniveau zu verändern. Formal gilt GRS = −dx₂/dx₁ entlang der Indifferenzkurve.",
+          "Bei den meisten üblichen Präferenzen (konvexe Präferenzen) nimmt die GRS mit steigendem x₁ ab — der Haushalt ist bereit, immer weniger von Gut 2 für eine zusätzliche Einheit von Gut 1 herzugeben, je mehr er von Gut 1 bereits besitzt. Dies erzeugt die typische, nach außen gewölbte Form der Indifferenzkurven.",
         ],
-        terms: [
-          {
-            term: "Isoquante",
-            definition: "Die Menge aller Inputkombinationen (x1, x2), die denselben Output y = f(x1, x2) erzeugen.",
-          },
-          {
-            term: "Grenzrate der technischen Substitution (MRTS)",
-            definition: "MRTS = −MP1/MP2 — die Steigung der Isoquante; wie viel Input 2 einen Rückgang von Input 1 um eine Einheit gerade ausgleicht.",
-          },
-          {
-            term: "Abnehmendes Grenzprodukt",
-            definition: "Der zusätzliche Output einer weiteren Inputeinheit nimmt ab, je mehr von diesem Input bereits eingesetzt wird (bei konstanten übrigen Inputs).",
-          },
+        formulas: ["GRS = −dx₂/dx₁"],
+        formulasLatex: ["GRS = -\\dfrac{dx_2}{dx_1}"],
+        terms: [{ term: "Grenzrate der Substitution", definition: "Menge an Gut 2, die für eine marginale Einheit von Gut 1 bei gleichem Nutzenniveau aufgegeben wird." }],
+        examples: [
+          "Besitzt ein Haushalt sehr viel Kaffee und wenig Tee, ist er bereit, viel Kaffee für eine zusätzliche Tasse Tee herzugeben (hohe GRS); besitzt er dagegen bereits viel Tee, ist ihm eine zusätzliche Tasse Tee wenig wert (niedrige GRS).",
         ],
-        formulas: ["MRTS = −MP1/MP2"],
-        formulasLatex: ["\\text{MRTS} = -\\dfrac{MP_1}{MP_2}"],
       },
       {
         id: "2-3",
-        heading: "2.3 Skalenerträge",
+        heading: "2.3 Nutzenfunktionen und Grenznutzen",
         body: [
-          "Skalenerträge beschreiben, wie sich der Output verändert, wenn man ALLE Inputs im gleichen Verhältnis erhöht. Bei konstanten Skalenerträgen gilt f(t·x1, t·x2) = t·f(x1, x2) für alle t > 0: Verdopplung aller Inputs verdoppelt den Output exakt. Bei zunehmenden Skalenerträgen gilt f(t·x1, t·x2) > t·f(x1, x2): der Output wächst überproportional (Größenvorteile). Bei abnehmenden Skalenerträgen ist es umgekehrt.",
+          "Eine Nutzenfunktion u(x₁,x₂) ordnet jedem Güterbündel eine Zahl zu, sodass höher bewertete Bündel eine höhere Zahl erhalten — sie repräsentiert die Präferenzordnung, wenn u(A)≥u(B) genau dann gilt, wenn A mindestens so gut ist wie B. Wichtig: Der absolute Nutzenwert hat keine kardinale Bedeutung, nur die Rangordnung zählt (ordinale Nutzentheorie).",
+          "Der Grenznutzen MUᵢ = ∂u/∂xᵢ misst die zusätzliche Nutzenänderung durch eine marginale Einheit von Gut i. Die GRS lässt sich direkt aus den Grenznutzen berechnen: GRS = MU₁/MU₂.",
         ],
-        terms: [
-          {
-            term: "Konstante Skalenerträge",
-            definition: "f(t·x1, t·x2) = t·f(x1, x2) für alle t > 0 — Verdopplung aller Inputs verdoppelt den Output genau.",
-          },
-          {
-            term: "Zunehmende Skalenerträge",
-            definition: "f(t·x1, t·x2) > t·f(x1, x2) für t > 1 — der Output wächst überproportional zu den Inputs (Größenvorteile).",
-          },
-          {
-            term: "Abnehmende Skalenerträge",
-            definition: "f(t·x1, t·x2) < t·f(x1, x2) für t > 1 — der Output wächst unterproportional zu den Inputs.",
-          },
-        ],
-        formulas: [
-          "Cobb-Douglas f(x1,x2)=x1^a·x2^b: f(t·x1,t·x2) = t^(a+b)·f(x1,x2)",
-          "a+b=1: konstant  |  a+b>1: zunehmend  |  a+b<1: abnehmend",
-        ],
-        formulasLatex: [
-          "f(t x_1, t x_2) = t^{a+b}\\, f(x_1,x_2) \\quad \\text{für } f(x_1,x_2)=x_1^a x_2^b",
-          "a+b=1:\\ \\text{konstant} \\quad a+b>1:\\ \\text{zunehmend} \\quad a+b<1:\\ \\text{abnehmend}",
-        ],
+        formulas: ["GRS = MU₁ / MU₂"],
+        formulasLatex: ["GRS = \\dfrac{MU_1}{MU_2}"],
+        terms: [{ term: "Grenznutzen (MU)", definition: "Partielle Ableitung der Nutzenfunktion nach der Menge eines Gutes." }],
         examples: [
-          "Für f(x1, x2) = x1^0,5·x2^0,3 gilt f(tx1, tx2) = t^0,8·f(x1, x2): da 0,8 < 1, liegen abnehmende Skalenerträge vor. Bei f(x1, x2) = x1·x2 dagegen ist f(tx1, tx2) = t²·f(x1, x2) — zunehmende Skalenerträge.",
+          "Für u(x₁,x₂)=x₁·x₂ gilt MU₁=x₂, MU₂=x₁, also GRS=x₂/x₁ — bei Bündel (2,8) beträgt die GRS 4: der Haushalt gibt 4 Einheiten von Gut 2 für eine marginale Einheit von Gut 1 her.",
         ],
-      },
-      {
-        id: "2-4",
-        heading: "2.4 Gewinnmaximierung und Faktornachfrage",
-        body: [
-          "Eine gewinnmaximierende Firma unter vollständiger Konkurrenz löst max π = p·f(x1, x2) − w1·x1 − w2·x2, wobei p der Outputpreis und wi die Faktorpreise sind. Die Bedingung erster Ordnung verlangt, dass für jeden Input das Wertgrenzprodukt (p·MPi) gleich dem Faktorpreis wi ist — kein Faktor wird über- oder unterbeschäftigt.",
-          "Aus dieser Optimalitätsbedingung ergeben sich die Faktornachfragefunktionen x1*(p, w1, w2) und x2*(p, w1, w2). Anders als bei der Konsumnachfrage gibt es hier kein Analogon zu einem Giffen-Gut: Ein Anstieg des eigenen Faktorpreises senkt (unter den üblichen Konvexitätsannahmen) stets die nachgefragte Menge dieses Faktors.",
-        ],
-        terms: [
-          {
-            term: "Wertgrenzprodukt",
-            definition: "p·MPi — der monetäre Wert des zusätzlichen Outputs aus einer marginalen Einheit mehr von Faktor i.",
-          },
-          {
-            term: "Faktornachfragefunktion",
-            definition: "xi*(p, w1, w2) — die gewinnmaximale Menge von Faktor i in Abhängigkeit von Output- und Faktorpreisen.",
-          },
-          {
-            term: "Hotelling's Lemma",
-            definition: "Die Ableitung der Gewinnfunktion nach dem Outputpreis p ergibt die Angebotsfunktion; die Ableitung nach einem Faktorpreis wi ergibt (mit negativem Vorzeichen) die Faktornachfrage.",
-          },
-        ],
-        formulas: ["F.O.C.: p·MP1 = w1, p·MP2 = w2"],
-        formulasLatex: ["p\\cdot MP_1 = w_1, \\qquad p \\cdot MP_2 = w_2"],
       },
     ],
   },
-
-  // ==================== Kapitel 3 — Präferenzen und Nutzen ====================
+  // ==================== Kapitel 3 ====================
   {
-    id: "praeferenzen-nutzen",
+    id: "optimale-entscheidung-nachfrage",
     number: 3,
-    title: "Präferenzen und Nutzen",
+    title: "Optimale Entscheidung und Nachfrage",
     free: false,
     intro:
-      "Um zu modellieren, wie ein Haushalt zwischen Güterbündeln wählt, brauchen wir eine formale Beschreibung seiner Vorlieben. Präferenzrelationen und Nutzenfunktionen sind zwei äquivalente Sprachen dafür — dieses Kapitel führt beide ein und zeigt, wie sie zusammenhängen.",
+      "Kombiniert man Präferenzen mit der Budgetrestriktion, ergibt sich das zentrale Optimierungsproblem des Haushalts: das beste erschwingliche Güterbündel zu finden. Dieses Kapitel leitet daraus die individuelle Nachfrage her.",
     sections: [
       {
         id: "3-1",
-        heading: "3.1 Präferenzrelationen: Vollständigkeit, Transitivität, Monotonie",
+        heading: "3.1 Das Optimierungsproblem des Haushalts",
         body: [
-          "Eine Präferenzrelation ≿ auf der Menge der Güterbündel ordnet je zwei Bündel x, y danach, ob x mindestens so gut wie y ist. Für rationale Präferenzen fordert man Vollständigkeit (für alle x, y gilt x≿y oder y≿x) und Transitivität (aus x≿y und y≿z folgt x≿z).",
-          "Zusätzlich wird oft (strikte) Monotonie gefordert: Ein Bündel mit mehr von mindestens einem Gut (und nicht weniger von den anderen) wird echt bevorzugt. Diese Annahme schließt Sättigungspunkte aus und ist die formale Fassung von 'mehr ist besser'.",
+          "Der Haushalt maximiert u(x₁,x₂) unter der Nebenbedingung p₁x₁+p₂x₂=m. Im (inneren) Optimum berührt die höchstmögliche erreichbare Indifferenzkurve die Budgetgerade tangential: die Steigungen stimmen überein, also GRS = p₁/p₂, äquivalent MU₁/p₁ = MU₂/p₂ — der Grenznutzen pro ausgegebenem Euro muss für alle konsumierten Güter gleich sein.",
+          "Diese Bedingung MU₁/p₁ = MU₂/p₂ ist intuitiv: Wäre der Grenznutzen pro Euro bei Gut 1 höher, könnte der Haushalt durch Umschichten von Ausgaben von Gut 2 zu Gut 1 seinen Gesamtnutzen erhöhen — im Optimum ist keine solche profitable Umschichtung mehr möglich.",
         ],
-        terms: [
-          {
-            term: "Vollständigkeit",
-            definition: "Für je zwei Bündel x, y lässt sich immer sagen, ob x≿y, y≿x oder beides (Indifferenz) gilt.",
-          },
-          {
-            term: "Transitivität",
-            definition: "Aus x≿y und y≿z folgt x≿z — Konsistenzbedingung, die 'Präferenzzyklen' ausschließt.",
-          },
-          {
-            term: "Strikte Monotonie",
-            definition: "Ein Bündel mit (schwach) mehr von jedem Gut und strikt mehr von mindestens einem Gut wird echt bevorzugt.",
-          },
-        ],
+        formulas: ["MU₁/p₁ = MU₂/p₂"],
+        formulasLatex: ["\\dfrac{MU_1}{p_1} = \\dfrac{MU_2}{p_2}"],
+        terms: [{ term: "Haushaltsoptimum", definition: "Güterbündel, bei dem GRS=p₁/p₂ gilt und die Budgetrestriktion bindet." }],
         examples: [
-          "Bilden drei Personen eine Gruppen-Mehrheitspräferenz aus individuell rationalen (vollständigen, transitiven) Präferenzen über drei Reiseziele, kann die resultierende Mehrheitsrelation intransitiv werden (Condorcet-Paradoxon): Obwohl jede Einzelperson rational ist, muss die durch Abstimmung gebildete Gruppenpräferenz nicht rational sein.",
+          "Ist MU₁/p₁ = 5 und MU₂/p₂ = 3, lohnt es sich für den Haushalt, mehr von Gut 1 und weniger von Gut 2 zu kaufen, bis sich beide Verhältnisse angleichen — erst dann ist ein Optimum erreicht.",
         ],
       },
       {
         id: "3-2",
-        heading: "3.2 Indifferenzkurven",
+        heading: "3.2 Individuelle Nachfragefunktion",
         body: [
-          "Eine Indifferenzkurve fasst alle Güterbündel zusammen, zwischen denen ein Haushalt indifferent ist. Bei strikt monotonen, konvexen Präferenzen sind Indifferenzkurven fallend (mehr von einem Gut muss durch mehr vom anderen kompensiert werden, wenn man weniger vom ersten hat) und aus dem Ursprung heraus konvex gekrümmt.",
-          "Spezialfälle: Bei perfekten Substituten (z. B. konstantes Austauschverhältnis zwischen zwei Gütern) sind Indifferenzkurven Geraden. Bei perfekten Komplementen (Güter werden immer im festen Verhältnis konsumiert) sind sie L-förmig geknickt.",
+          "Löst man das Optimierungsproblem für gegebene Preise p₁,p₂ und Einkommen m, erhält man die individuelle Nachfragefunktion x₁*(p₁,p₂,m), die angibt, wie viel der Haushalt von Gut 1 bei gegebenen Preisen und Einkommen optimal konsumiert. Für die häufig verwendete Cobb-Douglas-Nutzenfunktion u=x₁^a·x₂^(1−a) ergibt sich die einfache Form x₁* = a·m/p₁.",
+          "Diese Cobb-Douglas-Nachfrage zeigt eine wichtige Eigenschaft: Der Ausgabenanteil für Gut 1 (p₁x₁*/m = a) ist konstant und unabhängig von Preisen und Einkommen — ein charakteristisches, wenn auch idealisiertes Merkmal dieser Präferenzform.",
         ],
-        terms: [
-          {
-            term: "Indifferenzkurve",
-            definition: "Die Menge aller Güterbündel, die ein Haushalt als gleich gut bewertet (zwischen denen er indifferent ist).",
-          },
-          {
-            term: "Perfekte Substitute",
-            definition: "Güter, die in konstantem Verhältnis gegeneinander ausgetauscht werden können, ohne den Nutzen zu ändern — lineare Indifferenzkurven.",
-          },
-          {
-            term: "Perfekte Komplemente",
-            definition: "Güter, die stets im festen Verhältnis konsumiert werden (zusätzliche Einheiten nur eines Gutes bringen keinen Zusatznutzen) — L-förmige Indifferenzkurven.",
-          },
+        formulas: ["x₁* = a · m / p₁ (Cobb-Douglas)"],
+        formulasLatex: ["x_1^{*} = \\dfrac{a \\cdot m}{p_1}"],
+        examples: [
+          "Bei u=x₁^0,3·x₂^0,7, m=1000€, p₁=20€ ergibt sich x₁* = 0,3·1000/20 = 15 Einheiten von Gut 1 — der Haushalt gibt konstant 30% seines Einkommens für Gut 1 aus, unabhängig vom konkreten Preisniveau.",
         ],
-        figure: {
-          type: "budget-line",
-          caption: "Optimum E*: die höchste erreichbare Indifferenzkurve tangiert die Budgetgerade.",
-        },
       },
       {
         id: "3-3",
-        heading: "3.3 Von Präferenzen zu Nutzenfunktionen",
+        heading: "3.3 Einkommens- und Preiseffekte auf die Nachfrage",
         body: [
-          "Eine Nutzenfunktion u repräsentiert eine Präferenzrelation ≿, wenn u(x) ≥ u(y) genau dann gilt, wenn x≿y. Nutzenfunktionen sind nur ordinal zu interpretieren: Der Zahlenwert selbst hat keine Bedeutung, nur die Rangordnung der Bündel zählt.",
-          "Jede streng monotone Transformation f einer Nutzenfunktion u (also v = f(u) mit f'>0) repräsentiert dieselbe Präferenzordnung — u und v sind dann 'äquivalent'. Insbesondere haben u und f(u) für jede solche Transformation dieselbe Grenzrate der Substitution.",
+          "Ein normales Gut zeichnet sich durch ∂x₁*/∂m > 0 aus (Nachfrage steigt mit dem Einkommen), ein inferiores Gut durch ∂x₁*/∂m < 0. Bei den meisten Gütern gilt zusätzlich das Gesetz der Nachfrage: ∂x₁*/∂p₁ < 0 (Nachfrage sinkt mit steigendem Preis) — eine Ausnahme bilden Giffen-Güter, bei denen dieser Zusammenhang theoretisch umgekehrt sein kann.",
+          "Zwei Güter heißen Substitute, wenn eine Preiserhöhung bei Gut 1 die Nachfrage nach Gut 2 erhöht (∂x₂*/∂p₁>0), und Komplemente, wenn sie die Nachfrage nach Gut 2 senkt (∂x₂*/∂p₁<0).",
         ],
         terms: [
-          {
-            term: "Nutzenfunktion",
-            definition: "Eine Funktion u, für die u(x) ≥ u(y) ⟺ x≿y gilt — repräsentiert die Präferenzordnung durch reelle Zahlen.",
-          },
-          {
-            term: "Ordinale Nutzenmessung",
-            definition: "Nur die Rangfolge der Nutzenwerte hat Bedeutung, nicht der absolute Abstand zwischen ihnen.",
-          },
-          {
-            term: "Monotone Transformation",
-            definition: "Eine streng steigende Funktion f — v = f(u) repräsentiert dieselbe Präferenzordnung wie u.",
-          },
+          { term: "Normales Gut", definition: "Gut, dessen Nachfrage mit steigendem Einkommen zunimmt." },
+          { term: "Inferiores Gut", definition: "Gut, dessen Nachfrage mit steigendem Einkommen abnimmt." },
         ],
-      },
-      {
-        id: "3-4",
-        heading: "3.4 Die Grenzrate der Substitution (MRS)",
-        body: [
-          "Die Grenzrate der Substitution MRS = −MU1/MU2 ist die Steigung der Indifferenzkurve: Sie gibt an, wie viel von Gut 2 ein Haushalt bereit ist aufzugeben, um eine marginale Einheit mehr von Gut 1 zu erhalten, ohne dass sich sein Nutzen ändert. Da die MRS nur von der Steigung der Indifferenzkurve abhängt, bleibt sie unter monotonen Transformationen der Nutzenfunktion unverändert — anders als die einzelnen Grenznutzen MU1, MU2, die je nach Transformation steigend, fallend oder konstant sein können.",
+        examples: [
+          "Steigt bei einem Studierenden das Einkommen und er kauft dadurch weniger Discounter-Nudeln, aber mehr Restaurantbesuche, sind Nudeln in diesem Fall ein inferiores und Restaurantbesuche ein normales Gut.",
         ],
-        terms: [
-          {
-            term: "Grenznutzen (MU)",
-            definition: "MUi = ∂u/∂xi — der zusätzliche Nutzen aus einer marginalen Einheit mehr von Gut i.",
-          },
-          {
-            term: "Grenzrate der Substitution (MRS)",
-            definition: "MRS = −MU1/MU2 — invariant unter monotonen Transformationen der Nutzenfunktion, da sie nur von der Steigung der Indifferenzkurve abhängt.",
-          },
-        ],
-        formulas: ["MRS = −MU1/MU2 = −(∂u/∂x1)/(∂u/∂x2)"],
-        formulasLatex: ["\\text{MRS} = -\\dfrac{\\partial u/\\partial x_1}{\\partial u/\\partial x_2}"],
       },
     ],
   },
-
-  // ==================== Kapitel 4 — Monopol ====================
+  // ==================== Kapitel 4 ====================
   {
-    id: "monopol",
+    id: "konsumentenrente-marktgleichgewicht",
     number: 4,
-    title: "Monopol",
+    title: "Konsumentenrente, Marktnachfrage und Marktgleichgewicht",
     free: false,
     intro:
-      "Nachdem wir Gewinnmaximierung unter vollständiger Konkurrenz betrachtet haben, untersuchen wir nun den entgegengesetzten Fall: einen einzigen Anbieter, der die Marktnachfrage als Ganzes vor sich hat und deshalb den Preis mitbestimmt, statt ihn als gegeben hinzunehmen.",
+      "Aggregiert man individuelle Nachfrageentscheidungen über alle Haushalte, entsteht die Marktnachfrage — die Grundlage, um Marktpreise und den Wohlfahrtsgewinn aus Marktteilnahme zu bestimmen.",
     sections: [
       {
         id: "4-1",
-        heading: "4.1 Das Gewinnmaximierungsproblem des Monopolisten",
+        heading: "4.1 Konsumentenrente",
         body: [
-          "Ein Monopolist sieht sich der gesamten (fallenden) Marktnachfrage p(y) gegenüber und wählt die Menge y, die seinen Gewinn π(y) = p(y)·y − C(y) maximiert. Die Bedingung erster Ordnung lautet Grenzerlös = Grenzkosten: MR(y) = C'(y). Anders als bei vollständiger Konkurrenz gilt hier MR(y) < p(y), da eine zusätzlich verkaufte Einheit den Preis für ALLE verkauften Einheiten senkt.",
+          "Die Konsumentenrente misst den Wohlfahrtsgewinn der Konsumenten aus der Marktteilnahme: die Fläche zwischen der (individuellen oder Markt-)Nachfragekurve und dem tatsächlich gezahlten Preis, bis zur konsumierten Menge. Sie erfasst, wie viel mehr Konsumenten für die gekaufte Menge zu zahlen bereit gewesen wären, als sie tatsächlich zahlen mussten.",
+          "Bei einer linearen Nachfragekurve p(x) = a−bx lässt sich die Konsumentenrente bei Preis p* und Menge x* als Dreiecksfläche berechnen: KR = ½·(a−p*)·x*.",
         ],
-        terms: [
-          {
-            term: "Grenzerlös (Marginal Revenue, MR)",
-            definition: "MR(y) = d(p(y)·y)/dy — die Erlösänderung durch eine zusätzlich verkaufte Einheit; beim Monopolisten stets kleiner als der Preis p(y).",
-          },
-          {
-            term: "Gewinnmaximierungsbedingung im Monopol",
-            definition: "MR(y*) = C'(y*) — Grenzerlös gleich Grenzkosten bestimmt die optimale Ausbringungsmenge.",
-          },
-        ],
-        formulas: ["MR(y) = C'(y)"],
-        formulasLatex: ["MR(y) = C'(y)"],
+        formulas: ["KR = ½ · (a − p*) · x*"],
+        formulasLatex: ["KR = \\dfrac{1}{2}(a-p^{*})\\,x^{*}"],
+        terms: [{ term: "Konsumentenrente", definition: "Wohlfahrtsgewinn der Konsumenten: Differenz zwischen Zahlungsbereitschaft und tatsächlichem Preis, aufsummiert über die Menge." }],
         examples: [
-          "Eine Monopolistin sehe sich der inversen Nachfrage p(y) = 180 − 6y und der Kostenfunktion C(y) = 3y² gegenüber. Grenzerlös MR(y) = 180 − 12y, Grenzkosten C'(y) = 6y. Aus 180 − 12y = 6y folgt y* = 10, p* = 180 − 60 = 120, Gewinn π* = 120·10 − 3·100 = 900. Ein Preisnehmer bei gleicher Kostenfunktion würde dagegen y = 15 anbieten (p = MC ⟹ 180−6y=6y ⟹ y=15, p=90, Gewinn=90·15−3·225=675) — deutlich mehr Menge zu einem niedrigeren Preis, aber mit geringerem Gewinn.",
+          "Bei Nachfrage p=50−2x und Marktpreis p*=20 ergibt sich x*=15. Die Konsumentenrente beträgt ½·(50−20)·15 = 225 (Geldeinheiten).",
         ],
-        figure: {
-          type: "monopoly-graph",
-          caption: "Gewinnmaximum: MR = MC bestimmt Qm, der Preis Pm wird von der Nachfragekurve abgelesen.",
-        },
       },
       {
         id: "4-2",
-        heading: "4.2 Preiselastizität und die Amoroso-Robinson-Gleichung",
+        heading: "4.2 Marktnachfrage durch horizontale Aggregation",
         body: [
-          "Der Grenzerlös lässt sich mit der Preiselastizität der Nachfrage ε ausdrücken: MR(y) = p·(1 + 1/ε) (Amoroso-Robinson-Gleichung). Da ε < 0 für gewöhnliche Güter, folgt daraus unmittelbar, dass ein gewinnmaximierender Monopolist NIE im unelastischen Bereich der Nachfrage (|ε| < 1) produziert — dort wäre der Grenzerlös negativ, sodass eine Mengenreduktion den Erlös sogar erhöhen würde.",
-          "Der Lerner-Index (p − MC)/p = −1/ε misst den relativen Preisaufschlag über die Grenzkosten (die 'Marktmacht' des Monopolisten) und hängt allein von der Preiselastizität am Optimum ab.",
+          "Die Marktnachfrage bei einem gegebenen Preis ergibt sich durch horizontale Addition der individuellen Nachfragemengen aller Marktteilnehmer: X(p) = Σᵢ xᵢ(p). Anders als bei vertikaler Addition (die bei öffentlichen Gütern relevant wird) werden hier bei gegebenem Preis die Mengen addiert, nicht die Zahlungsbereitschaften bei gegebener Menge.",
+          "Diese Aggregation erklärt, warum Marktnachfragekurven meist glatter und elastischer verlaufen als individuelle Nachfragekurven: Unregelmäßigkeiten einzelner Haushalte gleichen sich beim Aufsummieren über viele Konsumenten tendenziell aus.",
         ],
-        terms: [
-          {
-            term: "Amoroso-Robinson-Gleichung",
-            definition: "MR(y) = p·(1 + 1/ε), wobei ε die Preiselastizität der Nachfrage ist.",
-          },
-          {
-            term: "Lerner-Index",
-            definition: "L = (p − MC)/p = −1/ε — der relative Preisaufschlag über die Grenzkosten im Gewinnoptimum.",
-          },
+        formulas: ["X(p) = Σᵢ xᵢ(p)"],
+        formulasLatex: ["X(p) = \\sum_i x_i(p)"],
+        examples: [
+          "Bei drei identischen Haushalten mit individueller Nachfrage x(p)=10−p ergibt sich die Marktnachfrage X(p)=3·(10−p)=30−3p.",
         ],
-        formulas: ["MR = p·(1 + 1/ε)", "Lerner-Index: (p − MC)/p = −1/ε"],
-        formulasLatex: ["MR = p\\left(1+\\dfrac{1}{\\varepsilon}\\right)", "\\dfrac{p-MC}{p} = -\\dfrac{1}{\\varepsilon}"],
       },
       {
         id: "4-3",
-        heading: "4.3 Ineffizienz des Monopols und Wirkung von Steuern",
+        heading: "4.3 Marktgleichgewicht und komparative Statik",
         body: [
-          "Weil der Monopolist beim Preis p* > MC(y*) anbietet, gibt es Nachfrager mit Zahlungsbereitschaft zwischen MC(y*) und p*, die nicht bedient werden, obwohl ein Tausch beide Seiten besserstellen würde — es entsteht ein Wohlfahrtsverlust (Deadweight Loss) im Vergleich zur vollständigen Konkurrenz.",
-          "Eine Mengensteuer verschärft dieses Problem: Sie verschiebt effektiv die Grenzkostenkurve nach oben und senkt die Menge weiter unter das (bereits ineffizient niedrige) Monopolniveau — anders als im Wettbewerbsmarkt, wo eine Steuer 'nur' zu einem zusätzlichen, aber vergleichsweise kleineren Wohlfahrtsverlust führt. Eine Gewinnsteuer dagegen verändert die Bedingung erster Ordnung nicht und hat daher (bei einem festen Steuersatz) keinen Effekt auf Preis und Menge — sie schmälert nur den Gewinn selbst.",
+          "Das Marktgleichgewicht liegt beim Preis p*, bei dem Marktnachfrage X(p*) und Marktangebot S(p*) übereinstimmen. Komparative Statik untersucht, wie sich dieses Gleichgewicht bei Verschiebungen von Angebot oder Nachfrage verändert — etwa durch neue Präferenzen, veränderte Einkommen, oder Kostenschocks auf der Angebotsseite.",
+          "Eine Verschiebung der Nachfragekurve nach rechts (z. B. durch Einkommenssteigerung bei einem normalen Gut) erhöht bei unveränderter Angebotskurve sowohl Gleichgewichtspreis als auch Gleichgewichtsmenge.",
         ],
-        terms: [
-          {
-            term: "Deadweight Loss (Wohlfahrtsverlust) im Monopol",
-            definition: "Der Wert entgangener Tauschgewinne, weil der Monopolist eine geringere Menge anbietet als bei vollständiger Konkurrenz.",
-          },
-          {
-            term: "Wirkung einer Gewinnsteuer",
-            definition: "Eine proportionale Steuer auf den Gewinn verändert die gewinnmaximale Menge/den Preis nicht, solange die Bemessungsgrundlage der volle Gewinn bleibt — sie mindert nur den Nachsteuergewinn.",
-          },
-        ],
-      },
-      {
-        id: "4-4",
-        heading: "4.4 Preisdiskriminierung",
-        body: [
-          "Preisdiskriminierung dritten Grades liegt vor, wenn ein Monopolist verschiedene, voneinander abgrenzbare Käufergruppen (Märkte) zu unterschiedlichen Preisen bedient. Optimal ist es, den Grenzerlös auf JEDEM Teilmarkt gleich den (gemeinsamen) Grenzkosten zu setzen — Märkte mit unelastischerer Nachfrage erhalten dabei einen höheren Preis.",
-          "Perfekte (Preisdiskriminierung ersten Grades) liegt vor, wenn der Monopolist jedem einzelnen Käufer genau seine Zahlungsbereitschaft abverlangen kann. Das Ergebnis ist wieder effizient (wie bei vollständiger Konkurrenz in der Menge), aber die gesamte Konsumentenrente fließt an den Anbieter.",
-        ],
-        terms: [
-          {
-            term: "Preisdiskriminierung dritten Grades",
-            definition: "Unterschiedliche Preise für unterscheidbare Käufergruppen, wobei jeweils MR = MC auf jedem Teilmarkt gilt.",
-          },
-          {
-            term: "Preisdiskriminierung ersten Grades (perfekte Preisdiskriminierung)",
-            definition: "Jeder Käufer zahlt individuell genau seine Zahlungsbereitschaft — effizient in der Menge, aber ohne Konsumentenrente.",
-          },
-        ],
-        formulas: [
-          "Preisdiskriminierung 3. Grades, Teilmarkt i: MR_i(y_i) = MC, mit MR_i = p_i·(1+1/εi)",
-        ],
-        formulasLatex: [
-          "MR_i(y_i) = MC, \\quad MR_i = p_i\\left(1+\\dfrac{1}{\\varepsilon_i}\\right)",
-        ],
+        terms: [{ term: "Marktgleichgewicht", definition: "Preis, bei dem angebotene und nachgefragte Menge übereinstimmen." }],
         examples: [
-          "Ein Softwareanbieter (konstante Grenzkosten MC=10) bedient Studierende (Elastizität ε1=−4) und Berufstätige (ε2=−2) getrennt. Aus MRi=p_i(1+1/εi)=MC folgt p1=MC/(1+1/ε1)=10/(1−0,25)≈13,33 für Studierende und p2=10/(1−0,5)=20 für Berufstätige — der unelastischere Teilmarkt (Berufstätige) zahlt den höheren Preis.",
+          "Steigt durch eine Werbekampagne die Nachfrage nach einem Produkt bei jedem Preis, verschiebt sich die Nachfragekurve nach rechts — bei unverändertem Angebot steigen sowohl Preis als auch Menge im neuen Gleichgewicht.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 5 — Kostenminimierung und Kostenkurven ====================
+  // ==================== Kapitel 5 ====================
   {
-    id: "kostenminimierung-kostenkurven",
+    id: "slutsky-zerlegung",
     number: 5,
-    title: "Kostenminimierung und Kostenkurven",
+    title: "Bekundete Präferenzen und Slutsky-Zerlegung",
     free: false,
     intro:
-      "Statt direkt den Gewinn zu maximieren, zerlegt man das Problem der Unternehmung oft in zwei Schritte: erst die kostengünstigste Art, ein gegebenes Outputniveau herzustellen (Kostenminimierung), und dann — darauf aufbauend — die gewinnmaximale Ausbringungsmenge. Dieses Kapitel behandelt den ersten Schritt und die daraus resultierenden Kostenkurven.",
+      "Wenn ein Preis sich ändert, wirkt das gleichzeitig über zwei Kanäle auf die Nachfrage. Die Slutsky-Zerlegung trennt diese Effekte sauber und liefert damit ein tieferes Verständnis der Nachfragereaktion.",
     sections: [
       {
         id: "5-1",
-        heading: "5.1 Das Kostenminimierungsproblem",
+        heading: "5.1 Bekundete Präferenzen",
         body: [
-          "Für ein festes Outputziel ȳ minimiert die Firma die Faktorkosten w1x1 + w2x2 unter der Nebenbedingung f(x1, x2) = ȳ. Am Optimum berührt die Isokostengerade (mit Steigung −w1/w2) die Isoquante — die Optimalitätsbedingung lautet MRTS = −w1/w2, also Grenzprodukt pro Geldeinheit muss für beide Faktoren gleich sein: MP1/w1 = MP2/w2.",
-          "Aus dieser Bedingung ergibt sich die bedingte Faktornachfrage x1(w1, w2, y), x2(w1, w2, y) — 'bedingt', weil sie vom vorgegebenen Output y abhängt, nicht vom Preis des Endprodukts.",
+          "Das Konzept der bekundeten Präferenzen erlaubt es, Präferenzen aus beobachtetem Kaufverhalten zu erschließen, ohne die zugrundeliegende Nutzenfunktion zu kennen: Wählt ein Haushalt Bündel A, obwohl auch Bündel B erschwinglich gewesen wäre, offenbart er, dass er A mindestens so gut bewertet wie B (A wird als 'direkt bekundet präferiert' zu B bezeichnet).",
+          "Das schwache Axiom der bekundeten Präferenz (WARP) verlangt Konsistenz: Wird A gegenüber B bekundet präferiert, darf in keiner anderen Situation B gegenüber A bekundet präferiert werden. Verstöße gegen WARP deuten auf inkonsistentes oder nicht nutzenmaximierendes Verhalten hin.",
         ],
-        terms: [
-          {
-            term: "Isokostengerade",
-            definition: "Die Menge aller Inputkombinationen mit gegebenen Gesamtkosten: w1x1 + w2x2 = konstant, Steigung −w1/w2.",
-          },
-          {
-            term: "Bedingte Faktornachfrage",
-            definition: "xi(w1, w2, y) — die kostenminimale Menge von Faktor i, um ein bestimmtes Outputniveau y zu erreichen.",
-          },
+        terms: [{ term: "WARP", definition: "Schwaches Axiom der bekundeten Präferenz: Konsistenzbedingung für beobachtetes Kaufverhalten." }],
+        examples: [
+          "Kauft ein Haushalt bei Preisen (p₁,p₂) Bündel A, obwohl B erschwinglich war, aber bei anderen Preisen (p₁',p₂') Bündel B, obwohl A erschwinglich gewesen wäre, verletzt dieses Verhalten WARP.",
         ],
-        formulas: ["Optimalitätsbedingung: MP1/w1 = MP2/w2"],
-        formulasLatex: ["\\dfrac{MP_1}{w_1} = \\dfrac{MP_2}{w_2}"],
       },
       {
         id: "5-2",
-        heading: "5.2 Die Kostenfunktion",
+        heading: "5.2 Substitutions- und Einkommenseffekt",
         body: [
-          "Setzt man die bedingte Faktornachfrage in die Zielfunktion ein, erhält man die Kostenfunktion C(w1, w2, y) — die minimalen Kosten, um Output y bei Faktorpreisen w1, w2 zu produzieren. Für eine Cobb-Douglas-artige Technologie f(x1, x2) = x1·x2 ergibt sich beispielsweise eine Kostenfunktion der Form C(y) = 2√(y·w1·w2).",
-          "Kosten, die auch bei y = 0 anfallen, heißen Fixkosten; alle übrigen Kosten sind variable Kosten. Fallen Fixkosten nur an, sobald überhaupt produziert wird (y > 0), aber sind unabhängig von der Höhe von y, spricht man von Quasi-Fixkosten.",
+          "Sinkt der Preis p₁, zerlegt die Slutsky-Zerlegung die gesamte Nachfrageänderung in zwei Teile: den Substitutionseffekt (Gut 1 wird relativ günstiger, der Haushalt substituiert zu Gut 1, selbst wenn man ihn hypothetisch auf dem alten Nutzenniveau hielte) und den Einkommenseffekt (die Kaufkraft des gegebenen Geldeinkommens steigt effektiv, da dasselbe Einkommen nun mehr kaufen kann).",
+          "Der Substitutionseffekt wirkt bei einer Preissenkung stets in Richtung höherer Nachfrage nach dem billiger gewordenen Gut. Der Einkommenseffekt wirkt bei normalen Gütern ebenfalls positiv, bei inferioren Gütern jedoch negativ und kann den Substitutionseffekt bei sogenannten Giffen-Gütern theoretisch sogar überkompensieren.",
         ],
         terms: [
-          {
-            term: "Kostenfunktion C(w1, w2, y)",
-            definition: "Die minimalen Gesamtkosten, um Output y bei gegebenen Faktorpreisen zu produzieren.",
-          },
-          {
-            term: "Fixkosten",
-            definition: "Kosten, die unabhängig vom Outputniveau anfallen, auch bei y = 0 (z. B. Miete).",
-          },
-          {
-            term: "Quasi-Fixkosten",
-            definition: "Kosten, die nur anfallen, sobald überhaupt produziert wird (y > 0), aber nicht mit der Höhe von y variieren.",
-          },
-        ],
-        formulas: [
-          "Für f(x1,x2)=x1·x2: C(w1,w2,y) = 2√(y·w1·w2)",
-        ],
-        formulasLatex: [
-          "C(w_1,w_2,y) = 2\\sqrt{y\\,w_1 w_2}",
+          { term: "Substitutionseffekt", definition: "Nachfrageänderung durch veränderte relative Preise bei konstant gehaltenem Nutzenniveau." },
+          { term: "Einkommenseffekt", definition: "Nachfrageänderung durch veränderte reale Kaufkraft bei konstanten relativen Preisen." },
         ],
         examples: [
-          "Bei w1=w2=4 und y=9 ergibt sich C = 2√(9·4·4) = 2·12 = 24 GE. Verdoppelt man y auf 18, steigt C auf 2√(18·16)=2·√288≈33,94 GE — die Kosten wachsen unterproportional zum Output, da f(x1,x2)=x1x2 zunehmende Skalenerträge aufweist.",
+          "Sinkt der Preis für Bus-Tickets, steigt die Nachfrage danach zunächst durch den Substitutionseffekt (Busfahren wird relativ günstiger). Ist Busfahren für den Haushalt ein inferiores Gut, dämpft der Einkommenseffekt (höhere reale Kaufkraft, Umstieg auf Auto/Taxi) diesen Anstieg teilweise.",
         ],
       },
       {
         id: "5-3",
-        heading: "5.3 Kurzfristige Kostenkurven",
+        heading: "5.3 Die Slutsky-Gleichung",
         body: [
-          "Aus der Kostenfunktion leiten sich mehrere zentrale Kurven ab: die Grenzkosten MC(y) = C'(y) (Kosten der zusätzlich produzierten Einheit), die Durchschnittskosten AC(y) = C(y)/y sowie — bei variablen und fixen Kosten getrennt betrachtet — die durchschnittlichen variablen Kosten AVC(y).",
-          "Ein wichtiger Zusammenhang: Solange die Grenzkosten unter den Durchschnittskosten liegen, fallen die Durchschnittskosten; liegen die Grenzkosten über den Durchschnittskosten, steigen diese. Daraus folgt, dass die Grenzkostenkurve die Durchschnittskostenkurve stets in deren Minimum schneidet.",
+          "Formal zerlegt die Slutsky-Gleichung die Gesamtableitung der Nachfrage nach dem Preis in Substitutions- und Einkommenseffekt: ∂x₁/∂p₁ = ∂x₁ˢ/∂p₁ − x₁·∂x₁/∂m, wobei der erste Term den (stets negativen) Substitutionseffekt bei konstantem Nutzen darstellt und der zweite Term den Einkommenseffekt erfasst.",
+          "Diese Zerlegung erklärt formal, warum Giffen-Güter (bei denen die Gesamtnachfrage mit dem Preis steigt) theoretisch möglich, aber empirisch extrem selten sind: Sie erfordern einen negativen Einkommenseffekt, der den stets negativen Substitutionseffekt betragsmäßig übersteigt — eine Konstellation, die nur bei sehr speziellen Gütern (typischerweise Grundnahrungsmittel armer Haushalte) überhaupt denkbar ist.",
         ],
-        terms: [
-          {
-            term: "Grenzkosten (MC)",
-            definition: "MC(y) = C'(y) — die zusätzlichen Kosten einer marginal zusätzlich produzierten Einheit.",
-          },
-          {
-            term: "Durchschnittskosten (AC)",
-            definition: "AC(y) = C(y)/y — die Kosten pro produzierter Einheit.",
-          },
-          {
-            term: "Durchschnittliche variable Kosten (AVC)",
-            definition: "AVC(y) = variable Kosten(y)/y — Durchschnittskosten ohne den Fixkostenanteil.",
-          },
-        ],
-        formulas: ["dAC/dy = (MC(y) − AC(y))/y"],
-        formulasLatex: ["\\dfrac{dAC}{dy} = \\dfrac{MC(y)-AC(y)}{y}"],
+        formulas: ["∂x₁/∂p₁ = ∂x₁ˢ/∂p₁ − x₁ · ∂x₁/∂m"],
+        formulasLatex: ["\\dfrac{\\partial x_1}{\\partial p_1} = \\dfrac{\\partial x_1^{s}}{\\partial p_1} - x_1\\cdot\\dfrac{\\partial x_1}{\\partial m}"],
+        terms: [{ term: "Slutsky-Gleichung", definition: "Zerlegung der Preisableitung der Nachfrage in Substitutions- und Einkommenseffekt." }],
         examples: [
-          "Für C(y) = 50 + 2y² gilt AC(y) = 50/y + 2y und MC(y) = 4y. Am Minimum von AC gilt AC = MC: 50/y + 2y = 4y ⟹ y = 5, AC(5) = 10+10 = 20 = MC(5).",
-        ],
-        figure: {
-          type: "cost-curves",
-          caption: "MC schneidet AC und AVC jeweils in deren Minimum.",
-        },
-      },
-      {
-        id: "5-4",
-        heading: "5.4 Kostenfunktion und Skalenerträge",
-        body: [
-          "Skalenerträge und Kostenverlauf hängen eng zusammen: Konstante Skalenerträge implizieren konstante Durchschnittskosten (unabhängig von y), zunehmende Skalenerträge implizieren fallende Durchschnittskosten (Größenvorteile — Grundlage für ein 'natürliches Monopol'), abnehmende Skalenerträge implizieren steigende Durchschnittskosten.",
-        ],
-        terms: [
-          {
-            term: "Natürliches Monopol",
-            definition: "Eine Marktsituation, in der wegen durchgehend zunehmender Skalenerträge (fallender Durchschnittskosten) ein einziger Anbieter effizienter produzieren kann als mehrere konkurrierende Anbieter.",
-          },
+          "Für ein normales Gut sind beide Terme der Slutsky-Gleichung negativ (bei Preissenkung), die Gesamtnachfrage reagiert also eindeutig negativ auf den Preis — für ein Giffen-Gut überwiegt der (positive, da inferiores Gut mit ∂x₁/∂m<0) zweite Term.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 6 — Optimale Entscheidung und Nachfrage ====================
+  // ==================== Kapitel 6 ====================
   {
-    id: "entscheidung-nachfrage",
+    id: "technologie-gewinnmaximierung",
     number: 6,
-    title: "Optimale Entscheidung und Nachfrage",
+    title: "Technologie und Gewinnmaximierung der Unternehmung",
     free: false,
     intro:
-      "Mit Präferenzen/Nutzenfunktionen (Kapitel 3) und der Budgetmenge (Kapitel 1) haben wir alle Bausteine für das zentrale Optimierungsproblem der Haushaltstheorie: Welches erschwingliche Güterbündel maximiert den Nutzen? Aus der Lösung dieses Problems ergeben sich die individuellen Nachfragefunktionen.",
+      "Nach der Haushaltstheorie wendet sich dieses Kapitel der Angebotsseite zu: Wie modellieren wir die Produktionsmöglichkeiten einer Unternehmung, und wie entscheidet sie über den gewinnmaximalen Faktoreinsatz?",
     sections: [
       {
         id: "6-1",
-        heading: "6.1 Das Konsumentenproblem",
+        heading: "6.1 Produktionsfunktion und Grenzprodukt",
         body: [
-          "Ein Haushalt löst max u(x1, x2) unter der Nebenbedingung p1x1 + p2x2 ≤ m. Bei einem inneren Optimum (x1* > 0, x2* > 0) berührt die höchste erreichbare Indifferenzkurve gerade die Budgetgerade — die notwendige Bedingung lautet MRS = −p1/p2: Die Grenzrate der Substitution entspricht dem (negativen) Preisverhältnis.",
+          "Die Produktionsfunktion y=f(L,K) gibt den maximal möglichen Output bei gegebenem Einsatz von Arbeit L und Kapital K an. Das Grenzprodukt der Arbeit MPL=∂f/∂L misst den zusätzlichen Output einer marginalen zusätzlichen Arbeitseinheit bei konstantem K. Üblicherweise nimmt MPL mit steigendem L ab (abnehmender Grenzertrag).",
+          "Isoquanten verbinden alle Faktorkombinationen (L,K), die denselben Output erzeugen — das Pendant zu Indifferenzkurven auf der Konsumentenseite. Die Grenzrate der technischen Substitution (GRTS) misst die Steigung der Isoquante: GRTS = MPL/MPK.",
         ],
+        formulas: ["GRTS = MPL / MPK"],
+        formulasLatex: ["GRTS = \\dfrac{MPL}{MPK}"],
         terms: [
-          {
-            term: "Optimalitätsbedingung (inneres Optimum)",
-            definition: "MRS(x1*, x2*) = −p1/p2 — am optimalen Bündel entspricht die Steigung der Indifferenzkurve der Steigung der Budgetgeraden.",
-          },
+          { term: "Grenzprodukt der Arbeit (MPL)", definition: "Zusätzlicher Output durch eine marginale zusätzliche Arbeitseinheit bei konstantem Kapitaleinsatz." },
+          { term: "Isoquante", definition: "Menge der Faktorkombinationen, die denselben Output erzeugen." },
         ],
-        formulas: ["MRS = −p1/p2 (inneres Optimum)"],
-        formulasLatex: ["\\text{MRS}(x_1^*, x_2^*) = -\\dfrac{p_1}{p_2}"],
         examples: [
-          "Für u(x1, x2) = x1^0,4·x2^0,6 (Cobb-Douglas) ergibt sich am Optimum stets x1* = 0,4·m/p1 und x2* = 0,6·m/p2 — der Haushalt gibt konstante Einkommensanteile für jedes Gut aus, unabhängig vom Einkommen.",
+          "Erhöht ein Betrieb den Arbeitseinsatz von 10 auf 11 Stunden bei konstantem Kapital und steigt der Output dadurch um 5 Einheiten, beträgt das Grenzprodukt der Arbeit an dieser Stelle MPL≈5.",
         ],
       },
       {
         id: "6-2",
-        heading: "6.2 Randlösungen",
+        heading: "6.2 Skalenerträge",
         body: [
-          "Nicht immer ist die Bedingung MRS = −p1/p2 mit x1* > 0 und x2* > 0 erfüllbar. Bei bestimmten Präferenzen (z. B. quasilinearer Nutzen mit hinreichend niedrigem Einkommen, oder wenn ein Gut aus Sicht des Haushalts 'zu teuer' relativ zum Grenznutzen ist) liegt das Optimum auf dem Rand der Budgetmenge, d. h. x1* = 0 oder x2* = 0. Dort gilt statt der Gleichheitsbedingung nur eine Ungleichung (die MRS erreicht das Preisverhältnis nicht, bevor ein Gut auf null fällt).",
+          "Skalenerträge beschreiben, wie sich der Output verändert, wenn ALLE Faktoren gleichzeitig um denselben Faktor t skaliert werden: f(tL,tK) > t·f(L,K) bedeutet zunehmende Skalenerträge, f(tL,tK) = t·f(L,K) konstante Skalenerträge, und f(tL,tK) < t·f(L,K) abnehmende Skalenerträge.",
+          "Skalenerträge und abnehmende Grenzprodukte sind unabhängige Konzepte: Eine Produktionsfunktion kann gleichzeitig abnehmende Grenzprodukte bei jedem einzelnen Faktor UND konstante (oder sogar zunehmende) Skalenerträge aufweisen, wenn alle Faktoren gemeinsam erhöht werden.",
         ],
-        terms: [
-          {
-            term: "Randlösung",
-            definition: "Ein Optimum, bei dem mindestens ein Gut in Menge null konsumiert wird (x1* = 0 oder x2* = 0).",
-          },
-          {
-            term: "Kritisches Einkommen",
-            definition: "Das Einkommen, unterhalb dessen ein Haushalt ausschließlich ein einziges Gut konsumiert (Randlösung), oberhalb dessen ein inneres Optimum vorliegt.",
-          },
+        terms: [{ term: "Skalenerträge", definition: "Verhältnis der Outputänderung zur proportionalen Änderung ALLER Faktoren gleichzeitig." }],
+        examples: [
+          "Für f(L,K)=L^0,5·K^0,5 gilt f(tL,tK) = t^0,5L^0,5·t^0,5K^0,5 = t·f(L,K) — konstante Skalenerträge, obwohl sowohl MPL als auch MPK jeweils fallen, wenn nur ein Faktor isoliert erhöht wird.",
         ],
       },
       {
         id: "6-3",
-        heading: "6.3 Nachfragefunktion und Einkommensexpansionspfad",
+        heading: "6.3 Gewinnmaximierung",
         body: [
-          "Löst man das Konsumentenproblem für alle möglichen Preise und Einkommen, erhält man die Nachfragefunktion x*(p1, p2, m). Hält man die Preise fest und variiert nur das Einkommen, ergibt sich der Einkommensexpansionspfad — die Menge der optimalen Bündel bei wachsendem Einkommen. Die zugehörige Engelkurve trägt die nachgefragte Menge eines Gutes gegen das Einkommen ab.",
+          "Eine gewinnmaximierende Unternehmung wählt Output y und Faktoreinsatz so, dass π = p·y − w·L − r·K maximal wird (p=Produktpreis, w=Lohnsatz, r=Kapitalkosten). Im Optimum entspricht der Wert des Grenzprodukts jedes Faktors genau seinem Faktorpreis: p·MPL = w und p·MPK = r.",
+          "Diese Bedingung ist analog zur Haushaltsoptimierung: Statt Grenznutzen pro Euro anzugleichen, gleicht die Unternehmung den Wert des Grenzprodukts pro eingesetztem Faktor an — solange p·MPL > w lohnt sich zusätzliche Arbeit, solange p·MPL < w lohnt sich Abbau.",
         ],
-        terms: [
-          {
-            term: "Einkommensexpansionspfad",
-            definition: "Die Kurve der optimalen Konsumbündel bei festen Preisen und wachsendem Einkommen.",
-          },
-          {
-            term: "Engelkurve",
-            definition: "Trägt die nachgefragte Menge eines Gutes in Abhängigkeit vom Einkommen (bei festen Preisen) ab.",
-          },
-        ],
-      },
-      {
-        id: "6-4",
-        heading: "6.4 Preisexpansionspfad und Güterarten",
-        body: [
-          "Variiert man stattdessen den Preis eines Gutes bei festem Einkommen und Preis des anderen Gutes, ergibt sich der Preisexpansionspfad. Güter werden nach der Richtung dieser Reaktion klassifiziert: Ein gewöhnliches Gut wird bei steigendem eigenen Preis weniger nachgefragt, ein Giffen-Gut dagegen MEHR (die nachgefragte Menge steigt mit dem eigenen Preis — ein seltener Grenzfall). Nach der Reaktion auf Einkommensänderungen unterscheidet man normale Güter (Nachfrage steigt mit dem Einkommen) von inferioren Gütern (Nachfrage sinkt mit dem Einkommen).",
-        ],
-        terms: [
-          {
-            term: "Gewöhnliches Gut",
-            definition: "Die nachgefragte Menge sinkt, wenn der eigene Preis steigt (übliches Nachfrageverhalten).",
-          },
-          {
-            term: "Giffen-Gut",
-            definition: "Die nachgefragte Menge STEIGT, wenn der eigene Preis steigt — ein Giffen-Gut ist stets auch inferior, aber nicht jedes inferiore Gut ist ein Giffen-Gut.",
-          },
-          {
-            term: "Normales vs. inferiores Gut",
-            definition: "Ein normales Gut wird bei steigendem Einkommen mehr nachgefragt, ein inferiores Gut weniger.",
-          },
+        formulas: ["p · MPL = w"],
+        formulasLatex: ["p \\cdot MPL = w"],
+        terms: [{ term: "Gewinnmaximierungsbedingung", definition: "Wert des Grenzprodukts eines Faktors entspricht im Optimum seinem Faktorpreis." }],
+        examples: [
+          "Bei p=10€, w=25€ lohnt sich zusätzliche Arbeit, solange MPL>2,5 (da p·MPL>w erst ab MPL>2,5 nicht mehr gilt) — die Unternehmung stellt Arbeit ein, bis MPL genau auf 2,5 gefallen ist.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 7 — Konsumentenrente, Marktnachfrage und Marktgleichgewicht ====================
+  // ==================== Kapitel 7 ====================
   {
-    id: "konsumentenrente-marktgleichgewicht",
+    id: "kostenminimierung-kostenkurven",
     number: 7,
-    title: "Konsumentenrente, Marktnachfrage und Marktgleichgewicht",
+    title: "Kostenminimierung und Kostenkurven",
     free: false,
     intro:
-      "Von der individuellen Nachfrage geht es nun zur Marktebene: Wie aggregiert man viele individuelle Nachfragen zu einer Marktnachfragekurve, wie misst man den Nutzen, den Konsumenten aus einem Markt ziehen, und wie bestimmt sich das Gleichgewicht bei vollständiger Konkurrenz?",
+      "Bevor eine Unternehmung ihren Gewinn maximiert, muss sie für jeden Output die kostengünstigste Faktorkombination wählen. Dieses Kapitel behandelt Kostenminimierung und die daraus abgeleiteten Kostenkurven.",
     sections: [
       {
         id: "7-1",
-        heading: "7.1 Von individueller zu aggregierter Marktnachfrage",
+        heading: "7.1 Kostenminimierung bei gegebenem Output",
         body: [
-          "Die Marktnachfrage bei einem Preis p ist die (horizontale) Summe aller individuellen Nachfragemengen bei diesem Preis: D(p) = Σi xi*(p). Wichtig ist die horizontale Summierung (Mengen bei gegebenem Preis addieren), nicht die vertikale Addition von Preisen.",
+          "Bei gegebenem Zieloutput y wählt die Unternehmung die Faktorkombination (L,K), die die Kosten C=wL+rK minimiert, unter der Nebenbedingung f(L,K)=y. Im Optimum ist die Isokostengerade tangential zur Isoquante: GRTS = MPL/MPK = w/r.",
+          "Diese Tangentialbedingung besagt, dass im Kostenminimum das Verhältnis der Grenzprodukte genau dem Verhältnis der Faktorpreise entspricht — analog zur Tangentialbedingung im Haushaltsoptimum.",
         ],
-        terms: [
-          {
-            term: "Marktnachfragefunktion",
-            definition: "D(p) = Σi xi*(p) — die horizontale Summe der individuellen Nachfragemengen bei einem gegebenen Preis.",
-          },
-          {
-            term: "Preiselastizität der Nachfrage",
-            definition: "ε = (∂D/∂p)·(p/D) — das Verhältnis der relativen Mengenänderung zur relativen Preisänderung.",
-          },
-          {
-            term: "Einkommenselastizität der Nachfrage",
-            definition: "η = (∂D/∂m)·(m/D) — das Verhältnis der relativen Mengenänderung zur relativen Einkommensänderung.",
-          },
-        ],
-        formulas: [
-          "ε = (∂D/∂p)·(p/D)",
-          "η = (∂D/∂m)·(m/D)",
-        ],
-        formulasLatex: [
-          "\\varepsilon = \\dfrac{\\partial D}{\\partial p}\\cdot\\dfrac{p}{D}",
-          "\\eta = \\dfrac{\\partial D}{\\partial m}\\cdot\\dfrac{m}{D}",
-        ],
+        formulas: ["MPL/MPK = w/r"],
+        formulasLatex: ["\\dfrac{MPL}{MPK} = \\dfrac{w}{r}"],
         examples: [
-          "Für D(p) = 60 − 4p bei p=10: D=20, ∂D/∂p=−4. ε = −4·(10/20) = −2 — die Nachfrage reagiert elastisch: Eine Preiserhöhung um 1 Prozent senkt die Menge um 2 Prozent.",
+          "Ist w/r=2 (Arbeit doppelt so teuer wie Kapital pro Einheit), aber MPL/MPK=3 (Arbeit ist relativ produktiver), lohnt es sich für den Betrieb, mehr Arbeit und weniger Kapital einzusetzen, bis sich beide Verhältnisse angleichen.",
         ],
       },
       {
         id: "7-2",
-        heading: "7.2 Konsumentenrente",
+        heading: "7.2 Kostenfunktion und kurzfristige Kostenkurven",
         body: [
-          "Für einen Haushalt mit quasilinearer Nutzenfunktion u(x1, x2) = v(x1) + x2 (Gut 2 als 'Geld für alle anderen Güter') lässt sich zeigen, dass die Konsumentenrente KR(p1) = ∫0^x1* v'(x1)dx1 − p1·x1* gerade der Fläche unter der (inversen) Nachfragekurve und über dem Marktpreis entspricht. Der erreichte Nutzen lässt sich dann als u(x1*, x2*) = m + KR(p1) darstellen — die Konsumentenrente ist der in Geld gemessene Netto-Vorteil aus der Marktteilnahme, zusätzlich zum reinen Einkommen.",
-          "Bei mehreren Konsumenten ist die Konsumentenrente des Marktes die Summe der individuellen Renten und entspricht geometrisch der Fläche zwischen Nachfragekurve und Marktpreislinie.",
+          "Die Kostenfunktion C(y) gibt die minimalen Kosten zur Produktion von y Einheiten an. Aus ihr leiten sich ab: Durchschnittskosten AC(y)=C(y)/y, Grenzkosten MC(y)=C'(y), sowie kurzfristig fixe Kosten (unabhängig vom Output) und variable Kosten (outputabhängig).",
+          "Ein zentraler Zusammenhang: Solange die Grenzkosten unter den Durchschnittskosten liegen (MC<AC), sinken die Durchschnittskosten mit steigendem Output; sobald MC>AC, steigen die Durchschnittskosten. Die Grenzkostenkurve schneidet die Durchschnittskostenkurve daher stets in deren Minimum.",
         ],
-        terms: [
-          {
-            term: "Konsumentenrente",
-            definition: "Die Fläche zwischen der (inversen) Nachfragekurve und dem tatsächlich gezahlten Marktpreis — der Netto-Nutzenvorteil der Konsumenten aus der Marktteilnahme.",
-          },
-          {
-            term: "Quasilineare Nutzenfunktion",
-            definition: "u(x1, x2) = v(x1) + x2 — der Grenznutzen des zweiten Gutes ist konstant (= 1), was es erlaubt, Nutzenänderungen direkt in Geldeinheiten zu interpretieren.",
-          },
+        formulas: ["AC(y) = C(y)/y", "MC(y) = C'(y)"],
+        formulasLatex: ["AC(y) = \\dfrac{C(y)}{y}", "MC(y) = C'(y)"],
+        terms: [{ term: "Grenzkosten (MC)", definition: "Zusätzliche Kosten einer marginalen zusätzlichen Outputeinheit." }],
+        examples: [
+          "Bei C(y)=100+2y+0,5y² betragen die Grenzkosten MC(y)=2+y. Bei y=20 gilt MC=22, AC=(100+40+200)/20=17 — MC>AC, die Durchschnittskosten steigen an dieser Stelle mit dem Output.",
         ],
-        formulas: ["KR(p1) = ∫₀^{x1*} v'(x1) dx1 − p1·x1*"],
-        formulasLatex: ["KR(p_1) = \\int_0^{x_1^{*}} v'(x_1)\\,dx_1 - p_1 x_1^{*}"],
       },
       {
         id: "7-3",
-        heading: "7.3 Marktgleichgewicht bei vollständiger Konkurrenz",
+        heading: "7.3 Langfristige Kostenkurven",
         body: [
-          "Bei vollständiger Konkurrenz bestimmt sich der Gleichgewichtspreis p* dadurch, dass die (aggregierte) Nachfrage D(p*) der (aggregierten) Angebotsmenge S(p*) entspricht. Bei linearer Nachfrage und linearem Angebot lässt sich dieser Schnittpunkt direkt algebraisch berechnen.",
+          "Langfristig sind alle Faktoren variabel, sodass jede Ausbringungsmenge zu ihren minimal möglichen Kosten produziert wird. Die langfristige Durchschnittskostenkurve ist die 'untere Einhüllende' aller kurzfristigen Durchschnittskostenkurven bei unterschiedlicher (fixer) Kapitalausstattung.",
+          "U-förmige langfristige Durchschnittskostenkurven entstehen durch das Zusammenspiel von zunächst zunehmenden Skalenerträgen (fallende AC) und später abnehmenden Skalenerträgen (steigende AC) — der Punkt minimaler langfristiger Durchschnittskosten heißt mindestoptimale Betriebsgröße.",
         ],
-        terms: [
-          {
-            term: "Marktgleichgewicht",
-            definition: "Der Preis p*, bei dem Marktnachfrage und Marktangebot übereinstimmen: D(p*) = S(p*).",
-          },
-        ],
+        terms: [{ term: "Mindestoptimale Betriebsgröße", definition: "Outputniveau, bei dem die langfristigen Durchschnittskosten minimal sind." }],
         examples: [
-          "Sei D(p) = 60 − 4p die Marktnachfrage und S(p) = 2p das Marktangebot für ein Gut. Im Gleichgewicht gilt 60−4p = 2p ⟹ p* = 10, X* = 20. Die Konsumentenrente beträgt hier 50 GE, die Produzentenrente 100 GE.",
-        ],
-        figure: {
-          type: "supply-demand",
-          caption: "Marktgleichgewicht: Schnittpunkt von Angebots- und Nachfragekurve bei (Q*, P*).",
-        },
-      },
-      {
-        id: "7-4",
-        heading: "7.4 Steuerinzidenz und Deadweight Loss",
-        body: [
-          "Wird eine Mengensteuer t erhoben, klafft der vom Nachfrager gezahlte Preis pD und der beim Anbieter ankommende Preis pS um genau t auseinander: pD − pS = t. Der neue Gleichgewichtspreis bestimmt sich aus D(pD) = S(pS) = S(pD − t).",
-          "Die Steuerlast verteilt sich zwischen Nachfragern und Anbietern im (inversen) Verhältnis ihrer Preiselastizitäten: Je unelastischer eine Marktseite reagiert, desto größer ihr Anteil an der Steuerlast. Der resultierende Wohlfahrtsverlust (Deadweight Loss) entsteht dadurch, dass die gehandelte Menge unter das effiziente Niveau sinkt — in den beiden Extremfällen vollkommen elastischen bzw. vollkommen unelastischen Angebots (oder Nachfrage) trägt jeweils eine Marktseite die GESAMTE Steuerlast, während im perfekt unelastischen Fall gar kein Deadweight Loss entsteht (die Menge ändert sich nicht).",
-        ],
-        terms: [
-          {
-            term: "Steuerinzidenz",
-            definition: "Die tatsächliche Aufteilung der ökonomischen Last einer Steuer zwischen Anbietern und Nachfragern — unabhängig davon, wer die Steuer formal abführt.",
-          },
-          {
-            term: "Deadweight Loss (Wohlfahrtsverlust)",
-            definition: "Der Verlust an gesamter Rente (Konsumenten- plus Produzentenrente), der entsteht, weil eine Steuer die gehandelte Menge unter das effiziente Niveau drückt.",
-          },
-        ],
-        formulas: [
-          "pD − pS = t, mit D(pD) = S(pS)",
-          "DWL = 0,5 · t · (Q0 − Q1)",
-        ],
-        formulasLatex: [
-          "p_D - p_S = t, \\quad D(p_D) = S(p_S)",
-          "DWL = \\tfrac{1}{2}\\, t\\, (Q_0 - Q_1)",
-        ],
-        examples: [
-          "Bei D(p) = 60−4p, S(p) = 2p und einer Mengensteuer von t = 3 ergibt sich pS* = 8 (Anbieterpreis), pD* = 11 (Nachfragerpreis), Menge Q1=16 (vorher Q0=20 ohne Steuer). DWL = 0,5·3·(20−16) = 6. Da das Angebot (Steigung 2) elastischer reagiert als hier implizit unterstellt, tragen die Nachfrager 2/3 und die Anbieter 1/3 der Steuerlast.",
+          "Ein Stahlwerk mit stark zunehmenden Skalenerträgen bei kleinen Ausbringungsmengen erreicht seine mindestoptimale Betriebsgröße erst bei sehr hohem Output — ein Grund für die hohe Marktkonzentration in kapitalintensiven Industrien.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 8 — Bekundete Präferenzen und Slutsky-Zerlegung ====================
+  // ==================== Kapitel 8 ====================
   {
-    id: "bekundete-praeferenzen-slutsky",
+    id: "angebot-marktangebot",
     number: 8,
-    title: "Bekundete Präferenzen und Slutsky-Zerlegung",
+    title: "Angebot der Unternehmung und Marktangebot der Branche",
     free: false,
     intro:
-      "Wie kann man aus beobachtetem Kaufverhalten (ohne die Nutzenfunktion zu kennen) auf die zugrunde liegenden Präferenzen schließen? Und wie zerlegt man die Wirkung einer Preisänderung in einen reinen 'Kaufkrafteffekt' und einen reinen 'Umschichtungseffekt'? Beide Fragen führen zum selben mathematischen Werkzeug.",
+      "Aus der Kostenstruktur einer Unternehmung lässt sich ihre Angebotsentscheidung ableiten. Aggregiert man über alle Unternehmen einer Branche, ergibt sich das Marktangebot — das Gegenstück zur Marktnachfrage.",
     sections: [
       {
         id: "8-1",
-        heading: "8.1 Das schwache Axiom der bekundeten Präferenzen (WARP)",
+        heading: "8.1 Angebotsentscheidung der Unternehmung bei vollkommener Konkurrenz",
         body: [
-          "Beobachtet man, dass ein Haushalt bei Preisen (p1, p2) das Bündel x kauft, obwohl y ebenfalls erschwinglich gewesen wäre (p1y1 + p2y2 ≤ p1x1 + p2x2), dann hat er x gegenüber y 'bekundet vorgezogen'. Das schwache Axiom der bekundeten Präferenzen (WARP) verlangt Konsistenz: Wurde x gegenüber y bekundet vorgezogen, darf y niemals bei anderen Preisen gegenüber x bekundet vorgezogen werden, wenn x zu diesen Preisen ebenfalls erschwinglich gewesen wäre.",
-          "WARP ist eine notwendige (aber nicht hinreichende) Bedingung für rationales Verhalten — jedes durch Nutzenmaximierung erzeugte Nachfrageverhalten erfüllt WARP, aber nicht jedes WARP-konsistente Verhalten muss aus Nutzenmaximierung stammen.",
+          "Ein preisnehmendes (kompetitives) Unternehmen wählt den Output y so, dass Grenzkosten dem Marktpreis entsprechen: p=MC(y). Diese Bedingung folgt aus der Gewinnmaximierung: solange p>MC lohnt sich zusätzlicher Output, solange p<MC lohnt sich Reduktion.",
+          "Kurzfristig produziert das Unternehmen weiter, solange der Preis mindestens die durchschnittlichen variablen Kosten deckt (Abschaltpunkt bei p=AVC(y)); langfristig muss der Preis mindestens die gesamten Durchschnittskosten decken, da sonst auch die Fixkosten nicht gedeckt werden und ein Marktaustritt vorzuziehen ist.",
         ],
-        terms: [
-          {
-            term: "Bekundete Präferenz",
-            definition: "x wird gegenüber y bekundet vorgezogen, wenn y bei den Preisen, zu denen x gekauft wurde, ebenfalls erschwinglich gewesen wäre.",
-          },
-          {
-            term: "Schwaches Axiom der bekundeten Präferenzen (WARP)",
-            definition: "Wurde x bekundet gegenüber y vorgezogen, darf bei keiner anderen Preis-Einkommens-Situation, in der auch x erschwinglich ist, y bekundet gegenüber x vorgezogen werden.",
-          },
+        formulas: ["p = MC(y)"],
+        formulasLatex: ["p = MC(y)"],
+        terms: [{ term: "Abschaltpunkt", definition: "Preis in Höhe der minimalen durchschnittlichen variablen Kosten; darunter lohnt sich kurzfristige Produktionseinstellung." }],
+        examples: [
+          "Deckt der Marktpreis zwar die variablen Kosten, aber nicht die Fixkosten, produziert das Unternehmen kurzfristig trotzdem weiter (der Verlust wäre bei Stilllegung durch die weiterlaufenden Fixkosten sogar noch größer), plant aber langfristig den Marktaustritt.",
         ],
       },
       {
         id: "8-2",
-        heading: "8.2 Die Slutsky-Zerlegung",
+        heading: "8.2 Marktangebot und Branchengleichgewicht",
         body: [
-          "Steigt der Preis von Gut 1, ändert sich die nachgefragte Menge aus zwei Gründen: Erstens wird Gut 1 relativ teurer (Substitutionseffekt), zweitens sinkt die reale Kaufkraft (Einkommenseffekt). Die Slutsky-Zerlegung trennt beide Effekte, indem sie ein fiktives Einkommen m' konstruiert, bei dem der Haushalt zu den NEUEN Preisen gerade noch sein ALTES Bündel kaufen könnte (Slutsky-Kompensation).",
-          "Der Substitutionseffekt ist dann die Nachfrageänderung von den alten Preisen zu den neuen Preisen bei diesem kompensierten Einkommen m'; der Einkommenseffekt ist die restliche Nachfrageänderung von m' zurück zum tatsächlichen (unveränderten) Einkommen m.",
+          "Das kurzfristige Marktangebot ergibt sich durch horizontale Addition der individuellen Angebotskurven (=Grenzkostenkurven oberhalb des Abschaltpunkts) aller aktiven Unternehmen. Langfristig kommt der Marktein- und -austritt hinzu: Bei Gewinnen treten neue Unternehmen ein (Angebot steigt, Preis sinkt), bei Verlusten treten Unternehmen aus (Angebot sinkt, Preis steigt).",
+          "In einem langfristigen Wettbewerbsgleichgewicht mit freiem Marktein- und -austritt und identischer Technologie werden die ökonomischen Gewinne aller Unternehmen auf null gedrückt: Der Preis entspricht dem Minimum der langfristigen Durchschnittskosten.",
         ],
-        terms: [
-          {
-            term: "Slutsky-Kompensation",
-            definition: "Das fiktive Einkommen m', bei dem der Haushalt sich zu den neuen Preisen gerade noch sein ursprüngliches Güterbündel leisten könnte.",
-          },
-          {
-            term: "Substitutionseffekt (Slutsky)",
-            definition: "Die Nachfrageänderung, die allein durch die Änderung des Preisverhältnisses entsteht, bei (Slutsky-)kompensierter Kaufkraft.",
-          },
-          {
-            term: "Einkommenseffekt",
-            definition: "Die restliche Nachfrageänderung, die durch die Veränderung der realen Kaufkraft (bei unverändertem Preisverhältnis) entsteht.",
-          },
-        ],
-        formulas: [
-          "Slutsky-Gleichung: ∂x1/∂p1 = ∂x1^S/∂p1 − x1·(∂x1/∂m)",
-          "(Substitutionseffekt) − x1·(Einkommenseffekt), mit Slutsky-Einkommen m' = p1·x1 + p2·x2 (altes Bündel zu neuen Preisen)",
-        ],
-        formulasLatex: [
-          "\\dfrac{\\partial x_1}{\\partial p_1} = \\dfrac{\\partial x_1^{S}}{\\partial p_1} - x_1\\,\\dfrac{\\partial x_1}{\\partial m}",
-          "m' = p_1' x_1^{0} + p_2 x_2^{0} \\quad \\text{(Slutsky-kompensiertes Einkommen)}",
-        ],
+        terms: [{ term: "Langfristiges Wettbewerbsgleichgewicht", definition: "Zustand mit freiem Marktein-/-austritt, in dem der Preis den minimalen langfristigen Durchschnittskosten entspricht und Nullgewinne herrschen." }],
         examples: [
-          "Bei u(x1,x2)=x1·x2, m=100, p2=5 steigt p1 von 10 auf 40. Cobb-Douglas-Nachfrage: x1=0,5m/p1. Ursprünglich x1⁰=0,5·100/10=5. Slutsky-Einkommen m'=p1'·x1⁰+p2·x2⁰=40·5+5·10=250. Bei m' und p1'=40: x1'=0,5·250/40=3,125 — das ist der Substitutionseffekt (5→3,125). Beim tatsächlichen neuen Einkommen m=100: x1*=0,5·100/40=1,25 — der restliche Rückgang (3,125→1,25) ist der Einkommenseffekt.",
-        ],
-      },
-      {
-        id: "8-3",
-        heading: "8.3 Die Hicks-Zerlegung",
-        body: [
-          "Die Hicks-Zerlegung verwendet statt der Slutsky-Kompensation ein anderes fiktives Einkommen m̂: dasjenige Einkommen, bei dem der Haushalt zu den neuen Preisen exakt das gleiche Nutzenniveau erreicht wie ursprünglich (statt exakt das gleiche Güterbündel leisten zu können). Da die Slutsky-Kompensation dem Haushalt bei einer Preiserhöhung mehr Kaufkraft zugesteht, als nötig wäre, um ihn genauso gut zu stellen wie vorher, überkompensiert Slutsky den Haushalt stets leicht (bei einer Preissenkung ist es umgekehrt): Der Haushalt ist bei (neue Preise, m') echt besser gestellt als in der Ausgangssituation.",
-          "Beide Zerlegungen stimmen für infinitesimal kleine Preisänderungen überein und unterscheiden sich nur in zweiter Ordnung — für die meisten Zwecke der angewandten Theorie ist die einfacher zu berechnende Slutsky-Zerlegung daher ausreichend.",
-        ],
-        terms: [
-          {
-            term: "Hicks-Kompensation",
-            definition: "Das fiktive Einkommen m̂, bei dem der Haushalt zu den neuen Preisen genau das ursprüngliche Nutzenniveau erreicht.",
-          },
-        ],
-        formulas: [
-          "Hicks-Zerlegung (Slutsky-Gleichung in Hicksscher Form): ∂x1/∂p1 = ∂h1/∂p1 − x1·(∂x1/∂m)",
-        ],
-        formulasLatex: [
-          "\\dfrac{\\partial x_1}{\\partial p_1} = \\dfrac{\\partial h_1}{\\partial p_1} - x_1\\,\\dfrac{\\partial x_1}{\\partial m}",
-        ],
-        examples: [
-          "Formal identisch zur Slutsky-Gleichung, nur dass ∂h1/∂p1 die Änderung der Hicksschen (nutzenkonstanten statt bündelkonstanten) Nachfrage ist. Für infinitesimale Preisänderungen ist ∂h1/∂p1 ≈ ∂x1^S/∂p1 — der Unterschied zwischen Slutsky- und Hicks-Substitutionseffekt fällt erst bei diskret großen Preisänderungen quantitativ ins Gewicht.",
-        ],
-      },
-      {
-        id: "8-4",
-        heading: "8.4 Güterarten und das Vorzeichen der Effekte",
-        body: [
-          "Der Substitutionseffekt hat für ein Gut immer das 'richtige' Vorzeichen: Steigt der eigene Preis, sinkt (schwach) die kompensierte Nachfrage. Das Vorzeichen des Gesamteffekts hängt daher allein vom Einkommenseffekt ab: Bei einem normalen Gut verstärkt der Einkommenseffekt den Substitutionseffekt (beide wirken in dieselbe Richtung). Bei einem inferioren Gut wirkt der Einkommenseffekt entgegengesetzt — überwiegt er sogar den Substitutionseffekt, entsteht ein Giffen-Gut.",
-          "Daraus folgt eine Hierarchie: Jedes Giffen-Gut ist inferior, aber nicht jedes inferiore Gut ist ein Giffen-Gut (der Einkommenseffekt muss dafür den Substitutionseffekt sogar überkompensieren). Jedes normale Gut ist automatisch auch gewöhnlich, aber nicht jedes gewöhnliche Gut muss normal sein.",
-        ],
-        terms: [
-          {
-            term: "Gewöhnliches vs. Giffen-Gut",
-            definition: "Ein gewöhnliches Gut reagiert auf eine eigene Preiserhöhung mit sinkender Nachfrage, ein Giffen-Gut mit steigender Nachfrage.",
-          },
+          "Erzielen Unternehmen einer Branche kurzfristig hohe Gewinne, treten neue Anbieter in den Markt ein; dies verschiebt das Marktangebot nach rechts und senkt den Preis, bis im langfristigen Gleichgewicht keine ökonomischen Gewinne mehr verbleiben.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 9 — Tausch und Wohlfahrtstheorie ====================
+  // ==================== Kapitel 9 ====================
   {
-    id: "tausch-wohlfahrt",
+    id: "monopol",
     number: 9,
-    title: "Tausch und Wohlfahrtstheorie",
+    title: "Monopol",
     free: false,
     intro:
-      "Bislang haben wir einzelne Haushalte und Unternehmen isoliert betrachtet. In diesem Kapitel bringen wir mehrere Haushalte in einer reinen Tauschwirtschaft zusammen und fragen: Welche Allokationen sind Pareto-effizient, welche entstehen durch freiwilligen Tausch, und in welchem Verhältnis stehen Markt-Gleichgewichte und Wohlfahrt zueinander?",
+      "Nicht jeder Markt ist durch vollkommene Konkurrenz gekennzeichnet. Ein Monopol — ein einzelner Anbieter ohne direkte Konkurrenz — verhält sich fundamental anders, mit spürbaren Folgen für Preis, Menge und Wohlfahrt.",
     sections: [
       {
         id: "9-1",
-        heading: "9.1 Die Edgeworth-Box und Pareto-Effizienz",
+        heading: "9.1 Preissetzung des Monopolisten",
         body: [
-          "Zwei Haushalte A und B mit Anfangsausstattungen (ω1^A, ω2^A) und (ω1^B, ω2^B) und Präferenzen über zwei Güter lassen sich in einer Edgeworth-Box gemeinsam darstellen: Die Box hat als Breite und Höhe die Gesamtmengen der beiden Güter, und jeder Punkt in der Box entspricht einer vollständigen Allokation (da, was A nicht bekommt, automatisch B zufällt).",
-          "Eine Allokation ist Pareto-effizient, wenn es keine andere erschwingliche Allokation gibt, die mindestens einen Haushalt besserstellt, ohne den anderen schlechterzustellen. In der Edgeworth-Box entspricht das genau den Punkten, an denen sich die Indifferenzkurven von A und B berühren (statt sich zu schneiden) — dort gilt MRS^A = MRS^B.",
+          "Anders als ein preisnehmendes Unternehmen sieht sich ein Monopolist der gesamten (fallenden) Marktnachfragekurve gegenüber: Um mehr zu verkaufen, muss er den Preis senken — auch für bereits verkaufte Einheiten (bei einheitlicher Preissetzung). Deshalb liegt der Grenzerlös MR unterhalb des Preises: MR(y) = p(y) + y·p'(y) < p(y), da p'(y)<0.",
+          "Der gewinnmaximale Output ergibt sich aus MR(y)=MC(y). Da MR<p, resultiert daraus ein Monopolpreis oberhalb der Grenzkosten (p>MC) — im Gegensatz zur vollkommenen Konkurrenz, wo p=MC gilt.",
         ],
-        terms: [
-          {
-            term: "Edgeworth-Box",
-            definition: "Eine grafische Darstellung einer Tauschwirtschaft mit zwei Gütern und zwei Haushalten — jeder Punkt entspricht einer vollständigen Aufteilung der Gesamtmengen.",
-          },
-          {
-            term: "Pareto-Effizienz",
-            definition: "Eine Allokation, bei der kein Haushalt bessergestellt werden kann, ohne einen anderen schlechterzustellen.",
-          },
+        formulas: ["MR(y) = p(y) + y · p'(y)"],
+        formulasLatex: ["MR(y) = p(y) + y\\cdot p'(y)"],
+        terms: [{ term: "Grenzerlös (MR)", definition: "Zusätzlicher Erlös einer marginalen zusätzlichen Verkaufseinheit; beim Monopolisten stets kleiner als der Preis." }],
+        examples: [
+          "Bei Nachfrage p(y)=100−y gilt MR(y)=100−2y. Bei Grenzkosten MC=20 setzt der Monopolist MR=MC: 100−2y=20 → y=40, und der Preis beträgt p(40)=60 — deutlich über den Grenzkosten von 20.",
         ],
-        formulas: ["Pareto-Effizienz in der Edgeworth-Box: MRS^A = MRS^B"],
-        formulasLatex: ["\\text{MRS}^A = \\text{MRS}^B"],
       },
       {
         id: "9-2",
-        heading: "9.2 Die Kontraktkurve",
+        heading: "9.2 Wohlfahrtsverlust des Monopols",
         body: [
-          "Die Menge ALLER Pareto-effizienten Allokationen in der Edgeworth-Box heißt Kontraktkurve. Sie verläuft von der Ecke, in der A alles besitzt, bis zur gegenüberliegenden Ecke, in der B alles besitzt, und enthält typischerweise unendlich viele Punkte — Pareto-Effizienz allein legt also NICHT fest, wie 'gerecht' eine Allokation ist.",
+          "Weil der Monopolist weniger produziert und einen höheren Preis verlangt als im Wettbewerbsfall (p=MC), entsteht ein Wohlfahrtsverlust (Deadweight Loss): Einige Konsumenten, deren Zahlungsbereitschaft über den Grenzkosten, aber unter dem Monopolpreis liegt, werden nicht bedient, obwohl ein Tausch für beide Seiten vorteilhaft wäre.",
+          "Preisdiskriminierung (unterschiedliche Preise für unterschiedliche Konsumentengruppen oder Mengen) kann diesen Wohlfahrtsverlust teilweise reduzieren, da sie dem Monopolisten erlaubt, mehr Konsumentengruppen zu bedienen — verschiebt aber gleichzeitig einen größeren Teil der Wohlfahrt vom Konsumenten zum Monopolisten.",
         ],
-        terms: [
-          {
-            term: "Kontraktkurve",
-            definition: "Die Menge aller Pareto-effizienten Allokationen in einer Edgeworth-Box.",
-          },
-        ],
-      },
-      {
-        id: "9-3",
-        heading: "9.3 Walrasianisches Gleichgewicht in der Tauschwirtschaft",
-        body: [
-          "Ausgehend von einer Anfangsausstattung stellt sich bei freiem Tausch zu Marktpreisen ein Walrasianisches Gleichgewicht ein: ein Preisverhältnis p1*/p2*, bei dem die Nachfrage jedes Haushalts (basierend auf dem Wert seiner Anfangsausstattung als Einkommen) mit dem Gesamtangebot übereinstimmt. Jedes Walrasianische Gleichgewicht liegt auf der Kontraktkurve — das ist der Inhalt des Ersten Hauptsatzes der Wohlfahrtsökonomik.",
-        ],
-        terms: [
-          {
-            term: "Walrasianisches Gleichgewicht (Tauschwirtschaft)",
-            definition: "Ein Preisverhältnis, bei dem die Nachfrage jedes Haushalts (basierend auf dem Marktwert seiner Anfangsausstattung) mit dem verfügbaren Gesamtangebot übereinstimmt.",
-          },
-          {
-            term: "Erster Hauptsatz der Wohlfahrtsökonomik",
-            definition: "Jedes Walrasianische Gleichgewicht ist Pareto-effizient.",
-          },
-          {
-            term: "Zweiter Hauptsatz der Wohlfahrtsökonomik",
-            definition: "Jede Pareto-effiziente Allokation lässt sich (unter Konvexitätsannahmen) als Walrasianisches Gleichgewicht zu einer geeignet gewählten Anfangsausstattung realisieren.",
-          },
-        ],
-      },
-      {
-        id: "9-4",
-        heading: "9.4 Neidfreiheit als Gerechtigkeitskriterium",
-        body: [
-          "Da Pareto-Effizienz allein keine Aussage über Verteilungsgerechtigkeit trifft, ergänzt man oft das Kriterium der Neidfreiheit: Eine Allokation ist neidfrei, wenn kein Haushalt das Bündel eines anderen dem eigenen vorzieht. Startet man von der Gleichverteilung (jeder Haushalt erhält die Hälfte der Gesamtausstattung jedes Gutes) und lässt frei tauschen, ist das resultierende Walrasianische Gleichgewicht automatisch sowohl Pareto-effizient als auch neidfrei — ein Ergebnis, das die Gleichverteilung als besonders attraktiven Ausgangspunkt für Umverteilung auszeichnet.",
-        ],
-        terms: [
-          {
-            term: "Neidfreie Allokation",
-            definition: "Eine Allokation, bei der kein Haushalt das Güterbündel eines anderen Haushalts dem eigenen vorzieht.",
-          },
-          {
-            term: "Gleichverteilung als Anfangsausstattung",
-            definition: "Jeder Haushalt erhält die Hälfte der gesamtwirtschaftlichen Ausstattung jedes Gutes — das resultierende Walrasianische Gleichgewicht ist stets Pareto-effizient UND neidfrei.",
-          },
+        terms: [{ term: "Wohlfahrtsverlust des Monopols", definition: "Effizienzverlust durch monopolistische Unterproduktion im Vergleich zum Wettbewerbsfall." }],
+        examples: [
+          "Ein Pharmaunternehmen mit Patentmonopol setzt einen Preis deutlich über den Grenzkosten der Produktion; Patienten mit Zahlungsbereitschaft zwischen Grenzkosten und Monopolpreis bleiben unversorgt, obwohl ein Verkauf zu Grenzkosten für beide Seiten vorteilhaft gewesen wäre.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 10 — Angebot der Unternehmung und Marktangebot der Branche ====================
+  // ==================== Kapitel 10 ====================
   {
-    id: "angebot-unternehmung-branche",
+    id: "oligopoltheorie",
     number: 10,
-    title: "Angebot der Unternehmung und Marktangebot der Branche",
+    title: "Oligopoltheorie",
     free: false,
     intro:
-      "Mit der Kostenfunktion aus Kapitel 5 lässt sich nun die Angebotsentscheidung einer Firma unter vollständiger Konkurrenz vollständig charakterisieren — und daraus das Marktangebot einer ganzen Branche ableiten.",
+      "Zwischen den Extremen vollkommener Konkurrenz und Monopol liegt das Oligopol: wenige Anbieter, deren Entscheidungen sich gegenseitig direkt beeinflussen. Dieses Kapitel behandelt die wichtigsten Oligopolmodelle.",
     sections: [
       {
         id: "10-1",
-        heading: "10.1 Die kurzfristige Angebotsfunktion einer Unternehmung",
+        heading: "10.1 Das Cournot-Modell (Mengenwettbewerb)",
         body: [
-          "Eine Firma unter vollständiger Konkurrenz wählt y so, dass Preis gleich Grenzkosten ist: p = MC(y). Die Angebotsfunktion S(p) ist damit (im relevanten Bereich) die Umkehrfunktion der Grenzkostenkurve. Die Bedingung zweiter Ordnung verlangt zusätzlich C''(y) > 0 — die Angebotsfunktion existiert nur im steigenden Ast der Grenzkostenkurve.",
+          "Im Cournot-Modell wählen Unternehmen gleichzeitig Mengen, wobei jedes Unternehmen die Mengenentscheidung der Konkurrenz als gegeben annimmt. Für zwei symmetrische Unternehmen mit linearer Nachfrage p=a−b(y₁+y₂) und konstanten Grenzkosten c ergibt sich im Cournot-Gleichgewicht y₁*=y₂*=(a−c)/(3b) — jedes Unternehmen produziert weniger als ein Monopolist, aber mehr als im perfekten Wettbewerb.",
+          "Mit zunehmender Anzahl symmetrischer Cournot-Unternehmen nähert sich der Gesamtoutput dem Wettbewerbsoutput an, und der Preis nähert sich den Grenzkosten — das Cournot-Modell interpoliert also stetig zwischen Monopol (n=1) und vollkommener Konkurrenz (n→∞).",
         ],
-        terms: [
-          {
-            term: "Angebotsregel bei vollständiger Konkurrenz",
-            definition: "Eine gewinnmaximierende Firma produziert die Menge y, bei der p = MC(y) und MC steigend ist.",
-          },
+        formulas: ["y₁* = y₂* = (a−c) / (3b)"],
+        formulasLatex: ["y_1^{*} = y_2^{*} = \\dfrac{a-c}{3b}"],
+        terms: [{ term: "Cournot-Gleichgewicht", definition: "Nash-Gleichgewicht im Mengenwettbewerb, bei dem jedes Unternehmen optimal auf die (als gegeben angenommene) Menge der Konkurrenz reagiert." }],
+        examples: [
+          "Bei a=100, b=1, c=10 ergibt sich im Duopol y₁*=y₂*=30, Gesamtmenge 60, Preis p=100−60=40 — deutlich näher am Wettbewerbspreis (=10) als der Monopolpreis (=55) es wäre.",
         ],
-        formulas: ["p = MC(y), mit MC steigend"],
-        formulasLatex: ["p = MC(y), \\quad MC'(y) > 0"],
       },
       {
         id: "10-2",
-        heading: "10.2 Die Stilllegungsbedingung (Shut-down)",
+        heading: "10.2 Das Bertrand-Modell (Preiswettbewerb)",
         body: [
-          "Kurzfristig muss eine Firma auch bei Verlust weiterproduzieren, solange der Preis wenigstens die durchschnittlichen variablen Kosten deckt (p ≥ AVC(y)) — denn die Fixkosten fallen ohnehin an. Sinkt der Preis unter das Minimum der AVC-Kurve, ist es optimal, die Produktion vollständig einzustellen (y = 0): Die kurzfristige Angebotskurve ist daher der Teil der (steigenden) Grenzkostenkurve OBERHALB des Minimums der durchschnittlichen variablen Kosten; darunter beträgt das Angebot null.",
+          "Im Bertrand-Modell konkurrieren Unternehmen stattdessen über Preise bei homogenen Gütern: Konsumenten kaufen ausschließlich beim günstigsten Anbieter. Bereits bei nur zwei symmetrischen Unternehmen mit identischen Grenzkosten c führt dies zum sogenannten Bertrand-Paradox: Im Gleichgewicht setzen beide Unternehmen p=c (Preis gleich Grenzkosten), obwohl nur zwei Anbieter im Markt sind.",
+          "Dieses scheinbar paradoxe Ergebnis entsteht, weil jedes Unternehmen bei einem Preis über c einen Anreiz hat, minimal zu unterbieten und den gesamten Markt zu gewinnen — ein Prozess, der erst bei p=c endet, da darunter Verluste entstünden.",
         ],
-        terms: [
-          {
-            term: "Stilllegungsbedingung (Shut-down condition)",
-            definition: "Eine Firma produziert kurzfristig nur, solange p ≥ min AVC(y) gilt — sonst ist y = 0 optimal, da die Fixkosten ohnehin anfallen.",
-          },
-        ],
-        formulas: ["Stilllegung: y=0 falls p < min AVC(y), sonst p = MC(y)"],
-        formulasLatex: ["y=0 \\ \\text{falls}\\ p < \\min_y AVC(y), \\quad \\text{sonst}\\ p = MC(y)"],
+        terms: [{ term: "Bertrand-Paradox", definition: "Ergebnis, dass bereits zwei Anbieter im Preiswettbewerb mit homogenen Gütern zu Preis=Grenzkosten führen können." }],
         examples: [
-          "Für C(y) = 100 + y³ − 8y² + 30y (Fixkosten 100, variable Kosten VC(y)=y³−8y²+30y, sodass VC(0)=0) gilt AVC(y) = y²−8y+30. Minimum bei dAVC/dy=2y−8=0 ⟹ y=4, AVC(4)=16−32+30=14 (dort gilt auch AVC=MC, da MC(y)=3y²−16y+30, MC(4)=48−64+30=14). Bei einem Marktpreis p<14 lohnt es sich für die Firma, kurzfristig auf y=0 stillzulegen, statt mit Verlust unterhalb der variablen Kosten zu produzieren.",
+          "Zwei Tankstellen mit identischen Grenzkosten von 1,50€/Liter unterbieten sich im Preis gegenseitig, solange einer über dem anderen liegt — im Bertrand-Gleichgewicht setzen beide exakt 1,50€, ohne ökonomischen Gewinn.",
         ],
       },
       {
         id: "10-3",
-        heading: "10.3 Produzentenrente",
+        heading: "10.3 Preisführerschaft (Stackelberg-Modell)",
         body: [
-          "Die Produzentenrente einer Firma ist die Fläche zwischen dem Marktpreis und der (steigenden) Grenzkostenkurve, vom Ursprung bis zur angebotenen Menge — äquivalent zum Erlös abzüglich der variablen Kosten (also Deckungsbeitrag zu den Fixkosten plus Gewinn).",
+          "Im Stackelberg-Modell entscheidet ein Unternehmen (der Marktführer) seine Menge zuerst, das andere (der Folger) beobachtet diese Menge und reagiert optimal darauf. Der Marktführer berücksichtigt bei seiner Entscheidung die erwartete Reaktion des Folgers und erzielt dadurch einen First-Mover-Vorteil: höhere Menge und höheren Gewinn als im simultanen Cournot-Fall.",
+          "Für dieselbe lineare Nachfrage wie oben ergibt sich im Stackelberg-Gleichgewicht y_Führer=(a−c)/(2b), also mehr als im Cournot-Fall (a−c)/(3b), während der Folger entsprechend weniger produziert — der First-Mover profitiert auf Kosten des Folgers.",
         ],
-        terms: [
-          {
-            term: "Produzentenrente",
-            definition: "Die Fläche zwischen Marktpreis und Grenzkostenkurve bis zur angebotenen Menge — entspricht Erlös minus variable Kosten.",
-          },
-        ],
-        formulas: ["PR = ∫₀^y* (p − MC(y)) dy = p·y* − VC(y*)"],
-        formulasLatex: ["PR = \\int_0^{y^{*}} \\big(p - MC(y)\\big)\\, dy = p\\, y^{*} - VC(y^{*})"],
+        terms: [{ term: "First-Mover-Vorteil", definition: "Vorteil des zuerst entscheidenden Unternehmens, das die Reaktion des Folgers antizipieren kann." }],
         examples: [
-          "Bei MC(y)=2y und p=20 ist y*=10 (aus p=MC). PR = ∫₀¹⁰(20−2y)dy = [20y−y²]₀¹⁰ = 200−100 = 100 GE. Äquivalent: VC(y)=y² (Stammfunktion von MC), also PR=p·y*−VC(y*)=20·10−100=100 GE.",
-        ],
-      },
-      {
-        id: "10-4",
-        heading: "10.4 Vom individuellen zum Marktangebot",
-        body: [
-          "Das Marktangebot einer Branche mit vielen (identischen oder unterschiedlichen) Firmen ist die horizontale Summe aller individuellen Angebotsfunktionen: S(p) = Σj Sj(p). Langfristig können Firmen zusätzlich in den Markt eintreten oder ihn verlassen — dieser Marktein- und -austritt bestimmt (bei freiem Marktzutritt) langfristig, ob wirtschaftliche Gewinne bestehen bleiben oder gegen null tendieren.",
-        ],
-        terms: [
-          {
-            term: "Marktangebotsfunktion",
-            definition: "S(p) = Σj Sj(p) — die horizontale Summe der individuellen Angebotsfunktionen aller Firmen einer Branche.",
-          },
+          "Ein etablierter Hersteller kündigt seine Produktionsmenge frühzeitig öffentlich an; ein neuer Wettbewerber passt seine eigene, kleinere Menge an diese bereits feststehende Größe an — der etablierte Hersteller profitiert von seiner Vorreiterrolle.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 11 — Oligopoltheorie ====================
+  // ==================== Kapitel 11 ====================
   {
-    id: "oligopoltheorie",
+    id: "spieltheorie",
     number: 11,
-    title: "Oligopoltheorie",
+    title: "Spieltheorie",
     free: false,
     intro:
-      "Zwischen vollständiger Konkurrenz (viele kleine Anbieter) und Monopol (ein Anbieter) liegt das Oligopol: wenige Anbieter, die sich gegenseitig strategisch beeinflussen. Dieses Kapitel stellt die wichtigsten Oligopolmodelle vor — von simultanem Mengenwettbewerb bis zu Kartellen.",
+      "Oligopolmodelle sind Spezialfälle eines allgemeineren Werkzeugs: der Spieltheorie. Dieses Kapitel behandelt die Grundkonzepte strategischer Interaktion, die weit über Märkte hinaus anwendbar sind.",
     sections: [
       {
         id: "11-1",
-        heading: "11.1 Klassifikation strategischer Interaktion",
+        heading: "11.1 Normalform-Spiele und Nash-Gleichgewicht",
         body: [
-          "Oligopolmodelle unterscheiden sich entlang zweier Dimensionen: der strategischen Variable (Menge oder Preis) und dem Timing (simultan, sequentiell oder kooperativ). Aus diesen Kombinationen ergeben sich die klassischen Modelle: Cournot (Menge, simultan), Stackelberg (Menge, sequentiell), Bertrand (Preis, simultan), Preisführerschaft (Preis, sequentiell) und Kollusion/Kartell (kooperativ).",
+          "Ein Spiel in Normalform besteht aus Spielern, ihren Strategiemengen und einer Auszahlungsfunktion für jede Strategiekombination. Ein Nash-Gleichgewicht ist eine Strategiekombination, bei der kein Spieler durch einseitiges Abweichen seine eigene Auszahlung verbessern kann — jeder Spieler spielt die beste Antwort auf die Strategien der anderen.",
+          "Ein Nash-Gleichgewicht muss nicht das gesellschaftlich beste Ergebnis liefern: Spieler können in einem Gleichgewicht gefangen sein, das für alle Beteiligten schlechter ist als eine andere, nicht-stabile Strategiekombination — das klassische Beispiel dafür ist das Gefangenendilemma.",
         ],
-        terms: [
-          {
-            term: "Nash-Gleichgewicht",
-            definition: "Eine Strategiekombination, bei der keine Firma durch einseitiges Abweichen ihren Gewinn erhöhen kann, gegeben die Strategien der anderen Firmen.",
-          },
+        terms: [{ term: "Nash-Gleichgewicht", definition: "Strategiekombination, bei der kein Spieler durch einseitiges Abweichen profitiert." }],
+        examples: [
+          "In einem einfachen 2×2-Spiel mit Auszahlungsmatrix, bei der beide Spieler eine dominante Strategie 'Verraten' besitzen, ist (Verraten, Verraten) das eindeutige Nash-Gleichgewicht — auch wenn (Schweigen, Schweigen) für beide Spieler eine höhere Auszahlung ergäbe.",
         ],
       },
       {
         id: "11-2",
-        heading: "11.2 Das Cournot-Modell",
+        heading: "11.2 Das Gefangenendilemma und dominante Strategien",
         body: [
-          "Im Cournot-Modell wählen alle Firmen SIMULTAN ihre Ausbringungsmenge, unter der Annahme, dass die Konkurrenz ihre Menge nicht mehr ändert (Vermutung über die Reaktion der Konkurrenz: null). Im symmetrischen Duopol mit linearer inverser Nachfrage p(y)=a−by und konstanten Grenzkosten c ergibt sich im Cournot-Nash-Gleichgewicht y1* = y2* = (a−c)/(3b); bei n symmetrischen Firmen sinkt der Marktanteil jeder einzelnen Firma mit wachsendem n, und der Marktpreis nähert sich mit n→∞ den Grenzkosten (Konvergenz zur vollständigen Konkurrenz).",
+          "Eine Strategie heißt (strikt) dominant, wenn sie unabhängig von der Wahl der anderen Spieler stets die beste Antwort ist. Im Gefangenendilemma besitzt jeder Spieler die dominante Strategie 'Verraten' (unabhängig davon, was der andere tut, ist Verraten für den Einzelnen besser) — obwohl beide Spieler bei gegenseitigem Schweigen besser gestellt wären.",
+          "Dieses Muster erklärt viele reale Koordinationsprobleme: von Kartellabsprachen (jedes Kartellmitglied hat einen individuellen Anreiz zu betrügen, obwohl alle vom gemeinsamen Einhalten profitieren würden) bis zu Umweltverhandlungen (jedes Land hat einen individuellen Anreiz, weniger als vereinbart zu reduzieren).",
         ],
-        terms: [
-          {
-            term: "Cournot-Gleichgewicht",
-            definition: "Ein Nash-Gleichgewicht in Mengen: Jede Firma wählt ihre gewinnmaximale Menge, gegeben die (im Gleichgewicht korrekt erwartete) Menge der Konkurrenz.",
-          },
-          {
-            term: "Reaktionsfunktion",
-            definition: "Die gewinnmaximale Menge einer Firma in Abhängigkeit von der (vermuteten) Menge der Konkurrenz.",
-          },
+        terms: [{ term: "Dominante Strategie", definition: "Strategie, die unabhängig von den Entscheidungen anderer Spieler stets optimal ist." }],
+        examples: [
+          "Zwei Ölförderländer vereinbaren, ihre Fördermenge zu drosseln, um den Preis zu stützen; für jedes Land ist es individuell rational, die Vereinbarung zu brechen und mehr zu fördern (höherer eigener Gewinn) — wodurch die Absprache oft zusammenbricht.",
         ],
-        formulas: ["Symmetrisches Cournot-Duopol: y1*=y2*=(a−c)/(3b)"],
-        formulasLatex: ["y_1^{*} = y_2^{*} = \\dfrac{a-c}{3b}"],
       },
       {
         id: "11-3",
-        heading: "11.3 Das Stackelberg-Modell",
+        heading: "11.3 Sequentielle Spiele und Rückwärtsinduktion",
         body: [
-          "Im Stackelberg-Modell entscheidet eine Firma (der Leader) ZUERST über ihre Menge, die zweite Firma (der Follower) beobachtet diese Entscheidung und reagiert optimal darauf. Man löst das Modell durch Rückwärtsinduktion: erst die optimale Reaktion des Followers auf jede mögliche Leader-Menge bestimmen, dann die für den Leader gewinnmaximale Menge unter Berücksichtigung dieser Reaktion wählen.",
-          "Der Leader erzielt im Gleichgewicht immer mindestens so viel Gewinn wie im Cournot-Gleichgewicht (er könnte ja immer die Cournot-Menge wählen) — bei linearer Nachfrage sogar STRIKT mehr. Der Gesamtoutput ist im Stackelberg-Gleichgewicht höher und der Preis niedriger als im Cournot-Gleichgewicht; die Summe der Gewinne beider Firmen ist dagegen im Cournot-Gleichgewicht höher.",
+          "Bei sequentiellen Spielen (extensivform) entscheiden Spieler nacheinander, wobei spätere Spieler die Entscheidungen früherer Spieler beobachten können. Rückwärtsinduktion löst solche Spiele, indem man beim letzten Entscheidungsknoten beginnt und sich rückwärts durch den Spielbaum arbeitet, wobei jeder Spieler die optimale Reaktion der nachfolgenden Spieler antizipiert.",
+          "Diese Methode liefert teilspielperfekte Gleichgewichte — Strategieprofile, die auch in jedem (auch nie erreichten) Teilspiel ein Nash-Gleichgewicht bilden, und schließt dadurch unglaubwürdige Drohungen aus, die in einer reinen Normalform-Analyse fälschlich als Gleichgewicht erscheinen könnten.",
         ],
-        terms: [
-          {
-            term: "Stackelberg-Gleichgewicht",
-            definition: "Das teilspielperfekte Gleichgewicht eines sequentiellen Mengenwettbewerbs, gelöst durch Rückwärtsinduktion.",
-          },
-          {
-            term: "Rückwärtsinduktion",
-            definition: "Lösungsmethode für sequentielle Spiele: zuerst die letzte Entscheidung optimieren, dann rückwärts durch das Spiel gehen.",
-          },
-        ],
-        formulas: ["Lineare Nachfrage, symmetrische Kosten: yL*=a/(2b), yF*=a/(4b) (Grenzkosten normiert auf 0)"],
-        formulasLatex: ["y_L^{*} = \\dfrac{a}{2b}, \\qquad y_F^{*} = \\dfrac{a}{4b}"],
-      },
-      {
-        id: "11-4",
-        heading: "11.4 Preiswettbewerb: Bertrand und Preisführerschaft",
-        body: [
-          "Im Bertrand-Modell konkurrieren Firmen simultan über den Preis bei homogenem Gut: Schon bei nur zwei Firmen mit identischen konstanten Grenzkosten c führt dies im Nash-Gleichgewicht zu p1 = p2 = c — der komplette Gewinn wird wegkonkurriert (Bertrand-Paradoxon), da jede Firma bei einem Preis über c einen Anreiz hat, den Konkurrenten geringfügig zu unterbieten und den gesamten Markt zu übernehmen.",
-          "Bei Preisführerschaft (sequentieller Preiswettbewerb) setzt eine dominante Firma zuerst ihren Preis, kleinere Firmen als Preisnehmer bedienen dann einen Teil der Nachfrage, und die Preisführerin bedient die RESIDUALE Nachfrage (Marktnachfrage minus das Angebot der kleinen Firmen bei diesem Preis) gewinnmaximal.",
-        ],
-        terms: [
-          {
-            term: "Bertrand-Paradoxon",
-            definition: "Schon bei zwei Firmen mit identischen Grenzkosten führt simultaner Preiswettbewerb zu Preis = Grenzkosten — wie bei vollständiger Konkurrenz.",
-          },
-          {
-            term: "Residuale Nachfrage",
-            definition: "Die Marktnachfrage abzüglich der von preisnehmenden Konkurrenten bereits bedienten Menge — die Nachfrage, die einer Preisführerin verbleibt.",
-          },
-        ],
-        formulas: ["Bertrand-Gleichgewicht (homogenes Gut, identische MC): p1* = p2* = MC"],
-        formulasLatex: ["p_1^{*} = p_2^{*} = MC"],
+        terms: [{ term: "Rückwärtsinduktion", definition: "Lösungsmethode für sequentielle Spiele: vom letzten Zug rückwärts zum ersten." }],
         examples: [
-          "Zwei Firmen mit identischen Grenzkosten MC=8 konkurrieren im Preis um ein homogenes Gut. Im Bertrand-Nash-Gleichgewicht gilt p1=p2=8: Bei jedem Preis über 8 hätte eine Firma einen Anreiz, geringfügig zu unterbieten und den gesamten Markt zu übernehmen — das einzige stabile Ergebnis ist Preis = Grenzkosten, obwohl nur zwei Anbieter im Markt sind.",
-        ],
-      },
-      {
-        id: "11-5",
-        heading: "11.5 Kollusion und die Stabilität von Kartellen",
-        body: [
-          "Kooperieren Firmen (Kollusion/Kartell), maximieren sie gemeinsam den Branchengewinn wie ein Monopolist und teilen ihn auf. Dieses Ergebnis ist für die Firmen gemeinsam besser als jedes Nash-Gleichgewicht — aber JEDE einzelne Firma hat einen Anreiz, einseitig von der Kartellmenge abzuweichen (mehr zu produzieren), da sie so kurzfristig ihren eigenen Gewinn erhöhen kann, solange die andere Firma an der Abmachung festhält.",
-          "Damit Kollusion trotzdem stabil sein kann, braucht es eine Bestrafungsstrategie (Trigger-Strategie): Weicht eine Firma ab, bestrafen die anderen dauerhaft mit Rückkehr zum (weniger profitablen) Cournot- oder Wettbewerbsgleichgewicht. Kollusion ist genau dann selbsttragend, wenn der kurzfristige Abweichgewinn den langfristig abdiskontierten Verlust aus der Bestrafung nicht übersteigt — das erfordert einen hinreichend hohen Diskontfaktor (Firmen müssen die Zukunft ausreichend stark gewichten).",
-        ],
-        terms: [
-          {
-            term: "Kollusion / Kartell",
-            definition: "Firmen koordinieren ihr Verhalten, um gemeinsam den Branchengewinn wie ein Monopolist zu maximieren.",
-          },
-          {
-            term: "Trigger-Strategie",
-            definition: "Eine Bestrafungsstrategie: Solange alle kooperieren, wird die Kartellmenge produziert; weicht eine Firma ab, wird dauerhaft zum unkooperativen Gleichgewicht zurückgekehrt.",
-          },
-        ],
-        formulas: [
-          "Kollusion ist selbsttragend, wenn: πKollusion/(1−δ) ≥ πAbweichen + δ·πBestrafung/(1−δ)",
-          "Kritischer Diskontfaktor: δ ≥ (πAbweichen − πKollusion) / (πAbweichen − πBestrafung)",
-        ],
-        formulasLatex: [
-          "\\dfrac{\\pi_{\\text{Kollusion}}}{1-\\delta} \\ge \\pi_{\\text{Abweichen}} + \\delta\\,\\dfrac{\\pi_{\\text{Bestrafung}}}{1-\\delta}",
-          "\\delta \\ge \\dfrac{\\pi_{\\text{Abweichen}} - \\pi_{\\text{Kollusion}}}{\\pi_{\\text{Abweichen}} - \\pi_{\\text{Bestrafung}}}",
-        ],
-        examples: [
-          "Zwei Firmen erzielen bei Kollusion je πK=50 pro Periode, bei einseitigem Abweichen kurzfristig πA=70 (danach dauerhaft Bestrafung mit Cournot-Gewinn πB=30). Kritischer Diskontfaktor: δ ≥ (70−50)/(70−30) = 20/40 = 0,5. Gewichten die Firmen die Zukunft mit δ≥0,5 (z. B. hohe Überlebenswahrscheinlichkeit/geringe Ungeduld), ist Kollusion stabil.",
+          "Ein etablierter Anbieter droht, bei Markteintritt eines Konkurrenten die Preise aggressiv zu senken. Rückwärtsinduktion zeigt: Ist ein Preiskrieg für den Etablierten selbst unprofitabel, ist die Drohung unglaubwürdig, und der Konkurrent sollte trotzdem eintreten.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 12 — Kaufen, Verkaufen und intertemporale Entscheidung ====================
+  // ==================== Kapitel 12 ====================
   {
-    id: "kaufen-verkaufen-intertemporal",
+    id: "tausch-wohlfahrt-intertemporal",
     number: 12,
-    title: "Kaufen, Verkaufen und intertemporale Entscheidung",
+    title: "Tausch, Wohlfahrtstheorie und intertemporale Entscheidung",
     free: false,
     intro:
-      "Bisher haben wir Haushalte mit einem exogen gegebenen Geldeinkommen betrachtet. Realistischer ist oft, dass Haushalte über eine Anfangsausstattung an Gütern verfügen und einen Teil davon verkaufen, um andere Güter zu kaufen — ein Modell, das sich insbesondere auf Arbeitsangebot und Sparentscheidungen anwenden lässt.",
+      "Zum Abschluss weitet dieses Kapitel den Blick von einzelnen Märkten auf das Zusammenspiel mehrerer Akteure und Zeitpunkte: Wie profitieren zwei Tauschpartner voneinander, wann ist eine Allokation effizient, und wie entscheiden Haushalte über Konsum und Ersparnis über die Zeit?",
     sections: [
       {
         id: "12-1",
-        heading: "12.1 Nettonachfrager und Nettoanbieter",
+        heading: "12.1 Die Edgeworth-Box und Tauschgleichgewicht",
         body: [
-          "Verfügt ein Haushalt über eine Anfangsausstattung (ω1, ω2) statt eines Geldeinkommens, lautet seine Budgetgerade p1x1 + p2x2 = p1ω1 + p2ω2 — der Wert seiner Anfangsausstattung bestimmt sein 'Einkommen'. Konsumiert er am Optimum mehr von Gut 1 als seine Ausstattung ω1, ist er Nettonachfrager dieses Gutes (er verkauft Gut 2, um zusätzliches Gut 1 zu kaufen); konsumiert er weniger, ist er Nettoanbieter.",
-          "Eine Preissenkung von Gut 1 kann einen Nettonachfrager von Gut 1 NIE schlechterstellen (er profitiert doppelt: als Käufer wird es billiger, und er verkauft ohnehin nichts davon). Für einen Nettoanbieter ist der Effekt dagegen unbestimmt: Er verliert als Verkäufer, gewinnt aber ggf. als potenzieller Käufer — anders als bei einem exogen fixen Geldeinkommen, wo eine Preissenkung von Gut 1 den Haushalt NIE schlechterstellen kann.",
+          "Die Edgeworth-Box stellt eine Tauschökonomie mit zwei Gütern und zwei Konsumenten grafisch dar: Jeder Punkt in der Box repräsentiert eine vollständige Allokation der Gesamtausstattung beider Güter auf beide Konsumenten. Ausgehend von einer Anfangsausstattung tauschen beide Parteien zu einem Preisverhältnis, bis sich ein Gleichgewicht einstellt, in dem beide Nachfragen mit dem verfügbaren Angebot übereinstimmen.",
+          "Im Tauschgleichgewicht sind die Grenzraten der Substitution beider Konsumenten gleich (beide tangential zur gemeinsamen Preisgeraden) — genau die Bedingung, die im nächsten Abschnitt als Pareto-Effizienz identifiziert wird.",
         ],
-        terms: [
-          {
-            term: "Nettonachfrager",
-            definition: "Ein Haushalt, der am Optimum mehr von einem Gut konsumiert, als seine Anfangsausstattung an diesem Gut umfasst — er kauft netto zu.",
-          },
-          {
-            term: "Nettoanbieter",
-            definition: "Ein Haushalt, der am Optimum weniger von einem Gut konsumiert, als seine Anfangsausstattung umfasst — er verkauft netto.",
-          },
+        terms: [{ term: "Edgeworth-Box", definition: "Grafische Darstellung aller möglichen Allokationen einer Zwei-Güter-Zwei-Personen-Tauschökonomie." }],
+        examples: [
+          "Besitzt Person A anfangs viel Obst und wenig Brot, Person B umgekehrt viel Brot und wenig Obst, tauschen beide bis zu einem Preisverhältnis, das ihre jeweiligen Grenzraten der Substitution angleicht — beide sind danach besser gestellt als in der Anfangsausstattung.",
         ],
-        formulas: ["Budgetgerade mit Anfangsausstattung: p1x1 + p2x2 = p1ω1 + p2ω2"],
-        formulasLatex: ["p_1 x_1 + p_2 x_2 = p_1 \\omega_1 + p_2 \\omega_2"],
       },
       {
         id: "12-2",
-        heading: "12.2 Arbeitsangebot: Konsum und Freizeit",
+        heading: "12.2 Pareto-Effizienz und die Wohlfahrtssätze",
         body: [
-          "Ein häufiges Anwendungsbeispiel: Ein Agent teilt eine feste Zeitausstattung (z. B. T Stunden pro Tag) zwischen Arbeit und Freizeit R auf. Für jede Arbeitsstunde erhält er den Lohnsatz w; sein Konsum C (mit Preis 1) ist durch C = w·(T−R) + m beschränkt, wobei m ein zusätzliches, arbeitsunabhängiges Einkommen ist. Das ist strukturell identisch mit dem Nettoanbieter-Modell: Freizeit ist die 'Anfangsausstattung', die der Agent teilweise gegen Konsum 'verkauft', indem er arbeitet.",
+          "Eine Allokation heißt Pareto-effizient, wenn keine andere Allokation existiert, die mindestens einen Konsumenten besser und keinen schlechter stellt. Der erste Hauptsatz der Wohlfahrtsökonomik besagt: Jedes Wettbewerbsgleichgewicht (unter Standardannahmen wie vollständigen Märkten und keinen externen Effekten) ist Pareto-effizient.",
+          "Der zweite Hauptsatz besagt umgekehrt: Jede Pareto-effiziente Allokation lässt sich (unter geeigneten Konvexitätsannahmen) als Wettbewerbsgleichgewicht zu einer geeignet gewählten Anfangsausstattung realisieren — ökonomisch bedeutet dies, dass Verteilungsziele grundsätzlich getrennt von Effizienzzielen über Pauschaltransfers verfolgt werden können, ohne die Markteffizienz selbst zu beeinträchtigen.",
         ],
         terms: [
-          {
-            term: "Reservationslohn",
-            definition: "Der Lohnsatz, unterhalb dessen ein Agent gar nicht arbeiten möchte (Grenzrate der Substitution zwischen Freizeit und Konsum bei null Arbeitsstunden).",
-          },
+          { term: "Pareto-Effizienz", definition: "Zustand, in dem niemand besser gestellt werden kann, ohne einen anderen schlechter zu stellen." },
+          { term: "Erster Hauptsatz der Wohlfahrtsökonomik", definition: "Jedes Wettbewerbsgleichgewicht ist unter Standardannahmen Pareto-effizient." },
         ],
-        formulas: ["Budgetgerade Arbeit/Freizeit: C = w·(T − R) + m"],
-        formulasLatex: ["C = w\\,(T-R) + m"],
+        examples: [
+          "Eine Allokation, bei der noch ein für beide Seiten vorteilhafter Tausch möglich wäre (z. B. A hat einen Grenznutzenüberschuss bei Gut 1, B bei Gut 2), ist nicht Pareto-effizient — ein Tausch würde beide besser stellen.",
+        ],
       },
       {
         id: "12-3",
-        heading: "12.3 Das intertemporale Konsummodell",
+        heading: "12.3 Intertemporale Konsumentscheidung",
         body: [
-          "Analog dazu lässt sich Sparen/Verschulden modellieren: Ein Haushalt hat Geldausstattungen (m1, m2) 'heute' und 'morgen' und kann zu einem Zinssatz r beliebig zwischen den Perioden umschichten. Die intertemporale Budgetgerade lautet c1 + c2/(1+r) = m1 + m2/(1+r) — der Barwert des Konsums muss dem Barwert der Ausstattung entsprechen. Konsumiert der Haushalt heute mehr als m1, ist er Schuldner (Nettonachfrager von 'Konsum heute'); konsumiert er weniger, ist er Sparer/Gläubiger.",
+          "Ein Haushalt, der über zwei Perioden konsumiert und spart, maximiert seinen Gesamtnutzen u(c₁,c₂) unter einer intertemporalen Budgetrestriktion c₁ + c₂/(1+r) = m₁ + m₂/(1+r), wobei r der Zinssatz ist, zu dem gespart oder geliehen werden kann. Der Barwert des Konsums über beide Perioden muss dem Barwert des Einkommens entsprechen.",
+          "Die Steigung dieser intertemporalen Budgetgeraden beträgt −(1+r): ein höherer Zinssatz erhöht die Opportunitätskosten heutigen Konsums (mehr zukünftiger Konsum muss aufgegeben werden, wenn man heute einen Euro weniger spart) und dreht die Budgetgerade steiler.",
         ],
-        terms: [
-          {
-            term: "Intertemporale Budgetgerade",
-            definition: "c1 + c2/(1+r) = m1 + m2/(1+r) — der Barwert (Gegenwartswert) des Konsums muss dem Barwert der Geldausstattung entsprechen.",
-          },
-        ],
-        formulas: ["c1 + c2/(1+r) = m1 + m2/(1+r)"],
+        formulas: ["c₁ + c₂/(1+r) = m₁ + m₂/(1+r)"],
         formulasLatex: ["c_1 + \\dfrac{c_2}{1+r} = m_1 + \\dfrac{m_2}{1+r}"],
-      },
-      {
-        id: "12-4",
-        heading: "12.4 Zinsänderungen: Sparer und Schuldner",
-        body: [
-          "Sinkt der Zinssatz r, dreht sich die intertemporale Budgetgerade um den Ausstattungspunkt (m1, m2). Ein Schuldner (der heute mehr konsumiert als m1) bleibt bei sinkendem Zins zwangsläufig Schuldner, und sein Nutzen steigt strikt (analog zum Nettonachfrager-Argument aus Abschnitt 12.1: er profitiert als 'Käufer von Krediten'). Für einen Gläubiger/Sparer ist der Effekt dagegen ambivalent — sein Nutzen kann bei sinkendem Zins ausnahmsweise auch steigen, wenn der Substitutionseffekt (mehr heutigen Konsum wegen niedrigerer Verzinsung des Sparens) den negativen Einkommenseffekt (geringere Zinserträge) überkompensiert.",
-        ],
-        terms: [
-          {
-            term: "Schuldner (Nettonachfrager von Konsum heute)",
-            definition: "Ein Haushalt, der heute mehr konsumiert als seine Geldausstattung m1 — profitiert bei sinkendem Zins eindeutig.",
-          },
-          {
-            term: "Gläubiger/Sparer",
-            definition: "Ein Haushalt, der heute weniger konsumiert als m1 (Ersparnis morgen verzinst) — die Wirkung eines sinkenden Zinses auf seinen Nutzen ist im Allgemeinen unbestimmt.",
-          },
-        ],
-      },
-    ],
-  },
-
-  // ==================== Kapitel 13 — Spieltheorie ====================
-  {
-    id: "spieltheorie",
-    number: 13,
-    title: "Spieltheorie",
-    free: false,
-    intro:
-      "Die Oligopolmodelle aus Kapitel 11 sind Spezialfälle eines viel allgemeineren Werkzeugs: der Spieltheorie. Dieses Kapitel führt die Grundbegriffe strategischer Interaktion ein und zeigt an klassischen Beispielen, wie unterschiedlich sich rationales Verhalten je nach Anreizstruktur ausprägen kann.",
-    sections: [
-      {
-        id: "13-1",
-        heading: "13.1 Spiele in Normalform und Nash-Gleichgewicht",
-        body: [
-          "Ein Spiel in Normalform besteht aus Spielern, deren jeweiligen Strategiemengen und einer Auszahlungsfunktion, die jeder Strategiekombination einen Payoff für jeden Spieler zuordnet. Ein Nash-Gleichgewicht ist eine Strategiekombination, bei der kein Spieler durch einseitiges Abweichen seine Auszahlung erhöhen kann — es ist ein Fixpunkt wechselseitig bester Antworten.",
-        ],
-        terms: [
-          {
-            term: "Spiel in Normalform",
-            definition: "Eine Beschreibung eines strategischen Spiels durch Spieler, Strategiemengen und eine Auszahlungsfunktion (Payoff-Matrix bei zwei Spielern).",
-          },
-          {
-            term: "Beste Antwort (best response)",
-            definition: "Die Strategie eines Spielers, die seine Auszahlung maximiert, gegeben die Strategien der anderen Spieler.",
-          },
-        ],
-      },
-      {
-        id: "13-2",
-        heading: "13.2 Dominante Strategien und das Gefangenendilemma",
-        body: [
-          "Eine Strategie ist (strikt) dominant, wenn sie unabhängig davon, was die anderen Spieler tun, stets die beste Antwort ist. Existieren für alle Spieler dominante Strategien, ist deren Kombination automatisch ein (besonders robustes) Nash-Gleichgewicht.",
-          "Das Gefangenendilemma ist das bekannteste Beispiel dafür, dass individuell rationales Verhalten (jeder wählt seine dominante Strategie) zu einem kollektiv suboptimalen Ergebnis führt: Beide Spieler wären besser gestellt, würden sie gemeinsam kooperieren, aber jeder hat einen individuellen Anreiz, die Kooperation zu brechen. Dasselbe Grundmuster erklärt viele Kollektivgutprobleme — etwa, warum ohne Regulierung tendenziell zu viel Vermüllung gemeinsamer Ressourcen stattfindet (Tragik der Allmende): Jeder Einzelne trägt nur einen Bruchteil der Kosten seiner eigenen Verschmutzung, profitiert aber vollständig vom eigenen Nutzen daraus.",
-        ],
-        terms: [
-          {
-            term: "Dominante Strategie",
-            definition: "Eine Strategie, die unabhängig von den Strategien der anderen Spieler stets mindestens so gut ist wie jede Alternative.",
-          },
-          {
-            term: "Gefangenendilemma",
-            definition: "Ein Spiel, in dem beide Spieler eine dominante Strategie haben, deren Kombination aber für beide schlechter ist als gegenseitige Kooperation.",
-          },
-          {
-            term: "Tragik der Allmende (tragedy of the commons)",
-            definition: "Übernutzung einer gemeinsam genutzten, nicht-exklusiven Ressource, weil jeder Nutzer nur einen Teil der von ihm verursachten Kosten selbst trägt.",
-          },
-        ],
-      },
-      {
-        id: "13-3",
-        heading: "13.3 Koordinationsspiele und gemischte Strategien",
-        body: [
-          "Nicht jedes Spiel hat eine dominante Strategie. Beim 'Kampf der Geschlechter' (Battle of the Sexes) möchten beide Spieler dieselbe Aktivität gemeinsam unternehmen, sind sich aber uneinig, welche — hier gibt es ZWEI reine Nash-Gleichgewichte (beide koordinieren auf Aktivität 1 bzw. beide auf Aktivität 2), aber keine dominante Strategie.",
-          "Bei manchen Spielen (z. B. beim 'Elfmeter-Spiel', in dem ein Torhüter und ein Schütze simultan eine von zwei Ecken wählen) existiert dagegen KEIN Gleichgewicht in reinen Strategien — nur in gemischten Strategien, bei denen jeder Spieler zufällig zwischen seinen reinen Strategien mit bestimmten Wahrscheinlichkeiten mischt. Im symmetrischen Elfmeter-Spiel etwa mischt jeder Spieler im Gleichgewicht mit Wahrscheinlichkeit 1/2 zwischen den beiden Ecken.",
-        ],
-        terms: [
-          {
-            term: "Koordinationsspiel",
-            definition: "Ein Spiel mit mehreren reinen Nash-Gleichgewichten, bei dem die Spieler ein gemeinsames Interesse an Koordination, aber möglicherweise unterschiedliche Präferenzen darüber haben, auf welches Gleichgewicht koordiniert wird.",
-          },
-          {
-            term: "Gemischte Strategie",
-            definition: "Eine Wahrscheinlichkeitsverteilung über die reinen Strategien eines Spielers — relevant, wenn kein Gleichgewicht in reinen Strategien existiert.",
-          },
-        ],
-        formulas: [
-          "Indifferenzbedingung: Spieler mischt so, dass der Gegner zwischen seinen reinen Strategien indifferent ist",
-        ],
-        formulasLatex: [
-          "E[\\text{Payoff Gegner} \\mid \\text{Strategie 1}] = E[\\text{Payoff Gegner} \\mid \\text{Strategie 2}]",
-        ],
+        terms: [{ term: "Intertemporale Budgetrestriktion", definition: "Budgetrestriktion, die Konsum und Einkommen über mehrere Perioden zum Barwert verknüpft." }],
         examples: [
-          "Elfmeter-Spiel: Schütze schießt links (L) oder rechts (R), Torhüter hält L oder R. Hält der Torhüter L bei Schuss L, wird pariert (Auszahlung Schütze 0), sonst trifft der Schütze (Auszahlung 1) — symmetrisch für R. Der Torhüter mischt mit Wahrscheinlichkeit q für 'hält L' so, dass der Schütze indifferent ist: Erwarteter Ertrag bei Schuss L = (1−q)·1 + q·0, bei Schuss R = q·1+(1−q)·0. Gleichsetzen: 1−q = q ⟹ q=1/2 — im symmetrischen Fall hält der Torhüter mit Wahrscheinlichkeit 1/2 auf jede Seite, und der Schütze schießt ebenfalls mit Wahrscheinlichkeit 1/2 auf jede Seite.",
-        ],
-      },
-      {
-        id: "13-4",
-        heading: "13.4 Sequentielle Spiele und Rückwärtsinduktion",
-        body: [
-          "Bei sequentiellen Spielen (Spielbaum statt Payoff-Matrix) kann dieselbe Situation, in Normalform betrachtet, mehrere Nash-Gleichgewichte haben — von denen aber nicht jedes 'glaubwürdig' ist. Ein Marktzutrittsspiel etwa (ein etablierter Anbieter kann einen potenziellen Marktzutritt mit Kampfpreisen 'bestrafen' oder tolerieren) hat in Normalform zwei Nash-Gleichgewichte: Zutritt-und-Tolerieren sowie Kein-Zutritt-und-Drohung-mit-Bestrafung.",
-          "Nur das erste ist jedoch teilspielperfekt: Käme es tatsächlich zum Marktzutritt, wäre es für den Etablierten nicht mehr rational, tatsächlich zu bestrafen (das würde ihm selbst schaden) — die Drohung ist nicht glaubwürdig (unglaubwürdige Drohung). Rückwärtsinduktion (erst das letzte Teilspiel optimieren, dann rückwärts) filtert genau solche unglaubwürdigen Drohungen heraus und liefert das teilspielperfekte Gleichgewicht.",
-        ],
-        terms: [
-          {
-            term: "Teilspielperfektes Gleichgewicht",
-            definition: "Ein Nash-Gleichgewicht, das in JEDEM Teilspiel (auch solchen, die im Gleichgewichtspfad gar nicht erreicht werden) optimal ist — schließt unglaubwürdige Drohungen aus.",
-          },
-          {
-            term: "Unglaubwürdige Drohung",
-            definition: "Eine angekündigte Bestrafungsstrategie, die für den Drohenden selbst nicht optimal wäre, sollte der Ernstfall tatsächlich eintreten.",
-          },
+          "Bei m₁=50.000€, m₂=55.000€ und r=10% beträgt der Barwert des Gesamteinkommens 50.000+55.000/1,1=100.000€ — der Haushalt kann jede Konsumkombination (c₁,c₂) wählen, deren Barwert diesen Betrag nicht überschreitet, etwa durch Sparen in Periode 1, um in Periode 2 mehr zu konsumieren.",
         ],
       },
     ],

@@ -1,573 +1,390 @@
 import type { SkriptChapter } from "./types";
 
-// Hinweis zur Kapitelreihenfolge: Die Reihenfolge und Nummerierung hier folgt
-// bewusst NICHT 1:1 der Reihenfolge der beiden Foliensätze ("24. Differenzierbare
-// Funktionen in mehreren Veränderlichen" und "25. Integralrechnung im R^n").
-// Statt die Differentiation komplett vor der Integration abzuhandeln, sind
-// beide Themenstränge verzahnt: Auf ein Differentiations-Kapitel folgt jeweils
-// ein Integrations-Kapitel und umgekehrt. Zusatzthemen wie der Satz von Schwarz,
-// das Cavalieri-Kegelbeispiel, der Affensattel/"Die Quelle" oder die
-// Log-Polarkoordinaten stehen dabei jeweils eingebettet in ihr Kernkapitel statt
-// als eigener Block am Skriptende. Die Nummerierung ist eigenständig, und
-// Querverweise im Text beziehen sich auf diese neue Reihenfolge.
+// Eigenständiges Lehrwerk zu "Mathematik 2: Abschlussklausur" (mehrdimensionale
+// Differential- und Integralrechnung), verfasst wie ein unabhängiges Lehrbuch
+// zum Modulthema — nicht als Paraphrase einer bestimmten Vorlesung.
 export const chapters: SkriptChapter[] = [
-  // ============ Kapitel 1 — Jordan-Inhalt und messbare Mengen im R^n ============
+  // ==================== Kapitel 1 ====================
   {
-    id: "jordan-inhalt",
+    id: "partielle-ableitungen-gradient",
     number: 1,
-    title: "Jordan-Inhalt und messbare Mengen im Rⁿ",
+    title: "Partielle Ableitungen und der Gradient",
     free: true,
     intro:
-      "Bevor wir Funktionen mehrerer Veränderlicher integrieren können, brauchen wir einen tragfähigen Begriff für den 'Inhalt' (die Länge, Fläche, das Volumen, ...) einer Teilmenge des ℝⁿ. Dieses Kapitel führt den Jordan-Inhalt über Quader und Rechtecksummen ein — das Fundament, auf dem in Kapitel 3 das Riemann-Integral im ℝⁿ aufbaut.",
+      "Funktionen mehrerer Veränderlicher treten in praktisch jeder quantitativen Disziplin auf — von Produktionsfunktionen mit mehreren Inputs bis zu physikalischen Feldern. Dieses Kapitel überträgt den Ableitungsbegriff auf diesen mehrdimensionalen Fall.",
     sections: [
       {
         id: "1-1",
-        heading: "1.1 Quader und Rechtecksummen",
+        heading: "1.1 Funktionen mehrerer Veränderlicher",
         body: [
-          "Ein (kompakter) Quader im ℝⁿ ist ein kartesisches Produkt Q = [a₁,b₁] × ... × [aₙ,bₙ] von n abgeschlossenen, beschränkten Intervallen. Sein elementarer Inhalt ist definiert als |Q| := (b₁−a₁) · ... · (bₙ−aₙ). Für n = 2 ist das die Fläche eines Rechtecks, für n = 3 das Volumen eines Quaders im gewohnten Sinn.",
-          "Eine endliche Menge paarweise überlappungsfreier Quader Q₁, ..., Qₘ, deren Vereinigung eine beschränkte Menge M ⊂ ℝⁿ enthält bzw. in ihr enthalten ist, liefert obere bzw. untere Rechtecksummen: die Summe der Quaderinhalte, die M überdecken (Obersumme) bzw. vollständig in M liegen (Untersumme). Das Infimum aller Obersummen heißt äußerer Jordan-Inhalt J*(M), das Supremum aller Untersummen innerer Jordan-Inhalt J*(M).",
+          "Eine Funktion f: ℝⁿ→ℝ ordnet jedem Punkt x=(x₁,...,xₙ) einen reellen Wert zu. Für n=2 lässt sich der Graph einer solchen Funktion als Fläche im dreidimensionalen Raum vorstellen; Höhenlinien (Niveaumengen {x | f(x)=c}) sind ein wichtiges Werkzeug, um solche Funktionen zweidimensional zu visualisieren.",
+          "Anders als bei Funktionen einer Variablen lässt sich der Grenzwert lim(x→x₀) f(x) im Mehrdimensionalen aus unendlich vielen Richtungen bilden — Stetigkeit verlangt, dass der Grenzwert für JEDE dieser Richtungen (und jeden beliebigen Annäherungspfad) übereinstimmt.",
         ],
-        terms: [
-          { term: "Elementarer Inhalt |Q|", definition: "Für einen Quader Q = [a₁,b₁] × ... × [aₙ,bₙ] das Produkt der Kantenlängen (b₁−a₁) · ... · (bₙ−aₙ)." },
-          { term: "Äußerer/innerer Jordan-Inhalt", definition: "Infimum aller Obersummen bzw. Supremum aller Untersummen von Quaderüberdeckungen einer beschränkten Menge M." },
+        terms: [{ term: "Höhenlinie (Niveaumenge)", definition: "Menge aller Punkte, an denen eine Funktion denselben Wert annimmt." }],
+        examples: [
+          "Für f(x,y)=x²+y² sind die Höhenlinien konzentrische Kreise um den Ursprung: {(x,y) | x²+y²=c} ist für c>0 ein Kreis mit Radius √c.",
         ],
       },
       {
         id: "1-2",
-        heading: "1.2 Jordan-messbare Mengen, Nullmengen und das Randkriterium",
+        heading: "1.2 Partielle Ableitungen",
         body: [
-          "Eine beschränkte Menge M ⊂ ℝⁿ heißt Jordan-messbar, wenn äußerer und innerer Jordan-Inhalt übereinstimmen; man schreibt dann |M| := J*(M) = J*(M) für den Jordan-Inhalt von M. Eine Menge N ⊂ ℝⁿ heißt Jordan-Nullmenge, wenn J*(N) = 0 gilt, das heißt, wenn sich N durch endlich viele Quader mit beliebig kleiner Gesamtinhaltssumme überdecken lässt.",
-          "In der Praxis prüft man Jordan-Messbarkeit meist über das Randkriterium: Eine beschränkte Menge M ist genau dann Jordan-messbar, wenn ihr topologischer Rand ∂M eine Jordan-Nullmenge ist. Das erklärt, warum endliche Punktmengen, Strecken und (stückweise) glatte Kurven im ℝ² stets Jordan-Nullmengen und damit selbst Jordan-messbar (mit Inhalt 0) sind: Ihr eigener Rand ist wieder eine solche 'dünne' Menge.",
+          "Die partielle Ableitung ∂f/∂xᵢ misst die Änderungsrate von f, wenn nur xᵢ variiert wird und alle anderen Variablen konstant gehalten werden — man leitet also f wie eine gewöhnliche Funktion einer Variablen ab, wobei alle übrigen Variablen als Konstanten behandelt werden.",
+          "Eine Funktion heißt partiell differenzierbar in einem Punkt, wenn alle partiellen Ableitungen dort existieren. Wichtig: partielle Differenzierbarkeit allein garantiert noch nicht einmal Stetigkeit der Funktion — dafür ist die stärkere Eigenschaft der totalen Differenzierbarkeit nötig (Kapitel 3).",
         ],
-        formulas: ["M Jordan-messbar ⟺ ∂M ist Jordan-Nullmenge"],
-        formulasLatex: ["M \\text{ Jordan-messbar} \\iff \\partial M \\text{ ist Jordan-Nullmenge}"],
+        formulas: ["∂f/∂x (x,y) für f(x,y)=x²y: ∂f/∂x = 2xy"],
+        formulasLatex: ["\\dfrac{\\partial f}{\\partial x}(x,y) = 2xy \\quad \\text{für } f(x,y)=x^2 y"],
+        terms: [{ term: "Partielle Ableitung", definition: "Ableitung einer mehrdimensionalen Funktion nach einer Variablen bei konstant gehaltenen übrigen Variablen." }],
         examples: [
-          "Die Menge M = ([0,3] × [0,2]) ∪ ([3,5] × [1,3]) besteht aus zwei überlappungsfrei aneinandergesetzten Rechtecken und ist Jordan-messbar mit |M| = 3·2 + 2·2 = 10, unabhängig davon, ob die gemeinsame Kante mit- oder ausgeschlossen wird — denn diese Kante ist eine Strecke und damit eine Jordan-Nullmenge, die den Inhalt nicht beeinflusst.",
+          "Für f(x,y)=x²y+3y³ gilt ∂f/∂x=2xy (y wird als Konstante behandelt) und ∂f/∂y=x²+9y² (x wird als Konstante behandelt).",
+        ],
+      },
+      {
+        id: "1-3",
+        heading: "1.3 Der Gradient",
+        body: [
+          "Der Gradient ∇f(x) fasst alle partiellen Ableitungen zu einem Vektor zusammen: ∇f = (∂f/∂x₁, ..., ∂f/∂xₙ). Er ist das mehrdimensionale Analogon zur gewöhnlichen Ableitung und liefert die lineare Näherung des Funktionsverhaltens in der Nähe eines Punktes.",
+          "Der Gradient steht stets senkrecht auf den Höhenlinien der Funktion — eine geometrische Eigenschaft, die im nächsten Kapitel präzisiert wird, wenn der Gradient als Richtung des steilsten Anstiegs interpretiert wird.",
+        ],
+        formulas: ["∇f = (∂f/∂x₁, ..., ∂f/∂xₙ)"],
+        formulasLatex: ["\\nabla f = \\left(\\dfrac{\\partial f}{\\partial x_1}, \\ldots, \\dfrac{\\partial f}{\\partial x_n}\\right)"],
+        terms: [{ term: "Gradient (∇f)", definition: "Vektor aller partiellen Ableitungen einer mehrdimensionalen Funktion." }],
+        examples: [
+          "Für f(x,y)=x²+y² gilt ∇f(x,y)=(2x,2y). Im Punkt (1,2) ist der Gradient (2,4) — ein Vektor, der vom Ursprung weg zeigt, in Richtung des steilsten Anstiegs von f an dieser Stelle.",
         ],
       },
     ],
   },
-
-  // ============ Kapitel 2 — Partielle Differenzierbarkeit und der Gradient ============
+  // ==================== Kapitel 2 ====================
   {
-    id: "partielle-differenzierbarkeit",
+    id: "richtungsableitungen-steilster-anstieg",
     number: 2,
-    title: "Partielle Differenzierbarkeit und der Gradient",
+    title: "Richtungsableitungen und der Gradient als steilster Anstieg",
     free: false,
     intro:
-      "Für Funktionen einer Veränderlichen kennen wir die Ableitung als Grenzwert eines Differenzenquotienten. Bei Funktionen mehrerer Veränderlicher gibt es dafür mehrere natürliche Verallgemeinerungen — die einfachste ist die partielle Ableitung, bei der alle Variablen bis auf eine festgehalten werden.",
+      "Partielle Ableitungen messen die Änderungsrate nur entlang der Koordinatenachsen. Dieses Kapitel verallgemeinert dies auf beliebige Richtungen und zeigt, warum der Gradient eine ausgezeichnete Rolle unter all diesen Richtungen spielt.",
     sections: [
       {
         id: "2-1",
-        heading: "2.1 Partielle Ableitungen",
+        heading: "2.1 Richtungsableitungen",
         body: [
-          "Es sei D ⊂ ℝⁿ offen, f : D → ℝ eine Funktion und ⃗x₀ ∈ D. Die Funktion f heißt an der Stelle ⃗x₀ partiell differenzierbar nach der i-ten Variablen, wenn der Grenzwert ∂f/∂xᵢ(⃗x₀) = lim_{t→0} (f(⃗x₀ + t·⃗eᵢ) − f(⃗x₀))/t existiert, wobei ⃗eᵢ der i-te Einheitsvektor ist. Existieren alle n partiellen Ableitungen, heißt f partiell differenzierbar in ⃗x₀.",
-          "Partielle Ableitungen berechnet man in der Praxis, indem man alle Variablen außer xᵢ als Konstanten behandelt und nach den gewohnten Ableitungsregeln nach xᵢ differenziert. Anders als im Eindimensionalen impliziert partielle Differenzierbarkeit allein noch nicht einmal Stetigkeit: Es gibt Funktionen, die in jedem Punkt partiell differenzierbar, aber im Ursprung unstetig sind.",
+          "Die Richtungsableitung D_v f(x) misst die Änderungsrate von f am Punkt x in Richtung eines (normierten) Vektors v: D_v f(x) = lim(h→0) [f(x+hv)−f(x)]/h. Für differenzierbare Funktionen lässt sich die Richtungsableitung direkt über den Gradienten berechnen: D_v f(x) = ∇f(x)·v (Skalarprodukt).",
+          "Partielle Ableitungen sind der Spezialfall, bei dem v ein Einheitsvektor entlang einer Koordinatenachse ist (z. B. v=(1,0) für die partielle Ableitung nach x₁) — Richtungsableitungen verallgemeinern dieses Konzept auf beliebige Richtungen.",
         ],
+        formulas: ["D_v f(x) = ∇f(x) · v"],
+        formulasLatex: ["D_v f(x) = \\nabla f(x) \\cdot v"],
+        terms: [{ term: "Richtungsableitung", definition: "Änderungsrate einer Funktion in einer beliebigen (normierten) Richtung v." }],
         examples: [
-          "Für f(x,y) = 3x²y³ − 2x gilt ∂f/∂x(x,y) = 6xy³ − 2 und ∂f/∂y(x,y) = 9x²y².",
-          "Die Funktion f(x,y) := 3xy²/(x²+y⁴) für (x,y) ≠ (0,0) und f(0,0) := 0 ist im Ursprung partiell differenzierbar mit ∂f/∂x(0,0) = ∂f/∂y(0,0) = 0 (man rechnet die Definitionsgrenzwerte direkt nach), aber unstetig in (0,0): Auf der Kurve x = y² gilt f(y²,y) = 3y⁴/(2y⁴) = 3/2 für alle y ≠ 0, während f(0,0) = 0 ist.",
+          "Für f(x,y)=x²+y² mit ∇f(1,1)=(2,2) und Richtung v=(1/√2,1/√2) (normierte Diagonale) beträgt die Richtungsableitung D_v f(1,1) = (2,2)·(1/√2,1/√2) = 4/√2 = 2√2.",
         ],
       },
       {
         id: "2-2",
-        heading: "2.2 Der Gradient",
+        heading: "2.2 Der Gradient als Richtung des steilsten Anstiegs",
         body: [
-          "Ist f : D → ℝ in ⃗x₀ ∈ D partiell differenzierbar nach allen n Variablen, so heißt der Vektor ∇f(⃗x₀) := (∂f/∂x₁(⃗x₀), ..., ∂f/∂xₙ(⃗x₀))ᵀ der Gradient von f in ⃗x₀. Der Gradient sammelt also sämtliche partiellen Ableitungen in einem einzigen Vektor und ist damit das mehrdimensionale Analogon zur gewöhnlichen Ableitung.",
-          "Ein Punkt ⃗x₀ ∈ D heißt stationärer Punkt von f, wenn ∇f(⃗x₀) = ⃗0 gilt. Stationäre Punkte sind — wie im Eindimensionalen die Nullstellen der Ableitung — die einzigen Kandidaten für lokale Extremstellen im Inneren des Definitionsbereichs; dieser Zusammenhang wird in Kapitel 14 systematisch untersucht.",
+          "Da D_v f(x) = ∇f(x)·v = |∇f(x)|·|v|·cos(θ) (mit θ als Winkel zwischen ∇f und v), wird D_v f maximal, wenn cos(θ)=1, also wenn v genau in Richtung des Gradienten zeigt. Der Gradient zeigt somit exakt in die Richtung des stärksten lokalen Anstiegs der Funktion, und sein Betrag |∇f(x)| gibt die Steilheit dieses Anstiegs an.",
+          "Diese Eigenschaft macht den Gradienten zum zentralen Werkzeug numerischer Optimierungsverfahren: Der Gradientenabstieg bewegt sich schrittweise in Richtung −∇f (steilster Abstieg), um ein lokales Minimum einer Funktion zu finden.",
         ],
-        formulas: ["∇f(⃗x) = (∂f/∂x₁(⃗x), ..., ∂f/∂xₙ(⃗x))ᵀ"],
-        formulasLatex: ["\\nabla f(\\vec x) = \\left(\\frac{\\partial f}{\\partial x_1}(\\vec x), \\dots, \\frac{\\partial f}{\\partial x_n}(\\vec x)\\right)^\\top"],
+        terms: [{ term: "Gradientenabstieg", definition: "Optimierungsverfahren, das sich iterativ in Richtung −∇f bewegt, um ein lokales Minimum zu finden." }],
         examples: [
-          "Für f(x,y) := (x² + y² − 4)² ist ∇f(x,y) = (4x(x²+y²−4), 4y(x²+y²−4))ᵀ. Es gilt ∇f(x,y) = ⃗0 genau dann, wenn (x,y) = (0,0) oder x²+y² = 4 — die stationären Punkte bilden hier also den Ursprung zusammen mit einem ganzen Kreis vom Radius 2.",
+          "Ein Wanderer auf einem Bergrelief, das durch f(x,y) beschrieben wird, findet den steilsten Aufstieg an seiner aktuellen Position, indem er in Richtung ∇f(x,y) geht — dies ist exakt die Richtung, die die Änderungsrate maximiert.",
         ],
       },
     ],
   },
-
-  // ============ Kapitel 3 — Ober- und Untersummen: das Riemann-Integral im R^n ============
+  // ==================== Kapitel 3 ====================
   {
-    id: "riemann-integral-rn",
+    id: "totale-differenzierbarkeit-tangentialebene",
     number: 3,
-    title: "Ober- und Untersummen: das Riemann-Integral im Rⁿ",
+    title: "Totale Differenzierbarkeit und die Tangentialebene",
     free: false,
     intro:
-      "Mit dem Jordan-Inhalt aus Kapitel 1 können wir nun, ganz analog zur eindimensionalen Riemann-Theorie aus Mathematik 1, Ober- und Untersummen für beschränkte Funktionen auf einem Quader definieren und darüber das Riemann-Integral im ℝⁿ erklären.",
+      "Partielle Differenzierbarkeit reicht nicht aus, um eine Funktion in jeder Hinsicht 'differenzierbar' zu nennen. Dieses Kapitel führt den stärkeren Begriff der totalen Differenzierbarkeit ein.",
     sections: [
       {
         id: "3-1",
-        heading: "3.1 Partitionen und Riemannsummen",
+        heading: "3.1 Totale Differenzierbarkeit",
         body: [
-          "Eine Partition (Zerlegung) 𝒵 eines Quaders Q ⊂ ℝⁿ ist eine endliche Menge {Q₁, ..., Qₘ} von paarweise überlappungsfreien Teilquadern mit Q = Q₁ ∪ ... ∪ Qₘ. Für eine beschränkte Funktion f : Q → ℝ heißen O(f;𝒵) := Σᵢ sup f(Qᵢ) · |Qᵢ| und U(f;𝒵) := Σᵢ inf f(Qᵢ) · |Qᵢ| die Ober- bzw. Untersumme von f bezüglich 𝒵.",
-          "Verfeinert man eine Partition (das heißt, ersetzt man Teilquader durch noch feinere Teilquader), so kann die Obersumme nur kleiner und die Untersumme nur größer werden — jede Obersumme ist folglich mindestens so groß wie jede Untersumme, egal bezüglich welcher der beiden Partitionen. Das Infimum über alle Obersummen heißt oberes, das Supremum über alle Untersummen unteres Riemann-Integral von f über Q.",
+          "Eine Funktion f heißt total differenzierbar in x₀, wenn sie sich dort durch eine LINEARE Abbildung approximieren lässt: f(x₀+h) = f(x₀) + ∇f(x₀)·h + o(|h|), wobei der Fehlerterm o(|h|) schneller gegen 0 geht als |h| selbst. Diese Bedingung ist stärker als bloße partielle Differenzierbarkeit, da sie eine gute lineare Approximation aus JEDER Richtung gleichzeitig verlangt.",
+          "Ein hinreichendes (nicht notwendiges) Kriterium: Sind alle partiellen Ableitungen in einer Umgebung von x₀ stetig, so ist f dort total differenzierbar. Dieses Kriterium ist in der Praxis meist einfacher zu prüfen als die Definition direkt.",
+        ],
+        terms: [{ term: "Totale Differenzierbarkeit", definition: "Existenz einer linearen Approximation von f, die den Fehler o(|h|) erzeugt — stärker als partielle Differenzierbarkeit." }],
+        examples: [
+          "Eine Funktion mit stetigen partiellen Ableitungen ∂f/∂x=2x, ∂f/∂y=3y² überall ist nach dem hinreichenden Kriterium automatisch überall total differenzierbar, ohne dass man die Approximationsbedingung explizit nachrechnen muss.",
         ],
       },
       {
         id: "3-2",
-        heading: "3.2 Das Riemann-Integral und Integrierbarkeitskriterien",
+        heading: "3.2 Die Tangentialebene",
         body: [
-          "Stimmen oberes und unteres Riemann-Integral überein, heißt f Riemann-integrierbar über Q, und man schreibt ∫_Q f(⃗x) d⃗x für den gemeinsamen Wert. Äquivalent ist f genau dann integrierbar, wenn es zu jedem ε > 0 eine Partition 𝒵 gibt mit O(f;𝒵) − U(f;𝒵) < ε — das ε-Kriterium für Integrierbarkeit, das man in Klausuraufgaben meist direkt auf konkrete Partitionenfolgen anwendet.",
-          "Für Jordan-messbare, aber nicht notwendig quaderförmige Mengen M ⊂ ℝⁿ definiert man das Integral einer auf M beschränkten Funktion f über die Fortsetzung f̃ := f auf M und f̃ := 0 außerhalb von M, angewandt auf einen M umfassenden Quader: ∫_M f(⃗x) d⃗x := ∫_Q f̃(⃗x) d⃗x. Diese Definition ist unabhängig von der Wahl von Q, solange M ⊂ Q gilt.",
-          "Formal lässt sich diese Fortsetzung über die Indikatorfunktion (charakteristische Funktion) 1_M schreiben, die auf M den Wert 1 und außerhalb von M den Wert 0 annimmt: f̃ = f·1_M. Diese Schreibweise begegnet einem auch in Statistik- oder Wahrscheinlichkeitsvorlesungen wieder, wo dieselbe Funktion oft 𝟙_M oder χ_M genannt wird.",
+          "Ist f: ℝ²→ℝ total differenzierbar in (x₀,y₀), beschreibt z = f(x₀,y₀) + ∂f/∂x(x₀,y₀)·(x−x₀) + ∂f/∂y(x₀,y₀)·(y−y₀) die Tangentialebene an den Graphen von f im Punkt (x₀,y₀,f(x₀,y₀)) — das mehrdimensionale Analogon zur Tangente einer Kurve.",
+          "Diese Tangentialebene liefert die beste lineare Näherung von f in der Nähe von (x₀,y₀) und wird praktisch genutzt, um Funktionswerte in der Nähe eines bekannten Punktes ohne exakte Berechnung abzuschätzen.",
         ],
-        terms: [
-          { term: "Indikatorfunktion 1_M", definition: "Die Funktion mit 1_M(⃗x) = 1 für ⃗x ∈ M und 1_M(⃗x) = 0 sonst. Multipliziert man f mit 1_M, erhält man genau die auf M eingeschränkte, außerhalb M durch 0 fortgesetzte Funktion f̃." },
-        ],
+        formulas: ["z = f(x₀,y₀) + fₓ(x₀,y₀)(x−x₀) + f_y(x₀,y₀)(y−y₀)"],
+        formulasLatex: ["z = f(x_0,y_0) + f_x(x_0,y_0)(x-x_0) + f_y(x_0,y_0)(y-y_0)"],
+        terms: [{ term: "Tangentialebene", definition: "Beste lineare Approximation des Graphen einer total differenzierbaren Funktion in einem Punkt." }],
         examples: [
-          "Für f : [0,1]² → ℝ, f(x,y) := 3y und die Partition 𝒵ₙ in n gleich breite Vertikalstreifen [(i−1)/n, i/n] × [0,1] gilt sup f(Qᵢ) = 3 und inf f(Qᵢ) = 0 auf jedem Streifen, also O(f;𝒵ₙ) = 3 und U(f;𝒵ₙ) = 0 für jedes n ∈ ℕ — diese beiden Werte allein zeigen noch nicht die Integrierbarkeit von f, die man stattdessen über eine feinere, in beide Richtungen verlaufende Partition nachweist.",
+          "Für f(x,y)=x²+y² im Punkt (1,1) mit f(1,1)=2, fₓ=2, f_y=2 lautet die Tangentialebene z=2+2(x−1)+2(y−1)=2x+2y−2 — eine gute Näherung von f in unmittelbarer Nähe von (1,1).",
         ],
       },
     ],
   },
-
-  // ============ Kapitel 4 — Richtungsableitungen ============
+  // ==================== Kapitel 4 ====================
   {
-    id: "richtungsableitungen",
+    id: "kettenregel-jacobi-matrix",
     number: 4,
-    title: "Richtungsableitungen",
+    title: "Kettenregel, Jacobi-Matrix und vektorwertige Funktionen",
     free: false,
     intro:
-      "Die partiellen Ableitungen aus Kapitel 2 messen die Änderungsrate von f nur entlang der Koordinatenachsen. Die Richtungsableitung verallgemeinert dieses Konzept auf beliebige Richtungen und liefert damit ein feineres Werkzeug, um das lokale Verhalten von f zu verstehen.",
+      "Viele Anwendungen erfordern Funktionen, die selbst vektorwertig sind (mehrere Ausgabewerte) oder die miteinander verkettet werden. Dieses Kapitel verallgemeinert Ableitungsregeln entsprechend.",
     sections: [
       {
         id: "4-1",
-        heading: "4.1 Definition und Zusammenhang mit partiellen Ableitungen",
+        heading: "4.1 Vektorwertige Funktionen und die Jacobi-Matrix",
         body: [
-          "Es sei D ⊂ ℝⁿ offen, f : D → ℝ, ⃗x₀ ∈ D und ⃗v ∈ ℝⁿ mit ‖⃗v‖₂ = 1. Die Richtungsableitung von f in ⃗x₀ in Richtung ⃗v ist definiert als ∂f/∂⃗v(⃗x₀) := lim_{t→0} (f(⃗x₀ + t·⃗v) − f(⃗x₀))/t, sofern dieser Grenzwert existiert. Für ⃗v = ⃗eᵢ ergibt sich gerade die i-te partielle Ableitung — partielle Ableitungen sind also spezielle Richtungsableitungen.",
-          "Ist f in ⃗x₀ (total) differenzierbar — der in Kapitel 6 eingeführte stärkere Differenzierbarkeitsbegriff —, so existieren alle Richtungsableitungen, und es gilt die praktische Formel ∂f/∂⃗v(⃗x₀) = ⟨∇f(⃗x₀), ⃗v⟩. Ohne totale Differenzierbarkeit können dagegen selbst dann, wenn alle Richtungsableitungen existieren, überraschende Effekte auftreten.",
+          "Eine Funktion F: ℝⁿ→ℝᵐ ordnet jedem Punkt einen ganzen Vektor von m Werten zu. Ihre Ableitung fasst man in der Jacobi-Matrix zusammen: eine m×n-Matrix, deren Eintrag in Zeile i, Spalte j die partielle Ableitung ∂Fᵢ/∂xⱼ ist. Für m=1 reduziert sich die Jacobi-Matrix auf den (transponierten) Gradienten.",
+          "Die Jacobi-Matrix liefert die lokale lineare Approximation von F: F(x₀+h) ≈ F(x₀) + J_F(x₀)·h, wobei J_F(x₀)·h eine gewöhnliche Matrix-Vektor-Multiplikation ist.",
         ],
-        formulas: ["∂f/∂⃗v(⃗x₀) = ⟨∇f(⃗x₀), ⃗v⟩ (falls f in ⃗x₀ differenzierbar ist)"],
-        formulasLatex: ["\\frac{\\partial f}{\\partial \\vec v}(\\vec x_0) = \\langle \\nabla f(\\vec x_0), \\vec v \\rangle"],
+        formulas: ["J_F = (∂Fᵢ/∂xⱼ)ᵢⱼ"],
+        formulasLatex: ["J_F = \\left(\\dfrac{\\partial F_i}{\\partial x_j}\\right)_{i,j}"],
+        terms: [{ term: "Jacobi-Matrix", definition: "Matrix aller partiellen Ableitungen einer vektorwertigen Funktion." }],
         examples: [
-          "Für f(x,y) := cos(2xy) und ⃗x₀ = (1,1) ist ∇f(1,1) = (−2sin(2)·1, −2sin(2)·1)ᵀ = (−2sin2, −2sin2)ᵀ. Für die Richtung ⃗v = (1,1)ᵀ/√2 ergibt sich damit ∂f/∂⃗v(1,1) = ⟨∇f(1,1), ⃗v⟩ = −4sin(2)/√2 = −2√2·sin(2).",
+          "Für F(x,y)=(x²y, x+y²) beträgt die Jacobi-Matrix J_F = [[2xy, x²],[1, 2y]] — Zeile 1 enthält die partiellen Ableitungen der ersten Komponente, Zeile 2 die der zweiten.",
         ],
       },
       {
         id: "4-2",
-        heading: "4.2 Wenn Richtungsableitungen nicht aus dem Gradienten folgen",
+        heading: "4.2 Die mehrdimensionale Kettenregel",
         body: [
-          "Ist f nur partiell, aber nicht total differenzierbar, kann die Formel ∂f/∂⃗v(⃗x₀) = ⟨∇f(⃗x₀), ⃗v⟩ falsch sein, obwohl beide Seiten einzeln existieren. Solche Funktionen zeigen, dass die Existenz aller Richtungsableitungen echt schwächer ist als totale Differenzierbarkeit — ein Grund, warum in Kapitel 6 ein eigener, stärkerer Differenzierbarkeitsbegriff eingeführt wird.",
-          "Es kann sogar vorkommen, dass die Richtungsableitung nur für bestimmte Richtungen existiert und für andere nicht. Solche Fälle treten typischerweise bei Funktionen auf, deren Graph im Ursprung eine 'Kante' oder Unstetigkeit besitzt, die je nach Anflugrichtung unterschiedlich stark ins Gewicht fällt.",
+          "Ist h = g∘f eine Verkettung differenzierbarer Funktionen (f: ℝⁿ→ℝᵐ, g: ℝᵐ→ℝᵏ), so gilt für die Jacobi-Matrix der Verkettung: J_h(x) = J_g(f(x)) · J_f(x) — die Kettenregel wird zur Matrixmultiplikation der einzelnen Jacobi-Matrizen.",
+          "Ein wichtiger Spezialfall: Ist z=f(x,y) mit x=x(t), y=y(t) (beide Variablen hängen von einem gemeinsamen Parameter t ab), so gilt dz/dt = ∂f/∂x·dx/dt + ∂f/∂y·dy/dt — die Summenregel entlang aller Pfade, über die t die Funktion f beeinflusst.",
         ],
+        formulas: ["dz/dt = ∂f/∂x · dx/dt + ∂f/∂y · dy/dt"],
+        formulasLatex: ["\\dfrac{dz}{dt} = \\dfrac{\\partial f}{\\partial x}\\dfrac{dx}{dt} + \\dfrac{\\partial f}{\\partial y}\\dfrac{dy}{dt}"],
+        terms: [{ term: "Mehrdimensionale Kettenregel", definition: "J_h(x) = J_g(f(x))·J_f(x) für Verkettungen h=g∘f." }],
         examples: [
-          "Für g(x,y) := xy/(x²+y²) falls (x,y) ≠ (0,0) und g(0,0) := 0 existiert für ⃗v = (v₁,v₂)ᵀ mit ‖⃗v‖₂ = 1 die Richtungsableitung ∂g/∂⃗v(0,0) = lim_{t→0} (t²v₁v₂)/(t·t²) = lim_{t→0} v₁v₂/t, welche nur für v₁v₂ = 0 (also entlang der Koordinatenachsen) existiert und dort den Wert 0 annimmt — für alle anderen Richtungen divergiert der Grenzwert.",
+          "Für z=x²y mit x(t)=t², y(t)=t+1 gilt dz/dt = 2xy·2t + x²·1 = 2(t²)(t+1)(2t) + (t²)²·1 = 4t³(t+1) + t⁴ — durch Einsetzen der konkreten Pfade x(t),y(t) in die Kettenregelformel.",
+        ],
+      },
+      {
+        id: "4-3",
+        heading: "4.3 Implizite Funktionen",
+        body: [
+          "Der Satz über implizite Funktionen besagt: Ist F(x,y)=0 mit ∂F/∂y ≠ 0 an einem Punkt (x₀,y₀), so lässt sich y lokal um diesen Punkt als differenzierbare Funktion y=g(x) von x auffassen, auch wenn keine explizite Auflösung nach y möglich ist. Die Ableitung dieser impliziten Funktion lässt sich ohne explizite Auflösung berechnen: dy/dx = −(∂F/∂x)/(∂F/∂y).",
+          "Dieser Satz ist praktisch bedeutsam, wenn Gleichungen nicht explizit nach einer Variablen auflösbar sind (z. B. bei impliziten Kurven wie x²+y³−xy=1), man aber dennoch lokale Änderungsraten bestimmen möchte.",
+        ],
+        formulas: ["dy/dx = −(∂F/∂x) / (∂F/∂y)"],
+        formulasLatex: ["\\dfrac{dy}{dx} = -\\dfrac{\\partial F/\\partial x}{\\partial F/\\partial y}"],
+        terms: [{ term: "Satz über implizite Funktionen", definition: "Garantiert lokale Auflösbarkeit einer impliziten Gleichung F(x,y)=0 nach y, sofern ∂F/∂y≠0." }],
+        examples: [
+          "Für die implizite Kurve x²+y²=25 (Kreis) mit F(x,y)=x²+y²−25 gilt dy/dx = −(2x)/(2y) = −x/y — dieselbe Ableitung, die man auch durch explizites Auflösen nach y=±√(25−x²) erhalten würde.",
         ],
       },
     ],
   },
-
-  // ============ Kapitel 5 — Eigenschaften des Jordan-Inhalts und der Satz von Fubini ============
+  // ==================== Kapitel 5 ====================
   {
-    id: "fubini",
+    id: "hoehere-ableitungen-taylor",
     number: 5,
-    title: "Eigenschaften des Jordan-Inhalts und der Satz von Fubini",
+    title: "Höhere Ableitungen, der Satz von Schwarz und Taylorpolynome",
     free: false,
     intro:
-      "Der Jordan-Inhalt aus Kapitel 1 verhält sich unter den geometrischen Operationen, die man von einem Flächen- bzw. Volumenbegriff erwartet, konsistent. Darauf aufbauend liefert der Satz von Fubini das zentrale Rechenwerkzeug, um mehrdimensionale Integrale auf iterierte eindimensionale Integrale zurückzuführen.",
+      "Um das Krümmungsverhalten mehrdimensionaler Funktionen zu verstehen, braucht es Ableitungen zweiter Ordnung. Dieses Kapitel behandelt deren Struktur und die daraus resultierende quadratische Approximation.",
     sections: [
       {
         id: "5-1",
-        heading: "5.1 Rechenregeln für den Jordan-Inhalt",
+        heading: "5.1 Partielle Ableitungen höherer Ordnung",
         body: [
-          "Der Jordan-Inhalt ist invariant unter Translation und Spiegelung: Für Jordan-messbares M ⊂ ℝⁿ, ⃗a ∈ ℝⁿ und die Spiegelung an einer Koordinatenachse gilt |M + ⃗a| = |M| bzw. |Spiegelung von M| = |M|. Unter einer Streckung um den Faktor λ > 0 in jeder Koordinate skaliert der Inhalt mit λⁿ, das heißt |λ·M| = λⁿ·|M|.",
-          "Weiter ist der Jordan-Inhalt monoton (M₁ ⊂ M₂ ⟹ |M₁| ≤ |M₂|) und additiv: Sind M₁, M₂ Jordan-messbar mit |M₁ ∩ M₂| = 0 (etwa weil der Schnitt in einer gemeinsamen Randkurve liegt), so ist auch M₁ ∪ M₂ Jordan-messbar mit |M₁ ∪ M₂| = |M₁| + |M₂|.",
+          "Zweite partielle Ableitungen entstehen durch nochmaliges partielles Ableiten: ∂²f/∂x∂y bedeutet, zuerst nach y, dann nach x abzuleiten (bzw. je nach Konvention andersherum). Da es bei n Variablen mehrere gemischte zweite Ableitungen gibt, stellt sich die Frage, ob die Reihenfolge des Ableitens das Ergebnis beeinflusst.",
+          "Der Satz von Schwarz beantwortet dies: Sind die zweiten partiellen Ableitungen einer Funktion in einer Umgebung stetig, so sind gemischte partielle Ableitungen unabhängig von der Reihenfolge: ∂²f/∂x∂y = ∂²f/∂y∂x. Dies vereinfacht Berechnungen erheblich, da man die günstigere Ableitungsreihenfolge wählen kann.",
         ],
-        formulas: ["|λ·M| = λⁿ·|M|", "|M1|=0 (Schnitt) ⟹ |M1∪M2| = |M1|+|M2|"],
-        formulasLatex: ["|\\lambda\\cdot M| = \\lambda^n |M|", "|M_1\\cap M_2|=0 \\implies |M_1\\cup M_2| = |M_1|+|M_2|"],
+        formulas: ["∂²f/∂x∂y = ∂²f/∂y∂x (Satz von Schwarz)"],
+        formulasLatex: ["\\dfrac{\\partial^2 f}{\\partial x \\partial y} = \\dfrac{\\partial^2 f}{\\partial y \\partial x}"],
+        terms: [{ term: "Satz von Schwarz", definition: "Gemischte partielle Ableitungen stetig differenzierbarer Funktionen sind unabhängig von der Ableitungsreihenfolge." }],
         examples: [
-          "Ein Quader M=[0,2]×[0,3] hat |M|=6. Gestreckt um λ=3 in jeder Koordinate (n=2) ergibt sich |3M| = 3²·6 = 54.",
+          "Für f(x,y)=x³y² gilt ∂f/∂x=3x²y², dann ∂²f/∂x∂y=6x²y; andersherum ∂f/∂y=2x³y, dann ∂²f/∂y∂x=6x²y — beide gemischten Ableitungen stimmen wie vom Satz von Schwarz vorhergesagt überein.",
         ],
       },
       {
         id: "5-2",
-        heading: "5.2 Der Satz von Fubini",
+        heading: "5.2 Die Hessematrix",
         body: [
-          "Ist f : Q → ℝ auf einem Quader Q = [a₁,b₁] × [a₂,b₂] integrierbar und existiert für jedes feste x ∈ [a₁,b₁] das innere Integral ∫_{a₂}^{b₂} f(x,y) dy, so liefert der Satz von Fubini ∫_Q f(x,y) d(x,y) = ∫_{a₁}^{b₁} (∫_{a₂}^{b₂} f(x,y) dy) dx — das mehrdimensionale Integral lässt sich als iteriertes, eindimensionales Integral berechnen, wobei die Integrationsreihenfolge (zuerst nach y, dann nach x, oder umgekehrt) unter den Voraussetzungen des Satzes beliebig ist.",
-          "Der Satz von Fubini überträgt sich unmittelbar auf Quader im ℝⁿ mit n > 2 durch sukzessives Anwenden auf je zwei Variablen, sowie — kombiniert mit den Normalbereichen aus Kapitel 7 — auf nicht-quaderförmige Integrationsgebiete.",
+          "Die Hessematrix H_f(x) fasst alle zweiten partiellen Ableitungen zu einer symmetrischen n×n-Matrix zusammen (Symmetrie folgt aus dem Satz von Schwarz bei stetigen zweiten Ableitungen): Hᵢⱼ = ∂²f/∂xᵢ∂xⱼ. Sie ist das mehrdimensionale Analogon zur zweiten Ableitung und beschreibt die lokale Krümmung von f.",
+          "Die Hessematrix ist zentral für die Klassifikation kritischer Punkte (Kapitel 6) und für die quadratische Approximation im Taylorpolynom zweiter Ordnung.",
         ],
-        formulas: ["∫_Q f(x,y) d(x,y) = ∫ₐ¹ᵇ¹ (∫ₐ²ᵇ² f(x,y) dy) dx"],
-        formulasLatex: ["\\int_Q f(x,y)\\,\\mathrm d(x,y) = \\int_{a_1}^{b_1}\\left(\\int_{a_2}^{b_2} f(x,y)\\,\\mathrm dy\\right)\\mathrm dx"],
+        formulas: ["Hᵢⱼ = ∂²f/∂xᵢ∂xⱼ"],
+        formulasLatex: ["H_{ij} = \\dfrac{\\partial^2 f}{\\partial x_i \\partial x_j}"],
+        terms: [{ term: "Hessematrix", definition: "Symmetrische Matrix aller zweiten partiellen Ableitungen einer Funktion." }],
         examples: [
-          "Für Q := [0,2] × [0,log(3)] und f(x,y) := x·eʸ gilt mit dem Satz von Fubini ∫_Q x·eʸ d(x,y) = (∫₀² x dx) · (∫₀^{log 3} eʸ dy) = 2 · (3−1) = 4.",
+          "Für f(x,y)=x³+y³−3xy beträgt die Hessematrix H_f(x,y) = [[6x, −3],[−3, 6y]] — im Punkt (1,1) also H_f(1,1)=[[6,−3],[−3,6]].",
+        ],
+      },
+      {
+        id: "5-3",
+        heading: "5.3 Das Taylorpolynom zweiter Ordnung",
+        body: [
+          "Das Taylorpolynom zweiter Ordnung erweitert die Tangentialebene (lineare Approximation) um einen quadratischen Term: f(x₀+h) ≈ f(x₀) + ∇f(x₀)·h + ½hᵀH_f(x₀)h. Dieser quadratische Term erfasst die Krümmung der Funktion und liefert eine deutlich genauere lokale Näherung als die reine Tangentialebene.",
+          "Ist ∇f(x₀)=0 (ein kritischer Punkt), reduziert sich die Approximation auf f(x₀) + ½hᵀH_f(x₀)h — das Vorzeichenverhalten dieses quadratischen Terms (bestimmt durch die Definitheit der Hessematrix) entscheidet über die Art des kritischen Punkts, wie im nächsten Kapitel gezeigt wird.",
+        ],
+        formulas: ["f(x₀+h) ≈ f(x₀) + ∇f(x₀)·h + ½hᵀH_f(x₀)h"],
+        formulasLatex: ["f(x_0+h) \\approx f(x_0) + \\nabla f(x_0)\\cdot h + \\tfrac{1}{2} h^{T} H_f(x_0) h"],
+        terms: [{ term: "Taylorpolynom zweiter Ordnung", definition: "Quadratische Näherung einer Funktion, die zusätzlich zum Gradienten die Hessematrix nutzt." }],
+        examples: [
+          "Für f(x,y)=x²+y² um den Nullpunkt (mit ∇f(0,0)=(0,0), H_f=[[2,0],[0,2]]) lautet das Taylorpolynom zweiter Ordnung exakt f(0,0)+½(2h₁²+2h₂²)=h₁²+h₂² — hier stimmt die quadratische Näherung exakt mit der Funktion überein.",
         ],
       },
     ],
   },
-
-  // ============ Kapitel 6 — Totale Differenzierbarkeit und die Tangentialebene ============
+  // ==================== Kapitel 6 ====================
   {
-    id: "totale-differenzierbarkeit",
+    id: "lokale-extrema-hessematrix",
     number: 6,
-    title: "Totale Differenzierbarkeit und die Tangentialebene",
+    title: "Lokale Extrema, die Hessematrix und Sattelpunkte",
     free: false,
     intro:
-      "Partielle Differenzierbarkeit (Kapitel 2) ist ein vergleichsweise schwacher Begriff, der noch nicht einmal Stetigkeit garantiert. Die totale (oder Fréchet-)Differenzierbarkeit verlangt stattdessen eine gute lineare Approximation von f in jede Richtung gleichzeitig — der 'richtige' mehrdimensionale Differenzierbarkeitsbegriff.",
+      "Eine der wichtigsten Anwendungen der mehrdimensionalen Differentialrechnung ist die Optimierung: das Finden von Maxima und Minima. Dieses Kapitel behandelt die notwendigen und hinreichenden Bedingungen dafür.",
     sections: [
       {
         id: "6-1",
-        heading: "6.1 Totale (Fréchet-)Differenzierbarkeit",
+        heading: "6.1 Kritische Punkte",
         body: [
-          "Eine Funktion f : D → ℝ mit D ⊂ ℝⁿ offen heißt in ⃗x₀ ∈ D total differenzierbar, wenn es einen Vektor ⃗a ∈ ℝⁿ gibt, sodass f(⃗x₀ + ⃗h) = f(⃗x₀) + ⟨⃗a, ⃗h⟩ + r(⃗h) mit lim_{⃗h→⃗0} r(⃗h)/‖⃗h‖₂ = 0 gilt. In diesem Fall ist ⃗a eindeutig bestimmt und gleich dem Gradienten ∇f(⃗x₀); f lässt sich also in der Nähe von ⃗x₀ gut durch die affine Funktion ⃗h ↦ f(⃗x₀) + ⟨∇f(⃗x₀),⃗h⟩ approximieren.",
-          "Totale Differenzierbarkeit ist strikt stärker als partielle Differenzierbarkeit: Sie impliziert insbesondere Stetigkeit in ⃗x₀ sowie die Existenz aller Richtungsableitungen samt der Formel aus Kapitel 4. Ein hinreichendes, in der Praxis meist verwendetes Kriterium ist: Existieren alle partiellen Ableitungen von f in einer Umgebung von ⃗x₀ und sind sie dort stetig (f ist 'stetig partiell differenzierbar'), so ist f in ⃗x₀ total differenzierbar.",
+          "Ein Punkt x₀ heißt kritisch, wenn ∇f(x₀)=0 gilt — alle partiellen Ableitungen verschwinden gleichzeitig. Dies ist eine notwendige (nicht hinreichende) Bedingung für ein lokales Extremum: Jedes lokale Maximum oder Minimum im Inneren des Definitionsbereichs einer differenzierbaren Funktion muss ein kritischer Punkt sein, aber nicht jeder kritische Punkt ist ein Extremum.",
+          "Kritische Punkte, die weder Maximum noch Minimum sind, heißen Sattelpunkte: Die Funktion steigt in manche Richtungen an und fällt in andere Richtungen ab, während der Gradient dennoch verschwindet.",
         ],
-        terms: [
-          { term: "Total differenzierbar", definition: "f lässt sich in ⃗x₀ durch eine affine Funktion approximieren, deren linearer Anteil durch ∇f(⃗x₀) gegeben ist, mit einem Fehler, der schneller als ‖⃗h‖₂ gegen 0 geht." },
-        ],
+        terms: [{ term: "Kritischer Punkt", definition: "Punkt, an dem der Gradient verschwindet (∇f=0); notwendige Bedingung für ein lokales Extremum." }],
         examples: [
-          "Für f(x,y) := x²y + 2x − y ist f überall stetig partiell differenzierbar (die partiellen Ableitungen 2xy+2 und x²−1 sind stetig), also nach dem Kriterium überall total differenzierbar.",
+          "Für f(x,y)=x²−y² gilt ∇f(0,0)=(0,0) — (0,0) ist ein kritischer Punkt. Da f entlang der x-Achse ansteigt, aber entlang der y-Achse abfällt, handelt es sich um einen Sattelpunkt, nicht um ein Extremum.",
         ],
       },
       {
         id: "6-2",
-        heading: "6.2 Die Tangentialebene",
+        heading: "6.2 Definitheit der Hessematrix",
         body: [
-          "Ist f : D → ℝ in (x₀,y₀) ∈ D ⊂ ℝ² total differenzierbar, so heißt die Ebene Tf(x₀,y₀) := {(x,y,z) ∈ ℝ³ : z = f(x₀,y₀) + ⟨∇f(x₀,y₀), (x−x₀,y−y₀)⟩} die Tangentialebene an den Graphen von f im Punkt (x₀,y₀). Sie ist das mehrdimensionale Analogon zur Tangente an den Graphen einer eindimensionalen Funktion.",
-          "Ein Normalenvektor der Tangentialebene ist gegeben durch ⃗v = (∇f(x₀,y₀), −1)ᵀ ∈ ℝ³ — dieser Vektor steht senkrecht auf der Tangentialebene und wird häufig direkt aus dem Gradienten abgelesen, ohne den Umweg über die Ebenengleichung.",
-          "Klausuraufgaben unterscheiden gezielt zwischen zwei möglichen Fragestellungen: Ist nur die Tangentengleichung gesucht, reicht die Angabe z = f(x₀,y₀) + ⟨∇f(x₀,y₀),(x−x₀,y−y₀)⟩. Ist dagegen die Tangentialebene selbst gesucht, muss die vollständige Punktmenge Tf(x₀,y₀) ⊂ ℝ³ angegeben werden, die diese Gleichung erfüllt — genaues Lesen der Aufgabenstellung entscheidet hier über volle Punktzahl.",
+          "Um kritische Punkte zu klassifizieren, untersucht man die Definitheit der Hessematrix H_f(x₀): Ist H_f(x₀) positiv definit (alle Eigenwerte positiv), liegt ein lokales Minimum vor; ist sie negativ definit (alle Eigenwerte negativ), liegt ein lokales Maximum vor; besitzt sie sowohl positive als auch negative Eigenwerte (indefinit), liegt ein Sattelpunkt vor.",
+          "Für n=2 lässt sich die Definitheit einfach über die Determinante und einen Diagonaleintrag prüfen: ist det(H_f)>0 und Hₓₓ>0, liegt ein Minimum vor; ist det(H_f)>0 und Hₓₓ<0, liegt ein Maximum vor; ist det(H_f)<0, liegt ein Sattelpunkt vor. Bei det(H_f)=0 ist keine Aussage über dieses Kriterium möglich.",
         ],
-        formulas: ["z = f(x₀,y₀) + ⟨∇f(x₀,y₀), (x−x₀, y−y₀)⟩", "Normalenvektor: ⃗v = (∇f(x₀,y₀), −1)ᵀ"],
-        formulasLatex: [
-          "z = f(x_0,y_0) + \\langle \\nabla f(x_0,y_0), (x-x_0,\\,y-y_0)\\rangle",
-          "\\vec v = \\big(\\nabla f(x_0,y_0),\\, -1\\big)^\\top",
-        ],
+        formulas: ["det(H_f) > 0, Hₓₓ > 0 ⇒ Minimum"],
+        formulasLatex: ["\\det(H_f) > 0,\\; H_{xx} > 0 \\;\\Rightarrow\\; \\text{Minimum}"],
+        terms: [{ term: "Definitheit einer Matrix", definition: "Eigenschaft, die über das Vorzeichen aller Eigenwerte bestimmt, ob eine quadratische Form stets positiv, stets negativ oder gemischt ist." }],
         examples: [
-          "Für f(x,y) := x²y + 3 im Punkt (2,1) gilt f(2,1) = 7 und ∇f(2,1) = (2·2·1, 2²)ᵀ = (4,4)ᵀ. Die Tangentialebene lautet damit z = 7 + 4(x−2) + 4(y−1) = 4x + 4y − 5.",
+          "Für f(x,y)=x²+y² im kritischen Punkt (0,0) gilt H_f=[[2,0],[0,2]], det(H_f)=4>0 und Hₓₓ=2>0 — nach dem Kriterium liegt ein lokales Minimum vor, was mit der offensichtlichen globalen Minimalstelle übereinstimmt.",
+        ],
+      },
+      {
+        id: "6-3",
+        heading: "6.3 Extrema unter Nebenbedingungen: Lagrange-Multiplikatoren",
+        body: [
+          "Soll f(x,y) unter einer Nebenbedingung g(x,y)=c maximiert/minimiert werden, hilft die Methode der Lagrange-Multiplikatoren: Man löst das Gleichungssystem ∇f(x,y) = λ·∇g(x,y) zusammen mit g(x,y)=c. Die geometrische Idee: An einem Extremum unter Nebenbedingung müssen die Höhenlinien von f und die Nebenbedingungskurve tangential sein — genau dann sind ihre Gradienten parallel (proportional über λ).",
+          "Diese Methode ist in der Wirtschaftswissenschaft besonders wichtig für Optimierungsprobleme unter Budgetrestriktionen (z. B. Nutzenmaximierung unter einer Budgetgeraden, siehe VWL-Module) und verallgemeinert direkt auf mehrere Nebenbedingungen mit mehreren Multiplikatoren.",
+        ],
+        formulas: ["∇f(x,y) = λ · ∇g(x,y)"],
+        formulasLatex: ["\\nabla f(x,y) = \\lambda \\cdot \\nabla g(x,y)"],
+        terms: [{ term: "Lagrange-Multiplikator (λ)", definition: "Hilfsvariable zur Lösung von Optimierungsproblemen unter Gleichungsnebenbedingungen." }],
+        examples: [
+          "Um f(x,y)=xy unter der Nebenbedingung x+y=10 zu maximieren, löst man ∇f=(y,x)=λ(1,1) zusammen mit x+y=10: aus y=λ=x folgt x=y=5, also maximales Produkt xy=25.",
         ],
       },
     ],
   },
-
-  // ============ Kapitel 7 — Normalbereiche und das Prinzip von Cavalieri ============
+  // ==================== Kapitel 7 ====================
   {
-    id: "normalbereiche-cavalieri",
+    id: "jordan-inhalt-riemann-integral",
     number: 7,
-    title: "Normalbereiche und das Prinzip von Cavalieri",
+    title: "Jordan-Inhalt und das Riemann-Integral im Rⁿ",
     free: false,
     intro:
-      "Um den Satz von Fubini auch auf nicht-quaderförmige Integrationsbereiche anzuwenden, führen wir Normalbereiche ein — Mengen, deren Randfunktionen die Integrationsgrenzen einer Variablen in Abhängigkeit von den übrigen beschreiben. Das Prinzip von Cavalieri liefert daraus eine besonders anschauliche Volumenformel über Schnittflächen.",
+      "Nachdem die Differentialrechnung auf mehrere Dimensionen erweitert wurde, widmet sich dieses Kapitel der analogen Erweiterung der Integralrechnung: dem Messen von Volumen und dem Integrieren über mehrdimensionale Bereiche.",
     sections: [
       {
         id: "7-1",
-        heading: "7.1 Ordinatenmengen und Normalbereiche",
+        heading: "7.1 Der Jordan-Inhalt",
         body: [
-          "Ist g : [a,b] → ℝ stetig und nichtnegativ, so heißt Og := {(x,y) ∈ ℝ² : a ≤ x ≤ b, 0 ≤ y ≤ g(x)} die Ordinatenmenge von g; ihr Flächeninhalt ist |Og| = ∫ₐᵇ g(x) dx. Allgemeiner heißt eine Menge M := {(x,y) ∈ ℝ² : a ≤ x ≤ b, g(x) ≤ y ≤ h(x)} mit stetigen Funktionen g ≤ h ein Normalbereich bezüglich der x-Achse; analog definiert man Normalbereiche bezüglich der y-Achse mit vertauschten Rollen von x und y.",
-          "Normalbereiche sind stets Jordan-messbar, und für eine auf M stetige Funktion f liefert der Satz von Fubini ∫_M f(x,y) d(x,y) = ∫ₐᵇ (∫_{g(x)}^{h(x)} f(x,y) dy) dx — die inneren Integrationsgrenzen hängen dabei von x ab, während die äußeren Grenzen a und b konstant sind.",
+          "Der Jordan-Inhalt verallgemeinert den Flächen-/Volumenbegriff auf beliebige Teilmengen des ℝⁿ. Eine Menge M wird von innen durch Vereinigungen achsenparalleler Quader approximiert (innerer Jordan-Inhalt) und von außen ebenso (äußerer Jordan-Inhalt); stimmen beide Werte überein, heißt M Jordan-messbar mit Jordan-Inhalt gleich diesem gemeinsamen Wert.",
+          "Nicht jede Menge ist Jordan-messbar: Mengen mit sehr 'ausgefranstem' Rand (z. B. die rationalen Zahlen im Einheitsintervall) können einen inneren Jordan-Inhalt von 0 und einen äußeren von 1 besitzen und sind somit nicht Jordan-messbar.",
         ],
+        terms: [{ term: "Jordan-Inhalt", definition: "Verallgemeinerter Flächen-/Volumenbegriff über Approximation durch achsenparallele Quader von innen und außen." }],
         examples: [
-          "Die Fläche F oberhalb der Parabel x ↦ x² und unterhalb der Geraden x ↦ x+6 lässt sich wegen x² = x+6 ⟺ x ∈ {−2,3} als Normalbereich F = {(x,y) ∈ ℝ² : −2 ≤ x ≤ 3, x² ≤ y ≤ x+6} bezüglich der x-Achse darstellen.",
+          "Ein Rechteck [0,2]×[0,3] besitzt eindeutig Jordan-Inhalt 6 (Fläche), da innerer und äußerer Jordan-Inhalt exakt übereinstimmen — anders als bei Mengen mit unregelmäßigem, fraktalähnlichem Rand.",
         ],
       },
       {
         id: "7-2",
-        heading: "7.2 Das Prinzip von Cavalieri",
+        heading: "7.2 Ober- und Untersummen: das Riemann-Integral im Rⁿ",
         body: [
-          "Es sei K ⊂ ℝ³ eine Jordan-messbare Menge und für u ∈ ℝ bezeichne Ku := {(x,y) ∈ ℝ² : (x,y,u) ∈ K} den Schnitt von K mit der Ebene z = u. Ist Ku für jedes u Jordan-messbar mit Flächeninhalt |Ku|, und ist K in einem Streifen a ≤ z ≤ b enthalten, so liefert das Prinzip von Cavalieri |K| = ∫ₐᵇ |Ku| du — das Volumen von K ergibt sich als Integral über die Flächeninhalte seiner Schnitte.",
-          "Eine klassische Anwendung ist der verallgemeinerte Kegel: Ist B ⊂ ℝ² eine Jordan-messbare Grundfläche und K der Kegel mit Spitze ⃗z ∈ ℝ³ über B mit Höhe h, so ist der Schnitt Ku eine um den Faktor u/h skalierte Kopie von B, also |Ku| = (u/h)²·|B|, und Cavalieri liefert |K| = ∫₀ʰ (u/h)²·|B| du = h·|B|/3 — die vertraute Kegelvolumenformel 'Grundfläche mal Höhe durch drei'.",
+          "Analog zum eindimensionalen Riemann-Integral zerlegt man einen Quader Q⊆ℝⁿ in Teilquader und bildet Untersummen (Summe aus Infimum von f auf jedem Teilquader mal dessen Volumen) und Obersummen (analog mit Supremum). Eine Funktion heißt Riemann-integrierbar, wenn Ober- und Untersummen bei feiner werdender Zerlegung gegen denselben Wert konvergieren — dieser gemeinsame Grenzwert ist das Integral ∫_Q f dV.",
+          "Ein zentrales hinreichendes Kriterium: Jede stetige Funktion auf einem kompakten Jordan-messbaren Bereich ist Riemann-integrierbar. Dies deckt praktisch alle in Anwendungen auftretenden Funktionen ab.",
         ],
-        formulas: ["|K| = ∫ₐᵇ |Ku| du", "Kegelvolumen: |K| = h·|B|/3"],
-        formulasLatex: ["|K| = \\int_a^b |K_u|\\,\\mathrm du", "|K| = \\frac{h \\cdot |B|}{3}"],
+        formulas: ["∫_Q f dV = lim (Obersumme) = lim (Untersumme)"],
+        formulasLatex: ["\\int_Q f\\,dV = \\lim (\\text{Obersumme}) = \\lim (\\text{Untersumme})"],
+        terms: [{ term: "Riemann-integrierbar", definition: "Eigenschaft, dass Ober- und Untersummen bei feiner werdender Zerlegung gegen denselben Grenzwert konvergieren." }],
+        examples: [
+          "Für f(x,y)=1 auf dem Quader [0,2]×[0,3] stimmen Ober- und Untersumme für jede Zerlegung bereits exakt überein (konstante Funktion), und das Integral entspricht direkt dem Jordan-Inhalt des Quaders: 6.",
+        ],
+      },
+      {
+        id: "7-3",
+        heading: "7.3 Der Satz von Fubini",
+        body: [
+          "Der Satz von Fubini erlaubt es, ein mehrdimensionales Integral als iterierte Folge eindimensionaler Integrale zu berechnen: ∫∫_Q f(x,y) dx dy = ∫(∫f(x,y) dx) dy — man integriert zunächst über eine Variable bei fester anderer, und integriert das Ergebnis anschließend über die verbleibende Variable.",
+          "Diese Reduktion auf eindimensionale Integrale ist der praktisch wichtigste Rechenweg für mehrdimensionale Integrale: Ohne Fubini müsste man direkt mit Ober-/Untersummen im Mehrdimensionalen arbeiten, was in der Praxis kaum handhabbar ist.",
+        ],
+        formulas: ["∫∫_Q f(x,y) dx dy = ∫[∫f(x,y) dx] dy"],
+        formulasLatex: ["\\iint_Q f(x,y)\\,dx\\,dy = \\int\\!\\left[\\int f(x,y)\\,dx\\right] dy"],
+        terms: [{ term: "Satz von Fubini", definition: "Erlaubt die Berechnung mehrdimensionaler Integrale durch sukzessives Integrieren einzelner Variablen." }],
+        examples: [
+          "Für f(x,y)=xy auf [0,1]×[0,2] gilt: ∫₀²(∫₀¹xy dx)dy = ∫₀²(y/2)dy = [y²/4]₀² = 1 — die Berechnung erfolgt schrittweise über zwei eindimensionale Integrale.",
+        ],
       },
     ],
   },
-
-  // ============ Kapitel 8 — Kettenregel, Jacobi-Matrix und vektorwertige Funktionen ============
+  // ==================== Kapitel 8 ====================
   {
-    id: "kettenregel-jacobi",
+    id: "normalbereiche-transformationssatz",
     number: 8,
-    title: "Kettenregel, Jacobi-Matrix und vektorwertige Funktionen",
+    title: "Normalbereiche, das Prinzip von Cavalieri und der Transformationssatz",
     free: false,
     intro:
-      "Bisher haben wir nur skalarwertige Funktionen f : ℝⁿ → ℝ betrachtet. Für vektorwertige Funktionen f : ℝⁿ → ℝᵐ verallgemeinert sich der Gradient zur Jacobi-Matrix, und die Kettenregel erlaubt es, Kompositionen solcher Funktionen systematisch abzuleiten.",
+      "Nicht jeder Integrationsbereich ist ein einfacher Quader. Dieses abschließende Kapitel behandelt allgemeinere Integrationsbereiche und den Koordinatenwechsel als wichtigstes Rechenwerkzeug für komplexe Bereiche.",
     sections: [
       {
         id: "8-1",
-        heading: "8.1 Vektorwertige Funktionen und die Jacobi-Matrix",
+        heading: "8.1 Normalbereiche",
         body: [
-          "Eine Funktion f = (f₁,...,fₘ) : D → ℝᵐ mit D ⊂ ℝⁿ offen heißt in ⃗x₀ ∈ D (total) differenzierbar, wenn jede Komponentenfunktion fⱼ dort differenzierbar ist. Die Jacobi-Matrix Jf(⃗x₀) ∈ ℝ^{m×n} ist dann die Matrix, deren j-te Zeile aus dem Gradienten ∇fⱼ(⃗x₀)ᵀ besteht — für m = 1 ist die Jacobi-Matrix also genau der (transponierte) Gradient.",
-          "Die Jacobi-Matrix beschreibt die beste lineare Approximation von f in ⃗x₀: Für kleine ⃗h gilt f(⃗x₀+⃗h) ≈ f(⃗x₀) + Jf(⃗x₀)·⃗h. Ist m = n, heißt det(Jf(⃗x₀)) die Jacobi-Determinante von f in ⃗x₀ — eine Größe, die in Kapitel 12 beim Transformationssatz zentral wird.",
+          "Ein Normalbereich (bezüglich x) ist ein Bereich der Form {(x,y) | a≤x≤b, g(x)≤y≤h(x)} — die obere und untere Grenze der y-Integration hängen dabei von x ab. Solche Bereiche lassen sich mit dem Satz von Fubini integrieren, indem zunächst über y (mit variablen Grenzen g(x) bis h(x)) und anschließend über x (mit festen Grenzen a bis b) integriert wird.",
+          "Normalbereiche erlauben es, das Integrieren über nicht-rechteckige Flächen (Dreiecke, Kreissegmente, allgemeine krummlinig berandete Flächen) auf die iterierte Integration nach Fubini zurückzuführen, ohne den Jordan-Inhalt jedes Mal von Grund auf neu bestimmen zu müssen.",
         ],
-        formulas: ["Jf(⃗x) = (∇f₁(⃗x)ᵀ; ...; ∇fₘ(⃗x)ᵀ) ∈ ℝ^{m×n}"],
-        formulasLatex: ["J_f(\\vec x) = \\begin{pmatrix} \\nabla f_1(\\vec x)^\\top \\\\ \\vdots \\\\ \\nabla f_m(\\vec x)^\\top \\end{pmatrix} \\in \\mathbb R^{m\\times n}"],
+        terms: [{ term: "Normalbereich", definition: "Integrationsbereich, dessen eine Koordinatengrenze als Funktion der anderen definiert ist." }],
         examples: [
-          "Für f : ℝ² → ℝ², f(x,y) := (x²−y², 2xy)ᵀ ist Jf(x,y) = ((2x, −2y); (2y, 2x)) mit Jacobi-Determinante det(Jf(x,y)) = 4x² + 4y².",
+          "Das Dreieck mit Ecken (0,0),(1,0),(0,1) ist ein Normalbereich {(x,y) | 0≤x≤1, 0≤y≤1−x}: Für jedes x läuft y von 0 bis zur Geraden y=1−x, die die Hypotenuse beschreibt.",
         ],
       },
       {
         id: "8-2",
-        heading: "8.2 Die allgemeine Kettenregel",
+        heading: "8.2 Das Prinzip von Cavalieri",
         body: [
-          "Sind g : D₁ → ℝᵏ mit D₁ ⊂ ℝⁿ und f : D₂ → ℝᵐ mit D₂ ⊂ ℝᵏ, g(D₁) ⊂ D₂, differenzierbare Funktionen, so ist die Komposition f∘g : D₁ → ℝᵐ ebenfalls differenzierbar, und es gilt die Kettenregel J_{f∘g}(⃗x) = Jf(g(⃗x)) · Jg(⃗x) — das Produkt der beiden Jacobi-Matrizen (in dieser Reihenfolge, als Matrizenprodukt).",
-          "Für den Spezialfall m = 1 (also f skalarwertig) liefert die Kettenregel für den Gradienten ∇(f∘g)(⃗x) = Jg(⃗x)ᵀ · ∇f(g(⃗x)) — eine Formel, die insbesondere beim Ableiten von Funktionen benötigt wird, die über Koordinatentransformationen wie Polarkoordinaten definiert sind.",
+          "Das Prinzip von Cavalieri besagt: Stimmen die Querschnittsflächen zweier dreidimensionaler Körper bei jeder Höhe überein, so stimmen auch ihre Gesamtvolumina überein. Formal lässt sich das Volumen eines Körpers als Integral seiner Querschnittsflächen A(z) über die Höhe z berechnen: V = ∫A(z) dz.",
+          "Dieses Prinzip ist praktisch nützlich, wenn ein komplexer Körper durch bekannte, aber unterschiedlich geformte Querschnitte definiert ist — es reduziert ein 3-dimensionales Volumenproblem auf ein eindimensionales Integral über bereits bekannte Querschnittsflächen.",
         ],
-        formulas: ["J_{f∘g}(⃗x) = Jf(g(⃗x)) · Jg(⃗x)"],
-        formulasLatex: ["J_{f\\circ g}(\\vec x) = J_f(g(\\vec x)) \\cdot J_g(\\vec x)"],
+        formulas: ["V = ∫ A(z) dz"],
+        formulasLatex: ["V = \\int A(z)\\,dz"],
+        terms: [{ term: "Prinzip von Cavalieri", definition: "Körper mit übereinstimmenden Querschnittsflächen bei jeder Höhe besitzen dasselbe Volumen." }],
         examples: [
-          "Für g(t) := (t², sin(t))ᵀ und f(x,y) := x + y² gilt (f∘g)(t) = t² + sin²(t). Mit der Kettenregel folgt ∇(f∘g)(t) = Jg(t)ᵀ·∇f(g(t)) = (2t, cos t) · (1, 2sin t)ᵀ = 2t + 2 sin(t) cos(t), was mit der direkten Ableitung d/dt(t²+sin²t) = 2t + 2sin(t)cos(t) übereinstimmt.",
-        ],
-      },
-    ],
-  },
-
-  // ============ Kapitel 9 — Treppenfunktionen, gleichmäßige Stetigkeit und Integrierbarkeit ============
-  {
-    id: "treppenfunktionen-gleichmaessige-stetigkeit",
-    number: 9,
-    title: "Treppenfunktionen, gleichmäßige Stetigkeit und Integrierbarkeit stetiger Funktionen",
-    free: false,
-    intro:
-      "Dieses Kapitel liefert die technischen Hilfsmittel, mit denen man beweist, dass jede auf einer kompakten Jordan-messbaren Menge stetige Funktion automatisch Riemann-integrierbar ist — ein Resultat, das in der Praxis ständig stillschweigend verwendet wird.",
-    sections: [
-      {
-        id: "9-1",
-        heading: "9.1 Treppenfunktionen und gleichmäßige Stetigkeit",
-        body: [
-          "Eine Funktion φ : Q → ℝ auf einem Quader Q heißt Treppenfunktion, wenn es eine Partition 𝒵 = {Q₁,...,Qₘ} von Q gibt, sodass φ auf jedem (offenen) Teilquader Qᵢ konstant ist. Treppenfunktionen sind stets integrierbar, und ihr Integral ist einfach die gewichtete Summe der Konstanten mal den Teilquaderinhalten — genau die Definition von Ober- bzw. Untersumme aus Kapitel 3, wenn man φ als sup- bzw. inf-Treppenfunktion von f wählt.",
-          "Eine Funktion f : M → ℝ heißt gleichmäßig stetig, wenn es zu jedem ε > 0 ein δ > 0 gibt, sodass für alle ⃗x,⃗y ∈ M mit ‖⃗x−⃗y‖₂ < δ stets |f(⃗x)−f(⃗y)| < ε gilt — im Unterschied zur gewöhnlichen Stetigkeit darf δ hier nicht von ⃗x abhängen. Nach dem Satz von Heine ist jede auf einer kompakten Menge stetige Funktion dort automatisch gleichmäßig stetig.",
-        ],
-        terms: [
-          { term: "Gleichmäßige Stetigkeit", definition: "Zu jedem ε > 0 existiert ein δ > 0, das für alle Punktepaare mit Abstand < δ funktioniert (unabhängig vom gewählten Punkt)." },
+          "Ein Kegel mit Höhe h und Grundflächenradius r besitzt bei Höhe z einen kreisförmigen Querschnitt mit Radius r(1−z/h), also Fläche A(z)=πr²(1−z/h)². Integration über z von 0 bis h liefert das bekannte Kegelvolumen V=⅓πr²h.",
         ],
       },
       {
-        id: "9-2",
-        heading: "9.2 Integrierbarkeit stetiger Funktionen und der Mittelwertsatz für Integrale",
+        id: "8-3",
+        heading: "8.3 Der Transformationssatz",
         body: [
-          "Ist f auf einer kompakten Jordan-messbaren Menge M ⊂ ℝⁿ stetig, so ist f dort Riemann-integrierbar. Der Beweis approximiert f von oben und unten durch Treppenfunktionen, deren Ober- und Untersummen wegen der gleichmäßigen Stetigkeit aus 9.1 beliebig nahe zusammenrücken — genau das ε-Kriterium aus Kapitel 3.",
-          "Ein nützliches Korollar ist der Mittelwertsatz für Integrale: Ist M Jordan-messbar mit |M| > 0, f : M → ℝ integrierbar und existieren c,d ∈ ℝ mit c ≤ f(⃗x) ≤ d für alle ⃗x ∈ M, so gibt es ein µ ∈ [c,d] mit (1/|M|)·∫_M f(⃗x) d⃗x = µ. Ist f zusätzlich stetig und M zusammenhängend, lässt sich µ nach dem Zwischenwertsatz sogar als Funktionswert f(⃗ξ) für ein ⃗ξ ∈ M realisieren.",
+          "Der Transformationssatz erlaubt einen Koordinatenwechsel im Integral: Ist Φ: U→V eine bijektive, stetig differenzierbare Koordinatentransformation mit Jacobi-Determinante det(J_Φ), so gilt ∫_V f(y) dy = ∫_U f(Φ(x))·|det(J_Φ(x))| dx. Der Betrag der Jacobi-Determinante korrigiert dabei die durch die Transformation verursachte lokale Volumenverzerrung.",
+          "Die häufigste Anwendung sind Polarkoordinaten in ℝ² (x=r·cos(θ), y=r·sin(θ), mit |det(J)|=r) und Kugelkoordinaten in ℝ³: Bereiche mit Kreis- oder Kugelsymmetrie lassen sich dadurch oft erheblich einfacher integrieren als in kartesischen Koordinaten.",
         ],
-        formulas: ["c ≤ f ≤ d auf M ⟹ ∃ µ ∈ [c,d]: (1/|M|)·∫_M f d⃗x = µ"],
-        formulasLatex: ["c \\le f \\le d \\text{ auf } M \\implies \\exists\\, \\mu \\in [c,d]:\\ \\frac{1}{|M|}\\int_M f(\\vec x)\\,\\mathrm d\\vec x = \\mu"],
-      },
-    ],
-  },
-
-  // ============ Kapitel 10 — Höhere Ableitungen und der Satz von Schwarz ============
-  {
-    id: "hoehere-ableitungen-schwarz",
-    number: 10,
-    title: "Höhere Ableitungen und der Satz von Schwarz",
-    free: false,
-    intro:
-      "Genau wie im Eindimensionalen kann man partielle Ableitungen erneut partiell ableiten. Bei gemischten zweiten Ableitungen stellt sich dabei eine natürliche Frage: Kommt es auf die Reihenfolge des Ableitens an?",
-    sections: [
-      {
-        id: "10-1",
-        heading: "10.1 Partielle Ableitungen höherer Ordnung",
-        body: [
-          "Ist f : D → ℝ partiell nach xᵢ differenzierbar und ist die Funktion ∂f/∂xᵢ ihrerseits partiell nach xⱼ differenzierbar, so schreibt man ∂²f/(∂xⱼ∂xᵢ) für diese gemischte zweite partielle Ableitung. Ist f (samt aller partiellen Ableitungen bis zur Ordnung k) k-mal stetig partiell differenzierbar, sagt man, f sei von der Klasse Cᵏ.",
-          "Für Funktionen zweier Veränderlicher gibt es vier zweite partielle Ableitungen: fₓₓ, fᵧᵧ und die beiden gemischten Ableitungen fₓᵧ und fᵧₓ. Im Allgemeinen müssen fₓᵧ und fᵧₓ nicht übereinstimmen — ein Phänomen, das der folgende Abschnitt genauer beleuchtet.",
-        ],
-      },
-      {
-        id: "10-2",
-        heading: "10.2 Der Satz von Schwarz",
-        body: [
-          "Ist f : D → ℝ von der Klasse C² (das heißt, alle zweiten partiellen Ableitungen existieren und sind stetig), so liefert der Satz von Schwarz die Gleichheit der gemischten partiellen Ableitungen: ∂²f/(∂x∂y) = ∂²f/(∂y∂x) auf ganz D. Die Reihenfolge des Ableitens spielt unter dieser Voraussetzung also keine Rolle — ein Resultat, das in praktisch jeder Hessematrix-Rechnung (Kapitel 14) implizit verwendet wird.",
-          "Die Stetigkeitsvoraussetzung im Satz von Schwarz ist nicht verzichtbar: Es gibt Funktionen, bei denen beide gemischten Ableitungen im Ursprung existieren, aber unterschiedliche Werte annehmen — dort sind die gemischten Ableitungen zwangsläufig nicht beide stetig.",
-        ],
-        formulas: ["f ∈ C² ⟹ ∂²f/(∂x∂y) = ∂²f/(∂y∂x)"],
-        formulasLatex: ["f \\in C^2 \\implies \\frac{\\partial^2 f}{\\partial x\\, \\partial y} = \\frac{\\partial^2 f}{\\partial y\\, \\partial x}"],
+        formulas: ["∫_V f(y) dy = ∫_U f(Φ(x)) · |det(J_Φ(x))| dx", "Polarkoordinaten: |det(J)| = r"],
+        formulasLatex: ["\\int_V f(y)\\,dy = \\int_U f(\\Phi(x))\\,|\\det(J_\\Phi(x))|\\,dx", "|\\det(J)| = r \\quad (\\text{Polarkoordinaten})"],
+        terms: [{ term: "Transformationssatz", definition: "Regel zum Koordinatenwechsel in mehrdimensionalen Integralen unter Verwendung der Jacobi-Determinante." }],
         examples: [
-          "Für f(x,y) := xy(x²−y²)/(x²+y²) falls (x,y) ≠ (0,0) und f(0,0) := 0 lässt sich mit einiger Rechnung zeigen, dass fₓᵧ(0,0) = 1, aber fᵧₓ(0,0) = −1 gilt — ein klassisches Gegenbeispiel, das zeigt, dass ohne Stetigkeit der zweiten Ableitungen der Satz von Schwarz scheitern kann.",
+          "Um ∫∫_D e^{−(x²+y²)} dx dy über die Kreisscheibe D={x²+y²≤R²} zu berechnen, wechselt man zu Polarkoordinaten: ∫₀^{2π}∫₀^R e^{−r²}·r dr dθ — ein deutlich einfacheres Integral als in kartesischen Koordinaten.",
         ],
-      },
-    ],
-  },
-
-  // ============ Kapitel 11 — Der Gradient als Richtung des steilsten Anstiegs ============
-  {
-    id: "gradient-steilster-anstieg",
-    number: 11,
-    title: "Der Gradient als Richtung des steilsten Anstiegs",
-    free: false,
-    intro:
-      "Der Gradient hat neben seiner algebraischen Definition (Kapitel 2) eine anschauliche geometrische Bedeutung: Er zeigt in die Richtung, in der f am schnellsten wächst, und steht senkrecht auf den Höhenlinien von f.",
-    sections: [
-      {
-        id: "11-1",
-        heading: "11.1 Gradient und Richtung des steilsten Anstiegs",
-        body: [
-          "Ist f in ⃗x₀ differenzierbar mit ∇f(⃗x₀) ≠ ⃗0, so wird das Maximum der Richtungsableitung ∂f/∂⃗v(⃗x₀) = ⟨∇f(⃗x₀), ⃗v⟩ über alle Einheitsvektoren ⃗v nach der Cauchy-Schwarz-Ungleichung genau für ⃗v₀ := ∇f(⃗x₀)/‖∇f(⃗x₀)‖₂ angenommen, und der maximale Wert ist ‖∇f(⃗x₀)‖₂. Der Gradient zeigt also in die Richtung des steilsten Anstiegs, und seine Norm gibt die zugehörige Anstiegsrate an.",
-          "Analog zeigt −∇f(⃗x₀) in die Richtung des steilsten Abstiegs, mit Anstiegsrate −‖∇f(⃗x₀)‖₂. Diese Beobachtung ist die Grundlage numerischer Optimierungsverfahren wie des Gradientenabstiegs, bei dem man iterativ ein Stück in Richtung −∇f läuft, um ein lokales Minimum zu finden.",
-        ],
-        formulas: ["⃗v₀ = ∇f(⃗x₀)/‖∇f(⃗x₀)‖₂ liefert max_{‖⃗v‖₂=1} ∂f/∂⃗v(⃗x₀) = ‖∇f(⃗x₀)‖₂"],
-        formulasLatex: ["\\vec v_0 = \\frac{\\nabla f(\\vec x_0)}{\\|\\nabla f(\\vec x_0)\\|_2} \\quad\\text{liefert}\\quad \\max_{\\|\\vec v\\|_2=1} \\frac{\\partial f}{\\partial \\vec v}(\\vec x_0) = \\|\\nabla f(\\vec x_0)\\|_2"],
-      },
-      {
-        id: "11-2",
-        heading: "11.2 Der Gradient steht senkrecht auf Höhenlinien",
-        body: [
-          "Für α ∈ ℝ heißt die Menge f⁻¹({α}) = {⃗x ∈ D : f(⃗x) = α} die Höhenlinie (bzw. Niveaumenge) von f zum Niveau α. Bewegt man sich entlang einer Höhenlinie, ändert sich der Funktionswert per Definition nicht — die Richtungsableitung entlang der Tangente an die Höhenlinie ist also 0.",
-          "Da die Richtungsableitung tangential zur Höhenlinie verschwindet, steht der Gradient ∇f(⃗x₀) (sofern ungleich ⃗0) in jedem Punkt ⃗x₀ senkrecht auf der durch ⃗x₀ verlaufenden Höhenlinie. Das erklärt anschaulich, warum der steilste Anstieg stets orthogonal zu den Höhenlinien verläuft — wie ein Wanderer, der den kürzesten Weg bergauf nimmt, indem er quer zu den Höhenlinien einer topografischen Karte läuft.",
-        ],
-        figure: { type: "gradient-level-curves", caption: "Der Gradient ∇f steht senkrecht auf der Höhenlinie durch den betrachteten Punkt und zeigt in Richtung des steilsten Anstiegs." },
-        examples: [
-          "Für f(x,y) := √(9−x²−4y²) und den Punkt (1, √2) gilt f(1,√2) = √(9−1−8) = 0 auf dem Rand des Definitionsbereichs. Im inneren Punkt (1,1) ist ∇f(1,1) = (−1/√4, −4/√4)ᵀ = (−1/2, −2)ᵀ, und dieser Vektor steht senkrecht auf der Tangente an die Ellipsen-Höhenlinie x²+4y²=5 im Punkt (1,1).",
-        ],
-      },
-    ],
-  },
-
-  // ============ Kapitel 12 — Der Transformationssatz und Koordinatenwechsel ============
-  {
-    id: "transformationssatz-koordinaten",
-    number: 12,
-    title: "Der Transformationssatz und Koordinatenwechsel",
-    free: false,
-    intro:
-      "Viele Integrationsgebiete lassen sich in kartesischen Koordinaten nur mühsam beschreiben, in Polar-, Kugel- oder Zylinderkoordinaten dagegen sehr einfach. Der Transformationssatz erlaubt es, ein Integral systematisch in neue Koordinaten umzuschreiben — die mehrdimensionale Verallgemeinerung der Substitutionsregel aus Mathematik 1.",
-    sections: [
-      {
-        id: "12-1",
-        heading: "12.1 Der Transformationssatz",
-        body: [
-          "Es seien U, V ⊂ ℝⁿ offen und T : U → V eine bijektive, stetig differenzierbare Abbildung mit stetig differenzierbarer Umkehrabbildung und det(JT(⃗u)) ≠ 0 für alle ⃗u ∈ U (T heißt dann Diffeomorphismus). Für eine Jordan-messbare Menge M ⊂ U mit T(M) ⊂ V und eine integrierbare Funktion f : T(M) → ℝ liefert der Transformationssatz ∫_{T(M)} f(⃗x) d⃗x = ∫_M f(T(⃗u))·|det(JT(⃗u))| d⃗u.",
-          "Für lineare Abbildungen T(⃗u) = A·⃗u mit invertierbarer Matrix A ∈ ℝ^{n×n} vereinfacht sich der Satz zu |T(M)| = |det(A)|·|M| bzw. ∫_{T(M)} f(⃗x) d⃗x = |det(A)|·∫_M f(A·⃗u) d⃗u, da die Jacobi-Determinante einer linearen Abbildung konstant gleich det(A) ist.",
-        ],
-        formulas: ["∫_{T(M)} f(⃗x) d⃗x = ∫_M f(T(⃗u))·|det(JT(⃗u))| d⃗u"],
-        formulasLatex: ["\\int_{T(M)} f(\\vec x)\\,\\mathrm d\\vec x = \\int_M f(T(\\vec u))\\cdot|\\det(J_T(\\vec u))|\\,\\mathrm d\\vec u"],
-      },
-      {
-        id: "12-2",
-        heading: "12.2 Polarkoordinaten, Kugelkoordinaten und Zylinderkoordinaten",
-        body: [
-          "In ℝ² beschreiben Polarkoordinaten T(r,φ) := (r cos φ, r sin φ) mit r ≥ 0, φ ∈ [0,2π) jeden Punkt über seinen Abstand r zum Ursprung und seinen Winkel φ zur x-Achse. Die Jacobi-Determinante ist det(JT(r,φ)) = r, sodass ein Flächenintegral zu ∫∫ f(r cos φ, r sin φ)·r dr dφ wird — der Faktor r ist dabei leicht zu vergessen, aber unverzichtbar.",
-          "In ℝ³ verallgemeinern Kugelkoordinaten T(r,ϑ,φ) := (r sin ϑ cos φ, r sin ϑ sin φ, r cos ϑ) mit r ≥ 0, ϑ ∈ [0,π], φ ∈ [0,2π) die Polarkoordinaten und haben Jacobi-Determinante r²sin ϑ, während Zylinderkoordinaten T(r,φ,z) := (r cos φ, r sin φ, z) die z-Koordinate unverändert lassen und Jacobi-Determinante r besitzen. Die Wahl des passenden Koordinatensystems richtet sich nach der Symmetrie des Integrationsgebiets: Kreis- bzw. Kugelsymmetrie legt Polar- bzw. Kugelkoordinaten nahe, Rotationssymmetrie um eine Achse legt Zylinderkoordinaten nahe.",
-        ],
-        formulas: ["Polarkoordinaten: det(JT(r,φ)) = r", "Kugelkoordinaten: det(JT(r,ϑ,φ)) = r²sin ϑ", "Zylinderkoordinaten: det(JT(r,φ,z)) = r"],
-        formulasLatex: [
-          "\\text{Polarkoordinaten:}\\ \\det(J_T(r,\\varphi)) = r",
-          "\\text{Kugelkoordinaten:}\\ \\det(J_T(r,\\vartheta,\\varphi)) = r^2\\sin\\vartheta",
-          "\\text{Zylinderkoordinaten:}\\ \\det(J_T(r,\\varphi,z)) = r",
-        ],
-        figure: { type: "unit-circle", caption: "Polarkoordinaten: ein Punkt wird durch Radius r und Winkel φ (bzw. θ) beschrieben, x = r cos φ, y = r sin φ." },
-        examples: [
-          "Das Integral ∫_B √(x²+y²) d(x,y) über den rechten Halbkreis B := {(x,y) : x ≥ 0, x²+y² ≤ 4} lässt sich in Polarkoordinaten als ∫₀^{π} ∫₀² r·r dr dφ = π·[r³/3]₀² = 8π/3 berechnen — deutlich einfacher als eine direkte Rechnung in kartesischen Koordinaten.",
-          "Für logarithmische Polarkoordinaten T(ρ,φ) := (eᵨcos φ, eᵨsin φ) mit ρ ∈ ℝ, φ ∈ [0,2π) gilt det(T′(ρ,φ)) = e^{2ρ}, sodass sich Integrale über Kreisringe mit exponentiell wachsendem Radius auf diese Weise oft besonders einfach berechnen lassen.",
-        ],
-      },
-    ],
-  },
-
-  // ============ Kapitel 13 — Taylorpolynome und der Mittelwertsatz im R^n ============
-  {
-    id: "taylor-mittelwertsatz",
-    number: 13,
-    title: "Taylorpolynome und der Mittelwertsatz im Rⁿ",
-    free: false,
-    intro:
-      "Aus Mathematik 1 kennen wir Taylorpolynome als polynomielle Approximation einer Funktion einer Veränderlichen. Dieses Kapitel überträgt Taylorpolynome und den Mittelwertsatz auf Funktionen mehrerer Veränderlicher — das zentrale Handwerkszeug für die Extremwertanalyse in Kapitel 14.",
-    sections: [
-      {
-        id: "13-1",
-        heading: "13.1 Der Mittelwertsatz im Rⁿ",
-        body: [
-          "Es sei D ⊂ ℝⁿ offen, f : D → ℝ differenzierbar und ⃗a, ⃗x ∈ D so, dass die Verbindungsstrecke zwischen ⃗a und ⃗x ganz in D liegt. Dann liefert der Mittelwertsatz im ℝⁿ die Existenz eines ϑ ∈ (0,1) mit f(⃗x) = f(⃗a) + ⟨∇f(⃗a + ϑ(⃗x−⃗a)), ⃗x−⃗a⟩ — die direkte Verallgemeinerung des eindimensionalen Mittelwertsatzes, angewendet auf die Schnittfunktion t ↦ f(⃗a + t(⃗x−⃗a)).",
-          "Eine unmittelbare Anwendung: Ist ∇f(⃗x) = ⃗0 für alle ⃗x in einer konvexen offenen Menge D, so ist f auf D konstant — denn für je zwei Punkte ⃗a, ⃗x ∈ D verschwindet der mittlere Term in obiger Gleichung, sodass f(⃗x) = f(⃗a) gilt.",
-        ],
-        formulas: ["f(⃗x) = f(⃗a) + ⟨∇f(⃗a + ϑ(⃗x−⃗a)), ⃗x−⃗a⟩ für ein ϑ ∈ (0,1)"],
-        formulasLatex: ["f(\\vec x) = f(\\vec a) + \\langle \\nabla f(\\vec a + \\vartheta(\\vec x - \\vec a)),\\, \\vec x - \\vec a\\rangle,\\quad \\vartheta \\in (0,1)"],
-      },
-      {
-        id: "13-2",
-        heading: "13.2 Taylorpolynome",
-        body: [
-          "Ist f : D → ℝ von der Klasse C² mit D ⊂ ℝⁿ offen und ⃗x₀ ∈ D, so ist das Taylorpolynom zweiter Ordnung von f im Entwicklungspunkt ⃗x₀ gegeben durch T₂(⃗x;f;⃗x₀) := f(⃗x₀) + ⟨∇f(⃗x₀), ⃗x−⃗x₀⟩ + ½·(⃗x−⃗x₀)ᵀ·Hf(⃗x₀)·(⃗x−⃗x₀), wobei Hf(⃗x₀) die in Kapitel 14 eingeführte Hessematrix bezeichnet. T₂ approximiert f in der Nähe von ⃗x₀ bis zur zweiten Ordnung — der lineare Anteil entspricht der Tangentialebene aus Kapitel 6, der quadratische Anteil erfasst die Krümmung.",
-          "Höhere Taylorpolynome existieren analog für f ∈ Cᵏ mit k > 2, werden in den Klausuraufgaben dieses Moduls aber praktisch ausschließlich bis zur zweiten Ordnung verlangt, da bereits das quadratische Taylorpolynom für die Extremwertanalyse in Kapitel 14 ausreicht.",
-        ],
-        formulas: ["T₂(⃗x;f;⃗x₀) = f(⃗x₀) + ⟨∇f(⃗x₀), ⃗x−⃗x₀⟩ + ½(⃗x−⃗x₀)ᵀ Hf(⃗x₀) (⃗x−⃗x₀)"],
-        formulasLatex: ["T_2(\\vec x; f; \\vec x_0) = f(\\vec x_0) + \\langle \\nabla f(\\vec x_0), \\vec x - \\vec x_0\\rangle + \\tfrac12 (\\vec x - \\vec x_0)^\\top H_f(\\vec x_0)(\\vec x - \\vec x_0)"],
-        examples: [
-          "Für f(x,y,z) := x³ + y² + 2z²(x−2) und den Entwicklungspunkt ⃗x₀ = (1,0,2) berechnet man zunächst f(⃗x₀), ∇f(⃗x₀) und Hf(⃗x₀), um daraus T₂ als vollständig ausmultipliziertes Polynom in x, y, z anzugeben — eine typische, aber rein rechnerische Klausuraufgabe.",
-        ],
-      },
-    ],
-  },
-
-  // ============ Kapitel 14 — Lokale Extrema, die Hessematrix und Sattelpunkte ============
-  {
-    id: "extrema-hessematrix-sattelpunkte",
-    number: 14,
-    title: "Lokale Extrema, die Hessematrix und Sattelpunkte",
-    free: false,
-    intro:
-      "Mit dem Gradienten, den höheren Ableitungen und den Taylorpolynomen der vorangegangenen Kapitel können wir nun systematisch lokale Extremstellen von Funktionen mehrerer Veränderlicher bestimmen — analog zur Kurvendiskussion aus Mathematik 1, aber mit einer Matrix statt einer einzelnen zweiten Ableitung.",
-    sections: [
-      {
-        id: "14-1",
-        heading: "14.1 Notwendige Bedingung: stationäre Punkte",
-        body: [
-          "Es sei D ⊂ ℝⁿ offen, f : D → ℝ differenzierbar und ⃗x₀ ∈ D eine lokale Extremstelle von f. Dann ist ⃗x₀ notwendigerweise ein stationärer Punkt, das heißt ∇f(⃗x₀) = ⃗0. Diese notwendige Bedingung ist die direkte Verallgemeinerung von f′(x₀) = 0 aus Mathematik 1 und liefert eine endliche Kandidatenliste, aus der man anschließend die tatsächlichen Extremstellen herausfiltern muss.",
-          "Wichtig ist, dass die Umkehrung falsch ist: Nicht jeder stationäre Punkt ist eine Extremstelle. Um zu entscheiden, welcher Fall vorliegt, betrachtet man im nächsten Abschnitt die zweiten Ableitungen, gesammelt in der Hessematrix.",
-        ],
-        formulas: ["Notwendige Bedingung: ∇f(⃗x₀) = ⃗0"],
-        formulasLatex: ["\\nabla f(\\vec x_0) = \\vec 0"],
-        examples: [
-          "Für f(x,y) = x² + y² − 4x + 2y ist ∇f(x,y) = (2x−4, 2y+2)ᵀ. Aus ∇f(x,y)=⃗0 folgt x=2, y=−1 — der einzige stationäre Punkt ist (2,−1), der einzige Kandidat für eine lokale Extremstelle.",
-        ],
-      },
-      {
-        id: "14-2",
-        heading: "14.2 Hinreichende Bedingung über die Hessematrix (n=2)",
-        body: [
-          "Ist f : D → ℝ von der Klasse C² und ⃗x₀ ∈ D ein stationärer Punkt, so heißt Hf(⃗x₀) := (∂²f/(∂xᵢ∂xⱼ)(⃗x₀))ᵢⱼ ∈ ℝ^{n×n} die Hessematrix von f in ⃗x₀ — nach dem Satz von Schwarz (Kapitel 10) ist Hf(⃗x₀) stets symmetrisch. Ist Hf(⃗x₀) positiv definit, liegt in ⃗x₀ eine strenge lokale Minimalstelle vor; ist Hf(⃗x₀) negativ definit, liegt eine strenge lokale Maximalstelle vor; ist Hf(⃗x₀) indefinit, liegt ein Sattelpunkt vor.",
-          "Ist Hf(⃗x₀) dagegen semidefinit (aber nicht definit), liefert die Hessematrix keine Entscheidung — hier muss man f in einer Umgebung von ⃗x₀ direkt untersuchen, etwa über geeignete Schnittfunktionen entlang verschiedener Richtungen durch ⃗x₀.",
-          "Für n=2 lässt sich die Definitheit besonders schnell über eine einzige 2×2-Determinante entscheiden. Bei drei oder mehr Veränderlichen reicht diese einfache Formel nicht mehr aus — dafür liefert 14.3 die allgemeinen Kriterien.",
-        ],
-        terms: [
-          { term: "Positiv definit", definition: "⃗vᵀ H ⃗v > 0 für alle ⃗v ≠ ⃗0 — liefert eine strenge lokale Minimalstelle." },
-          { term: "Indefinit", definition: "Es gibt ⃗v, ⃗w mit ⃗vᵀH⃗v > 0 und ⃗wᵀH⃗w < 0 — liefert einen Sattelpunkt." },
-        ],
-        formulas: [
-          "Für n=2: D := det Hf(⃗x₀) = fxx·fyy − (fxy)²",
-          "D>0, fxx>0: Minimum  |  D>0, fxx<0: Maximum  |  D<0: Sattelpunkt  |  D=0: keine Entscheidung",
-        ],
-        formulasLatex: [
-          "D := \\det H_f(\\vec x_0) = f_{xx}f_{yy} - f_{xy}^2",
-          "D>0, f_{xx}>0: \\text{Min} \\quad D>0, f_{xx}<0: \\text{Max} \\quad D<0: \\text{Sattelpunkt} \\quad D=0: \\text{keine Entscheidung}",
-        ],
-        examples: [
-          "Für f(x,y) := x⁴ + y⁴ − 8x² − 8y² sind die stationären Punkte genau die Paare (x,y) mit x,y ∈ {−2,0,2}. Die Hessematrix Hf(x,y) = diag(12x²−16, 12y²−16) ist in (0,0) negativ definit (lokales Maximum), in (±2,±2) positiv definit (lokale Minima) und in (±2,0) sowie (0,±2) indefinit (Sattelpunkte).",
-          "Für f(x,y)=x²+xy+y²−3x: fxx=2, fyy=2, fxy=1. D=2·2−1²=3>0 und fxx=2>0 ⟹ jeder stationäre Punkt ist ein lokales Minimum. Aus ∇f=(2x+y−3, x+2y)=⃗0 folgt (x,y)=(2,−1) als einzige (globale) Minimalstelle.",
-        ],
-      },
-      {
-        id: "14-3",
-        heading: "14.3 Definitheitskriterien im ℝⁿ",
-        body: [
-          "Für n=2 reicht die einfache Determinantenformel aus 14.2 aus. Bei Funktionen von drei oder mehr Veränderlichen (etwa in Taylorpolynom-Aufgaben wie in 13.2, wo f von x,y,z abhängt) braucht man dagegen ein Kriterium, das direkt auf die dann größere Hessematrix Hf(⃗x₀) ∈ ℝ^{n×n} anwendbar ist.",
-          "Am direktesten ist das Eigenwert-Kriterium: Da Hf(⃗x₀) nach dem Satz von Schwarz (Kapitel 10) stets symmetrisch ist, besitzt sie ausschließlich reelle Eigenwerte λ₁,...,λₙ, und deren Vorzeichen bestimmen die Definitheit vollständig.",
-          "Eigenwerte zu berechnen ist bei größeren Matrizen aber aufwendig. Für positive Definitheit reicht deshalb das Hauptminoren-Kriterium (Sylvester-Kriterium): Es genügt, die führenden Hauptminoren zu prüfen, also die Determinanten der 'oberen linken' k×k-Teilmatrizen für k=1,...,n. Für (positive) Semidefinitheit reicht das dagegen NICHT — hier müssen ausnahmslos alle Hauptminoren (nicht nur die führenden) betrachtet werden, ein häufiger Fehler in Klausuren.",
-          "Negative (Semi-)Definitheit prüft man am einfachsten, indem man −Hf(⃗x₀) auf positive (Semi-)Definitheit testet. Dabei kippt aber das Vorzeichen der Determinante: det(−A) = (−1)ⁿ·det(A) — bei ungeradem n wird dieses Vorzeichen in der Klausur gerne übersehen.",
-        ],
-        terms: [
-          { term: "Eigenwert-Kriterium", definition: "Eine symmetrische Matrix A ist genau dann positiv (semi)definit, wenn alle Eigenwerte positiv (nicht-negativ) sind; entsprechend negativ (semi)definit bei ausschließlich negativen (nicht-positiven) Eigenwerten. Indefinit, wenn sowohl positive als auch negative Eigenwerte auftreten." },
-          { term: "Hauptminoren-Kriterium (Sylvester)", definition: "Für positive Definitheit genügt es, die k führenden Hauptminoren (Determinanten der oberen linken k×k-Teilmatrizen, k=1,...,n) zu prüfen: Alle müssen positiv sein." },
-          { term: "Kriterium für Semidefinitheit", definition: "Für positive Semidefinitheit reichen die führenden Hauptminoren NICHT aus — hier müssen die Determinanten ALLER (nicht nur der linken oberen) Hauptuntermatrizen ≥ 0 sein." },
-        ],
-        formulas: [
-          "Eigenwerte λ1,...,λn von Hf(⃗x₀): positiv definit ⟺ alle λi>0; negativ definit ⟺ alle λi<0; indefinit ⟺ es gibt λi<0<λj",
-          "Positiv definit (Sylvester): det(A[1..k]) > 0 für alle k=1,...,n",
-          "Vorzeichen-Fallstrick: det(−A) = (−1)ⁿ · det(A)",
-        ],
-        formulasLatex: [
-          "\\lambda_1,\\dots,\\lambda_n \\text{ Eigenwerte von } H_f(\\vec x_0):\\quad \\text{pos. definit} \\iff \\lambda_i>0\\ \\forall i",
-          "\\text{pos. definit (Sylvester):}\\quad \\det(A_{[1,\\dots,k]})>0 \\quad \\forall k=1,\\dots,n",
-          "\\det(-A) = (-1)^n \\det(A)",
-        ],
-        examples: [
-          "Für f(x,y,z) := x² + xy + 2y² + 3z² ist Hf konstant gleich [[2,1,0],[1,4,0],[0,0,6]]. Führende Hauptminoren: det(A₁)=2>0, det(A₁,₂)=2·4−1²=7>0, det(A₁,₂,₃)=6·7=42>0 (Entwicklung nach der 3. Zeile, da z entkoppelt ist) — alle positiv, also ist Hf positiv definit und der einzige stationäre Punkt (0,0,0) ein strenges (sogar globales) Minimum.",
-          "Die 2×2-Matrix A=diag(0,−1) zeigt, warum für Semidefinitheit ALLE Hauptminoren nötig sind: Die führenden Hauptminoren sind det(A₁)=0≥0 und det(A)=0·(−1)−0=0≥0 — beide erfüllen die '≥0'-Bedingung. Trotzdem ist A NICHT positiv semidefinit, denn der Eigenwert −1 ist negativ (A ist stattdessen negativ semidefinit). Der fehlende Hauptminor det(A₂)=−1<0 (allein der zweite Diagonaleintrag) deckt das sofort auf.",
-        ],
-      },
-      {
-        id: "14-4",
-        heading: "14.4 Sattelpunkte und Grenzfälle",
-        body: [
-          "Ein Sattelpunkt ist ein stationärer Punkt, in dem f in manchen Richtungen wächst und in anderen fällt — anschaulich wie ein Gebirgspass, der von einer Seite ein Tiefpunkt und von der anderen ein Hochpunkt ist. Ein besonders eindrückliches Beispiel ist der 'Affensattel' f(x,y) := x³ − 3xy², dessen Hessematrix im Ursprung die Nullmatrix ist (ein semidefiniter Grenzfall), obwohl f dort keine Extremstelle besitzt: Entlang dreier verschiedener Richtungen wechselt f das Vorzeichen.",
-          "Ein zweites klassisches Beispiel für den semidefiniten Grenzfall ist f(x,y) := (y−x²)(y−3x²): Die Hessematrix im Ursprung ist positiv semidefinit, doch f nimmt in jeder Umgebung von (0,0) sowohl positive als auch negative Werte an (etwa entlang der Kurve y = 2x²), sodass (0,0) trotz semidefiniter Hessematrix kein lokales Minimum ist. Solche Beispiele zeigen, warum man bei semidefiniten Hessematrizen nicht vorschnell auf eine Extremstelle schließen darf.",
-        ],
-        figure: { type: "saddle-surface", caption: "In einem Sattelpunkt wächst f entlang einer Richtung und fällt entlang einer anderen — die Hessematrix ist dort indefinit." },
       },
     ],
   },

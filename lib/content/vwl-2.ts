@@ -1,1391 +1,784 @@
 import type { SkriptChapter } from "./types";
 
-// Hinweis zur Kapitelreihenfolge: Die Reihenfolge und Nummerierung hier
-// folgt bewusst NICHT 1:1 der Reihenfolge der Vorlesungsfolien. Exkurs-Themen
-// sind zwischen die Kernkapitel gemischt statt als separater Block am Ende
-// zu stehen, und die Nummerierung ist eigenständig.
+// Eigenständiges Lehrwerk zur Makroökonomik ("VWL 2"), verfasst wie ein
+// unabhängiges Lehrbuch zum Modulthema. Erklärungen, Beispiele und Aufbau
+// sind eigenständig entwickelt; die Themenabdeckung orientiert sich am
+// üblichen Inhalt eines einführenden Makroökonomik-Moduls.
 export const chapters: SkriptChapter[] = [
-  // ==================== Kapitel 1 — Exkurs: Methodik ====================
+  // ==================== Kapitel 1 ====================
   {
-    id: "exkurs-methodik",
+    id: "methodik-makrooekonomik",
     number: 1,
-    title: "Exkurs: Methodik der Makroökonomik",
+    title: "Methodik der Makroökonomik",
     free: true,
     intro:
-      "Bevor es an die einzelnen Modelle geht, lohnt sich ein methodischer Blick von außen: Warum arbeitet die Makroökonomik überhaupt mit stark vereinfachten Modellen, und was rechtfertigt das? Dieser Exkurs ordnet Modellbildung als wissenschaftliche Methode ein und liefert damit den roten Faden für alle folgenden Kapitel.",
+      "Makroökonomik untersucht Volkswirtschaften als Ganzes — Wachstum, Inflation, Arbeitslosigkeit, Konjunktur — statt einzelne Märkte isoliert zu betrachten. Bevor es an konkrete Modelle geht, lohnt ein kurzer Blick darauf, was ein ökonomisches Modell überhaupt leisten soll und wo seine Grenzen liegen.",
     sections: [
       {
         id: "1-1",
         heading: "1.1 Modelle als bewusste Vereinfachung",
         body: [
-          "Ökonomische Modelle sind bewusst vereinfachte Abbildungen der Realität — wie eine Landkarte, die nicht jedes Detail der Landschaft zeigt, sondern nur die für den jeweiligen Zweck relevanten Merkmale. Ein 'perfektes' Modell, das alles abbildet, wäre genauso nutzlos wie eine Karte im Maßstab 1:1.",
+          "Ein ökonomisches Modell reduziert eine komplexe Realität bewusst auf wenige, als zentral erachtete Zusammenhänge — ähnlich einer Landkarte, die nicht jedes Gebäude zeigt, sondern nur das, was für den jeweiligen Zweck relevant ist (Straßen für Autofahrer, Höhenlinien für Wanderer). Ein gutes Modell ist deshalb nicht dasjenige, das die Realität am detailliertesten abbildet, sondern dasjenige, das für die gestellte Frage die relevanten Mechanismen klar herausarbeitet.",
+          "Dieser Abstraktionsschritt hat einen Preis: Jedes Modell trifft vereinfachende Annahmen, die im Einzelfall nicht exakt zutreffen (z. B. vollständige Information, rationale Erwartungen, flexible Preise). Ob eine Annahme 'zulässig' ist, hängt davon ab, ob ihre Verletzung die Kernaussage des Modells für die konkrete Fragestellung wesentlich verändern würde — nicht davon, ob sie wortwörtlich realistisch ist.",
         ],
         terms: [
           {
             term: "Ökonomisches Modell",
-            definition: "Eine vereinfachte, meist mathematische Darstellung ökonomischer Zusammenhänge, die bewusst irrelevante Details weglässt, um die relevanten Mechanismen klar sichtbar zu machen.",
+            definition: "Bewusst vereinfachte Darstellung ökonomischer Zusammenhänge, die für eine bestimmte Fragestellung die relevanten Mechanismen isoliert.",
           },
-          {
-            term: "Ceteris-paribus-Annahme",
-            definition: "Die Annahme, dass alle anderen Einflussgrößen konstant gehalten werden, während der Effekt einer einzelnen Variable isoliert betrachtet wird.",
-          },
+        ],
+        examples: [
+          "Ein Modell, das Preise als vollständig flexibel annimmt, eignet sich gut für langfristige Wachstumsfragen, aber schlecht für kurzfristige Konjunkturanalysen, bei denen Preis- und Lohnstarrheiten gerade die entscheidende Rolle spielen.",
         ],
       },
       {
         id: "1-2",
-        heading: "1.2 Positive vs. normative Ökonomik",
+        heading: "1.2 Positive versus normative Ökonomik",
         body: [
-          "Positive Aussagen beschreiben, wie die Welt ist oder bei bestimmten Politikmaßnahmen wäre ('Ein Mindestlohn über dem Gleichgewichtslohn erhöht die Arbeitslosigkeit unter Geringqualifizierten'). Normative Aussagen bewerten, wie die Welt sein sollte ('Der Mindestlohn sollte erhöht werden'). Makroökonomische Modelle liefern primär positive Aussagen; die normative Bewertung erfordert zusätzliche Werturteile.",
+          "Die positive Ökonomik beschreibt, wie die Welt tatsächlich ist bzw. wie sich ökonomische Größen unter bestimmten Bedingungen verhalten werden — eine im Prinzip überprüfbare Aussage ('Eine Erhöhung des Mindestlohns um X% führt zu einem Beschäftigungsrückgang von Y%'). Die normative Ökonomik trifft dagegen Werturteile darüber, wie die Welt sein sollte ('Der Mindestlohn sollte erhöht werden').",
+          "Politische Debatten vermischen beide Ebenen häufig: Zwei Personen mögen sich in der positiven Prognose einig sein (dieselbe erwartete Wirkung), aber wegen unterschiedlicher Werturteile trotzdem zu entgegengesetzten Politikempfehlungen kommen. Diese Trennung sauber im Blick zu behalten, hilft, wissenschaftliche und wertende Aussagen nicht zu verwechseln.",
         ],
         terms: [
           {
             term: "Positive Ökonomik",
-            definition: "Beschreibende, testbare Aussagen darüber, wie ökonomische Systeme tatsächlich funktionieren.",
+            definition: "Beschreibt, wie ökonomische Größen sich tatsächlich verhalten — überprüfbare Aussagen ohne Werturteil.",
           },
           {
             term: "Normative Ökonomik",
-            definition: "Wertende Aussagen darüber, wie Politik gestaltet werden sollte — basiert auf zusätzlichen ethischen/politischen Werturteilen, nicht allein auf dem Modell.",
+            definition: "Trifft Werturteile darüber, wie ökonomische Politik gestaltet werden sollte.",
           },
         ],
-      },
-      {
-        id: "1-3",
-        heading: "1.3 Warum Modelle trotz unrealistischer Annahmen nützlich sind",
-        body: [
-          "Ein häufiger Einwand ist, dass Modellannahmen (z. B. perfekte Kapitalmobilität in Mundell-Fleming, konstante Sparquote in Solow) 'unrealistisch' seien. Der methodische Standpunkt der Makroökonomik: Ein Modell wird nicht daran gemessen, wie realistisch seine Annahmen sind, sondern daran, wie gut seine Vorhersagen mit beobachtbaren Daten übereinstimmen (Instrumentalismus/Positivismus nach Milton Friedman).",
-        ],
-        terms: [
-          {
-            term: "Instrumentalistische Modellbewertung",
-            definition: "Ein Modell wird nach der empirischen Güte seiner Vorhersagen bewertet, nicht nach dem Realitätsgrad seiner Annahmen (Milton Friedman, 'The Methodology of Positive Economics').",
-          },
-          {
-            term: "Robustheit eines Modellergebnisses",
-            definition: "Ein Ergebnis gilt als robust, wenn es auch unter alternativen, weniger restriktiven Annahmen näherungsweise bestehen bleibt.",
-          },
+        examples: [
+          "'Eine Senkung des Leitzinses erhöht kurzfristig die Investitionsnachfrage' ist eine positive Aussage. 'Die Zentralbank sollte den Leitzins senken, um Arbeitsplätze zu schützen' ist eine normative Aussage, die zusätzlich eine Wertentscheidung über Zielgewichtungen enthält.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 2 — BIP & VGR ====================
+  // ==================== Kapitel 2 ====================
   {
-    id: "bip-vgr",
+    id: "bruttoinlandsprodukt",
     number: 2,
-    title: "Das Bruttoinlandsprodukt (BIP)",
+    title: "Das Bruttoinlandsprodukt",
     free: false,
     intro:
-      "Makroökonomie beginnt mit der Frage, wie man die Größe einer ganzen Volkswirtschaft überhaupt in einer Zahl zusammenfassen kann. Das Bruttoinlandsprodukt (BIP) ist dieses zentrale Maß — wir leiten es hier über drei äquivalente Wege her und klären, was es misst und was nicht.",
+      "Das Bruttoinlandsprodukt (BIP) ist die zentrale Kennzahl, um die Größe und das Wachstum einer Volkswirtschaft zu messen. Dieses Kapitel zeigt, wie es berechnet wird, welche Größen darin zusammenspielen und wo seine Aussagekraft an Grenzen stößt.",
     sections: [
       {
         id: "2-1",
-        heading: "2.1 Was misst das BIP?",
+        heading: "2.1 Was das BIP misst und wie es berechnet wird",
         body: [
-          "Das Bruttoinlandsprodukt ist der Marktwert aller final produzierten Güter und Dienstleistungen, die innerhalb eines Landes in einer bestimmten Periode hergestellt werden.",
-          "Wichtig ist das Wort 'final': Vorleistungen (z. B. Stahl, der in einem Auto verbaut wird) werden nicht separat gezählt, sonst würde derselbe Wert mehrfach erfasst. Nur der Wert des Endprodukts zählt.",
+          "Das BIP misst den Marktwert aller innerhalb eines Landes in einer Periode neu produzierten Endgüter und Dienstleistungen. 'Endgüter' schließt Vorleistungen aus, um Doppelzählungen zu vermeiden: Der Wert von Mehl, das zu Brot verarbeitet wird, ist bereits im Brotpreis enthalten und wird nicht zusätzlich gezählt.",
+          "Es gibt drei rechnerisch äquivalente Wege, das BIP zu ermitteln: über die Entstehungsseite (Summe der Wertschöpfung aller Branchen), über die Verwendungsseite (Summe der Ausgaben für Konsum, Investitionen, Staatsausgaben und Nettoexporte) und über die Verteilungsseite (Summe aller Einkommen: Löhne, Gewinne, Zinsen, Pachten). Da jeder ausgegebene Euro gleichzeitig als Einkommen bei jemand anderem ankommt, müssen alle drei Ansätze zum selben Ergebnis führen.",
         ],
         terms: [
           {
             term: "Bruttoinlandsprodukt (BIP)",
-            definition: "Marktwert aller im Inland in einer Periode neu produzierten Endgüter und Dienstleistungen.",
-          },
-          {
-            term: "Vorleistung (intermediate good)",
-            definition: "Ein Gut, das als Input in die Produktion eines anderen Guts eingeht und deshalb nicht separat ins BIP eingerechnet wird — sonst Doppelzählung.",
-          },
-          {
-            term: "Wertschöpfung",
-            definition: "Der Wert, den ein Unternehmen einem Gut hinzufügt (Verkaufspreis minus Kosten der Vorleistungen). Summe aller Wertschöpfungen = BIP.",
+            definition: "Marktwert aller innerhalb eines Landes in einer Periode neu produzierten Endgüter und Dienstleistungen.",
           },
         ],
         examples: [
-          "Ein Bäcker kauft Mehl für 1 € und backt daraus Brot, das er für 3 € verkauft. Die Wertschöpfung des Bäckers beträgt 2 €. Nur diese 2 € (plus die 1 € Wertschöpfung des Müllers) gehen ins BIP ein — nicht 1 € + 3 € = 4 €.",
+          "Ein Automobilhersteller kauft Stahl im Wert von 8.000 € und verkauft das fertige Auto für 30.000 €. Zum BIP trägt nur die Wertschöpfung von 22.000 € bei (bzw. der volle Verkaufspreis, wenn der Stahl selbst schon in einer Vorperiode oder im Ausland produziert wurde und nicht separat als inländische Endproduktion gezählt wird) — der Stahlwert wird nicht zusätzlich zum Autopreis addiert.",
         ],
       },
       {
         id: "2-2",
-        heading: "2.2 Drei Wege, das BIP zu berechnen",
+        heading: "2.2 Die Verwendungsgleichung",
         body: [
-          "Das BIP lässt sich über drei verschiedene, aber rechnerisch identische Ansätze ermitteln: die Entstehungsseite (Wertschöpfung), die Verwendungsseite (Ausgaben) und die Verteilungsseite (Einkommen). Dass alle drei zum selben Ergebnis führen, liegt daran, dass jeder Euro Ausgabe gleichzeitig Einkommen für jemand anderen ist.",
-        ],
-        terms: [
-          {
-            term: "Entstehungsrechnung",
-            definition: "BIP = Summe aller Wertschöpfungen aller Wirtschaftssektoren.",
-          },
-          {
-            term: "Verwendungsrechnung",
-            definition: "BIP = Summe aller Endausgaben für Konsum, Investitionen, Staatsausgaben und Nettoexporte.",
-          },
-          {
-            term: "Verteilungsrechnung",
-            definition: "BIP = Summe aller Einkommen (Löhne, Zinsen, Mieten, Gewinne), die bei der Produktion entstehen.",
-          },
+          "Auf der Verwendungsseite zerlegt sich das BIP (Y) in vier Komponenten: Y = C + I + G + NX. C ist der private Konsum, I sind die Bruttoinvestitionen (Anlageinvestitionen plus Lagerveränderungen), G sind die Staatsausgaben für Güter und Dienstleistungen (ohne Transferzahlungen, die keine Gegenleistung darstellen), und NX sind die Nettoexporte (Exporte minus Importe).",
+          "Diese Gleichung ist eine Identität — sie gilt per Definition, nicht als ökonomische Verhaltenshypothese. Sie ist aber der Ausgangspunkt für Modelle wie das IS-LM-Modell (Kapitel 10), die erklären, wie sich diese Komponenten in Reaktion auf Zinssätze, Einkommen und Politikmaßnahmen verändern.",
         ],
         formulas: ["Y = C + I + G + NX"],
         formulasLatex: ["Y = C + I + G + NX"],
-      },
-      {
-        id: "2-3",
-        heading: "2.3 Die Verwendungsgleichung im Detail",
-        body: [
-          "Die Verwendungsseite ist in der Makroökonomie die mit Abstand wichtigste Zerlegung, weil sie die Basis für praktisch alle späteren Modelle (IS-LM, AS-AD) bildet.",
-        ],
         terms: [
           {
-            term: "Konsum C",
-            definition: "Ausgaben privater Haushalte für Güter und Dienstleistungen (außer Neubau von Wohnimmobilien).",
-          },
-          {
-            term: "Investitionen I",
-            definition: "Ausgaben für Kapitalgüter, die künftige Produktion ermöglichen: Ausrüstungen, Bauten, Vorratsveränderungen.",
-          },
-          {
-            term: "Staatsausgaben G",
-            definition: "Käufe von Gütern und Dienstleistungen durch den Staat. Transferzahlungen (z. B. Renten, Arbeitslosengeld) zählen NICHT dazu, da ihnen keine neue Produktion gegenübersteht.",
-          },
-          {
-            term: "Nettoexporte NX",
-            definition: "Exporte minus Importe. Positiv bei einem Handelsbilanzüberschuss, negativ bei einem Handelsbilanzdefizit.",
+            term: "Verwendungsgleichung",
+            definition: "Zerlegung des BIP in Konsum, Investitionen, Staatsausgaben und Nettoexporte: Y = C+I+G+NX.",
           },
         ],
         examples: [
-          "Kindergeld ist eine Transferzahlung und taucht nicht in G auf. Kauft der Staat dagegen einen neuen Dienstwagen, zählt das voll zu G.",
+          "Ein Land mit C=1.200 Mrd. €, I=350 Mrd. €, G=500 Mrd. € und NX=−50 Mrd. € (mehr Importe als Exporte) hat ein BIP von Y = 1.200+350+500−50 = 2.000 Mrd. €.",
+        ],
+      },
+      {
+        id: "2-3",
+        heading: "2.3 Real versus nominal: der BIP-Deflator",
+        body: [
+          "Das nominale BIP bewertet die Produktion einer Periode zu den in dieser Periode geltenden Preisen; es kann also allein durch Preisanstiege wachsen, ohne dass real mehr produziert wurde. Das reale BIP bewertet dieselbe Produktionsmenge dagegen zu den Preisen eines festen Basisjahres und isoliert damit das tatsächliche Mengenwachstum.",
+          "Das Verhältnis beider Größen liefert den BIP-Deflator: BIP-Deflator = (nominales BIP / reales BIP) × 100. Er misst die durchschnittliche Preisveränderung aller in der Volkswirtschaft produzierten Güter und ist damit ein umfassenderes Preismaß als der Verbraucherpreisindex, der nur einen festen Warenkorb betrachtet.",
+        ],
+        formulas: ["BIP-Deflator = (nominales BIP / reales BIP) × 100"],
+        formulasLatex: ["\\text{BIP-Deflator} = \\dfrac{Y_{\\text{nominal}}}{Y_{\\text{real}}}\\times 100"],
+        terms: [
+          {
+            term: "BIP-Deflator",
+            definition: "Verhältnis von nominalem zu realem BIP; misst die durchschnittliche Preisveränderung der Gesamtproduktion.",
+          },
+        ],
+        examples: [
+          "Ein Land hat ein nominales BIP von 2.200 Mrd. € und ein reales BIP (zu Preisen des Basisjahres) von 2.000 Mrd. €. Der BIP-Deflator beträgt (2.200/2.000)×100 = 110 — das allgemeine Preisniveau liegt 10% über dem des Basisjahres.",
         ],
       },
       {
         id: "2-4",
-        heading: "2.4 Real vs. nominal & der BIP-Deflator",
+        heading: "2.4 Grenzen des BIP als Wohlstandsmaß",
         body: [
-          "Das nominale BIP bewertet die Produktion zu aktuellen Preisen — steigt es, kann das an mehr Produktion ODER an höheren Preisen liegen. Das reale BIP bewertet dieselbe Produktion zu konstanten Preisen eines Basisjahres und misst damit reines Mengenwachstum.",
-          "Der BIP-Deflator ist das Verhältnis von nominalem zu realem BIP und damit ein Preisindex für die gesamte Volkswirtschaft (im Gegensatz zum Verbraucherpreisindex, der nur einen festen Warenkorb betrachtet).",
-        ],
-        terms: [
-          {
-            term: "Nominales BIP",
-            definition: "Produktionsmenge bewertet zu aktuellen (laufenden) Preisen.",
-          },
-          {
-            term: "Reales BIP",
-            definition: "Produktionsmenge bewertet zu Preisen eines festen Basisjahres — misst reines Mengenwachstum ohne Preiseffekt.",
-          },
-          {
-            term: "BIP-Deflator",
-            definition: "Nominales BIP geteilt durch reales BIP, mal 100. Ein umfassender Preisindex für die gesamte Volkswirtschaft.",
-          },
-        ],
-        formulas: ["BIP-Deflator = (Nominales BIP / Reales BIP) × 100"],
-        formulasLatex: ["\\text{BIP-Deflator} = \\dfrac{Y^{\\text{nominal}}}{Y^{\\text{real}}} \\times 100"],
-        examples: [
-          "Produziert eine Wirtschaft in Jahr 2 exakt gleich viel wie in Jahr 1, aber zu 5 % höheren Preisen, steigt das nominale BIP um 5 %, das reale BIP bleibt unverändert, und der BIP-Deflator steigt um 5 %.",
-        ],
-      },
-      {
-        id: "2-5",
-        heading: "2.5 Grenzen des BIP als Wohlstandsmaß",
-        body: [
-          "Das BIP ist ein Produktions-, kein Wohlfahrtsmaß. Es erfasst weder unbezahlte Arbeit (Haushaltsarbeit, Ehrenamt) noch Freizeit, ignoriert Verteilungsfragen und zählt manche schädlichen Aktivitäten (z. B. Reparatur nach einer Umweltkatastrophe) sogar positiv.",
-          "Trotzdem korreliert das Pro-Kopf-BIP empirisch stark mit anderen Wohlstandsindikatoren (Lebenserwartung, Bildung, Zufriedenheit), weshalb es trotz seiner Schwächen der meistgenutzte Indikator bleibt.",
+          "Das BIP erfasst nur marktvermittelte Aktivität. Unbezahlte Arbeit (Hausarbeit, Ehrenamt), Freizeit, Umweltschäden und die Verteilung des Wohlstands innerhalb der Bevölkerung bleiben unberücksichtigt. Zwei Länder mit identischem BIP pro Kopf können sich in Lebensqualität, Ungleichheit und Nachhaltigkeit stark unterscheiden.",
+          "Auch Schattenwirtschaft und selbst hergestellte, nicht verkaufte Güter fehlen in der offiziellen Statistik, ebenso Ereignisse, die das BIP erhöhen, obwohl sie den Wohlstand kaum steigern (z. B. Wiederaufbaukosten nach einer Naturkatastrophe zählen als zusätzliche Produktion, obwohl sie nur einen vorherigen Verlust ausgleichen).",
         ],
         terms: [
           {
             term: "BIP pro Kopf",
-            definition: "BIP geteilt durch Bevölkerungszahl — besserer Indikator für individuellen Lebensstandard als das absolute BIP.",
+            definition: "BIP geteilt durch die Bevölkerungszahl; gebräuchliches, aber unvollständiges Wohlstandsmaß.",
           },
-          {
-            term: "Schattenwirtschaft",
-            definition: "Wirtschaftliche Aktivität, die nicht offiziell erfasst wird (Schwarzarbeit, Subsistenzwirtschaft) und daher im BIP fehlt.",
-          },
+        ],
+        examples: [
+          "Nach einem schweren Sturm steigt das BIP eines Landes durch umfangreiche Reparatur- und Wiederaufbauarbeiten — obwohl die Bevölkerung durch den Sturm insgesamt schlechter gestellt ist, weil zerstörtes Vermögen ersetzt statt neu geschaffen wurde.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 3 — Geld & Inflation ====================
+  // ==================== Kapitel 3 ====================
   {
-    id: "geld-inflation",
+    id: "geld-und-inflation",
     number: 3,
     title: "Geld und Inflation",
     free: false,
     intro:
-      "Geld ist der Schmierstoff jeder modernen Volkswirtschaft. Dieses Kapitel behandelt, was Geld ökonomisch ausmacht, wie sein Angebot die Preise bestimmt (Quantitätstheorie), und welche realen Kosten Inflation verursacht.",
+      "Geld ist mehr als nur Banknoten — es ist eine gesellschaftliche Institution, die Tausch erst effizient macht. Dieses Kapitel klärt, was Geld leistet, wie seine Menge das Preisniveau beeinflusst und welche realwirtschaftlichen Kosten Inflation verursacht.",
     sections: [
       {
         id: "3-1",
         heading: "3.1 Funktionen und Arten von Geld",
         body: [
-          "Geld erfüllt drei klassische Funktionen, die es von anderen Vermögenswerten unterscheiden.",
+          "Geld erfüllt drei zentrale Funktionen: Es dient als Tauschmittel (vermeidet die Notwendigkeit einer doppelten Bedürfniskongruenz beim Tauschhandel), als Recheneinheit (macht Preise verschiedener Güter vergleichbar) und als Wertaufbewahrungsmittel (erlaubt es, Kaufkraft in die Zukunft zu übertragen, wenn auch bei Inflation mit Wertverlust).",
+          "Man unterscheidet Warengeld, das selbst einen inneren Gebrauchswert besitzt (z. B. Gold), von Fiatgeld, dessen Wert allein auf dem Vertrauen der Nutzer und der staatlichen Anordnung beruht, es als gesetzliches Zahlungsmittel zu akzeptieren. Moderne Volkswirtschaften verwenden praktisch ausschließlich Fiatgeld.",
         ],
         terms: [
           {
-            term: "Tauschmittel (medium of exchange)",
-            definition: "Wird bei Transaktionen zur Bezahlung akzeptiert — löst das Problem der 'Doppelten Koinzidenz der Bedürfnisse' beim Tauschhandel.",
+            term: "Fiatgeld",
+            definition: "Geld ohne eigenen inneren Warenwert, dessen Akzeptanz auf staatlicher Anordnung und Vertrauen beruht.",
           },
-          {
-            term: "Recheneinheit (unit of account)",
-            definition: "Der Maßstab, in dem Preise angegeben werden.",
-          },
-          {
-            term: "Wertaufbewahrungsmittel (store of value)",
-            definition: "Ermöglicht, Kaufkraft von heute in die Zukunft zu übertragen.",
-          },
-          {
-            term: "Geldmenge M",
-            definition: "Bargeld plus (je nach Abgrenzung M1/M2/M3) Sichteinlagen und weitere liquide Bankguthaben.",
-          },
+        ],
+        examples: [
+          "Ein Tauschhandel zwischen einem Bäcker und einem Schreiner scheitert, wenn der Bäcker gerade keine Möbel braucht — Geld löst dieses Problem, weil der Bäcker sein Brot gegen Geld verkaufen und damit später beliebige andere Güter erwerben kann.",
         ],
       },
       {
         id: "3-2",
         heading: "3.2 Die Quantitätstheorie des Geldes",
         body: [
-          "Die Quantitätsgleichung verknüpft Geldmenge, Umlaufgeschwindigkeit, Preisniveau und reales Einkommen. Nimmt man an, dass die Umlaufgeschwindigkeit V konstant ist, folgt daraus die Quantitätstheorie: Geldmengenwachstum bestimmt langfristig die Inflationsrate eins zu eins.",
+          "Die Quantitätsgleichung verknüpft Geldmenge, Umlaufgeschwindigkeit, Preisniveau und reale Produktion: M·V = P·Y, wobei M die Geldmenge, V die Umlaufgeschwindigkeit des Geldes (wie oft ein Geldstück im Schnitt pro Periode den Besitzer wechselt), P das Preisniveau und Y die reale Produktion bezeichnet.",
+          "Die Quantitätstheorie unterstellt zusätzlich, dass V und Y kurzfristig relativ stabil sind. Wächst die Geldmenge M schneller als die reale Produktion Y, muss sich das (bei konstantem V) im Preisniveau P niederschlagen — eine zentrale Erklärung dafür, warum anhaltend hohes Geldmengenwachstum langfristig zu Inflation führt.",
         ],
+        formulas: ["M · V = P · Y"],
+        formulasLatex: ["M \\cdot V = P \\cdot Y"],
         terms: [
           {
             term: "Quantitätsgleichung",
-            definition: "M·V = P·Y, wobei M die Geldmenge, V die Umlaufgeschwindigkeit, P das Preisniveau und Y das reale BIP ist.",
-          },
-          {
-            term: "Umlaufgeschwindigkeit V",
-            definition: "Wie oft ein Geldschein im Durchschnitt pro Periode für Transaktionen genutzt wird: V = P·Y / M.",
-          },
-          {
-            term: "Klassische Dichotomie",
-            definition: "Die Idee, dass reale Variablen (Y, r, w/P) langfristig unabhängig von nominalen Variablen (M, P) bestimmt werden — Geld ist 'neutral'.",
-          },
-          {
-            term: "Neutralität des Geldes",
-            definition: "Eine Veränderung der Geldmenge verändert langfristig nur das Preisniveau, nicht reale Größen wie Output oder Beschäftigung.",
+            definition: "Identität M·V = P·Y, die Geldmenge, Umlaufgeschwindigkeit, Preisniveau und reales BIP verknüpft.",
           },
         ],
-        formulas: ["M·V = P·Y", "Wachstumsraten: g_M + g_V = π + g_Y ⟹ π ≈ g_M − g_Y (bei konstantem V)"],
-        formulasLatex: [
-          "M V = P Y",
-          "g_M + g_V = \\pi + g_Y \\;\\Rightarrow\\; \\pi \\approx g_M - g_Y \\ (\\text{bei konstantem } V)",
+        examples: [
+          "Wächst die Geldmenge eines Landes um 8% pro Jahr, während die reale Produktion nur um 2% wächst und die Umlaufgeschwindigkeit konstant bleibt, muss die Inflationsrate nach der Quantitätstheorie ungefähr 6% betragen.",
         ],
       },
       {
         id: "3-3",
-        heading: "3.3 Fisher-Effekt: Nominal- vs. Realzins",
+        heading: "3.3 Fisher-Effekt: Nominal- und Realzins",
         body: [
-          "Der Nominalzins setzt sich aus dem Realzins (der eigentlichen Verzinsung in Kaufkraft) und der erwarteten Inflation zusammen. Eine höhere erwartete Inflation schlägt sich (bei unverändertem Realzins) eins zu eins im Nominalzins nieder — das ist der Fisher-Effekt.",
+          "Der Nominalzins i ist der in Geldeinheiten vereinbarte Zinssatz; der Realzins r gibt dagegen an, um wie viel die tatsächliche Kaufkraft wächst, nachdem die erwartete Inflationsrate π abgezogen wurde: r ≈ i − π (die sogenannte Fisher-Gleichung in ihrer Näherungsform).",
+          "Der Fisher-Effekt beschreibt, dass sich der Nominalzins langfristig eins zu eins an Veränderungen der erwarteten Inflation anpasst, während der Realzins von realwirtschaftlichen Faktoren (Produktivität, Sparverhalten) bestimmt wird und von der Geldpolitik langfristig weitgehend unbeeinflusst bleibt.",
         ],
+        formulas: ["r ≈ i − π"],
+        formulasLatex: ["r \\approx i - \\pi"],
         terms: [
           {
-            term: "Fisher-Gleichung",
-            definition: "i = r + π^e — Nominalzins ist (näherungsweise) Realzins plus erwartete Inflation.",
-          },
-          {
             term: "Fisher-Effekt",
-            definition: "Eine Erhöhung der erwarteten Inflation um einen Prozentpunkt erhöht langfristig den Nominalzins um einen Prozentpunkt, ohne den Realzins zu verändern.",
+            definition: "Langfristige Anpassung des Nominalzinses an Veränderungen der erwarteten Inflationsrate bei weitgehend unverändertem Realzins.",
           },
         ],
-        formulas: ["i = r + π^e"],
-        formulasLatex: ["i = r + \\pi^{e}"],
+        examples: [
+          "Bei einem Nominalzins von 5% und einer erwarteten Inflation von 3% beträgt der Realzins ungefähr r ≈ 5%−3% = 2%.",
+        ],
       },
       {
         id: "3-4",
         heading: "3.4 Kosten der Inflation",
         body: [
-          "Auch vollständig antizipierte Inflation ist nicht kostenlos. Die Wirtschaftswissenschaft listet mehrere reale Kosten, selbst wenn alle Akteure die Inflation korrekt vorhersehen.",
+          "Auch moderate, vollständig antizipierte Inflation verursacht reale Kosten: 'Schuhsohlenkosten' entstehen, weil Haushalte häufiger Bankbesuche tätigen, um weniger entwertetes Bargeld zu halten; 'Menükosten' entstehen durch den Aufwand, Preisschilder und Kataloge anzupassen. Zusätzlich verzerrt Inflation relative Preise, wenn nicht alle Preise gleich häufig angepasst werden, was Fehlallokationen begünstigt.",
+          "Unerwartete Inflation verursacht zusätzliche Kosten durch willkürliche Umverteilung zwischen Gläubigern und Schuldnern: Wer zu einem fixen Nominalzins verliehen hat, verliert real, wenn die Inflation höher ausfällt als erwartet, während Schuldner real entlastet werden.",
         ],
         terms: [
           {
-            term: "Schuhsohlenkosten (shoeleather costs)",
-            definition: "Ressourcen, die aufgewendet werden, um Bargeldbestände zu minimieren (häufigere Bankbesuche), da Bargeld durch Inflation an Wert verliert.",
+            term: "Schuhsohlenkosten",
+            definition: "Kosten häufigerer Bankbesuche, um wenig entwertetes Bargeld zu halten.",
           },
           {
-            term: "Speisekartenkosten (menu costs)",
-            definition: "Kosten, Preise (Kataloge, Etiketten, Speisekarten) häufiger anzupassen.",
+            term: "Menükosten",
+            definition: "Kosten der Anpassung von Preisen (Preisschilder, Kataloge, Verträge) bei Inflation.",
           },
-          {
-            term: "Relative-Preis-Verzerrung",
-            definition: "Wenn nicht alle Preise gleichzeitig angepasst werden, verzerrt Inflation relative Preise und damit die Ressourcenallokation.",
-          },
-          {
-            term: "Willkürliche Umverteilung (unerwartete Inflation)",
-            definition: "Unerwartete Inflation begünstigt Schuldner (reale Schuldenlast sinkt) auf Kosten von Gläubigern.",
-          },
+        ],
+        examples: [
+          "Ein Gläubiger verleiht 10.000 € zu einem fixen Nominalzins von 4%, erwartet dabei 2% Inflation (Realzins 2%). Steigt die tatsächliche Inflation überraschend auf 6%, beträgt der tatsächliche Realzins nur noch etwa −2% — der Gläubiger verliert real, der Schuldner profitiert.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 4 — Exkurs: Bankensystem ====================
+  // ==================== Kapitel 4 ====================
   {
-    id: "exkurs-bankensystem",
+    id: "bankensystem-geldschoepfung",
     number: 4,
-    title: "Exkurs: Bankensystem & Geldschöpfung",
+    title: "Bankensystem und Geldschöpfung",
     free: false,
     intro:
-      "Wie entsteht Geld eigentlich? Direkt im Anschluss an Kapitel 3 erklärt dieser Exkurs das Mindestreservesystem und den Geldschöpfungsmultiplikator — Grundlage dafür, wie Zentralbanken die Geldmenge überhaupt steuern.",
+      "Geld entsteht nicht nur durch die Zentralbank, sondern zu einem großen Teil im Geschäftsbankensystem selbst. Dieses Kapitel erklärt den Mechanismus der Geldschöpfung und die wichtigsten Steuerungsinstrumente der Zentralbank.",
     sections: [
       {
         id: "4-1",
-        heading: "4.1 Mindestreservesystem und Geldschöpfung",
+        heading: "4.1 Mindestreservesystem und Geldschöpfungsmultiplikator",
         body: [
-          "Banken müssen nur einen Bruchteil ihrer Einlagen als Reserve halten (Mindestreservesatz rr) und können den Rest als Kredite weitervergeben. Diese Kredite werden wiederum als Einlagen bei anderen Banken verbucht, die wiederum einen Teil verleihen — so entsteht durch das Bankensystem als Ganzes mehr Geld, als die Zentralbank ursprünglich geschaffen hat.",
+          "In einem Mindestreservesystem müssen Banken nur einen Teil der bei ihnen eingelegten Gelder als Reserve halten (Mindestreservesatz rr); den Rest können sie als Kredite weiterverleihen. Diese Kredite werden wiederum bei anderen Banken eingelegt und teilweise erneut verliehen — wodurch aus einer Ersteinlage über mehrere Runden ein Vielfaches an Giralgeld entsteht.",
+          "Bei einem einheitlichen Reservesatz rr und der Annahme, dass Kunden kein Bargeld halten, ergibt sich der maximale Geldschöpfungsmultiplikator als m = 1/rr. Eine Ersteinlage von D erzeugt damit maximal eine Geldmenge von D/rr im Bankensystem.",
         ],
+        formulas: ["m = 1 / rr"],
+        formulasLatex: ["m = \\dfrac{1}{rr}"],
         terms: [
           {
-            term: "Mindestreservesatz rr",
-            definition: "Anteil der Einlagen, den Banken als Reserve halten müssen (nicht verleihen dürfen).",
+            term: "Mindestreservesatz (rr)",
+            definition: "Anteil der Bankeinlagen, den Banken als Reserve halten müssen, statt ihn als Kredit weiterzuverleihen.",
           },
           {
-            term: "Geldschöpfungsmultiplikator m",
-            definition: "m = 1/rr — der Faktor, um den sich eine ursprüngliche Zentralbankgeldmenge (Basisgeld) durch das Bankensystem vervielfacht.",
-          },
-          {
-            term: "Basisgeld / monetäre Basis",
-            definition: "Bargeld plus Reserven der Geschäftsbanken bei der Zentralbank — das, was die Zentralbank direkt kontrolliert.",
+            term: "Geldschöpfungsmultiplikator",
+            definition: "Faktor, um den sich eine Ersteinlage im Bankensystem maximal vervielfacht: m = 1/rr.",
           },
         ],
-        formulas: ["Geldmengenmultiplikator m = 1/rr", "M = m · Basisgeld"],
-        formulasLatex: ["m = \\dfrac{1}{rr}", "M = m \\cdot \\text{Basisgeld}"],
         examples: [
-          "Bei einem Mindestreservesatz von 10 % (rr = 0,1) beträgt der Geldschöpfungsmultiplikator m = 1/0,1 = 10: jeder Euro Basisgeld kann bis zu 10 Euro Geldmenge M erzeugen, wenn alle Banken ihre überschüssigen Reserven vollständig verleihen und niemand Bargeld hortet.",
+          "Bei einem Mindestreservesatz von 10% (rr=0,1) kann eine Ersteinlage von 5.000 € theoretisch bis zu 5.000/0,1 = 50.000 € an Giralgeld im Bankensystem erzeugen.",
         ],
       },
       {
         id: "4-2",
         heading: "4.2 Instrumente der Zentralbank",
         body: [
-          "Zentralbanken steuern die Geldmenge über drei klassische Instrumente, ergänzt um moderne (unkonventionelle) Maßnahmen seit der Finanzkrise.",
+          "Zentralbanken steuern die Geldmenge und Zinsen über mehrere Instrumente: Offenmarktgeschäfte (Kauf oder Verkauf von Staatsanleihen, wodurch Zentralbankgeld ins Bankensystem fließt oder abgezogen wird), die Festlegung des Mindestreservesatzes, sowie Leitzinsen, zu denen sich Geschäftsbanken bei der Zentralbank refinanzieren können.",
+          "Senkt die Zentralbank den Leitzins oder kauft sie Anleihen auf, erhöht sich tendenziell die im Bankensystem verfügbare Geldmenge, was (über den in Kapitel 10 behandelten LM-Mechanismus) Marktzinsen senkt und Investitionen anregt.",
         ],
         terms: [
           {
-            term: "Offenmarktgeschäfte",
-            definition: "Kauf/Verkauf von Staatsanleihen durch die Zentralbank — das wichtigste und am häufigsten genutzte Instrument zur Steuerung der Basisgeldmenge.",
+            term: "Offenmarktgeschäft",
+            definition: "Kauf oder Verkauf von Wertpapieren durch die Zentralbank zur Steuerung der Geldmenge.",
           },
-          {
-            term: "Mindestreservepolitik",
-            definition: "Änderung von rr direkt verändert den Geldschöpfungsmultiplikator m und damit M.",
-          },
-          {
-            term: "Leitzins / Diskontsatz",
-            definition: "Zinssatz, zu dem sich Geschäftsbanken bei der Zentralbank refinanzieren können — beeinflusst, wie viele Reserven Banken halten wollen.",
-          },
+        ],
+        examples: [
+          "Kauft die Zentralbank Staatsanleihen im Wert von 2 Mrd. € von Geschäftsbanken, fließt diesen Banken entsprechend mehr Zentralbankgeld zu, das sie (abzüglich der Mindestreserve) als zusätzliche Kredite vergeben können.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 5 — Arbeitslosigkeit ====================
+  // ==================== Kapitel 5 ====================
   {
     id: "arbeitslosigkeit",
     number: 5,
     title: "Arbeitslosigkeit",
     free: false,
     intro:
-      "Arbeitslosigkeit ist nie null — selbst in gesunden Volkswirtschaften gibt es strukturelle Gründe, warum sich Arbeitsangebot und -nachfrage nicht perfekt räumen. Dieses Kapitel ordnet die verschiedenen Arten von Arbeitslosigkeit und ihre Ursachen.",
+      "Arbeitslosigkeit ist eine der sichtbarsten und sozial bedeutsamsten makroökonomischen Größen. Dieses Kapitel klärt, wie sie gemessen wird, welche Ursachen ihr zugrunde liegen und wie sie mit dem Wirtschaftswachstum zusammenhängt.",
     sections: [
       {
         id: "5-1",
-        heading: "5.1 Wie Arbeitslosigkeit gemessen wird",
+        heading: "5.1 Messung der Arbeitslosigkeit",
         body: [
-          "Nicht jede Person ohne Job gilt als arbeitslos: Nur wer aktiv nach Arbeit sucht und verfügbar ist, zählt zur Erwerbslosigkeit im statistischen Sinn. Wer nicht sucht, gilt als 'nicht erwerbstätig' (out of the labor force).",
+          "Die Erwerbsbevölkerung umfasst alle Erwerbstätigen plus alle Arbeitslosen (Personen, die aktuell nicht arbeiten, aber aktiv Arbeit suchen und verfügbar wären). Die Arbeitslosenquote ergibt sich als Arbeitslosenquote = Arbeitslose / Erwerbsbevölkerung × 100%.",
+          "Personen, die zwar nicht arbeiten, aber auch nicht aktiv suchen (z. B. entmutigte Arbeitssuchende, die aufgegeben haben), zählen nicht zur Erwerbsbevölkerung und tauchen deshalb in der offiziellen Arbeitslosenquote nicht auf — ein Grund, warum diese Quote allein die tatsächliche Arbeitsmarktlage nicht vollständig abbildet.",
         ],
+        formulas: ["Arbeitslosenquote = Arbeitslose / Erwerbsbevölkerung × 100%"],
+        formulasLatex: ["u = \\dfrac{\\text{Arbeitslose}}{\\text{Erwerbsbev\\\"olkerung}}\\times 100\\%"],
         terms: [
           {
-            term: "Erwerbspersonen (labor force)",
-            definition: "Summe aus Erwerbstätigen und Arbeitslosen — alle, die entweder arbeiten oder aktiv Arbeit suchen.",
-          },
-          {
-            term: "Arbeitslosenquote",
-            definition: "Anteil der Arbeitslosen an den Erwerbspersonen: u = Arbeitslose / (Arbeitslose + Erwerbstätige).",
-          },
-          {
-            term: "Erwerbsquote (labor force participation rate)",
-            definition: "Anteil der Erwerbspersonen an der gesamten erwerbsfähigen Bevölkerung.",
+            term: "Erwerbsbevölkerung",
+            definition: "Summe aus Erwerbstätigen und Arbeitslosen; schließt Personen aus, die weder arbeiten noch aktiv suchen.",
           },
         ],
-        formulas: ["u = Arbeitslose / Erwerbspersonen"],
-        formulasLatex: ["u = \\dfrac{\\text{Arbeitslose}}{\\text{Erwerbspersonen}}"],
+        examples: [
+          "Ein Land hat 38 Mio. Erwerbstätige und 2 Mio. Arbeitslose. Die Erwerbsbevölkerung beträgt 40 Mio., die Arbeitslosenquote 2/40 × 100% = 5%.",
+        ],
       },
       {
         id: "5-2",
         heading: "5.2 Arten von Arbeitslosigkeit",
         body: [
-          "Ökonomen unterscheiden Arbeitslosigkeit nach ihrer Ursache. Diese Unterscheidung ist entscheidend, weil unterschiedliche Arten unterschiedliche Politikreaktionen erfordern.",
+          "Friktionelle Arbeitslosigkeit entsteht durch den normalen, zeitraubenden Suchprozess zwischen Job und Bewerber:in und ist auch in einer gut funktionierenden Volkswirtschaft nicht vollständig vermeidbar. Strukturelle Arbeitslosigkeit entsteht, wenn Löhne über dem markträumenden Niveau liegen (z. B. durch Mindestlöhne, Gewerkschaftsmacht oder Effizienzlöhne) und dauerhaft mehr Arbeit angeboten als nachgefragt wird.",
+          "Konjunkturelle Arbeitslosigkeit entsteht durch temporäre Nachfrageschwäche im Konjunkturzyklus und bildet sich mit der wirtschaftlichen Erholung typischerweise zurück. Die natürliche Arbeitslosenquote fasst friktionelle und strukturelle Arbeitslosigkeit als das Niveau zusammen, das auch bei voller Kapazitätsauslastung der Volkswirtschaft bestehen bleibt.",
         ],
         terms: [
           {
             term: "Friktionelle Arbeitslosigkeit",
-            definition: "Entsteht durch die Zeit, die Arbeitssuche und Jobwechsel benötigen — auch in einer perfekt funktionierenden Wirtschaft nie null.",
+            definition: "Vorübergehende Arbeitslosigkeit durch den normalen Such- und Wechselprozess am Arbeitsmarkt.",
           },
           {
             term: "Strukturelle Arbeitslosigkeit",
-            definition: "Entsteht, wenn das Lohnniveau über dem markträumenden Niveau liegt (z. B. durch Mindestlohn, Gewerkschaften, Effizienzlöhne) und dadurch dauerhaft ein Angebotsüberschuss an Arbeit besteht.",
-          },
-          {
-            term: "Zyklische/konjunkturelle Arbeitslosigkeit",
-            definition: "Zusätzliche Arbeitslosigkeit während einer Rezession, bedingt durch unzureichende Gesamtnachfrage.",
+            definition: "Arbeitslosigkeit durch Löhne oberhalb des markträumenden Niveaus, z. B. durch Mindestlöhne oder Effizienzlöhne.",
           },
           {
             term: "Natürliche Arbeitslosenquote",
-            definition: "Die Arbeitslosigkeit, die übrig bleibt, wenn man die zyklische Komponente entfernt — Summe aus friktioneller und struktureller Arbeitslosigkeit.",
+            definition: "Summe aus friktioneller und struktureller Arbeitslosigkeit; besteht auch bei voller Kapazitätsauslastung.",
           },
+        ],
+        examples: [
+          "Ein neu ausgebildeter Ingenieur, der drei Monate braucht, um eine passende Stelle zu finden, zählt in dieser Zeit als friktionell arbeitslos — ein normaler Bestandteil eines funktionierenden Arbeitsmarkts.",
         ],
       },
       {
         id: "5-3",
-        heading: "5.3 Ursachen struktureller Arbeitslosigkeit",
+        heading: "5.3 Okunsches Gesetz",
         body: [
-          "Drei Hauptmechanismen erklären, warum Löhne über dem markträumenden Niveau festsitzen können: Mindestlöhne, Gewerkschaften und Effizienzlöhne.",
+          "Das Okunsche Gesetz beschreibt den empirisch beobachteten negativen Zusammenhang zwischen der Veränderung der Arbeitslosenquote und dem Wachstum des realen BIP: Wächst die Wirtschaft schneller als ihr langfristiges Potenzial, sinkt die Arbeitslosenquote, und umgekehrt. Eine gebräuchliche Faustformel lautet: Prozentuale Veränderung der Arbeitslosenquote ≈ −0,5 × (BIP-Wachstum − Potenzialwachstum).",
+          "Der Faktor vor der Klammer ist deutlich kleiner als 1, weil Unternehmen bei konjunkturellen Schwankungen nicht proportional Personal auf- und abbauen (sie passen z. B. zunächst Arbeitszeiten oder Überstunden an), sondern gedämpft reagieren.",
         ],
+        formulas: ["Δu ≈ −0,5 × (BIP-Wachstum − Potenzialwachstum)"],
+        formulasLatex: ["\\Delta u \\approx -0{,}5 \\times (g_{Y} - g_{Y}^{*})"],
         terms: [
           {
-            term: "Mindestlohn",
-            definition: "Ein gesetzlicher Lohn über dem Gleichgewichtslohn führt zu einem Angebotsüberschuss an Arbeit (mehr Arbeitswillige als Stellen) — betrifft vor allem gering qualifizierte Arbeitskräfte.",
-          },
-          {
-            term: "Gewerkschaften & Kollektivverhandlungen",
-            definition: "Verhandeln oft Löhne oberhalb des markträumenden Niveaus für ihre Mitglieder, was Arbeitslosigkeit bei Nicht-Mitgliedern erhöhen kann (Insider-Outsider-Problem).",
-          },
-          {
-            term: "Effizienzlohntheorie",
-            definition: "Firmen zahlen freiwillig Löhne über dem Marktniveau, um Produktivität, Motivation, Mitarbeiterbindung zu erhöhen oder Fluktuation zu senken — auch das erzeugt strukturelle Arbeitslosigkeit.",
+            term: "Okunsches Gesetz",
+            definition: "Empirischer negativer Zusammenhang zwischen BIP-Wachstum und Veränderung der Arbeitslosenquote.",
           },
         ],
-      },
-      {
-        id: "5-4",
-        heading: "5.4 Okun'sches Gesetz",
-        body: [
-          "Das Okun'sche Gesetz beschreibt den empirisch stabilen negativen Zusammenhang zwischen der Veränderung der Arbeitslosenquote und dem BIP-Wachstum: überdurchschnittliches Wachstum senkt die Arbeitslosigkeit, unterdurchschnittliches erhöht sie.",
-        ],
-        terms: [
-          {
-            term: "Okun'sches Gesetz",
-            definition: "Δu ≈ −c·(g_Y − g_Y*), wobei g_Y das tatsächliche BIP-Wachstum, g_Y* das Trendwachstum und c ein empirischer Koeffizient (oft ≈ 0,5) ist.",
-          },
-        ],
-        formulas: ["Δu ≈ −c · (g_Y − g_Y*)"],
-        formulasLatex: ["\\Delta u \\approx -c\\,(g_Y - g_Y^{*})"],
         examples: [
-          "Bei Trendwachstum g_Y*=2% und einem Koeffizienten c=0,5: Wächst das BIP tatsächlich nur um 0%, ist Δu ≈ −0,5·(0−2) = 1 Prozentpunkt — die Arbeitslosenquote steigt um etwa 1 Prozentpunkt.",
+          "Bei einem Potenzialwachstum von 2% und tatsächlichem BIP-Wachstum von 4% sagt das Okunsche Gesetz einen Rückgang der Arbeitslosenquote von etwa 0,5×(4−2) = 1 Prozentpunkt voraus.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 6 — Wachstum I: Solow-Modell ====================
+  // ==================== Kapitel 6 ====================
   {
-    id: "wachstum-solow",
+    id: "solow-modell",
     number: 6,
     title: "Wirtschaftswachstum I: Das Solow-Modell",
     free: false,
     intro:
-      "Warum sind manche Länder reich und andere arm, und warum wachsen Volkswirtschaften überhaupt? Das Solow-Modell ist der Ausgangspunkt jeder Antwort: Es erklärt Kapitalakkumulation, Sparen und den Übergang in ein langfristiges Gleichgewicht (steady state).",
+      "Warum wachsen manche Volkswirtschaften über Jahrzehnte, während andere stagnieren? Das Solow-Modell liefert den klassischen Rahmen, um die Rolle von Kapitalakkumulation für langfristiges Wachstum zu verstehen.",
     sections: [
       {
         id: "6-1",
-        heading: "6.1 Die Produktionsfunktion",
+        heading: "6.1 Produktionsfunktion und Kapitalakkumulation",
         body: [
-          "Das Solow-Modell nimmt an, dass Output Y von Kapital K und Arbeit L abhängt, mit konstanten Skalenerträgen: verdoppelt man beide Inputs, verdoppelt sich der Output.",
-          "Durch Division durch L lässt sich alles 'pro Kopf' bzw. 'pro Arbeiter' ausdrücken — das ist der Trick, der das Modell handhabbar macht.",
+          "Das Solow-Modell beschreibt Produktion pro Kopf y = f(k) als Funktion des Kapitals pro Kopf k, mit abnehmendem Grenzertrag: jede zusätzliche Kapitaleinheit erhöht die Produktion, aber immer weniger stark. Ein häufig verwendeter Spezialfall ist die Cobb-Douglas-Funktion y = k^α mit 0<α<1.",
+          "Kapital pro Kopf verändert sich gemäß Δk = s·f(k) − (δ+n)·k: Investitionen (Sparquote s mal Output) erhöhen k, während Abschreibung (Rate δ) und Bevölkerungswachstum (Rate n) es verwässern, da neu geborene Personen ebenfalls mit Kapital ausgestattet werden müssen.",
         ],
+        formulas: ["y = k^α", "Δk = s·f(k) − (δ+n)·k"],
+        formulasLatex: ["y = k^{\\alpha}", "\\Delta k = s \\cdot f(k) - (\\delta + n)\\cdot k"],
         terms: [
           {
-            term: "Produktionsfunktion Y = F(K, L)",
-            definition: "Beschreibt, wie viel Output aus gegebenen Mengen Kapital und Arbeit produziert werden kann.",
-          },
-          {
-            term: "Konstante Skalenerträge",
-            definition: "F(cK, cL) = c·F(K, L) für jede Konstante c > 0 — Verdopplung aller Inputs verdoppelt den Output.",
-          },
-          {
-            term: "Pro-Kopf-Größen (y = Y/L, k = K/L)",
-            definition: "Output pro Arbeiter y und Kapital pro Arbeiter k. Mit konstanten Skalenerträgen gilt y = f(k).",
+            term: "Kapital pro Kopf (k)",
+            definition: "Kapitalstock geteilt durch die Anzahl der Arbeitskräfte.",
           },
         ],
-        formulas: ["Y = F(K, L)", "y = Y/L = f(K/L) = f(k)"],
-        formulasLatex: ["Y = F(K, L)", "y = \\dfrac{Y}{L} = f\\!\\left(\\dfrac{K}{L}\\right) = f(k)"],
+        examples: [
+          "Bei α=0,5 verdoppelt sich die Produktion pro Kopf y=k^0,5 nicht, wenn sich k verdoppelt, sondern nur um den Faktor √2≈1,41 — ein direktes Beispiel für abnehmende Grenzerträge des Kapitals.",
+        ],
       },
       {
         id: "6-2",
-        heading: "6.2 Sparen, Investition und Abschreibung",
+        heading: "6.2 Das Steady State",
         body: [
-          "Ein konstanter Anteil s des Einkommens wird gespart und investiert; der Rest wird konsumiert. Gleichzeitig nutzt sich der bestehende Kapitalstock mit einer Rate δ ab (Abschreibung/Verschleiß).",
-          "Die Kapitalveränderung pro Kopf ist die Differenz aus Investition (die den Kapitalstock erhöht) und Abschreibung (die ihn verringert).",
+          "Im Steady State (stationärer Zustand) ist Δk=0, das Kapital pro Kopf bleibt also konstant: Investitionen gleichen exakt Abschreibung und Bevölkerungswachstum aus, s·f(k*) = (δ+n)·k*. Volkswirtschaften mit einem Kapitalstock unterhalb ihres Steady State wachsen, solche oberhalb schrumpfen (relativ zur Bevölkerung), bis k* erreicht ist.",
+          "Eine wichtige Implikation: dauerhaft höhere Sparquoten verschieben das Steady-State-Kapital nach oben und erhöhen damit das Pro-Kopf-Einkommen dauerhaft — sie erzeugen aber KEIN dauerhaft höheres Wachstum, sondern nur einen einmaligen Übergang zu einem höheren Niveau.",
         ],
+        formulas: ["s·f(k*) = (δ+n)·k*"],
+        formulasLatex: ["s \\cdot f(k^{*}) = (\\delta+n)\\cdot k^{*}"],
         terms: [
           {
-            term: "Sparquote s",
-            definition: "Anteil des Einkommens, der gespart und investiert wird (0 < s < 1). Im geschlossenen Modell ohne Staat gilt Investition = Ersparnis.",
-          },
-          {
-            term: "Abschreibungsrate δ",
-            definition: "Anteil des Kapitalstocks, der pro Periode durch Verschleiß verloren geht.",
-          },
-          {
-            term: "Kapitalakkumulationsgleichung",
-            definition: "Δk = s·f(k) − δ·k — die Veränderung des Kapitals pro Kopf ist Investition pro Kopf minus Abschreibung pro Kopf.",
+            term: "Steady State (k*)",
+            definition: "Kapitalniveau pro Kopf, bei dem Investitionen Abschreibung und Bevölkerungswachstum exakt ausgleichen.",
           },
         ],
-        formulas: ["Δk = s·f(k) − δ·k"],
-        formulasLatex: ["\\Delta k = s\\,f(k) - \\delta k"],
+        examples: [
+          "Eine Volkswirtschaft mit s=0,2, δ=0,05, n=0,01 und y=k^0,5 erreicht ihr Steady State bei k* = (s/(δ+n))^2 = (0,2/0,06)^2 ≈ 11,1.",
+        ],
       },
       {
         id: "6-3",
-        heading: "6.3 Der Steady State",
+        heading: "6.3 Die Goldene Regel der Kapitalakkumulation",
         body: [
-          "Im steady state gleichen sich Investition und Abschreibung genau aus (Δk = 0): Kapital pro Kopf bleibt konstant. Das ist kein Stillstand der Wirtschaft — Output, Konsum und Investition sind alle konstant pro Kopf, aber wachsen mit der Bevölkerung mit.",
-          "Startet eine Volkswirtschaft mit wenig Kapital, ist s·f(k) > δ·k, Kapital wächst. Startet sie mit sehr viel Kapital, übersteigt die Abschreibung die Investition, Kapital sinkt. Das System konvergiert von jedem Startpunkt zum selben steady state — dies liefert die theoretische Basis für die empirisch beobachtete Konvergenz armer zu reichen Ländern.",
+          "Nicht jede Sparquote ist wünschenswert: Die Goldene Regel sucht diejenige Sparquote, die den Konsum pro Kopf im Steady State maximiert, statt nur das Kapital zu maximieren. Sie ist erreicht, wenn das Grenzprodukt des Kapitals gerade (δ+n) entspricht — ab diesem Punkt geht zusätzliches Sparen zulasten des Konsums, ohne dass der zusätzliche Output die zusätzlichen Abschreibungs-/Bevölkerungskosten übersteigt.",
+          "Liegt eine Volkswirtschaft oberhalb der goldenen Regel (überinvestiert), kann eine Senkung der Sparquote sowohl den heutigen als auch den zukünftigen Konsum erhöhen — ein seltener Fall, in dem weniger Sparen für alle Generationen besser ist.",
         ],
         terms: [
           {
-            term: "Steady State k*",
-            definition: "Das Kapitalniveau pro Kopf, bei dem s·f(k*) = δ·k* gilt — die Wirtschaft bleibt dort, sobald sie es erreicht hat.",
-          },
-          {
-            term: "Konvergenz",
-            definition: "Tendenz von Volkswirtschaften mit wenig Kapital, schneller zu wachsen und sich dem steady state (und damit tendenziell reicheren Ländern) anzunähern.",
+            term: "Goldene Regel",
+            definition: "Sparquote, bei der der Konsum pro Kopf im Steady State maximal ist (Grenzprodukt des Kapitals = δ+n).",
           },
         ],
-        formulas: ["Steady-State-Bedingung: s·f(k*) = δ·k*"],
-        formulasLatex: ["s\\, f(k^{*}) = \\delta\\, k^{*}"],
         examples: [
-          "Erhöht eine Regierung die Sparquote s, verschiebt sich die Investitionskurve s·f(k) nach oben. Der neue Schnittpunkt mit der Abschreibungsgeraden δ·k liegt bei einem höheren k* — mehr Kapital, mehr Output pro Kopf im neuen steady state. Der Übergang dorthin ist aber einmalig, kein dauerhaft höheres Wachstum.",
-          "Für f(k)=√k, s=0,2, δ=0,1: Steady State aus 0,2·√k* = 0,1·k* ⟹ √k* = 2 ⟹ k*=4. Output pro Kopf y*=√4=2, Konsum pro Kopf c*=(1−s)·y*=0,8·2=1,6.",
-        ],
-        figure: {
-          type: "solow-diagram",
-          caption: "Steady state k*: Schnittpunkt von Investitionskurve s·f(k) und Abschreibungsgerade (n+δ)k.",
-        },
-      },
-      {
-        id: "6-4",
-        heading: "6.4 Die Goldene Regel",
-        body: [
-          "Nicht jede höhere Sparquote ist wünschenswert: Mehr sparen bedeutet mehr Kapital, aber auch weniger Konsum heute. Die 'Goldene Regel'-Sparquote maximiert den Konsum pro Kopf im steady state.",
-          "Am goldenen-Regel-steady-state gilt: die Grenzproduktivität des Kapitals entspricht genau der Abschreibungsrate. Liegt eine Wirtschaft oberhalb dieses Kapitalstocks, ist sie 'dynamisch ineffizient' — weniger Sparen würde sowohl heute als auch in Zukunft mehr Konsum ermöglichen.",
-        ],
-        terms: [
-          {
-            term: "Goldene Regel des Kapitalstocks",
-            definition: "Das Kapitalniveau k*gold, das den Konsum pro Kopf im steady state maximiert. Bedingung: MPK = δ.",
-          },
-          {
-            term: "Dynamische Ineffizienz",
-            definition: "Zustand, in dem eine Volkswirtschaft mehr Kapital akkumuliert hat, als die Goldene Regel vorschreibt — zu viel Sparen schadet dem Konsum.",
-          },
-        ],
-        formulas: ["Bedingung Goldene Regel: MPK = δ"],
-        formulasLatex: ["\\text{MPK}(k^{*}_{\\text{gold}}) = \\delta"],
-        examples: [
-          "Für f(k)=√k ist MPK(k)=0,5·k^(−0,5). Bei δ=0,1: 0,5·k^(−0,5)=0,1 ⟹ k^(−0,5)=0,2 ⟹ k*gold=(1/0,2)²=25. Die zugehörige Goldene-Regel-Sparquote ergibt sich aus s·f(k*gold)=δ·k*gold: s·5=0,1·25=2,5 ⟹ s=0,5.",
+          "Zeigt eine Analyse, dass das Grenzprodukt des Kapitals im aktuellen Steady State bei 3% liegt, während δ+n = 6% beträgt, ist die Volkswirtschaft überkapitalisiert — eine niedrigere Sparquote würde den Konsum langfristig erhöhen.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 7 — Wachstum II ====================
+  // ==================== Kapitel 7 ====================
   {
-    id: "wachstum-technologie",
+    id: "wachstum-bevoelkerung-fortschritt",
     number: 7,
-    title: "Wirtschaftswachstum II: Bevölkerung, technischer Fortschritt & Wachstumsempirie",
+    title: "Wirtschaftswachstum II: Bevölkerung, Fortschritt und Konvergenz",
     free: false,
     intro:
-      "Das einfache Solow-Modell aus Kapitel 6 kann noch nicht erklären, warum reiche Länder dauerhaft wachsen, statt in einem stagnierenden steady state zu verharren. Bevölkerungswachstum und vor allem technischer Fortschritt schließen diese Lücke.",
+      "Das Grundmodell aus Kapitel 6 erklärt noch nicht, warum Volkswirtschaften auf lange Sicht überhaupt nachhaltig wachsen. Erst technischer Fortschritt und die empirische Betrachtung realer Länder liefern die vollständige Erklärung.",
     sections: [
       {
         id: "7-1",
-        heading: "7.1 Bevölkerungswachstum im Solow-Modell",
+        heading: "7.1 Technischer Fortschritt als Wachstumsmotor",
         body: [
-          "Wächst die Bevölkerung mit Rate n, muss zusätzliches Kapital bereitgestellt werden, nur um den Kapitalstock pro Kopf für die wachsende Zahl an Arbeitern konstant zu halten. Das wirkt wie eine zusätzliche 'effektive Abschreibung'.",
+          "Erweitert man die Produktionsfunktion um arbeitsvermehrenden technischen Fortschritt (y = f(k/A) mit Effizienzeinheiten A, die mit Rate g wachsen), verschwindet das Problem der abnehmenden Grenzerträge des Kapitals als Wachstumsbremse: Im Steady State wächst die Produktion pro Kopf dauerhaft mit Rate g, während Kapital pro effektive Arbeitseinheit konstant bleibt.",
+          "Dieser Befund ist zentral, weil reine Kapitalakkumulation (Kapitel 6) nur ein einmaliges Aufholen bis zum Steady State erklärt — dauerhaftes Pro-Kopf-Wachstum kann im Solow-Modell ausschließlich aus technischem Fortschritt stammen.",
         ],
         terms: [
           {
-            term: "Bevölkerungswachstumsrate n",
-            definition: "Jährliche Wachstumsrate der Erwerbsbevölkerung L.",
-          },
-          {
-            term: "Erweiterte Kapitalakkumulation",
-            definition: "Δk = s·f(k) − (δ + n)·k. Der Term (δ+n)·k heißt 'break-even investment' — die Investition, die nötig ist, um k konstant zu halten.",
+            term: "Arbeitsvermehrender technischer Fortschritt",
+            definition: "Technischer Fortschritt, der die Effizienz jeder Arbeitseinheit erhöht (Effizienzeinheiten A wachsen mit Rate g).",
           },
         ],
-        formulas: ["Δk = s·f(k) − (δ + n)·k"],
-        formulasLatex: ["\\Delta k = s\\,f(k) - (\\delta + n)k"],
         examples: [
-          "Länder mit hohem Bevölkerungswachstum (z. B. viele Entwicklungsländer) haben tendenziell einen niedrigeren steady-state-Kapitalstock pro Kopf — ein Teil der Erklärung für globale Einkommensunterschiede.",
+          "Wächst die Effizienz A dauerhaft mit g=1,5% pro Jahr, wächst im Steady State auch das Pro-Kopf-Einkommen dauerhaft mit etwa 1,5% pro Jahr — unabhängig von der Sparquote.",
         ],
       },
       {
         id: "7-2",
-        heading: "7.2 Technischer Fortschritt als Wachstumsmotor",
+        heading: "7.2 Konvergenz zwischen Ländern",
         body: [
-          "Ohne technischen Fortschritt wächst Output pro Kopf im steady state gar nicht — das Modell würde langfristige Stagnation vorhersagen, was der Realität widerspricht. Technischer Fortschritt (Effizienzsteigerung der Arbeit, Rate g) löst dieses Problem.",
-          "Mit arbeitsvermehrendem technischem Fortschritt wächst Output pro Arbeiter im steady state dauerhaft mit Rate g — das ist die einzige Quelle nachhaltigen Pro-Kopf-Wachstums im Modell.",
+          "Die Konvergenzhypothese besagt, dass ärmere Länder (mit niedrigerem Kapital pro Kopf und daher höherem Grenzprodukt des Kapitals) tendenziell schneller wachsen als reiche Länder und so mit der Zeit aufholen — eine direkte Folge der abnehmenden Grenzerträge des Kapitals im Solow-Modell.",
+          "Empirisch zeigt sich bedingte statt absoluter Konvergenz: Länder konvergieren jeweils zu ihrem EIGENEN Steady State (das von Sparquote, Bevölkerungswachstum und institutionellen Faktoren abhängt), nicht zu einem gemeinsamen weltweiten Niveau. Deshalb holen nicht automatisch alle armen Länder gegenüber reichen Ländern auf.",
         ],
         terms: [
-          {
-            term: "Technischer Fortschritt g (arbeitsvermehrend)",
-            definition: "Rate, mit der die Effizienz der Arbeit E wächst. Produktionsfunktion: Y = F(K, L·E).",
-          },
-          {
-            term: "Effektive Arbeitseinheiten (L·E)",
-            definition: "Arbeit gemessen in Effizienzeinheiten — ein Arbeiter mit doppelter Effizienz zählt wie zwei 'einfache' Arbeiter.",
-          },
-        ],
-        formulas: ["Δk = s·f(k) − (δ + n + g)·k", "Im steady state wächst Y/L mit Rate g, Y mit Rate n+g"],
-        formulasLatex: [
-          "\\Delta k = s\\,f(k) - (\\delta + n + g)k",
-          "\\text{im steady state: } g_{Y/L} = g, \\quad g_Y = n + g",
-        ],
-      },
-      {
-        id: "7-3",
-        heading: "7.3 Wachstumsbuchhaltung (Growth Accounting)",
-        body: [
-          "Wachstumsbuchhaltung zerlegt beobachtetes BIP-Wachstum in die Beiträge von Kapital, Arbeit und einem Residuum — der totalen Faktorproduktivität (TFP). Die TFP fasst alles zusammen, was Wachstum erklärt, aber nicht auf mehr Kapital oder Arbeit zurückgeht: Technologie, Institutionen, Effizienz.",
-        ],
-        terms: [
-          {
-            term: "Solow-Residuum / Totale Faktorproduktivität (TFP)",
-            definition: "Der Teil des Wachstums, der nicht durch den Zuwachs an Kapital oder Arbeit erklärt wird — proxy für technischen Fortschritt.",
-          },
-          {
-            term: "Wachstumsbuchhaltungsgleichung",
-            definition: "ΔY/Y = ΔA/A + α·ΔK/K + (1−α)·ΔL/L, wobei α der Kapitalanteil am Einkommen ist.",
-          },
-        ],
-        formulas: ["ΔY/Y = ΔA/A + α·(ΔK/K) + (1−α)·(ΔL/L)"],
-        formulasLatex: ["\\frac{\\Delta Y}{Y} = \\frac{\\Delta A}{A} + \\alpha \\frac{\\Delta K}{K} + (1-\\alpha)\\frac{\\Delta L}{L}"],
-      },
-      {
-        id: "7-4",
-        heading: "7.4 Empirische Konvergenz: bedingt statt absolut",
-        body: [
-          "Das Solow-Modell sagt absolute Konvergenz (alle Länder nähern sich demselben Einkommensniveau) nur voraus, wenn alle Länder dieselben Parameter (s, n, δ) und denselben technischen Fortschritt haben. Empirisch trifft das nicht zu — reiche und arme Länder konvergieren nicht automatisch zueinander.",
-          "Was die Daten stützen, ist bedingte Konvergenz: Länder mit ähnlichen Fundamentaldaten (Sparquote, Bildung, Institutionen) konvergieren zu ähnlichen, aber jeweils eigenen steady states.",
-        ],
-        terms: [
-          {
-            term: "Absolute Konvergenz",
-            definition: "Hypothese, dass arme Länder automatisch schneller wachsen und sich allen anderen Ländern im Einkommen angleichen — empirisch nicht bestätigt.",
-          },
           {
             term: "Bedingte Konvergenz",
-            definition: "Länder konvergieren nur zu ihrem EIGENEN steady state, der von ihren Fundamentaldaten abhängt. Empirisch gut belegt.",
-          },
-        ],
-      },
-    ],
-  },
-
-  // ==================== Kapitel 8 — Exkurs: KI & Arbeitsmarkt ====================
-  {
-    id: "exkurs-ki-wachstum",
-    number: 8,
-    title: "Exkurs: KI, Automatisierung und Arbeitsmarkt",
-    free: false,
-    intro:
-      "Wie verändert Künstliche Intelligenz langfristiges Wachstum und die Arbeitsnachfrage? Im Anschluss an die beiden Wachstumskapitel erweitert dieser Exkurs das Solow-Modell um eine aufgabenbasierte (task-based) Sichtweise auf Automatisierung.",
-    sections: [
-      {
-        id: "8-1",
-        heading: "8.1 Das aufgabenbasierte Modell (task-based model)",
-        body: [
-          "Statt Arbeit und Kapital als homogene Aggregate zu behandeln, zerlegt das aufgabenbasierte Modell Produktion in ein Kontinuum einzelner Aufgaben (tasks). Jede Aufgabe kann entweder von Arbeit oder von Kapital/Automatisierung erledigt werden — Automatisierung verschiebt die Grenze, welche Aufgaben von Kapital übernommen werden.",
-        ],
-        terms: [
-          {
-            term: "Aufgabenbasiertes Modell (task-based framework)",
-            definition: "Modelliert Produktion als Kontinuum von Aufgaben, die entweder Arbeit oder Kapital zugeordnet werden — Automatisierung verschiebt diese Zuordnung.",
-          },
-          {
-            term: "Verdrängungseffekt (displacement effect)",
-            definition: "Automatisierung ersetzt Arbeit bei zuvor von Arbeitern erledigten Aufgaben — senkt (ceteris paribus) die Arbeitsnachfrage und tendenziell Löhne.",
-          },
-          {
-            term: "Produktivitätseffekt",
-            definition: "Automatisierung senkt Produktionskosten insgesamt, erhöht Output und damit (über höhere Nachfrage nach komplementärer Arbeit) tendenziell auch wieder die Arbeitsnachfrage.",
-          },
-        ],
-      },
-      {
-        id: "8-2",
-        heading: "8.2 Neue Aufgaben als Gegengewicht",
-        body: [
-          "Historisch hat Automatisierung nicht zu dauerhaft steigender Arbeitslosigkeit geführt, weil gleichzeitig neue Aufgaben entstanden sind, in denen Arbeit (noch) einen komparativen Vorteil hat. Ob KI diesmal anders wirkt, hängt davon ab, ob und wie schnell neue, für Menschen komparativ vorteilhafte Aufgaben entstehen, verglichen mit dem Tempo der Verdrängung.",
-        ],
-        terms: [
-          {
-            term: "Reinstatement-Effekt (Schaffung neuer Aufgaben)",
-            definition: "Entstehung neuer Aufgaben/Berufe, in denen Arbeit einen komparativen Vorteil gegenüber Kapital/Automatisierung hat — wirkt dem Verdrängungseffekt entgegen.",
-          },
-          {
-            term: "Komparativer Vorteil von Arbeit vs. Kapital",
-            definition: "Bestimmt, welcher Faktor eine gegebene Aufgabe günstiger erledigt — verschiebt sich mit technologischem Fortschritt zugunsten von Kapital/KI in immer mehr Aufgaben.",
+            definition: "Länder nähern sich ihrem jeweils eigenen Steady State an, nicht notwendigerweise einem gemeinsamen Niveau.",
           },
         ],
         examples: [
-          "Die Automatisierung der Textilproduktion im 19. Jahrhundert verdrängte viele traditionelle Handwerksberufe, schuf aber gleichzeitig neue Aufgaben in Fabrikmanagement, Maschinenwartung und späteren Industriezweigen — Nettobeschäftigung stieg langfristig trotz kurzfristiger Verdrängung.",
-        ],
-      },
-      {
-        id: "8-3",
-        heading: "8.3 Verteilungswirkungen",
-        body: [
-          "Auch wenn Automatisierung die Gesamtproduktivität erhöht, sind die Verteilungswirkungen zwischen Arbeit und Kapital sowie zwischen unterschiedlich qualifizierten Arbeitskräften nicht neutral: Aufgaben, die zuerst automatisiert werden, betreffen oft mittelqualifizierte Routinetätigkeiten stärker als hoch- oder geringqualifizierte Tätigkeiten (Job-Polarisierung).",
-        ],
-        terms: [
-          {
-            term: "Job-Polarisierung",
-            definition: "Relativer Beschäftigungsrückgang bei mittelqualifizierten Routinetätigkeiten bei gleichzeitigem Wachstum bei hoch- und geringqualifizierten, weniger automatisierbaren Tätigkeiten.",
-          },
+          "Zwei Länder mit identischer Sparquote und Bevölkerungswachstum, aber unterschiedlichem Startkapital, nähern sich über Zeit demselben Pro-Kopf-Einkommen an — ein Land mit strukturell niedrigerer Sparquote konvergiert dagegen zu einem dauerhaft niedrigeren Niveau.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 9 — Exkurs: Klima & Wachstum ====================
+  // ==================== Kapitel 8 (Exkurs) ====================
+  {
+    id: "exkurs-automatisierung",
+    number: 8,
+    title: "Exkurs: Automatisierung und Arbeitsmarkt",
+    free: false,
+    intro:
+      "Wachstumstheorie liefert auch den Rahmen, um aktuelle Debatten über Automatisierung und künstliche Intelligenz einzuordnen: Verdrängt technischer Fortschritt Arbeit dauerhaft, oder verschiebt er sie nur?",
+    sections: [
+      {
+        id: "8-1",
+        heading: "8.1 Verdrängungseffekt versus Produktivitätseffekt",
+        body: [
+          "Automatisierung wirkt über zwei gegenläufige Kanäle: Der Verdrängungseffekt ersetzt Arbeit direkt durch Kapital/Technologie in bestimmten Tätigkeiten. Der Produktivitätseffekt erhöht gleichzeitig Einkommen und Nachfrage, was in anderen Bereichen (oft neu entstehenden Tätigkeitsfeldern) zusätzliche Arbeitsnachfrage schafft.",
+          "Historisch hat der Produktivitätseffekt den Verdrängungseffekt über lange Zeiträume regelmäßig überkompensiert (z. B. bei der Mechanisierung der Landwirtschaft) — ob dies auch für die aktuelle Welle KI-getriebener Automatisierung gilt, ist unter Ökonom:innen umstritten und Gegenstand aktueller Forschung.",
+        ],
+        terms: [
+          {
+            term: "Verdrängungseffekt",
+            definition: "Ersetzung menschlicher Arbeit durch Kapital/Technologie in automatisierbaren Tätigkeiten.",
+          },
+          {
+            term: "Produktivitätseffekt",
+            definition: "Zusätzliche Arbeitsnachfrage durch höhere Einkommen und neue, durch Technologie geschaffene Tätigkeitsfelder.",
+          },
+        ],
+        examples: [
+          "Als Kassensysteme in Supermärkten automatisiert wurden, sank die Nachfrage nach klassischen Kassierjobs, während gleichzeitig neue Tätigkeiten in IT-Wartung und Systemmanagement entstanden.",
+        ],
+      },
+    ],
+  },
+  // ==================== Kapitel 9 (Exkurs) ====================
   {
     id: "exkurs-klima-wachstum",
     number: 9,
     title: "Exkurs: Klima und Wachstum",
     free: false,
     intro:
-      "Lässt sich Wirtschaftswachstum von Umweltzerstörung entkoppeln? Dieser Exkurs verbindet das Solow-Modell mit Umweltökonomik und stellt die wichtigsten Modellklassen zur Analyse von Klimapolitik vor.",
+      "Wachstum ist nicht kostenlos, wenn es auf endlichen natürlichen Ressourcen und einem begrenzten CO₂-Budget beruht. Dieser Exkurs verknüpft die Wachstumstheorie mit externen Effekten des Klimawandels.",
     sections: [
       {
         id: "9-1",
-        heading: "9.1 Grünes Wachstum: das Green-Solow-Modell",
+        heading: "9.1 Externe Effekte und die Bepreisung von CO₂",
         body: [
-          "Das Green-Solow-Modell erweitert das klassische Solow-Modell um Emissionen als Nebenprodukt der Produktion und um 'grünen' technischen Fortschritt, der die Emissionsintensität pro Output senkt. Entscheidend ist, ob dieser grüne technische Fortschritt schnell genug ist, um Wachstum und Emissionen zu entkoppeln (absolute statt nur relative Entkopplung).",
+          "Emissionen von Treibhausgasen sind ein klassischer negativer externer Effekt: Die Kosten des Klimawandels (Schäden durch Extremwetter, Ernteausfälle) tragen nicht nur die Verursacher, sondern die gesamte Gesellschaft — der Marktpreis fossiler Energie spiegelt diese sozialen Kosten nicht wider.",
+          "Eine CO₂-Bepreisung (Steuer oder Zertifikatehandel) internalisiert diesen externen Effekt, indem sie den privaten Kosten der Emission die sozialen Kosten hinzufügt. Ökonomisch ist eine solche Bepreisung meist effizienter als reine Verbote, weil sie Vermeidung dort stattfinden lässt, wo sie am günstigsten ist.",
         ],
         terms: [
           {
-            term: "Relative Entkopplung",
-            definition: "Emissionen wachsen langsamer als das BIP (Emissionsintensität sinkt), aber absolute Emissionen steigen weiterhin.",
+            term: "Negativer externer Effekt",
+            definition: "Kosten einer Aktivität, die nicht vom Verursacher, sondern von Dritten getragen werden.",
           },
-          {
-            term: "Absolute Entkopplung",
-            definition: "Absolute Emissionen sinken, während das BIP weiter wächst — das eigentliche Ziel einer klimaverträglichen Wachstumsstrategie.",
-          },
-          {
-            term: "Green-Solow-Modell",
-            definition: "Erweiterung des Solow-Modells um eine Emissionsfunktion und emissionssenkenden technischen Fortschritt, um die Bedingungen für absolute Entkopplung zu analysieren.",
-          },
+        ],
+        examples: [
+          "Ein Stahlwerk, das CO₂ ausstößt, zahlt ohne CO₂-Preis nur seine privaten Produktionskosten; mit CO₂-Preis muss es zusätzlich für die verursachten Klimaschäden zahlen, was Anreize zur Emissionsminderung schafft.",
         ],
       },
       {
         id: "9-2",
-        heading: "9.2 Integrated Assessment Models (IAMs) und das DICE-Modell",
+        heading: "9.2 Nachhaltiges Wachstum im Solow-Modell",
         body: [
-          "Integrated Assessment Models verbinden ökonomische Wachstumsmodelle mit Klimamodellen, um die optimale Klimapolitik zu bestimmen. Das bekannteste Beispiel ist das DICE-Modell (Dynamic Integrated Climate-Economy) von William Nordhaus, das den optimalen Pfad von CO2-Bepreisung gegen wirtschaftliche Kosten abwägt.",
+          "Erweitert man das Solow-Modell um eine endliche natürliche Ressource als zusätzlichen Produktionsfaktor, hängt nachhaltiges langfristiges Wachstum davon ab, ob technischer Fortschritt die sinkende Verfügbarkeit der Ressource ausreichend kompensiert (schwache versus starke Nachhaltigkeit).",
+          "Diese Erweiterung zeigt, dass Wachstumstheorie und Klimaökonomik keine getrennten Themen sind: Die gleiche Logik von Kapitalakkumulation und technischem Fortschritt bestimmt, ob Wachstum langfristig mit begrenzten natürlichen Ressourcen vereinbar ist.",
         ],
         terms: [
           {
-            term: "Integrated Assessment Model (IAM)",
-            definition: "Modellklasse, die ökonomisches Wachstum, Emissionen und Klimaschäden gemeinsam modelliert, um optimale Klimapolitik abzuleiten.",
-          },
-          {
-            term: "DICE-Modell",
-            definition: "Von William Nordhaus entwickeltes IAM, das den gesamtwirtschaftlich optimalen CO2-Preis als Abwägung zwischen Vermeidungskosten und Klimaschäden bestimmt.",
-          },
-          {
-            term: "Sozialer Diskontsatz",
-            definition: "Der Zinssatz, mit dem zukünftige Klimaschäden gegenüber heutigen Vermeidungskosten abgewertet werden — eine der umstrittensten Annahmen in der Klimaökonomik, da sie das Ergebnis stark beeinflusst.",
+            term: "Schwache Nachhaltigkeit",
+            definition: "Erhalt des Gesamtkapitals (Sachkapital + Naturkapital), wobei Substitution zwischen beiden erlaubt ist.",
           },
         ],
-      },
-      {
-        id: "9-3",
-        heading: "9.3 Directed Technological Change",
-        body: [
-          "Die Theorie des gerichteten technischen Fortschritts (Directed Technological Change) argumentiert, dass die Richtung von Innovation (grün vs. fossil) selbst eine ökonomische Entscheidung ist, die auf Preissignale reagiert. Eine konsequente CO2-Bepreisung lenkt Forschung und Entwicklung gezielt in Richtung emissionsarmer Technologien.",
-        ],
-        terms: [
-          {
-            term: "Directed Technological Change (gerichteter technischer Fortschritt)",
-            definition: "Theorie, wonach Unternehmen ihre Innovationsrichtung (grün vs. fossil) endogen an relativen Preisen und Marktgrößen ausrichten — Politik kann diese Richtung über CO2-Preise beeinflussen.",
-          },
-          {
-            term: "Pfadabhängigkeit (path dependence)",
-            definition: "Frühere Investitionen in eine Technologierichtung (z. B. fossile Energien) machen ein spätere Umlenkung teurer — ein Grund für frühzeitige, konsequente Klimapolitik.",
-          },
+        examples: [
+          "Ersetzt eine Volkswirtschaft den Rückgang fossiler Ressourcen durch verstärkte Investitionen in erneuerbare Energieanlagen (Sachkapital), entspricht dies dem Konzept schwacher Nachhaltigkeit.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 10 — Konjunktur I: IS-LM ====================
+  // ==================== Kapitel 10 ====================
   {
-    id: "konjunktur-islm",
+    id: "islm-modell",
     number: 10,
-    title: "Konjunktur I: Das IS-LM-Modell",
+    title: "Konjunktur: Das IS-LM-Modell",
     free: false,
     intro:
-      "Anders als das Solow-Modell (langfristiges Wachstum) beschreibt das IS-LM-Modell kurzfristige Schwankungen bei fixem Preisniveau. Es kombiniert Gütermarkt (IS-Kurve) und Geldmarkt (LM-Kurve), um Einkommen und Zinssatz gemeinsam zu bestimmen.",
+      "Kurzfristig sind Preise starr, und Nachfrageschwankungen bestimmen die tatsächliche Produktion. Das IS-LM-Modell erklärt, wie Güter- und Geldmarkt gemeinsam Zins und Produktion kurzfristig bestimmen.",
     sections: [
       {
         id: "10-1",
-        heading: "10.1 Der Gütermarkt und die IS-Kurve",
+        heading: "10.1 Die IS-Kurve: Gleichgewicht am Gütermarkt",
         body: [
-          "Die IS-Kurve zeigt alle Kombinationen aus Zinssatz r und Einkommen Y, bei denen der Gütermarkt im Gleichgewicht ist (geplante Ausgaben = Produktion). Ein höherer Zinssatz senkt die Investitionen, was über den Multiplikator das Gleichgewichtseinkommen senkt — die IS-Kurve fällt daher.",
+          "Die IS-Kurve zeigt alle Kombinationen aus Zins i und Produktion Y, bei denen der Gütermarkt im Gleichgewicht ist: Y = C(Y−T) + I(i) + G. Ein höherer Zins verteuert Investitionen, senkt I(i) und damit über den Gütermarktmultiplikator auch das Gleichgewichts-Y — die IS-Kurve verläuft daher fallend im (Y,i)-Diagramm.",
+          "Expansive Fiskalpolitik (höheres G oder niedrigeres T) verschiebt die IS-Kurve nach rechts: Bei jedem gegebenen Zins ist nun ein höheres Gleichgewichts-Y erforderlich.",
         ],
+        formulas: ["Y = C(Y−T) + I(i) + G"],
+        formulasLatex: ["Y = C(Y-T) + I(i) + G"],
+        figure: { type: "islm", caption: "IS-LM-Diagramm: Gleichgewicht aus Güter- und Geldmarkt" },
         terms: [
           {
-            term: "Konsumfunktion C(Y−T)",
-            definition: "Konsum steigt mit dem verfügbaren Einkommen (Y−T), typischerweise linear: C = a + b(Y−T), mit marginaler Konsumneigung b ∈ (0,1).",
-          },
-          {
-            term: "Investitionsfunktion I(r)",
-            definition: "Investitionen sinken mit dem Zinssatz: I = c − δr. Höhere Kapitalkosten dämpfen Investitionsprojekte.",
-          },
-          {
             term: "IS-Kurve",
-            definition: "Alle (r, Y)-Kombinationen, bei denen Y = C(Y−T) + I(r) + G gilt. Hat negative Steigung in einem (Y,r)-Diagramm.",
+            definition: "Kombinationen aus Zins und Produktion, bei denen der Gütermarkt im Gleichgewicht ist.",
           },
         ],
-        formulas: ["Gütermarktgleichgewicht: Y = C(Y−T) + I(r) + G"],
-        formulasLatex: ["Y = C(Y - T) + I(r) + G"],
+        examples: [
+          "Erhöht die Regierung die Staatsausgaben G um 40 Mrd. €, verschiebt sich die IS-Kurve nach rechts — bei unverändertem Zins steigt das Gleichgewichts-Y entsprechend dem Multiplikatoreffekt.",
+        ],
       },
       {
         id: "10-2",
-        heading: "10.2 Verschiebungen der IS-Kurve",
+        heading: "10.2 Die LM-Kurve: Gleichgewicht am Geldmarkt",
         body: [
-          "Fiskalpolitik verschiebt die IS-Kurve: Eine Erhöhung der Staatsausgaben G oder eine Steuersenkung erhöht die geplanten Ausgaben bei jedem Zinssatz und verschiebt die IS-Kurve nach rechts. Wie stark, hängt vom Fiskalmultiplikator ab.",
+          "Die LM-Kurve zeigt Kombinationen aus Zins und Produktion, bei denen Geldangebot und Geldnachfrage übereinstimmen: M/P = L(i,Y). Höheres Y erhöht die Transaktionsnachfrage nach Geld; damit der Geldmarkt bei gegebenem Geldangebot im Gleichgewicht bleibt, muss der Zins steigen (Geldnachfrage sinkt mit steigendem Zins) — die LM-Kurve verläuft daher steigend.",
+          "Eine expansive Geldpolitik (höheres M) verschiebt die LM-Kurve nach rechts/unten: Bei jedem Y ist nun ein niedrigerer Gleichgewichtszins nötig, um den größeren realen Geldbestand M/P vom Publikum halten zu lassen.",
         ],
+        formulas: ["M/P = L(i, Y)"],
+        formulasLatex: ["\\dfrac{M}{P} = L(i, Y)"],
         terms: [
           {
-            term: "Staatsausgabenmultiplikator",
-            definition: "ΔY/ΔG = 1/(1−b) — eine zusätzliche Einheit G erhöht Y um mehr als eine Einheit, weil zusätzliches Einkommen wieder teilweise konsumiert wird.",
+            term: "LM-Kurve",
+            definition: "Kombinationen aus Zins und Produktion, bei denen der Geldmarkt im Gleichgewicht ist.",
           },
-          {
-            term: "Steuermultiplikator",
-            definition: "ΔY/ΔT = −b/(1−b) — betragsmäßig kleiner als der Ausgabenmultiplikator, weil ein Teil der Steuersenkung gespart statt konsumiert wird.",
-          },
-        ],
-        formulas: ["Ausgabenmultiplikator = 1/(1−b)", "Steuermultiplikator = −b/(1−b)"],
-        formulasLatex: [
-          "\\text{Ausgabenmultiplikator} = \\dfrac{1}{1-b}",
-          "\\text{Steuermultiplikator} = \\dfrac{-b}{1-b}",
         ],
         examples: [
-          "Bei b = 0,8 beträgt der Ausgabenmultiplikator 1/(1−0,8) = 5: ein zusätzlicher Euro Staatsausgaben erhöht Y um 5 Euro. Der Steuermultiplikator beträgt −0,8/0,2 = −4 — betragsmäßig kleiner, weil ein Teil einer Steuersenkung gespart wird, statt konsumiert zu werden.",
+          "Erhöht die Zentralbank die Geldmenge M, sinkt bei gegebenem Y der Gleichgewichtszins, da das größere reale Geldangebot nur bei niedrigerem Zins vollständig vom Publikum nachgefragt wird.",
         ],
       },
       {
         id: "10-3",
-        heading: "10.3 Der Geldmarkt und die LM-Kurve",
+        heading: "10.3 Fiskal- und Geldpolitik im IS-LM-Modell",
         body: [
-          "Die LM-Kurve zeigt alle Kombinationen aus r und Y, bei denen der Geldmarkt im Gleichgewicht ist: reale Geldnachfrage entspricht realem Geldangebot. Geldnachfrage steigt mit dem Einkommen (mehr Transaktionen) und sinkt mit dem Zinssatz (höhere Opportunitätskosten der Bargeldhaltung) — daraus folgt eine steigende LM-Kurve.",
+          "Im Schnittpunkt von IS- und LM-Kurve ergeben sich gleichzeitig Gleichgewichtszins und -produktion. Expansive Fiskalpolitik erhöht Y, treibt aber auch den Zins nach oben, was privat finanzierte Investitionen teilweise verdrängt (Crowding-out) — der Nettoeffekt auf Y bleibt aber typischerweise positiv.",
+          "Expansive Geldpolitik erhöht Y und senkt gleichzeitig den Zins, ohne den Crowding-out-Effekt der Fiskalpolitik. Kombiniert man beide Politiken, lässt sich Y erhöhen, während der Zins je nach Dosierung nahezu konstant gehalten wird.",
         ],
         terms: [
           {
-            term: "Liquiditätspräferenztheorie",
-            definition: "Theorie, nach der der Zinssatz sich anpasst, um Geldangebot und Geldnachfrage auszugleichen.",
-          },
-          {
-            term: "Reale Geldnachfrage L(r,Y)",
-            definition: "L(r,Y) = eY − fr: steigt mit Einkommen (e: Einkommenssensitivität), sinkt mit dem Zinssatz (f: Zinssensitivität).",
-          },
-          {
-            term: "LM-Kurve",
-            definition: "Alle (r, Y)-Kombinationen mit M/P = L(r,Y). Positiv geneigt: höheres Y erfordert (bei fixem Geldangebot) einen höheren Zins, um die Geldnachfrage wieder zu senken.",
-          },
-        ],
-        formulas: ["Geldmarktgleichgewicht: M/P = L(r, Y) = eY − fr"],
-        formulasLatex: ["\\dfrac{M}{P} = L(r,Y) = eY - fr"],
-      },
-      {
-        id: "10-4",
-        heading: "10.4 Zinssensitivität und Steigung der Kurven",
-        body: [
-          "Die Steigungen von IS und LM hängen direkt von den Sensitivitätsparametern δ (Investition) und f (Geldnachfrage) ab: je größer δ, desto flacher die IS-Kurve (Investitionen reagieren stark auf Zinsänderungen); je größer f, desto flacher die LM-Kurve.",
-        ],
-        terms: [
-          {
-            term: "Zinssensitivität der Investition δ",
-            definition: "Je größer δ, desto stärker reagieren Investitionen auf Zinsänderungen, desto flacher die IS-Kurve.",
-          },
-          {
-            term: "Zinssensitivität der Geldnachfrage f",
-            definition: "Je größer f, desto stärker reagiert die Geldnachfrage auf Zinsänderungen, desto flacher die LM-Kurve.",
+            term: "Crowding-out",
+            definition: "Verdrängung privater Investitionen durch steigende Zinsen infolge expansiver Fiskalpolitik.",
           },
         ],
         examples: [
-          "Extremfall f → ∞ (Liquiditätsfalle): die LM-Kurve wird waagrecht — dieser Fall wird in Kapitel 11 vertieft.",
+          "Erhöht der Staat G, steigen sowohl Y als auch der Zins i. Der höhere Zins dämpft private Investitionen leicht (Crowding-out), sodass der Gesamteffekt auf Y kleiner ausfällt als der reine Gütermarktmultiplikator vorhersagen würde.",
         ],
-        figure: {
-          type: "islm",
-          caption: "Gleichgewicht bei (Y*, i*): Schnittpunkt von IS- und LM-Kurve.",
-        },
       },
     ],
   },
-
-  // ==================== Kapitel 11 — Konjunktur II: Politik & AD-Kurve ====================
+  // ==================== Kapitel 11 ====================
   {
-    id: "konjunktur-ad",
+    id: "asad-phillipskurve",
     number: 11,
-    title: "Konjunktur II: Politik im IS-LM-Modell & die Gesamtnachfragekurve",
+    title: "Gesamtwirtschaftliches Angebot: AS-AD-Modell und Phillipskurve",
     free: false,
     intro:
-      "Mit IS- und LM-Kurve zusammen lässt sich analysieren, wie Fiskal- und Geldpolitik Einkommen und Zinssatz gemeinsam beeinflussen — und wie daraus die gesamtwirtschaftliche Nachfragekurve (AD) entsteht, das Bindeglied zum AS-AD-Modell in Kapitel 12.",
+      "Das IS-LM-Modell erklärt Nachfrageschwankungen bei starren Preisen. Um zu verstehen, wie sich Produktion und Preisniveau gemeinsam über Zeit anpassen, braucht es zusätzlich das AS-AD-Modell und die Phillipskurve.",
     sections: [
       {
         id: "11-1",
-        heading: "11.1 Geldpolitik im IS-LM-Modell",
+        heading: "11.1 Die aggregierte Nachfragekurve (AD)",
         body: [
-          "Eine Erhöhung der Geldmenge M verschiebt die LM-Kurve nach rechts (bei gegebenem Y ist bei niedrigerem Zins wieder Geldmarktgleichgewicht). Das senkt den Zinssatz, erhöht die Investitionen und damit das Gleichgewichtseinkommen.",
+          "Die AD-Kurve leitet sich aus dem IS-LM-Modell ab: Ein niedrigeres Preisniveau erhöht den realen Geldbestand M/P, senkt den Zins und erhöht so über die IS-Kurve die Gleichgewichtsproduktion Y — die AD-Kurve verläuft daher fallend im (Y,P)-Diagramm.",
+          "Expansive Fiskal- oder Geldpolitik verschiebt die AD-Kurve nach rechts: Bei jedem gegebenen Preisniveau ist die Nachfrage nach Gütern nun höher.",
         ],
+        figure: { type: "asad", caption: "AS-AD-Modell: kurzfristiges und langfristiges Angebot" },
         terms: [
           {
-            term: "Expansive Geldpolitik",
-            definition: "Erhöhung von M: LM verschiebt sich nach rechts, r sinkt, Y steigt (bei gegebener IS-Kurve).",
+            term: "AD-Kurve",
+            definition: "Fallende Beziehung zwischen Preisniveau und nachgefragter Produktion, abgeleitet aus dem IS-LM-Modell.",
           },
+        ],
+        examples: [
+          "Sinkt das Preisniveau bei konstanter Geldmenge, steigt der reale Geldbestand, der Zins fällt, Investitionen steigen — die nachgefragte Gütermenge nimmt zu, was der fallenden AD-Kurve entspricht.",
         ],
       },
       {
         id: "11-2",
-        heading: "11.2 Fiskalpolitik und Crowding-out",
+        heading: "11.2 Kurz- und langfristiges Angebot",
         body: [
-          "Eine Erhöhung der Staatsausgaben verschiebt die IS-Kurve nach rechts: Y steigt, aber auch r steigt (entlang der unveränderten LM-Kurve). Der Zinsanstieg dämpft private Investitionen — dieser Effekt heißt Crowding-out und schwächt die Gesamtwirkung der Fiskalexpansion ab.",
+          "Kurzfristig sind Preise/Löhne starr, sodass Unternehmen auf Nachfrageänderungen primär mit Mengenanpassung reagieren — die kurzfristige AS-Kurve ist daher relativ flach (oder bei völlig starren Preisen horizontal). Langfristig sind alle Preise flexibel, und die Produktion kehrt zu ihrem Potenzialniveau Y* zurück, unabhängig vom Preisniveau — die langfristige AS-Kurve ist vertikal bei Y*.",
+          "Ein Nachfrageschock verschiebt daher kurzfristig sowohl Y als auch P, während sich langfristig nur P anpasst und Y zu Y* zurückkehrt — ein zentrales Argument dafür, dass Geldpolitik langfristig neutral ist (sie beeinflusst nur das Preisniveau, nicht die reale Produktion).",
         ],
         terms: [
           {
-            term: "Crowding-out-Effekt",
-            definition: "Verdrängung privater Investitionen durch steigende Zinsen, ausgelöst durch expansive Fiskalpolitik.",
+            term: "Kurzfristige AS-Kurve",
+            definition: "Relativ flache Angebotskurve bei starren Preisen; Nachfrageänderungen wirken primär auf die Menge.",
+          },
+          {
+            term: "Langfristige AS-Kurve",
+            definition: "Vertikale Angebotskurve bei Y* (Potenzialoutput); Nachfrageänderungen wirken langfristig nur auf das Preisniveau.",
           },
         ],
         examples: [
-          "Eine Erhöhung der Staatsausgaben verschiebt kurzfristig die IS-Kurve nach rechts, Y steigt, r steigt. Langfristig kehren nach Preisanpassung IS und LM (real) wieder zur Ausgangslage zurück — einziger dauerhafter Effekt ist ein höheres Preisniveau (siehe Kapitel 12).",
+          "Ein positiver Nachfrageschock (z. B. höhere Staatsausgaben) erhöht kurzfristig sowohl Y über Y* als auch P leicht; langfristig steigen Löhne/Preise weiter, bis Y wieder auf Y* zurückfällt und nur P dauerhaft höher bleibt.",
         ],
       },
       {
         id: "11-3",
-        heading: "11.3 Die Liquiditätsfalle",
+        heading: "11.3 Die Phillipskurve",
         body: [
-          "Fällt der Zinssatz auf seine effektive Untergrenze von null, wird die LM-Kurve waagrecht: die Zentralbank kann den Zins nicht weiter senken, egal wie stark sie die Geldmenge erhöht. Zusätzliche Geldpolitik verpufft in dieser Situation nahezu wirkungslos auf Y.",
-          "In der Liquiditätsfalle wird Fiskalpolitik relativ wirksamer: da der Zinssatz konstant bei null bleibt, gibt es kein Crowding-out durch steigende Zinsen — der volle Multiplikatoreffekt der Staatsausgaben wirkt auf Y.",
+          "Die Phillipskurve beschreibt den kurzfristigen Zusammenhang zwischen Inflation und Arbeitslosigkeit: π = πᵉ − β(u−u*) + ν, wobei πᵉ die erwartete Inflation, u−u* die Abweichung von der natürlichen Arbeitslosenquote und ν Angebotsschocks (z. B. Ölpreise) erfasst.",
+          "Kurzfristig können Zentralbanken durch expansive Politik u unter u* drücken (auf Kosten höherer Inflation) — dieser Trade-off verschwindet jedoch langfristig, da sich Inflationserwartungen πᵉ anpassen: Die langfristige Phillipskurve ist vertikal bei u*.",
         ],
+        formulas: ["π = πᵉ − β(u−u*) + ν"],
+        formulasLatex: ["\\pi = \\pi^{e} - \\beta(u - u^{*}) + \\nu"],
+        figure: { type: "phillips-curve", caption: "Kurz- und langfristige Phillipskurve" },
         terms: [
           {
-            term: "Liquiditätsfalle (zero lower bound)",
-            definition: "Situation, in der der Nominalzins bei null liegt (oder nahe null) und die LM-Kurve horizontal verläuft — Geldpolitik verliert an Wirkung.",
+            term: "Phillipskurve",
+            definition: "Kurzfristiger negativer Zusammenhang zwischen Inflation und Abweichung der Arbeitslosigkeit vom natürlichen Niveau.",
           },
         ],
         examples: [
-          "In der Liquiditätsfalle senkt eine Geldmengenerhöhung den Zinssatz nicht weiter (er bleibt bei 0), Investitionen und damit Y bleiben unverändert. Eine Erhöhung der Staatsausgaben dagegen erhöht Y voll gemäß Multiplikator, ohne dass der Zins (und damit Crowding-out) gegensteuert — genau deshalb wird in Liquiditätsfallen (z. B. Finanzkrise 2008/09, Corona 2020) meist zur Fiskalpolitik gegriffen.",
-        ],
-      },
-      {
-        id: "11-4",
-        heading: "11.4 Von IS-LM zur AD-Kurve",
-        body: [
-          "Bisher wurde das Preisniveau P als fix angenommen. Lässt man P variieren, verschiebt eine Preisänderung die LM-Kurve: ein höheres P senkt die reale Geldmenge M/P, verschiebt LM nach links, erhöht r, senkt Y. Die AD-Kurve trägt genau diesen Zusammenhang zwischen P und Y auf und ist damit fallend.",
-          "Die AD-Kurve ist keine gewöhnliche Nachfragekurve eines Einzelmarkts (dort wirkt ein Substitutionseffekt) — ihre negative Steigung kommt aus dem Realkasseneffekt über den Geldmarkt.",
-        ],
-        terms: [
-          {
-            term: "Gesamtnachfragekurve (AD)",
-            definition: "Zeigt für jedes Preisniveau P das Einkommen Y, bei dem Güter- und Geldmarkt gleichzeitig im Gleichgewicht sind (IS = LM bei diesem P).",
-          },
-          {
-            term: "Realkasseneffekt",
-            definition: "Ein höheres Preisniveau senkt die reale Geldmenge M/P, was (via LM-Kurve) den Zins erhöht und die Nachfrage dämpft.",
-          },
-        ],
-        formulas: [
-          "AD-Kurve (parametrisiert): Y = [f·(a+c+G) − f·b·T + δ·M/P] / [f·(1−b) + δ·e]",
-        ],
-        formulasLatex: [
-          "Y = \\dfrac{f\\,(a + c + G) - f\\,b\\,T + \\delta \\dfrac{M}{P}}{f\\,(1-b) + \\delta\\, e}",
-        ],
-        examples: [
-          "Ein Anstieg der Staatsausgaben G verschiebt die AD-Kurve nach rechts (bei jedem P ist Y höher). Je größer die marginale Konsumneigung b, desto größer diese Verschiebung, weil der Fiskalmultiplikator 1/(1−b) mit b steigt.",
+          "Drückt die Zentralbank die Arbeitslosigkeit 2 Prozentpunkte unter u* (β=0,5), steigt die Inflation kurzfristig um etwa 1 Prozentpunkt über die erwartete Inflation — passen sich die Erwartungen an, verschwindet dieser Effekt und u kehrt zu u* zurück.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 12 — AS-AD & Phillipskurve ====================
+  // ==================== Kapitel 12 ====================
   {
-    id: "gesamtwirtschaftliches-angebot",
+    id: "offene-volkswirtschaften",
     number: 12,
-    title: "Gesamtwirtschaftliches Angebot: Das AS-AD-Modell & die Phillipskurve",
+    title: "Offene Volkswirtschaften: Mundell-Fleming und Wechselkurse",
     free: false,
     intro:
-      "Das AS-AD-Modell ergänzt die AD-Kurve aus Kapitel 11 um eine Angebotsseite und erklärt damit, wie sich Schocks kurzfristig auf Output UND Preise auswirken, und wie sich die Wirtschaft langfristig wieder ins Vollbeschäftigungsgleichgewicht einpendelt.",
+      "Sobald eine Volkswirtschaft mit dem Ausland Güter und Kapital austauscht, ändern sich die Wirkungen von Fiskal- und Geldpolitik grundlegend. Dieses Kapitel überträgt das IS-LM-Modell auf offene Volkswirtschaften.",
     sections: [
       {
         id: "12-1",
-        heading: "12.1 Langfristige Angebotskurve (LRAS)",
+        heading: "12.1 Wechselkurse und Kaufkraftparität",
         body: [
-          "Langfristig sind Preise voll flexibel, sodass Output allein durch Kapital, Arbeit und Technologie bestimmt wird (das 'natürliche' bzw. Potenzialoutput-Niveau aus dem Solow-Modell) — unabhängig vom Preisniveau. Die LRAS-Kurve ist deshalb eine Senkrechte bei Y = Y_natürlich.",
+          "Der nominale Wechselkurs e gibt an, wie viele Einheiten Fremdwährung eine Einheit Inlandswährung kauft; der reale Wechselkurs ε = e·P/P* berücksichtigt zusätzlich das relative Preisniveau und bestimmt die preisliche Wettbewerbsfähigkeit von Exporten.",
+          "Die Kaufkraftparitätstheorie postuliert, dass sich Wechselkurse langfristig so anpassen, dass identische Güterkörbe in unterschiedlichen Währungen gleich viel kosten. Kurzfristig weichen tatsächliche Wechselkurse aber oft erheblich von diesem Wert ab, u. a. weil viele Güter (z. B. Dienstleistungen) nicht international gehandelt werden.",
         ],
+        formulas: ["ε = e · P / P*"],
+        formulasLatex: ["\\varepsilon = e \\cdot \\dfrac{P}{P^{*}}"],
         terms: [
           {
-            term: "Natürliches Outputniveau (Potenzialoutput) Y̅",
-            definition: "Das Outputniveau, das bei voller Auslastung aller Produktionsfaktoren und flexiblen Preisen erreicht wird — bestimmt durch die reale Angebotsseite, unabhängig von P.",
+            term: "Realer Wechselkurs (ε)",
+            definition: "Nominaler Wechselkurs bereinigt um das relative Preisniveau zweier Länder; bestimmt preisliche Wettbewerbsfähigkeit.",
           },
-          {
-            term: "Langfristige Angebotskurve (LRAS)",
-            definition: "Vertikale Linie bei Y = Y̅ im (P,Y)-Diagramm — Preisänderungen haben langfristig keinen Effekt auf den Output.",
-          },
+        ],
+        examples: [
+          "Steigt das inländische Preisniveau P stärker als das ausländische P*, während der nominale Wechselkurs e konstant bleibt, steigt ε — inländische Güter werden im Vergleich zu ausländischen teurer, was Exporte tendenziell erschwert.",
         ],
       },
       {
         id: "12-2",
-        heading: "12.2 Kurzfristige Angebotskurve — drei Modelle",
+        heading: "12.2 Das Mundell-Fleming-Modell bei flexiblen Wechselkursen",
         body: [
-          "Kurzfristig ist die SRAS-Kurve positiv geneigt: ein höheres Preisniveau geht mit höherem Output einher. Drei unterschiedliche Modelle liefern dieselbe qualitative Vorhersage, aus unterschiedlichen Mikro-Gründen.",
+          "Das Mundell-Fleming-Modell erweitert IS-LM um Nettoexporte, die vom realen Wechselkurs abhängen, und um internationale Kapitalmobilität, die den Inlandszins an den Weltzins bindet. Bei perfekter Kapitalmobilität und flexiblen Wechselkursen ist Geldpolitik hochwirksam: Eine Geldmengenausweitung senkt den Zins, was Kapitalabflüsse und eine Abwertung auslöst — die Abwertung stützt zusätzlich die Nettoexporte und verstärkt den Effekt auf Y.",
+          "Fiskalpolitik ist unter denselben Annahmen dagegen weitgehend wirkungslos: Höhere Staatsausgaben würden den Inlandszins über den Weltzins treiben, was Kapitalzuflüsse und eine Aufwertung auslöst — die Aufwertung verdrängt Nettoexporte und kompensiert den ursprünglichen Nachfrageimpuls fast vollständig.",
         ],
         terms: [
           {
-            term: "Sticky-Price-Modell (Preisstarrheit)",
-            definition: "Nicht alle Unternehmen passen ihre Preise sofort an (Menükosten, Verträge). Firmen, die Preise nicht anpassen, reagieren auf gestiegene Nachfrage mit mehr Produktion statt höheren Preisen.",
-          },
-          {
-            term: "Modell unvollständiger Information",
-            definition: "Anbieter verwechseln kurzfristig eine allgemeine Preisniveausteigerung mit einer relativen Preiserhöhung für ihr eigenes Gut und weiten die Produktion aus.",
-          },
-          {
-            term: "Sticky-Wage-Modell (Lohnstarrheit)",
-            definition: "Nominallöhne sind kurzfristig fix (Verträge). Ein Anstieg des Preisniveaus senkt den Reallohn, macht Arbeit für Firmen billiger, Beschäftigung und Output steigen.",
+            term: "Mundell-Fleming-Modell",
+            definition: "Erweiterung des IS-LM-Modells um Wechselkurs und internationale Kapitalmobilität.",
           },
         ],
-        formulas: ["SRAS (allgemeine Form): Y = Y̅ + α·(P − P^e)"],
-        formulasLatex: ["Y = \\bar{Y} + \\alpha\\,(P - P^{e})"],
         examples: [
-          "In allen drei Modellen führt ein unerwarteter Anstieg von P (P > P^e) zu Y > Y̅ — nur der Mechanismus unterscheidet sich (Preise, Informationen oder Löhne, die kurzfristig nicht vollständig anpassen).",
+          "Senkt die Zentralbank den Leitzins bei flexiblem Wechselkurs und freiem Kapitalverkehr, wertet die Inlandswährung ab, was Exporte verbilligt und die Wirkung der Geldpolitik auf Y zusätzlich verstärkt.",
         ],
       },
       {
         id: "12-3",
-        heading: "12.3 Das AS-AD-Gleichgewicht und Schocks",
+        heading: "12.3 Das Trilemma der offenen Volkswirtschaft",
         body: [
-          "Der Schnittpunkt von AD und (kurzfristiger) SRAS bestimmt Output und Preisniveau kurzfristig. Nachfrageschocks (z. B. Fiskal-/Geldpolitik) verschieben AD; Angebotsschocks (z. B. Ölpreisschock) verschieben SRAS direkt.",
-          "Nach einem Nachfrageschock, der Y über Y̅ treibt, passen sich Erwartungen P^e allmählich an, SRAS verschiebt sich nach links, bis die Wirtschaft langfristig wieder bei Y̅ landet — nur bei einem dauerhaft höheren Preisniveau.",
+          "Das Trilemma besagt, dass ein Land nicht gleichzeitig freien Kapitalverkehr, einen fixen Wechselkurs und eine unabhängige Geldpolitik haben kann — höchstens zwei der drei Ziele lassen sich gleichzeitig verwirklichen. Ein Land mit fixem Wechselkurs und freiem Kapitalverkehr muss seine Geldpolitik dem Ankerland unterordnen, da sonst Zinsdifferenzen sofort massive Kapitalbewegungen und Druck auf den fixen Kurs auslösen würden.",
+          "Länder wählen daher typischerweise eine von drei Kombinationen: freier Kapitalverkehr mit flexiblem Wechselkurs und unabhängiger Geldpolitik (z. B. USA, Eurozone insgesamt), Kapitalverkehrskontrollen mit fixem Kurs und unabhängiger Geldpolitik (z. B. historisch China), oder fixer Kurs mit freiem Kapitalverkehr und aufgegebener eigener Geldpolitik (z. B. Mitgliedsstaaten der Eurozone gegenüber der EZB).",
         ],
         terms: [
           {
-            term: "Nachfrageschock",
-            definition: "Verschiebung der AD-Kurve, z. B. durch Fiskal-/Geldpolitik oder Vertrauensänderungen der Konsumenten/Investoren.",
-          },
-          {
-            term: "Angebotsschock",
-            definition: "Direkte Verschiebung der SRAS-Kurve, z. B. durch Rohstoffpreisänderungen oder Produktivitätsschocks.",
-          },
-          {
-            term: "Anpassung an den langfristigen steady state",
-            definition: "Über die Zeit passen sich Preiserwartungen an tatsächliche Preise an, SRAS verschiebt sich, bis Y wieder bei Y̅ liegt.",
+            term: "Trilemma",
+            definition: "Unmöglichkeit, gleichzeitig freien Kapitalverkehr, festen Wechselkurs und unabhängige Geldpolitik zu haben.",
           },
         ],
-        figure: {
-          type: "asad",
-          caption: "Kurzfristiges Gleichgewicht (Schnittpunkt AD/SRAS) versus langfristiges Potenzial Yp (LRAS).",
-        },
-      },
-      {
-        id: "12-4",
-        heading: "12.4 Die Phillipskurve",
-        body: [
-          "Die Phillipskurve überträgt das AS-AD-Modell in Inflations-Arbeitslosigkeits-Koordinaten: sie zeigt einen kurzfristigen Trade-off zwischen Inflation und Arbeitslosigkeit. Höhere Inflation (unerwartet) geht kurzfristig mit niedrigerer Arbeitslosigkeit einher — dieselbe Logik wie SRAS, nur umformuliert.",
-        ],
-        terms: [
-          {
-            term: "Phillipskurve (erwartungsaugmentiert)",
-            definition: "π = π^e − β·(u − u_natürlich) + ν. Inflation hängt ab von erwarteter Inflation, der Abweichung der Arbeitslosigkeit vom natürlichen Niveau und Angebotsschocks ν.",
-          },
-          {
-            term: "Natürliche Arbeitslosenquote (NAIRU)",
-            definition: "Die Arbeitslosenquote, bei der Inflation weder beschleunigt noch verlangsamt (Non-Accelerating Inflation Rate of Unemployment).",
-          },
-        ],
-        formulas: ["π = π^e − β·(u − u_natürlich) + ν"],
-        formulasLatex: ["\\pi = \\pi^{e} - \\beta\\,(u - u_{\\text{natürlich}}) + \\nu"],
-        figure: {
-          type: "phillips-curve",
-          caption: "Kurzfristiger Trade-off zwischen Inflation und Arbeitslosigkeit.",
-        },
-      },
-      {
-        id: "12-5",
-        heading: "12.5 Adaptive vs. rationale Erwartungen",
-        body: [
-          "Wie sich π^e bildet, ist entscheidend für die Politikwirkung. Adaptive Erwartungen orientieren sich an vergangener Inflation und passen sich nur graduell an — Desinflation ist dann teuer (hohe, länger anhaltende Arbeitslosigkeit). Rationale Erwartungen nutzen alle verfügbaren Informationen (inkl. angekündigter Politik) und können sich sofort anpassen — eine glaubwürdig angekündigte Desinflation könnte dann nahezu kostenlos sein.",
-        ],
-        terms: [
-          {
-            term: "Adaptive Erwartungen",
-            definition: "π^e wird aus vergangenen Inflationsraten gebildet (z. B. π^e = π_{t-1}) — passt sich nur langsam an neue Informationen an.",
-          },
-          {
-            term: "Rationale Erwartungen",
-            definition: "Akteure nutzen alle verfügbaren Informationen (auch über zukünftige Politik) optimal zur Erwartungsbildung — keine systematischen Fehler im Durchschnitt.",
-          },
-          {
-            term: "Glaubwürdigkeit der Geldpolitik",
-            definition: "Je glaubwürdiger eine angekündigte Desinflationspolitik, desto schneller passen sich (rationale) Erwartungen an und desto geringer der Produktions-/Beschäftigungsverlust.",
-          },
-        ],
-      },
-      {
-        id: "12-6",
-        heading: "12.6 Sacrifice Ratio & Hysterese",
-        body: [
-          "Die Sacrifice Ratio misst, wie viel kumulierter Output (in % des BIP) geopfert werden muss, um die Inflation dauerhaft um einen Prozentpunkt zu senken. Die Hysterese-These stellt die Existenz einer festen 'natürlichen' Arbeitslosenquote infrage: anhaltende zyklische Arbeitslosigkeit kann selbst die natürliche Rate dauerhaft erhöhen (z. B. durch Dequalifizierung Langzeitarbeitsloser).",
-        ],
-        terms: [
-          {
-            term: "Sacrifice Ratio",
-            definition: "Kumulierter prozentualer BIP-Verlust, der nötig ist, um die Inflationsrate dauerhaft um einen Prozentpunkt zu senken.",
-          },
-          {
-            term: "Hysterese",
-            definition: "These, dass die natürliche Arbeitslosenquote selbst von der Vergangenheit der tatsächlichen (zyklischen) Arbeitslosigkeit abhängt, statt fix zu sein.",
-          },
-        ],
-        formulas: ["Sacrifice Ratio = kumulierter BIP-Verlust (% vom BIP) / Δπ (Prozentpunkte)"],
-        formulasLatex: ["\\text{Sacrifice Ratio} = \\dfrac{\\text{kumulierter BIP-Verlust (\\%)}}{\\Delta \\pi \\ (\\text{Prozentpunkte})}"],
         examples: [
-          "Eine Zentralbank senkt die Inflation von 8% auf 3% (Δπ=5 Prozentpunkte) durch eine Rezession, die über mehrere Jahre kumuliert 10% des BIP kostet. Sacrifice Ratio = 10/5 = 2 — pro Prozentpunkt dauerhafter Inflationssenkung gehen 2% des jährlichen BIP verloren.",
+          "Ein Land mit fixem Wechselkurs zum Dollar und offenen Kapitalmärkten kann seinen Leitzins nicht unabhängig vom US-Zins festlegen, ohne massive spekulative Kapitalbewegungen gegen die eigene Währung zu riskieren.",
         ],
       },
     ],
   },
-
-  // ==================== Kapitel 13 — Offene VWL I: Mundell-Fleming ====================
+  // ==================== Kapitel 13 (Exkurs) ====================
   {
-    id: "offene-vwl-mundell-fleming",
+    id: "exkurs-zoelle-handelspolitik",
     number: 13,
-    title: "Offene Volkswirtschaften I: Das Mundell-Fleming-Modell",
+    title: "Exkurs: Zölle und Handelspolitik",
     free: false,
     intro:
-      "Das Mundell-Fleming-Modell überträgt die IS-LM-Logik auf eine kleine offene Volkswirtschaft mit freiem Kapitalverkehr. Es erklärt, wie Geld- und Fiskalpolitik unter flexiblen bzw. festen Wechselkursen unterschiedlich wirken.",
+      "Handelspolitik ist eines der politisch umstrittensten Felder der Makroökonomik. Dieser Exkurs ordnet Zölle und andere Handelshemmnisse in die ökonomische Wohlfahrtsanalyse ein.",
     sections: [
       {
         id: "13-1",
-        heading: "13.1 Annahmen: kleine offene Volkswirtschaft",
+        heading: "13.1 Wohlfahrtswirkung von Zöllen",
         body: [
-          "Mundell-Fleming betrachtet eine 'kleine offene Volkswirtschaft' mit perfekter Kapitalmobilität: Kapital fließt so lange, bis der inländische Zinssatz exakt dem (exogen gegebenen) Weltzinssatz entspricht. Das Land selbst ist zu klein, um den Weltzins zu beeinflussen.",
+          "Ein Importzoll erhöht den Inlandspreis eines importierten Guts über den Weltmarktpreis. Inländische Produzenten gewinnen (höherer Preis, höhere Menge), inländische Konsumenten verlieren (höherer Preis, geringere Menge), und der Staat erzielt Zolleinnahmen. Die Summe dieser Effekte ist jedoch negativ: Es entsteht ein Wohlfahrtsverlust (Deadweight Loss), da der Konsumentenverlust den Produzentengewinn plus die Zolleinnahmen übersteigt.",
+          "Dieser Wohlfahrtsverlust entsteht durch zwei Verzerrungen: Inländische Produzenten produzieren mehr, als sie zu Weltmarktpreisen effizient könnten (Produktionsineffizienz), und Konsumenten konsumieren weniger, als sie zu Weltmarktpreisen tun würden (Konsumineffizienz).",
         ],
         terms: [
           {
-            term: "Perfekte Kapitalmobilität",
-            definition: "Kapital kann verzögerungsfrei und ohne Beschränkung zwischen Ländern fließen und erzwingt r = r* (Weltzinssatz).",
+            term: "Deadweight Loss (Zoll)",
+            definition: "Gesamtwohlfahrtsverlust eines Zolls: Konsumentenverlust übersteigt Produzentengewinn plus Zolleinnahmen.",
           },
-          {
-            term: "Zinsparitätsbedingung r = r*",
-            definition: "Der inländische Zinssatz muss dem Weltzinssatz entsprechen — sonst würden sofort Kapitalströme einsetzen, die dies wiederherstellen.",
-          },
+        ],
+        examples: [
+          "Erhebt ein Land einen Zoll auf importierten Stahl, steigt der Inlandspreis für Stahl. Inländische Stahlproduzenten profitieren, aber stahlverarbeitende Industrien und Endverbraucher zahlen mehr — in Summe überwiegt der volkswirtschaftliche Schaden den Nutzen für die geschützte Branche.",
         ],
       },
       {
         id: "13-2",
-        heading: "13.2 IS*- und LM*-Kurve",
+        heading: "13.2 Argumente für und gegen Protektionismus",
         body: [
-          "Die IS*-Kurve unterscheidet sich von der geschlossenen IS-Kurve dadurch, dass Nettoexporte vom realen Wechselkurs ε abhängen (ein höheres ε — reale Aufwertung — macht Exporte teurer/Importe billiger und senkt NX). Die LM*-Kurve ist identisch zur geschlossenen LM-Kurve, bestimmt aber wegen r = r* direkt das Gleichgewichtseinkommen.",
+          "Befürworter von Zöllen führen u. a. den Schutz strategisch wichtiger Industrien (nationale Sicherheit), den Schutz junger, noch nicht wettbewerbsfähiger Branchen (Infant-Industry-Argument) oder den Ausgleich unfairer Handelspraktiken anderer Länder an. Kritiker verweisen auf die klar negative Nettowohlfahrtswirkung, das Risiko von Vergeltungszöllen anderer Länder, und darauf, dass Zollkosten überproportional einkommensschwache Haushalte treffen, die einen größeren Anteil ihres Einkommens für handelbare Güter ausgeben.",
+          "Die ökonomische Mehrheitsmeinung sieht offenen Handel langfristig als wohlfahrtssteigernd an, erkennt aber gleichzeitig an, dass die Verteilungswirkungen (Gewinner in exportorientierten, Verlierer in importkonkurrierenden Branchen) politisch und sozial adressiert werden müssen, etwa durch Umschulungsprogramme oder gezielte Transfers.",
         ],
         terms: [
           {
-            term: "Realer Wechselkurs ε",
-            definition: "ε = e·P/P* — Verhältnis der Preisniveaus, umgerechnet über den nominalen Wechselkurs e. Bestimmt die preisliche Wettbewerbsfähigkeit im Außenhandel.",
-          },
-          {
-            term: "IS*-Kurve",
-            definition: "Y = C(Y−T) + I(r*) + G + NX(ε). Bei gegebenem r = r* bestimmt ε das Gleichgewichtseinkommen.",
-          },
-          {
-            term: "LM*-Kurve",
-            definition: "M/P = L(r*, Y) — bestimmt bei r = r* das Gleichgewichtseinkommen Y unabhängig von ε.",
-          },
-        ],
-        formulas: ["IS*: Y = C(Y−T) + I(r*) + G + NX(ε)", "LM*: M/P = L(r*, Y)"],
-        formulasLatex: [
-          "Y = C(Y-T) + I(r^{*}) + G + NX(\\varepsilon)",
-          "\\dfrac{M}{P} = L(r^{*}, Y)",
-        ],
-      },
-      {
-        id: "13-3",
-        heading: "13.3 Politik bei flexiblen Wechselkursen",
-        body: [
-          "Bei flexiblen (freien) Wechselkursen bestimmt sich ε so, dass die IS*-Kurve durch das von der LM*-Kurve vorgegebene Y verläuft. Geldpolitik ist hier voll wirksam, Fiskalpolitik dagegen wirkungslos auf Y.",
-          "Eine Geldmengenerhöhung verschiebt LM* nach rechts, Y steigt, was tendenziell den Zins senken würde — Kapital fließt ab, die Währung wertet ab (ε sinkt), NX steigt, was IS* nach rechts verschiebt, bis wieder r=r* bei höherem Y gilt. Eine Fiskalexpansion dagegen verschiebt nur IS* nach rechts, was die Währung aufwerten lässt (ε steigt) und NX so stark senkt, dass der Expansionseffekt komplett neutralisiert wird (Y bleibt unverändert, nur die Zusammensetzung verschiebt sich von NX zu G).",
-        ],
-        terms: [
-          {
-            term: "Flexibler Wechselkurs",
-            definition: "Der Wechselkurs passt sich frei an, um Zahlungsbilanzgleichgewicht (bzw. r=r*) herzustellen — keine Zentralbankintervention am Devisenmarkt.",
+            term: "Infant-Industry-Argument",
+            definition: "Argument für temporären Schutz junger, noch nicht wettbewerbsfähiger Industrien vor internationaler Konkurrenz.",
           },
         ],
         examples: [
-          "Unter flexiblen Wechselkursen erhöht eine Geldmengenexpansion Y (voll wirksam über Abwertung + höhere NX), während eine Erhöhung der Staatsausgaben Y unverändert lässt, weil die resultierende Aufwertung NX exakt um den fiskalischen Impuls verdrängt (100 % Crowding-out über den Außenhandel statt über Zinsen).",
-        ],
-      },
-      {
-        id: "13-4",
-        heading: "13.4 Politik bei festen Wechselkursen",
-        body: [
-          "Bei einem festen Wechselkurs verpflichtet sich die Zentralbank, e (und damit ε) konstant zu halten, indem sie am Devisenmarkt interveniert. Das bindet die Geldpolitik vollständig an die Wechselkursverteidigung — sie kann nicht mehr unabhängig eingesetzt werden.",
-          "Fiskalpolitik wird unter festen Wechselkursen dagegen voll wirksam: eine Fiskalexpansion würde (wie oben) tendenziell die Währung aufwerten lassen; um das zu verhindern, muss die Zentralbank Geld verkaufen/kaufen und dadurch die Geldmenge anpassen, was LM* mitverschiebt und den vollen Multiplikatoreffekt auf Y zulässt.",
-        ],
-        terms: [
-          {
-            term: "Fester Wechselkurs",
-            definition: "Die Zentralbank verpflichtet sich, den nominalen Wechselkurs e konstant zu halten, indem sie bei Bedarf am Devisenmarkt interveniert.",
-          },
-          {
-            term: "Devisenmarktintervention",
-            definition: "Käufe/Verkäufe von Fremdwährung durch die Zentralbank, um den Wechselkurs auf dem Zielniveau zu halten — verändert dabei automatisch die inländische Geldmenge.",
-          },
-        ],
-        examples: [
-          "Unter festen Wechselkursen ist Geldpolitik nutzlos (jede autonome Geldmengenänderung würde den Wechselkurs bewegen und muss durch Gegeninterventionen sofort rückgängig gemacht werden), Fiskalpolitik dagegen voll wirksam — exakt umgekehrt zum Fall flexibler Wechselkurse.",
-        ],
-      },
-    ],
-  },
-
-  // ==================== Kapitel 14 — Exkurs: Zölle ====================
-  {
-    id: "exkurs-zoelle",
-    number: 14,
-    title: "Exkurs: Zölle und Handelspolitik",
-    free: false,
-    intro:
-      "Zölle sind 2025 wieder zu einem zentralen wirtschaftspolitischen Thema geworden ('Liberation Day'-Zölle der USA). Direkt im Anschluss an Mundell-Fleming verbindet dieser Exkurs die mikroökonomische Zollanalyse mit ihren makroökonomischen Konsequenzen über Wechselkurse und Nettoexporte.",
-    sections: [
-      {
-        id: "14-1",
-        heading: "14.1 Wirkungsweise von Zöllen",
-        body: [
-          "Ein Zoll ist eine Steuer auf importierte Güter. Er erhöht den Inlandspreis des importierten Guts, senkt die importierte Menge, erhöht die heimische Produktion des konkurrierenden Guts und generiert Staatseinnahmen — verursacht aber einen gesamtwirtschaftlichen Wohlfahrtsverlust (deadweight loss), da er Konsum- und Produktionsentscheidungen verzerrt.",
-        ],
-        terms: [
-          {
-            term: "Zoll (tariff)",
-            definition: "Eine Steuer auf importierte Güter, die den Inlandspreis über den Weltmarktpreis anhebt.",
-          },
-          {
-            term: "Wohlfahrtsverlust durch Zölle (deadweight loss)",
-            definition: "Der Nettoverlust an gesamtwirtschaftlicher Wohlfahrt (Konsumenten- + Produzentenrente + Staatseinnahmen), verursacht durch die Verzerrung von Konsum- und Produktionsentscheidungen.",
-          },
-        ],
-        formulas: [
-          "Zolleinnahmen = t · Importe(Pw+t)",
-          "DWL = 0,5·t·(Qd(Pw)−Qd(Pw+t)) + 0,5·t·(Qs(Pw+t)−Qs(Pw))",
-        ],
-        formulasLatex: [
-          "\\text{Zolleinnahmen} = t \\cdot \\text{Importe}(P_w+t)",
-          "DWL = 0{,}5\\,t\\,\\big(Q_d(P_w)-Q_d(P_w+t)\\big) + 0{,}5\\,t\\,\\big(Q_s(P_w+t)-Q_s(P_w)\\big)",
-        ],
-        examples: [
-          "Kleines Land, Weltmarktpreis Pw=10, D(p)=100−2p, S(p)=2p. Bei Freihandel: Qd=80, Qs=20, Importe=60. Ein Zoll t=5 hebt den Inlandspreis auf 15: Qd=70, Qs=30, Importe=40. Zolleinnahmen = 5·40=200. DWL = 0,5·5·(80−70) + 0,5·5·(30−20) = 25+25 = 50.",
-        ],
-      },
-      {
-        id: "14-2",
-        heading: "14.2 Makroökonomische Effekte über Mundell-Fleming",
-        body: [
-          "Im Mundell-Fleming-Modell wirkt ein Zoll wie eine direkte Verbesserung der Nettoexporte NX bei jedem Wechselkurs, verschiebt also die IS*-Kurve nach rechts. Unter flexiblen Wechselkursen führt das zu einer Aufwertung der heimischen Währung, die NX wieder zurückdrängt — Y bleibt am Ende unverändert, nur die Zusammensetzung der Nachfrage verschiebt sich (weniger Importe, aber auch weniger preislich wettbewerbsfähige Exporte durch die Aufwertung).",
-          "Das erklärt, warum unilaterale Zölle unter flexiblen Wechselkursen die Gesamtbeschäftigung typischerweise weniger beeinflussen, als naive Handelsbilanz-Überlegungen vermuten lassen — der Wechselkurs kompensiert einen Großteil des Effekts.",
-        ],
-        terms: [
-          {
-            term: "Zölle als NX-Schock im IS*-LM*-Modell",
-            definition: "Ein Zoll verschiebt (bei gegebenem ε) die IS*-Kurve nach rechts, analog zu einer Fiskalexpansion — mit denselben Aufwertungs- und Crowding-out-Mechanismen aus Kapitel 13.",
-          },
-          {
-            term: "Vergeltungszölle (retaliation)",
-            definition: "Gegenzölle betroffener Handelspartner, die den ursprünglichen NX-Effekt teilweise oder vollständig neutralisieren und zusätzlich Wohlfahrtsverluste auf beiden Seiten erzeugen.",
-          },
-        ],
-        examples: [
-          "Die 2025 von den USA verhängten breiten Importzölle ('Liberation Day') sollten laut Ankündigung die Handelsbilanz verbessern. Die Mundell-Fleming-Logik sagt jedoch voraus, dass ein Großteil des NX-Effekts durch eine Dollaraufwertung sowie Vergeltungszölle der Handelspartner kompensiert wird — die beobachtete Handelsbilanzverbesserung fiel entsprechend kleiner aus als die reine Zollhöhe vermuten ließe.",
-        ],
-      },
-    ],
-  },
-
-  // ==================== Kapitel 15 — Offene VWL II ====================
-  {
-    id: "offene-vwl-wechselkurse",
-    number: 15,
-    title: "Offene Volkswirtschaften II: Wechselkursregime & das Trilemma",
-    free: false,
-    intro:
-      "Zum Abschluss vertieft dieses Kapitel Wechselkursregime, Kaufkraftparität und das zentrale 'unmögliche Dreieck' der internationalen Makroökonomie.",
-    sections: [
-      {
-        id: "15-1",
-        heading: "15.1 Nominaler vs. realer Wechselkurs",
-        body: [
-          "Der nominale Wechselkurs e gibt an, wie viel Einheiten Fremdwährung man für eine Einheit Inlandswährung bekommt (oder umgekehrt, je nach Konvention). Der reale Wechselkurs ε korrigiert zusätzlich um die relativen Preisniveaus und bestimmt damit die tatsächliche preisliche Wettbewerbsfähigkeit.",
-        ],
-        terms: [
-          {
-            term: "Nominaler Wechselkurs e",
-            definition: "Der Preis einer Währung ausgedrückt in einer anderen Währung.",
-          },
-          {
-            term: "Realer Wechselkurs ε = e·P/P*",
-            definition: "Berücksichtigt zusätzlich die Preisniveaus im In- und Ausland — bestimmt, wie teuer heimische Güter relativ zu ausländischen sind.",
-          },
-        ],
-        formulas: ["ε = e · P / P*"],
-        formulasLatex: ["\\varepsilon = e\\cdot\\dfrac{P}{P^{*}}"],
-        examples: [
-          "Nominaler Wechselkurs e=1,1 (1,1 US-Dollar pro Euro), inländisches Preisniveau P=105, ausländisches P*=100. Realer Wechselkurs ε = 1,1·(105/100) = 1,155 — inländische Güter sind real teurer geworden als vor der Preisniveau-Differenz, was die preisliche Wettbewerbsfähigkeit des Inlands verschlechtert (reale Aufwertung).",
-        ],
-      },
-      {
-        id: "15-2",
-        heading: "15.2 Kaufkraftparität (PPP)",
-        body: [
-          "Die Kaufkraftparitätentheorie besagt, dass identische Güterkörbe in verschiedenen Ländern (nach Umrechnung mit dem Wechselkurs) langfristig denselben Preis haben sollten — sonst gäbe es risikolose Arbitragemöglichkeiten. In der Praxis gilt PPP höchstens langfristig und nur näherungsweise, da viele Güter (Dienstleistungen, Immobilien) nicht handelbar sind.",
-        ],
-        terms: [
-          {
-            term: "Kaufkraftparität (PPP)",
-            definition: "Theorie, wonach der Wechselkurs sich so anpasst, dass eine Einheit Währung überall dieselbe Kaufkraft hat: e = P*/P.",
-          },
-          {
-            term: "Gesetz des einheitlichen Preises",
-            definition: "Ein identisches Gut sollte überall (in gemeinsamer Währung gemessen) denselben Preis haben — die Grundlage der PPP-Theorie.",
-          },
-        ],
-        formulas: ["PPP: e = P*/P"],
-        formulasLatex: ["e = \\dfrac{P^{*}}{P}"],
-      },
-      {
-        id: "15-3",
-        heading: "15.3 Das Trilemma der internationalen Makroökonomie",
-        body: [
-          "Ein Land kann von drei wünschenswerten Zielen — fester Wechselkurs, freier Kapitalverkehr, unabhängige Geldpolitik — immer nur zwei gleichzeitig verfolgen, niemals alle drei. Dieses 'unmögliche Dreieck' fasst die Erkenntnisse aus Mundell-Fleming zusammen.",
-        ],
-        terms: [
-          {
-            term: "Trilemma (unmögliches Dreieck)",
-            definition: "Fester Wechselkurs + freier Kapitalverkehr + unabhängige Geldpolitik können nicht gleichzeitig bestehen — man muss auf eines der drei verzichten.",
-          },
-        ],
-        examples: [
-          "Die Eurozone wählt festen (internen) Wechselkurs + freien Kapitalverkehr, verzichtet dafür auf nationale Geldpolitik (gemeinsame EZB). Die USA wählen freien Kapitalverkehr + unabhängige Geldpolitik, verzichten auf einen festen Wechselkurs (flexibler Dollar). China (historisch) wählte festen Wechselkurs + unabhängige Geldpolitik, verzichtete dafür auf freien Kapitalverkehr (Kapitalverkehrskontrollen).",
-        ],
-      },
-      {
-        id: "15-4",
-        heading: "15.4 Für und wider fester Wechselkurse",
-        body: [
-          "Feste Wechselkurse reduzieren Unsicherheit im Außenhandel und disziplinieren die Geldpolitik (Import von Preisstabilität eines Ankerlandes), kosten aber die Möglichkeit, mit eigener Geldpolitik auf asymmetrische Schocks zu reagieren.",
-        ],
-        terms: [
-          {
-            term: "Währungsanker",
-            definition: "Bindung der eigenen Währung an eine stabile Fremdwährung, um von deren Preisstabilität/Glaubwürdigkeit zu profitieren.",
-          },
-          {
-            term: "Asymmetrischer Schock",
-            definition: "Eine wirtschaftliche Störung, die nur ein Land (oder eine Region einer Währungsunion) betrifft — unter festem Wechselkurs/gemeinsamer Währung fehlt das Instrument eigener Geldpolitik zur Reaktion.",
-          },
+          "Ein Land führt zeitlich befristete Schutzzölle für seine junge Solarindustrie ein, mit dem Ziel, dieser Zeit zu geben, Skaleneffekte zu erreichen, bevor sie dem vollen internationalen Wettbewerb ausgesetzt wird.",
         ],
       },
     ],

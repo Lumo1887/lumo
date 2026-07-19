@@ -102,6 +102,20 @@ sagen muss:
    noch gefunden wurden (siehe oben) — die Regeln allein reichen nicht, wenn
    man sie nicht aktiv gegen die Quelle verifiziert.
 
+5. **Skript-Text als eigenständiges Lehrwerk verfassen, nicht als Paraphrase
+   der Quelle.** Der Fließtext im Skript (`body`, `intro`, `terms`,
+   `examples`) wird geschrieben wie ein unabhängiges Lehrbuchkapitel zum
+   allgemeinen Modulthema — aus eigenem Fachwissen heraus, OHNE die
+   Original-Vorlesungsfolien/-skripte aus `source-material/<slug>/` während
+   des Schreibens zu konsultieren oder zu paraphrasieren. Die Quelle wird
+   nur für die THEMENAUSWAHL verwendet (welche Kapitel/Konzepte gehören zum
+   Modul), nicht für Formulierungen, Erklärstruktur oder Beispiele. Eigene
+   Beispiele, eigene Herleitungen, eigene Formulierungen — je unabhängiger
+   die Textsubstanz vom Original, desto geringer das rechtliche Risiko.
+   Diese Regel gilt zusätzlich zu Regeln 1–4 (die primär die Fragenbank und
+   Formelabdeckung betreffen) und genauso verbindlich ab der ersten Sitzung
+   eines neuen Moduls, ohne dass der Nutzer sie erneut nennen muss.
+
 Diese Regeln gelten rückwirkend bereits für Statistik I und VWL 2 (Regeln 1+2,
 beide wurden entsprechend umgebaut) sowie für Statistik I (Regel 3, wurde
 nachträglich um fehlende Formeln wie den Gini-Koeffizienten bei maximaler
@@ -113,6 +127,11 @@ Ein vollständiges Copyright-Audit aller 8 Module (Juli 2026) hat zusätzlich
 2× Statistik 1) — durchweg Fälle von reinem Wortaustausch bei identischer
 Struktur bzw. übernommenen Fallbeispiel-Titeln, siehe die neuen Absätze in
 Regel 2 und den neuen Selbstcheck in Regel 4.
+
+Im Anschluss an diesen Audit wurden zudem (Juli 2026) die Skript-Texte aller
+8 Module komplett als eigenständige Lehrwerke neu verfasst (Regel 5), um das
+rechtliche Risiko weiter zu reduzieren — die Fragenbänke (`lib/questions-*.ts`)
+blieben dabei unverändert.
 
 ## Sonstiges
 
