@@ -154,6 +154,39 @@ const styles = StyleSheet.create({
     lineHeight: 1.4,
     color: "#292524",
   },
+  tableCaption: {
+    fontSize: 9,
+    color: "#57534e",
+    marginBottom: 3,
+  },
+  table: {
+    borderWidth: 1,
+    borderColor: "#ddd6fe",
+    marginVertical: 6,
+  },
+  tableRow: {
+    flexDirection: "row",
+  },
+  tableHeaderCell: {
+    flex: 1,
+    backgroundColor: "#f5f3ff",
+    borderBottomWidth: 1,
+    borderRightWidth: 1,
+    borderColor: "#ddd6fe",
+    padding: 6,
+    fontFamily: "Helvetica-Bold",
+    fontSize: 9.5,
+    color: "#5b21b6",
+  },
+  tableCell: {
+    flex: 1,
+    borderBottomWidth: 1,
+    borderRightWidth: 1,
+    borderColor: "#ddd6fe",
+    padding: 6,
+    fontSize: 9.5,
+    color: "#1e1b2e",
+  },
   coverBrandRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -334,6 +367,31 @@ export default function SkriptPdfDocument({
               ))}
               {section.figure && (
                 <PdfFigure type={section.figure.type} caption={section.figure.caption} />
+              )}
+              {section.table && (
+                <View wrap={false}>
+                  {section.table.caption && (
+                    <Text style={styles.tableCaption}>{section.table.caption}</Text>
+                  )}
+                  <View style={styles.table}>
+                    <View style={styles.tableRow}>
+                      {section.table.headers.map((h, i) => (
+                        <Text key={i} style={styles.tableHeaderCell}>
+                          {h}
+                        </Text>
+                      ))}
+                    </View>
+                    {section.table.rows.map((row, i) => (
+                      <View key={i} style={styles.tableRow}>
+                        {row.map((cell, j) => (
+                          <Text key={j} style={styles.tableCell}>
+                            {cell}
+                          </Text>
+                        ))}
+                      </View>
+                    ))}
+                  </View>
+                </View>
               )}
               {section.formulas?.map((f, i) => {
                 const key = `${chapter.id}__${section.id}__${i}`;

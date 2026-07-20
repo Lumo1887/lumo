@@ -83,17 +83,30 @@ export const chapters: SkriptChapter[] = [
         id: "1-4",
         heading: "1.4 Kombinatorik: Anordnen und Auswählen",
         body: [
-          "Kombinatorische Zählformeln helfen, |Ω| bzw. |A| zu bestimmen, ohne alle Möglichkeiten einzeln aufzuschreiben. Sollen n unterscheidbare Objekte vollständig angeordnet werden, gibt es dafür n! (n Fakultät) Reihenfolgen. Sollen dagegen nur k von n unterscheidbaren Objekten in einer bestimmten Reihenfolge ausgewählt werden (eine Variation ohne Wiederholung), gibt es dafür n! / (n−k)! Möglichkeiten.",
+          "Kombinatorische Zählformeln helfen, |Ω| bzw. |A| zu bestimmen, ohne alle Möglichkeiten einzeln aufzuschreiben. Sollen n unterscheidbare Objekte vollständig angeordnet werden, gibt es dafür n! (n Fakultät) Reihenfolgen. Sollen dagegen nur k von n unterscheidbaren Objekten in einer bestimmten Reihenfolge ausgewählt werden (eine Variation ohne Wiederholung — jedes Objekt darf höchstens einmal vorkommen), gibt es dafür n! / (n−k)! Möglichkeiten.",
           "Kommt es auf die Reihenfolge der k ausgewählten Objekte dagegen nicht an (eine Kombination ohne Wiederholung), muss man durch die Anzahl der Anordnungen der ausgewählten k Objekte teilen: C(n,k) = n! / (k! · (n−k)!) — der Binomialkoeffizient. Er beantwortet z. B. die Frage, auf wie viele Arten man k Personen aus einer Gruppe von n Personen für ein Team auswählen kann.",
+          "Darf dasselbe Objekt dagegen mehrfach ausgewählt werden (Ziehen MIT Zurücklegen), kommt eine zweite Unterscheidung hinzu. Zählt die Reihenfolge weiterhin (Variation mit Wiederholung), gibt es für jede der k Positionen unabhängig voneinander n Möglichkeiten, also n^k insgesamt. Zählt die Reihenfolge dagegen nicht (Kombination mit Wiederholung), ist die Herleitung weniger offensichtlich: Man kann sich die Auswahl als Verteilen von k identischen Kugeln auf n Fächer vorstellen, was auf C(n+k−1,k) = (n+k−1)! / (k!·(n−1)!) Möglichkeiten führt. Damit ergeben sich vier Fälle, je nachdem ob die Reihenfolge zählt und ob Wiederholung erlaubt ist.",
         ],
         formulas: [
           "Variation ohne Wiederholung: n! / (n − k)!",
           "Kombination ohne Wiederholung: C(n,k) = n! / (k! · (n−k)!)",
+          "Variation mit Wiederholung: n^k",
+          "Kombination mit Wiederholung: C(n+k−1,k) = (n+k−1)! / (k! · (n−1)!)",
         ],
         formulasLatex: [
           "\\dfrac{n!}{(n-k)!}",
           "C(n,k) = \\dfrac{n!}{k!\\,(n-k)!}",
+          "n^k",
+          "C(n+k-1,k) = \\dfrac{(n+k-1)!}{k!\\,(n-1)!}",
         ],
+        table: {
+          caption: "Übersicht: Auswahl von k aus n Objekten",
+          headers: ["", "ohne Wiederholung", "mit Wiederholung"],
+          rows: [
+            ["Variation (Reihenfolge zählt)", "n! / (n−k)!", "n^k"],
+            ["Kombination (Reihenfolge egal)", "C(n,k) = n! / (k!·(n−k)!)", "C(n+k−1,k) = (n+k−1)! / (k!·(n−1)!)"],
+          ],
+        },
         terms: [
           {
             term: "Fakultät (n!)",
@@ -103,9 +116,14 @@ export const chapters: SkriptChapter[] = [
             term: "Binomialkoeffizient C(n,k)",
             definition: "Anzahl der Möglichkeiten, k von n unterscheidbaren Objekten ohne Berücksichtigung der Reihenfolge auszuwählen.",
           },
+          {
+            term: "Ziehen mit/ohne Zurücklegen",
+            definition: "Bei 'mit Zurücklegen' (Wiederholung erlaubt) kann dasselbe Objekt mehrfach gewählt werden, bei 'ohne Zurücklegen' höchstens einmal.",
+          },
         ],
         examples: [
           "Ein Vereinsvorstand mit 12 Mitgliedern wählt ein Gremium aus 4 Personen ohne feste Rollenverteilung: C(12,4) = 12! / (4!·8!) = 495 Möglichkeiten. Sollten die 4 Positionen dagegen unterschiedliche Rollen (Vorsitz, Kasse, Schriftführung, Beisitz) sein, wären es 12!/8! = 11.880 Variationen.",
+          "Ein 4-stelliger PIN-Code aus den Ziffern 0–9 (Wiederholung erlaubt, Reihenfolge zählt) ist eine Variation mit Wiederholung: 10^4 = 10.000 mögliche Codes. Wählt man dagegen 3 Kugeln Eis aus 5 Sorten, wobei jede Sorte mehrfach gewählt werden darf und nur die Zusammenstellung (nicht die Reihenfolge auf der Waffel) zählt, ist das eine Kombination mit Wiederholung: C(5+3−1,3) = C(7,3) = 7!/(3!·4!) = 35 mögliche Zusammenstellungen.",
         ],
       },
       {

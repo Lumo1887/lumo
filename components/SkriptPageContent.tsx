@@ -55,6 +55,29 @@ function SectionContent({
       {section.figure && (
         <SkriptFigure type={section.figure.type} caption={section.figure.caption} />
       )}
+      {section.table && (
+        <div className="skript-table-wrap">
+          <table className="skript-table">
+            {section.table.caption && <caption>{section.table.caption}</caption>}
+            <thead>
+              <tr>
+                {section.table.headers.map((h, i) => (
+                  <th key={i}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {section.table.rows.map((row, i) => (
+                <tr key={i}>
+                  {row.map((cell, j) => (
+                    <td key={j}>{cell}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
       {section.formulas && section.formulas.length > 0 && (
         <div className="skript-formula mb-4 space-y-1">
           {section.formulas.map((f, i) => (

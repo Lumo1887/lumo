@@ -17,6 +17,10 @@ export interface SkriptSection {
   // Kurze Begriffs-/Definitions-Kästen, die einzeln als optisch abgesetzte
   // Blöcke dargestellt werden (statt im Fließtext zu verschwinden).
   terms?: { term: string; definition: string }[];
+  // Optionale Vergleichstabelle (z. B. für Formel-Übersichten wie "mit/ohne
+  // Wiederholung"), die als echte Tabelle gerendert wird (Online-Skript via
+  // HTML <table>, PDF-Export via react-pdf-Grid) statt als Fließtext.
+  table?: { caption?: string; headers: string[]; rows: string[][] };
 }
 
 export interface SkriptChapter {

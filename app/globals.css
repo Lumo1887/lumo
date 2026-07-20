@@ -107,6 +107,40 @@ body {
   font-family: var(--font-serif);
 }
 
+.skript-table-wrap {
+  @apply my-5 overflow-x-auto rounded-lg border border-brand-100 shadow-sm;
+}
+
+.skript-table {
+  @apply w-full border-collapse text-[14px];
+}
+
+.skript-table caption {
+  @apply px-4 py-2 text-left text-[13px] text-ink-600;
+  caption-side: top;
+}
+
+.skript-table th,
+.skript-table td {
+  @apply border border-brand-100 px-4 py-2 text-left align-top;
+}
+
+.skript-table th {
+  @apply bg-brand-50 font-semibold text-brand-800;
+  font-family: var(--font-hand);
+}
+
+.skript-table td {
+  @apply bg-white text-ink-800;
+  font-family: "Georgia", serif;
+}
+
+.skript-table td:first-child,
+.skript-table th:first-child {
+  @apply font-semibold text-ink-900;
+  font-family: var(--font-serif);
+}
+
 .hand-label {
   font-family: var(--font-hand);
 }
