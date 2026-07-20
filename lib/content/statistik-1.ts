@@ -348,7 +348,36 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "2-8",
-        heading: "2.8 Bedingter Erwartungswert und bedingte Varianz",
+        heading: "2.8 Kovarianz und Linearkombinationen von Zufallsvariablen",
+        body: [
+          "Betrachtet man zwei Zufallsvariablen X und Y gemeinsam, misst die Kovarianz Cov(X,Y) = E(XY) − E(X)·E(Y), ob und wie stark die beiden gemeinsam über oder unter ihrem jeweiligen Erwartungswert liegen. Eine positive Kovarianz bedeutet, dass überdurchschnittliche Werte von X tendenziell mit überdurchschnittlichen Werten von Y einhergehen; bei negativer Kovarianz ist es umgekehrt. Sind X und Y unabhängig, folgt stets Cov(X,Y) = 0 (die Umkehrung gilt im Allgemeinen nicht: Cov(X,Y)=0 bedeutet nur Unkorreliertheit, nicht zwingend Unabhängigkeit).",
+          "Die Kovarianz wird gebraucht, sobald man die Varianz einer Linearkombination mehrerer Zufallsvariablen bestimmen will: Var(aX + bY) = a²·Var(X) + b²·Var(Y) + 2ab·Cov(X,Y). Im Sonderfall unabhängiger (oder auch nur unkorrelierter) Zufallsvariablen entfällt der Kovarianzterm, und es bleibt Var(aX + bY) = a²·Var(X) + b²·Var(Y) — insbesondere gilt dann für die einfache Summe Var(X+Y) = Var(X) + Var(Y).",
+        ],
+        formulas: [
+          "Cov(X,Y) = E(XY) − E(X)·E(Y)",
+          "Var(aX + bY) = a²·Var(X) + b²·Var(Y) + 2ab·Cov(X,Y)",
+        ],
+        formulasLatex: [
+          "\\text{Cov}(X,Y) = E(XY) - E(X)\\cdot E(Y)",
+          "\\text{Var}(aX+bY) = a^2\\text{Var}(X) + b^2\\text{Var}(Y) + 2ab\\,\\text{Cov}(X,Y)",
+        ],
+        terms: [
+          {
+            term: "Kovarianz Cov(X,Y)",
+            definition: "Maß für den linearen Zusammenhang zweier Zufallsvariablen; Cov(X,Y) = E(XY) − E(X)E(Y).",
+          },
+          {
+            term: "Unkorreliertheit",
+            definition: "X und Y heißen unkorreliert, wenn Cov(X,Y) = 0. Unabhängigkeit impliziert Unkorreliertheit, aber nicht umgekehrt.",
+          },
+        ],
+        examples: [
+          "Ein Handelsunternehmen erzielt wöchentlich einen Umsatz X im Onlineshop mit E(X)=12 (Tsd. €) und Var(X)=9 sowie einen Umsatz Y im stationären Ladengeschäft mit E(Y)=18 und Var(Y)=16; aus den Verkaufsdaten ergibt sich außerdem E(XY)=222. Damit ist Cov(X,Y) = 222 − 12·18 = 222 − 216 = 6 — die Umsätze beider Kanäle schwanken leicht gleichgerichtet, z. B. durch gemeinsame saisonale Effekte. Für den Gesamtumsatz T = X+Y folgt Var(T) = 9 + 16 + 2·6 = 37; für die Differenz D = X−Y (z. B. zur Beobachtung einer Verschiebung zwischen den Kanälen) dagegen Var(D) = 9 + 16 − 2·6 = 13 — die positive Kovarianz verstärkt die Streuung der Summe und dämpft die Streuung der Differenz.",
+        ],
+      },
+      {
+        id: "2-9",
+        heading: "2.9 Bedingter Erwartungswert und bedingte Varianz",
         body: [
           "Bei zwei gemeinsam betrachteten Zufallsvariablen X und Y interessiert häufig nicht nur der unbedingte Erwartungswert von Y, sondern wie er sich verändert, wenn man bereits weiß, dass X einen bestimmten Wert x angenommen hat. Für diskrete Zufallsvariablen wird dazu zunächst die bedingte Wahrscheinlichkeitsfunktion f(y|x) = f(x,y) / f_X(x) gebildet — dieselbe Logik wie bei der bedingten Wahrscheinlichkeit aus Kapitel 1.5, nur auf Zufallsvariablen übertragen. Der bedingte Erwartungswert E(Y|X=x) = Σy y · f(y|x) ist dann der Erwartungswert von Y, berechnet ausschließlich mit dieser bedingten Verteilung.",
           "Bei stetigen Zufallsvariablen tritt an die Stelle der bedingten Wahrscheinlichkeitsfunktion die bedingte Dichte f(y|x) = f(x,y) / f_X(x) (mit der gemeinsamen Dichte f(x,y) und der Randdichte f_X(x) von X), und der bedingte Erwartungswert wird als Integral gebildet: E(Y|X=x) = ∫ y · f(y|x) dy. In beiden Fällen ist E(Y|X=x) im Allgemeinen eine Funktion von x — für jeden Wert von X kann sich der bedingte Erwartungswert von Y ändern, was genau die Abhängigkeit zwischen X und Y widerspiegelt.",
@@ -497,14 +526,19 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Bei der stetigen Gleichverteilung auf einem Intervall [a,b] ist die Dichte über das gesamte Intervall konstant, f(x) = 1/(b−a); jeder gleich lange Teilabschnitt des Intervalls ist gleich wahrscheinlich. Es gilt E(X) = (a+b)/2 und Var(X) = (b−a)²/12.",
           "Die Exponentialverteilung modelliert Wartezeiten zwischen zufälligen Ereignissen bei konstanter Rate λ (verwandt mit der Poisson-Verteilung: Wenn Ereignisse Poisson-verteilt mit Rate λ auftreten, ist die Zeit bis zum nächsten Ereignis exponentialverteilt). Ihre Dichte lautet f(x) = λ·e^(−λx) für x ≥ 0, mit E(X) = 1/λ und Var(X) = 1/λ².",
+          "Eine bemerkenswerte Eigenschaft der Exponentialverteilung ist die Gedächtnislosigkeit: Hat man bereits s Zeiteinheiten ohne Ereignis gewartet, ist die Wahrscheinlichkeit, danach noch mindestens t weitere Zeiteinheiten warten zu müssen, genauso groß wie die ursprüngliche Wahrscheinlichkeit, überhaupt mindestens t Zeiteinheiten zu warten — die bereits verstrichene Wartezeit 'zählt nicht'. Formal gilt P(X > s+t | X > s) = P(X > t). Eine zweite nützliche Eigenschaft betrifft zwei unabhängige exponentialverteilte Zufallsvariablen X ~ Exp(λ1) und Y ~ Exp(λ2): Das Minimum min(X,Y) ist wieder exponentialverteilt, und zwar mit der Summenrate λ1+λ2 — anschaulich tritt das erste von zwei unabhängigen Ereignissen mit der Summe der Einzelraten auf.",
         ],
         formulas: [
           "Gleichverteilung: E(X) = (a+b)/2, Var(X) = (b−a)²/12",
           "Exponentialverteilung: E(X) = 1/λ, Var(X) = 1/λ²",
+          "Gedächtnislosigkeit: P(X > s+t | X > s) = P(X > t)",
+          "Minimum unabhängiger Exponentialverteilungen: min(X,Y) ~ Exp(λ1 + λ2)",
         ],
         formulasLatex: [
           "E(X) = \\dfrac{a+b}{2}, \\quad \\text{Var}(X) = \\dfrac{(b-a)^2}{12}",
           "E(X) = \\dfrac{1}{\\lambda}, \\quad \\text{Var}(X) = \\dfrac{1}{\\lambda^2}",
+          "P(X > s+t \\mid X > s) = P(X > t)",
+          "\\min(X,Y) \\sim \\text{Exp}(\\lambda_1 + \\lambda_2)",
         ],
         terms: [
           {
@@ -515,9 +549,14 @@ export const chapters: SkriptChapter[] = [
             term: "Exponentialverteilung",
             definition: "Verteilung der Wartezeit bis zum nächsten Ereignis bei konstanter Ereignisrate λ.",
           },
+          {
+            term: "Gedächtnislosigkeit",
+            definition: "Eigenschaft der Exponentialverteilung, wonach eine bereits verstrichene Wartezeit die Verteilung der restlichen Wartezeit nicht beeinflusst.",
+          },
         ],
         examples: [
           "Kommen an einem Bankschalter im Schnitt λ = 4 Kund:innen pro Stunde an, beträgt die erwartete Wartezeit bis zur nächsten Ankunft E(X) = 1/4 Stunde = 15 Minuten.",
+          "An einer Ladesäule für E-Autos trifft im Schnitt alle 10 Minuten ein Fahrzeug ein, die Wartezeit X bis zur nächsten Ankunft ist exponentialverteilt mit λ = 0,1 pro Minute. Wartet man bereits 5 Minuten, ohne dass ein Auto angekommen ist, ändert die Gedächtnislosigkeit nichts an der Prognose für die Restwartezeit: Die Wahrscheinlichkeit, ab jetzt noch mindestens 10 weitere Minuten zu warten, beträgt P(X>10) = e^(−0,1·10) = e^(−1) ≈ 0,368 — exakt so hoch, wie am Anfang (ohne jede Vorwartezeit) mindestens 10 Minuten warten zu müssen. — In einem Rechenzentrum fallen zwei unabhängige Server nach exponentialverteilten Zeiten mit Raten λ1 = 1/500 und λ2 = 1/800 (jeweils pro Stunde) aus. Die Zeit bis zum ersten der beiden Ausfälle ist exponentialverteilt mit Rate λ1+λ2 = 1/500 + 1/800 = 0,00325, also mit Erwartungswert 1/0,00325 ≈ 307,7 Stunden.",
         ],
       },
       {
@@ -526,9 +565,16 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Die Normalverteilung N(μ,σ²) ist die bekannteste stetige Verteilung: eine symmetrische, glockenförmige Dichte um den Erwartungswert μ mit Streuung σ. Ihre Dichtefunktion lautet f(x) = 1/(σ√(2π)) · e^(−(x−μ)²/(2σ²)). Viele natürliche Messgrößen (Körpergröße, Messfehler, Summen vieler unabhängiger Einflüsse) sind näherungsweise normalverteilt — ein Grund dafür liefert der zentrale Grenzwertsatz in 3.7.",
           "Zur Berechnung von Wahrscheinlichkeiten wird jede Normalverteilung auf die Standardnormalverteilung Z ~ N(0,1) zurückgeführt, indem man standardisiert: Z = (X − μ)/σ. Für Z liegen tabellierte Werte der Verteilungsfunktion Φ(z) vor. Als Faustregel gilt: Etwa 68% aller Werte liegen innerhalb einer Standardabweichung um μ, etwa 95% innerhalb von zwei und etwa 99,7% innerhalb von drei Standardabweichungen.",
+          "Eine wichtige Eigenschaft der Normalverteilung: Jede Linearkombination unabhängiger normalverteilter Zufallsvariablen ist wieder normalverteilt. Sind X ~ N(μX,σX²) und Y ~ N(μY,σY²) unabhängig, gilt für a,b ∈ ℝ stets aX + bY ~ N(a·μX + b·μY, a²·σX² + b²·σY²) — insbesondere ist damit auch die Summe X+Y wieder normalverteilt, mit Erwartungswert μX+μY und (wegen Unabhängigkeit, also Cov(X,Y)=0 nach 2.8) Varianz σX²+σY².",
         ],
-        formulas: ["Z = (X − μ) / σ  (Standardisierung)"],
-        formulasLatex: ["Z = \\dfrac{X-\\mu}{\\sigma}"],
+        formulas: [
+          "Z = (X − μ) / σ  (Standardisierung)",
+          "Für unabhängige X~N(μX,σX²), Y~N(μY,σY²): aX+bY ~ N(a·μX+b·μY, a²·σX²+b²·σY²)",
+        ],
+        formulasLatex: [
+          "Z = \\dfrac{X-\\mu}{\\sigma}",
+          "aX+bY \\sim N\\!\\left(a\\mu_X + b\\mu_Y,\\ a^2\\sigma_X^2 + b^2\\sigma_Y^2\\right)",
+        ],
         figure: {
           type: "normal-curve",
           caption: "Abb. 3.2 — Normalverteilung: symmetrische Glockenkurve um den Erwartungswert μ, Breite bestimmt durch σ.",
@@ -545,6 +591,7 @@ export const chapters: SkriptChapter[] = [
         ],
         examples: [
           "Füllmengen einer Abfüllanlage sind N(500, 16) verteilt (μ=500 ml, σ=4 ml). Die Wahrscheinlichkeit für eine Füllmenge unter 492 ml entspricht Z = (492−500)/4 = −2, also P(X<492) = Φ(−2) ≈ 0,0228 — etwa 2,3%.",
+          "Zwei Gepäckstücke werden unabhängig voneinander gewogen: Koffer 1 hat Gewicht X ~ N(18, 4) kg, Koffer 2 hat Gewicht Y ~ N(22, 9) kg. Das Gesamtgewicht T = X+Y ist damit normalverteilt mit E(T) = 18+22 = 40 kg und Var(T) = 4+9 = 13, also σT = √13 ≈ 3,61 kg. Erlaubt die Fluggesellschaft maximal 42 kg Gesamtgewicht, ergibt sich Z = (42−40)/3,61 ≈ 0,55 und damit P(T>42) = 1−Φ(0,55) ≈ 1−0,711 = 0,289 — mit knapp 29% Wahrscheinlichkeit wird das Gesamtlimit überschritten.",
         ],
       },
       {
