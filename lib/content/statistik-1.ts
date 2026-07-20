@@ -963,6 +963,41 @@ export const chapters: SkriptChapter[] = [
           "Für die fünf Restaurant-Ränge aus Beispiel 4.12 (X=(1,2,3,4,5), Y=(2,1,3,5,4)) liefert cor(X, Y, method=\"spearman\") in R denselben Wert 0,8, den man auch von Hand über die d²-Formel erhält — R nutzt intern jedoch die exakte Pearson-Formel auf den Rängen, was insbesondere bei Bindungen zuverlässiger ist als die vereinfachte Handrechnung.",
         ],
       },
+      {
+        id: "4-15",
+        heading: "4.15 Lage- und Streuungsmaße bei klassierten Daten",
+        body: [
+          "Liegen die Daten nicht als Liste einzelner Werte, sondern nur noch als Häufigkeitstabelle mit Klassen vor (siehe 4.2) — etwa weil bereits klassiert erhoben oder veröffentlicht wurde —, sind die exakten Einzelwerte xi nicht mehr bekannt. Als Notlösung ersetzt man jede Beobachtung einer Klasse durch die Klassenmitte mi = (au+ao)/2 (au, ao: untere und obere Klassengrenze) und rechnet so, als läge jede der ni Beobachtungen der Klasse exakt bei mi. Das ist eine Näherung: Innerhalb einer Klasse können die tatsächlichen Werte durchaus ungleichmäßig verteilt sein, sodass das Ergebnis vom wahren Wert (den man mit den Originaldaten erhielte) leicht abweicht — die Näherung wird umso genauer, je schmaler die Klassen sind.",
+          "Mittelwert und Varianz aus 4.4 und 4.6 übertragen sich direkt, indem xi durch die Klassenmitte mi und die einzelne Beobachtung durch die Klassenhäufigkeit ni ersetzt wird. Für den Median reicht die Klassenmitte allein nicht aus, weil er von der Position innerhalb der Klasse abhängt: Stattdessen wird linear interpoliert, unter der Annahme, dass sich die ni Beobachtungen der Medianklasse gleichmäßig über deren Breite bm verteilen.",
+        ],
+        formulas: [
+          "x̄ ≈ (1/n) · Σ ni · mi",
+          "s² ≈ (1/(n−1)) · Σ ni · (mi − x̄)²",
+          "Median ≈ au + [(n/2 − F(au)) / nm] · bm",
+        ],
+        formulasLatex: [
+          "\\bar{x} \\approx \\dfrac{1}{n}\\sum_{i=1}^k n_i \\cdot m_i",
+          "s^2 \\approx \\dfrac{1}{n-1}\\sum_{i=1}^k n_i \\cdot (m_i - \\bar{x})^2",
+          "\\text{Median} \\approx a_u + \\dfrac{\\frac{n}{2} - F(a_u)}{n_m}\\cdot b_m",
+        ],
+        terms: [
+          {
+            term: "Klassenmitte mi",
+            definition: "Mittelpunkt einer Klasse, (untere Grenze + obere Grenze)/2; Näherungswert für alle Beobachtungen dieser Klasse.",
+          },
+          {
+            term: "Klassierter Mittelwert / klassierte Varianz",
+            definition: "Näherungsweise Berechnung von x̄ bzw. s² aus einer Häufigkeitstabelle, indem jede Beobachtung durch die Klassenmitte ihrer Klasse ersetzt wird.",
+          },
+          {
+            term: "Interpolierter Median",
+            definition: "Näherungswert für den Median aus klassierten Daten: au ist die untere Grenze der Medianklasse (der Klasse, in der die kumulierte Häufigkeit erstmals n/2 erreicht), F(au) die kumulierte absolute Häufigkeit bis au, nm die absolute Häufigkeit und bm die Breite der Medianklasse.",
+          },
+        ],
+        examples: [
+          "Eine Support-Hotline erfasst die Bearbeitungszeit von 40 Anrufen nur noch klassiert: [0,5) Minuten: 8 Anrufe, [5,10): 15, [10,15): 12, [15,20): 5. Klassenmitten: 2,5 / 7,5 / 12,5 / 17,5. Mittelwert: x̄ ≈ (8·2,5+15·7,5+12·12,5+5·17,5)/40 = 370/40 = 9,25 Minuten. Varianz: s² ≈ [8·(2,5−9,25)²+15·(7,5−9,25)²+12·(12,5−9,25)²+5·(17,5−9,25)²]/39 = 877,5/39 ≈ 22,5, also s ≈ 4,74 Minuten. Median: Die kumulierten Häufigkeiten sind 8, 23, 35, 40 — bei n/2=20 liegt die Medianklasse bei [5,10) (au=5, F(au)=8, nm=15, bm=5). Median ≈ 5 + [(20−8)/15]·5 = 5+4 = 9 Minuten, nahe am Mittelwert.",
+        ],
+      },
     ],
   },
 ];
