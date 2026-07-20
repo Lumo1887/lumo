@@ -328,6 +328,40 @@ export const chapters: SkriptChapter[] = [
           "Vermögensverteilungen sind typischerweise rechtsschief: Die meisten Personen liegen im unteren bis mittleren Bereich, wenige extrem hohe Vermögen ziehen den Mittelwert nach rechts und erzeugen einen langen rechten Ausläufer.",
         ],
       },
+      {
+        id: "2-8",
+        heading: "2.8 Bedingter Erwartungswert und bedingte Varianz",
+        body: [
+          "Bei zwei gemeinsam betrachteten Zufallsvariablen X und Y interessiert häufig nicht nur der unbedingte Erwartungswert von Y, sondern wie er sich verändert, wenn man bereits weiß, dass X einen bestimmten Wert x angenommen hat. Für diskrete Zufallsvariablen wird dazu zunächst die bedingte Wahrscheinlichkeitsfunktion f(y|x) = f(x,y) / f_X(x) gebildet — dieselbe Logik wie bei der bedingten Wahrscheinlichkeit aus Kapitel 1.5, nur auf Zufallsvariablen übertragen. Der bedingte Erwartungswert E(Y|X=x) = Σy y · f(y|x) ist dann der Erwartungswert von Y, berechnet ausschließlich mit dieser bedingten Verteilung.",
+          "Bei stetigen Zufallsvariablen tritt an die Stelle der bedingten Wahrscheinlichkeitsfunktion die bedingte Dichte f(y|x) = f(x,y) / f_X(x) (mit der gemeinsamen Dichte f(x,y) und der Randdichte f_X(x) von X), und der bedingte Erwartungswert wird als Integral gebildet: E(Y|X=x) = ∫ y · f(y|x) dy. In beiden Fällen ist E(Y|X=x) im Allgemeinen eine Funktion von x — für jeden Wert von X kann sich der bedingte Erwartungswert von Y ändern, was genau die Abhängigkeit zwischen X und Y widerspiegelt.",
+          "Analog misst die bedingte Varianz Var(Y|X=x) = E[(Y − E(Y|X=x))² | X=x] die Streuung von Y, wenn X=x bereits bekannt ist — also die 'Restunsicherheit', die auch nach Kenntnis von X noch in Y verbleibt. Ein nützlicher Zusammenhang ist die Varianzzerlegung E[Var(Y|X)] + Var[E(Y|X)] = Var(Y): Die Gesamtvarianz von Y setzt sich additiv aus der im Mittel verbleibenden bedingten Varianz und der Varianz der bedingten Erwartungswerte zusammen. Je stärker X und Y zusammenhängen, desto größer ist der zweite Term (die 'durch X erklärte' Streuung) und desto kleiner im Verhältnis der erste.",
+        ],
+        formulas: [
+          "E(Y|X=x) = Σy y · f(y|x)  (diskret), E(Y|X=x) = ∫ y · f(y|x) dy  (stetig)",
+          "Var(Y|X=x) = E(Y²|X=x) − [E(Y|X=x)]²",
+        ],
+        formulasLatex: [
+          "E(Y\\mid X=x) = \\sum_y y\\,f(y\\mid x) \\quad(\\text{diskret}), \\qquad E(Y\\mid X=x) = \\int y\\,f(y\\mid x)\\,dy \\quad(\\text{stetig})",
+          "\\text{Var}(Y\\mid X=x) = E(Y^2\\mid X=x) - [E(Y\\mid X=x)]^2",
+        ],
+        terms: [
+          {
+            term: "Bedingte Wahrscheinlichkeitsfunktion/-dichte f(y|x)",
+            definition: "Verteilung von Y, gegeben dass X den Wert x angenommen hat; f(y|x) = f(x,y)/f_X(x).",
+          },
+          {
+            term: "Bedingter Erwartungswert E(Y|X=x)",
+            definition: "Erwartungswert von Y unter der gemeinsam mit X gebildeten bedingten Verteilung f(y|x); im Allgemeinen eine Funktion von x.",
+          },
+          {
+            term: "Varianzzerlegung",
+            definition: "Var(Y) = E[Var(Y|X)] + Var[E(Y|X)] — Gesamtvarianz als Summe aus verbleibender bedingter Varianz und Varianz der bedingten Erwartungswerte.",
+          },
+        ],
+        examples: [
+          "Ein Versandhändler erfasst für jede Bestellung die Anzahl X der bestellten Artikel (1 oder 2) und den Bearbeitungsfehler Y (0 = kein Fehler, 1 = Fehler). Bedingt auf X=1 gilt f(Y=1|X=1)=0,02, bedingt auf X=2 gilt f(Y=1|X=2)=0,07 (Mehrartikelbestellungen sind fehleranfälliger). Damit ist E(Y|X=1) = 0,02 und E(Y|X=2) = 0,07: Der bedingte Erwartungswert der Fehlerquote hängt sichtbar von X ab, was zeigt, dass X und Y nicht unabhängig sind.",
+        ],
+      },
     ],
   },
   // ==================== Kapitel 3 ====================
@@ -531,6 +565,36 @@ export const chapters: SkriptChapter[] = [
         ],
         examples: [
           "Eine Chi-Quadrat-Verteilung mit k=10 Freiheitsgraden hat Erwartungswert 10 und Varianz 20 — je mehr Freiheitsgrade, desto symmetrischer und breiter wird die Verteilung.",
+        ],
+      },
+      {
+        id: "3-9",
+        heading: "3.9 Approximationen zwischen Verteilungen und die Stetigkeitskorrektur",
+        body: [
+          "Mehrere der in diesem Kapitel behandelten Verteilungen lassen sich unter bestimmten Bedingungen durch eine andere, rechnerisch einfachere Verteilung annähern. Diese Approximationen sind praktisch wertvoll, weil z. B. Binomialwahrscheinlichkeiten mit sehr großem n kaum noch von Hand berechenbar sind, während die Normal- oder Poisson-Näherung mit tabellierten Werten schnell auszuwerten ist. Vier Approximationen sind besonders gebräuchlich: Binomial → Normal (für großes n und moderates p, Faustregel np(1−p) ≥ 9), Binomial → Poisson (für großes n und kleines p bei konstantem λ=np, Faustregel n ≥ 50 und p ≤ 0,05), Hypergeometrisch → Binomial (wenn die Grundgesamtheit N sehr groß im Vergleich zum Stichprobenumfang n ist, Faustregel n/N ≤ 0,05) und Poisson → Normal (für großes λ, Faustregel λ ≥ 9).",
+          "Diese Faustregeln sind keine scharfen mathematischen Grenzen, sondern Erfahrungswerte, ab denen der Approximationsfehler in der Praxis vernachlässigbar klein wird — je weiter man sie überschreitet, desto besser die Näherung. Wichtig ist außerdem die Blickrichtung: Die Hypergeometrisch-zu-Binomial-Näherung ersetzt ein Ziehen ohne Zurücklegen durch ein (rechnerisch einfacheres) Ziehen mit Zurücklegen, was gerechtfertigt ist, wenn das Entnehmen einzelner Elemente die Zusammensetzung der Grundgesamtheit kaum verändert.",
+          "Wird eine diskrete Verteilung (z. B. Binomial oder Poisson) durch eine stetige Normalverteilung angenähert, entsteht ein systematischer Fehler, weil eine stetige Verteilung jedem einzelnen Punkt die Wahrscheinlichkeit 0 zuordnet, während bei einer diskreten Verteilung P(X=k) durchaus positiv ist. Die Stetigkeitskorrektur behebt dieses Problem, indem sie jeden diskreten Wert k durch das Intervall [k−0,5; k+0,5] ersetzt, bevor die Normalapproximation angewendet wird: P(X ≤ k) ≈ Φ[(k+0,5−μ)/σ] und P(X ≥ k) ≈ 1 − Φ[(k−0,5−μ)/σ]. Für P(X=k) ergibt sich entsprechend P(X=k) ≈ Φ[(k+0,5−μ)/σ] − Φ[(k−0,5−μ)/σ].",
+        ],
+        formulas: [
+          "P(X ≤ k) ≈ Φ[(k+0,5−μ)/σ]  (Stetigkeitskorrektur, obere Grenze)",
+          "P(X ≥ k) ≈ 1 − Φ[(k−0,5−μ)/σ]  (Stetigkeitskorrektur, untere Grenze)",
+        ],
+        formulasLatex: [
+          "P(X\\le k) \\approx \\Phi\\!\\left(\\dfrac{k+0{,}5-\\mu}{\\sigma}\\right)",
+          "P(X\\ge k) \\approx 1-\\Phi\\!\\left(\\dfrac{k-0{,}5-\\mu}{\\sigma}\\right)",
+        ],
+        terms: [
+          {
+            term: "Stetigkeitskorrektur",
+            definition: "Korrektur um ±0,5, die beim Approximieren einer diskreten durch eine stetige Verteilung angewendet wird, um den Sprungcharakter der diskreten Verteilung auszugleichen.",
+          },
+          {
+            term: "5%-Regel (hypergeometrisch → binomial)",
+            definition: "Faustregel n/N ≤ 0,05: Ist der Stichprobenumfang klein gegenüber der Grundgesamtheit, darf ohne Zurücklegen näherungsweise wie mit Zurücklegen gerechnet werden.",
+          },
+        ],
+        examples: [
+          "Für X ~ B(200; 0,4) gilt μ = np = 80 und σ = √(np(1−p)) = √48 ≈ 6,93 (np(1−p)=48 ≥ 9, Normalapproximation gerechtfertigt). Gesucht ist P(X ≤ 75). Mit Stetigkeitskorrektur: P(X≤75) ≈ Φ[(75,5−80)/6,93] = Φ(−0,649) ≈ 0,258. Ohne Korrektur (nur Φ[(75−80)/6,93]=Φ(−0,721)≈0,235) wäre das Ergebnis spürbar ungenauer.",
         ],
       },
     ],
@@ -774,6 +838,129 @@ export const chapters: SkriptChapter[] = [
         ],
         examples: [
           "Für Werbeausgaben (X) und Umsatz (Y) mehrerer Filialen ergibt sich Cov(X,Y) = 850, sx = 20, sy = 60. Der Korrelationskoeffizient beträgt r = 850/(20·60) ≈ 0,71 — ein deutlicher, aber nicht perfekter positiver linearer Zusammenhang zwischen Werbeausgaben und Umsatz.",
+        ],
+      },
+      {
+        id: "4-11",
+        heading: "4.11 Spezielle Mittelwerte: gewichtetes arithmetisches und harmonisches Mittel",
+        body: [
+          "Nicht jede Beobachtung soll bei der Mittelwertbildung immer gleich stark zählen. Das gewichtete arithmetische Mittel x̄_w = (Σ wi·xi) / (Σ wi) berücksichtigt, dass einzelne Werte xi unterschiedliches Gewicht wi haben — etwa wenn sich eine Durchschnittsnote aus Teilnoten mit unterschiedlicher Punktzahl zusammensetzt, oder ein Preisindex aus mehreren Gütergruppen mit unterschiedlichem Budgetanteil gebildet wird. Das gewöhnliche (ungewichtete) arithmetische Mittel aus 4.4 ist der Spezialfall, in dem alle Gewichte gleich groß sind.",
+          "Das harmonische Mittel H = n / Σ(1/xi) (bzw. gewichtet: H_w = (Σ wi) / (Σ wi/xi)) ist dagegen das passende Lagemaß, wenn die Werte xi selbst Verhältniszahlen (Quotienten) sind und die zugehörigen BEZUGSGRÖSSEN im Zähler konstant gehalten werden sollen. Die Faustregel lautet: Ist bei mehreren Teilstrecken/-perioden die Größe im NENNER der Verhältniszahl (z. B. die Zeit bei km/h) konstant, verwendet man das arithmetische Mittel; ist dagegen die Größe im ZÄHLER konstant (z. B. die Strecke bei km/h), ist das harmonische Mittel das korrekte Maß.",
+          "Klassisches Beispiel: Fährt ein Fahrzeug zwei gleich lange Streckenabschnitte mit unterschiedlicher Geschwindigkeit, ist die tatsächliche Durchschnittsgeschwindigkeit über die GESAMTSTRECKE das harmonische Mittel der beiden Einzelgeschwindigkeiten — nicht das arithmetische Mittel, das die kürzere (schnellere) Fahrzeit implizit überbewerten würde. Fährt das Fahrzeug dagegen zwei gleich LANGE ZEITSPANNEN mit unterschiedlicher Geschwindigkeit, ist das arithmetische Mittel korrekt. Dasselbe Prinzip gilt bei der Aggregation von Preisindizes: Werden Preisrelationen mit konstanten (fixierten) Mengen des Basisjahres gewichtet, führt dies auf ein gewichtetes arithmetisches Mittel (Laspeyres-Typ); werden sie dagegen mit den Mengen der Berichtsperiode gewichtet, führt dies auf ein gewichtetes harmonisches Mittel (Paasche-Typ).",
+        ],
+        formulas: [
+          "x̄_w = (Σ wi·xi) / (Σ wi)  (gewichtetes arithmetisches Mittel)",
+          "H = n / Σ(1/xi)  (harmonisches Mittel, ungewichtet)",
+        ],
+        formulasLatex: [
+          "\\bar{x}_w = \\dfrac{\\sum_i w_i x_i}{\\sum_i w_i}",
+          "H = \\dfrac{n}{\\sum_i \\frac{1}{x_i}}",
+        ],
+        terms: [
+          {
+            term: "Gewichtetes arithmetisches Mittel",
+            definition: "Arithmetisches Mittel, bei dem jeder Wert mit einem individuellen Gewicht wi in die Summe eingeht.",
+          },
+          {
+            term: "Harmonisches Mittel",
+            definition: "Mittelwert, der bei Verhältniszahlen mit konstantem Zähler (z. B. gleicher Strecke bei unterschiedlichen Geschwindigkeiten) das korrekte Aggregat liefert.",
+          },
+        ],
+        examples: [
+          "Ein Lkw fährt eine 240 km lange Strecke: die erste Hälfte (120 km) mit 60 km/h, die zweite Hälfte (120 km) mit 120 km/h. Da beide Teilstrecken (der Zähler der Verhältniszahl km/h) gleich lang sind, ist das harmonische Mittel korrekt: H = 2/(1/60+1/120) = 2/(0,0167+0,0083) = 2/0,025 = 80 km/h — nicht das arithmetische Mittel von 90 km/h, das die tatsächliche Gesamtfahrzeit (2h + 1h = 3h für 240 km, also faktisch 80 km/h) falsch wiedergeben würde.",
+        ],
+      },
+      {
+        id: "4-12",
+        heading: "4.12 Rangkorrelation: Spearman und Kendall",
+        body: [
+          "Der Pearson-Korrelationskoeffizient aus 4.10 setzt metrisch skalierte Daten und einen (näherungsweise) linearen Zusammenhang voraus. Für ordinalskalierte Merkmale (z. B. Kundenzufriedenheit auf einer Rangskala) oder bei monotonen, aber nicht-linearen Zusammenhängen sind Rangkorrelationskoeffizienten die geeignetere Wahl, weil sie nur auf den RÄNGEN der Beobachtungen beruhen, nicht auf den exakten metrischen Abständen.",
+          "Der Spearmansche Rangkorrelationskoeffizient rs ersetzt zunächst jede Beobachtung von X und Y durch ihren Rang (1 = kleinster Wert) und berechnet dann formal den Pearson-Korrelationskoeffizienten dieser Ränge. Gibt es keine Bindungen (keine zwei gleichen Werte innerhalb eines Merkmals), vereinfacht sich die Formel zu rs = 1 − [6·Σdi²] / [n(n²−1)], wobei di = Rang(xi) − Rang(yi) die Rangdifferenz jeder Beobachtung ist. Treten Bindungen auf (mehrere gleiche Werte), erhalten alle gebundenen Beobachtungen den Durchschnittsrang (Durchschnitt der Ränge, die sie ohne Bindung belegt hätten) — die vereinfachte d²-Formel ist dann nur noch näherungsweise korrekt, und man sollte rs stattdessen exakt als Pearson-Korrelation der (mit Durchschnittsrängen versehenen) Ränge berechnen.",
+          "Der Kendallsche Rangkorrelationskoeffizient τ verfolgt einen anderen Ansatz: Er betrachtet alle n(n−1)/2 möglichen Beobachtungspaare und zählt, wie viele davon konkordant sind (beide Merkmale ändern sich in dieselbe Richtung: xi<xj UND yi<yj, oder xi>xj UND yi>yj) und wie viele diskordant (die Merkmale ändern sich gegenläufig). Für Daten ohne Bindungen gilt τ = (Anzahl konkordanter Paare − Anzahl diskordanter Paare) / [n(n−1)/2]. Beide Koeffizienten liegen zwischen −1 und +1 und sind bei perfekter monotoner Übereinstimmung (nicht notwendig Linearität) gleich ±1 — τ ist dabei typischerweise betragsmäßig kleiner als rs bei denselben Daten, beide Maße sind aber als Konzept nicht direkt numerisch vergleichbar.",
+        ],
+        formulas: [
+          "rs = 1 − [6·Σ di²] / [n(n²−1)]  (Spearman, ohne Bindungen)",
+          "τ = (Konkordant − Diskordant) / [n(n−1)/2]  (Kendall, ohne Bindungen)",
+        ],
+        formulasLatex: [
+          "r_s = 1 - \\dfrac{6\\sum_i d_i^2}{n(n^2-1)}",
+          "\\tau = \\dfrac{(\\text{Anzahl konkordant}) - (\\text{Anzahl diskordant})}{n(n-1)/2}",
+        ],
+        terms: [
+          {
+            term: "Rang",
+            definition: "Position eines Werts in der der Größe nach sortierten Reihe der Beobachtungen eines Merkmals.",
+          },
+          {
+            term: "Durchschnittsrang",
+            definition: "Rang, den gebundene (gleiche) Beobachtungswerte gemeinsam erhalten: das arithmetische Mittel der Ränge, die sie ohne Bindung belegt hätten.",
+          },
+          {
+            term: "Konkordantes/diskordantes Paar",
+            definition: "Ein Beobachtungspaar ist konkordant, wenn beide Merkmale in dieselbe Richtung geordnet sind, und diskordant, wenn sie gegenläufig geordnet sind.",
+          },
+        ],
+        examples: [
+          "Fünf Restaurants werden nach Sauberkeit (X) und Kundenzufriedenheit (Y) jeweils in Ränge 1–5 gebracht: X-Ränge (1,2,3,4,5), Y-Ränge (2,1,3,5,4). Rangdifferenzen d=(−1,1,0,−1,1), d²=(1,1,0,1,1), Σd²=4. rs = 1 − [6·4]/[5·24] = 1 − 24/120 = 0,8 — ein starker, aber nicht perfekter monotoner Zusammenhang. Für dieselben Daten: von den 10 möglichen Paaren sind 8 konkordant und 2 diskordant, also τ = (8−2)/10 = 0,6.",
+        ],
+      },
+      {
+        id: "4-13",
+        heading: "4.13 Kontingenzanalyse: quadratische Kontingenz und Kontingenzkoeffizienten",
+        body: [
+          "Für zwei nominalskalierte Merkmale mit einer Kontingenztabelle (Kreuztabelle) der beobachteten Häufigkeiten nij lässt sich prüfen, wie stark sie voneinander abweichen von dem, was bei völliger Unabhängigkeit zu erwarten wäre. Die erwarteten (unter Unabhängigkeit theoretischen) Häufigkeiten ergeben sich als eij = (ni.·n.j)/n, wobei ni. die Zeilensumme, n.j die Spaltensumme und n die Gesamtzahl der Beobachtungen ist — dieselbe Logik wie beim Additionssatz für unabhängige Ereignisse (P(A∩B)=P(A)·P(B)) auf Häufigkeiten übertragen.",
+          "Die quadratische Kontingenz K² = Σi Σj (nij − eij)² / eij summiert die quadrierten, an der jeweiligen Erwartungshäufigkeit relativierten Abweichungen über alle Zellen der Tabelle. Je größer K², desto stärker weichen die beobachteten von den bei Unabhängigkeit erwarteten Häufigkeiten ab — K² ist rein deskriptiv als Zusammenhangsmaß gedacht (dieselbe Rechengröße wird in der schließenden Statistik auch als Prüfgröße des Chi-Quadrat-Unabhängigkeitstests verwendet).",
+          "Da K² unbeschränkt wächst (mit n und der Tabellengröße), ist sie als reines Zusammenhangsmaß schlecht interpretierbar. Der Kontingenzkoeffizient nach Pearson normiert sie auf einen Bereich zwischen 0 und (knapp unter) 1: C = √[K² / (K² + n)]. Allerdings erreicht C selbst bei perfektem Zusammenhang nie exakt 1, sondern einen von der Tabellengröße abhängigen Maximalwert C_max = √[(m−1)/m], wobei m = min(Zeilenzahl, Spaltenzahl). Der korrigierte Kontingenzkoeffizient behebt dies durch Division durch diesen Maximalwert: C_korr = C / √[(m−1)/m], sodass C_korr für jede Tabellengröße zwischen 0 und 1 liegt und Tabellen unterschiedlicher Dimension fair vergleichbar macht.",
+        ],
+        formulas: [
+          "K² = Σi Σj (nij − eij)² / eij, mit eij = (ni.·n.j)/n",
+          "C = √[K²/(K²+n)], C_korr = C / √[(m−1)/m]",
+        ],
+        formulasLatex: [
+          "K^2 = \\sum_i \\sum_j \\dfrac{(n_{ij}-e_{ij})^2}{e_{ij}}, \\quad e_{ij} = \\dfrac{n_{i\\cdot}\\,n_{\\cdot j}}{n}",
+          "C = \\sqrt{\\dfrac{K^2}{K^2+n}}, \\qquad C_{korr} = \\dfrac{C}{\\sqrt{(m-1)/m}}",
+        ],
+        terms: [
+          {
+            term: "Erwartete Häufigkeit (eij)",
+            definition: "Häufigkeit, die in einer Zelle einer Kontingenztabelle bei statistischer Unabhängigkeit der beiden Merkmale zu erwarten wäre.",
+          },
+          {
+            term: "Quadratische Kontingenz (K²)",
+            definition: "Summe der quadrierten, an den erwarteten Häufigkeiten relativierten Abweichungen zwischen beobachteten und erwarteten Häufigkeiten.",
+          },
+          {
+            term: "Korrigierter Kontingenzkoeffizient (C_korr)",
+            definition: "Auf [0,1] normierter Kontingenzkoeffizient, der den von der Tabellengröße abhängigen Maximalwert von C herausrechnet.",
+          },
+        ],
+        examples: [
+          "Eine Umfrage kreuzt Abteilung (Vertrieb/Produktion) mit Zufriedenheit (niedrig/mittel/hoch), n=120. Beobachtet: Vertrieb (10,20,30), Produktion (20,30,10); Zeilensummen 60/60, Spaltensummen 30/50/40. Erwartete Häufigkeiten z. B. e11=(60·30)/120=15. Summiert man alle sechs Zellenbeiträge (u. a. (10−15)²/15≈1,67 und (30−20)²/20=5), ergibt sich K²≈15,33. Mit n=120: C=√[15,33/(15,33+120)]≈0,337. Bei m=min(2,3)=2 ist C_max=√(1/2)≈0,707, also C_korr=0,337/0,707≈0,476 — ein moderater Zusammenhang zwischen Abteilung und Zufriedenheit.",
+        ],
+      },
+      {
+        id: "4-14",
+        heading: "4.14 R-Funktionen für Statistik 1 im Überblick",
+        body: [
+          "Praktisch alle in diesem Skript behandelten Kennzahlen und Verteilungen lassen sich in R mit wenigen eingebauten Funktionen berechnen, ohne die Formeln von Hand auszuwerten. Für Verteilungen folgt R durchgehend demselben Namensschema: ein Präfix d (Dichte/Wahrscheinlichkeitsfunktion, also f(x)), p (Verteilungsfunktion F(x)=P(X≤x)), q (Quantilfunktion, die Umkehrung von p) oder r (Zufallszahlen erzeugen), gefolgt vom Verteilungsnamen — z. B. dbinom(), pbinom(), qbinom(), rbinom() für die Binomialverteilung.",
+          "Für die deskriptiven Zusammenhangsmaße aus diesem Kapitel sowie zentrale Verteilungsfunktionen aus Kapitel 3 sind folgende Funktionen am gebräuchlichsten (Argumente vereinfacht dargestellt):",
+        ],
+        terms: [
+          { term: "cor(x, y, method=\"pearson\")", definition: "Pearson-Korrelationskoeffizient r zwischen zwei metrischen Vektoren (Standardmethode, siehe 4.10)." },
+          { term: "cor(x, y, method=\"spearman\")", definition: "Spearmanscher Rangkorrelationskoeffizient rs; R bildet intern automatisch Durchschnittsränge bei Bindungen (siehe 4.12)." },
+          { term: "cor(x, y, method=\"kendall\")", definition: "Kendallsches τ zwischen zwei Vektoren, inkl. automatischer Behandlung von Bindungen (siehe 4.12)." },
+          { term: "chisq.test(tabelle, correct=FALSE)", definition: "Berechnet u. a. die quadratische Kontingenz K² (als statistic-Wert) für eine Kontingenztabelle (siehe 4.13)." },
+          { term: "weighted.mean(x, w)", definition: "Gewichtetes arithmetisches Mittel eines Vektors x mit Gewichten w (siehe 4.11)." },
+          { term: "1/mean(1/x)", definition: "In Basis-R keine eingebaute Funktion für das harmonische Mittel; kann so direkt aus der Definition berechnet werden (siehe 4.11)." },
+          { term: "dbinom(x, size=n, prob=p)", definition: "Wahrscheinlichkeitsfunktion f(x) der Binomialverteilung B(n,p) (siehe 3.2)." },
+          { term: "pbinom(q, size=n, prob=p)", definition: "Verteilungsfunktion P(X≤q) der Binomialverteilung." },
+          { term: "dpois(x, lambda)", definition: "Wahrscheinlichkeitsfunktion f(x) der Poisson-Verteilung mit Rate λ (siehe 3.4)." },
+          { term: "dhyper(x, m, n, k)", definition: "Wahrscheinlichkeitsfunktion der hypergeometrischen Verteilung (m=K Erfolgselemente, n=N−K, k=Stichprobenumfang, siehe 3.3)." },
+          { term: "pnorm(q, mean, sd)", definition: "Verteilungsfunktion Φ der Normalverteilung N(mean, sd²); mit mean=0, sd=1 die Standardnormalverteilung (siehe 3.6)." },
+          { term: "qnorm(p, mean, sd)", definition: "Quantilfunktion der Normalverteilung; liefert zu gegebener Wahrscheinlichkeit p den zugehörigen x-Wert." },
+        ],
+        examples: [
+          "Für die fünf Restaurant-Ränge aus Beispiel 4.12 (X=(1,2,3,4,5), Y=(2,1,3,5,4)) liefert cor(X, Y, method=\"spearman\") in R denselben Wert 0,8, den man auch von Hand über die d²-Formel erhält — R nutzt intern jedoch die exakte Pearson-Formel auf den Rängen, was insbesondere bei Bindungen zuverlässiger ist als die vereinfachte Handrechnung.",
         ],
       },
     ],
