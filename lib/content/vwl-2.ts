@@ -310,6 +310,15 @@ export const chapters: SkriptChapter[] = [
           "Friktionelle Arbeitslosigkeit entsteht durch den normalen, zeitraubenden Suchprozess zwischen Job und Bewerber:in und ist auch in einer gut funktionierenden Volkswirtschaft nicht vollständig vermeidbar. Strukturelle Arbeitslosigkeit entsteht, wenn Löhne über dem markträumenden Niveau liegen (z. B. durch Mindestlöhne, Gewerkschaftsmacht oder Effizienzlöhne) und dauerhaft mehr Arbeit angeboten als nachgefragt wird.",
           "Konjunkturelle Arbeitslosigkeit entsteht durch temporäre Nachfrageschwäche im Konjunkturzyklus und bildet sich mit der wirtschaftlichen Erholung typischerweise zurück. Die natürliche Arbeitslosenquote fasst friktionelle und strukturelle Arbeitslosigkeit als das Niveau zusammen, das auch bei voller Kapazitätsauslastung der Volkswirtschaft bestehen bleibt.",
         ],
+        table: {
+          caption: "Die drei Arten von Arbeitslosigkeit",
+          headers: ["Typ", "Ursache", "Charakter"],
+          rows: [
+            ["Friktionell", "normaler Such-/Wechselprozess am Arbeitsmarkt", "vorübergehend, auch bei Vollbeschäftigung unvermeidbar"],
+            ["Strukturell", "Löhne über markträumendem Niveau (Mindestlohn, Gewerkschaften, Effizienzlöhne)", "dauerhaft"],
+            ["Konjunkturell", "temporäre Nachfrageschwäche im Konjunkturzyklus", "bildet sich mit wirtschaftlicher Erholung zurück"],
+          ],
+        },
         terms: [
           {
             term: "Friktionelle Arbeitslosigkeit",
@@ -592,6 +601,14 @@ export const chapters: SkriptChapter[] = [
           "Im Schnittpunkt von IS- und LM-Kurve ergeben sich gleichzeitig Gleichgewichtszins und -produktion. Expansive Fiskalpolitik erhöht Y, treibt aber auch den Zins nach oben, was privat finanzierte Investitionen teilweise verdrängt (Crowding-out) — der Nettoeffekt auf Y bleibt aber typischerweise positiv.",
           "Expansive Geldpolitik erhöht Y und senkt gleichzeitig den Zins, ohne den Crowding-out-Effekt der Fiskalpolitik. Kombiniert man beide Politiken, lässt sich Y erhöhen, während der Zins je nach Dosierung nahezu konstant gehalten wird.",
         ],
+        table: {
+          caption: "Wirkung expansiver Politik im IS-LM-Modell",
+          headers: ["", "Y (Output)", "i (Zins)"],
+          rows: [
+            ["Expansive Fiskalpolitik", "↑ (gedämpft durch Crowding-out)", "↑"],
+            ["Expansive Geldpolitik", "↑", "↓"],
+          ],
+        },
         terms: [
           {
             term: "Crowding-out",
@@ -638,6 +655,14 @@ export const chapters: SkriptChapter[] = [
           "Kurzfristig sind Preise/Löhne starr, sodass Unternehmen auf Nachfrageänderungen primär mit Mengenanpassung reagieren — die kurzfristige AS-Kurve ist daher relativ flach (oder bei völlig starren Preisen horizontal). Langfristig sind alle Preise flexibel, und die Produktion kehrt zu ihrem Potenzialniveau Y* zurück, unabhängig vom Preisniveau — die langfristige AS-Kurve ist vertikal bei Y*.",
           "Ein Nachfrageschock verschiebt daher kurzfristig sowohl Y als auch P, während sich langfristig nur P anpasst und Y zu Y* zurückkehrt — ein zentrales Argument dafür, dass Geldpolitik langfristig neutral ist (sie beeinflusst nur das Preisniveau, nicht die reale Produktion).",
         ],
+        table: {
+          caption: "Kurz- vs. langfristiges Angebot",
+          headers: ["", "Kurzfristig", "Langfristig"],
+          rows: [
+            ["AS-Kurve", "flach (bei starren Preisen ggf. horizontal)", "vertikal bei Y*"],
+            ["Nachfrageschock wirkt auf", "Y und P", "nur P (Y kehrt zu Y* zurück)"],
+          ],
+        },
         terms: [
           {
             term: "Kurzfristige AS-Kurve",
@@ -726,6 +751,15 @@ export const chapters: SkriptChapter[] = [
           "Das Trilemma besagt, dass ein Land nicht gleichzeitig freien Kapitalverkehr, einen fixen Wechselkurs und eine unabhängige Geldpolitik haben kann — höchstens zwei der drei Ziele lassen sich gleichzeitig verwirklichen. Ein Land mit fixem Wechselkurs und freiem Kapitalverkehr muss seine Geldpolitik dem Ankerland unterordnen, da sonst Zinsdifferenzen sofort massive Kapitalbewegungen und Druck auf den fixen Kurs auslösen würden.",
           "Länder wählen daher typischerweise eine von drei Kombinationen: freier Kapitalverkehr mit flexiblem Wechselkurs und unabhängiger Geldpolitik (z. B. USA, Eurozone insgesamt), Kapitalverkehrskontrollen mit fixem Kurs und unabhängiger Geldpolitik (z. B. historisch China), oder fixer Kurs mit freiem Kapitalverkehr und aufgegebener eigener Geldpolitik (z. B. Mitgliedsstaaten der Eurozone gegenüber der EZB).",
         ],
+        table: {
+          caption: "Die drei möglichen Kombinationen im Trilemma",
+          headers: ["Kapitalverkehr", "Wechselkurs", "Geldpolitik", "Beispiel"],
+          rows: [
+            ["frei", "flexibel", "unabhängig", "USA, Eurozone insgesamt"],
+            ["kontrolliert", "fix", "unabhängig", "historisch China"],
+            ["frei", "fix", "aufgegeben", "Eurozone-Mitgliedstaaten gegenüber der EZB"],
+          ],
+        },
         terms: [
           {
             term: "Trilemma",

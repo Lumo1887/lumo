@@ -136,6 +136,15 @@ export const chapters: SkriptChapter[] = [
           "Verschiedene Lagerarten unterdrücken jeweils unterschiedliche Freiheitsgrade und erzeugen entsprechende Reaktionskräfte/-momente: Ein Loslager (Rollenlager) unterdrückt eine Verschiebungsrichtung (eine unbekannte Kraft senkrecht zur Gleitrichtung), ein Festlager (Gelenklager) unterdrückt beide Verschiebungsrichtungen (zwei unbekannte Kraftkomponenten), und eine feste Einspannung unterdrückt zusätzlich die Verdrehung (zwei Kraftkomponenten plus ein Einspannmoment).",
           "Die korrekte Identifikation der Lagerart und der zugehörigen unbekannten Reaktionsgrößen ist der erste, entscheidende Schritt jeder statischen Berechnung — ein falsch angenommenes Lager führt unweigerlich zu einer falschen Anzahl von Unbekannten und damit zu einem unlösbaren oder falsch gelösten Gleichungssystem.",
         ],
+        table: {
+          caption: "Lagerarten im Vergleich",
+          headers: ["Lagerart", "Unterdrückte Freiheitsgrade", "Unbekannte Reaktionsgrößen", "Wertigkeit"],
+          rows: [
+            ["Loslager (Rollenlager)", "1 Verschiebung (senkrecht zur Gleitrichtung)", "1 Kraft", "1"],
+            ["Festlager (Gelenklager)", "2 Verschiebungen", "2 Kraftkomponenten", "2"],
+            ["Feste Einspannung", "2 Verschiebungen + Verdrehung", "2 Kraftkomponenten + 1 Moment", "3"],
+          ],
+        },
         terms: [
           { term: "Loslager", definition: "Lager, das eine Verschiebungsrichtung unterdrückt; erzeugt eine unbekannte Reaktionskraft." },
           { term: "Festlager", definition: "Lager, das beide Verschiebungsrichtungen unterdrückt; erzeugt zwei unbekannte Reaktionskraftkomponenten." },
@@ -554,6 +563,16 @@ export const chapters: SkriptChapter[] = [
           "Die Differentialgleichung w''(x) = −M(x)/(E·I) aus 9.3 liefert nach zweifacher Integration pro Balkenabschnitt zwei Integrationskonstanten, die erst durch Randbedingungen — an den Rändern oder Übergängen bekannte Werte von Durchbiegung w oder Neigung w' — eindeutig bestimmt werden. Welche Bedingung an welcher Stelle gilt, hängt direkt von der jeweiligen Lagerart (3.2) ab.",
           "An einem gelenkigen Lager (Fest- oder Loslager) ist die Durchbiegung unterdrückt, aber die Verdrehung frei: w=0, während w' unbekannt bleibt und sich erst aus der Gesamtlösung ergibt. An einer festen Einspannung sind sowohl Durchbiegung als auch Neigung unterdrückt: w=0 UND w'=0. An einem freien, unbelasteten Ende sind weder w noch w' bekannt, dafür verschwinden dort Moment und Querkraft: M=0 (also w''=0) und Q=0 (also w'''=0). An einem Zwischengelenk (Kapitel 10) gilt ebenfalls M=0, zusätzlich muss die Durchbiegung w auf beiden Seiten des Gelenks übereinstimmen (Kontinuität), während die Neigung w' beidseitig unterschiedlich sein darf — ein Knick in der Biegelinie ist an einem Gelenk zulässig, da dort ohnehin kein Moment übertragen wird.",
         ],
+        table: {
+          caption: "Randbedingungen der Biegelinie nach Lagerart",
+          headers: ["Lagerart", "w", "w'", "Sonstiges"],
+          rows: [
+            ["Gelenkiges Lager (Fest-/Loslager)", "0", "frei (unbekannt)", "—"],
+            ["Feste Einspannung", "0", "0", "—"],
+            ["Freies Ende", "frei", "frei", "M=0, Q=0"],
+            ["Zwischengelenk", "stetig (beidseitig gleich)", "darf springen (Knick erlaubt)", "M=0"],
+          ],
+        },
         formulas: ["w_max = F · L³ / (3 · E · I)  (Kragarm mit Einzellast am freien Ende)"],
         formulasLatex: ["w_{max} = \\dfrac{F\\cdot L^{3}}{3\\cdot E\\cdot I}"],
         terms: [
@@ -682,6 +701,16 @@ export const chapters: SkriptChapter[] = [
           "Für einen beidseitig gelenkig gelagerten Stab (Eulerfall 2) berechnet sich die kritische Knicklast als F_krit = π²·E·I / L², wobei E der Elastizitätsmodul, I das (kleinste) Flächenträgheitsmoment des Querschnitts und L die Stablänge ist. Diese Formel zeigt: Die Knicklast sinkt quadratisch mit zunehmender Stablänge — ein doppelt so langer Stab knickt bereits bei einem Viertel der ursprünglichen Last.",
           "Für andere Lagerungsbedingungen (z. B. beidseitig eingespannt, einseitig eingespannt und frei) ändert sich die Formel durch eine sogenannte Knicklängenbeiwert-Korrektur: F_krit = π²·E·I / (β·L)², wobei β von der jeweiligen Lagerungsart abhängt (z. B. β=0,5 für beidseitige Einspannung, β=2 für einseitige Einspannung mit freiem Ende).",
         ],
+        table: {
+          caption: "Die vier Eulerfälle",
+          headers: ["Eulerfall", "Lagerung", "Knicklängenbeiwert β"],
+          rows: [
+            ["1", "einseitig eingespannt, freies Ende (Kragstab)", "2"],
+            ["2", "beidseitig gelenkig gelagert", "1"],
+            ["3", "einseitig eingespannt, andere Seite gelenkig geführt", "≈0,7"],
+            ["4", "beidseitig eingespannt", "0,5"],
+          ],
+        },
         formulas: ["F_krit = π²·E·I / L² (Eulerfall 2)", "F_krit = π²·E·I / (β·L)² (allgemein)"],
         formulasLatex: ["F_{krit} = \\dfrac{\\pi^2 E I}{L^2}", "F_{krit} = \\dfrac{\\pi^2 E I}{(\\beta L)^2}"],
         terms: [

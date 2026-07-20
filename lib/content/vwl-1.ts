@@ -222,6 +222,15 @@ export const chapters: SkriptChapter[] = [
           "Sinkt der Preis p₁, zerlegt die Slutsky-Zerlegung die gesamte Nachfrageänderung in zwei Teile: den Substitutionseffekt (Gut 1 wird relativ günstiger, der Haushalt substituiert zu Gut 1, selbst wenn man ihn hypothetisch auf dem alten Nutzenniveau hielte) und den Einkommenseffekt (die Kaufkraft des gegebenen Geldeinkommens steigt effektiv, da dasselbe Einkommen nun mehr kaufen kann).",
           "Der Substitutionseffekt wirkt bei einer Preissenkung stets in Richtung höherer Nachfrage nach dem billiger gewordenen Gut. Der Einkommenseffekt wirkt bei normalen Gütern ebenfalls positiv, bei inferioren Gütern jedoch negativ und kann den Substitutionseffekt bei sogenannten Giffen-Gütern theoretisch sogar überkompensieren.",
         ],
+        table: {
+          caption: "Gesamteffekt einer Preissenkung nach Gütertyp",
+          headers: ["Gütertyp", "Substitutionseffekt", "Einkommenseffekt", "Gesamteffekt"],
+          rows: [
+            ["Normales Gut", "Nachfrage ↑", "Nachfrage ↑", "Nachfrage steigt eindeutig"],
+            ["Inferiores Gut", "Nachfrage ↑", "Nachfrage ↓", "Nachfrage steigt meist trotzdem (SE > EE)"],
+            ["Giffen-Gut", "Nachfrage ↑", "Nachfrage ↓ (überkompensiert SE)", "Nachfrage sinkt trotz Preissenkung"],
+          ],
+        },
         terms: [
           { term: "Substitutionseffekt", definition: "Nachfrageänderung durch veränderte relative Preise bei konstant gehaltenem Nutzenniveau." },
           { term: "Einkommenseffekt", definition: "Nachfrageänderung durch veränderte reale Kaufkraft bei konstanten relativen Preisen." },
@@ -403,6 +412,14 @@ export const chapters: SkriptChapter[] = [
           "Anders als ein preisnehmendes Unternehmen sieht sich ein Monopolist der gesamten (fallenden) Marktnachfragekurve gegenüber: Um mehr zu verkaufen, muss er den Preis senken — auch für bereits verkaufte Einheiten (bei einheitlicher Preissetzung). Deshalb liegt der Grenzerlös MR unterhalb des Preises: MR(y) = p(y) + y·p'(y) < p(y), da p'(y)<0.",
           "Der gewinnmaximale Output ergibt sich aus MR(y)=MC(y). Da MR<p, resultiert daraus ein Monopolpreis oberhalb der Grenzkosten (p>MC) — im Gegensatz zur vollkommenen Konkurrenz, wo p=MC gilt.",
         ],
+        table: {
+          caption: "Vollkommene Konkurrenz vs. Monopol",
+          headers: ["", "Vollkommene Konkurrenz", "Monopol"],
+          rows: [
+            ["Preisregel", "p = MC", "p > MC (aus MR = MC)"],
+            ["Wohlfahrt", "effizient, kein Wohlfahrtsverlust", "Wohlfahrtsverlust durch Unterproduktion (siehe 9.2)"],
+          ],
+        },
         formulas: ["MR(y) = p(y) + y · p'(y)"],
         formulasLatex: ["MR(y) = p(y) + y\\cdot p'(y)"],
         terms: [{ term: "Grenzerlös (MR)", definition: "Zusätzlicher Erlös einer marginalen zusätzlichen Verkaufseinheit; beim Monopolisten stets kleiner als der Preis." }],
@@ -466,6 +483,15 @@ export const chapters: SkriptChapter[] = [
           "Im Stackelberg-Modell entscheidet ein Unternehmen (der Marktführer) seine Menge zuerst, das andere (der Folger) beobachtet diese Menge und reagiert optimal darauf. Der Marktführer berücksichtigt bei seiner Entscheidung die erwartete Reaktion des Folgers und erzielt dadurch einen First-Mover-Vorteil: höhere Menge und höheren Gewinn als im simultanen Cournot-Fall.",
           "Für dieselbe lineare Nachfrage wie oben ergibt sich im Stackelberg-Gleichgewicht y_Führer=(a−c)/(2b), also mehr als im Cournot-Fall (a−c)/(3b), während der Folger entsprechend weniger produziert — der First-Mover profitiert auf Kosten des Folgers.",
         ],
+        table: {
+          caption: "Die drei Oligopolmodelle im Vergleich",
+          headers: ["Modell", "Strategievariable", "Zeitpunkt", "Ergebnis"],
+          rows: [
+            ["Cournot", "Menge", "simultan", "y* = (a−c)/(3b) je Unternehmen; Preis zwischen Grenzkosten und Monopolpreis"],
+            ["Bertrand", "Preis", "simultan", "p = c (Grenzkosten); kein ökonomischer Gewinn"],
+            ["Stackelberg", "Menge", "sequentiell (Führer zuerst)", "Führer: (a−c)/(2b); Folger produziert weniger als im Cournot-Fall"],
+          ],
+        },
         terms: [{ term: "First-Mover-Vorteil", definition: "Vorteil des zuerst entscheidenden Unternehmens, das die Reaktion des Folgers antizipieren kann." }],
         examples: [
           "Ein etablierter Hersteller kündigt seine Produktionsmenge frühzeitig öffentlich an; ein neuer Wettbewerber passt seine eigene, kleinere Menge an diese bereits feststehende Größe an — der etablierte Hersteller profitiert von seiner Vorreiterrolle.",

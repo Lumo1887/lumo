@@ -36,10 +36,22 @@ export const chapters: SkriptChapter[] = [
         heading: "1.2 Tautologien und wichtige Äquivalenzen",
         body: [
           "Eine Tautologie ist eine zusammengesetzte Aussage, die für jede Belegung ihrer Teilaussagen wahr ist — sie ist logisch immer gültig, unabhängig vom konkreten Wahrheitsgehalt der Bestandteile. Wichtige Tautologien liefern die Grundregeln des Beweisens.",
-          "Zu den wichtigsten Äquivalenzen zählen die De Morganschen Regeln ¬(A∧B) ⇔ ¬A∨¬B und ¬(A∨B) ⇔ ¬A∧¬B, sowie das Kontrapositionsgesetz A⇒B ⇔ ¬B⇒¬A, das die Grundlage vieler indirekter Beweise bildet.",
+          "Zu den wichtigsten Äquivalenzen zählen die De Morganschen Regeln ¬(A∧B) ⇔ ¬A∨¬B und ¬(A∨B) ⇔ ¬A∧¬B, sowie das Kontrapositionsgesetz A⇒B ⇔ ¬B⇒¬A, das die Grundlage vieler indirekter Beweise bildet. Die folgende Tabelle fasst die gebräuchlichsten Äquivalenzen zusammen.",
         ],
         formulas: ["¬(A∧B) ⇔ ¬A∨¬B", "A⇒B ⇔ ¬B⇒¬A"],
         formulasLatex: ["\\lnot(A\\land B) \\iff \\lnot A \\lor \\lnot B", "A\\Rightarrow B \\iff \\lnot B \\Rightarrow \\lnot A"],
+        table: {
+          caption: "Wichtige logische Äquivalenzen",
+          headers: ["Regel", "Äquivalenz"],
+          rows: [
+            ["Doppelte Verneinung", "¬¬A ⇔ A"],
+            ["De Morgan (∧)", "¬(A∧B) ⇔ ¬A∨¬B"],
+            ["De Morgan (∨)", "¬(A∨B) ⇔ ¬A∧¬B"],
+            ["Kontraposition", "A⇒B ⇔ ¬B⇒¬A"],
+            ["Implikation als Disjunktion", "A⇒B ⇔ ¬A∨B"],
+            ["Distributivgesetz", "A∧(B∨C) ⇔ (A∧B)∨(A∧C)"],
+          ],
+        },
         terms: [{ term: "Tautologie", definition: "Aussage, die unabhängig von den Wahrheitswerten ihrer Teilaussagen stets wahr ist." }],
         examples: [
           "Um 'wenn n² gerade ist, dann ist n gerade' zu zeigen, beweist man stattdessen die logisch äquivalente Kontraposition: 'wenn n ungerade ist, dann ist n² ungerade' — oft der einfachere Weg.",
@@ -149,6 +161,16 @@ export const chapters: SkriptChapter[] = [
           "Ein Ring (R,+,·) besitzt zwei Verknüpfungen: (R,+) ist eine abelsche Gruppe, · ist assoziativ, und es gelten die Distributivgesetze a·(b+c) = a·b+a·c. Ein Körper ist ein Ring, bei dem zusätzlich (R\\{0},·) eine abelsche Gruppe ist — jedes Element außer dem additiven neutralen Element 0 besitzt also ein multiplikatives Inverses.",
           "Körper sind die algebraische Struktur, in der uneingeschränkt addiert, subtrahiert, multipliziert und (außer durch 0) dividiert werden kann — genau die Rechenregeln, die wir von ℚ und ℝ gewohnt sind.",
         ],
+        table: {
+          caption: "Algebraische Strukturen im Vergleich",
+          headers: ["Struktur", "Verknüpfung(en)", "Zusätzliche Eigenschaft"],
+          rows: [
+            ["Gruppe (G,∗)", "eine Verknüpfung: abgeschlossen, assoziativ, neutrales Element, Inverse zu jedem Element", "—"],
+            ["Abelsche Gruppe", "wie Gruppe", "zusätzlich kommutativ: a∗b = b∗a"],
+            ["Ring (R,+,·)", "(R,+) abelsche Gruppe, · assoziativ", "Distributivgesetze: a·(b+c) = a·b+a·c"],
+            ["Körper", "wie Ring", "zusätzlich (R\\{0},·) abelsche Gruppe (multiplikatives Inverses außer für 0)"],
+          ],
+        },
         terms: [
           { term: "Ring", definition: "Menge mit additiver Gruppenstruktur und assoziativer, distributiver Multiplikation." },
           { term: "Körper", definition: "Ring, in dem zusätzlich jedes Element außer 0 ein multiplikatives Inverses besitzt." },
@@ -346,14 +368,33 @@ export const chapters: SkriptChapter[] = [
         id: "7-2",
         heading: "7.2 Variationen und Kombinationen",
         body: [
-          "Bei der Auswahl von k aus n unterscheidbaren Objekten unterscheidet man vier Fälle: Variation mit Wiederholung (Reihenfolge zählt, Objekte dürfen wiederholt werden: nᵏ), Variation ohne Wiederholung (Reihenfolge zählt, keine Wiederholung: n!/(n−k)!), Kombination ohne Wiederholung (Reihenfolge egal, keine Wiederholung: Binomialkoeffizient) und Kombination mit Wiederholung (Reihenfolge egal, Wiederholung erlaubt).",
-          "Der Binomialkoeffizient C(n,k) = n!/(k!(n−k)!) zählt die Anzahl der k-elementigen Teilmengen einer n-elementigen Menge und ist damit das zentrale Werkzeug für Kombinationen ohne Wiederholung.",
+          "Bei der Auswahl von k aus n unterscheidbaren Objekten unterscheidet man vier Fälle, je nachdem ob die Reihenfolge der Auswahl zählt und ob Objekte wiederholt (mit Zurücklegen) ausgewählt werden dürfen: Variation mit Wiederholung (Reihenfolge zählt, Wiederholung erlaubt: nᵏ), Variation ohne Wiederholung (Reihenfolge zählt, keine Wiederholung: n!/(n−k)!), Kombination ohne Wiederholung (Reihenfolge egal, keine Wiederholung: Binomialkoeffizient) und Kombination mit Wiederholung (Reihenfolge egal, Wiederholung erlaubt).",
+          "Der Binomialkoeffizient C(n,k) = n!/(k!(n−k)!) zählt die Anzahl der k-elementigen Teilmengen einer n-elementigen Menge und ist damit das zentrale Werkzeug für Kombinationen ohne Wiederholung. Für Kombinationen MIT Wiederholung — z. B. wie viele Arten es gibt, k identische Kugeln auf n Fächer zu verteilen — gilt stattdessen C(n+k−1,k) = (n+k−1)!/(k!(n−1)!).",
         ],
-        formulas: ["C(n,k) = n! / (k!(n−k)!)"],
-        formulasLatex: ["\\binom{n}{k} = \\dfrac{n!}{k!(n-k)!}"],
+        formulas: [
+          "Variation mit Wiederholung: n^k",
+          "Variation ohne Wiederholung: n! / (n−k)!",
+          "Kombination ohne Wiederholung: C(n,k) = n! / (k!(n−k)!)",
+          "Kombination mit Wiederholung: C(n+k−1,k) = (n+k−1)! / (k!(n−1)!)",
+        ],
+        formulasLatex: [
+          "n^k",
+          "\\dfrac{n!}{(n-k)!}",
+          "\\binom{n}{k} = \\dfrac{n!}{k!(n-k)!}",
+          "C(n+k-1,k) = \\dfrac{(n+k-1)!}{k!(n-1)!}",
+        ],
+        table: {
+          caption: "Übersicht: Auswahl von k aus n Objekten",
+          headers: ["", "ohne Wiederholung", "mit Wiederholung"],
+          rows: [
+            ["Variation (Reihenfolge zählt)", "n! / (n−k)!", "n^k"],
+            ["Kombination (Reihenfolge egal)", "C(n,k) = n! / (k!(n−k)!)", "C(n+k−1,k) = (n+k−1)! / (k!(n−1)!)"],
+          ],
+        },
         terms: [{ term: "Binomialkoeffizient", definition: "C(n,k), Anzahl der k-elementigen Teilmengen einer n-elementigen Menge." }],
         examples: [
-          "Bei einer Ziehung von 6 aus 49 Kugeln ohne Zurücklegen und ohne Reihenfolge gibt es C(49,6) = 13.983.816 mögliche Ergebnisse.",
+          "Bei einer Ziehung von 6 aus 49 Kugeln ohne Zurücklegen und ohne Reihenfolge gibt es C(49,6) = 13.983.816 mögliche Ergebnisse (Kombination ohne Wiederholung).",
+          "Ein 3-stelliges Zahlenschloss mit Ziffern 0–9 (Wiederholung erlaubt, Reihenfolge zählt) hat 10³ = 1.000 mögliche Kombinationen (Variation mit Wiederholung). Verteilt man dagegen 4 identische Bonuspunkte auf 3 Kategorien, ohne dass die Reihenfolge der Vergabe zählt, gibt es C(3+4−1,4) = C(6,4) = 15 Möglichkeiten (Kombination mit Wiederholung).",
         ],
       },
       {
@@ -551,6 +592,15 @@ export const chapters: SkriptChapter[] = [
           "Das Quotientenkriterium: existiert lim|aₙ₊₁/aₙ| = L, so konvergiert Σaₙ absolut für L<1, divergiert für L>1 (für L=1 ist keine Aussage möglich). Das Wurzelkriterium: existiert lim ⁿ√|aₙ| = L, gelten dieselben Grenzfälle.",
           "Absolute Konvergenz (Konvergenz von Σ|aₙ|) ist eine stärkere Eigenschaft als einfache Konvergenz: sie garantiert zusätzlich, dass beliebige Umordnungen der Reihenglieder den Summenwert nicht verändern — bei nur bedingt konvergenten Reihen kann Umordnen dagegen den Summenwert verändern.",
         ],
+        table: {
+          caption: "Entscheidungsregel für Quotienten- und Wurzelkriterium",
+          headers: ["L", "Ergebnis"],
+          rows: [
+            ["L < 1", "Reihe konvergiert absolut"],
+            ["L > 1", "Reihe divergiert"],
+            ["L = 1", "keine Aussage möglich (anderes Kriterium nötig)"],
+          ],
+        },
         formulas: ["L = lim |aₙ₊₁/aₙ|"],
         formulasLatex: ["L = \\lim_{n\\to\\infty} \\left|\\dfrac{a_{n+1}}{a_n}\\right|"],
         terms: [{ term: "Absolute Konvergenz", definition: "Konvergenz von Σ|aₙ|; stärker als einfache Konvergenz, unempfindlich gegenüber Umordnung." }],

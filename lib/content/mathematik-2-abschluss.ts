@@ -263,6 +263,16 @@ export const chapters: SkriptChapter[] = [
           "Um kritische Punkte zu klassifizieren, untersucht man die Definitheit der Hessematrix H_f(x₀): Ist H_f(x₀) positiv definit (alle Eigenwerte positiv), liegt ein lokales Minimum vor; ist sie negativ definit (alle Eigenwerte negativ), liegt ein lokales Maximum vor; besitzt sie sowohl positive als auch negative Eigenwerte (indefinit), liegt ein Sattelpunkt vor.",
           "Für n=2 lässt sich die Definitheit einfach über die Determinante und einen Diagonaleintrag prüfen: ist det(H_f)>0 und Hₓₓ>0, liegt ein Minimum vor; ist det(H_f)>0 und Hₓₓ<0, liegt ein Maximum vor; ist det(H_f)<0, liegt ein Sattelpunkt vor. Bei det(H_f)=0 ist keine Aussage über dieses Kriterium möglich.",
         ],
+        table: {
+          caption: "Hesse-Kriterium für n=2",
+          headers: ["det(H_f)", "Hₓₓ", "Klassifikation"],
+          rows: [
+            ["> 0", "> 0", "lokales Minimum"],
+            ["> 0", "< 0", "lokales Maximum"],
+            ["< 0", "beliebig", "Sattelpunkt"],
+            ["= 0", "—", "keine Aussage möglich"],
+          ],
+        },
         formulas: ["det(H_f) > 0, Hₓₓ > 0 ⇒ Minimum"],
         formulasLatex: ["\\det(H_f) > 0,\\; H_{xx} > 0 \\;\\Rightarrow\\; \\text{Minimum}"],
         terms: [{ term: "Definitheit einer Matrix", definition: "Eigenschaft, die über das Vorzeichen aller Eigenwerte bestimmt, ob eine quadratische Form stets positiv, stets negativ oder gemischt ist." }],
@@ -377,13 +387,31 @@ export const chapters: SkriptChapter[] = [
         heading: "8.3 Der Transformationssatz",
         body: [
           "Der Transformationssatz erlaubt einen Koordinatenwechsel im Integral: Ist Φ: U→V eine bijektive, stetig differenzierbare Koordinatentransformation mit Jacobi-Determinante det(J_Φ), so gilt ∫_V f(y) dy = ∫_U f(Φ(x))·|det(J_Φ(x))| dx. Der Betrag der Jacobi-Determinante korrigiert dabei die durch die Transformation verursachte lokale Volumenverzerrung.",
-          "Die häufigste Anwendung sind Polarkoordinaten in ℝ² (x=r·cos(θ), y=r·sin(θ), mit |det(J)|=r) und Kugelkoordinaten in ℝ³: Bereiche mit Kreis- oder Kugelsymmetrie lassen sich dadurch oft erheblich einfacher integrieren als in kartesischen Koordinaten.",
+          "Die häufigste Anwendung sind Polarkoordinaten in ℝ² (x=r·cos(θ), y=r·sin(θ), mit |det(J)|=r), Zylinderkoordinaten in ℝ³ (Polarkoordinaten in der xy-Ebene plus unveränderte z-Achse) und Kugelkoordinaten in ℝ³: Bereiche mit Kreis-, Zylinder- oder Kugelsymmetrie lassen sich dadurch oft erheblich einfacher integrieren als in kartesischen Koordinaten.",
         ],
-        formulas: ["∫_V f(y) dy = ∫_U f(Φ(x)) · |det(J_Φ(x))| dx", "Polarkoordinaten: |det(J)| = r"],
-        formulasLatex: ["\\int_V f(y)\\,dy = \\int_U f(\\Phi(x))\\,|\\det(J_\\Phi(x))|\\,dx", "|\\det(J)| = r \\quad (\\text{Polarkoordinaten})"],
+        table: {
+          caption: "Standard-Koordinatentransformationen und ihre Jacobi-Determinante",
+          headers: ["Koordinatensystem", "Transformation", "|det(J)|"],
+          rows: [
+            ["Polarkoordinaten (ℝ²)", "x=r·cos(θ), y=r·sin(θ)", "r"],
+            ["Zylinderkoordinaten (ℝ³)", "x=r·cos(θ), y=r·sin(θ), z=z", "r"],
+            ["Kugelkoordinaten (ℝ³)", "x=r·sin(φ)·cos(θ), y=r·sin(φ)·sin(θ), z=r·cos(φ)", "r²·sin(φ)"],
+          ],
+        },
+        formulas: [
+          "∫_V f(y) dy = ∫_U f(Φ(x)) · |det(J_Φ(x))| dx",
+          "Polarkoordinaten: |det(J)| = r",
+          "Kugelkoordinaten: |det(J)| = r² · sin(φ)",
+        ],
+        formulasLatex: [
+          "\\int_V f(y)\\,dy = \\int_U f(\\Phi(x))\\,|\\det(J_\\Phi(x))|\\,dx",
+          "|\\det(J)| = r \\quad (\\text{Polarkoordinaten})",
+          "|\\det(J)| = r^2\\sin(\\varphi) \\quad (\\text{Kugelkoordinaten})",
+        ],
         terms: [{ term: "Transformationssatz", definition: "Regel zum Koordinatenwechsel in mehrdimensionalen Integralen unter Verwendung der Jacobi-Determinante." }],
         examples: [
           "Um ∫∫_D e^{−(x²+y²)} dx dy über die Kreisscheibe D={x²+y²≤R²} zu berechnen, wechselt man zu Polarkoordinaten: ∫₀^{2π}∫₀^R e^{−r²}·r dr dθ — ein deutlich einfacheres Integral als in kartesischen Koordinaten.",
+          "Um das Volumen der Einheitskugel K={x²+y²+z²≤1} zu berechnen, wechselt man zu Kugelkoordinaten: V=∫₀^{2π}∫₀^{π}∫₀^1 r²·sin(φ) dr dφ dθ = 2π·[−cos(φ)]₀^π·[r³/3]₀^1 = 2π·2·(1/3) = 4π/3 — das bekannte Kugelvolumen.",
         ],
       },
     ],

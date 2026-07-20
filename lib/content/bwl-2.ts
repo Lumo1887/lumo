@@ -239,6 +239,15 @@ export const chapters: SkriptChapter[] = [
           "Entspricht die Marktrendite r genau dem Kuponzinssatz, wird die Anleihe zum Nominalwert (pari) gehandelt. Übersteigt r den Kuponzinssatz, sinkt der Anleihekurs unter den Nominalwert (unter pari, 'Diskontanleihe'); ist r kleiner als der Kuponzinssatz, steigt der Kurs über den Nominalwert (über pari, 'Prämienanleihe').",
           "Dieser inverse Zusammenhang zwischen Marktzins und Anleihekurs ist fundamental: Steigen die Marktzinsen (z. B. durch restriktivere Geldpolitik, siehe VWL 2), fallen die Kurse bereits emittierter Anleihen mit niedrigerem Kupon, da Investoren nun höhere Renditen am Markt erzielen können und die alte Anleihe entsprechend abgezinst wird.",
         ],
+        table: {
+          caption: "Kurs, Rendite und Kuponzinssatz",
+          headers: ["Verhältnis", "Kursverhalten", "Bezeichnung"],
+          rows: [
+            ["Marktrendite r = Kuponzinssatz", "Kurs = Nominalwert", "pari"],
+            ["Marktrendite r > Kuponzinssatz", "Kurs < Nominalwert", "unter pari (Diskontanleihe)"],
+            ["Marktrendite r < Kuponzinssatz", "Kurs > Nominalwert", "über pari (Prämienanleihe)"],
+          ],
+        },
         terms: [{ term: "Pari-Kurs", definition: "Anleihekurs gleich dem Nominalwert; entsteht, wenn Marktrendite und Kuponzinssatz übereinstimmen." }],
         examples: [
           "Steigt die Marktrendite für vergleichbare Anleihen von 4% auf 6%, während eine bestehende Anleihe weiterhin nur 4% Kupon zahlt, fällt ihr Kurs unter den Nominalwert, da Investoren für die gleiche zukünftige Zahlung heute weniger zu zahlen bereit sind.",
@@ -437,6 +446,15 @@ export const chapters: SkriptChapter[] = [
           "Die lineare Abschreibung verteilt die Anschaffungskosten (abzüglich eines eventuellen Restwerts) gleichmäßig über die Nutzungsdauer: jährliche Abschreibung = (Anschaffungskosten − Restwert)/Nutzungsdauer. Die degressive Abschreibung setzt dagegen einen konstanten Prozentsatz auf den jeweiligen (fallenden) Restbuchwert an, wodurch die Abschreibungsbeträge anfangs höher, später niedriger ausfallen.",
           "Die Wahl der Abschreibungsmethode beeinflusst den zeitlichen Verlauf des ausgewiesenen Gewinns (nicht aber die Gesamtsumme über die Nutzungsdauer): Degressive Abschreibung zeigt in frühen Jahren einen niedrigeren, in späteren Jahren einen höheren Gewinn als lineare Abschreibung bei identischem wirtschaftlichem Sachverhalt.",
         ],
+        table: {
+          caption: "Lineare vs. degressive Abschreibung",
+          headers: ["", "Lineare Abschreibung", "Degressive Abschreibung"],
+          rows: [
+            ["Jährlicher Betrag", "konstant: (AK−Restwert)/Nutzungsdauer", "fallend: fester Prozentsatz vom Restbuchwert"],
+            ["Verlauf des Gewinns", "gleichmäßig", "anfangs niedriger, später höher"],
+            ["Gesamtsumme über Nutzungsdauer", "identisch", "identisch"],
+          ],
+        },
         formulas: ["Lineare Abschreibung = (Anschaffungskosten − Restwert) / Nutzungsdauer"],
         formulasLatex: ["\\text{Lineare Abschreibung} = \\dfrac{\\text{Anschaffungskosten} - \\text{Restwert}}{\\text{Nutzungsdauer}}"],
         terms: [
@@ -454,6 +472,15 @@ export const chapters: SkriptChapter[] = [
           "Bei schwankenden Einstandspreisen müssen Unternehmen eine Annahme treffen, in welcher Reihenfolge Vorräte als verbraucht gelten: FIFO (First In, First Out) unterstellt, dass zuerst eingekaufte Bestände auch zuerst verbraucht werden — bei steigenden Preisen führt dies zu einem niedrigeren Wareneinsatz (höherer Gewinn) und einem höheren Bilanzansatz des Restbestands. LIFO (Last In, First Out) unterstellt das Gegenteil.",
           "Die Durchschnittsmethode berechnet stattdessen einen gewichteten Durchschnittspreis über alle vorhandenen Bestände und glättet dadurch Preisschwankungen zwischen den beiden Extrempositionen FIFO und LIFO. Die Wahl der Methode ist bilanzpolitisch relevant, da sie bei schwankenden Einstandspreisen den ausgewiesenen Gewinn und die Steuerlast direkt beeinflusst (in vielen Rechtsordnungen ist die Verwendung von LIFO steuerlich eingeschränkt oder nicht zulässig).",
         ],
+        table: {
+          caption: "FIFO, LIFO und Durchschnittsmethode bei steigenden Einstandspreisen",
+          headers: ["Methode", "Wareneinsatz", "Bilanzansatz Restbestand", "Ausgewiesener Gewinn"],
+          rows: [
+            ["FIFO", "niedriger (alte, günstige Preise)", "höher (aktuelle, teure Preise)", "höher"],
+            ["LIFO", "höher (aktuelle, teure Preise)", "niedriger (alte, günstige Preise)", "niedriger"],
+            ["Durchschnittsmethode", "gewichteter Durchschnittspreis", "gewichteter Durchschnittspreis", "zwischen FIFO und LIFO"],
+          ],
+        },
         terms: [
           { term: "FIFO", definition: "Bewertungsmethode, die unterstellt, dass zuerst eingekaufte Vorräte zuerst verbraucht werden." },
           { term: "LIFO", definition: "Bewertungsmethode, die unterstellt, dass zuletzt eingekaufte Vorräte zuerst verbraucht werden." },
@@ -504,6 +531,15 @@ export const chapters: SkriptChapter[] = [
           "Die Kosten- und Leistungsrechnung gliedert sich klassisch in drei aufeinander aufbauende Teilbereiche: Die Kostenartenrechnung erfasst, WELCHE Kosten angefallen sind (z. B. Materialkosten, Personalkosten, Abschreibungen). Die Kostenstellenrechnung verteilt diese Kosten auf WO sie angefallen sind (z. B. Fertigung, Verwaltung, Vertrieb). Die Kostenträgerrechnung schließlich ordnet die Kosten den einzelnen Produkten oder Aufträgen zu, für die sie angefallen sind (WOFÜR).",
           "Diese dreistufige Gliederung ermöglicht eine systematische Zurechnung: von der reinen Erfassung (Kostenarten) über die Verortung im Betrieb (Kostenstellen, siehe Kapitel 11) bis zur letztlich gewünschten Zurechnung auf einzelne Produkte (Kostenträger, siehe Kapitel 12).",
         ],
+        table: {
+          caption: "Die drei Stufen der Kostenrechnung",
+          headers: ["Stufe", "Frage", "Beispiel"],
+          rows: [
+            ["Kostenartenrechnung", "WELCHE Kosten sind angefallen?", "Materialkosten, Personalkosten, Abschreibungen"],
+            ["Kostenstellenrechnung", "WO sind sie angefallen?", "Fertigung, Verwaltung, Vertrieb"],
+            ["Kostenträgerrechnung", "WOFÜR sind sie angefallen?", "einzelne Produkte oder Aufträge"],
+          ],
+        },
         terms: [
           { term: "Kostenartenrechnung", definition: "Erfasst, welche Kostenarten in einer Periode angefallen sind." },
           { term: "Kostenstellenrechnung", definition: "Verteilt Kosten auf die betrieblichen Bereiche (Kostenstellen), in denen sie angefallen sind." },

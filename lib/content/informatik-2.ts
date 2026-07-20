@@ -281,6 +281,15 @@ export const chapters: SkriptChapter[] = [
           "Eine Liste speichert Elemente in einer bestimmten Reihenfolge. Bei einer Array-basierten Implementierung ist der Zugriff auf ein beliebiges Element in konstanter Zeit O(1) möglich, aber das Einfügen/Löschen in der Mitte erfordert das Verschieben nachfolgender Elemente (O(n)). Bei einer verketteten Liste (jedes Element speichert einen Zeiger auf das nächste) ist Einfügen/Löschen an bekannter Position in O(1) möglich, aber der Zugriff auf ein beliebiges Element erfordert das sequentielle Durchlaufen (O(n)).",
           "Die Wahl zwischen beiden Implementierungen hängt vom Nutzungsmuster ab: häufiger wahlfreier Zugriff spricht für Arrays, häufiges Einfügen/Löschen an beliebiger Stelle spricht für verkettete Listen.",
         ],
+        table: {
+          caption: "Array vs. verkettete Liste: Laufzeit wichtiger Operationen",
+          headers: ["Operation", "Array", "Verkettete Liste"],
+          rows: [
+            ["Zugriff auf Element an Position i", "O(1)", "O(n)"],
+            ["Einfügen/Löschen am Anfang", "O(n)", "O(1)"],
+            ["Einfügen/Löschen an bekannter Position", "O(n)", "O(1)"],
+          ],
+        },
         terms: [{ term: "Verkettete Liste", definition: "Listenimplementierung, bei der jedes Element einen Zeiger auf das nächste Element speichert." }],
         examples: [
           "Fügt man wiederholt Elemente am Anfang einer Liste ein, ist eine verkettete Liste (O(1) pro Einfügung) einem Array (O(n) pro Einfügung, da alle Elemente verschoben werden müssen) deutlich überlegen.",
@@ -397,6 +406,16 @@ export const chapters: SkriptChapter[] = [
           "Quicksort wählt ein Pivot-Element, partitioniert die Liste in Elemente kleiner und größer als das Pivot, und sortiert beide Partitionen rekursiv. Im Durchschnitt (bei guter Pivot-Wahl) beträgt die Laufzeit O(n log n); im ungünstigsten Fall (z. B. Pivot ist stets das kleinste/größte Element, etwa bei bereits sortierten Listen und naiver Pivot-Wahl) verschlechtert sie sich auf O(n²).",
           "Anders als Mergesort arbeitet Quicksort In-Place (kein wesentlicher zusätzlicher Speicherbedarf) — in der Praxis ist Quicksort deshalb bei zufälligen Daten häufig schneller als Mergesort, trotz der schlechteren Worst-Case-Garantie.",
         ],
+        table: {
+          caption: "Die vier Sortierverfahren im Vergleich",
+          headers: ["Verfahren", "Best Case", "Average Case", "Worst Case", "Speicher", "Stabil?"],
+          rows: [
+            ["Insertion Sort", "O(n)", "O(n²)", "O(n²)", "O(1)", "ja"],
+            ["Selection Sort", "O(n²)", "O(n²)", "O(n²)", "O(1)", "nein"],
+            ["Mergesort", "O(n log n)", "O(n log n)", "O(n log n)", "O(n)", "ja"],
+            ["Quicksort", "O(n log n)", "O(n log n)", "O(n²)", "O(log n) (Rekursionsstapel)", "nein"],
+          ],
+        },
         formulas: ["T_mittel(n) = O(n log n), T_worst(n) = O(n²)"],
         formulasLatex: ["T_{\\text{mittel}}(n) = O(n\\log n),\\quad T_{\\text{worst}}(n) = O(n^2)"],
         terms: [{ term: "Pivot-Element", definition: "Vergleichselement in Quicksort, das die Liste in kleinere/größere Teile partitioniert." }],
@@ -422,6 +441,15 @@ export const chapters: SkriptChapter[] = [
           "Die Breitensuche (BFS) durchläuft einen Graphen ebenenweise ausgehend von einem Startknoten und findet dabei in ungewichteten Graphen den kürzesten Weg (gemessen in Kantenanzahl) zu jedem erreichbaren Knoten. Die Tiefensuche (DFS) verfolgt dagegen jeden Pfad so weit wie möglich, bevor sie zurückgeht (Backtracking), und eignet sich u. a. zur Erkennung von Zusammenhangskomponenten und Zyklen.",
           "Beide Verfahren besitzen eine Laufzeit von O(|V|+|E|) bei Adjazenzlisten-Darstellung, unterscheiden sich aber in der verwendeten Hilfsstruktur: BFS nutzt eine Schlange (FIFO), DFS nutzt einen Keller (LIFO) bzw. Rekursion.",
         ],
+        table: {
+          caption: "Breitensuche vs. Tiefensuche",
+          headers: ["", "BFS", "DFS"],
+          rows: [
+            ["Hilfsstruktur", "Schlange (FIFO)", "Keller (LIFO) bzw. Rekursion"],
+            ["Kürzester Weg (ungewichtet)?", "ja", "nein"],
+            ["Laufzeit (Adjazenzliste)", "O(|V|+|E|)", "O(|V|+|E|)"],
+          ],
+        },
         terms: [
           { term: "Breitensuche (BFS)", definition: "Graphdurchlauf ebenenweise vom Startknoten; findet kürzeste Wege in ungewichteten Graphen." },
           { term: "Tiefensuche (DFS)", definition: "Graphdurchlauf, der jeden Pfad maximal verfolgt, bevor er zurückgeht." },
@@ -486,6 +514,19 @@ export const chapters: SkriptChapter[] = [
           "Gängige Laufzeitklassen in aufsteigender Reihenfolge: O(1) (konstant), O(log n) (logarithmisch, z. B. binäre Suche), O(n) (linear), O(n log n) (z. B. Mergesort), O(n²) (quadratisch, z. B. Insertion Sort), O(2ⁿ) (exponentiell) und O(n!) (faktoriell). Bereits bei moderaten n unterscheidet sich das praktische Laufzeitverhalten dieser Klassen dramatisch.",
           "Diese Unterschiede sind praktisch bedeutsam: Ein O(n²)-Algorithmus mag für n=1.000 noch akzeptabel sein (1 Million Schritte), wird aber für n=1.000.000 (1 Billion Schritte) unbrauchbar, während ein O(n log n)-Algorithmus für dieselbe Eingabegröße nur etwa 20 Millionen Schritte benötigt.",
         ],
+        table: {
+          caption: "Wachstum der Schrittzahl bei n=10",
+          headers: ["Klasse", "Name", "Beispielalgorithmus", "Schritte bei n=10"],
+          rows: [
+            ["O(1)", "konstant", "Array-Zugriff per Index", "1"],
+            ["O(log n)", "logarithmisch", "binäre Suche", "≈3"],
+            ["O(n)", "linear", "lineare Suche", "10"],
+            ["O(n log n)", "quasi-linear", "Mergesort", "≈33"],
+            ["O(n²)", "quadratisch", "Insertion Sort", "100"],
+            ["O(2ⁿ)", "exponentiell", "alle Teilmengen erzeugen", "1.024"],
+            ["O(n!)", "faktoriell", "alle Permutationen erzeugen", "3.628.800"],
+          ],
+        },
         examples: [
           "Für n=20 benötigt ein O(2ⁿ)-Algorithmus bereits über 1 Million Schritte, ein O(n!)-Algorithmus über 2×10¹⁸ Schritte — beide Klassen werden für praktische Eingabegrößen schnell unbrauchbar, weshalb NP-vollständige Probleme (die aktuell keine bekannten Polynomialzeit-Algorithmen besitzen) als praktisch schwer gelten.",
         ],

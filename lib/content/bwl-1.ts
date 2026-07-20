@@ -32,6 +32,17 @@ export const chapters: SkriptChapter[] = [
           "Unternehmen unterscheiden sich u. a. nach Rechtsform: Personengesellschaften (z. B. Einzelunternehmen, GbR, OHG) zeichnen sich meist durch unbeschränkte persönliche Haftung der Gesellschafter aus, während Kapitalgesellschaften (z. B. GmbH, AG) die Haftung auf das Gesellschaftsvermögen beschränken, dafür aber höhere Gründungs- und Publizitätsanforderungen mit sich bringen.",
           "Die Wahl der Rechtsform hat weitreichende Konsequenzen für Haftung, Besteuerung, Kapitalbeschaffung und Entscheidungsstrukturen — sie ist deshalb eine der ersten strategischen Entscheidungen, die Gründer:innen treffen müssen.",
         ],
+        table: {
+          caption: "Gängige Rechtsformen im Überblick",
+          headers: ["Rechtsform", "Haftung", "Mindestkapital", "Gründer:innen"],
+          rows: [
+            ["Einzelunternehmen", "unbeschränkt (Privatvermögen)", "keins", "1"],
+            ["GbR", "unbeschränkt, gesamtschuldnerisch", "keins", "mind. 2"],
+            ["OHG", "unbeschränkt, gesamtschuldnerisch", "keins", "mind. 2"],
+            ["GmbH", "beschränkt auf Gesellschaftsvermögen", "25.000 €", "mind. 1"],
+            ["AG", "beschränkt auf Gesellschaftsvermögen", "50.000 €", "mind. 1"],
+          ],
+        },
         terms: [
           { term: "Personengesellschaft", definition: "Unternehmensform mit meist unbeschränkter persönlicher Haftung der Gesellschafter." },
           { term: "Kapitalgesellschaft", definition: "Unternehmensform mit auf das Gesellschaftsvermögen beschränkter Haftung." },
@@ -108,6 +119,15 @@ export const chapters: SkriptChapter[] = [
           "Nach der klassischen Unterscheidung von Frank Knight liegt Risiko vor, wenn mögliche Ergebnisse bekannt sind und ihnen (objektive oder zumindest gut geschätzte subjektive) Wahrscheinlichkeiten zugeordnet werden können. Unsicherheit (im engeren, 'Knightschen' Sinn) liegt dagegen vor, wenn selbst die möglichen Ergebnisse oder ihre Wahrscheinlichkeiten nicht bekannt sind.",
           "Diese Unterscheidung ist praktisch bedeutsam: Unter Risiko lassen sich Entscheidungen mit Erwartungswertkalkülen (Kapitel 3.2) fundieren; unter echter Unsicherheit versagen solche Kalküle, und andere Entscheidungslogiken (z. B. Effectuation, Kapitel 5) werden relevanter.",
         ],
+        table: {
+          caption: "Risiko vs. Unsicherheit nach Frank Knight",
+          headers: ["", "Risiko", "Unsicherheit (Knightscher Sinn)"],
+          rows: [
+            ["Mögliche Ergebnisse bekannt?", "ja", "nein"],
+            ["Wahrscheinlichkeiten bekannt?", "ja (objektiv oder geschätzt)", "nein"],
+            ["Geeignetes Instrument", "Erwartungswertkalküle (siehe 3.2)", "andere Logiken, z. B. Effectuation (siehe Kapitel 5)"],
+          ],
+        },
         terms: [
           { term: "Risiko (Knight)", definition: "Entscheidungssituation mit bekannten Ergebnissen und bekannten (geschätzten) Wahrscheinlichkeiten." },
           { term: "Unsicherheit (Knight)", definition: "Entscheidungssituation, in der Ergebnisse oder ihre Wahrscheinlichkeiten unbekannt sind." },
@@ -257,6 +277,15 @@ export const chapters: SkriptChapter[] = [
           "Eine funktionale Organisation gliedert das Unternehmen nach betrieblichen Funktionen (Produktion, Marketing, Finanzen, F&E) — dies fördert Spezialisierung und Skaleneffekte innerhalb jeder Funktion, erschwert aber die Koordination zwischen Funktionen bei produkt- oder marktspezifischen Entscheidungen. Eine divisionale Organisation gliedert dagegen nach Produkten, Regionen oder Kundengruppen, wobei jede Division weitgehend eigenständig mit eigenen Funktionsbereichen operiert.",
           "Divisionale Strukturen erlauben schnellere, marktnahe Entscheidungen und klare Erfolgsverantwortung pro Division, führen aber häufig zu Doppelstrukturen (jede Division braucht z. B. eigenes Marketing) und höheren Gesamtkosten als eine zentralisierte funktionale Struktur.",
         ],
+        table: {
+          caption: "Funktionale vs. divisionale Organisation",
+          headers: ["", "Funktionale Organisation", "Divisionale Organisation"],
+          rows: [
+            ["Gliederung nach", "betrieblichen Funktionen (Produktion, Marketing, Finanzen, F&E)", "Produkten, Regionen oder Kundengruppen"],
+            ["Vorteil", "Spezialisierung, Skaleneffekte je Funktion", "marktnahe, schnelle Entscheidungen, klare Erfolgsverantwortung"],
+            ["Nachteil", "erschwerte Koordination zwischen Funktionen", "Doppelstrukturen, höhere Gesamtkosten"],
+          ],
+        },
         terms: [
           { term: "Funktionale Organisation", definition: "Gliederung nach betrieblichen Funktionen wie Produktion, Marketing, Finanzen." },
           { term: "Divisionale Organisation", definition: "Gliederung nach Produkten, Regionen oder Kundengruppen mit weitgehend eigenständigen Divisionen." },
@@ -331,6 +360,14 @@ export const chapters: SkriptChapter[] = [
           "Die Produkt-Markt-Matrix (Ansoff-Matrix) unterscheidet vier Wachstumsstrategien: Marktdurchdringung (bestehendes Produkt, bestehender Markt — z. B. durch intensivere Werbung), Marktentwicklung (bestehendes Produkt, neuer Markt — z. B. Internationalisierung), Produktentwicklung (neues Produkt, bestehender Markt) und Diversifikation (neues Produkt, neuer Markt).",
           "Das Risiko steigt systematisch von Marktdurchdringung (geringstes Risiko, da sowohl Produkt als auch Markt bereits bekannt sind) zu Diversifikation (höchstes Risiko, da weder Produkt noch Markt vertraut sind) — diese Einordnung hilft, Wachstumsentscheidungen bewusst gegen ihr jeweiliges Risikoprofil abzuwägen.",
         ],
+        table: {
+          caption: "Die Produkt-Markt-Matrix (Ansoff-Matrix)",
+          headers: ["", "Bestehendes Produkt", "Neues Produkt"],
+          rows: [
+            ["Bestehender Markt", "Marktdurchdringung (geringstes Risiko)", "Produktentwicklung"],
+            ["Neuer Markt", "Marktentwicklung", "Diversifikation (höchstes Risiko)"],
+          ],
+        },
         terms: [{ term: "Ansoff-Matrix", definition: "Vier-Felder-Modell zur Einordnung von Wachstumsstrategien nach Produkt- und Marktneuheit." }],
         examples: [
           "Ein Süßwarenhersteller, der ein bestehendes Produkt erstmals in einem neuen Auslandsmarkt vertreibt, verfolgt eine Marktentwicklungsstrategie; würde er stattdessen ein gänzlich neues Produkt in einem neuen Markt einführen, wäre dies Diversifikation mit entsprechend höherem Risiko.",

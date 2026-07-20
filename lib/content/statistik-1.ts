@@ -591,10 +591,20 @@ export const chapters: SkriptChapter[] = [
         id: "3-9",
         heading: "3.9 Approximationen zwischen Verteilungen und die Stetigkeitskorrektur",
         body: [
-          "Mehrere der in diesem Kapitel behandelten Verteilungen lassen sich unter bestimmten Bedingungen durch eine andere, rechnerisch einfachere Verteilung annähern. Diese Approximationen sind praktisch wertvoll, weil z. B. Binomialwahrscheinlichkeiten mit sehr großem n kaum noch von Hand berechenbar sind, während die Normal- oder Poisson-Näherung mit tabellierten Werten schnell auszuwerten ist. Vier Approximationen sind besonders gebräuchlich: Binomial → Normal (für großes n und moderates p, Faustregel np(1−p) ≥ 9), Binomial → Poisson (für großes n und kleines p bei konstantem λ=np, Faustregel n ≥ 50 und p ≤ 0,05), Hypergeometrisch → Binomial (wenn die Grundgesamtheit N sehr groß im Vergleich zum Stichprobenumfang n ist, Faustregel n/N ≤ 0,05) und Poisson → Normal (für großes λ, Faustregel λ ≥ 9).",
+          "Mehrere der in diesem Kapitel behandelten Verteilungen lassen sich unter bestimmten Bedingungen durch eine andere, rechnerisch einfachere Verteilung annähern. Diese Approximationen sind praktisch wertvoll, weil z. B. Binomialwahrscheinlichkeiten mit sehr großem n kaum noch von Hand berechenbar sind, während die Normal- oder Poisson-Näherung mit tabellierten Werten schnell auszuwerten ist. Die folgende Tabelle fasst die vier gebräuchlichsten Approximationen mit ihren Faustregeln zusammen.",
           "Diese Faustregeln sind keine scharfen mathematischen Grenzen, sondern Erfahrungswerte, ab denen der Approximationsfehler in der Praxis vernachlässigbar klein wird — je weiter man sie überschreitet, desto besser die Näherung. Wichtig ist außerdem die Blickrichtung: Die Hypergeometrisch-zu-Binomial-Näherung ersetzt ein Ziehen ohne Zurücklegen durch ein (rechnerisch einfacheres) Ziehen mit Zurücklegen, was gerechtfertigt ist, wenn das Entnehmen einzelner Elemente die Zusammensetzung der Grundgesamtheit kaum verändert.",
           "Wird eine diskrete Verteilung (z. B. Binomial oder Poisson) durch eine stetige Normalverteilung angenähert, entsteht ein systematischer Fehler, weil eine stetige Verteilung jedem einzelnen Punkt die Wahrscheinlichkeit 0 zuordnet, während bei einer diskreten Verteilung P(X=k) durchaus positiv ist. Die Stetigkeitskorrektur behebt dieses Problem, indem sie jeden diskreten Wert k durch das Intervall [k−0,5; k+0,5] ersetzt, bevor die Normalapproximation angewendet wird: P(X ≤ k) ≈ Φ[(k+0,5−μ)/σ] und P(X ≥ k) ≈ 1 − Φ[(k−0,5−μ)/σ]. Für P(X=k) ergibt sich entsprechend P(X=k) ≈ Φ[(k+0,5−μ)/σ] − Φ[(k−0,5−μ)/σ].",
         ],
+        table: {
+          caption: "Approximationen zwischen Verteilungen",
+          headers: ["Ausgangsverteilung", "Zielverteilung", "Faustregel", "Parameter der Näherung"],
+          rows: [
+            ["Binomial B(n,p)", "Normal", "n·p·(1−p) ≥ 9", "N(n·p, n·p·(1−p))"],
+            ["Binomial B(n,p)", "Poisson", "n ≥ 50 und p ≤ 0,05", "Poisson(λ = n·p)"],
+            ["Hypergeometrisch H(N,K,n)", "Binomial", "n/N ≤ 0,05", "B(n, p = K/N)"],
+            ["Poisson(λ)", "Normal", "λ ≥ 9", "N(λ, λ)"],
+          ],
+        },
         formulas: [
           "P(X ≤ k) ≈ Φ[(k+0,5−μ)/σ]  (Stetigkeitskorrektur, obere Grenze)",
           "P(X ≥ k) ≈ 1 − Φ[(k−0,5−μ)/σ]  (Stetigkeitskorrektur, untere Grenze)",
@@ -795,6 +805,15 @@ export const chapters: SkriptChapter[] = [
           "s^2 = \\dfrac{1}{n}\\sum_{i=1}^k h_i \\cdot (m_i - \\bar{x})^2",
           "\\text{Median} \\approx a_u + \\dfrac{0{,}5 - F(a_u)}{f_m}\\cdot \\Delta_m",
         ],
+        table: {
+          caption: "Unklassierte vs. klassierte Daten im Vergleich",
+          headers: ["Kennzahl", "Unklassiert (4.4/4.6)", "Klassiert"],
+          rows: [
+            ["Mittelwert", "x̄ = (1/n)·Σ xi", "x̄ = (1/n)·Σ hi·mi"],
+            ["Varianz", "s² = (1/n)·Σ (xi−x̄)²", "s² = (1/n)·Σ hi·(mi−x̄)²"],
+            ["Median", "mittlerer sortierter Wert", "au + [(0,5−F(au))/fm]·Δm"],
+          ],
+        },
         terms: [
           {
             term: "Klassenmitte mi",
