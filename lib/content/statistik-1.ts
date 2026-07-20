@@ -737,24 +737,67 @@ export const chapters: SkriptChapter[] = [
         id: "4-6",
         heading: "4.6 Streuungsmaße: Varianz und Standardabweichung",
         body: [
-          "Analog zur Varianz einer Zufallsvariable (Kapitel 2.4) misst die Stichprobenvarianz s² die durchschnittliche quadrierte Abweichung der Beobachtungen vom arithmetischen Mittel: s² = (1/(n−1)) · Σ(xi − x̄)². Die Division durch n−1 statt n (statt der 'naiven' Variante) korrigiert einen sonst systematischen Fehler, wenn s² zur Schätzung der Varianz einer Grundgesamtheit verwendet wird.",
-          "Die Stichprobenstandardabweichung s = √s² liegt wieder in der ursprünglichen Einheit der Daten vor und ist damit meist anschaulicher interpretierbar als die Varianz selbst.",
+          "Analog zur Varianz einer Zufallsvariable (Kapitel 2.4) misst die Varianz s² die durchschnittliche quadrierte Abweichung der Beobachtungen vom arithmetischen Mittel: s² = (1/n) · Σ(xi − x̄)². Sie ist damit der Mittelwert der quadrierten Abweichungen — je weiter die Beobachtungen im Schnitt vom arithmetischen Mittel entfernt liegen, desto größer ist s².",
+          "Rechnerisch oft bequemer ist der Verschiebungssatz: s² = (1/n · Σ xi²) − x̄², der ohne vorheriges Bilden der einzelnen Abweichungen (xi − x̄) auskommt. Die Stichprobenstandardabweichung s = √s² liegt wieder in der ursprünglichen Einheit der Daten vor und ist damit meist anschaulicher interpretierbar als die Varianz selbst.",
         ],
-        formulas: ["s² = (1/(n−1)) · Σ (xi − x̄)²"],
-        formulasLatex: ["s^2 = \\dfrac{1}{n-1}\\sum_{i=1}^n (x_i - \\bar{x})^2"],
+        formulas: [
+          "s² = (1/n) · Σ (xi − x̄)²",
+          "s² = (1/n · Σ xi²) − x̄²  (Verschiebungssatz)",
+        ],
+        formulasLatex: [
+          "s^2 = \\dfrac{1}{n}\\sum_{i=1}^n (x_i - \\bar{x})^2",
+          "s^2 = \\left(\\dfrac{1}{n}\\sum_{i=1}^n x_i^2\\right) - \\bar{x}^2",
+        ],
         terms: [
           {
-            term: "Stichprobenvarianz",
-            definition: "Durchschnittliche quadrierte Abweichung der Beobachtungen vom arithmetischen Mittel, geteilt durch n−1.",
+            term: "Varianz",
+            definition: "Durchschnittliche quadrierte Abweichung der Beobachtungen vom arithmetischen Mittel.",
           },
         ],
         examples: [
-          "Für die Werte 4, 6, 8 (x̄=6, n=3): s² = [(4−6)²+(6−6)²+(8−6)²]/(3−1) = (4+0+4)/2 = 4, also s = 2.",
+          "Für die Werte 4, 6, 8 (x̄=6, n=3): s² = [(4−6)²+(6−6)²+(8−6)²]/3 = (4+0+4)/3 = 8/3 ≈ 2,67, also s ≈ 1,63. Über den Verschiebungssatz: (1/3)(4²+6²+8²) − 6² = 116/3 − 36 = 38,67 − 36 = 2,67 — dasselbe Ergebnis.",
         ],
       },
       {
         id: "4-7",
-        heading: "4.7 Relative Streuungsmaße und gepoolte Datensätze",
+        heading: "4.7 Lage- und Streuungsmaße bei klassierten Daten",
+        body: [
+          "Liegen die Daten nur noch als Häufigkeitstabelle mit Klassen vor (siehe 4.2) — etwa weil bereits klassiert erhoben oder veröffentlicht wurde —, sind die exakten Einzelwerte xi nicht mehr bekannt. Als Notlösung wird jede Klasse i (mit unterer Grenze ai und oberer Grenze bi) durch ihre Klassenmitte mi = (ai+bi)/2 repräsentiert, unter der Annahme einer annähernden Gleichverteilung der Werte innerhalb der Klasse. Die absolute Klassenhäufigkeit hi gibt an, wie viele der n Beobachtungen in Klasse i fallen, die relative Klassenhäufigkeit ist fi = hi/n.",
+          "Mittelwert und Varianz aus 4.4 und 4.6 übertragen sich direkt, indem xi durch die Klassenmitte mi und die einzelne Beobachtung durch die Klassenhäufigkeit hi ersetzt wird — beide bleiben Näherungen, die umso genauer werden, je schmaler die Klassen sind. Für den Median reicht die Klassenmitte allein nicht aus, weil er von der Position innerhalb der Klasse abhängt: Zunächst wird die Medianklasse bestimmt (die Klasse, in der die kumulierte relative Häufigkeit F erstmals 0,5 erreicht oder überschreitet), anschließend wird linear interpoliert, unter der Annahme, dass sich die Beobachtungen der Medianklasse gleichmäßig über deren Breite Δm verteilen.",
+        ],
+        formulas: [
+          "mi = (ai + bi) / 2  (Klassenmitte)",
+          "x̄ = (1/n) · Σ hi · mi",
+          "s² = (1/n) · Σ hi · (mi − x̄)²",
+          "Median ≈ au + [(0,5 − F(au)) / fm] · Δm",
+        ],
+        formulasLatex: [
+          "m_i = \\dfrac{a_i + b_i}{2}",
+          "\\bar{x} = \\dfrac{1}{n}\\sum_{i=1}^k h_i \\cdot m_i",
+          "s^2 = \\dfrac{1}{n}\\sum_{i=1}^k h_i \\cdot (m_i - \\bar{x})^2",
+          "\\text{Median} \\approx a_u + \\dfrac{0{,}5 - F(a_u)}{f_m}\\cdot \\Delta_m",
+        ],
+        terms: [
+          {
+            term: "Klassenmitte mi",
+            definition: "Repräsentativwert einer Klasse: (untere Grenze ai + obere Grenze bi)/2, unter Annahme annähernder Gleichverteilung innerhalb der Klasse.",
+          },
+          {
+            term: "Klassierter Mittelwert / klassierte Varianz",
+            definition: "Näherungsweise Berechnung von x̄ bzw. s² aus einer Häufigkeitstabelle, indem jede Beobachtung durch die Klassenmitte ihrer Klasse ersetzt wird (dieselbe Formel wie in 4.4/4.6, nur mit mi statt xi und hi statt Einzelbeobachtung).",
+          },
+          {
+            term: "Interpolierter Median",
+            definition: "Näherungswert für den Median aus klassierten Daten: au ist die untere Grenze der Medianklasse (der Klasse, in der die kumulierte relative Häufigkeit F erstmals 0,5 erreicht), F(au) die kumulierte relative Häufigkeit bis au, fm die relative Häufigkeit und Δm die Breite der Medianklasse.",
+          },
+        ],
+        examples: [
+          "Eine Support-Hotline erfasst die Bearbeitungszeit von 40 Anrufen nur noch klassiert: [0,5) Minuten: 8 Anrufe, [5,10): 15, [10,15): 12, [15,20): 5. Klassenmitten: 2,5 / 7,5 / 12,5 / 17,5. Mittelwert: x̄ = (8·2,5+15·7,5+12·12,5+5·17,5)/40 = 370/40 = 9,25 Minuten. Varianz: s² = [8·(2,5−9,25)²+15·(7,5−9,25)²+12·(12,5−9,25)²+5·(17,5−9,25)²]/40 = 877,5/40 ≈ 21,94, also s ≈ 4,68 Minuten. Median: Die relativen Klassenhäufigkeiten sind 0,20 / 0,375 / 0,30 / 0,125, kumuliert 0,20 / 0,575 / 0,875 / 1,00 — bei 0,5 liegt die Medianklasse bei [5,10) (au=5, F(au)=0,20, fm=0,375, Δm=5). Median ≈ 5 + [(0,5−0,20)/0,375]·5 = 5+4 = 9 Minuten, nahe am Mittelwert.",
+        ],
+      },
+      {
+        id: "4-8",
+        heading: "4.8 Relative Streuungsmaße und gepoolte Datensätze",
         body: [
           "Um die Streuung zweier Datensätze mit unterschiedlichem Niveau (z. B. Gehälter in verschiedenen Ländern mit unterschiedlicher Kaufkraft) fair zu vergleichen, normiert der Variationskoeffizient VK = s / x̄ die Standardabweichung am arithmetischen Mittel — er ist dimensionslos und damit unabhängig von der Einheit oder dem Niveau der Ursprungsdaten.",
           "Werden mehrere Teilstichproben zu einem Gesamtdatensatz zusammengefasst (gepoolt), lässt sich der Gesamtmittelwert als gewichteter Durchschnitt der Teilmittelwerte berechnen; die Gesamtvarianz setzt sich dagegen sowohl aus der durchschnittlichen Streuung innerhalb der Teilgruppen als auch aus der Streuung der Teilgruppen-Mittelwerte untereinander zusammen — zwei Gruppen mit identischer interner Streuung, aber stark unterschiedlichen Mittelwerten, erzeugen insgesamt eine höhere Gesamtvarianz.",
@@ -772,8 +815,8 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
-        id: "4-8",
-        heading: "4.8 Boxplot, Histogramm und Fünf-Zahlen-Zusammenfassung",
+        id: "4-9",
+        heading: "4.9 Boxplot, Histogramm und Fünf-Zahlen-Zusammenfassung",
         body: [
           "Die Fünf-Zahlen-Zusammenfassung fasst eine Verteilung kompakt über Minimum, Q1, Median, Q3 und Maximum zusammen. Grafisch wird sie im Boxplot dargestellt: eine Box von Q1 bis Q3 mit einer Linie beim Median, sowie 'Whiskers', die bis zum letzten Wert innerhalb des 1,5-fachen IQR reichen; Werte außerhalb dieses Bereichs werden häufig einzeln als potenzielle Ausreißer markiert.",
           "Das Histogramm stellt dagegen klassierte Häufigkeiten (siehe 4.2) als aneinandergrenzende Balken dar, deren Höhe (bzw. bei ungleichen Klassenbreiten: Fläche) proportional zur Häufigkeit der jeweiligen Klasse ist. Während der Boxplot besonders gut zum schnellen Vergleich mehrerer Gruppen geeignet ist, zeigt das Histogramm die Form der Verteilung (z. B. Schiefe oder mehrere Gipfel) deutlich detaillierter.",
@@ -793,8 +836,8 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
-        id: "4-9",
-        heading: "4.9 Lorenzkurve und Gini-Koeffizient",
+        id: "4-10",
+        heading: "4.10 Lorenzkurve und Gini-Koeffizient",
         body: [
           "Die Lorenzkurve stellt dar, welcher kumulierte Anteil einer Größe (z. B. Einkommen) auf welchen kumulierten Anteil der Bevölkerung entfällt, sortiert vom kleinsten zum größten Wert. Bei vollkommener Gleichverteilung fällt die Lorenzkurve mit der Diagonalen zusammen (die untersten 20% der Bevölkerung besitzen auch genau 20% des Einkommens); je stärker sie unterhalb der Diagonalen durchhängt, desto ungleicher ist die Verteilung.",
           "Der Gini-Koeffizient verdichtet diese grafische Information zu einer einzigen Zahl zwischen 0 und 1: das Verhältnis der Fläche zwischen Diagonale und Lorenzkurve zur gesamten Fläche unter der Diagonalen. Ein Gini-Koeffizient von 0 bedeutet vollkommene Gleichverteilung, ein Wert nahe 1 maximale Ungleichverteilung (eine einzelne Einheit besitzt praktisch alles).",
@@ -820,8 +863,8 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
-        id: "4-10",
-        heading: "4.10 Zusammenhangsmaße: Kontingenz, Kovarianz und Korrelation",
+        id: "4-11",
+        heading: "4.11 Zusammenhangsmaße: Kontingenz, Kovarianz und Korrelation",
         body: [
           "Für zwei nominalskalierte Merkmale lässt sich der Zusammenhang über eine Kontingenztabelle (Kreuztabelle der gemeinsamen Häufigkeiten) untersuchen; darauf aufbauende Maße wie Cramérs V verdichten die Stärke des Zusammenhangs zu einer einzigen Zahl zwischen 0 (kein Zusammenhang) und 1 (perfekter Zusammenhang).",
           "Für zwei metrisch skalierte Merkmale X und Y misst die Kovarianz Cov(X,Y) = (1/(n−1))·Σ(xi−x̄)(yi−ȳ), ob hohe X-Werte tendenziell mit hohen oder niedrigen Y-Werten einhergehen. Weil ihr Vorzeichen zwar die Richtung, ihr Betrag aber keine direkt interpretierbare Stärke des Zusammenhangs anzeigt (er hängt von den Einheiten ab), normiert man sie zum Korrelationskoeffizienten nach Pearson: r = Cov(X,Y) / (sx · sy), der stets zwischen −1 und +1 liegt und damit unabhängig von den Einheiten der Ausgangsdaten vergleichbar ist.",
@@ -843,8 +886,8 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
-        id: "4-11",
-        heading: "4.11 Spezielle Mittelwerte: gewichtetes arithmetisches und harmonisches Mittel",
+        id: "4-12",
+        heading: "4.12 Spezielle Mittelwerte: gewichtetes arithmetisches und harmonisches Mittel",
         body: [
           "Nicht jede Beobachtung soll bei der Mittelwertbildung immer gleich stark zählen. Das gewichtete arithmetische Mittel x̄_w = (Σ wi·xi) / (Σ wi) berücksichtigt, dass einzelne Werte xi unterschiedliches Gewicht wi haben — etwa wenn sich eine Durchschnittsnote aus Teilnoten mit unterschiedlicher Punktzahl zusammensetzt, oder ein Preisindex aus mehreren Gütergruppen mit unterschiedlichem Budgetanteil gebildet wird. Das gewöhnliche (ungewichtete) arithmetische Mittel aus 4.4 ist der Spezialfall, in dem alle Gewichte gleich groß sind.",
           "Das harmonische Mittel H = n / Σ(1/xi) (bzw. gewichtet: H_w = (Σ wi) / (Σ wi/xi)) ist dagegen das passende Lagemaß, wenn die Werte xi selbst Verhältniszahlen (Quotienten) sind und die zugehörigen BEZUGSGRÖSSEN im Zähler konstant gehalten werden sollen. Die Faustregel lautet: Ist bei mehreren Teilstrecken/-perioden die Größe im NENNER der Verhältniszahl (z. B. die Zeit bei km/h) konstant, verwendet man das arithmetische Mittel; ist dagegen die Größe im ZÄHLER konstant (z. B. die Strecke bei km/h), ist das harmonische Mittel das korrekte Maß.",
@@ -873,10 +916,10 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
-        id: "4-12",
-        heading: "4.12 Rangkorrelation: Spearman und Kendall",
+        id: "4-13",
+        heading: "4.13 Rangkorrelation: Spearman und Kendall",
         body: [
-          "Der Pearson-Korrelationskoeffizient aus 4.10 setzt metrisch skalierte Daten und einen (näherungsweise) linearen Zusammenhang voraus. Für ordinalskalierte Merkmale (z. B. Kundenzufriedenheit auf einer Rangskala) oder bei monotonen, aber nicht-linearen Zusammenhängen sind Rangkorrelationskoeffizienten die geeignetere Wahl, weil sie nur auf den RÄNGEN der Beobachtungen beruhen, nicht auf den exakten metrischen Abständen.",
+          "Der Pearson-Korrelationskoeffizient aus 4.11 setzt metrisch skalierte Daten und einen (näherungsweise) linearen Zusammenhang voraus. Für ordinalskalierte Merkmale (z. B. Kundenzufriedenheit auf einer Rangskala) oder bei monotonen, aber nicht-linearen Zusammenhängen sind Rangkorrelationskoeffizienten die geeignetere Wahl, weil sie nur auf den RÄNGEN der Beobachtungen beruhen, nicht auf den exakten metrischen Abständen.",
           "Der Spearmansche Rangkorrelationskoeffizient rs ersetzt zunächst jede Beobachtung von X und Y durch ihren Rang (1 = kleinster Wert) und berechnet dann formal den Pearson-Korrelationskoeffizienten dieser Ränge. Gibt es keine Bindungen (keine zwei gleichen Werte innerhalb eines Merkmals), vereinfacht sich die Formel zu rs = 1 − [6·Σdi²] / [n(n²−1)], wobei di = Rang(xi) − Rang(yi) die Rangdifferenz jeder Beobachtung ist. Treten Bindungen auf (mehrere gleiche Werte), erhalten alle gebundenen Beobachtungen den Durchschnittsrang (Durchschnitt der Ränge, die sie ohne Bindung belegt hätten) — die vereinfachte d²-Formel ist dann nur noch näherungsweise korrekt, und man sollte rs stattdessen exakt als Pearson-Korrelation der (mit Durchschnittsrängen versehenen) Ränge berechnen.",
           "Der Kendallsche Rangkorrelationskoeffizient τ verfolgt einen anderen Ansatz: Er betrachtet alle n(n−1)/2 möglichen Beobachtungspaare und zählt, wie viele davon konkordant sind (beide Merkmale ändern sich in dieselbe Richtung: xi<xj UND yi<yj, oder xi>xj UND yi>yj) und wie viele diskordant (die Merkmale ändern sich gegenläufig). Für Daten ohne Bindungen gilt τ = (Anzahl konkordanter Paare − Anzahl diskordanter Paare) / [n(n−1)/2]. Beide Koeffizienten liegen zwischen −1 und +1 und sind bei perfekter monotoner Übereinstimmung (nicht notwendig Linearität) gleich ±1 — τ ist dabei typischerweise betragsmäßig kleiner als rs bei denselben Daten, beide Maße sind aber als Konzept nicht direkt numerisch vergleichbar.",
         ],
@@ -907,8 +950,8 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
-        id: "4-13",
-        heading: "4.13 Kontingenzanalyse: quadratische Kontingenz und Kontingenzkoeffizienten",
+        id: "4-14",
+        heading: "4.14 Kontingenzanalyse: quadratische Kontingenz und Kontingenzkoeffizienten",
         body: [
           "Für zwei nominalskalierte Merkmale mit einer Kontingenztabelle (Kreuztabelle) der beobachteten Häufigkeiten nij lässt sich prüfen, wie stark sie voneinander abweichen von dem, was bei völliger Unabhängigkeit zu erwarten wäre. Die erwarteten (unter Unabhängigkeit theoretischen) Häufigkeiten ergeben sich als eij = (ni.·n.j)/n, wobei ni. die Zeilensumme, n.j die Spaltensumme und n die Gesamtzahl der Beobachtungen ist — dieselbe Logik wie beim Additionssatz für unabhängige Ereignisse (P(A∩B)=P(A)·P(B)) auf Häufigkeiten übertragen.",
           "Die quadratische Kontingenz K² = Σi Σj (nij − eij)² / eij summiert die quadrierten, an der jeweiligen Erwartungshäufigkeit relativierten Abweichungen über alle Zellen der Tabelle. Je größer K², desto stärker weichen die beobachteten von den bei Unabhängigkeit erwarteten Häufigkeiten ab — K² ist rein deskriptiv als Zusammenhangsmaß gedacht (dieselbe Rechengröße wird in der schließenden Statistik auch als Prüfgröße des Chi-Quadrat-Unabhängigkeitstests verwendet).",
@@ -941,19 +984,19 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
-        id: "4-14",
-        heading: "4.14 R-Funktionen für Statistik 1 im Überblick",
+        id: "4-15",
+        heading: "4.15 R-Funktionen für Statistik 1 im Überblick",
         body: [
           "Praktisch alle in diesem Skript behandelten Kennzahlen und Verteilungen lassen sich in R mit wenigen eingebauten Funktionen berechnen, ohne die Formeln von Hand auszuwerten. Für Verteilungen folgt R durchgehend demselben Namensschema: ein Präfix d (Dichte/Wahrscheinlichkeitsfunktion, also f(x)), p (Verteilungsfunktion F(x)=P(X≤x)), q (Quantilfunktion, die Umkehrung von p) oder r (Zufallszahlen erzeugen), gefolgt vom Verteilungsnamen — z. B. dbinom(), pbinom(), qbinom(), rbinom() für die Binomialverteilung.",
           "Für die deskriptiven Zusammenhangsmaße aus diesem Kapitel sowie zentrale Verteilungsfunktionen aus Kapitel 3 sind folgende Funktionen am gebräuchlichsten (Argumente vereinfacht dargestellt):",
         ],
         terms: [
-          { term: "cor(x, y, method=\"pearson\")", definition: "Pearson-Korrelationskoeffizient r zwischen zwei metrischen Vektoren (Standardmethode, siehe 4.10)." },
-          { term: "cor(x, y, method=\"spearman\")", definition: "Spearmanscher Rangkorrelationskoeffizient rs; R bildet intern automatisch Durchschnittsränge bei Bindungen (siehe 4.12)." },
-          { term: "cor(x, y, method=\"kendall\")", definition: "Kendallsches τ zwischen zwei Vektoren, inkl. automatischer Behandlung von Bindungen (siehe 4.12)." },
-          { term: "chisq.test(tabelle, correct=FALSE)", definition: "Berechnet u. a. die quadratische Kontingenz K² (als statistic-Wert) für eine Kontingenztabelle (siehe 4.13)." },
-          { term: "weighted.mean(x, w)", definition: "Gewichtetes arithmetisches Mittel eines Vektors x mit Gewichten w (siehe 4.11)." },
-          { term: "1/mean(1/x)", definition: "In Basis-R keine eingebaute Funktion für das harmonische Mittel; kann so direkt aus der Definition berechnet werden (siehe 4.11)." },
+          { term: "cor(x, y, method=\"pearson\")", definition: "Pearson-Korrelationskoeffizient r zwischen zwei metrischen Vektoren (Standardmethode, siehe 4.11)." },
+          { term: "cor(x, y, method=\"spearman\")", definition: "Spearmanscher Rangkorrelationskoeffizient rs; R bildet intern automatisch Durchschnittsränge bei Bindungen (siehe 4.13)." },
+          { term: "cor(x, y, method=\"kendall\")", definition: "Kendallsches τ zwischen zwei Vektoren, inkl. automatischer Behandlung von Bindungen (siehe 4.13)." },
+          { term: "chisq.test(tabelle, correct=FALSE)", definition: "Berechnet u. a. die quadratische Kontingenz K² (als statistic-Wert) für eine Kontingenztabelle (siehe 4.14)." },
+          { term: "weighted.mean(x, w)", definition: "Gewichtetes arithmetisches Mittel eines Vektors x mit Gewichten w (siehe 4.12)." },
+          { term: "1/mean(1/x)", definition: "In Basis-R keine eingebaute Funktion für das harmonische Mittel; kann so direkt aus der Definition berechnet werden (siehe 4.12)." },
           { term: "dbinom(x, size=n, prob=p)", definition: "Wahrscheinlichkeitsfunktion f(x) der Binomialverteilung B(n,p) (siehe 3.2)." },
           { term: "pbinom(q, size=n, prob=p)", definition: "Verteilungsfunktion P(X≤q) der Binomialverteilung." },
           { term: "dpois(x, lambda)", definition: "Wahrscheinlichkeitsfunktion f(x) der Poisson-Verteilung mit Rate λ (siehe 3.4)." },
@@ -962,42 +1005,7 @@ export const chapters: SkriptChapter[] = [
           { term: "qnorm(p, mean, sd)", definition: "Quantilfunktion der Normalverteilung; liefert zu gegebener Wahrscheinlichkeit p den zugehörigen x-Wert." },
         ],
         examples: [
-          "Für die fünf Restaurant-Ränge aus Beispiel 4.12 (X=(1,2,3,4,5), Y=(2,1,3,5,4)) liefert cor(X, Y, method=\"spearman\") in R denselben Wert 0,8, den man auch von Hand über die d²-Formel erhält — R nutzt intern jedoch die exakte Pearson-Formel auf den Rängen, was insbesondere bei Bindungen zuverlässiger ist als die vereinfachte Handrechnung.",
-        ],
-      },
-      {
-        id: "4-15",
-        heading: "4.15 Lage- und Streuungsmaße bei klassierten Daten",
-        body: [
-          "Liegen die Daten nicht als Liste einzelner Werte, sondern nur noch als Häufigkeitstabelle mit Klassen vor (siehe 4.2) — etwa weil bereits klassiert erhoben oder veröffentlicht wurde —, sind die exakten Einzelwerte xi nicht mehr bekannt. Als Notlösung ersetzt man jede Beobachtung einer Klasse durch die Klassenmitte mi = (au+ao)/2 (au, ao: untere und obere Klassengrenze) und rechnet so, als läge jede der ni Beobachtungen der Klasse exakt bei mi. Das ist eine Näherung: Innerhalb einer Klasse können die tatsächlichen Werte durchaus ungleichmäßig verteilt sein, sodass das Ergebnis vom wahren Wert (den man mit den Originaldaten erhielte) leicht abweicht — die Näherung wird umso genauer, je schmaler die Klassen sind.",
-          "Mittelwert und Varianz aus 4.4 und 4.6 übertragen sich direkt, indem xi durch die Klassenmitte mi und die einzelne Beobachtung durch die Klassenhäufigkeit ni ersetzt wird. Für den Median reicht die Klassenmitte allein nicht aus, weil er von der Position innerhalb der Klasse abhängt: Stattdessen wird linear interpoliert, unter der Annahme, dass sich die ni Beobachtungen der Medianklasse gleichmäßig über deren Breite bm verteilen.",
-        ],
-        formulas: [
-          "x̄ ≈ (1/n) · Σ ni · mi",
-          "s² ≈ (1/(n−1)) · Σ ni · (mi − x̄)²",
-          "Median ≈ au + [(n/2 − F(au)) / nm] · bm",
-        ],
-        formulasLatex: [
-          "\\bar{x} \\approx \\dfrac{1}{n}\\sum_{i=1}^k n_i \\cdot m_i",
-          "s^2 \\approx \\dfrac{1}{n-1}\\sum_{i=1}^k n_i \\cdot (m_i - \\bar{x})^2",
-          "\\text{Median} \\approx a_u + \\dfrac{\\frac{n}{2} - F(a_u)}{n_m}\\cdot b_m",
-        ],
-        terms: [
-          {
-            term: "Klassenmitte mi",
-            definition: "Mittelpunkt einer Klasse, (untere Grenze + obere Grenze)/2; Näherungswert für alle Beobachtungen dieser Klasse.",
-          },
-          {
-            term: "Klassierter Mittelwert / klassierte Varianz",
-            definition: "Näherungsweise Berechnung von x̄ bzw. s² aus einer Häufigkeitstabelle, indem jede Beobachtung durch die Klassenmitte ihrer Klasse ersetzt wird.",
-          },
-          {
-            term: "Interpolierter Median",
-            definition: "Näherungswert für den Median aus klassierten Daten: au ist die untere Grenze der Medianklasse (der Klasse, in der die kumulierte Häufigkeit erstmals n/2 erreicht), F(au) die kumulierte absolute Häufigkeit bis au, nm die absolute Häufigkeit und bm die Breite der Medianklasse.",
-          },
-        ],
-        examples: [
-          "Eine Support-Hotline erfasst die Bearbeitungszeit von 40 Anrufen nur noch klassiert: [0,5) Minuten: 8 Anrufe, [5,10): 15, [10,15): 12, [15,20): 5. Klassenmitten: 2,5 / 7,5 / 12,5 / 17,5. Mittelwert: x̄ ≈ (8·2,5+15·7,5+12·12,5+5·17,5)/40 = 370/40 = 9,25 Minuten. Varianz: s² ≈ [8·(2,5−9,25)²+15·(7,5−9,25)²+12·(12,5−9,25)²+5·(17,5−9,25)²]/39 = 877,5/39 ≈ 22,5, also s ≈ 4,74 Minuten. Median: Die kumulierten Häufigkeiten sind 8, 23, 35, 40 — bei n/2=20 liegt die Medianklasse bei [5,10) (au=5, F(au)=8, nm=15, bm=5). Median ≈ 5 + [(20−8)/15]·5 = 5+4 = 9 Minuten, nahe am Mittelwert.",
+          "Für die fünf Restaurant-Ränge aus Beispiel 4.13 (X=(1,2,3,4,5), Y=(2,1,3,5,4)) liefert cor(X, Y, method=\"spearman\") in R denselben Wert 0,8, den man auch von Hand über die d²-Formel erhält — R nutzt intern jedoch die exakte Pearson-Formel auf den Rängen, was insbesondere bei Bindungen zuverlässiger ist als die vereinfachte Handrechnung.",
         ],
       },
     ],
