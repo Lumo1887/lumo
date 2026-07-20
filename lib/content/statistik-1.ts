@@ -337,10 +337,12 @@ export const chapters: SkriptChapter[] = [
           "Analog misst die bedingte Varianz Var(Y|X=x) = E[(Y − E(Y|X=x))² | X=x] die Streuung von Y, wenn X=x bereits bekannt ist — also die 'Restunsicherheit', die auch nach Kenntnis von X noch in Y verbleibt. Ein nützlicher Zusammenhang ist die Varianzzerlegung E[Var(Y|X)] + Var[E(Y|X)] = Var(Y): Die Gesamtvarianz von Y setzt sich additiv aus der im Mittel verbleibenden bedingten Varianz und der Varianz der bedingten Erwartungswerte zusammen. Je stärker X und Y zusammenhängen, desto größer ist der zweite Term (die 'durch X erklärte' Streuung) und desto kleiner im Verhältnis der erste.",
         ],
         formulas: [
+          "f(y|x) = f(x,y) / fX(x)  (bedingte Verteilung/Dichte)",
           "E(Y|X=x) = Σy y · f(y|x)  (diskret), E(Y|X=x) = ∫ y · f(y|x) dy  (stetig)",
           "Var(Y|X=x) = E(Y²|X=x) − [E(Y|X=x)]²",
         ],
         formulasLatex: [
+          "f(y\\mid x) = \\dfrac{f(x,y)}{f_X(x)}",
           "E(Y\\mid X=x) = \\sum_y y\\,f(y\\mid x) \\quad(\\text{diskret}), \\qquad E(Y\\mid X=x) = \\int y\\,f(y\\mid x)\\,dy \\quad(\\text{stetig})",
           "\\text{Var}(Y\\mid X=x) = E(Y^2\\mid X=x) - [E(Y\\mid X=x)]^2",
         ],
@@ -359,7 +361,7 @@ export const chapters: SkriptChapter[] = [
           },
         ],
         examples: [
-          "Ein Versandhändler erfasst für jede Bestellung die Anzahl X der bestellten Artikel (1 oder 2) und den Bearbeitungsfehler Y (0 = kein Fehler, 1 = Fehler). Bedingt auf X=1 gilt f(Y=1|X=1)=0,02, bedingt auf X=2 gilt f(Y=1|X=2)=0,07 (Mehrartikelbestellungen sind fehleranfälliger). Damit ist E(Y|X=1) = 0,02 und E(Y|X=2) = 0,07: Der bedingte Erwartungswert der Fehlerquote hängt sichtbar von X ab, was zeigt, dass X und Y nicht unabhängig sind.",
+          "Ein Versandhändler erfasst für jede Bestellung die Anzahl X der bestellten Artikel (1 oder 2) und den Bearbeitungsfehler Y (0 = kein Fehler, 1 = Fehler) mit gemeinsamer Wahrscheinlichkeitsfunktion f(1,0)=0,588, f(1,1)=0,012, f(2,0)=0,372, f(2,1)=0,028. Die Randverteilung von X ergibt sich durch Summation über y: fX(1) = 0,588+0,012 = 0,6 und fX(2) = 0,372+0,028 = 0,4. Die bedingte Verteilung von Y gegeben X=1 ist damit f(0|1) = 0,588/0,6 = 0,98 und f(1|1) = 0,012/0,6 = 0,02; gegeben X=2 ist f(0|2) = 0,372/0,4 = 0,93 und f(1|2) = 0,028/0,4 = 0,07. Daraus folgen die bedingten Erwartungswerte E(Y|X=1) = 0·0,98+1·0,02 = 0,02 und E(Y|X=2) = 0·0,93+1·0,07 = 0,07: Mehrartikelbestellungen sind fehleranfälliger, was bereits an der unterschiedlichen bedingten Verteilung von Y ablesbar ist und zeigt, dass X und Y nicht unabhängig sind.",
         ],
       },
     ],
