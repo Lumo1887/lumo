@@ -158,6 +158,25 @@ export const chapters: SkriptChapter[] = [
           "Ein Balken mit einem Festlager (2 Unbekannte) und einem Loslager (1 Unbekannte) hat insgesamt r=3 Unbekannte, was genau den 3 Gleichgewichtsbedingungen in der Ebene entspricht — das System ist statisch bestimmt.",
         ],
       },
+      {
+        id: "3-4",
+        heading: "3.4 Der Gauß-Algorithmus in Tableau-Form",
+        body: [
+          "Systeme mit mehr als drei unbekannten Größen entstehen an mehreren Stellen der Technischen Mechanik — etwa bei mehrteiligen Tragwerken mit mehreren Freischnitten (Kapitel 10), bei denen jeder Teilkörper eigene Gleichgewichtsbedingungen liefert, die gemeinsam gelöst werden müssen. Der Gauß-Algorithmus löst ein solches lineares Gleichungssystem (LGS) systematisch, indem er die erweiterte Koeffizientenmatrix — das Tableau, bestehend aus den Koeffizienten aller Gleichungen und der rechten Seite — schrittweise auf Stufenform (Dreiecksform) bringt.",
+          "Erlaubt sind dabei drei elementare Zeilenumformungen, die die Lösungsmenge nicht verändern: das Vertauschen zweier Zeilen, die Multiplikation einer Zeile mit einem Skalar ≠0, und die Addition eines Vielfachen einer Zeile zu einer anderen. Zur Elimination arbeitet man spaltenweise: Mit der ersten Zeile (dem Pivot) werden die Einträge darunter in derselben Spalte eliminiert, indem von jeder darunterliegenden Zeile ein passendes Vielfaches der Pivotzeile abgezogen wird — Zeile_i,neu = Zeile_i − (a_i1/a_11)·Zeile_1. Dieser Schritt wird spaltenweise wiederholt, bis das Tableau nur noch auf und oberhalb der Diagonalen von null verschiedene Einträge besitzt.",
+          "Ist das Tableau in Stufenform, liefert die letzte Zeile (mit nur noch einer Unbekannten) deren Wert direkt. Durch Rückwärtseinsetzen — von unten nach oben durch die Zeilen arbeiten und bereits bekannte Werte einsetzen — werden anschließend alle übrigen Unbekannten der Reihe nach bestimmt.",
+        ],
+        formulas: ["Zeile_i,neu = Zeile_i − (a_i1/a_11) · Zeile_1  (Elimination unterhalb des Pivots)"],
+        formulasLatex: ["\\text{Zeile}_{i,\\text{neu}} = \\text{Zeile}_i - \\dfrac{a_{i1}}{a_{11}}\\cdot \\text{Zeile}_1"],
+        terms: [
+          { term: "Tableau (erweiterte Koeffizientenmatrix)", definition: "Kompakte Zahlendarstellung eines LGS aus den Koeffizienten aller Gleichungen und der rechten Seite, ohne die Variablennamen mitzuführen." },
+          { term: "Stufenform (Dreiecksform)", definition: "Zustand des Tableaus, in dem unterhalb der Diagonalen nur noch Nullen stehen; Ausgangspunkt für das Rückwärtseinsetzen." },
+          { term: "Rückwärtseinsetzen", definition: "Lösungsverfahren, das ausgehend von der letzten (einfachsten) Zeile eines Tableaus in Stufenform schrittweise alle Unbekannten bestimmt." },
+        ],
+        examples: [
+          "Gesucht ist die Lösung des Systems x+y+z=6, 2x−y+z=3, x+2y−z=2, dargestellt als Tableau mit den Zeilen (1,1,1|6), (2,−1,1|3), (1,2,−1|2). Elimination von x in Zeile 2 (−2·Zeile 1) und Zeile 3 (−1·Zeile 1) liefert (1,1,1|6), (0,−3,−1|−9), (0,1,−2|−4). Elimination von y in Zeile 3 (+⅓·Zeile 2) liefert (0,0,−7/3|−7), also z=3. Rückwärtseinsetzen in Zeile 2: −3y−3=−9 ⇒ y=2. Rückwärtseinsetzen in Zeile 1: x+2+3=6 ⇒ x=1.",
+        ],
+      },
     ],
   },
   // ==================== Kapitel 4 ====================
@@ -258,6 +277,22 @@ export const chapters: SkriptChapter[] = [
           "Um die Kraft in einem mittleren Diagonalstab eines Brückenfachwerks zu bestimmen, legt man einen Rundschnitt durch diesen und zwei weitere Stäbe und wählt den Momentenbezugspunkt am Schnittpunkt der beiden anderen Stäbe — dadurch entfällt deren Momentbeitrag, und die gesuchte Stabkraft lässt sich direkt aus ΣM=0 berechnen.",
         ],
       },
+      {
+        id: "5-4",
+        heading: "5.4 Nullstäbe erkennen",
+        body: [
+          "Nullstäbe sind Fachwerkstäbe, deren Stabkraft unter der gegebenen Belastung exakt null beträgt. In vielen Fällen lassen sie sich allein durch Betrachtung der Knotengeometrie identifizieren, ganz ohne Rechnung — das spart beim Knotenschnittverfahren (5.2) erheblichen Aufwand, da man die Berechnung gezielt bei den tatsächlich belasteten Stäben beginnen kann.",
+          "Drei Fälle decken die meisten praktischen Situationen ab: (1) Treffen an einem unbelasteten Knoten genau zwei Stäbe zusammen, die nicht auf einer gemeinsamen Wirkungslinie liegen (nicht kollinear), müssen beide Stäbe Nullstäbe sein — ohne äußere Kraft am Knoten kann Gleichgewicht in zwei unabhängigen Richtungen nur erfüllt werden, wenn beide Stabkräfte null sind. (2) Treffen an einem unbelasteten Knoten drei Stäbe zusammen, von denen zwei kollinear sind, muss der dritte (nicht-kollineare) Stab ein Nullstab sein — die beiden kollinearen Stäbe können sich gegenseitig entlang ihrer gemeinsamen Richtung im Gleichgewicht halten, aber die Kraftkomponente senkrecht dazu kann nur der dritte Stab aufnehmen, und ohne äußere Last muss diese Komponente null sein. (3) Greift an einem Knoten mit genau zwei nicht-kollinearen Stäben eine äußere Kraft an, die exakt in Richtung eines der beiden Stäbe wirkt, ist der jeweils andere Stab ein Nullstab.",
+          "Nullstäbe sind trotz ihrer Kraft von null nicht überflüssig: Sie stabilisieren das Fachwerk gegen alternative Laststellungen (bei denen sie durchaus tragend werden) und verhindern das seitliche Ausknicken benachbarter Druckstäbe. Ist ein bestimmter Stab dagegen KEIN Nullstab und soll gezielt (ohne das gesamte Fachwerk knotenweise durchzurechnen) bestimmt werden, ist meist das in 5.3 behandelte Rittersche Schnittverfahren der effizientere Weg: Ein Rundschnitt durch höchstens drei unbekannte Stäbe erlaubt es, die gesuchte Stabkraft über eine geeignet gewählte Momentengleichung direkt zu isolieren, ohne über die Nachbarknoten zu gehen.",
+        ],
+        terms: [
+          { term: "Nullstab", definition: "Fachwerkstab, dessen Stabkraft unter der gegebenen Belastung exakt null beträgt." },
+          { term: "Kollineare Stäbe", definition: "Zwei Stäbe, deren Wirkungslinien auf derselben Geraden liegen." },
+        ],
+        examples: [
+          "In einem Fachwerk trifft an einem oberen, unbelasteten Knoten ein senkrechter Pfosten auf zwei kollineare, waagrechte Obergurtstäbe. Nach Fall (2) ist der Pfosten ein Nullstab, da die beiden Obergurtstäbe die Horizontalrichtung untereinander im Gleichgewicht halten und für die Vertikalrichtung (in der nur der Pfosten wirkt) ohne äußere Last keine Kraft übrig bleibt.",
+        ],
+      },
     ],
   },
   // ==================== Kapitel 6 ====================
@@ -296,6 +331,41 @@ export const chapters: SkriptChapter[] = [
         terms: [{ term: "Streckenlast (q)", definition: "Über die Balkenlänge verteilte Kraft pro Längeneinheit." }],
         examples: [
           "Bei einem Balken mit konstanter Streckenlast q ist der Querkraftverlauf linear (Q(x)=Q₀−q·x) und der Momentenverlauf parabelförmig (M(x)=M₀+Q₀·x−q·x²/2) — die Stelle maximalen Moments liegt genau dort, wo Q(x)=0 wird.",
+        ],
+      },
+      {
+        id: "6-3",
+        heading: "6.3 Sprünge und Knicke in den Schnittgrößenverläufen",
+        body: [
+          "Die Differentialbeziehungen dQ/dx=−q(x) und dM/dx=Q(x) aus 6.2 gelten dort, wo die Belastung stetig verläuft. An Stellen, an denen sich der Belastungstyp qualitativ ändert — eine Einzelkraft, ein Einzelmoment oder ein sprunghafter Wechsel der Streckenlast — erzeugen diese Beziehungen charakteristische, gut vorhersagbare Unstetigkeiten in den Q- und M-Verläufen.",
+          "An einer Stelle mit angreifender Einzelkraft F macht die Querkraft Q einen Sprung der Höhe F in Kraftrichtung, da die Kraft dort schlagartig ins Gleichgewicht des freigeschnittenen Teilstücks eintritt. Das Biegemoment M selbst bleibt an dieser Stelle stetig (kein Sprung), hat dort aber einen Knick — einen Sprung in seiner Steigung —, da sich dM/dx=Q sprunghaft ändert. An einer Stelle mit angreifendem Einzelmoment M0 verhält es sich umgekehrt: Das Biegemoment M springt um M0, während die Querkraft Q dort unverändert (stetig) bleibt, weil ein reines Moment keine Kraft in das Gleichgewicht einträgt.",
+          "Innerhalb eines Bereichs mit konstanter Streckenlast q ist Q linear und M parabelförmig (siehe 6.2); wechselt q selbst sprunghaft (z. B. von q=0 auf einen konstanten Wert), bleibt Q an dieser Stelle stetig, macht aber einen Knick, da sich die Steigung dQ/dx=−q sprunghaft ändert. Diese drei Regeln erlauben es, aus einem gegebenen Q- oder M-Verlauf direkt auf die Art der zugrunde liegenden Belastung zurückzuschließen, ohne die Herleitung erneut durchzuführen.",
+        ],
+        formulas: ["ΔQ = F  (Sprung in Q bei Einzelkraft F)", "ΔM = M0  (Sprung in M bei Einzelmoment M0)"],
+        formulasLatex: ["\\Delta Q = F", "\\Delta M = M_0"],
+        terms: [
+          { term: "Sprung (in Q oder M)", definition: "Unstetigkeitsstelle im Funktionswert eines Schnittgrößenverlaufs, verursacht durch eine dort angreifende Einzelkraft (Sprung in Q) oder ein Einzelmoment (Sprung in M)." },
+          { term: "Knick (in Q oder M)", definition: "Stelle mit unstetiger erster Ableitung bei stetigem Funktionswert, verursacht durch eine Einzelkraft (Knick in M) oder einen sprunghaften Streckenlastwechsel (Knick in Q)." },
+        ],
+        examples: [
+          "Ein Kragarm der Länge 4 m trägt bei x=1 m eine Einzelkraft F=10 kN nach unten und bei x=3 m ein aufgebrachtes Einzelmoment M0=5 kNm. Der Querkraftverlauf springt bei x=1 m um ΔQ=10 kN und bleibt sonst (mangels Streckenlast) stückweise konstant. Der Momentenverlauf hat bei x=1 m einen Knick (Steigungswechsel entsprechend der neuen Querkraft) und bei x=3 m einen Sprung um ΔM=5 kNm, bleibt aber bei x=1 m selbst stetig.",
+        ],
+      },
+      {
+        id: "6-4",
+        heading: "6.4 Bestimmung linearer Streckenlastfunktionen aus zwei Punkten",
+        body: [
+          "Nicht jede Streckenlast ist konstant: Hydrostatischer Druck auf eine Wand oder Windlast auf ein Bauteil wachsen häufig linear mit der Höhe. Um die Differentialbeziehungen aus 6.2/6.3 anzuwenden, wird die explizite Funktionsgleichung q(x)=a·x+b benötigt — dieselbe Aufgabe wie das Bestimmen einer Geraden durch zwei gegebene Punkte, hier angewandt auf die Streckenlast statt auf eine gewöhnliche y=f(x)-Funktion.",
+          "Sind zwei Punkte (x1,q1) und (x2,q2) der Streckenlast bekannt (üblicherweise die Werte an den beiden Enden des betrachteten Balkenabschnitts), ergibt sich die Steigung als a = (q2−q1)/(x2−x1) und anschließend der Achsenabschnitt durch Einsetzen eines der beiden Punkte: b = q1 − a·x1.",
+          "Ist q(x) explizit bekannt, lässt sich daraus nicht nur der Q- und M-Verlauf durch Integration gewinnen (6.2), sondern auch die resultierende Gesamtkraft direkt als Fläche unter der q(x)-Geraden bestimmen — bei linearer Streckenlast ein Trapez, dessen Fläche und Schwerpunktlage sich für die Ersatzlast in Gleichgewichtsbetrachtungen (Kapitel 3) nutzen lassen.",
+        ],
+        formulas: ["a = (q2 − q1) / (x2 − x1)", "b = q1 − a · x1"],
+        formulasLatex: ["a = \\dfrac{q_2-q_1}{x_2-x_1}", "b = q_1 - a\\cdot x_1"],
+        terms: [
+          { term: "Lineare Streckenlast", definition: "Streckenlast, deren Intensität sich linear entlang der Balkenachse ändert, q(x)=a·x+b." },
+        ],
+        examples: [
+          "An einem Balkenabschnitt ist q(0)=2 kN/m und q(5)=12 kN/m bekannt (x in Metern). Die Steigung beträgt a=(12−2)/(5−0)=2, der Achsenabschnitt b=2−2·0=2, also q(x)=2x+2. Probe bei x=5: 2·5+2=12 ✓. Die resultierende Gesamtkraft entspricht der Trapezfläche (q(0)+q(5))/2·5 = (2+12)/2·5 = 35 kN.",
         ],
       },
     ],
@@ -352,6 +422,25 @@ export const chapters: SkriptChapter[] = [
         terms: [{ term: "Poissonzahl (ν)", definition: "Verhältnis von Querkontraktion zu Längsdehnung bei einachsiger Belastung." }],
         examples: [
           "Bei ν=0,3 und einer Längsdehnung von ε_längs=0,002 (0,2%) beträgt die Querdehnung ε_quer=−0,3×0,002=−0,0006 — der Stab wird also gleichzeitig um 0,06% dünner, während er sich längt.",
+        ],
+      },
+      {
+        id: "7-4",
+        heading: "7.4 Schubspannung τ und das vollständige Bild von σ, τ und ε",
+        body: [
+          "Die Normalspannung σ=N/A aus 7.1 und die Dehnung ε=ΔL/L₀ mit dem Hookeschen Gesetz σ=E·ε aus 7.2 erfassen ausschließlich Beanspruchungen SENKRECHT zur betrachteten Schnittfläche. Wirkt zusätzlich eine Querkraft Q (Kapitel 6), entsteht eine tangential — also PARALLEL zur Schnittfläche — wirkende Beanspruchung: die Schubspannung τ = Q/A. Diese Formel liefert einen über den Querschnitt gemittelten Wert; die tatsächliche Verteilung von τ ist bei den meisten Querschnittsformen nicht konstant (bei einem Rechteckquerschnitt z. B. parabelförmig mit Maximum in der neutralen Faser), was für überschlägige Nachweise aber meist zweitrangig ist.",
+          "Analog zum Hookeschen Gesetz für Normalspannungen existiert ein lineares Materialgesetz für Schub: τ = G·γ, wobei G der Schubmodul (die Steifigkeit gegenüber Schubbeanspruchung) und γ der Gleitwinkel ist — die Winkeländerung eines ursprünglich rechten Winkels im Material, das tangentiale Gegenstück zur Dehnung ε. Schubmodul G, Elastizitätsmodul E und Poissonzahl ν (7.3) sind nicht unabhängig voneinander, sondern über G = E/(2·(1+ν)) verknüpft — bei bekanntem E und ν lässt sich G also stets direkt berechnen, ohne eigene Materialversuche.",
+          "Damit ergibt sich ein vollständiges, zweigeteiltes Bild der Materialbeanspruchung: Normalspannung σ und Dehnung ε, verknüpft über E, beschreiben die Reaktion auf Kräfte senkrecht zur Schnittfläche; Schubspannung τ und Gleitwinkel γ, verknüpft über G, beschreiben die Reaktion auf Kräfte parallel zur Schnittfläche. Beide Beanspruchungsarten treten in realen Bauteilen meist gleichzeitig auf und werden im mehrachsigen Spannungszustand (Kapitel 11) gemeinsam betrachtet.",
+        ],
+        formulas: ["τ = Q / A  (mittlere Schubspannung)", "τ = G · γ  (Hookesches Gesetz für Schub)", "G = E / (2·(1+ν))"],
+        formulasLatex: ["\\tau = \\dfrac{Q}{A}", "\\tau = G \\cdot \\gamma", "G = \\dfrac{E}{2(1+\\nu)}"],
+        terms: [
+          { term: "Schubspannung (τ)", definition: "Auf die Querschnittsfläche bezogene, tangential (parallel zur Schnittfläche) wirkende Kraft; entsteht durch die Querkraft Q." },
+          { term: "Schubmodul (G)", definition: "Materialkonstante, die den linearen Zusammenhang zwischen Schubspannung und Gleitwinkel beschreibt — das Analogon zu E bei Normalspannung." },
+          { term: "Gleitwinkel (γ)", definition: "Winkeländerung eines ursprünglich rechten Winkels infolge einer Schubbeanspruchung; das Analogon zur Dehnung ε bei Normalbeanspruchung." },
+        ],
+        examples: [
+          "Ein Bauteil mit Querschnittsfläche A=80mm² wird von einer Querkraft Q=1.600N belastet. Die mittlere Schubspannung beträgt τ=1.600N/80mm²=20N/mm²=20MPa. Für einen Werkstoff mit E=210.000N/mm² und ν=0,3 beträgt der Schubmodul G=210.000/(2·1,3)≈80.769N/mm² — mit τ=G·γ ergibt sich daraus ein Gleitwinkel γ=τ/G=20/80.769≈2,48×10⁻⁴ rad.",
         ],
       },
     ],
@@ -456,6 +545,25 @@ export const chapters: SkriptChapter[] = [
         terms: [{ term: "Biegelinie", definition: "Funktion w(x), die die Durchbiegung eines Balkens entlang seiner Länge beschreibt." }],
         examples: [
           "Für einen beidseitig gelenkig gelagerten Balken mit mittiger Einzellast F ergibt zweifache Integration der Biegelinie eine maximale Durchbiegung in Balkenmitte von w_max = F·L³/(48·E·I).",
+        ],
+      },
+      {
+        id: "9-4",
+        heading: "9.4 Randbedingungen der Biegelinie",
+        body: [
+          "Die Differentialgleichung w''(x) = −M(x)/(E·I) aus 9.3 liefert nach zweifacher Integration pro Balkenabschnitt zwei Integrationskonstanten, die erst durch Randbedingungen — an den Rändern oder Übergängen bekannte Werte von Durchbiegung w oder Neigung w' — eindeutig bestimmt werden. Welche Bedingung an welcher Stelle gilt, hängt direkt von der jeweiligen Lagerart (3.2) ab.",
+          "An einem gelenkigen Lager (Fest- oder Loslager) ist die Durchbiegung unterdrückt, aber die Verdrehung frei: w=0, während w' unbekannt bleibt und sich erst aus der Gesamtlösung ergibt. An einer festen Einspannung sind sowohl Durchbiegung als auch Neigung unterdrückt: w=0 UND w'=0. An einem freien, unbelasteten Ende sind weder w noch w' bekannt, dafür verschwinden dort Moment und Querkraft: M=0 (also w''=0) und Q=0 (also w'''=0). An einem Zwischengelenk (Kapitel 10) gilt ebenfalls M=0, zusätzlich muss die Durchbiegung w auf beiden Seiten des Gelenks übereinstimmen (Kontinuität), während die Neigung w' beidseitig unterschiedlich sein darf — ein Knick in der Biegelinie ist an einem Gelenk zulässig, da dort ohnehin kein Moment übertragen wird.",
+        ],
+        formulas: ["w_max = F · L³ / (3 · E · I)  (Kragarm mit Einzellast am freien Ende)"],
+        formulasLatex: ["w_{max} = \\dfrac{F\\cdot L^{3}}{3\\cdot E\\cdot I}"],
+        terms: [
+          { term: "Randbedingung (gelenkiges Lager)", definition: "w=0; die Neigung w' bleibt am Lager unbestimmt und ergibt sich aus der Gesamtlösung." },
+          { term: "Randbedingung (feste Einspannung)", definition: "w=0 UND w'=0; weder Durchbiegung noch Neigung sind an der Einspannung möglich." },
+          { term: "Randbedingung (freies Ende)", definition: "M=0 und Q=0; w und w' sind am freien Ende dagegen unbekannt." },
+          { term: "Randbedingung (Zwischengelenk)", definition: "M=0 an der Gelenkstelle; w ist beidseitig gleich (Kontinuität), w' darf beidseitig unterschiedlich sein (Knick zulässig)." },
+        ],
+        examples: [
+          "Für einen Kragarm (Einspannung bei x=0, freies Ende bei x=L) mit Einzellast F am freien Ende lautet der Momentenverlauf M(x)=−F·(L−x). Zweifache Integration von E·I·w''=−M(x) mit den Randbedingungen w(0)=0 und w'(0)=0 an der Einspannung (statt der Symmetriebedingung des beidseitig gelagerten Balkens aus 9.3) liefert eine maximale Durchbiegung am freien Ende von w_max=F·L³/(3·E·I) — bei gleichem F und L etwa 16-mal größer als beim beidseitig gelenkig gelagerten Balken aus 9.3 (F·L³/(48·E·I)), weil die Einspannung die Verformung nur an einem statt an zwei Enden begrenzt.",
         ],
       },
     ],
