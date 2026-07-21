@@ -5,6 +5,7 @@ import Link from "next/link";
 import { modules, STUDIENGAENGE } from "@/lib/modules";
 import ModuleCard from "@/components/ModuleCard";
 import { fetchAccess } from "@/lib/access";
+import Reviews from "@/components/Reviews";
 
 const comparisonRows = [
   {
@@ -252,6 +253,8 @@ export default function DashboardContent() {
           </table>
         </div>
       </section>
+
+      <Reviews />
     </div>
   );
 }
