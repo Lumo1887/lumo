@@ -15,23 +15,28 @@ const comparisonRows = [
   },
   {
     feature: "Skript",
-    us: "Digital, jederzeit abrufbar, auf Vorlesungsinhalt aufgebaut",
-    them: "Häufig nur als Papier-Skript oder zeitlich begrenzt verfügbar",
+    us: "Digital, durchsuchbar, mit echten Formeln und einem durchgerechneten Beispiel zu jedem Konzept",
+    them: "Häufig nur Papier-Skript oder Formelliste ohne Beispiele",
   },
   {
     feature: "Übungsaufgaben",
-    us: "Interaktives Tool mit sofortigem Feedback, aus Tutorien & Klausuren",
-    them: "Feste Kurstermine, wenig individuelles Feedback",
+    us: "Interaktives Tool aus echten Tutorien & Klausuren, zeigt dir gezielt deine Schwachstellen",
+    them: "Feste Kurstermine, kaum individuelles Feedback",
+  },
+  {
+    feature: "Klausursimulation",
+    us: "Realistische Prüfung mit Zeitlimit, so oft wiederholbar wie du willst",
+    them: "Meist nur 1–2 Probeklausuren",
+  },
+  {
+    feature: "Karteikarten",
+    us: "Spaced-Repetition-Modus merkt sich, was du schon kannst",
+    them: "Keine strukturierte Wiederholung",
   },
   {
     feature: "KI-Tutor",
-    us: "Eigener KI-Tutor pro Modul, kennt das Skript und beantwortet Fragen sofort — rund um die Uhr",
-    them: "Kein KI-Tutor, nur feste Sprechstunden/Kurstermine",
-  },
-  {
-    feature: "Verfügbarkeit",
-    us: "24/7, in deinem eigenen Tempo",
-    them: "An feste Termine gebunden",
+    us: "Erklärt sofort, warum eine Antwort falsch war — auch bei Fotos/PDFs von Aufgaben, rund um die Uhr",
+    them: "Kein KI-Tutor, nur feste Sprechstunden",
   },
   {
     feature: "Start",
