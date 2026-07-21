@@ -6,16 +6,16 @@ import { getModule } from "@/lib/modules";
 const GEMINI_MODEL = "gemini-2.5-flash";
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
-// Serverseitige Obergrenze für mitgeschickte Fotos (Base64-Zeichen, nicht
-// Bytes — ca. 8 Millionen Zeichen entsprechen ~6 MB Rohdaten). Der Client
-// komprimiert Fotos vorher clientseitig auf max. 1600px/JPEG q0.8, sodass
-// das im Normalfall weit darunter bleibt; diese Grenze ist nur ein Schutz
-// gegen missbräuchlich große Payloads, deutlich unter Geminis 20-MB-Limit
-// pro Anfrage.
-const MAX_IMAGE_DATA_URL_LENGTH = 8_000_000;
+// Serverseitige Obergrenze für mitgeschickte Anhänge (Fotos oder PDFs;
+// Base64-Zeichen ≈ Bytes). Der Client hält sich bereits an ein niedrigeres
+// Limit (4.000.000 Zeichen, siehe ModuleChat.tsx) — Vercels Serverless
+// Functions lehnen Request-Bodies über 4,5 MB grundsätzlich ab
+// (plattformseitig, nicht per Next.js-Config umgehbar). Diese etwas höhere
+// Grenze hier ist nur ein zusätzlicher Schutz-Backstop, kein primäres Limit.
+const MAX_ATTACHMENT_DATA_URL_LENGTH = 4_300_000;
 
-function parseImageDataUrl(dataUrl: string): { mimeType: string; data: string } | null {
-  const match = /^data:(image\/[a-zA-Z0-9.+-]+);base64,(.+)$/.exec(dataUrl);
+function parseDataUrl(dataUrl: string): { mimeType: string; data: string } | null {
+  const match = /^data:([a-zA-Z0-9.+-]+\/[a-zA-Z0-9.+-]+);base64,(.+)$/.exec(dataUrl);
   if (!match) return null;
   return { mimeType: match[1], data: match[2] };
 }
@@ -63,7 +63,11 @@ export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => null);
   const moduleSlug = body?.moduleSlug as string | undefined;
   const messages = body?.messages as
-    | { role: "user" | "model"; text: string; image?: string }[]
+    | {
+        role: "user" | "model";
+        text: string;
+        attachment?: { dataUrl: string; name: string; isImage: boolean };
+      }[]
     | undefined;
 
   if (!moduleSlug || !messages || !Array.isArray(messages) || messages.length === 0) {
@@ -71,9 +75,9 @@ export async function POST(request: NextRequest) {
   }
 
   for (const m of messages) {
-    if (m.image && m.image.length > MAX_IMAGE_DATA_URL_LENGTH) {
+    if (m.attachment?.dataUrl && m.attachment.dataUrl.length > MAX_ATTACHMENT_DATA_URL_LENGTH) {
       return NextResponse.json(
-        { error: "Das Bild ist zu groß. Versuch es mit einem kleineren Foto." },
+        { error: "Die Datei ist zu groß. Versuch es mit einer kleineren Datei." },
         { status: 413 }
       );
     }
@@ -120,10 +124,10 @@ export async function POST(request: NextRequest) {
           "beantworte sie trotzdem hilfreich, weise aber kurz darauf hin, dass es nicht " +
           "direkt im Skript steht. Halte Antworten prägnant (max. ca. 150 Wörter), außer " +
           "eine ausführliche Rechnung ist wirklich nötig. Manchmal schickt dir die Person " +
-          "zusätzlich ein Foto, z. B. von einer handschriftlich gelösten Übungsaufgabe — " +
-          "schau es dir dann genau an, geh den Rechenweg Schritt für Schritt durch, weise " +
-          "konkret auf Fehler hin (wo genau sie passieren) und erkläre kurz den richtigen " +
-          "Ansatz.\n\n" +
+          "zusätzlich ein Foto oder ein PDF, z. B. von einer handschriftlich gelösten " +
+          "Übungsaufgabe oder einem Übungsblatt — schau es dir dann genau an, geh den " +
+          "Rechenweg Schritt für Schritt durch, weise konkret auf Fehler hin (wo genau sie " +
+          "passieren) und erkläre kurz den richtigen Ansatz.\n\n" +
           "--- SKRIPT-INHALT ---\n" +
           context,
       },
@@ -132,8 +136,8 @@ export async function POST(request: NextRequest) {
 
   const contents = messages.slice(-12).map((m) => {
     const parts: Record<string, unknown>[] = [];
-    if (m.image) {
-      const parsed = parseImageDataUrl(m.image);
+    if (m.attachment?.dataUrl) {
+      const parsed = parseDataUrl(m.attachment.dataUrl);
       if (parsed) {
         parts.push({ inline_data: { mime_type: parsed.mimeType, data: parsed.data } });
       }

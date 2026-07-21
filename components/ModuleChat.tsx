@@ -5,14 +5,26 @@ import Link from "next/link";
 import { fetchAccess } from "@/lib/access";
 import { getModule } from "@/lib/modules";
 
-type ChatMessage = { role: "user" | "model"; text: string; image?: string };
+type ChatAttachment = { dataUrl: string; name: string; isImage: boolean };
+type ChatMessage = { role: "user" | "model"; text: string; attachment?: ChatAttachment };
 type AccessState = "checking" | "loggedOut" | "locked" | "unlocked";
 
-// Verkleinert ein ausgewähltes Foto client-seitig auf max. 1600px Kantenlänge
-// und komprimiert es als JPEG (q=0.8), bevor es als Base64-Data-URL mit an
-// den Chat gehängt wird. Fotos direkt von einer Handykamera sind sonst oft
-// mehrere MB groß — das würde die Anfrage unnötig aufblähen und unnötig
-// Kosten/Zeit bei der Gemini-Anfrage verursachen.
+// Obergrenze für die Base64-Data-URL einer Anhang-Datei (Zeichen ≈ Bytes).
+// Vercels Serverless Functions lehnen Request-Bodies über 4,5 MB grundsätzlich
+// ab (FUNCTION_PAYLOAD_TOO_LARGE, plattformseitig, nicht per Next.js-Config
+// umgehbar) — 4.000.000 Zeichen lässt genug Puffer für den restlichen
+// Chatverlauf im selben Request.
+const MAX_ATTACHMENT_DATA_URL_LENGTH = 4_000_000;
+// Für nicht komprimierbare Dateien (PDFs) wird schon die Rohdateigröße
+// geprüft, bevor überhaupt Base64 erzeugt wird (Base64 ist ca. 1,37x größer
+// als die Rohdatei).
+const MAX_RAW_NON_IMAGE_BYTES = 3_000_000;
+
+// Verkleinert ein ausgewähltes Foto client-seitig auf max. maxDim Kantenlänge
+// und komprimiert es als JPEG, bevor es als Base64-Data-URL mit an den Chat
+// gehängt wird. Fotos direkt von einer Handykamera sind sonst oft mehrere MB
+// groß — das würde die Anfrage unnötig aufblähen (und ggf. Vercels 4,5-MB-
+// Limit für Request-Bodies sprengen).
 function resizeImageToDataUrl(file: File, maxDim = 1600, quality = 0.8): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -48,6 +60,17 @@ function resizeImageToDataUrl(file: File, maxDim = 1600, quality = 0.8): Promise
   });
 }
 
+// Liest eine Datei unverändert als Base64-Data-URL ein (für Dateitypen, die
+// sich nicht sinnvoll client-seitig komprimieren lassen, z. B. PDFs).
+function readFileAsDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(reader.error ?? new Error("Datei konnte nicht gelesen werden."));
+    reader.onload = () => resolve(reader.result as string);
+    reader.readAsDataURL(file);
+  });
+}
+
 type PurchaseLike = string | { moduleSlug?: string; module_slug?: string; slug?: string };
 
 function ownsModule(purchases: PurchaseLike[] | undefined | null, slug: string): boolean {
@@ -56,6 +79,23 @@ function ownsModule(purchases: PurchaseLike[] | undefined | null, slug: string):
     if (typeof p === "string") return p === slug;
     return p.moduleSlug === slug || p.module_slug === slug || p.slug === slug;
   });
+}
+
+// Kleines, generisches Datei-Icon (Feather-artiger Outline-Stil, passend zum
+// Kamera-Icon und zum Instagram-Icon im Footer) für nicht-Bild-Anhänge.
+function FileIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path
+        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M14 2v6h6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
 }
 
 export default function ModuleChat({
@@ -70,8 +110,8 @@ export default function ModuleChat({
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
-  const [pendingImage, setPendingImage] = useState<string | null>(null);
-  const [imageError, setImageError] = useState<string | null>(null);
+  const [pendingAttachment, setPendingAttachment] = useState<ChatAttachment | null>(null);
+  const [attachmentError, setAttachmentError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   // Immer aktueller Nachrichtenverlauf als Ref — damit sendMessage() nicht an
@@ -119,20 +159,24 @@ export default function ModuleChat({
   // normalen Funktion, damit der weiter unten registrierte Event-Listener
   // keine veraltete ("stale") Closure über moduleSlug/sending/access behält.
   const sendMessage = useCallback(
-    async (rawText: string, imageDataUrl?: string) => {
+    async (rawText: string, attachment?: ChatAttachment) => {
       const text = rawText.trim();
-      if ((!text && !imageDataUrl) || sending || access !== "unlocked") return;
+      if ((!text && !attachment) || sending || access !== "unlocked") return;
       const userMessage: ChatMessage = {
         role: "user",
-        text: text || "Schau dir bitte dieses Foto an und hilf mir dabei.",
-        ...(imageDataUrl ? { image: imageDataUrl } : {}),
+        text:
+          text ||
+          (attachment?.isImage
+            ? "Schau dir bitte dieses Foto an und hilf mir dabei."
+            : "Schau dir bitte diese Datei an und hilf mir dabei."),
+        ...(attachment ? { attachment } : {}),
       };
       const next = [...messagesRef.current, userMessage];
       setMessages(next);
       messagesRef.current = next;
       setInput("");
-      setPendingImage(null);
-      setImageError(null);
+      setPendingAttachment(null);
+      setAttachmentError(null);
       setSending(true);
       try {
         const res = await fetch("/api/chat", {
@@ -162,22 +206,44 @@ export default function ModuleChat({
   );
 
   async function handleSend() {
-    await sendMessage(input, pendingImage ?? undefined);
+    await sendMessage(input, pendingAttachment ?? undefined);
   }
 
-  async function handlePhotoSelected(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleFileSelected(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     // Zurücksetzen, damit das erneute Auswählen derselben Datei den
     // onChange-Handler wieder auslöst (sonst merkt sich der Browser den
     // Dateinamen und feuert kein zweites Mal).
     e.target.value = "";
     if (!file) return;
-    setImageError(null);
+    setAttachmentError(null);
+    const isImage = file.type.startsWith("image/");
     try {
-      const dataUrl = await resizeImageToDataUrl(file);
-      setPendingImage(dataUrl);
+      let dataUrl: string;
+      if (isImage) {
+        dataUrl = await resizeImageToDataUrl(file);
+        if (dataUrl.length > MAX_ATTACHMENT_DATA_URL_LENGTH) {
+          // Zweiter Versuch mit stärkerer Kompression für sehr große/
+          // detailreiche Fotos, die auch nach der ersten Verkleinerung noch
+          // zu groß sind.
+          dataUrl = await resizeImageToDataUrl(file, 1200, 0.6);
+        }
+      } else {
+        if (file.size > MAX_RAW_NON_IMAGE_BYTES) {
+          setAttachmentError(
+            "Die Datei ist zu groß (max. ca. 3 MB). Versuch es mit einer kleineren Datei oder weniger Seiten."
+          );
+          return;
+        }
+        dataUrl = await readFileAsDataUrl(file);
+      }
+      if (dataUrl.length > MAX_ATTACHMENT_DATA_URL_LENGTH) {
+        setAttachmentError("Die Datei ist zu groß. Versuch es mit einer kleineren Datei.");
+        return;
+      }
+      setPendingAttachment({ dataUrl, name: file.name, isImage });
     } catch {
-      setImageError("Foto konnte nicht verarbeitet werden. Versuch es mit einem anderen.");
+      setAttachmentError("Datei konnte nicht verarbeitet werden. Versuch es mit einer anderen.");
     }
   }
 
@@ -252,13 +318,19 @@ export default function ModuleChat({
                         : "mr-8 rounded-2xl rounded-bl-sm bg-ink-50 px-3 py-2 text-sm text-ink-800"
                     }
                   >
-                    {m.image && (
-                      <img
-                        src={m.image}
-                        alt="Angehängtes Foto"
-                        className="mb-2 max-h-40 w-full rounded-lg object-cover"
-                      />
-                    )}
+                    {m.attachment &&
+                      (m.attachment.isImage ? (
+                        <img
+                          src={m.attachment.dataUrl}
+                          alt="Angehängtes Foto"
+                          className="mb-2 max-h-40 w-full rounded-lg object-cover"
+                        />
+                      ) : (
+                        <div className="mb-2 flex items-center gap-1.5 rounded-lg bg-white/15 px-2 py-1.5 text-xs">
+                          <FileIcon />
+                          <span className="truncate">{m.attachment.name}</span>
+                        </div>
+                      ))}
                     {m.text}
                   </div>
                 ))}
@@ -268,23 +340,31 @@ export default function ModuleChat({
                   </div>
                 )}
               </div>
-              {imageError && (
+              {attachmentError && (
                 <p className="border-t border-ink-100 px-3 pt-2 text-xs text-red-600">
-                  {imageError}
+                  {attachmentError}
                 </p>
               )}
-              {pendingImage && (
+              {pendingAttachment && (
                 <div className="flex items-center gap-2 border-t border-ink-100 px-3 pt-2">
-                  <img
-                    src={pendingImage}
-                    alt="Vorschau des ausgewählten Fotos"
-                    className="h-12 w-12 rounded-lg object-cover"
-                  />
-                  <span className="text-xs text-ink-500">Foto wird mitgeschickt</span>
+                  {pendingAttachment.isImage ? (
+                    <img
+                      src={pendingAttachment.dataUrl}
+                      alt="Vorschau des ausgewählten Fotos"
+                      className="h-12 w-12 rounded-lg object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-ink-50 text-ink-500">
+                      <FileIcon />
+                    </div>
+                  )}
+                  <span className="truncate text-xs text-ink-500">
+                    {pendingAttachment.isImage ? "Foto wird mitgeschickt" : pendingAttachment.name}
+                  </span>
                   <button
-                    onClick={() => setPendingImage(null)}
-                    className="ml-auto text-ink-400 hover:text-ink-600"
-                    title="Foto entfernen"
+                    onClick={() => setPendingAttachment(null)}
+                    className="ml-auto shrink-0 text-ink-400 hover:text-ink-600"
+                    title="Anhang entfernen"
                   >
                     ✕
                   </button>
@@ -294,16 +374,16 @@ export default function ModuleChat({
                 <input
                   ref={fileInputRef}
                   type="file"
-                  accept="image/*"
+                  accept="image/*,application/pdf"
                   capture="environment"
-                  onChange={handlePhotoSelected}
+                  onChange={handleFileSelected}
                   className="hidden"
                 />
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
                   disabled={sending}
-                  title="Foto hinzufügen (z. B. gelöste Übungsaufgabe)"
+                  title="Foto oder PDF hinzufügen (z. B. gelöste Übungsaufgabe)"
                   className="flex items-center justify-center rounded-full border border-ink-100 px-3 py-2 text-ink-600 transition hover:border-brand-300 hover:text-brand-700 disabled:opacity-50"
                 >
                   <svg
@@ -330,12 +410,14 @@ export default function ModuleChat({
                   onKeyDown={(e) => {
                     if (e.key === "Enter") handleSend();
                   }}
-                  placeholder={pendingImage ? "Was möchtest du dazu wissen? (optional)" : "Frag etwas zum Skript…"}
+                  placeholder={
+                    pendingAttachment ? "Was möchtest du dazu wissen? (optional)" : "Frag etwas zum Skript…"
+                  }
                   className="flex-1 rounded-full border border-ink-100 px-4 py-2 text-sm outline-none focus:border-brand-300"
                 />
                 <button
                   onClick={handleSend}
-                  disabled={sending || (!input.trim() && !pendingImage)}
+                  disabled={sending || (!input.trim() && !pendingAttachment)}
                   className="btn-primary !px-4 !py-2 text-sm disabled:opacity-50"
                 >
                   Senden
