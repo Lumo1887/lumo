@@ -5,13 +5,17 @@ const MAX_BODY_LENGTH = 1000;
 const MAX_NAME_LENGTH = 60;
 const TOP_REVIEWS_LIMIT = 3;
 
-// Gibt den Durchschnitt/die Gesamtzahl aller Bewertungen sowie die drei
-// meistgeliketen Bewertungen zurück (öffentlich, auch für nicht eingeloggte
-// Besucher:innen — reviews.select ist per RLS für alle lesbar). Zusätzlich,
-// falls eingeloggt: ob die Person bereits selbst bewertet hat und welche der
-// angezeigten Top-Bewertungen sie bereits geliked hat.
-export async function GET() {
+// Gibt den Durchschnitt/die Gesamtzahl aller Bewertungen zurück
+// (öffentlich, auch für nicht eingeloggte Besucher:innen — reviews.select
+// ist per RLS für alle lesbar). Standardmäßig zusätzlich nur die drei
+// meistgeliketen Bewertungen (für die Startseite); mit "?all=1" stattdessen
+// die vollständige, nach Likes sortierte Liste (für die Seite
+// /bewertungen). Zusätzlich, falls eingeloggt: ob die Person bereits
+// selbst bewertet hat und welche der angezeigten Bewertungen sie bereits
+// geliked hat.
+export async function GET(request: NextRequest) {
   const supabase = createClient();
+  const showAll = request.nextUrl.searchParams.get("all") === "1";
 
   const { data: allRatings, error: ratingsError } = await supabase
     .from("reviews")
@@ -28,15 +32,20 @@ export async function GET() {
       ? allRatings!.reduce((sum, r) => sum + r.rating, 0) / totalCount
       : 0;
 
-  const { data: topReviews, error: topError } = await supabase
+  let reviewsQuery = supabase
     .from("reviews")
     .select("id, display_name, rating, body, likes_count, created_at")
     .order("likes_count", { ascending: false })
-    .order("created_at", { ascending: false })
-    .limit(TOP_REVIEWS_LIMIT);
+    .order("created_at", { ascending: false });
 
-  if (topError) {
-    console.error("Fehler beim Laden der Top-Bewertungen:", topError);
+  if (!showAll) {
+    reviewsQuery = reviewsQuery.limit(TOP_REVIEWS_LIMIT);
+  }
+
+  const { data: reviews, error: reviewsError } = await reviewsQuery;
+
+  if (reviewsError) {
+    console.error("Fehler beim Laden der Bewertungen:", reviewsError);
     return NextResponse.json({ error: "Bewertungen konnten nicht geladen werden." }, { status: 500 });
   }
 
@@ -55,29 +64,32 @@ export async function GET() {
       .maybeSingle();
     ownReview = own ?? null;
 
-    const topIds = (topReviews ?? []).map((r) => r.id);
-    if (topIds.length > 0) {
+    const ids = (reviews ?? []).map((r) => r.id);
+    if (ids.length > 0) {
       const { data: likes } = await supabase
         .from("review_likes")
         .select("review_id")
         .eq("user_id", user.id)
-        .in("review_id", topIds);
+        .in("review_id", ids);
       likedReviewIds = (likes ?? []).map((l) => l.review_id);
     }
   }
 
+  const mapped = (reviews ?? []).map((r) => ({
+    id: r.id,
+    displayName: r.display_name,
+    rating: r.rating,
+    body: r.body,
+    likesCount: r.likes_count,
+    createdAt: r.created_at,
+    likedByMe: likedReviewIds.includes(r.id),
+  }));
+
   return NextResponse.json({
     averageRating,
     totalCount,
-    topReviews: (topReviews ?? []).map((r) => ({
-      id: r.id,
-      displayName: r.display_name,
-      rating: r.rating,
-      body: r.body,
-      likesCount: r.likes_count,
-      createdAt: r.created_at,
-      likedByMe: likedReviewIds.includes(r.id),
-    })),
+    topReviews: showAll ? undefined : mapped,
+    reviews: showAll ? mapped : undefined,
     hasOwnReview: !!ownReview,
     ownReviewId: ownReview?.id ?? null,
   });

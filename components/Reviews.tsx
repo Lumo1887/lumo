@@ -3,28 +3,11 @@
 import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { fetchAccess } from "@/lib/access";
-
-interface ReviewItem {
-  id: string;
-  displayName: string;
-  rating: number;
-  body: string;
-  likesCount: number;
-  likedByMe: boolean;
-}
+import Stars from "@/components/Stars";
+import ReviewCard, { type ReviewItem } from "@/components/ReviewCard";
 
 const inputClass =
   "w-full rounded-lg border border-ink-200 px-4 py-2.5 text-sm focus:border-brand-500 focus:outline-none";
-
-function Stars({ value, size = "text-base" }: { value: number; size?: string }) {
-  const rounded = Math.round(value);
-  return (
-    <span className={size} aria-label={`${value} von 5 Sternen`}>
-      <span className="text-amber-500">{"★".repeat(rounded)}</span>
-      <span className="text-ink-200">{"★".repeat(5 - rounded)}</span>
-    </span>
-  );
-}
 
 function StarPicker({
   value,
@@ -52,28 +35,13 @@ function StarPicker({
   );
 }
 
-function LikeIcon({ filled }: { filled: boolean }) {
-  return (
-    <svg
-      width="15"
-      height="15"
-      viewBox="0 0 24 24"
-      fill={filled ? "currentColor" : "none"}
-      stroke="currentColor"
-      strokeWidth="1.8"
-      aria-hidden="true"
-    >
-      <path d="M20.8 4.6c-1.9-1.6-4.7-1.4-6.4.4L12 7.4l-2.4-2.4c-1.7-1.8-4.5-2-6.4-.4-2.1 1.8-2.2 5-.3 7l9 9.4 9-9.4c1.9-2 1.8-5.2-.3-7z" />
-    </svg>
-  );
-}
-
 // Bewertungen über Lumo Learn insgesamt (nicht pro Modul) — Nachfolger der
 // früher entfernten Testimonials-Sektion, diesmal mit echten, von Nutzer:innen
 // selbst geschriebenen Bewertungen statt Platzhaltertexten. Zeigt
-// Durchschnitts-Sterne, die drei meistgeliketen Bewertungen, und erlaubt
-// eingeloggten Personen (höchstens eine Bewertung pro Account) eine eigene
-// Bewertung mit Sternen + Text zu schreiben.
+// Durchschnitts-Sterne, die drei meistgeliketen Bewertungen (volle Liste
+// unter /bewertungen), und erlaubt eingeloggten Personen (höchstens eine
+// Bewertung pro Account) eine eigene Bewertung mit Sternen + Text zu
+// schreiben.
 export default function Reviews() {
   const [loading, setLoading] = useState(true);
   const [averageRating, setAverageRating] = useState(0);
@@ -191,28 +159,28 @@ export default function Reviews() {
       )}
 
       {topReviews.length > 0 && (
-        <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
           {topReviews.map((r) => (
-            <div key={r.id} className="card p-5">
-              <Stars value={r.rating} />
-              <p className="mt-2 text-sm text-ink-700">{r.body}</p>
-              <div className="mt-3 flex items-center justify-between">
-                <p className="text-xs font-medium text-ink-500">{r.displayName}</p>
-                <button
-                  onClick={() => handleLike(r.id)}
-                  disabled={!loggedIn || likingId === r.id}
-                  title={loggedIn ? "Gefällt mir" : "Melde dich an, um zu liken"}
-                  className={`flex items-center gap-1 text-xs font-medium transition ${
-                    r.likedByMe ? "text-brand-700" : "text-ink-500 hover:text-brand-600"
-                  } ${!loggedIn ? "cursor-not-allowed opacity-60" : ""}`}
-                >
-                  <LikeIcon filled={r.likedByMe} />
-                  {r.likesCount}
-                </button>
-              </div>
-            </div>
+            <ReviewCard
+              key={r.id}
+              review={r}
+              loggedIn={loggedIn}
+              liking={likingId === r.id}
+              onLike={handleLike}
+            />
           ))}
         </div>
+      )}
+
+      {totalCount > topReviews.length && (
+        <p className="mb-8 text-center">
+          <Link
+            href="/bewertungen"
+            className="text-sm font-medium text-brand-700 hover:underline"
+          >
+            Alle {totalCount} Bewertungen ansehen →
+          </Link>
+        </p>
       )}
 
       <div className="text-center">
