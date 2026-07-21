@@ -6,6 +6,20 @@ import { getModule } from "@/lib/modules";
 const GEMINI_MODEL = "gemini-2.5-flash";
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
+// Serverseitige Obergrenze für mitgeschickte Fotos (Base64-Zeichen, nicht
+// Bytes — ca. 8 Millionen Zeichen entsprechen ~6 MB Rohdaten). Der Client
+// komprimiert Fotos vorher clientseitig auf max. 1600px/JPEG q0.8, sodass
+// das im Normalfall weit darunter bleibt; diese Grenze ist nur ein Schutz
+// gegen missbräuchlich große Payloads, deutlich unter Geminis 20-MB-Limit
+// pro Anfrage.
+const MAX_IMAGE_DATA_URL_LENGTH = 8_000_000;
+
+function parseImageDataUrl(dataUrl: string): { mimeType: string; data: string } | null {
+  const match = /^data:(image\/[a-zA-Z0-9.+-]+);base64,(.+)$/.exec(dataUrl);
+  if (!match) return null;
+  return { mimeType: match[1], data: match[2] };
+}
+
 function buildContext(moduleSlug: string): string {
   const chapters = getModuleChapters(moduleSlug);
   if (!chapters) {
@@ -48,10 +62,21 @@ export async function POST(request: NextRequest) {
 
   const body = await request.json().catch(() => null);
   const moduleSlug = body?.moduleSlug as string | undefined;
-  const messages = body?.messages as { role: "user" | "model"; text: string }[] | undefined;
+  const messages = body?.messages as
+    | { role: "user" | "model"; text: string; image?: string }[]
+    | undefined;
 
   if (!moduleSlug || !messages || !Array.isArray(messages) || messages.length === 0) {
     return NextResponse.json({ error: "Ungültige Anfrage." }, { status: 400 });
+  }
+
+  for (const m of messages) {
+    if (m.image && m.image.length > MAX_IMAGE_DATA_URL_LENGTH) {
+      return NextResponse.json(
+        { error: "Das Bild ist zu groß. Versuch es mit einem kleineren Foto." },
+        { status: 413 }
+      );
+    }
   }
 
   const supabase = createClient();
@@ -94,17 +119,36 @@ export async function POST(request: NextRequest) {
           "nicht-belehrenden Ton. Wenn eine Frage über den Skriptinhalt hinausgeht, " +
           "beantworte sie trotzdem hilfreich, weise aber kurz darauf hin, dass es nicht " +
           "direkt im Skript steht. Halte Antworten prägnant (max. ca. 150 Wörter), außer " +
-          "eine ausführliche Rechnung ist wirklich nötig.\n\n" +
+          "eine ausführliche Rechnung ist wirklich nötig. Manchmal schickt dir die Person " +
+          "zusätzlich ein Foto, z. B. von einer handschriftlich gelösten Übungsaufgabe — " +
+          "schau es dir dann genau an, geh den Rechenweg Schritt für Schritt durch, weise " +
+          "konkret auf Fehler hin (wo genau sie passieren) und erkläre kurz den richtigen " +
+          "Ansatz.\n\n" +
           "--- SKRIPT-INHALT ---\n" +
           context,
       },
     ],
   };
 
-  const contents = messages.slice(-12).map((m) => ({
-    role: m.role === "model" ? "model" : "user",
-    parts: [{ text: m.text }],
-  }));
+  const contents = messages.slice(-12).map((m) => {
+    const parts: Record<string, unknown>[] = [];
+    if (m.image) {
+      const parsed = parseImageDataUrl(m.image);
+      if (parsed) {
+        parts.push({ inline_data: { mime_type: parsed.mimeType, data: parsed.data } });
+      }
+    }
+    if (m.text) {
+      parts.push({ text: m.text });
+    }
+    if (parts.length === 0) {
+      parts.push({ text: "" });
+    }
+    return {
+      role: m.role === "model" ? "model" : "user",
+      parts,
+    };
+  });
 
   try {
     const geminiRes = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {

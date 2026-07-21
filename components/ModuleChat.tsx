@@ -5,8 +5,48 @@ import Link from "next/link";
 import { fetchAccess } from "@/lib/access";
 import { getModule } from "@/lib/modules";
 
-type ChatMessage = { role: "user" | "model"; text: string };
+type ChatMessage = { role: "user" | "model"; text: string; image?: string };
 type AccessState = "checking" | "loggedOut" | "locked" | "unlocked";
+
+// Verkleinert ein ausgewähltes Foto client-seitig auf max. 1600px Kantenlänge
+// und komprimiert es als JPEG (q=0.8), bevor es als Base64-Data-URL mit an
+// den Chat gehängt wird. Fotos direkt von einer Handykamera sind sonst oft
+// mehrere MB groß — das würde die Anfrage unnötig aufblähen und unnötig
+// Kosten/Zeit bei der Gemini-Anfrage verursachen.
+function resizeImageToDataUrl(file: File, maxDim = 1600, quality = 0.8): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(reader.error ?? new Error("Datei konnte nicht gelesen werden."));
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = () => reject(new Error("Bild konnte nicht geladen werden."));
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxDim || height > maxDim) {
+          if (width >= height) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          reject(new Error("Canvas wird nicht unterstützt."));
+          return;
+        }
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL("image/jpeg", quality));
+      };
+      img.src = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  });
+}
 
 type PurchaseLike = string | { moduleSlug?: string; module_slug?: string; slug?: string };
 
@@ -30,6 +70,9 @@ export default function ModuleChat({
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
+  const [pendingImage, setPendingImage] = useState<string | null>(null);
+  const [imageError, setImageError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   // Immer aktueller Nachrichtenverlauf als Ref — damit sendMessage() nicht an
   // eine bestimmte Render-Closure von "messages" gebunden ist. Wird u. a.
@@ -76,13 +119,20 @@ export default function ModuleChat({
   // normalen Funktion, damit der weiter unten registrierte Event-Listener
   // keine veraltete ("stale") Closure über moduleSlug/sending/access behält.
   const sendMessage = useCallback(
-    async (rawText: string) => {
+    async (rawText: string, imageDataUrl?: string) => {
       const text = rawText.trim();
-      if (!text || sending || access !== "unlocked") return;
-      const next = [...messagesRef.current, { role: "user" as const, text }];
+      if ((!text && !imageDataUrl) || sending || access !== "unlocked") return;
+      const userMessage: ChatMessage = {
+        role: "user",
+        text: text || "Schau dir bitte dieses Foto an und hilf mir dabei.",
+        ...(imageDataUrl ? { image: imageDataUrl } : {}),
+      };
+      const next = [...messagesRef.current, userMessage];
       setMessages(next);
       messagesRef.current = next;
       setInput("");
+      setPendingImage(null);
+      setImageError(null);
       setSending(true);
       try {
         const res = await fetch("/api/chat", {
@@ -112,7 +162,23 @@ export default function ModuleChat({
   );
 
   async function handleSend() {
-    await sendMessage(input);
+    await sendMessage(input, pendingImage ?? undefined);
+  }
+
+  async function handlePhotoSelected(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    // Zurücksetzen, damit das erneute Auswählen derselben Datei den
+    // onChange-Handler wieder auslöst (sonst merkt sich der Browser den
+    // Dateinamen und feuert kein zweites Mal).
+    e.target.value = "";
+    if (!file) return;
+    setImageError(null);
+    try {
+      const dataUrl = await resizeImageToDataUrl(file);
+      setPendingImage(dataUrl);
+    } catch {
+      setImageError("Foto konnte nicht verarbeitet werden. Versuch es mit einem anderen.");
+    }
   }
 
   // Bridge zum Übungstool: QuizPlayer sitzt (im Layout) als Geschwister-
@@ -186,6 +252,13 @@ export default function ModuleChat({
                         : "mr-8 rounded-2xl rounded-bl-sm bg-ink-50 px-3 py-2 text-sm text-ink-800"
                     }
                   >
+                    {m.image && (
+                      <img
+                        src={m.image}
+                        alt="Angehängtes Foto"
+                        className="mb-2 max-h-40 w-full rounded-lg object-cover"
+                      />
+                    )}
                     {m.text}
                   </div>
                 ))}
@@ -195,19 +268,58 @@ export default function ModuleChat({
                   </div>
                 )}
               </div>
+              {imageError && (
+                <p className="border-t border-ink-100 px-3 pt-2 text-xs text-red-600">
+                  {imageError}
+                </p>
+              )}
+              {pendingImage && (
+                <div className="flex items-center gap-2 border-t border-ink-100 px-3 pt-2">
+                  <img
+                    src={pendingImage}
+                    alt="Vorschau des ausgewählten Fotos"
+                    className="h-12 w-12 rounded-lg object-cover"
+                  />
+                  <span className="text-xs text-ink-500">Foto wird mitgeschickt</span>
+                  <button
+                    onClick={() => setPendingImage(null)}
+                    className="ml-auto text-ink-400 hover:text-ink-600"
+                    title="Foto entfernen"
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
               <div className="flex gap-2 border-t border-ink-100 p-3">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  onChange={handlePhotoSelected}
+                  className="hidden"
+                />
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={sending}
+                  title="Foto hinzufügen (z. B. gelöste Übungsaufgabe)"
+                  className="rounded-full border border-ink-100 px-3 py-2 text-sm text-ink-600 transition hover:border-brand-300 hover:text-brand-700 disabled:opacity-50"
+                >
+                  📷
+                </button>
                 <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") handleSend();
                   }}
-                  placeholder="Frag etwas zum Skript…"
+                  placeholder={pendingImage ? "Was möchtest du dazu wissen? (optional)" : "Frag etwas zum Skript…"}
                   className="flex-1 rounded-full border border-ink-100 px-4 py-2 text-sm outline-none focus:border-brand-300"
                 />
                 <button
                   onClick={handleSend}
-                  disabled={sending || !input.trim()}
+                  disabled={sending || (!input.trim() && !pendingImage)}
                   className="btn-primary !px-4 !py-2 text-sm disabled:opacity-50"
                 >
                   Senden
