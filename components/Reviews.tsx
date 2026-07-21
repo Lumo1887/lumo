@@ -172,7 +172,7 @@ export default function Reviews() {
         </div>
       )}
 
-      {totalCount > topReviews.length && (
+      {totalCount > 0 && (
         <p className="mb-8 text-center">
           <Link
             href="/bewertungen"
