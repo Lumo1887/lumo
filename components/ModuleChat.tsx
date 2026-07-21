@@ -304,9 +304,25 @@ export default function ModuleChat({
                   onClick={() => fileInputRef.current?.click()}
                   disabled={sending}
                   title="Foto hinzufügen (z. B. gelöste Übungsaufgabe)"
-                  className="rounded-full border border-ink-100 px-3 py-2 text-sm text-ink-600 transition hover:border-brand-300 hover:text-brand-700 disabled:opacity-50"
+                  className="flex items-center justify-center rounded-full border border-ink-100 px-3 py-2 text-ink-600 transition hover:border-brand-300 hover:text-brand-700 disabled:opacity-50"
                 >
-                  📷
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <circle cx="12" cy="13" r="4" stroke="currentColor" strokeWidth="1.8" />
+                  </svg>
                 </button>
                 <input
                   value={input}
