@@ -57,6 +57,8 @@ export default function Reviews() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [likingId, setLikingId] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   async function load() {
     try {
@@ -136,6 +138,20 @@ export default function Reviews() {
     }
   }
 
+  async function handleDelete() {
+    if (deleting) return;
+    setDeleting(true);
+    try {
+      const res = await fetch("/api/reviews", { method: "DELETE" });
+      if (res.ok) {
+        setConfirmDelete(false);
+        await load();
+      }
+    } finally {
+      setDeleting(false);
+    }
+  }
+
   if (loading) return null;
 
   return (
@@ -155,6 +171,13 @@ export default function Reviews() {
       ) : (
         <p className="mb-8 text-center text-sm text-ink-600">
           Noch keine Bewertungen — sei die erste Person!
+        </p>
+      )}
+
+      {totalCount > 0 && (
+        <p className="mb-6 text-center text-xs text-ink-500">
+          Bewertungen stammen von registrierten Nutzer:innen von Lumo Learn.
+          Wir prüfen nicht, ob dafür ein Modul gekauft wurde.
         </p>
       )}
 
@@ -193,8 +216,35 @@ export default function Reviews() {
           </p>
         )}
 
-        {loggedIn && hasOwnReview && !showForm && (
-          <p className="text-sm text-ink-600">Danke für deine Bewertung! 🎉</p>
+        {loggedIn && hasOwnReview && !showForm && !confirmDelete && (
+          <p className="text-sm text-ink-600">
+            Danke für deine Bewertung! 🎉{" "}
+            <button
+              onClick={() => setConfirmDelete(true)}
+              className="font-medium text-ink-500 underline hover:text-red-600"
+            >
+              Bewertung löschen
+            </button>
+          </p>
+        )}
+
+        {loggedIn && hasOwnReview && confirmDelete && (
+          <p className="text-sm text-ink-600">
+            Bewertung wirklich löschen?{" "}
+            <button
+              onClick={handleDelete}
+              disabled={deleting}
+              className="font-semibold text-red-600 underline"
+            >
+              {deleting ? "Wird gelöscht…" : "Ja, löschen"}
+            </button>{" "}
+            <button
+              onClick={() => setConfirmDelete(false)}
+              className="font-medium text-ink-500 underline"
+            >
+              Abbrechen
+            </button>
+          </p>
         )}
 
         {loggedIn && !hasOwnReview && !showForm && (

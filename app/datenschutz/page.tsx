@@ -125,7 +125,31 @@ export default function DatenschutzPage() {
       </p>
 
       <h2 className="mt-8 text-lg font-semibold text-ink-900">
-        8. Speicherdauer
+        8. Bewertungen
+      </h2>
+      <p className="mt-2 text-ink-700">
+        Wenn du eine Bewertung über Lumo Learn schreibst, speichern und
+        veröffentlichen wir den von dir frei gewählten Anzeigenamen, deine
+        Sternebewertung (1–5) und deinen Bewertungstext — öffentlich
+        sichtbar für alle Besucher:innen der Website, auch ohne Login. Wähle
+        daher bewusst einen Anzeigenamen, der nicht zwingend dein echter
+        Name sein muss. Likes zu Bewertungen anderer Personen speichern wir
+        ebenfalls (verknüpft mit deinem Account), zeigen aber nur dir selbst
+        an, welche Bewertungen du geliked hast — anderen Nutzer:innen ist
+        nur die Gesamtzahl der Likes sichtbar. Pro Account ist maximal eine
+        Bewertung möglich; du kannst deine eigene Bewertung jederzeit selbst
+        über den &bdquo;Löschen&ldquo;-Button bei der Bewertung entfernen,
+        alternativ über eine Anfrage an die oben genannte E-Mail-Adresse.
+        Bewertungen und Likes werden außerdem automatisch gelöscht, wenn du
+        dein Nutzerkonto löschst. Rechtsgrundlage ist Art. 6 Abs. 1 lit. a
+        DSGVO (Einwilligung durch die freiwillige Abgabe der Bewertung).
+        Hinweis: Wir prüfen nicht, ob eine bewertende Person tatsächlich ein
+        Modul gekauft hat (siehe dazu auch den Hinweis im Bewertungsbereich
+        selbst).
+      </p>
+
+      <h2 className="mt-8 text-lg font-semibold text-ink-900">
+        9. Speicherdauer
       </h2>
       <p className="mt-2 text-ink-700">
         Wir speichern personenbezogene Daten nur so lange, wie es für die
@@ -139,7 +163,7 @@ export default function DatenschutzPage() {
       </p>
 
       <h2 className="mt-8 text-lg font-semibold text-ink-900">
-        9. Kein Datenverkauf, keine automatisierte Entscheidungsfindung
+        10. Kein Datenverkauf, keine automatisierte Entscheidungsfindung
       </h2>
       <p className="mt-2 text-ink-700">
         Wir verkaufen oder vermieten deine personenbezogenen Daten nicht an
@@ -153,7 +177,7 @@ export default function DatenschutzPage() {
       </p>
 
       <h2 className="mt-8 text-lg font-semibold text-ink-900">
-        10. Technische und organisatorische Maßnahmen
+        11. Technische und organisatorische Maßnahmen
       </h2>
       <p className="mt-2 text-ink-700">
         Wir setzen angemessene technische und organisatorische Maßnahmen
@@ -167,7 +191,7 @@ export default function DatenschutzPage() {
       </p>
 
       <h2 className="mt-8 text-lg font-semibold text-ink-900">
-        11. Deine Rechte
+        12. Deine Rechte
       </h2>
       <p className="mt-2 text-ink-700">
         Du hast im Rahmen der gesetzlichen Vorgaben das Recht auf Auskunft
@@ -182,7 +206,7 @@ export default function DatenschutzPage() {
       </p>
 
       <h2 className="mt-8 text-lg font-semibold text-ink-900">
-        12. Stand
+        13. Stand
       </h2>
       <p className="mt-2 text-ink-700">
         Diese Datenschutzerklärung kann bei Änderungen an der Website

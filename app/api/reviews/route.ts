@@ -154,3 +154,31 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({ ok: true, id: data.id });
 }
+
+// Löscht die eigene Bewertung (samt zugehöriger Likes, per "on delete
+// cascade" in reviews-table.sql). Da pro Account höchstens eine Bewertung
+// existiert, genügt der Filter auf user_id — die RLS-Policy
+// "Nutzer löschen eigene Bewertung" stellt zusätzlich serverseitig sicher,
+// dass wirklich nur die eigene Zeile betroffen sein kann.
+export async function DELETE() {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return NextResponse.json(
+      { error: "Bitte melde dich an." },
+      { status: 401 }
+    );
+  }
+
+  const { error } = await supabase.from("reviews").delete().eq("user_id", user.id);
+
+  if (error) {
+    console.error("Fehler beim Löschen der Bewertung:", error);
+    return NextResponse.json({ error: "Bewertung konnte nicht gelöscht werden." }, { status: 500 });
+  }
+
+  return NextResponse.json({ ok: true });
+}

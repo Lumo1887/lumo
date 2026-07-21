@@ -16,6 +16,7 @@ export default function BewertungenPage() {
   const [reviews, setReviews] = useState<ReviewItem[]>([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [likingId, setLikingId] = useState<string | null>(null);
+  const [filter, setFilter] = useState<number | null>(null);
 
   async function load() {
     try {
@@ -91,19 +92,68 @@ export default function BewertungenPage() {
         </p>
       )}
 
+      {!loading && totalCount > 0 && (
+        <p className="mt-3 text-xs text-ink-500">
+          Bewertungen stammen von registrierten Nutzer:innen von Lumo Learn.
+          Wir prüfen nicht, ob dafür ein Modul gekauft wurde.
+        </p>
+      )}
+
       {reviews.length > 0 && (
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {reviews.map((r) => (
-            <ReviewCard
-              key={r.id}
-              review={r}
-              loggedIn={loggedIn}
-              liking={likingId === r.id}
-              onLike={handleLike}
-            />
-          ))}
+        <div className="mt-6 flex flex-wrap items-center gap-2">
+          <button
+            onClick={() => setFilter(null)}
+            className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
+              filter === null
+                ? "border-brand-600 bg-brand-600 text-white"
+                : "border-ink-200 text-ink-600 hover:border-brand-400"
+            }`}
+          >
+            Alle ({reviews.length})
+          </button>
+          {[5, 4, 3, 2, 1].map((n) => {
+            const count = reviews.filter((r) => r.rating === n).length;
+            if (count === 0) return null;
+            return (
+              <button
+                key={n}
+                onClick={() => setFilter(n)}
+                className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
+                  filter === n
+                    ? "border-brand-600 bg-brand-600 text-white"
+                    : "border-ink-200 text-ink-600 hover:border-brand-400"
+                }`}
+              >
+                {n} ★ ({count})
+              </button>
+            );
+          })}
         </div>
       )}
+
+      {reviews.length > 0 && (
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {reviews
+            .filter((r) => filter === null || r.rating === filter)
+            .map((r) => (
+              <ReviewCard
+                key={r.id}
+                review={r}
+                loggedIn={loggedIn}
+                liking={likingId === r.id}
+                onLike={handleLike}
+              />
+            ))}
+        </div>
+      )}
+
+      {reviews.length > 0 &&
+        filter !== null &&
+        reviews.filter((r) => r.rating === filter).length === 0 && (
+          <p className="mt-6 text-sm text-ink-600">
+            Keine Bewertungen mit {filter} Sternen.
+          </p>
+        )}
     </div>
   );
 }
