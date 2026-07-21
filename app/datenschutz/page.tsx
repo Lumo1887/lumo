@@ -78,27 +78,34 @@ export default function DatenschutzPage() {
         Der modulinterne KI-Tutor nutzt die Google Gemini API. Deine
         Chat-Eingaben werden zur Beantwortung an Google übermittelt und
         dort verarbeitet; sie werden nicht mit deinem übrigen Nutzerkonto
-        durch uns dauerhaft verknüpft gespeichert. Rechtsgrundlage ist
-        Art. 6 Abs. 1 lit. b DSGVO (Erbringung der von dir gewünschten
+        durch uns dauerhaft verknüpft gespeichert. Lädst du zusätzlich ein
+        Foto oder ein PDF hoch (z. B. eine handschriftlich gelöste
+        Übungsaufgabe), wird auch diese Datei zur Auswertung an Google
+        übermittelt; es gilt dasselbe wie für Chat-Eingaben. Rechtsgrundlage
+        ist Art. 6 Abs. 1 lit. b DSGVO (Erbringung der von dir gewünschten
         Funktion) bzw. lit. f (berechtigtes Interesse an einem
-        funktionsfähigen Produkt). Nutze den Chatbot bitte nicht für
-        besonders sensible personenbezogene Angaben.
+        funktionsfähigen Produkt). Nutze den Chatbot und den Datei-Upload
+        bitte nicht für besonders sensible personenbezogene Angaben oder für
+        Unterlagen, die personenbezogene Daten Dritter enthalten.
       </p>
 
       <h2 className="mt-8 text-lg font-semibold text-ink-900">
         6. E-Mail-Versand (Resend)
       </h2>
       <p className="mt-2 text-ink-700">
-        Nutzt du unser Online-Formular zum Widerruf deines Vertrags, senden
-        wir dir zur unmittelbaren elektronischen Eingangsbestätigung (§ 356a
-        BGB) automatisch eine Bestätigungsmail; zusätzlich werden wir selbst
-        über deinen Widerruf benachrichtigt. Dabei werden dein Name, deine
-        E-Mail-Adresse sowie ggf. weitere von dir freiwillig angegebene
-        Angaben (z. B. Modul, Bestellreferenz, Nachricht) über den
-        E-Mail-Versanddienstleister Resend, Inc. (USA) verarbeitet.
-        Rechtsgrundlage ist Art. 6 Abs. 1 lit. c DSGVO (Erfüllung unserer
-        gesetzlichen Informationspflicht) i. V. m. Art. 6 Abs. 1 lit. b DSGVO
-        (Vertragsabwicklung). Da Resend, Inc. in den USA sitzt, kann es
+        Für den Versand von E-Mails setzen wir den
+        E-Mail-Versanddienstleister Resend, Inc. (USA) ein — sowohl direkt
+        durch uns (z. B. Kaufbestätigungen, Benachrichtigungen über
+        eingelöste Empfehlungscodes, Bestätigungen zu deinem Widerruf nach
+        § 356a BGB) als auch mittelbar über unseren Backend-Dienstleister
+        Supabase, der Konto-bezogene System-E-Mails (z. B.
+        Registrierungsbestätigung, Passwort-Zurücksetzen) über Resend als
+        SMTP-Anbieter versendet. Dabei werden deine E-Mail-Adresse, dein
+        Name sowie ggf. weitere für die jeweilige Mail erforderliche Angaben
+        (z. B. Modul, Bestellreferenz, Nachricht) verarbeitet. Rechtsgrundlage
+        ist Art. 6 Abs. 1 lit. b DSGVO (Vertragsabwicklung) bzw., soweit die
+        Mail eine gesetzliche Pflicht erfüllt (z. B. Widerrufsbestätigung),
+        Art. 6 Abs. 1 lit. c DSGVO. Da Resend, Inc. in den USA sitzt, kann es
         dabei zu einer Datenübermittlung in ein Drittland kommen; Resend
         verpflichtet sich hierzu vertraglich zu den EU-Standardvertragsklauseln.
       </p>
@@ -132,7 +139,35 @@ export default function DatenschutzPage() {
       </p>
 
       <h2 className="mt-8 text-lg font-semibold text-ink-900">
-        9. Deine Rechte
+        9. Kein Datenverkauf, keine automatisierte Entscheidungsfindung
+      </h2>
+      <p className="mt-2 text-ink-700">
+        Wir verkaufen oder vermieten deine personenbezogenen Daten nicht an
+        Dritte. Eine Weitergabe erfolgt ausschließlich an die in dieser
+        Erklärung genannten Dienstleister, soweit dies zur Erbringung der
+        jeweiligen Funktion technisch erforderlich ist, sowie an Behörden,
+        wenn wir gesetzlich dazu verpflichtet sind. Eine automatisierte
+        Entscheidungsfindung einschließlich Profiling im Sinne von Art. 22
+        DSGVO (z. B. automatisierte Bewertung deiner Person mit
+        rechtlicher oder ähnlich erheblicher Wirkung) findet nicht statt.
+      </p>
+
+      <h2 className="mt-8 text-lg font-semibold text-ink-900">
+        10. Technische und organisatorische Maßnahmen
+      </h2>
+      <p className="mt-2 text-ink-700">
+        Wir setzen angemessene technische und organisatorische Maßnahmen
+        ein, um deine Daten gegen Verlust, Missbrauch und unbefugten Zugriff
+        zu schützen (u. a. verschlüsselte Datenübertragung per TLS/HTTPS,
+        Zugriffsbeschränkungen und die Nutzung etablierter,
+        DSGVO-konform betriebener Dienstleister für Hosting, Datenbank und
+        Zahlungsabwicklung). Trotz aller Sorgfalt kann eine vollständige
+        Sicherheit bei der Datenübertragung über das Internet nicht
+        garantiert werden.
+      </p>
+
+      <h2 className="mt-8 text-lg font-semibold text-ink-900">
+        11. Deine Rechte
       </h2>
       <p className="mt-2 text-ink-700">
         Du hast im Rahmen der gesetzlichen Vorgaben das Recht auf Auskunft
@@ -147,7 +182,7 @@ export default function DatenschutzPage() {
       </p>
 
       <h2 className="mt-8 text-lg font-semibold text-ink-900">
-        10. Stand
+        12. Stand
       </h2>
       <p className="mt-2 text-ink-700">
         Diese Datenschutzerklärung kann bei Änderungen an der Website
