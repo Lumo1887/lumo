@@ -99,10 +99,9 @@ export default function AgbPage() {
         8. Gewährleistung und Haftung
       </h2>
       <p className="mt-2 text-ink-700">
-        Die Inhalte werden mit größtmöglicher Sorgfalt erstellt, basieren
-        jedoch auf öffentlich zugänglichem Vorlesungs- und
-        Übungsmaterial und stellen kein offizielles Angebot der
-        Fachschaft oder des KIT dar. Für die inhaltliche Richtigkeit,
+        Die Inhalte werden mit größtmöglicher Sorgfalt erstellt und
+        stellen kein offizielles Angebot der Fachschaft oder des KIT
+        dar. Für die inhaltliche Richtigkeit,
         Vollständigkeit oder Aktualität kann keine Gewähr übernommen
         werden. Wir haften unbeschränkt für Vorsatz und grobe
         Fahrlässigkeit sowie nach Maßgabe des Produkthaftungsgesetzes;

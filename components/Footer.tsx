@@ -10,9 +10,7 @@ export default function Footer() {
             Studierende am KIT.
           </p>
           <p className="text-ink-600/80">
-            Kein offizielles Angebot der Fachschaft oder des KIT. Inhalte
-            basieren auf öffentlich zugänglichem Vorlesungs- und
-            Übungsmaterial.
+            Kein offizielles Angebot der Fachschaft oder des KIT.
           </p>
         </div>
         <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 border-t border-ink-100 pt-4 sm:justify-start">
