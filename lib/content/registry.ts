@@ -9,6 +9,7 @@ import { chapters as bwl1Chapters } from "./bwl-1";
 import { chapters as ing2Chapters } from "./ing-2";
 import { chapters as bwl2Chapters } from "./bwl-2";
 import { chapters as mathematik2SemesterChapters } from "./mathematik-2-semester";
+import { chapters as mathematik1AbschlussChapters } from "./mathematik-1-abschluss";
 
 // Zentrale Stelle, an der jedes Modul sein Skript registriert. Ein neues
 // Modul braucht nur eine eigene Datei wie "./statistik-1.ts" (Export
@@ -26,6 +27,7 @@ export const moduleContent: Record<string, SkriptChapter[]> = {
   "ing-2": ing2Chapters,
   "bwl-2": bwl2Chapters,
   "mathematik-2-semester": mathematik2SemesterChapters,
+  "mathematik-1-abschluss": mathematik1AbschlussChapters,
 };
 
 export function getModuleChapters(moduleSlug: string): SkriptChapter[] | undefined {
