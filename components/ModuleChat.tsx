@@ -81,6 +81,24 @@ function ownsModule(purchases: PurchaseLike[] | undefined | null, slug: string):
   });
 }
 
+// Sprechblasen-Icon für den Chat-Button (gleicher Feather-artiger
+// Outline-Stil wie Kamera-/Datei-Icon). Ersetzt das 💬-Emoji, das je nach
+// Betriebssystem/Browser sehr unterschiedlich (am Desktop z. B. unter
+// Windows deutlich klobiger als am Handy) und dadurch inkonsistent aussah.
+function ChatIcon() {
+  return (
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path
+        d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 // Kleines, generisches Datei-Icon (Feather-artiger Outline-Stil, passend zum
 // Kamera-Icon und zum Instagram-Icon im Footer) für nicht-Bild-Anhänge.
 function FileIcon() {
@@ -384,7 +402,7 @@ export default function ModuleChat({
                   onClick={() => fileInputRef.current?.click()}
                   disabled={sending}
                   title="Foto oder PDF hinzufügen (z. B. gelöste Übungsaufgabe)"
-                  className="flex items-center justify-center rounded-full border border-ink-100 px-3 py-2 text-ink-600 transition hover:border-brand-300 hover:text-brand-700 disabled:opacity-50"
+                  className="flex shrink-0 items-center justify-center rounded-full border border-ink-100 px-3 py-2 text-ink-600 transition hover:border-brand-300 hover:text-brand-700 disabled:opacity-50"
                 >
                   <svg
                     width="18"
@@ -413,12 +431,12 @@ export default function ModuleChat({
                   placeholder={
                     pendingAttachment ? "Was möchtest du dazu wissen? (optional)" : "Frag etwas zum Skript…"
                   }
-                  className="flex-1 rounded-full border border-ink-100 px-4 py-2 text-sm outline-none focus:border-brand-300"
+                  className="min-w-0 flex-1 rounded-full border border-ink-100 px-4 py-2 text-sm outline-none focus:border-brand-300"
                 />
                 <button
                   onClick={handleSend}
                   disabled={sending || (!input.trim() && !pendingAttachment)}
-                  className="btn-primary !px-4 !py-2 text-sm disabled:opacity-50"
+                  className="btn-primary shrink-0 !px-4 !py-2 text-sm disabled:opacity-50"
                 >
                   Senden
                 </button>
@@ -430,10 +448,10 @@ export default function ModuleChat({
 
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-600 text-2xl text-white shadow-glow transition hover:bg-brand-700"
+        className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-600 text-white shadow-glow transition hover:bg-brand-700"
         title={`${moduleTitle}-Experte`}
       >
-        💬
+        <ChatIcon />
       </button>
     </div>
   );
