@@ -10,12 +10,17 @@ export default function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const next = searchParams.get("next") ?? "/dashboard";
+  const resetFailed = searchParams.get("error") === "reset";
 
-  const [mode, setMode] = useState<Mode>("login");
+  const [mode, setMode] = useState<Mode>(resetFailed ? "forgot" : "login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(
+    resetFailed
+      ? "Der Link zum Zurücksetzen des Passworts konnte nicht verwendet werden — er ist entweder abgelaufen, wurde bereits benutzt, oder wurde in einem anderen Browser/Gerät geöffnet als dem, in dem du 'Passwort vergessen' angeklickt hast. Fordere unten einfach einen neuen Link an und öffne ihn im selben Browser."
+      : null
+  );
   const [info, setInfo] = useState<string | null>(null);
 
   async function handleEmailSubmit(e: React.FormEvent) {
