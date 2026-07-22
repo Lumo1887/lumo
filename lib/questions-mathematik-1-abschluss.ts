@@ -25,7 +25,10 @@ export interface Question {
 // Matrizen, Vektoren, Grenzwerten, Ableitungen und Integralen) — genau
 // der in CLAUDE.md vorgesehene Ausnahmefall. Alle neuen Zahlenwerte
 // wurden vor Aufnahme in diese Datei per Selbstcheck (Regel 4) gegen die
-// Quell-PDFs abgeglichen.
+// Quell-PDFs abgeglichen. Die "Kapitel"-Angaben im Feld "source"
+// verweisen auf die aktuelle Kapitelnummerierung des Skripts (nach der
+// Umsortierung von Skalarprodukten vor die lineare Abbildungen/Analysis-
+// Kapitel).
 export const TOPICS = [
   "Matrizen und lineare Gleichungssysteme",
   "Der Gauß-Algorithmus und die Lösungsmenge",
@@ -281,6 +284,124 @@ export const questions: Question[] = [
     free: false,
   },
 
+  // ---------- Skalarprodukte, Norm und die Cauchy-Schwarz-Ungleichung ----------
+  {
+    id: "sk-01",
+    topic: "Skalarprodukte, Norm und die Cauchy-Schwarz-Ungleichung",
+    type: "numeric",
+    prompt: "Für a=(2,3,6) und b=(6,2,3): Berechnen Sie s(a,b)=a·b.",
+    correctValue: 36,
+    explanation: "s(a,b) = 2·6+3·2+6·3 = 12+6+18 = 36.",
+    source: "Kapitel 3.1, Standardskalarprodukt",
+    free: false,
+  },
+  {
+    id: "sk-02",
+    topic: "Skalarprodukte, Norm und die Cauchy-Schwarz-Ungleichung",
+    type: "mc",
+    prompt: "Für a=(2,3,6), b=(6,2,3) mit ‖a‖=‖b‖=7 und s(a,b)=36: Ist die Cauchy-Schwarz-Ungleichung erfüllt?",
+    options: ["Ja, denn 36 ≤ 7·7=49.", "Nein, 36>49 ist unmöglich.", "Nur wenn a und b orthogonal sind.", "Cauchy-Schwarz gilt nur für 2 Komponenten."],
+    correctIndex: 0,
+    explanation: "|s(a,b)| ≤ ‖a‖·‖b‖ ⟺ 36 ≤ 49 — die Ungleichung ist erfüllt.",
+    source: "Kapitel 3.1, Cauchy-Schwarz-Ungleichung",
+    free: false,
+  },
+  {
+    id: "sk-03",
+    topic: "Skalarprodukte, Norm und die Cauchy-Schwarz-Ungleichung",
+    type: "mc",
+    prompt: "Wie ist der Winkel ∢(x,y) zwischen zwei Vektoren x,y≠0 über das Skalarprodukt definiert?",
+    options: ["cos(∢(x,y)) = s(x,y)/(‖x‖·‖y‖)", "cos(∢(x,y)) = s(x,y)", "∢(x,y) = s(x,y)/‖x‖", "cos(∢(x,y)) = ‖x‖·‖y‖/s(x,y)"],
+    correctIndex: 0,
+    explanation: "Dank Cauchy-Schwarz liegt s(x,y)/(‖x‖‖y‖) stets in [−1,1], sodass diese Definition des Winkels wohldefiniert ist.",
+    source: "Kapitel 3.1, Winkel zwischen Vektoren",
+    free: false,
+  },
+
+  // ---------- Orthogonalität und das Gram-Schmidt-Verfahren ----------
+  {
+    id: "gs-01",
+    topic: "Orthogonalität und das Gram-Schmidt-Verfahren",
+    type: "mc",
+    prompt: "Für b1=(2,0,0), b2=(1,1,0): Was ist der normierte erste Vektor u1 im Gram-Schmidt-Verfahren?",
+    options: ["(1,0,0)", "(2,0,0)", "(0,1,0)", "(0,5, 0, 0)"],
+    correctIndex: 0,
+    explanation: "u1 = b1/‖b1‖ = (2,0,0)/2 = (1,0,0).",
+    source: "Kapitel 3.2, Gram-Schmidt erster Schritt",
+    free: false,
+  },
+  {
+    id: "gs-02",
+    topic: "Orthogonalität und das Gram-Schmidt-Verfahren",
+    type: "mc",
+    prompt: "Was wird im j-ten Schritt des Gram-Schmidt-Verfahrens von bj abgezogen, bevor normiert wird?",
+    options: [
+      "die Summe der Projektionen von bj auf alle bereits konstruierten u1,...,u_{j−1}",
+      "der Vektor b_{j−1}",
+      "der Mittelwert aller vorherigen Vektoren",
+      "nichts — es wird direkt normiert",
+    ],
+    correctIndex: 0,
+    explanation: "wj := bj − Σ_{i<j} s(ui,bj)·ui entfernt genau den Anteil von bj, der bereits in span{u1,...,u_{j−1}} liegt; erst danach wird wj normiert.",
+    source: "Kapitel 3.2, Gram-Schmidt-Konstruktion",
+    free: false,
+  },
+  {
+    id: "gs-03",
+    topic: "Orthogonalität und das Gram-Schmidt-Verfahren",
+    type: "mc",
+    prompt: "Was ist eine Orthonormalbasis (ONB)?",
+    options: [
+      "eine Basis aus paarweise orthogonalen, auf Länge 1 normierten Vektoren",
+      "eine Basis mit maximal 2 Vektoren",
+      "jede beliebige Basis eines Vektorraums",
+      "eine Basis, die nur aus Einheitsvektoren ⃗e_i besteht",
+    ],
+    correctIndex: 0,
+    explanation: "Eine ONB kombiniert Orthogonalität (paarweise Skalarprodukt 0) mit Normiertheit (Länge 1 jedes Basisvektors).",
+    source: "Kapitel 3.2, Orthonormalbasis",
+    free: false,
+  },
+
+  // ---------- Orthogonale Projektion und Abstandsaufgaben im Rⁿ ----------
+  {
+    id: "op-01",
+    topic: "Orthogonale Projektion und Abstandsaufgaben im Rⁿ",
+    type: "numeric",
+    prompt: "Für die Hyperebene H={⃗x∈ℝ³: 3x2+4x3=25} und den Punkt ⃗p=(5,5,5): Wie groß ist der Abstand d(⃗p,H)?",
+    correctValue: 2,
+    explanation: "Normalenvektor ⃗n=(0,3,4), ‖⃗n‖=√(0+9+16)=5. d(⃗p,H) = |⃗n·⃗p−25|/‖⃗n‖ = |0+15+20−25|/5 = |10|/5 = 2.",
+    source: "Kapitel 3.3, Abstand Punkt–Hyperebene",
+    free: false,
+  },
+  {
+    id: "op-02",
+    topic: "Orthogonale Projektion und Abstandsaufgaben im Rⁿ",
+    type: "mc",
+    prompt: "Was besagt der Approximationssatz über die orthogonale Projektion P_U(x)?",
+    options: [
+      "P_U(x) ist der Punkt in U, der x am nächsten liegt.",
+      "P_U(x) ist immer der Nullvektor.",
+      "P_U(x) liegt nie in U.",
+      "P_U(x) ist unabhängig von x.",
+    ],
+    correctIndex: 0,
+    explanation: "Der Approximationssatz zeigt ‖x−P_U(x)‖≤‖x−u‖ für alle u∈U, mit Gleichheit nur für u=P_U(x) — die orthogonale Projektion ist die beste Approximation aus U.",
+    source: "Kapitel 3.3, Approximationssatz",
+    free: false,
+  },
+  {
+    id: "op-03",
+    topic: "Orthogonale Projektion und Abstandsaufgaben im Rⁿ",
+    type: "mc",
+    prompt: "Wie lautet die Hessesche Normalform einer Hyperebene H mit Normalenvektor ⃗n und Konstante c?",
+    options: ["H = {⃗x: ⃗n·⃗x = c}", "H = {⃗x: ⃗n+⃗x = c}", "H = {⃗x: ‖⃗x‖ = c}", "H = {⃗x: ⃗x = c·⃗n}"],
+    correctIndex: 0,
+    explanation: "Die Hessesche Normalform beschreibt eine Hyperebene über einen Normalenvektor ⃗n und eine Konstante c: alle Punkte ⃗x mit ⃗n·⃗x=c.",
+    source: "Kapitel 3.3, Hessesche Normalform",
+    free: false,
+  },
+
   // ---------- Häufungspunkte und Funktionsgrenzwerte ----------
   {
     id: "hf-01",
@@ -295,7 +416,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Für x knapp über 3 ist x−3 eine kleine positive Zahl, also f(x)→∞; für x knapp unter 3 ist x−3 eine kleine negative Zahl, also f(x)→−∞.",
-    source: "Kapitel 3.1, uneigentliche Funktionsgrenzwerte",
+    source: "Kapitel 4.1, uneigentliche Funktionsgrenzwerte",
     free: false,
   },
   {
@@ -306,7 +427,7 @@ export const questions: Question[] = [
     options: ["[0,4]", "(0,4)∪{7}", "{7}", "[0,7]"],
     correctIndex: 0,
     explanation: "Jeder Punkt aus [0,4] (einschließlich der Randpunkte 0 und 4) lässt sich durch Punkte aus (0,4) annähern; der isolierte Punkt 7 ist dagegen kein Häufungspunkt, da er sich nicht durch andere Punkte aus M approximieren lässt.",
-    source: "Kapitel 3.1, Häufungspunkte einer Menge",
+    source: "Kapitel 4.1, Häufungspunkte einer Menge",
     free: false,
   },
   {
@@ -322,7 +443,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Der beidseitige Grenzwert existiert genau dann, wenn beide einseitigen Grenzwerte existieren und denselben Wert liefern.",
-    source: "Kapitel 3.1, beidseitiger Grenzwert",
+    source: "Kapitel 4.1, beidseitiger Grenzwert",
     free: false,
   },
 
@@ -334,7 +455,7 @@ export const questions: Question[] = [
     prompt: "f(x):=(cos(x)−1)/x² für x≠0, f(0):=α. Für welchen Wert α ist f stetig in 0?",
     correctValue: -0.5,
     explanation: "Aus der Taylor-Entwicklung cos(x)=1−x²/2+O(x⁴) folgt (cos(x)−1)/x² → −1/2 für x→0. Also muss α=−0,5 gewählt werden.",
-    source: "Kapitel 3.2, stetige Fortsetzung",
+    source: "Kapitel 4.2, stetige Fortsetzung",
     free: false,
   },
   {
@@ -350,7 +471,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Die ε-δ-Charakterisierung verlangt, dass zu jeder (beliebig kleinen) Fehlertoleranz ε eine Abweichung δ existiert, die den Funktionswert innerhalb von ε hält.",
-    source: "Kapitel 3.2, ε-δ-Kriterium",
+    source: "Kapitel 4.2, ε-δ-Kriterium",
     free: false,
   },
   {
@@ -366,7 +487,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Summen, Produkte, Quotienten (mit Nenner ≠0) und Verkettungen stetiger Funktionen sind stets wieder stetig.",
-    source: "Kapitel 3.2, Rechenregeln für Stetigkeit",
+    source: "Kapitel 4.2, Rechenregeln für Stetigkeit",
     free: false,
   },
 
@@ -384,7 +505,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Da f stetig ist und 0 zwischen f(1)=−1 und f(2)=5 liegt, garantiert der Zwischenwertsatz eine Nullstelle ξ∈(1,2) — ohne dass man ξ explizit berechnen muss.",
-    source: "Kapitel 3.3, Zwischenwertsatz",
+    source: "Kapitel 4.3, Zwischenwertsatz",
     free: false,
   },
   {
@@ -400,7 +521,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Die Min-Max-Eigenschaft gilt für abgeschlossene, beschränkte Intervalle [a,b] — auf offenen Intervallen kann das Maximum fehlen (z. B. f(x)=x auf (0,1)).",
-    source: "Kapitel 3.3, Min-Max-Eigenschaft",
+    source: "Kapitel 4.3, Min-Max-Eigenschaft",
     free: false,
   },
   {
@@ -416,7 +537,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Stetigkeit und strenge Monotonie übertragen sich auf die Umkehrfunktion — dies liefert z. B. die Stetigkeit von Logarithmus und Arkusfunktionen.",
-    source: "Kapitel 3.3, Umkehrfunktionen",
+    source: "Kapitel 4.3, Umkehrfunktionen",
     free: false,
   },
 
@@ -429,7 +550,7 @@ export const questions: Question[] = [
     correctValue: 3.91,
     tolerance: 0.02,
     explanation: "x = log_2(15) = ln(15)/ln(2) ≈ 3,91.",
-    source: "Kapitel 4.1, allgemeine Exponentialgleichung",
+    source: "Kapitel 5.1, allgemeine Exponentialgleichung",
     free: false,
   },
   {
@@ -440,7 +561,7 @@ export const questions: Question[] = [
     options: ["a^x := e^(x·ln a)", "a^x := x·ln(a)", "a^x := e^x·a", "a^x := ln(x)/a"],
     correctIndex: 0,
     explanation: "Die allgemeine Exponentialfunktion wird über die natürliche Exponentialfunktion definiert: a^x := e^(x ln a).",
-    source: "Kapitel 4.1, Definition",
+    source: "Kapitel 5.1, Definition",
     free: false,
   },
   {
@@ -451,7 +572,7 @@ export const questions: Question[] = [
     options: ["log_a(x) = ln(x)/ln(a)", "log_a(x) = ln(x)·ln(a)", "log_a(x) = ln(x)+ln(a)", "log_a(x) = ln(x·a)"],
     correctIndex: 0,
     explanation: "Der allgemeine Logarithmus lässt sich stets über log_a(x)=ln(x)/ln(a) auf den natürlichen Logarithmus zurückführen.",
-    source: "Kapitel 4.1, Basiswechsel des Logarithmus",
+    source: "Kapitel 5.1, Basiswechsel des Logarithmus",
     free: false,
   },
 
@@ -463,7 +584,7 @@ export const questions: Question[] = [
     prompt: "Wie groß ist lim_{x→∞} x³/2^x?",
     correctValue: 0,
     explanation: "Jede Exponentialfunktion mit Basis >1 dominiert jede Potenzfunktion für x→∞, also gilt lim x³/2^x = 0.",
-    source: "Kapitel 4.2, Wachstumshierarchie",
+    source: "Kapitel 5.2, Wachstumshierarchie",
     free: false,
   },
   {
@@ -479,7 +600,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Für x→∞ gilt die feste Rangordnung: Logarithmus wächst am langsamsten, gefolgt von jeder Potenzfunktion, gefolgt von jeder Exponentialfunktion mit Basis>1.",
-    source: "Kapitel 4.2, Wachstumshierarchie",
+    source: "Kapitel 5.2, Wachstumshierarchie",
     free: false,
   },
   {
@@ -495,7 +616,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Man wendet de l'Hospital so oft an, bis die Potenz im Zähler vollständig 'weggeleitet' ist — der Nenner bleibt dabei stets eine (wachsende) Exponentialfunktion.",
-    source: "Kapitel 4.2, Beweistechnik",
+    source: "Kapitel 5.2, Beweistechnik",
     free: false,
   },
 
@@ -508,7 +629,7 @@ export const questions: Question[] = [
     options: ["(−1, −1, 1)", "(1, 1, 1)", "(1, −1, 1)", "(2, −1, 1)"],
     correctIndex: 0,
     explanation: "A·(−1,−1,1) = (−1−2+3, −2−3+5, −1−1+2) = (0,0,0) ✓ — und da Rang(A)=2, ist dim(Kern(A))=1, also Kern(A)=span{(−1,−1,1)}.",
-    source: "Kapitel 5.1, Kernberechnung",
+    source: "Kapitel 6.1, Kernberechnung",
     free: false,
   },
   {
@@ -518,7 +639,7 @@ export const questions: Question[] = [
     prompt: "Für dieselbe Abbildung φ mit Darstellungsmatrix A aus der vorigen Aufgabe (Rang 2, R³→R³): Wie groß ist dim(Kern(φ))?",
     correctValue: 1,
     explanation: "Dimensionsformel: dim(ℝ³)=Rang(φ)+dim(Kern(φ)) ⟹ 3=2+dim(Kern(φ)) ⟹ dim(Kern(φ))=1.",
-    source: "Kapitel 5.1, Dimensionsformel",
+    source: "Kapitel 6.1, Dimensionsformel",
     free: false,
   },
   {
@@ -529,7 +650,7 @@ export const questions: Question[] = [
     options: ["genau dann, wenn Kern(φ)={⃗0}", "genau dann, wenn Bild(φ)=W", "immer, wenn V endlichdimensional ist", "genau dann, wenn Rang(φ)=0"],
     correctIndex: 0,
     explanation: "φ ist injektiv genau dann, wenn nur der Nullvektor auf den Nullvektor abgebildet wird, also Kern(φ)={⃗0}.",
-    source: "Kapitel 5.1, Injektivitätskriterium",
+    source: "Kapitel 6.1, Injektivitätskriterium",
     free: false,
   },
 
@@ -542,7 +663,7 @@ export const questions: Question[] = [
     options: ["[[6,5],[12,3]]", "[[2,2],[0,3]]", "[[6,3],[4,3]]", "[[1,2],[8,3]]"],
     correctIndex: 0,
     explanation: "B1·B2 = [[2·1+1·4, 2·2+1·1],[0·1+3·4, 0·2+3·1]] = [[6,5],[12,3]].",
-    source: "Kapitel 5.2, Matrizenmultiplikation",
+    source: "Kapitel 6.3, Matrizenmultiplikation",
     free: false,
   },
   {
@@ -553,7 +674,7 @@ export const questions: Question[] = [
     options: ["genau dann, wenn dim(V)=dim(W)", "genau dann, wenn V=W", "genau dann, wenn V⊂W", "nie, außer V=K^n"],
     correctIndex: 0,
     explanation: "Endlichdimensionale Vektorräume sind genau dann isomorph, wenn sie dieselbe Dimension besitzen.",
-    source: "Kapitel 5.2, Isomorphismen",
+    source: "Kapitel 6.3, Isomorphismen",
     free: false,
   },
   {
@@ -569,7 +690,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Die Matrizenmultiplikation ist genau so definiert, dass sie der Hintereinanderausführung linearer Abbildungen entspricht: Darstellungsmatrix von ψ∘φ ist B·A.",
-    source: "Kapitel 5.2, Verkettung linearer Abbildungen",
+    source: "Kapitel 6.3, Verkettung linearer Abbildungen",
     free: false,
   },
 
@@ -582,7 +703,7 @@ export const questions: Question[] = [
     options: ["[[1,−2],[−1,3]]", "[[1,2],[1,3]]", "[[3,−2],[−1,1]]", "[[1,−1],[−2,3]]"],
     correctIndex: 0,
     explanation: "Für eine 2×2-Matrix [[a,b],[c,d]] mit det=ad−bc gilt die Formel C⁻¹=(1/det)·[[d,−b],[−c,a]]. Mit a=3,b=2,c=1,d=1 und det=1 ergibt sich C⁻¹=[[1,−2],[−1,3]]. Probe: C·C⁻¹=[[3·1+2·(−1), 3·(−2)+2·3],[1·1+1·(−1), 1·(−2)+1·3]]=[[1,0],[0,1]] ✓.",
-    source: "Kapitel 5.3, Inverse berechnen",
+    source: "Kapitel 6.4, Inverse berechnen",
     free: false,
   },
   {
@@ -598,7 +719,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Regularität ist äquivalent zu vollem Rang (Rang(A)=n) und äquivalent zu det(A)≠0 — beide Kriterien beschreiben dasselbe Phänomen (Invertierbarkeit).",
-    source: "Kapitel 5.3, Äquivalente Kriterien für Regularität",
+    source: "Kapitel 6.4, Äquivalente Kriterien für Regularität",
     free: false,
   },
   {
@@ -614,7 +735,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Wendet man dieselben Zeilenumformungen, die A in die Einheitsmatrix E überführen, gleichzeitig auf E an, entsteht dort A⁻¹.",
-    source: "Kapitel 5.3, Berechnung der Inversen",
+    source: "Kapitel 6.4, Berechnung der Inversen",
     free: false,
   },
 
@@ -626,7 +747,7 @@ export const questions: Question[] = [
     prompt: "Für f(x)=x²+3x: Berechnen Sie f'(2).",
     correctValue: 7,
     explanation: "f'(x)=2x+3, also f'(2)=4+3=7.",
-    source: "Kapitel 6.1, Ableitung berechnen",
+    source: "Kapitel 7.1, Ableitung berechnen",
     free: true,
   },
   {
@@ -642,7 +763,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Die rechtsseitige Ableitung ist 1, die linksseitige −1 — da sie nicht übereinstimmen, existiert die (beidseitige) Ableitung in 0 nicht, obwohl f dort stetig ist.",
-    source: "Kapitel 6.1, Beispiel Betragsfunktion",
+    source: "Kapitel 7.1, Beispiel Betragsfunktion",
     free: false,
   },
   {
@@ -658,7 +779,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Jede in x0 differenzierbare Funktion ist dort auch stetig; die Umkehrung gilt nicht (Gegenbeispiel: |x| in 0).",
-    source: "Kapitel 6.1, Differenzierbarkeit ⟹ Stetigkeit",
+    source: "Kapitel 7.1, Differenzierbarkeit ⟹ Stetigkeit",
     free: false,
   },
 
@@ -671,7 +792,7 @@ export const questions: Question[] = [
     options: ["x²·e^x + 2x·e^x", "2x·e^x", "x²·e^x", "2·e^x"],
     correctIndex: 0,
     explanation: "Produktregel: (x²)'·e^x + x²·(e^x)' = 2x·e^x + x²·e^x.",
-    source: "Kapitel 6.2, Produktregel",
+    source: "Kapitel 7.2, Produktregel",
     free: false,
   },
   {
@@ -682,7 +803,7 @@ export const questions: Question[] = [
     options: ["−6x·sin(3x²+1)", "−sin(3x²+1)", "6x·sin(3x²+1)", "−6x·cos(3x²+1)"],
     correctIndex: 0,
     explanation: "Kettenregel: äußere Ableitung −sin(3x²+1) mal innere Ableitung 6x, also h'(x)=−6x·sin(3x²+1).",
-    source: "Kapitel 6.2, Kettenregel",
+    source: "Kapitel 7.2, Kettenregel",
     free: false,
   },
   {
@@ -693,7 +814,7 @@ export const questions: Question[] = [
     options: ["(f'g−fg')/g²", "(f'g+fg')/g²", "f'/g'", "(fg'−f'g)/g²"],
     correctIndex: 0,
     explanation: "Die Quotientenregel lautet (f/g)' = (f'g−fg')/g² (für g(x0)≠0).",
-    source: "Kapitel 6.2, Quotientenregel",
+    source: "Kapitel 7.2, Quotientenregel",
     free: false,
   },
 
@@ -706,7 +827,7 @@ export const questions: Question[] = [
     correctValue: 1.1547,
     tolerance: 0.01,
     explanation: "(arcsin x)' = 1/√(1−x²). Bei x=0,5: 1/√(1−0,25) = 1/√0,75 = 2√3/3 ≈ 1,1547.",
-    source: "Kapitel 6.3, Ableitung von arcsin",
+    source: "Kapitel 7.3, Ableitung von arcsin",
     free: false,
   },
   {
@@ -717,7 +838,7 @@ export const questions: Question[] = [
     options: ["(f⁻¹)'(y0) = 1/f'(x0)", "(f⁻¹)'(y0) = f'(x0)", "(f⁻¹)'(y0) = −f'(x0)", "(f⁻¹)'(y0) = f'(y0)"],
     correctIndex: 0,
     explanation: "Sofern f'(x0)≠0 und f⁻¹ in y0=f(x0) stetig ist, gilt (f⁻¹)'(y0)=1/f'(x0).",
-    source: "Kapitel 6.3, Ableitung der Umkehrfunktion",
+    source: "Kapitel 7.3, Ableitung der Umkehrfunktion",
     free: false,
   },
   {
@@ -728,7 +849,7 @@ export const questions: Question[] = [
     options: ["a·x^(a−1)", "x^a·ln(x)", "a^x·ln(a)", "x^(a−1)"],
     correctIndex: 0,
     explanation: "Über x^a:=e^(a·ln x) und die Kettenregel ergibt sich (x^a)' = a·x^(a−1) — dieselbe Formel wie für ganzzahlige Exponenten, jetzt für beliebige reelle a.",
-    source: "Kapitel 6.3, allgemeine Potenzfunktion",
+    source: "Kapitel 7.3, allgemeine Potenzfunktion",
     free: false,
   },
 
@@ -741,7 +862,7 @@ export const questions: Question[] = [
     options: ["x=−2 und x=2", "x=−12 und x=12", "x=0 nur", "x=−4 und x=4"],
     correctIndex: 0,
     explanation: "f'(x)=3x²−12=0 ⟺ x²=4 ⟺ x=±2.",
-    source: "Kapitel 7.1, kritische Punkte",
+    source: "Kapitel 8.1, kritische Punkte",
     free: false,
   },
   {
@@ -752,7 +873,7 @@ export const questions: Question[] = [
     options: ["strenges lokales Maximum (f''(−2)=−12<0)", "strenges lokales Minimum", "kein Extremum, sondern ein Wendepunkt", "ein globales Minimum"],
     correctIndex: 0,
     explanation: "f''(−2)=6·(−2)=−12<0, also liegt nach dem hinreichenden Kriterium ein strenges lokales Maximum vor.",
-    source: "Kapitel 7.1, hinreichendes Kriterium",
+    source: "Kapitel 8.1, hinreichendes Kriterium",
     free: false,
   },
   {
@@ -768,7 +889,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "f'(x0)=0 ist nur eine notwendige Bedingung — Gegenbeispiel f(x)=x³ mit f'(0)=0, aber x0=0 ist kein Extremum (Wendepunkt).",
-    source: "Kapitel 7.1, notwendige vs. hinreichende Bedingung",
+    source: "Kapitel 8.1, notwendige vs. hinreichende Bedingung",
     free: false,
   },
 
@@ -781,7 +902,7 @@ export const questions: Question[] = [
     correctValue: 1.732,
     tolerance: 0.01,
     explanation: "(f(3)−f(0))/3 = (27−0)/3 = 9. Aus f'(ξ)=3ξ²=9 folgt ξ²=3, also ξ=√3≈1,732 (die negative Lösung −√3 liegt nicht im Intervall (0,3)).",
-    source: "Kapitel 7.2, Mittelwertsatz",
+    source: "Kapitel 8.2, Mittelwertsatz",
     free: false,
   },
   {
@@ -797,7 +918,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Der Satz von Rolle ist ein Spezialfall des Mittelwertsatzes für den Fall gleicher Randwerte f(a)=f(b).",
-    source: "Kapitel 7.2, Satz von Rolle",
+    source: "Kapitel 8.2, Satz von Rolle",
     free: false,
   },
   {
@@ -813,7 +934,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Aus dem Mittelwertsatz folgt: f'≥0 auf (a,b) impliziert monoton wachsend auf [a,b] (analog für >0, ≤0, <0).",
-    source: "Kapitel 7.2, Monotoniekriterien",
+    source: "Kapitel 8.2, Monotoniekriterien",
     free: false,
   },
 
@@ -825,7 +946,7 @@ export const questions: Question[] = [
     prompt: "Für f(x)=x³−12x (f''(x)=6x): An welcher Stelle liegt der Wendepunkt?",
     correctValue: 0,
     explanation: "f''(x)=6x wechselt bei x=0 das Vorzeichen (negativ für x<0, positiv für x>0) — notwendige und hinreichende Bedingung für einen Wendepunkt.",
-    source: "Kapitel 7.3, Wendepunkt",
+    source: "Kapitel 8.3, Wendepunkt",
     free: false,
   },
   {
@@ -836,7 +957,7 @@ export const questions: Question[] = [
     options: ["wenn f''(x)≥0 für alle x∈I gilt", "wenn f'(x)≥0 für alle x∈I gilt", "wenn f(x)≥0 für alle x∈I gilt", "wenn f monoton fällt"],
     correctIndex: 0,
     explanation: "Konvexität ist über die zweite Ableitung definiert: f''≥0 bedeutet, dass der Graph stets oberhalb jeder Tangente liegt.",
-    source: "Kapitel 7.3, Konvexität",
+    source: "Kapitel 8.3, Konvexität",
     free: false,
   },
   {
@@ -847,7 +968,7 @@ export const questions: Question[] = [
     options: ["f''(x0)=0", "f'(x0)=0", "f(x0)=0", "f'''(x0)=0"],
     correctIndex: 0,
     explanation: "Notwendig für einen Wendepunkt ist f''(x0)=0; hinreichend ist zusätzlich ein Vorzeichenwechsel von f'' (bzw. f'''(x0)≠0).",
-    source: "Kapitel 7.3, Kriterien für Wendepunkte",
+    source: "Kapitel 8.3, Kriterien für Wendepunkte",
     free: false,
   },
 
@@ -859,7 +980,7 @@ export const questions: Question[] = [
     prompt: "Berechnen Sie lim_{x→0} (e^x−1−x)/x² mit der Regel von de l'Hospital.",
     correctValue: 0.5,
     explanation: "Zweifache Anwendung: erste Ableitung (e^x−1)/(2x) (wieder 0/0), zweite Ableitung e^x/2 → 1/2 für x→0.",
-    source: "Kapitel 8.1, de l'Hospital",
+    source: "Kapitel 9.1, de l'Hospital",
     free: true,
   },
   {
@@ -870,7 +991,7 @@ export const questions: Question[] = [
     options: ["0/0 und ∞/∞", "0·∞ direkt, ohne Umformung", "jede beliebige Form", "nur 0/0"],
     correctIndex: 0,
     explanation: "De l'Hospital gilt direkt für die Formen 0/0 und ∞/∞; andere unbestimmte Formen (0·∞, ∞−∞, 1^∞ usw.) müssen zunächst algebraisch darauf zurückgeführt werden.",
-    source: "Kapitel 8.1, Anwendungsbereich",
+    source: "Kapitel 9.1, Anwendungsbereich",
     free: false,
   },
   {
@@ -886,7 +1007,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "De l'Hospital darf beliebig oft hintereinander angewendet werden, solange der jeweils neue Quotient erneut unbestimmt (0/0 oder ∞/∞) ist.",
-    source: "Kapitel 8.1, mehrfache Anwendung",
+    source: "Kapitel 9.1, mehrfache Anwendung",
     free: false,
   },
 
@@ -899,7 +1020,7 @@ export const questions: Question[] = [
     options: ["1 − x²/2 + x⁴/24", "1 + x²/2 + x⁴/24", "x − x³/6", "1 − x + x²/2"],
     correctIndex: 0,
     explanation: "Die geraden Ableitungen von cos bei 0 wechseln zwischen 1 und −1: T4(x;0) = 1 − x²/2! + x⁴/4! = 1 − x²/2 + x⁴/24.",
-    source: "Kapitel 8.2, Taylorpolynom von cos",
+    source: "Kapitel 9.2, Taylorpolynom von cos",
     free: false,
   },
   {
@@ -915,7 +1036,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "R_n(x) = f^(n+1)(ξ)/(n+1)!·(x−x0)^(n+1) für ein ξ zwischen x0 und x quantifiziert exakt den Fehler f(x)−T_n(x;x0).",
-    source: "Kapitel 8.2, Lagrange-Restglied",
+    source: "Kapitel 9.2, Lagrange-Restglied",
     free: false,
   },
   {
@@ -926,125 +1047,7 @@ export const questions: Question[] = [
     options: ["dem Mittelwertsatz der Differentialrechnung", "dem Satz von Rolle", "dem Zwischenwertsatz", "der Regel von de l'Hospital"],
     correctIndex: 0,
     explanation: "Für n=0 reduziert sich f(x)=T_0(x;x0)+R_0(x) auf f(x)=f(x0)+f'(ξ)(x−x0) — genau die Aussage des Mittelwertsatzes.",
-    source: "Kapitel 8.2, Zusammenhang mit dem Mittelwertsatz",
-    free: false,
-  },
-
-  // ---------- Skalarprodukte, Norm und die Cauchy-Schwarz-Ungleichung ----------
-  {
-    id: "sk-01",
-    topic: "Skalarprodukte, Norm und die Cauchy-Schwarz-Ungleichung",
-    type: "numeric",
-    prompt: "Für a=(2,3,6) und b=(6,2,3): Berechnen Sie s(a,b)=a·b.",
-    correctValue: 36,
-    explanation: "s(a,b) = 2·6+3·2+6·3 = 12+6+18 = 36.",
-    source: "Kapitel 9.1, Standardskalarprodukt",
-    free: false,
-  },
-  {
-    id: "sk-02",
-    topic: "Skalarprodukte, Norm und die Cauchy-Schwarz-Ungleichung",
-    type: "mc",
-    prompt: "Für a=(2,3,6), b=(6,2,3) mit ‖a‖=‖b‖=7 und s(a,b)=36: Ist die Cauchy-Schwarz-Ungleichung erfüllt?",
-    options: ["Ja, denn 36 ≤ 7·7=49.", "Nein, 36>49 ist unmöglich.", "Nur wenn a und b orthogonal sind.", "Cauchy-Schwarz gilt nur für 2 Komponenten."],
-    correctIndex: 0,
-    explanation: "|s(a,b)| ≤ ‖a‖·‖b‖ ⟺ 36 ≤ 49 — die Ungleichung ist erfüllt.",
-    source: "Kapitel 9.1, Cauchy-Schwarz-Ungleichung",
-    free: false,
-  },
-  {
-    id: "sk-03",
-    topic: "Skalarprodukte, Norm und die Cauchy-Schwarz-Ungleichung",
-    type: "mc",
-    prompt: "Wie ist der Winkel ∢(x,y) zwischen zwei Vektoren x,y≠0 über das Skalarprodukt definiert?",
-    options: ["cos(∢(x,y)) = s(x,y)/(‖x‖·‖y‖)", "cos(∢(x,y)) = s(x,y)", "∢(x,y) = s(x,y)/‖x‖", "cos(∢(x,y)) = ‖x‖·‖y‖/s(x,y)"],
-    correctIndex: 0,
-    explanation: "Dank Cauchy-Schwarz liegt s(x,y)/(‖x‖‖y‖) stets in [−1,1], sodass diese Definition des Winkels wohldefiniert ist.",
-    source: "Kapitel 9.1, Winkel zwischen Vektoren",
-    free: false,
-  },
-
-  // ---------- Orthogonalität und das Gram-Schmidt-Verfahren ----------
-  {
-    id: "gs-01",
-    topic: "Orthogonalität und das Gram-Schmidt-Verfahren",
-    type: "mc",
-    prompt: "Für b1=(2,0,0), b2=(1,1,0): Was ist der normierte erste Vektor u1 im Gram-Schmidt-Verfahren?",
-    options: ["(1,0,0)", "(2,0,0)", "(0,1,0)", "(0,5, 0, 0)"],
-    correctIndex: 0,
-    explanation: "u1 = b1/‖b1‖ = (2,0,0)/2 = (1,0,0).",
-    source: "Kapitel 9.2, Gram-Schmidt erster Schritt",
-    free: false,
-  },
-  {
-    id: "gs-02",
-    topic: "Orthogonalität und das Gram-Schmidt-Verfahren",
-    type: "mc",
-    prompt: "Was wird im j-ten Schritt des Gram-Schmidt-Verfahrens von bj abgezogen, bevor normiert wird?",
-    options: [
-      "die Summe der Projektionen von bj auf alle bereits konstruierten u1,...,u_{j−1}",
-      "der Vektor b_{j−1}",
-      "der Mittelwert aller vorherigen Vektoren",
-      "nichts — es wird direkt normiert",
-    ],
-    correctIndex: 0,
-    explanation: "wj := bj − Σ_{i<j} s(ui,bj)·ui entfernt genau den Anteil von bj, der bereits in span{u1,...,u_{j−1}} liegt; erst danach wird wj normiert.",
-    source: "Kapitel 9.2, Gram-Schmidt-Konstruktion",
-    free: false,
-  },
-  {
-    id: "gs-03",
-    topic: "Orthogonalität und das Gram-Schmidt-Verfahren",
-    type: "mc",
-    prompt: "Was ist eine Orthonormalbasis (ONB)?",
-    options: [
-      "eine Basis aus paarweise orthogonalen, auf Länge 1 normierten Vektoren",
-      "eine Basis mit maximal 2 Vektoren",
-      "jede beliebige Basis eines Vektorraums",
-      "eine Basis, die nur aus Einheitsvektoren ⃗e_i besteht",
-    ],
-    correctIndex: 0,
-    explanation: "Eine ONB kombiniert Orthogonalität (paarweise Skalarprodukt 0) mit Normiertheit (Länge 1 jedes Basisvektors).",
-    source: "Kapitel 9.2, Orthonormalbasis",
-    free: false,
-  },
-
-  // ---------- Orthogonale Projektion und Abstandsaufgaben im Rⁿ ----------
-  {
-    id: "op-01",
-    topic: "Orthogonale Projektion und Abstandsaufgaben im Rⁿ",
-    type: "numeric",
-    prompt: "Für die Hyperebene H={⃗x∈ℝ³: x1+2x2+2x3=8} und den Punkt ⃗p=(1,1,1): Wie groß ist der Abstand d(⃗p,H)?",
-    correctValue: 1,
-    explanation: "Normalenvektor ⃗n=(1,2,2), ‖⃗n‖=√(1+4+4)=3. d(⃗p,H) = |⃗n·⃗p−8|/‖⃗n‖ = |1+2+2−8|/3 = |−3|/3 = 1.",
-    source: "Kapitel 9.3, Abstand Punkt–Hyperebene",
-    free: false,
-  },
-  {
-    id: "op-02",
-    topic: "Orthogonale Projektion und Abstandsaufgaben im Rⁿ",
-    type: "mc",
-    prompt: "Was besagt der Approximationssatz über die orthogonale Projektion P_U(x)?",
-    options: [
-      "P_U(x) ist der Punkt in U, der x am nächsten liegt.",
-      "P_U(x) ist immer der Nullvektor.",
-      "P_U(x) liegt nie in U.",
-      "P_U(x) ist unabhängig von x.",
-    ],
-    correctIndex: 0,
-    explanation: "Der Approximationssatz zeigt ‖x−P_U(x)‖≤‖x−u‖ für alle u∈U, mit Gleichheit nur für u=P_U(x) — die orthogonale Projektion ist die beste Approximation aus U.",
-    source: "Kapitel 9.3, Approximationssatz",
-    free: false,
-  },
-  {
-    id: "op-03",
-    topic: "Orthogonale Projektion und Abstandsaufgaben im Rⁿ",
-    type: "mc",
-    prompt: "Wie lautet die Hessesche Normalform einer Hyperebene H mit Normalenvektor ⃗n und Konstante c?",
-    options: ["H = {⃗x: ⃗n·⃗x = c}", "H = {⃗x: ⃗n+⃗x = c}", "H = {⃗x: ‖⃗x‖ = c}", "H = {⃗x: ⃗x = c·⃗n}"],
-    correctIndex: 0,
-    explanation: "Die Hessesche Normalform beschreibt eine Hyperebene über einen Normalenvektor ⃗n und eine Konstante c: alle Punkte ⃗x mit ⃗n·⃗x=c.",
-    source: "Kapitel 9.3, Hessesche Normalform",
+    source: "Kapitel 9.2, Zusammenhang mit dem Mittelwertsatz",
     free: false,
   },
 
