@@ -85,6 +85,12 @@ body {
   font-family: var(--font-serif);
 }
 
+.skript-code {
+  @apply my-1 overflow-x-auto rounded-lg bg-[#1e1b2e] px-4 py-3 text-[13px] leading-relaxed text-emerald-50;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
+  white-space: pre;
+}
+
 .skript-toc a {
   @apply block rounded-lg px-3 py-2 text-sm text-ink-700 transition hover:bg-brand-50 hover:text-brand-700;
 }

@@ -55,6 +55,22 @@ function SectionContent({
       {section.figure && (
         <SkriptFigure type={section.figure.type} caption={section.figure.caption} />
       )}
+      {section.code && section.code.length > 0 && (
+        <div className="mb-4 space-y-3">
+          {section.code.map((snippet, i) => (
+            <div key={i}>
+              {section.codeCaptions?.[i] && (
+                <p className="mb-1 text-xs font-medium text-ink-500">
+                  {section.codeCaptions[i]}
+                </p>
+              )}
+              <pre className="skript-code">
+                <code>{snippet}</code>
+              </pre>
+            </div>
+          ))}
+        </div>
+      )}
       {section.table && (
         <div className="skript-table-wrap">
           <table className="skript-table">

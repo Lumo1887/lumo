@@ -13,6 +13,13 @@ export interface SkriptSection {
   // fehlschlägt.
   formulasLatex?: string[];
   examples?: string[];
+  // Java-Codebeispiele (z. B. für Programmieren 1) — jeder Eintrag ist ein
+  // vollständiger Codeblock (mehrzeilig über "\n"), wird als echtes
+  // Monospace-Codefeld gerendert (Online-Skript: <pre>, PDF: Courier-Font)
+  // statt als normaler Fließtext, damit Einrückung/Struktur erhalten bleibt.
+  // "codeCaptions" ist optional und parallel zu "code" (z. B. Dateiname).
+  code?: string[];
+  codeCaptions?: string[];
   figure?: { type: FigureType; caption: string };
   // Kurze Begriffs-/Definitions-Kästen, die einzeln als optisch abgesetzte
   // Blöcke dargestellt werden (statt im Fließtext zu verschwinden).

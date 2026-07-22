@@ -130,6 +130,25 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     fontSize: 10.5,
   },
+  codeBox: {
+    backgroundColor: "#1e1b2e",
+    borderRadius: 4,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    marginVertical: 6,
+  },
+  codeCaption: {
+    fontFamily: "Helvetica-Bold",
+    fontSize: 8.5,
+    color: "#a599c7",
+    marginBottom: 3,
+  },
+  codeLine: {
+    fontFamily: "Courier",
+    fontSize: 9,
+    lineHeight: 1.35,
+    color: "#d7ffe9",
+  },
   termRow: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -237,6 +256,30 @@ function LogoMark({ size = 16 }: { size?: number }) {
       <Line x1={52} y1={12} x2={44} y2={20} stroke={BRAND_PURPLE_LIGHT} strokeWidth={4} strokeLinecap="round" />
       <Line x1={20} y1={44} x2={12} y2={52} stroke={BRAND_PURPLE_LIGHT} strokeWidth={4} strokeLinecap="round" />
     </Svg>
+  );
+}
+
+// Rendert einen Java-Codeblock im PDF mit Courier (Monospace, in
+// @react-pdf/renderer ohne eigene Registrierung verfügbar). Führende
+// Leerzeichen jeder Zeile werden zu geschützten Leerzeichen (U+00A0)
+// konvertiert, weil react-pdf mehrfache normale Leerzeichen sonst wie im
+// HTML zusammenzieht — dadurch würde jede Einrückung verloren gehen.
+function CodeBlock({ code, caption }: { code: string; caption?: string }) {
+  const lines = code.split("\n");
+  return (
+    <View style={styles.codeBox} wrap={false}>
+      {caption && <Text style={styles.codeCaption}>{caption}</Text>}
+      {lines.map((line, i) => {
+        const leadingSpaces = line.match(/^ */)?.[0].length ?? 0;
+        const indent = "\u00A0".repeat(leadingSpaces);
+        const rendered = indent + line.slice(leadingSpaces);
+        return (
+          <Text key={i} style={styles.codeLine}>
+            {rendered.length > 0 ? rendered : "\u00A0"}
+          </Text>
+        );
+      })}
+    </View>
   );
 }
 
@@ -368,6 +411,9 @@ export default function SkriptPdfDocument({
               {section.figure && (
                 <PdfFigure type={section.figure.type} caption={section.figure.caption} />
               )}
+              {section.code?.map((snippet, i) => (
+                <CodeBlock key={i} code={snippet} caption={section.codeCaptions?.[i]} />
+              ))}
               {section.table && (
                 <View wrap={false}>
                   {section.table.caption && (
