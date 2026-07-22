@@ -128,6 +128,16 @@ export async function POST(request: NextRequest) {
           "Übungsaufgabe oder einem Übungsblatt — schau es dir dann genau an, geh den " +
           "Rechenweg Schritt für Schritt durch, weise konkret auf Fehler hin (wo genau sie " +
           "passieren) und erkläre kurz den richtigen Ansatz.\n\n" +
+          "FORMATIERUNG (wichtig, wird automatisch gerendert): Antworte in Markdown. " +
+          "Nutze **Fettschrift** für zentrale Begriffe, kurze Absätze statt eines " +
+          "einzigen Blocks, und nummerierte Listen oder Aufzählungspunkte (- ...) für " +
+          "mehrschrittige Rechenwege oder Aufzählungen. Schreibe JEDE Formel als echtes " +
+          "LaTeX statt als Unicode-Text: Inline-Formeln in einzelne Dollarzeichen " +
+          "$...$, freistehende/wichtige Formeln in doppelte Dollarzeichen $$...$$ " +
+          "(z. B. $$\\frac{a}{b}$$ statt a/b, $x^2$ statt x², $\\sqrt{x}$ statt √x). " +
+          "Keine rohen Unicode-Sonderzeichen für Brüche, Wurzeln, Exponenten oder " +
+          "griechische Buchstaben in Formeln verwenden — dafür immer LaTeX-Befehle " +
+          "(\\alpha, \\sum, \\int, \\leq usw.).\n\n" +
           "--- SKRIPT-INHALT ---\n" +
           context,
       },

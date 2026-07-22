@@ -20,6 +20,15 @@ body {
   color: #1e293b;
 }
 
+/* Formeln im Chatbot-Widget (schmales Fenster): lange freistehende KaTeX-
+   Formeln horizontal scrollbar statt das Chat-Layout aufzubrechen. */
+.katex-display {
+  margin: 0.4em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 2px;
+}
+
 .gradient-bg {
   background: radial-gradient(1200px 600px at 10% -10%, #ede9fe 0%, transparent 60%),
     radial-gradient(1000px 500px at 100% 0%, #f5f3ff 0%, transparent 60%),

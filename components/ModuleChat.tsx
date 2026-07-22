@@ -2,6 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import { fetchAccess } from "@/lib/access";
 import { getModule } from "@/lib/modules";
 
@@ -113,6 +117,66 @@ function FileIcon() {
       />
       <path d="M14 2v6h6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
+  );
+}
+
+// Rendert den Antworttext eines Chat-Bubbles als Markdown mit echtem
+// LaTeX-Formel-Rendering (KaTeX über remark-math/rehype-katex), statt als
+// einen einzigen rohen Textblock. isUser steuert nur Detail-Styling
+// (z. B. Link-/Code-Hintergrundfarbe), damit es auf dem lilafarbenen
+// User-Bubble genauso lesbar bleibt wie auf dem hellen Bot-Bubble.
+function ChatMarkdown({ text, isUser }: { text: string; isUser: boolean }) {
+  return (
+    <div className="text-sm [&_.katex]:text-[0.95em]">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm, remarkMath]}
+        rehypePlugins={[rehypeKatex]}
+        components={{
+          p: ({ children }) => <p className="mb-2 leading-relaxed last:mb-0">{children}</p>,
+          ul: ({ children }) => (
+            <ul className="mb-2 list-disc space-y-1 pl-4 last:mb-0">{children}</ul>
+          ),
+          ol: ({ children }) => (
+            <ol className="mb-2 list-decimal space-y-1 pl-4 last:mb-0">{children}</ol>
+          ),
+          li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+          strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+          h1: ({ children }) => <p className="mb-2 font-semibold">{children}</p>,
+          h2: ({ children }) => <p className="mb-2 font-semibold">{children}</p>,
+          h3: ({ children }) => <p className="mb-2 font-semibold">{children}</p>,
+          a: ({ href, children }) => (
+            <a
+              href={href}
+              target="_blank"
+              rel="noreferrer"
+              className="underline underline-offset-2"
+            >
+              {children}
+            </a>
+          ),
+          code: ({ children }) => (
+            <code
+              className={`rounded px-1 py-0.5 text-xs ${
+                isUser ? "bg-white/20" : "bg-ink-100"
+              }`}
+            >
+              {children}
+            </code>
+          ),
+          blockquote: ({ children }) => (
+            <blockquote
+              className={`mb-2 border-l-2 pl-2 italic last:mb-0 ${
+                isUser ? "border-white/40" : "border-ink-200"
+              }`}
+            >
+              {children}
+            </blockquote>
+          ),
+        }}
+      >
+        {text}
+      </ReactMarkdown>
+    </div>
   );
 }
 
@@ -410,7 +474,7 @@ export default function ModuleChat({
                           <span className="truncate">{m.attachment.name}</span>
                         </div>
                       ))}
-                    {m.text}
+                    <ChatMarkdown text={m.text} isUser={m.role === "user"} />
                   </div>
                 ))}
                 {sending && (
