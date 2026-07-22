@@ -148,10 +148,14 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Eine Gruppe (G,∗) ist eine Menge G mit einer Verknüpfung ∗, die abgeschlossen ist (a∗b∈G für alle a,b∈G), assoziativ ist ((a∗b)∗c = a∗(b∗c)), ein neutrales Element e besitzt (a∗e = e∗a = a) und zu jedem Element ein inverses Element hat (a∗a⁻¹ = e). Ist zusätzlich a∗b = b∗a für alle a,b, heißt die Gruppe abelsch (kommutativ).",
           "Gruppen abstrahieren das gemeinsame Strukturmuster, das man in vielen konkreten Rechensystemen wiederfindet — von den ganzen Zahlen mit Addition bis zu Symmetriegruppen geometrischer Figuren.",
+          "Aus den Gruppenaxiomen folgt die Kürzungsregel: Ist a∗b = a∗c, so folgt bereits b=c (durch Verknüpfen von links mit dem Inversen a⁻¹) — und analog für Kürzung von rechts. Diese Regel ist das zentrale Werkzeug, um in einer abstrakt gegebenen Gruppe unbekannte Verknüpfungsergebnisse zu erschließen, ohne die Gruppe vollständig kennen zu müssen.",
         ],
+        formulas: ["a∗b = a∗c ⇒ b = c"],
+        formulasLatex: ["a * b = a * c \\;\\Rightarrow\\; b = c"],
         terms: [{ term: "Gruppe", definition: "Menge mit assoziativer Verknüpfung, neutralem Element und Inversen zu jedem Element." }],
         examples: [
           "(ℤ,+) ist eine abelsche Gruppe: 0 ist neutrales Element, zu jedem n ist −n das Inverse, Addition ist assoziativ und kommutativ. (ℕ,+) ist dagegen KEINE Gruppe, da z. B. 3 kein additives Inverses in ℕ besitzt.",
+          "In einer Gruppe (G,∗) mit neutralem Element e gelte für drei Elemente p,q,r: p∗q = p∗r. Durch Verknüpfen beider Seiten von links mit dem Inversen p⁻¹ folgt p⁻¹∗(p∗q) = p⁻¹∗(p∗r), also (nach Assoziativität) e∗q = e∗r und damit q=r — man kann also allein aus p∗q=p∗r bereits q=r schließen, ohne p explizit zu kennen.",
         ],
       },
       {
@@ -183,176 +187,16 @@ export const chapters: SkriptChapter[] = [
   },
   // ==================== Kapitel 4 ====================
   {
-    id: "relationen",
-    number: 4,
-    title: "Relationen",
-    free: false,
-    intro:
-      "Relationen formalisieren, wie Objekte zueinander in Beziehung stehen — von der Gleichheit über Ordnungen bis zur Äquivalenz. Dieses Kapitel behandelt die wichtigsten Eigenschaften und Klassen von Relationen.",
-    sections: [
-      {
-        id: "4-1",
-        heading: "4.1 Relationen und ihre Eigenschaften",
-        body: [
-          "Eine (zweistellige) Relation R auf einer Menge M ist eine Teilmenge von M×M; man schreibt a R b, falls (a,b)∈R. Wichtige Eigenschaften: Reflexivität (a R a für alle a), Symmetrie (a R b ⇒ b R a), Antisymmetrie (a R b ∧ b R a ⇒ a=b) und Transitivität (a R b ∧ b R c ⇒ a R c).",
-          "Diese vier Eigenschaften bilden die Bausteine, aus denen sich die zwei wichtigsten Relationstypen zusammensetzen: Äquivalenzrelationen (reflexiv, symmetrisch, transitiv) und Ordnungsrelationen (reflexiv, antisymmetrisch, transitiv).",
-        ],
-        terms: [{ term: "Transitivität", definition: "Eigenschaft: a R b und b R c implizieren a R c." }],
-        examples: [
-          "Die Relation '≤' auf ℝ ist reflexiv, antisymmetrisch und transitiv, aber nicht symmetrisch (aus a≤b folgt nicht b≤a, außer bei Gleichheit) — sie ist damit eine Ordnungsrelation.",
-        ],
-      },
-      {
-        id: "4-2",
-        heading: "4.2 Äquivalenzrelationen und Äquivalenzklassen",
-        body: [
-          "Eine Äquivalenzrelation partitioniert eine Menge M vollständig in disjunkte Äquivalenzklassen: Für jedes a∈M ist [a] = {b∈M | a R b} die Menge aller zu a äquivalenten Elemente. Je zwei Äquivalenzklassen sind entweder identisch oder disjunkt, und die Vereinigung aller Klassen ergibt wieder ganz M.",
-          "Äquivalenzrelationen erlauben es, Objekte, die sich in einer bestimmten Hinsicht 'gleich verhalten', zu einer einzigen Klasse zusammenzufassen und dadurch neue mathematische Objekte zu konstruieren (z. B. die rationalen Zahlen als Äquivalenzklassen von Bruchpaaren).",
-        ],
-        terms: [{ term: "Äquivalenzklasse", definition: "Menge aller zu einem Element äquivalenten Elemente; Äquivalenzklassen partitionieren die Grundmenge." }],
-        examples: [
-          "Die Relation 'hat denselben Rest bei Division durch 3' auf ℤ ist eine Äquivalenzrelation mit genau drei Äquivalenzklassen: Zahlen mit Rest 0, Rest 1 und Rest 2.",
-        ],
-      },
-      {
-        id: "4-3",
-        heading: "4.3 Ordnungsrelationen",
-        body: [
-          "Eine Ordnungsrelation heißt total (linear), wenn für je zwei Elemente a,b gilt a R b oder b R a — je zwei Elemente sind also stets vergleichbar. Andernfalls spricht man von einer partiellen (Halb-)Ordnung, bei der es nicht vergleichbare Elementpaare geben kann.",
-          "In einer Halbordnung heißt ein Element m minimal, wenn kein Element echt kleiner ist, und Minimum, wenn es zusätzlich mit jedem anderen Element vergleichbar und kleiner-gleich ist — ein Minimum ist stets auch minimal, aber nicht umgekehrt.",
-        ],
-        terms: [
-          { term: "Totalordnung", definition: "Ordnungsrelation, bei der je zwei Elemente stets vergleichbar sind." },
-          { term: "Halbordnung", definition: "Ordnungsrelation, bei der nicht alle Elementpaare vergleichbar sein müssen." },
-        ],
-        examples: [
-          "Auf der Potenzmenge P({1,2}) = {∅,{1},{2},{1,2}} ist ⊆ eine Halbordnung: {1} und {2} sind nicht vergleichbar (weder {1}⊆{2} noch {2}⊆{1}), obwohl beide minimal über ∅ liegen.",
-        ],
-      },
-    ],
-  },
-  // ==================== Kapitel 5 ====================
-  {
-    id: "induktion-natuerliche-zahlen",
-    number: 5,
-    title: "Vollständige Induktion und die natürlichen Zahlen",
-    free: false,
-    intro:
-      "Die vollständige Induktion ist eines der wichtigsten Beweiswerkzeuge der Mathematik, um Aussagen über alle natürlichen Zahlen zu zeigen. Dieses Kapitel erklärt ihr Funktionsprinzip anhand der Konstruktion der natürlichen Zahlen.",
-    sections: [
-      {
-        id: "5-1",
-        heading: "5.1 Die Peano-Axiome",
-        body: [
-          "Die natürlichen Zahlen lassen sich axiomatisch durch die Peano-Axiome charakterisieren: 0 ist eine natürliche Zahl; jede natürliche Zahl n hat einen eindeutigen Nachfolger n+1; 0 ist kein Nachfolger; verschiedene Zahlen haben verschiedene Nachfolger; und das Induktionsaxiom besagt, dass jede Eigenschaft, die für 0 gilt und sich von n auf n+1 vererbt, für alle natürlichen Zahlen gilt.",
-          "Das Induktionsaxiom ist die formale Grundlage der Beweismethode der vollständigen Induktion und garantiert, dass man von einem Anfangsfall ausgehend durch wiederholtes 'einen Schritt weitergehen' tatsächlich alle natürlichen Zahlen erreicht.",
-        ],
-        terms: [{ term: "Induktionsaxiom", definition: "Axiom, das besagt: gilt eine Eigenschaft für 0 und vererbt sie sich von n auf n+1, gilt sie für alle natürlichen Zahlen." }],
-        examples: [
-          "Aus den Peano-Axiomen folgt, dass es keine 'größte natürliche Zahl' geben kann, da jede Zahl n einen Nachfolger n+1 besitzt, der wieder eine natürliche Zahl ist.",
-        ],
-      },
-      {
-        id: "5-2",
-        heading: "5.2 Das Beweisprinzip der vollständigen Induktion",
-        body: [
-          "Um eine Aussage A(n) für alle n≥n₀ zu beweisen, zeigt man zwei Dinge: den Induktionsanfang A(n₀) (die Aussage gilt für den Startwert) und den Induktionsschritt A(n)⇒A(n+1) für beliebiges n≥n₀ (unter der Induktionsannahme, dass A(n) gilt, zeigt man, dass dann auch A(n+1) gilt). Aus beidem folgt nach dem Induktionsaxiom, dass A(n) für alle n≥n₀ gilt.",
-          "Ein klassisches Anwendungsbeispiel ist die Gaußsche Summenformel: Für alle n≥1 gilt 1+2+...+n = n(n+1)/2. Der Induktionsanfang (n=1: 1 = 1·2/2 = 1) ist trivial; im Induktionsschritt nimmt man an, die Formel gelte für n, und zeigt, dass 1+...+n+(n+1) = n(n+1)/2 + (n+1) = (n+1)(n+2)/2 — genau die Formel für n+1.",
-        ],
-        formulas: ["1+2+...+n = n(n+1)/2"],
-        formulasLatex: ["\\sum_{k=1}^{n} k = \\dfrac{n(n+1)}{2}"],
-        terms: [
-          { term: "Induktionsanfang", definition: "Nachweis der zu beweisenden Aussage für den kleinsten betrachteten Wert." },
-          { term: "Induktionsschritt", definition: "Nachweis, dass die Aussage für n+1 gilt, sofern sie für n gilt (Induktionsannahme)." },
-        ],
-        examples: [
-          "Man zeigt per Induktion, dass 3ⁿ − 1 für alle n≥1 durch 2 teilbar ist: n=1 liefert 3−1=2 (teilbar); gilt 3ⁿ−1=2k, so ist 3ⁿ⁺¹−1 = 3·3ⁿ−1 = 3(2k+1)−1 = 6k+2 = 2(3k+1), also ebenfalls durch 2 teilbar.",
-        ],
-      },
-      {
-        id: "5-3",
-        heading: "5.3 Rekursive Definitionen",
-        body: [
-          "Rekursive Definitionen legen ein mathematisches Objekt fest, indem sie einen Basisfall angeben und den allgemeinen Fall auf einen bereits definierten, kleineren Fall zurückführen — strukturell eng verwandt mit der vollständigen Induktion. Die Fakultät ist ein Standardbeispiel: 0! = 1 und n! = n·(n−1)! für n≥1.",
-          "Rekursive Definitionen und Induktionsbeweise passen typischerweise zusammen: Eine über Rekursion definierte Größe lässt sich meist elegant per Induktion auf ihre geschlossene Form (eine Formel ohne Rekursion) zurückführen.",
-        ],
-        formulas: ["n! = n · (n−1)!, 0! = 1"],
-        formulasLatex: ["n! = n \\cdot (n-1)!,\\quad 0! = 1"],
-        terms: [{ term: "Rekursive Definition", definition: "Definition eines Objekts durch Basisfall und Rückführung des allgemeinen Falls auf einen kleineren Fall." }],
-        examples: [
-          "4! = 4·3! = 4·3·2! = 4·3·2·1! = 4·3·2·1·0! = 4·3·2·1·1 = 24 — jede Stufe verwendet die bereits berechnete vorherige Stufe.",
-        ],
-      },
-    ],
-  },
-  // ==================== Kapitel 6 ====================
-  {
-    id: "abbildungen",
-    number: 6,
-    title: "Abbildungen",
-    free: false,
-    intro:
-      "Abbildungen (Funktionen) sind das zentrale Werkzeug, um Elemente einer Menge Elementen einer anderen Menge zuzuordnen. Dieses Kapitel klärt die wichtigsten Eigenschaften, die eine Abbildung haben kann.",
-    sections: [
-      {
-        id: "6-1",
-        heading: "6.1 Abbildungen, Definitions- und Wertebereich",
-        body: [
-          "Eine Abbildung f: A→B ordnet jedem Element a∈A (Definitionsbereich) genau ein Element f(a)∈B (Zielmenge) zu. Der Wertebereich (die Bildmenge) f(A) = {f(a) | a∈A} ist die Teilmenge von B, die tatsächlich als Funktionswert auftritt — er muss nicht mit der gesamten Zielmenge B übereinstimmen.",
-          "Zwei Abbildungen f,g: A→B sind genau dann gleich, wenn f(a)=g(a) für alle a∈A gilt — nicht schon, wenn ihre Zuordnungsvorschriften unterschiedlich aussehen, aber dieselben Werte liefern.",
-        ],
-        terms: [
-          { term: "Definitionsbereich", definition: "Menge, auf der eine Abbildung definiert ist." },
-          { term: "Wertebereich (Bildmenge)", definition: "Menge der tatsächlich angenommenen Funktionswerte, f(A) ⊆ B." },
-        ],
-        examples: [
-          "Für f: ℝ→ℝ, f(x)=x² ist der Definitionsbereich ganz ℝ, die Zielmenge ℝ, aber der Wertebereich nur [0,∞), da x² nie negativ wird.",
-        ],
-      },
-      {
-        id: "6-2",
-        heading: "6.2 Injektivität, Surjektivität, Bijektivität",
-        body: [
-          "Eine Abbildung f: A→B heißt injektiv, wenn verschiedene Elemente stets auf verschiedene Bilder abgebildet werden (f(a₁)=f(a₂) ⇒ a₁=a₂). Sie heißt surjektiv, wenn jedes Element von B als Bild getroffen wird (f(A)=B). Ist f sowohl injektiv als auch surjektiv, heißt sie bijektiv — in diesem Fall existiert eine eindeutige Umkehrabbildung f⁻¹: B→A.",
-          "Für endliche Mengen mit |A|=|B| ist eine Abbildung f:A→B bereits dann bijektiv, wenn sie injektiv ODER surjektiv ist — die jeweils andere Eigenschaft folgt automatisch (Schubfachprinzip-Argument).",
-        ],
-        terms: [
-          { term: "Injektiv", definition: "Verschiedene Argumente werden auf verschiedene Bilder abgebildet." },
-          { term: "Surjektiv", definition: "Jedes Element der Zielmenge wird als Bild getroffen." },
-          { term: "Bijektiv", definition: "Sowohl injektiv als auch surjektiv; besitzt eine eindeutige Umkehrabbildung." },
-        ],
-        examples: [
-          "f: ℝ→ℝ, f(x)=x³ ist bijektiv (jede reelle Zahl hat genau eine dritte Wurzel). g: ℝ→ℝ, g(x)=x² ist weder injektiv (g(2)=g(−2)) noch surjektiv (negative Werte werden nie getroffen).",
-        ],
-      },
-      {
-        id: "6-3",
-        heading: "6.3 Verkettung und Umkehrabbildung",
-        body: [
-          "Sind f: A→B und g: B→C Abbildungen, so ist die Verkettung g∘f: A→C definiert durch (g∘f)(a) = g(f(a)) — zuerst wird f, dann g angewendet. Die Verkettung ist assoziativ, aber im Allgemeinen nicht kommutativ (g∘f ≠ f∘g).",
-          "Ist f: A→B bijektiv, erfüllt die Umkehrabbildung f⁻¹: B→A die Beziehungen f⁻¹∘f = id_A und f∘f⁻¹ = id_B, wobei id die identische Abbildung bezeichnet, die jedes Element auf sich selbst abbildet.",
-        ],
-        formulas: ["(g∘f)(a) = g(f(a))"],
-        formulasLatex: ["(g\\circ f)(a) = g(f(a))"],
-        terms: [{ term: "Verkettung (g∘f)", definition: "Hintereinanderausführung zweier Abbildungen: erst f, dann g." }],
-        examples: [
-          "Für f(x)=x+1 und g(x)=2x gilt (g∘f)(x)=g(x+1)=2(x+1)=2x+2, während (f∘g)(x)=f(2x)=2x+1 — die Verkettung ist hier nicht kommutativ.",
-        ],
-      },
-    ],
-  },
-  // ==================== Kapitel 7 ====================
-  {
     id: "kombinatorik-laplace",
-    number: 7,
+    number: 4,
     title: "Kombinatorik und das Laplace-Modell",
     free: false,
     intro:
-      "Kombinatorik liefert die Zähltechniken, um die Anzahl möglicher Anordnungen und Auswahlen zu bestimmen — die Grundlage jeder klassischen Wahrscheinlichkeitsrechnung im Laplace-Modell.",
+      "Kombinatorik liefert die Zähltechniken, um die Anzahl möglicher Anordnungen und Auswahlen zu bestimmen — die Grundlage jeder klassischen Wahrscheinlichkeitsrechnung im Laplace-Modell. Da Kombinatorik im Kern nur auf Mengen und Abzählen aufbaut, schließt sie hier direkt an die Mengenlehre an.",
     sections: [
       {
-        id: "7-1",
-        heading: "7.1 Permutationen",
+        id: "4-1",
+        heading: "4.1 Permutationen",
         body: [
           "Die Anzahl der Möglichkeiten, n unterscheidbare Objekte in einer Reihenfolge anzuordnen (Permutationen), beträgt n! = n·(n−1)·...·1. Sind unter den n Objekten Gruppen von jeweils untereinander nicht unterscheidbaren Objekten (Größen n₁,...,nₖ), reduziert sich die Anzahl unterscheidbarer Anordnungen auf n!/(n₁!·...·nₖ!).",
           "Diese Reduktion entsteht, weil Vertauschungen innerhalb einer Gruppe ununterscheidbarer Objekte keine neue Anordnung erzeugen — sie werden durch die Division herausgerechnet.",
@@ -361,12 +205,12 @@ export const chapters: SkriptChapter[] = [
         formulasLatex: ["\\dfrac{n!}{n_1! \\cdots n_k!}"],
         terms: [{ term: "Permutation", definition: "Anordnung von Objekten in einer bestimmten Reihenfolge." }],
         examples: [
-          "Das Wort 'ANANAS' besteht aus 6 Buchstaben, davon 3×A, 2×N, 1×S. Die Anzahl unterscheidbarer Anordnungen beträgt 6!/(3!·2!·1!) = 720/12 = 60.",
+          "Das Wort 'MAMMUT' besteht aus 6 Buchstaben, davon 3×M, 1×A, 1×U, 1×T. Die Anzahl unterscheidbarer Anordnungen beträgt 6!/3! = 720/6 = 120.",
         ],
       },
       {
-        id: "7-2",
-        heading: "7.2 Variationen und Kombinationen",
+        id: "4-2",
+        heading: "4.2 Variationen und Kombinationen",
         body: [
           "Bei der Auswahl von k aus n unterscheidbaren Objekten unterscheidet man vier Fälle, je nachdem ob die Reihenfolge der Auswahl zählt und ob Objekte wiederholt (mit Zurücklegen) ausgewählt werden dürfen: Variation mit Wiederholung (Reihenfolge zählt, Wiederholung erlaubt: nᵏ), Variation ohne Wiederholung (Reihenfolge zählt, keine Wiederholung: n!/(n−k)!), Kombination ohne Wiederholung (Reihenfolge egal, keine Wiederholung: Binomialkoeffizient) und Kombination mit Wiederholung (Reihenfolge egal, Wiederholung erlaubt).",
           "Der Binomialkoeffizient C(n,k) = n!/(k!(n−k)!) zählt die Anzahl der k-elementigen Teilmengen einer n-elementigen Menge und ist damit das zentrale Werkzeug für Kombinationen ohne Wiederholung. Für Kombinationen MIT Wiederholung — z. B. wie viele Arten es gibt, k identische Kugeln auf n Fächer zu verteilen — gilt stattdessen C(n+k−1,k) = (n+k−1)!/(k!(n−1)!).",
@@ -398,8 +242,8 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
-        id: "7-3",
-        heading: "7.3 Das Laplace-Modell",
+        id: "4-3",
+        heading: "4.3 Das Laplace-Modell",
         body: [
           "Im Laplace-Modell sind alle Elementarereignisse eines endlichen Ergebnisraums Ω gleich wahrscheinlich. Die Wahrscheinlichkeit eines Ereignisses A ergibt sich dann als P(A) = |A|/|Ω| — 'Anzahl günstiger Fälle geteilt durch Anzahl möglicher Fälle'. Kombinatorische Zähltechniken (Permutationen, Binomialkoeffizienten) liefern dabei |A| und |Ω|.",
           "Das Laplace-Modell ist nur anwendbar, wenn tatsächlich Gleichwahrscheinlichkeit vorliegt (z. B. beim fairen Würfel oder bei rein zufälligem Ziehen) — bei ungleich wahrscheinlichen Ergebnissen (z. B. gezinkter Würfel) versagt die einfache Formel.",
@@ -413,6 +257,188 @@ export const chapters: SkriptChapter[] = [
       },
     ],
   },
+  // ==================== Kapitel 5 ====================
+  {
+    id: "relationen",
+    number: 5,
+    title: "Relationen",
+    free: false,
+    intro:
+      "Relationen formalisieren, wie Objekte zueinander in Beziehung stehen — von der Gleichheit über Ordnungen bis zur Äquivalenz. Dieses Kapitel behandelt die wichtigsten Eigenschaften und Klassen von Relationen.",
+    sections: [
+      {
+        id: "5-1",
+        heading: "5.1 Relationen und ihre Eigenschaften",
+        body: [
+          "Eine (zweistellige) Relation R auf einer Menge M ist eine Teilmenge von M×M; man schreibt a R b, falls (a,b)∈R. Wichtige Eigenschaften: Reflexivität (a R a für alle a), Symmetrie (a R b ⇒ b R a), Antisymmetrie (a R b ∧ b R a ⇒ a=b) und Transitivität (a R b ∧ b R c ⇒ a R c).",
+          "Diese vier Eigenschaften bilden die Bausteine, aus denen sich die zwei wichtigsten Relationstypen zusammensetzen: Äquivalenzrelationen (reflexiv, symmetrisch, transitiv) und Ordnungsrelationen (reflexiv, antisymmetrisch, transitiv).",
+          "Da eine Relation auf einer n-elementigen Menge M nichts anderes als eine Teilmenge von M×M ist, lässt sich die Anzahl reflexiver Relationen direkt kombinatorisch bestimmen: Die n Diagonalelemente (a,a) müssen zwingend enthalten sein, über die restlichen n²−n Elemente von M×M kann dagegen frei entschieden werden. Das liefert genau 2^(n²−n) reflexive Relationen.",
+        ],
+        formulas: ["Anzahl reflexiver Relationen auf einer n-elementigen Menge = 2^(n²−n)"],
+        formulasLatex: ["2^{n^2-n}"],
+        terms: [{ term: "Transitivität", definition: "Eigenschaft: a R b und b R c implizieren a R c." }],
+        examples: [
+          "Die Relation '≤' auf ℝ ist reflexiv, antisymmetrisch und transitiv, aber nicht symmetrisch (aus a≤b folgt nicht b≤a, außer bei Gleichheit) — sie ist damit eine Ordnungsrelation.",
+          "Für eine Menge mit n=5 Elementen ergibt die Formel 2^(25−5) = 2²⁰ = 1.048.576 reflexive Relationen — bei nur 5 Elementen bereits über eine Million mögliche reflexive Relationen.",
+        ],
+      },
+      {
+        id: "5-2",
+        heading: "5.2 Äquivalenzrelationen und Äquivalenzklassen",
+        body: [
+          "Eine Äquivalenzrelation partitioniert eine Menge M vollständig in disjunkte Äquivalenzklassen: Für jedes a∈M ist [a] = {b∈M | a R b} die Menge aller zu a äquivalenten Elemente. Je zwei Äquivalenzklassen sind entweder identisch oder disjunkt, und die Vereinigung aller Klassen ergibt wieder ganz M.",
+          "Äquivalenzrelationen erlauben es, Objekte, die sich in einer bestimmten Hinsicht 'gleich verhalten', zu einer einzigen Klasse zusammenzufassen und dadurch neue mathematische Objekte zu konstruieren (z. B. die rationalen Zahlen als Äquivalenzklassen von Bruchpaaren).",
+        ],
+        terms: [{ term: "Äquivalenzklasse", definition: "Menge aller zu einem Element äquivalenten Elemente; Äquivalenzklassen partitionieren die Grundmenge." }],
+        examples: [
+          "Die Relation 'hat denselben Rest bei Division durch 3' auf ℤ ist eine Äquivalenzrelation mit genau drei Äquivalenzklassen: Zahlen mit Rest 0, Rest 1 und Rest 2.",
+        ],
+      },
+      {
+        id: "5-3",
+        heading: "5.3 Ordnungsrelationen",
+        body: [
+          "Eine Ordnungsrelation heißt total (linear), wenn für je zwei Elemente a,b gilt a R b oder b R a — je zwei Elemente sind also stets vergleichbar. Andernfalls spricht man von einer partiellen (Halb-)Ordnung, bei der es nicht vergleichbare Elementpaare geben kann.",
+          "In einer Halbordnung heißt ein Element m minimal, wenn kein Element echt kleiner ist, und Minimum, wenn es zusätzlich mit jedem anderen Element vergleichbar und kleiner-gleich ist — ein Minimum ist stets auch minimal, aber nicht umgekehrt.",
+        ],
+        terms: [
+          { term: "Totalordnung", definition: "Ordnungsrelation, bei der je zwei Elemente stets vergleichbar sind." },
+          { term: "Halbordnung", definition: "Ordnungsrelation, bei der nicht alle Elementpaare vergleichbar sein müssen." },
+        ],
+        examples: [
+          "Auf der Potenzmenge P({1,2}) = {∅,{1},{2},{1,2}} ist ⊆ eine Halbordnung: {1} und {2} sind nicht vergleichbar (weder {1}⊆{2} noch {2}⊆{1}), obwohl beide minimal über ∅ liegen.",
+        ],
+      },
+    ],
+  },
+  // ==================== Kapitel 6 ====================
+  {
+    id: "induktion-natuerliche-zahlen",
+    number: 6,
+    title: "Vollständige Induktion und die natürlichen Zahlen",
+    free: false,
+    intro:
+      "Die vollständige Induktion ist eines der wichtigsten Beweiswerkzeuge der Mathematik, um Aussagen über alle natürlichen Zahlen zu zeigen. Dieses Kapitel erklärt ihr Funktionsprinzip anhand der Konstruktion der natürlichen Zahlen.",
+    sections: [
+      {
+        id: "6-1",
+        heading: "6.1 Die Peano-Axiome",
+        body: [
+          "Die natürlichen Zahlen lassen sich axiomatisch durch die Peano-Axiome charakterisieren: 0 ist eine natürliche Zahl; jede natürliche Zahl n hat einen eindeutigen Nachfolger n+1; 0 ist kein Nachfolger; verschiedene Zahlen haben verschiedene Nachfolger; und das Induktionsaxiom besagt, dass jede Eigenschaft, die für 0 gilt und sich von n auf n+1 vererbt, für alle natürlichen Zahlen gilt.",
+          "Das Induktionsaxiom ist die formale Grundlage der Beweismethode der vollständigen Induktion und garantiert, dass man von einem Anfangsfall ausgehend durch wiederholtes 'einen Schritt weitergehen' tatsächlich alle natürlichen Zahlen erreicht.",
+        ],
+        terms: [{ term: "Induktionsaxiom", definition: "Axiom, das besagt: gilt eine Eigenschaft für 0 und vererbt sie sich von n auf n+1, gilt sie für alle natürlichen Zahlen." }],
+        examples: [
+          "Aus den Peano-Axiomen folgt, dass es keine 'größte natürliche Zahl' geben kann, da jede Zahl n einen Nachfolger n+1 besitzt, der wieder eine natürliche Zahl ist.",
+        ],
+      },
+      {
+        id: "6-2",
+        heading: "6.2 Das Beweisprinzip der vollständigen Induktion",
+        body: [
+          "Um eine Aussage A(n) für alle n≥n₀ zu beweisen, zeigt man zwei Dinge: den Induktionsanfang A(n₀) (die Aussage gilt für den Startwert) und den Induktionsschritt A(n)⇒A(n+1) für beliebiges n≥n₀ (unter der Induktionsannahme, dass A(n) gilt, zeigt man, dass dann auch A(n+1) gilt). Aus beidem folgt nach dem Induktionsaxiom, dass A(n) für alle n≥n₀ gilt.",
+          "Ein klassisches Anwendungsbeispiel ist die Gaußsche Summenformel: Für alle n≥1 gilt 1+2+...+n = n(n+1)/2. Der Induktionsanfang (n=1: 1 = 1·2/2 = 1) ist trivial; im Induktionsschritt nimmt man an, die Formel gelte für n, und zeigt, dass 1+...+n+(n+1) = n(n+1)/2 + (n+1) = (n+1)(n+2)/2 — genau die Formel für n+1.",
+        ],
+        formulas: ["1+2+...+n = n(n+1)/2"],
+        formulasLatex: ["\\sum_{k=1}^{n} k = \\dfrac{n(n+1)}{2}"],
+        terms: [
+          { term: "Induktionsanfang", definition: "Nachweis der zu beweisenden Aussage für den kleinsten betrachteten Wert." },
+          { term: "Induktionsschritt", definition: "Nachweis, dass die Aussage für n+1 gilt, sofern sie für n gilt (Induktionsannahme)." },
+        ],
+        examples: [
+          "Man zeigt per Induktion, dass 3ⁿ − 1 für alle n≥1 durch 2 teilbar ist: n=1 liefert 3−1=2 (teilbar); gilt 3ⁿ−1=2k, so ist 3ⁿ⁺¹−1 = 3·3ⁿ−1 = 3(2k+1)−1 = 6k+2 = 2(3k+1), also ebenfalls durch 2 teilbar.",
+        ],
+      },
+      {
+        id: "6-3",
+        heading: "6.3 Rekursive Definitionen",
+        body: [
+          "Rekursive Definitionen legen ein mathematisches Objekt fest, indem sie einen Basisfall angeben und den allgemeinen Fall auf einen bereits definierten, kleineren Fall zurückführen — strukturell eng verwandt mit der vollständigen Induktion. Die Fakultät ist ein Standardbeispiel: 0! = 1 und n! = n·(n−1)! für n≥1.",
+          "Rekursive Definitionen und Induktionsbeweise passen typischerweise zusammen: Eine über Rekursion definierte Größe lässt sich meist elegant per Induktion auf ihre geschlossene Form (eine Formel ohne Rekursion) zurückführen.",
+        ],
+        formulas: ["n! = n · (n−1)!, 0! = 1"],
+        formulasLatex: ["n! = n \\cdot (n-1)!,\\quad 0! = 1"],
+        terms: [{ term: "Rekursive Definition", definition: "Definition eines Objekts durch Basisfall und Rückführung des allgemeinen Falls auf einen kleineren Fall." }],
+        examples: [
+          "4! = 4·3! = 4·3·2! = 4·3·2·1! = 4·3·2·1·0! = 4·3·2·1·1 = 24 — jede Stufe verwendet die bereits berechnete vorherige Stufe.",
+        ],
+      },
+      {
+        id: "6-4",
+        heading: "6.4 Weitere Anwendungen der Induktion: Summenformeln und Ungleichungen",
+        body: [
+          "Neben der Gaußschen Summenformel lassen sich viele weitere Summenformeln per Induktion beweisen. Für die Summe der ersten n Quadratzahlen gilt Σ(k=1,n) k² = n(n+1)(2n+1)/6 — auch dieser Induktionsbeweis folgt demselben Muster aus Induktionsanfang und Induktionsschritt.",
+          "Auch Ungleichungen lassen sich per Induktion zeigen. Die Bernoulli-Ungleichung (1+x)ⁿ ≥ 1+nx gilt für alle reellen x≥−1 und alle n∈N₀ und ist eines der am häufigsten verwendeten Hilfsmittel der Analysis, um Potenzen nach unten abzuschätzen, ohne den genauen Wert von (1+x)ⁿ berechnen zu müssen.",
+        ],
+        formulas: ["Σ(k=1,n) k² = n(n+1)(2n+1)/6", "(1+x)ⁿ ≥ 1+nx für x≥−1"],
+        formulasLatex: [
+          "\\sum_{k=1}^{n} k^2 = \\dfrac{n(n+1)(2n+1)}{6}",
+          "(1+x)^n \\ge 1+nx \\quad (x\\ge -1)",
+        ],
+        terms: [{ term: "Bernoulli-Ungleichung", definition: "(1+x)ⁿ≥1+nx für alle x≥−1 und n∈N₀; wird per Induktion bewiesen." }],
+        examples: [
+          "Für n=8 liefert die Formel Σk² = 8·9·17/6 = 1224/6 = 204 — die Summe 1²+2²+...+8² lässt sich so ohne Einzeladdition direkt berechnen.",
+          "Für x=0,1 und n=5 liefert die Bernoulli-Ungleichung (1,1)⁵ ≥ 1+5·0,1 = 1,5 — tatsächlich ist 1,1⁵≈1,6105>1,5, die Ungleichung ist also (wie garantiert) erfüllt, wenn auch nicht scharf.",
+        ],
+      },
+    ],
+  },
+  // ==================== Kapitel 7 ====================
+  {
+    id: "abbildungen",
+    number: 7,
+    title: "Abbildungen",
+    free: false,
+    intro:
+      "Abbildungen (Funktionen) sind das zentrale Werkzeug, um Elemente einer Menge Elementen einer anderen Menge zuzuordnen. Dieses Kapitel klärt die wichtigsten Eigenschaften, die eine Abbildung haben kann.",
+    sections: [
+      {
+        id: "7-1",
+        heading: "7.1 Abbildungen, Definitions- und Wertebereich",
+        body: [
+          "Eine Abbildung f: A→B ordnet jedem Element a∈A (Definitionsbereich) genau ein Element f(a)∈B (Zielmenge) zu. Der Wertebereich (die Bildmenge) f(A) = {f(a) | a∈A} ist die Teilmenge von B, die tatsächlich als Funktionswert auftritt — er muss nicht mit der gesamten Zielmenge B übereinstimmen.",
+          "Zwei Abbildungen f,g: A→B sind genau dann gleich, wenn f(a)=g(a) für alle a∈A gilt — nicht schon, wenn ihre Zuordnungsvorschriften unterschiedlich aussehen, aber dieselben Werte liefern.",
+        ],
+        terms: [
+          { term: "Definitionsbereich", definition: "Menge, auf der eine Abbildung definiert ist." },
+          { term: "Wertebereich (Bildmenge)", definition: "Menge der tatsächlich angenommenen Funktionswerte, f(A) ⊆ B." },
+        ],
+        examples: [
+          "Für f: ℝ→ℝ, f(x)=x² ist der Definitionsbereich ganz ℝ, die Zielmenge ℝ, aber der Wertebereich nur [0,∞), da x² nie negativ wird.",
+        ],
+      },
+      {
+        id: "7-2",
+        heading: "7.2 Injektivität, Surjektivität, Bijektivität",
+        body: [
+          "Eine Abbildung f: A→B heißt injektiv, wenn verschiedene Elemente stets auf verschiedene Bilder abgebildet werden (f(a₁)=f(a₂) ⇒ a₁=a₂). Sie heißt surjektiv, wenn jedes Element von B als Bild getroffen wird (f(A)=B). Ist f sowohl injektiv als auch surjektiv, heißt sie bijektiv — in diesem Fall existiert eine eindeutige Umkehrabbildung f⁻¹: B→A.",
+          "Für endliche Mengen mit |A|=|B| ist eine Abbildung f:A→B bereits dann bijektiv, wenn sie injektiv ODER surjektiv ist — die jeweils andere Eigenschaft folgt automatisch (Schubfachprinzip-Argument).",
+        ],
+        terms: [
+          { term: "Injektiv", definition: "Verschiedene Argumente werden auf verschiedene Bilder abgebildet." },
+          { term: "Surjektiv", definition: "Jedes Element der Zielmenge wird als Bild getroffen." },
+          { term: "Bijektiv", definition: "Sowohl injektiv als auch surjektiv; besitzt eine eindeutige Umkehrabbildung." },
+        ],
+        examples: [
+          "f: ℝ→ℝ, f(x)=x³ ist bijektiv (jede reelle Zahl hat genau eine dritte Wurzel). g: ℝ→ℝ, g(x)=x² ist weder injektiv (g(2)=g(−2)) noch surjektiv (negative Werte werden nie getroffen).",
+        ],
+      },
+      {
+        id: "7-3",
+        heading: "7.3 Verkettung und Umkehrabbildung",
+        body: [
+          "Sind f: A→B und g: B→C Abbildungen, so ist die Verkettung g∘f: A→C definiert durch (g∘f)(a) = g(f(a)) — zuerst wird f, dann g angewendet. Die Verkettung ist assoziativ, aber im Allgemeinen nicht kommutativ (g∘f ≠ f∘g).",
+          "Ist f: A→B bijektiv, erfüllt die Umkehrabbildung f⁻¹: B→A die Beziehungen f⁻¹∘f = id_A und f∘f⁻¹ = id_B, wobei id die identische Abbildung bezeichnet, die jedes Element auf sich selbst abbildet.",
+        ],
+        formulas: ["(g∘f)(a) = g(f(a))"],
+        formulasLatex: ["(g\\circ f)(a) = g(f(a))"],
+        terms: [{ term: "Verkettung (g∘f)", definition: "Hintereinanderausführung zweier Abbildungen: erst f, dann g." }],
+        examples: [
+          "Für f(x)=x+1 und g(x)=2x gilt (g∘f)(x)=g(x+1)=2(x+1)=2x+2, während (f∘g)(x)=f(2x)=2x+1 — die Verkettung ist hier nicht kommutativ.",
+        ],
+      },
+    ],
+  },
   // ==================== Kapitel 8 ====================
   {
     id: "reelle-zahlen",
@@ -420,7 +446,7 @@ export const chapters: SkriptChapter[] = [
     title: "Die reellen Zahlen",
     free: false,
     intro:
-      "Die reellen Zahlen bilden das Fundament der Analysis. Dieses Kapitel behandelt ihre grundlegenden Ordnungseigenschaften und den entscheidenden Unterschied zu den rationalen Zahlen: die Vollständigkeit.",
+      "Die reellen Zahlen bilden das Fundament der Analysis. Dieses Kapitel behandelt ihre grundlegenden Ordnungseigenschaften, den entscheidenden Unterschied zu den rationalen Zahlen — die Vollständigkeit — sowie den daraus folgenden strukturellen Zusammenhang zwischen ℚ und ℝ.",
     sections: [
       {
         id: "8-1",
@@ -451,6 +477,35 @@ export const chapters: SkriptChapter[] = [
           "Für M=(0,1) (offenes Intervall) gilt sup M=1 und inf M=0, obwohl weder 1 noch 0 selbst Elemente von M sind — M besitzt also weder Maximum noch Minimum, wohl aber Supremum und Infimum.",
         ],
       },
+      {
+        id: "8-3",
+        heading: "8.3 Der Satz von Archimedes",
+        body: [
+          "Der Satz von Archimedes besagt: Zu jeder reellen Zahl x existiert eine natürliche Zahl n mit n>x — die natürlichen Zahlen sind in ℝ also nicht nach oben beschränkt. Formal folgt dies aus dem Vollständigkeitsaxiom: Wäre ℕ nach oben beschränkt, besäße ℕ ein Supremum s; dann wäre aber auch s−1 keine obere Schranke mehr, sodass ein n∈ℕ mit n>s−1 existiert — dann ist aber n+1>s, im Widerspruch dazu, dass s obere Schranke von ℕ sein sollte.",
+          "Eine wichtige Folgerung: Zu jedem ε>0 existiert ein n∈ℕ mit 1/n<ε. Diese Folgerung wird ständig verwendet, um zu zeigen, dass eine Folge wie (1/n) gegen 0 konvergiert, und ist die Basis vieler ε-N-Beweise.",
+        ],
+        formulas: ["∀x∈R ∃n∈N: n>x", "∀ε>0 ∃n∈N: 1/n<ε"],
+        formulasLatex: [
+          "\\forall x\\in\\mathbb{R}\\,\\exists n\\in\\mathbb{N}: n>x",
+          "\\forall \\varepsilon>0\\,\\exists n\\in\\mathbb{N}: \\dfrac{1}{n}<\\varepsilon",
+        ],
+        terms: [{ term: "Satz von Archimedes", definition: "Zu jeder reellen Zahl x existiert eine natürliche Zahl n mit n>x; N ist in R nicht nach oben beschränkt." }],
+        examples: [
+          "Für ε=0,00025 liefert der Satz von Archimedes ein n mit 1/n<0,00025, z. B. n=4001 (da 1/4001≈0,00024994<0,00025) — ein solches n existiert nach dem Satz garantiert, unabhängig davon, wie klein ε gewählt wird.",
+        ],
+      },
+      {
+        id: "8-4",
+        heading: "8.4 Dichtheit von Q in R",
+        body: [
+          "ℚ liegt dicht in ℝ: Zwischen zwei beliebigen reellen Zahlen a<b liegt stets mindestens eine (und damit unendlich viele) rationale Zahl. Äquivalent dazu lässt sich jede reelle Zahl beliebig genau durch eine Folge rationaler Zahlen approximieren — jede reelle Zahl ist Grenzwert einer Folge rationaler Zahlen. Der Beweis dieser Dichtheit nutzt gerade den Satz von Archimedes aus Abschnitt 8.3, um eine passende rationale Zahl zwischen a und b explizit zu konstruieren.",
+          "Diese Dichtheit ist praktisch bedeutsam, weil numerische Berechnungen (z. B. mit endlichen Dezimalzahlen) immer nur rationale Approximationen reeller Zahlen liefern können — die Dichtheit garantiert aber, dass diese Approximation beliebig genau gemacht werden kann.",
+        ],
+        terms: [{ term: "Dichtheit von ℚ in ℝ", definition: "Zwischen je zwei reellen Zahlen liegt mindestens eine rationale Zahl." }],
+        examples: [
+          "Zwischen den irrationalen Zahlen π und π+0,0001 liegt garantiert eine rationale Zahl, z. B. lässt sich π selbst beliebig genau durch die rationalen Dezimalapproximationen 3, 3.1, 3.14, 3.141, ... annähern.",
+        ],
+      },
     ],
   },
   // ==================== Kapitel 9 ====================
@@ -460,7 +515,7 @@ export const chapters: SkriptChapter[] = [
     title: "Folgen",
     free: false,
     intro:
-      "Folgen sind geordnete, unendliche Listen von Zahlen und der Ausgangspunkt für den zentralen Analysis-Begriff des Grenzwerts. Dieses Kapitel behandelt Konvergenz, Grenzwertsätze und wichtige Beispiele.",
+      "Folgen sind geordnete, unendliche Listen von Zahlen und der Ausgangspunkt für den zentralen Analysis-Begriff des Grenzwerts. Dieses Kapitel behandelt Konvergenz, Grenzwertsätze, wichtige Beispiele und die Eulersche Zahl.",
     sections: [
       {
         id: "9-1",
@@ -501,16 +556,33 @@ export const chapters: SkriptChapter[] = [
           "Die rekursiv definierte Folge a₁=1, aₙ₊₁=√(2+aₙ) lässt sich per Induktion als monoton wachsend und durch 2 nach oben beschränkt zeigen; nach dem Monotoniekriterium konvergiert sie, und der Grenzwert löst a=√(2+a), also a=2.",
         ],
       },
+      {
+        id: "9-4",
+        heading: "9.4 Die Eulersche Zahl",
+        body: [
+          "Die Folge aₙ=(1+1/n)ⁿ ist monoton wachsend und nach oben beschränkt (durch 3), konvergiert also nach dem Monotoniekriterium (Abschnitt 9.3). Ihr Grenzwert wird als die Eulersche Zahl e definiert: e := lim(n→∞) (1+1/n)ⁿ ≈ 2,71828. e ist eine der wichtigsten Konstanten der Analysis und Basis des natürlichen Logarithmus.",
+          "Allgemeiner gilt für jedes feste x∈ℝ: lim(n→∞) (1+x/n)ⁿ = eˣ. Diese Formel verbindet den Folgengrenzwert direkt mit der Exponentialfunktion und wird u. a. in der Zinseszinsrechnung bei kontinuierlicher Verzinsung verwendet.",
+        ],
+        formulas: ["e = lim (1+1/n)ⁿ", "lim (1+x/n)ⁿ = eˣ"],
+        formulasLatex: [
+          "e = \\lim_{n\\to\\infty}\\left(1+\\dfrac{1}{n}\\right)^{n}",
+          "\\lim_{n\\to\\infty}\\left(1+\\dfrac{x}{n}\\right)^{n} = e^{x}",
+        ],
+        terms: [{ term: "Eulersche Zahl e", definition: "e:=lim(1+1/n)ⁿ≈2,71828; Basis der natürlichen Exponentialfunktion." }],
+        examples: [
+          "Für x=2 liefert die Formel lim(1+2/n)ⁿ=e²≈7,389 — bereits für n=100 liegt (1+2/100)¹⁰⁰≈7,245 recht nahe an diesem Grenzwert.",
+        ],
+      },
     ],
   },
   // ==================== Kapitel 10 ====================
   {
     id: "teilfolgen-haeufungspunkte",
     number: 10,
-    title: "Teilfolgen, Häufungspunkte und die Dichtheit von Q in R",
+    title: "Teilfolgen, Häufungspunkte und Cauchy-Folgen",
     free: false,
     intro:
-      "Nicht jede Folge konvergiert — aber jede beschränkte Folge besitzt konvergente Teilfolgen. Dieses Kapitel behandelt dieses zentrale Resultat und einen fundamentalen strukturellen Zusammenhang zwischen ℚ und ℝ.",
+      "Nicht jede Folge konvergiert — aber jede beschränkte Folge besitzt konvergente Teilfolgen. Dieses Kapitel behandelt dieses zentrale Resultat sowie zwei eng verwandte Konzepte: Cauchy-Folgen und die Größen Limes superior und Limes inferior.",
     sections: [
       {
         id: "10-1",
@@ -538,14 +610,33 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "10-3",
-        heading: "10.3 Dichtheit von Q in R",
+        heading: "10.3 Cauchy-Folgen und das Cauchy-Kriterium",
         body: [
-          "ℚ liegt dicht in ℝ: Zwischen zwei beliebigen reellen Zahlen a<b liegt stets mindestens eine (und damit unendlich viele) rationale Zahl. Äquivalent dazu lässt sich jede reelle Zahl beliebig genau durch eine Folge rationaler Zahlen approximieren — jede reelle Zahl ist Grenzwert einer Folge rationaler Zahlen.",
-          "Diese Dichtheit ist praktisch bedeutsam, weil numerische Berechnungen (z. B. mit endlichen Dezimalzahlen) immer nur rationale Approximationen reeller Zahlen liefern können — die Dichtheit garantiert aber, dass diese Approximation beliebig genau gemacht werden kann.",
+          "Eine Folge (aₙ) heißt Cauchy-Folge, wenn für jedes ε>0 ein Index N existiert, sodass |aₙ−aₘ|<ε für alle n,m≥N gilt — die Folgenglieder rücken also nicht nur einem festen Grenzwert näher, sondern auch zunehmend zusammen. Das Cauchy-Kriterium besagt: Eine reelle Folge konvergiert genau dann, wenn sie eine Cauchy-Folge ist.",
+          "Der entscheidende Vorteil des Cauchy-Kriteriums gegenüber der gewöhnlichen Konvergenzdefinition: Man kann die Cauchy-Eigenschaft prüfen, ohne den (möglicherweise unbekannten) Grenzwert vorher zu kennen — man vergleicht nur die Folgenglieder untereinander.",
         ],
-        terms: [{ term: "Dichtheit von ℚ in ℝ", definition: "Zwischen je zwei reellen Zahlen liegt mindestens eine rationale Zahl." }],
+        formulas: ["∀ε>0 ∃N: |aₙ−aₘ|<ε für alle n,m≥N"],
+        formulasLatex: ["\\forall \\varepsilon>0\\,\\exists N: |a_n - a_m| < \\varepsilon \\;\\forall n,m\\ge N"],
+        terms: [{ term: "Cauchy-Folge", definition: "Folge, deren Glieder ab einem Index beliebig nahe beieinander liegen; auf R äquivalent zu Konvergenz." }],
         examples: [
-          "Zwischen den irrationalen Zahlen π und π+0,0001 liegt garantiert eine rationale Zahl, z. B. lässt sich π selbst beliebig genau durch die rationalen Dezimalapproximationen 3, 3.1, 3.14, 3.141, ... annähern.",
+          "Für aₙ=1/n gilt für n,m≥N: |1/n−1/m|≤1/n+1/m≤2/N. Zu ε=0,01 genügt N=200, denn dann ist 2/200=0,01 — die Folge ist also eine Cauchy-Folge, was mit ihrer bekannten Konvergenz gegen 0 übereinstimmt.",
+        ],
+      },
+      {
+        id: "10-4",
+        heading: "10.4 Limes superior und Limes inferior",
+        body: [
+          "Für eine beschränkte Folge (aₙ) ist der Limes superior lim sup aₙ der größte Häufungspunkt der Folge, der Limes inferior lim inf aₙ der kleinste Häufungspunkt. Formal: lim sup aₙ = lim(n→∞) sup{aₖ : k≥n} (das Supremum der 'Schwänze' der Folge, das mit wachsendem n fällt oder gleich bleibt).",
+          "Eine Folge konvergiert genau dann, wenn lim sup aₙ = lim inf aₙ gilt — in diesem Fall stimmen beide mit dem gewöhnlichen Grenzwert überein. Sind sie verschieden, besitzt die Folge mehrere Häufungspunkte und divergiert.",
+        ],
+        formulas: ["lim sup aₙ = lim(n→∞) sup{aₖ : k≥n}"],
+        formulasLatex: ["\\limsup_{n\\to\\infty} a_n = \\lim_{n\\to\\infty} \\sup\\{a_k : k \\ge n\\}"],
+        terms: [
+          { term: "Limes superior", definition: "Größter Häufungspunkt einer beschränkten Folge." },
+          { term: "Limes inferior", definition: "Kleinster Häufungspunkt einer beschränkten Folge." },
+        ],
+        examples: [
+          "Die Folge aₙ=(−1)ⁿ·(1+1/n) hat die Häufungspunkte 1 (gerade n) und −1 (ungerade n): lim sup aₙ=1, lim inf aₙ=−1. Da beide verschieden sind, divergiert die Folge.",
         ],
       },
     ],
@@ -557,7 +648,7 @@ export const chapters: SkriptChapter[] = [
     title: "Reihen",
     free: false,
     intro:
-      "Reihen sind unendliche Summen — auf den ersten Blick paradox, aber mit dem Konvergenzbegriff der Folgen präzise fassbar. Dieses Kapitel behandelt Konvergenzkriterien und die wichtigsten Standardreihen.",
+      "Reihen sind unendliche Summen — auf den ersten Blick paradox, aber mit dem Konvergenzbegriff der Folgen präzise fassbar. Dieses Kapitel behandelt Konvergenzkriterien, die wichtigsten Standardreihen sowie weiterführende Techniken.",
     sections: [
       {
         id: "11-1",
@@ -608,6 +699,65 @@ export const chapters: SkriptChapter[] = [
           "Für aₙ = nⁿ/n! gilt |aₙ₊₁/aₙ| = (n+1)ⁿ/n^n → e ≈ 2,718 > 1 — nach dem Quotientenkriterium divergiert diese Reihe.",
         ],
       },
+      {
+        id: "11-4",
+        heading: "11.4 Majoranten- und Minorantenkriterium",
+        body: [
+          "Das Majorantenkriterium: Gilt 0≤aₙ≤bₙ für fast alle n und konvergiert Σbₙ, so konvergiert auch Σaₙ (absolut). Das Minorantenkriterium: Gilt 0≤bₙ≤aₙ für fast alle n und divergiert Σbₙ, so divergiert auch Σaₙ. Beide Kriterien vergleichen eine unbekannte Reihe mit einer bereits bekannten (der harmonischen oder geometrischen Reihe).",
+          "Die Kunst bei der Anwendung liegt darin, eine geeignete Vergleichsreihe zu finden — meist reicht es, den dominanten Term für große n zu betrachten und die restlichen Terme geeignet abzuschätzen.",
+        ],
+        formulas: ["0≤aₙ≤bₙ, Σbₙ konvergent ⇒ Σaₙ konvergent"],
+        formulasLatex: ["0\\le a_n \\le b_n,\\ \\sum b_n \\text{ konvergent} \\;\\Rightarrow\\; \\sum a_n \\text{ konvergent}"],
+        terms: [
+          { term: "Majorantenkriterium", definition: "Ist eine Reihe gliedweise durch eine konvergente Reihe beschränkt, konvergiert sie ebenfalls (absolut)." },
+          { term: "Minorantenkriterium", definition: "Ist eine Reihe gliedweise größer als eine divergente Reihe (mit nichtnegativen Gliedern), divergiert sie ebenfalls." },
+        ],
+        examples: [
+          "Für aₙ=1/(n²+3) gilt aₙ≤1/n² für alle n≥1, und Σ1/n² konvergiert (bekannt) — nach dem Majorantenkriterium konvergiert also auch Σ1/(n²+3).",
+        ],
+      },
+      {
+        id: "11-5",
+        heading: "11.5 Das Leibniz-Kriterium für alternierende Reihen",
+        body: [
+          "Eine alternierende Reihe hat die Form Σ(−1)ⁿaₙ mit aₙ≥0. Das Leibniz-Kriterium besagt: Ist (aₙ) monoton fallend mit aₙ→0, so konvergiert die alternierende Reihe Σ(−1)ⁿaₙ. Dies gilt auch dann, wenn Σaₙ selbst (ohne Vorzeichenwechsel) divergiert.",
+          "Das Leibniz-Kriterium liefert daher Beispiele für bedingt konvergente Reihen — Reihen, die konvergieren, obwohl die Reihe der Absolutbeträge divergiert (z. B. die alternierende harmonische Reihe).",
+        ],
+        formulas: ["aₙ↓0 ⇒ Σ(−1)ⁿaₙ konvergiert"],
+        formulasLatex: ["a_n \\downarrow 0 \\;\\Rightarrow\\; \\sum (-1)^n a_n \\text{ konvergiert}"],
+        terms: [{ term: "Leibniz-Kriterium", definition: "Ist (aₙ) monoton fallend mit aₙ→0, konvergiert die alternierende Reihe Σ(−1)ⁿaₙ." }],
+        examples: [
+          "Die alternierende harmonische Reihe Σ(−1)ⁿ/n konvergiert nach Leibniz, da 1/n monoton fällt und gegen 0 geht — obwohl die harmonische Reihe Σ1/n selbst divergiert.",
+        ],
+      },
+      {
+        id: "11-6",
+        heading: "11.6 Teleskopsummen",
+        body: [
+          "Eine Teleskopsumme liegt vor, wenn sich die Summanden als Differenz aₙ=bₙ−bₙ₊₁ schreiben lassen — dann heben sich bei der Partialsumme fast alle Terme gegenseitig auf: Σ(k=1,n)(bₖ−bₖ₊₁) = b₁−bₙ₊₁. Konvergiert (bₙ), lässt sich der Reihenwert direkt als b₁−lim bₙ ablesen, ohne ein allgemeines Konvergenzkriterium zu benötigen.",
+          "Teleskopsummen treten häufig nach einer Partialbruchzerlegung auf, wenn ein Bruch der Form 1/(n(n+k)) in eine Differenz zweier einfacherer Brüche zerlegt wird.",
+        ],
+        formulas: ["Σ(k=1,n)(bₖ−bₖ₊₁) = b₁ − bₙ₊₁"],
+        formulasLatex: ["\\sum_{k=1}^{n}(b_k - b_{k+1}) = b_1 - b_{n+1}"],
+        terms: [{ term: "Teleskopsumme", definition: "Summe, deren Glieder sich als Differenz aufeinanderfolgender Werte schreiben lassen, sodass sich die Partialsumme auf den ersten und letzten Term reduziert." }],
+        examples: [
+          "Für Σ(n=1,∞) 1/(n(n+1)) liefert die Partialbruchzerlegung 1/(n(n+1))=1/n−1/(n+1), also bₙ=1/n. Die Reihe teleskopiert zu b₁−lim bₙ = 1−0 = 1.",
+        ],
+      },
+      {
+        id: "11-7",
+        heading: "11.7 Das Cauchy-Produkt zweier Reihen",
+        body: [
+          "Das Cauchy-Produkt zweier Reihen Σaₙ und Σbₙ ist definiert als die Reihe Σcₙ mit cₙ = Σ(k=0,n) aₖ·bₙ₋ₖ — man multipliziert die beiden Reihen formal aus und fasst alle Terme mit gleichem Gesamtindex n zusammen. Sind beide Ausgangsreihen absolut konvergent, so ist auch das Cauchy-Produkt konvergent mit Σcₙ = (Σaₙ)·(Σbₙ).",
+          "Ohne absolute Konvergenz kann das Cauchy-Produkt divergieren, selbst wenn beide Ausgangsreihen konvergieren — absolute Konvergenz ist hier also eine echte zusätzliche Voraussetzung, nicht nur eine Vereinfachung.",
+        ],
+        formulas: ["cₙ = Σ(k=0,n) aₖ·bₙ₋ₖ"],
+        formulasLatex: ["c_n = \\sum_{k=0}^{n} a_k \\, b_{n-k}"],
+        terms: [{ term: "Cauchy-Produkt", definition: "Produktreihe Σcₙ zweier Reihen Σaₙ, Σbₙ mit cₙ=Σ(k=0,n)aₖbₙ₋ₖ; bei absoluter Konvergenz beider Reihen gleich dem Produkt der Summen." }],
+        examples: [
+          "Für die geometrische Reihe Σxⁿ (|x|<1) mit sich selbst liefert das Cauchy-Produkt cₙ=Σ(k=0,n)xᵏ·xⁿ⁻ᵏ=(n+1)xⁿ, also Σ(n+1)xⁿ = (Σxⁿ)² = 1/(1−x)² — eine bekannte Formel für die Ableitung der geometrischen Reihe.",
+        ],
+      },
     ],
   },
   // ==================== Kapitel 12 ====================
@@ -617,7 +767,7 @@ export const chapters: SkriptChapter[] = [
     title: "Potenzreihen und spezielle Funktionen",
     free: false,
     intro:
-      "Potenzreihen verallgemeinern Polynome zu unendlichen Reihen und liefern damit die Grundlage, um wichtige nichtpolynomiale Funktionen (Exponentialfunktion, Sinus, Kosinus) exakt zu definieren.",
+      "Potenzreihen verallgemeinern Polynome zu unendlichen Reihen und liefern damit die Grundlage, um wichtige nichtpolynomiale Funktionen (Exponentialfunktion, Sinus, Kosinus) exakt zu definieren — samt ihrer wichtigsten strukturellen Eigenschaften wie Periodizität und Additionstheoremen.",
     sections: [
       {
         id: "12-1",
@@ -638,7 +788,7 @@ export const chapters: SkriptChapter[] = [
         heading: "12.2 Die Exponentialreihe",
         body: [
           "Die Exponentialfunktion lässt sich über ihre Potenzreihe definieren: exp(x) = Σ(n=0,∞) xⁿ/n! = 1+x+x²/2!+x³/3!+.... Diese Reihe konvergiert für alle x∈ℝ (Konvergenzradius R=∞) und erfüllt die Funktionalgleichung exp(x+y) = exp(x)·exp(y).",
-          "Die Eulersche Zahl e ergibt sich als Spezialfall e = exp(1) = Σ1/n! ≈ 2,71828. Die Reihendefinition erlaubt es, exp auch für komplexe Argumente zu definieren und liefert (mit x=iφ) direkt die Eulersche Formel als Verbindung zu Sinus und Kosinus.",
+          "Die Eulersche Zahl e ergibt sich als Spezialfall e = exp(1) = Σ1/n! ≈ 2,71828 — konsistent mit der über Folgen definierten Eulerschen Zahl aus Abschnitt 9.4. Die Reihendefinition erlaubt es, exp auch für komplexe Argumente zu definieren und liefert (mit x=iφ) direkt die Eulersche Formel als Verbindung zu Sinus und Kosinus.",
         ],
         formulas: ["exp(x) = Σ(n=0,∞) xⁿ/n!"],
         formulasLatex: ["\\exp(x) = \\sum_{n=0}^{\\infty} \\dfrac{x^{n}}{n!}"],
@@ -654,11 +804,64 @@ export const chapters: SkriptChapter[] = [
           "Analog zur Exponentialreihe lassen sich Sinus und Kosinus über Potenzreihen definieren: sin(x) = Σ(n=0,∞) (−1)ⁿx²ⁿ⁺¹/(2n+1)! und cos(x) = Σ(n=0,∞) (−1)ⁿx²ⁿ/(2n)!. Beide Reihen konvergieren für alle x∈ℝ.",
           "Diese Reihendefinitionen sind der rigorose Ersatz für die anschauliche Definition über rechtwinklige Dreiecke am Einheitskreis und ermöglichen es, Sinus und Kosinus analytisch (z. B. für Ableitungen, Integrale, komplexe Argumente) zu behandeln.",
         ],
-        formulas: ["sin(x) = Σ(n=0,∞) (−1)ⁿx²ⁿ⁺¹/(2n+1)!"],
-        formulasLatex: ["\\sin(x) = \\sum_{n=0}^{\\infty} \\dfrac{(-1)^{n}x^{2n+1}}{(2n+1)!}"],
+        formulas: ["sin(x) = Σ(n=0,∞) (−1)ⁿx²ⁿ⁺¹/(2n+1)!", "cos(x) = Σ(n=0,∞) (−1)ⁿx²ⁿ/(2n)!"],
+        formulasLatex: [
+          "\\sin(x) = \\sum_{n=0}^{\\infty} \\dfrac{(-1)^{n}x^{2n+1}}{(2n+1)!}",
+          "\\cos(x) = \\sum_{n=0}^{\\infty} \\dfrac{(-1)^{n}x^{2n}}{(2n)!}",
+        ],
         terms: [{ term: "Sinusreihe", definition: "Potenzreihendarstellung der Sinusfunktion, konvergiert für alle x∈ℝ." }],
         examples: [
           "Nähert man sin(x) für kleines x durch die ersten beiden Glieder an: sin(x) ≈ x − x³/6. Für x=0,1 ergibt das sin(0,1) ≈ 0,1 − 0,000167 = 0,099833, sehr nahe am exakten Wert.",
+          "Nähert man cos(x) für x=0,2 durch die ersten beiden Glieder an: cos(x) ≈ 1 − x²/2 = 1 − 0,02 = 0,98, sehr nahe am exakten Wert cos(0,2)≈0,98007.",
+        ],
+      },
+      {
+        id: "12-4",
+        heading: "12.4 Periodizität und Nullstellen von Sinus und Kosinus",
+        body: [
+          "Sinus und Kosinus sind periodisch mit der (kleinsten) Periode 2π: sin(x+2π)=sin(x) und cos(x+2π)=cos(x) für alle x. Für eine skalierte Variante sin(cx) (c≠0) ergibt sich die kleinste Periode a aus c·a=2π, also a=2π/c.",
+          "Die Nullstellenmengen lauten sin(x)=0 ⇔ x=kπ (k∈Z) und cos(x)=0 ⇔ x=π/2+kπ (k∈Z). Bei einer skalierten Variante wie cos(cx) verschieben sich diese Nullstellen entsprechend um den Faktor 1/c.",
+        ],
+        formulas: ["Periode a von sin(cx): a = 2π/c", "cos(x)=0 ⇔ x = π/2 + kπ, k∈Z"],
+        formulasLatex: [
+          "a = \\dfrac{2\\pi}{c}",
+          "\\cos(x)=0 \\iff x = \\dfrac{\\pi}{2} + k\\pi,\\ k\\in\\mathbb{Z}",
+        ],
+        terms: [{ term: "Periode", definition: "Kleinste positive Zahl a mit f(x+a)=f(x) für alle x." }],
+        examples: [
+          "Die Funktion f(x)=sin(4x) hat wegen c=4 die kleinste Periode a=2π/4=π/2 — bereits nach einer Vierteldrehung des ursprünglichen Sinus wiederholt sich das Muster.",
+        ],
+      },
+      {
+        id: "12-5",
+        heading: "12.5 Gerade und ungerade Funktionen",
+        body: [
+          "Eine Funktion f heißt gerade, wenn f(−x)=f(x) für alle x im Definitionsbereich gilt (der Graph ist spiegelsymmetrisch zur y-Achse), und ungerade, wenn f(−x)=−f(x) gilt (punktsymmetrisch zum Ursprung). Kosinus ist gerade (cos(−x)=cos(x)), Sinus ist ungerade (sin(−x)=−sin(x)).",
+          "Eine ungerade Funktion erfüllt zwingend f(0)=0 (aus f(−0)=−f(0) folgt f(0)=−f(0), also 2f(0)=0). Für gerade Funktionen gibt es dagegen keine erzwungene Aussage über f(0) — cos(0)=1≠0 ist ein Gegenbeispiel.",
+        ],
+        terms: [
+          { term: "Gerade Funktion", definition: "f(−x)=f(x) für alle x; Graph spiegelsymmetrisch zur y-Achse." },
+          { term: "Ungerade Funktion", definition: "f(−x)=−f(x) für alle x; erzwingt f(0)=0." },
+        ],
+        examples: [
+          "Für f(x)=x⁴−3x²+1 gilt f(−x)=(−x)⁴−3(−x)²+1=x⁴−3x²+1=f(x) — f ist gerade. Für g(x)=x³−2x gilt g(−x)=−x³+2x=−(x³−2x)=−g(x) — g ist ungerade und erfüllt g(0)=0.",
+        ],
+      },
+      {
+        id: "12-6",
+        heading: "12.6 Additionstheoreme",
+        body: [
+          "Für Sinus und Kosinus gelten die Additionstheoreme sin(x+y) = sin(x)cos(y)+cos(x)sin(y) und cos(x+y) = cos(x)cos(y)−sin(x)sin(y). Sie lassen sich aus den Potenzreihen (Abschnitt 12.3) über das Cauchy-Produkt (Abschnitt 11.7) herleiten und sind das zentrale Werkzeug, um trigonometrische Ausdrücke bei verschobenem oder verdoppeltem Argument umzuformen.",
+          "Ein wichtiger Spezialfall (x=y) liefert die Doppelwinkelformeln sin(2x)=2sin(x)cos(x) und cos(2x)=cos²(x)−sin²(x).",
+        ],
+        formulas: ["sin(x+y) = sin(x)cos(y) + cos(x)sin(y)", "cos(x+y) = cos(x)cos(y) − sin(x)sin(y)"],
+        formulasLatex: [
+          "\\sin(x+y) = \\sin(x)\\cos(y) + \\cos(x)\\sin(y)",
+          "\\cos(x+y) = \\cos(x)\\cos(y) - \\sin(x)\\sin(y)",
+        ],
+        terms: [{ term: "Additionstheorem", definition: "Formel zur Berechnung von sin/cos einer Winkelsumme aus den Werten der Einzelwinkel." }],
+        examples: [
+          "Mit x=y=π/4 liefert das Doppelwinkeltheorem sin(π/2)=2sin(π/4)cos(π/4)=2·(√2/2)·(√2/2)=2·(1/2)=1 — der bekannte Wert sin(π/2)=1 wird so bestätigt.",
         ],
       },
     ],

@@ -19,7 +19,9 @@ export interface Question {
 // Tutorien-/Klausuraufgaben sowohl in den Zahlenwerten als auch (soweit ein
 // konkretes Szenario vorlag) im Szenario selbst verändert. Rein abstrakte,
 // symbolische Aufgaben (Mengen, Folgen, Reihen etc. ohne erzähltes Szenario)
-// wurden nur in den Zahlen verändert.
+// wurden nur in den Zahlen verändert. Die "Kapitel"-Angaben im Feld "source"
+// verweisen auf die aktuelle Kapitelnummerierung des Skripts (nach der
+// Umsortierung von Kombinatorik, Relationen, Induktion und Abbildungen).
 export const TOPICS = [
   "Aussagenlogik",
   "Mengenlehre",
@@ -121,10 +123,10 @@ export const questions: Question[] = [
     id: "me-01",
     topic: "Mengenlehre",
     type: "numeric",
-    prompt: "Sei A := {p, q}. Bestimmen Sie |P(A × A)|.",
-    correctValue: 16,
+    prompt: "Gegeben sei eine Menge B mit |B| = 4. Wie viele Elemente besitzt die Potenzmenge von B×B?",
+    correctValue: 65536,
     explanation:
-      "Es gilt |A × A| = 2 · 2 = 4, womit |P(A×A)| = 2⁴ = 16 folgt.",
+      "Es gilt |B × B| = 4 · 4 = 16, womit |P(B×B)| = 2¹⁶ = 65536 folgt.",
     source: "Kapitel 2, Mengenlehre",
     free: true,
   },
@@ -189,14 +191,13 @@ export const questions: Question[] = [
   {
     id: "gr-02",
     topic: "Gruppen, Ringe, Körper",
-    type: "mc",
+    type: "numeric",
     prompt:
-      "Auf G := {w, x, y, z} sei eine kommutative Verknüpfung ∘ gegeben, bei der w das neutrale Element ist, jedes Element sein eigenes Inverses ist, und x ∘ y = z gilt. Bestimmen Sie y ∘ z.",
-    options: ["w", "x", "y", "z"],
-    correctIndex: 1,
+      "In der Gruppe (Z/7Z \\ {0}, ·) (Multiplikation modulo 7) besitzt jedes Element ein multiplikatives Inverses. Bestimmen Sie das inverse Element von 3.",
+    correctValue: 5,
     explanation:
-      "Da jedes Element sein eigenes Inverses ist und x∘y=z gilt, folgt mit Assoziativität und Kommutativität: y∘z = y∘(x∘y) = x∘(y∘y) = x∘w = x.",
-    source: "Übungsaufgabe, Gruppentafel",
+      "Gesucht ist x mit 3·x ≡ 1 (mod 7). Für x=5 gilt 3·5=15=2·7+1≡1 (mod 7), also ist 5 das inverse Element von 3.",
+    source: "Übungsaufgabe, multiplikative Inverse modulo p",
     free: false,
   },
   {
@@ -240,11 +241,11 @@ export const questions: Question[] = [
     id: "re-01",
     topic: "Relationen",
     type: "numeric",
-    prompt: "Sei A eine Menge mit |A| = 4. Wie viele verschiedene reflexive Relationen gibt es auf A?",
-    correctValue: 4096,
+    prompt: "Wie viele reflexive Relationen existieren auf einer 6-elementigen Menge?",
+    correctValue: 1073741824,
     explanation:
-      "Eine Relation R ⊂ A×A ist reflexiv, wenn sie alle 4 Diagonalelemente enthält. Über die restlichen 16−4=12 Elemente kann frei entschieden werden: 2¹² = 4096.",
-    source: "Kapitel 4, Relationen",
+      "Eine Relation R ⊂ A×A ist reflexiv, wenn sie alle 6 Diagonalelemente enthält. Über die restlichen 36−6=30 Elemente kann frei entschieden werden: 2³⁰ = 1.073.741.824.",
+    source: "Kapitel 5, Relationen",
     free: false,
   },
   {
@@ -272,7 +273,7 @@ export const questions: Question[] = [
     prompt: "Wie viele Äquivalenzklassen besitzt die Kongruenzrelation modulo 5 auf Z?",
     correctValue: 5,
     explanation: "Modulo 5 zerfällt Z in genau 5 Äquivalenzklassen: [0], [1], [2], [3], [4].",
-    source: "Kapitel 4, Äquivalenzrelationen",
+    source: "Kapitel 5, Äquivalenzrelationen",
     free: false,
   },
   {
@@ -288,7 +289,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Eine Ordnungsrelation ist per Definition reflexiv, antisymmetrisch und transitiv.",
-    source: "Kapitel 4, Ordnungsrelationen",
+    source: "Kapitel 5, Ordnungsrelationen",
     free: false,
   },
   {
@@ -311,7 +312,7 @@ export const questions: Question[] = [
     prompt: "Berechnen Sie mit der Formel Σ_{k=1}^{n} k² = n(n+1)(2n+1)/6 den Wert für n = 10.",
     correctValue: 385,
     explanation: "10·11·21/6 = 2310/6 = 385.",
-    source: "Kapitel 5, Vollständige Induktion",
+    source: "Kapitel 6, Vollständige Induktion",
     free: false,
   },
   {
@@ -321,7 +322,7 @@ export const questions: Question[] = [
     prompt: "Berechnen Sie 1 + 2 + ... + 40 mithilfe der Gaußschen Summenformel.",
     correctValue: 820,
     explanation: "Σ_{k=1}^{40} k = 40·41/2 = 820.",
-    source: "Kapitel 5, Vollständige Induktion",
+    source: "Kapitel 6, Vollständige Induktion",
     free: false,
   },
   {
@@ -332,7 +333,7 @@ export const questions: Question[] = [
     options: ["x ≥ 0", "x ≥ −1", "x ≤ 1", "alle x ∈ R"],
     correctIndex: 1,
     explanation: "Die Bernoulli-Ungleichung gilt für alle x ≥ −1 (und alle n ∈ N₀).",
-    source: "Kapitel 5, Vollständige Induktion",
+    source: "Kapitel 6, Vollständige Induktion",
     free: false,
   },
   {
@@ -349,7 +350,7 @@ export const questions: Question[] = [
     correctIndex: 1,
     explanation:
       "Ein Induktionsbeweis besteht aus dem Induktionsanfang (Nachweis für den kleinsten Index) und dem Induktionsschritt (Nachweis von A(n) ⇒ A(n+1)).",
-    source: "Kapitel 5, Vollständige Induktion",
+    source: "Kapitel 6, Vollständige Induktion",
     free: false,
   },
   {
@@ -359,7 +360,7 @@ export const questions: Question[] = [
     prompt: "Wie groß ist die Summe der ersten 15 ungeraden natürlichen Zahlen (1+3+5+...)?",
     correctValue: 225,
     explanation: "Es gilt Σ_{k=1}^{n}(2k−1) = n². Für n=15 ergibt sich 15² = 225.",
-    source: "Kapitel 5, Vollständige Induktion",
+    source: "Kapitel 6, Vollständige Induktion",
     free: false,
   },
 
@@ -369,9 +370,9 @@ export const questions: Question[] = [
     topic: "Abbildungen",
     type: "numeric",
     prompt:
-      "Auf M := {a,b,c,d,e,f,g} sei g: M → R gegeben durch g(a)=4, g(b)=4, g(c)=9, g(d)=9, g(e)=9, g(f)=15, g(g)=20. Wie groß ist |Bild(g)|?",
-    correctValue: 4,
-    explanation: "Bild(g) = {4, 9, 15, 20}, also |Bild(g)| = 4.",
+      "Auf M := {1,2,3,4,5,6,7,8} sei g: M → R gegeben durch g(1)=g(2)=g(3)=10, g(4)=g(5)=20, g(6)=g(7)=g(8)=30. Wie groß ist |Bild(g)|?",
+    correctValue: 3,
+    explanation: "Bild(g) = {10, 20, 30}, also |Bild(g)| = 3.",
     source: "Übungsaufgabe, Bild und Urbild",
     free: false,
   },
@@ -380,9 +381,9 @@ export const questions: Question[] = [
     topic: "Abbildungen",
     type: "numeric",
     prompt:
-      "Mit derselben Abbildung g wie oben: Wie groß ist |g⁻¹({9})|?",
-    correctValue: 3,
-    explanation: "g⁻¹({9}) = {c, d, e}, also |g⁻¹({9})| = 3.",
+      "Mit derselben Abbildung g wie oben: Wie groß ist |g⁻¹({20})|?",
+    correctValue: 2,
+    explanation: "g⁻¹({20}) = {4, 5}, also |g⁻¹({20})| = 2.",
     source: "Übungsaufgabe, Bild und Urbild",
     free: false,
   },
@@ -391,10 +392,10 @@ export const questions: Question[] = [
     topic: "Abbildungen",
     type: "numeric",
     prompt:
-      "Mit derselben Abbildung g (Definitionsbereich M mit |M|=7, g(a)=g(b)=4): Wie viele Teilmengen A ⊂ M erfüllen 4 ∈ g(A)?",
-    correctValue: 96,
+      "Mit derselben Abbildung g (Definitionsbereich M mit |M|=8, g(4)=g(5)=20): Wie viele Teilmengen A ⊆ M erfüllen 20 ∈ g(A)?",
+    correctValue: 192,
     explanation:
-      "4 ∈ g(A) gilt genau dann, wenn a ∈ A oder b ∈ A. Von den restlichen 5 Elementen darf beliebig ausgewählt werden: 2⁷ − 2⁵ = 128 − 32 = 96.",
+      "20 ∈ g(A) gilt genau dann, wenn 4 ∈ A oder 5 ∈ A. Von den restlichen 6 Elementen darf beliebig ausgewählt werden: 2⁸ − 2⁶ = 256 − 64 = 192.",
     source: "Übungsaufgabe, Bild und Urbild",
     free: false,
   },
@@ -425,7 +426,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Ist g surjektiv, wird jedes c ∈ C von einem b ∈ B getroffen; ist f surjektiv, wird jedes solche b von einem a ∈ A getroffen. Also ist g∘f surjektiv.",
-    source: "Kapitel 6, Abbildungen",
+    source: "Kapitel 7, Abbildungen",
     free: false,
   },
   {
@@ -435,7 +436,7 @@ export const questions: Question[] = [
     prompt: "Wie viele injektive Abbildungen gibt es von einer Menge mit 3 Elementen in eine Menge mit 5 Elementen?",
     correctValue: 60,
     explanation: "Für das erste Element gibt es 5, für das zweite 4, für das dritte 3 Möglichkeiten: 5·4·3 = 60.",
-    source: "Kapitel 6, Abbildungen",
+    source: "Kapitel 7, Abbildungen",
     free: false,
   },
 
@@ -448,7 +449,7 @@ export const questions: Question[] = [
     correctValue: 180,
     explanation:
       "BANANE hat 6 Buchstaben, davon A zweimal und N zweimal: 6!/(2!·2!) = 720/4 = 180.",
-    source: "Kapitel 7, Kombinatorik",
+    source: "Kapitel 4, Kombinatorik",
     free: false,
   },
   {
@@ -456,10 +457,10 @@ export const questions: Question[] = [
     topic: "Kombinatorik & Laplace",
     type: "numeric",
     prompt:
-      "Ein Fuhrunternehmen hat 12 Stellplätze in einer Reihe für 5 Kleintransporter, 4 Lastwagen und 3 Anhänger (Fahrzeuge desselben Typs gelten als nicht unterscheidbar). Wie viele verschiedene Anordnungen der Fahrzeuge gibt es?",
-    correctValue: 27720,
-    explanation: "12!/(5!·4!·3!) = 479001600/17280 = 27720.",
-    source: "Kapitel 7, Kombinatorik",
+      "Ein Bücherregal hat 10 Plätze in einer Reihe für 4 Romane, 3 Sachbücher und 3 Kochbücher (Bücher desselben Typs gelten als nicht unterscheidbar). Wie viele verschiedene Anordnungen der Bücher gibt es?",
+    correctValue: 4200,
+    explanation: "10!/(4!·3!·3!) = 3628800/864 = 4200.",
+    source: "Kapitel 4, Kombinatorik",
     free: false,
   },
   {
@@ -467,10 +468,10 @@ export const questions: Question[] = [
     topic: "Kombinatorik & Laplace",
     type: "numeric",
     prompt:
-      "Ein Kleinstaat führt Kennzeichen ein, die aus 3 Buchstaben (aus K, F, T, mit Wiederholung, Reihenfolge zählt) gefolgt von 4 Ziffern (0–9, mit Wiederholung) bestehen. Wie viele verschiedene Kennzeichen sind möglich?",
-    correctValue: 270000,
-    explanation: "3³ · 10⁴ = 27 · 10000 = 270000.",
-    source: "Kapitel 7, Kombinatorik",
+      "Passwörter bestehen aus 2 Großbuchstaben (aus Q, W, E, R, mit Wiederholung, Reihenfolge zählt) gefolgt von 5 Ziffern (0–9, mit Wiederholung). Wie viele verschiedene Passwörter sind möglich?",
+    correctValue: 1600000,
+    explanation: "4² · 10⁵ = 16 · 100000 = 1.600.000.",
+    source: "Kapitel 4, Kombinatorik",
     free: false,
   },
   {
@@ -478,11 +479,11 @@ export const questions: Question[] = [
     topic: "Kombinatorik & Laplace",
     type: "numeric",
     prompt:
-      "Ein Kiosk führt 3 Sorten Kaffee und 2 Sorten Tee (ausreichend Vorrat). Ein Kunde kauft 5 Getränke, davon mindestens 1 Tee. Wie viele verschiedene Zusammenstellungen (Mengenangabe pro Sorte, Reihenfolge egal) sind möglich?",
-    correctValue: 105,
+      "Eine Bäckerei bietet 4 Sorten Brötchen und 2 Sorten Croissants an (ausreichend Vorrat). Ein Kunde kauft 6 Backwaren, davon mindestens 2 Croissants. Wie viele verschiedene Zusammenstellungen (Mengenangabe pro Sorte, Reihenfolge egal) sind möglich?",
+    correctValue: 266,
     explanation:
-      "Kombinationen mit Wiederholung: insgesamt C(9,5)=126 Möglichkeiten (5 aus 5 Sorten), davon C(7,5)=21 rein aus Kaffee (3 Sorten). 126 − 21 = 105.",
-    source: "Kapitel 7, Kombinatorik",
+      "Insgesamt gibt es C(11,6)=462 Zusammenstellungen von 6 aus 6 Sorten. Davon haben 84 keine Croissants (C(9,6), nur aus den 4 Brötchensorten) und 112 genau 1 Croissant (2 Sortenwahl × C(8,5)=56). 462 − 84 − 112 = 266.",
+    source: "Kapitel 4, Kombinatorik",
     free: false,
   },
   {
@@ -494,7 +495,7 @@ export const questions: Question[] = [
       "Zwei faire Würfel werden geworfen. Wie hoch ist die Wahrscheinlichkeit, dass die Augensumme 9 beträgt?",
     correctValue: 0.1111,
     explanation: "Günstige Kombinationen: (3,6),(4,5),(5,4),(6,3) — 4 von 36 Fällen: 4/36 ≈ 0.1111.",
-    source: "Kapitel 7, Laplace-Modell",
+    source: "Kapitel 4, Laplace-Modell",
     free: false,
   },
   {
@@ -504,7 +505,7 @@ export const questions: Question[] = [
     prompt: "Berechnen Sie den Binomialkoeffizienten C(9,4).",
     correctValue: 126,
     explanation: "C(9,4) = 9!/(4!·5!) = 126.",
-    source: "Kapitel 7, Kombinatorik",
+    source: "Kapitel 4, Kombinatorik",
     free: false,
   },
 
@@ -581,9 +582,9 @@ export const questions: Question[] = [
     id: "rz-07",
     topic: "Reelle Zahlen",
     type: "numeric",
-    prompt: "Sei C := {n/(n+2) : n ∈ N}. Bestimmen Sie sup C.",
-    correctValue: 1,
-    explanation: "n/(n+2) wächst streng monoton gegen 1 (für n→∞), erreicht 1 aber nie: sup C = 1.",
+    prompt: "Sei C := {2n/(n+3) : n ∈ N}. Bestimmen Sie sup C.",
+    correctValue: 2,
+    explanation: "2n/(n+3) wächst streng monoton gegen 2 (für n→∞), erreicht 2 aber nie: sup C = 2.",
     source: "Kapitel 8, Reelle Zahlen",
     free: false,
   },
@@ -686,9 +687,9 @@ export const questions: Question[] = [
     topic: "Folgen: Monotonie & Cauchy",
     type: "numeric",
     tolerance: 0.001,
-    prompt: "Sei a₁ := 3, a_{n+1} := aₙ / (1 + aₙ). Berechnen Sie a₃.",
-    correctValue: 0.4286,
-    explanation: "a₂ = 3/4 = 0.75, a₃ = 0.75/1.75 ≈ 0.4286.",
+    prompt: "Sei a₁ := 4, a_{n+1} := (2·aₙ) / (1 + aₙ). Berechnen Sie a₃.",
+    correctValue: 1.2308,
+    explanation: "a₂ = 8/5 = 1.6, a₃ = (2·1.6)/(1+1.6) = 3.2/2.6 ≈ 1.2308.",
     source: "Übungsaufgabe, rekursive Folgen",
     free: false,
   },
@@ -718,7 +719,7 @@ export const questions: Question[] = [
     id: "fm-05",
     topic: "Folgen: Monotonie & Cauchy",
     type: "mc",
-    prompt: "Welche Eigenschaften treffen auf bₙ := (2 + (−1)ⁿ)/n³ zu?",
+    prompt: "Welche Eigenschaften treffen auf bₙ := (5 + (−1)ⁿ)/n² zu?",
     options: [
       "beschränkt, monoton, konvergent",
       "beschränkt, nicht monoton, konvergent",
@@ -727,7 +728,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation:
-      "Die Folge ist beschränkt (Zähler zwischen 1 und 3) und konvergiert gegen 0. Sie ist aber nicht monoton: b₁=1, b₂=0.375, b₃≈0.037, b₄≈0.047 — b₃ < b₄ unterbricht die Monotonie.",
+      "Die Folge ist beschränkt (Zähler zwischen 4 und 6) und konvergiert gegen 0. Sie ist aber nicht monoton: b₅=(5−1)/25=0.16 und b₆=(5+1)/36≈0.1667 — b₅ < b₆ unterbricht die zuvor fallende Tendenz.",
     source: "Übungsaufgabe, Folgenklassifikation",
     free: false,
   },
@@ -736,10 +737,10 @@ export const questions: Question[] = [
     topic: "Folgen: Monotonie & Cauchy",
     type: "numeric",
     prompt:
-      "Sei c₁ := 7 und c_{n+1} := −2cₙ + 14 falls cₙ < 5, cₙ − 1 falls cₙ ≥ 5. Bestimmen Sie lim sup_{n→∞} cₙ.",
-    correctValue: 6,
+      "Sei c₁ := 10 und c_{n+1} := cₙ − 3 falls cₙ > 6, 3cₙ − 2 falls cₙ ≤ 6. Bestimmen Sie lim sup_{n→∞} cₙ.",
+    correctValue: 10,
     explanation:
-      "Die Folge lautet 7,6,5,4,6,5,4,6,5,4,... — ab c₂ zyklisch mit Häufungspunkten {4,5,6}. Der größte Häufungspunkt ist 6.",
+      "Die Folge lautet 10,7,4,10,7,4,... — ab c₁ zyklisch mit Häufungspunkten {4,7,10}. Der größte Häufungspunkt ist 10.",
     source: "Übungsaufgabe, Limes superior/inferior",
     free: false,
   },
@@ -748,9 +749,9 @@ export const questions: Question[] = [
     topic: "Folgen: Monotonie & Cauchy",
     type: "numeric",
     prompt:
-      "Mit derselben Folge wie in der vorigen Aufgabe (c₁:=7, c_{n+1} := −2cₙ+14 falls cₙ<5, cₙ−1 falls cₙ≥5): Bestimmen Sie lim inf_{n→∞} cₙ.",
+      "Mit derselben Folge wie in der vorigen Aufgabe (c₁:=10, c_{n+1} := cₙ−3 falls cₙ>6, 3cₙ−2 falls cₙ≤6): Bestimmen Sie lim inf_{n→∞} cₙ.",
     correctValue: 4,
-    explanation: "Die Häufungspunkte sind {4,5,6}; der kleinste Häufungspunkt ist 4.",
+    explanation: "Die Häufungspunkte sind {4,7,10}; der kleinste Häufungspunkt ist 4.",
     source: "Übungsaufgabe, Limes superior/inferior",
     free: false,
   },
@@ -880,9 +881,9 @@ export const questions: Question[] = [
     id: "pr-02",
     topic: "Potenzreihen",
     type: "numeric",
-    prompt: "Bestimmen Sie den Konvergenzradius der Potenzreihe Σ_{n=2}^{∞} (4ⁿ / C(n,2)) xⁿ.",
-    correctValue: 0.25,
-    explanation: "ⁿ√|aₙ| = 4 / ⁿ√(C(n,2)) → 4 (da der polynomielle Term unter der n-ten Wurzel gegen 1 strebt), also r = 1/4 = 0.25.",
+    prompt: "Bestimmen Sie den Konvergenzradius der Potenzreihe Σ_{n=2}^{∞} (5ⁿ / C(n,2)) xⁿ.",
+    correctValue: 0.2,
+    explanation: "ⁿ√|aₙ| = 5 / ⁿ√(C(n,2)) → 5 (da der polynomielle Term unter der n-ten Wurzel gegen 1 strebt), also r = 1/5 = 0.2.",
     source: "Kapitel 12, Konvergenzradius",
     free: false,
   },
@@ -890,11 +891,11 @@ export const questions: Question[] = [
     id: "pr-03",
     topic: "Potenzreihen",
     type: "mc",
-    prompt: "Wie lautet der Konvergenzbereich K der Potenzreihe Σ_{n=1}^{∞} ((−3)ⁿ/(n·2ⁿ)) xⁿ?",
-    options: ["(−2/3, 2/3)", "[−2/3, 2/3]", "(−2/3, 2/3]", "[−2/3, 2/3)"],
+    prompt: "Wie lautet der Konvergenzbereich K der Potenzreihe Σ_{n=1}^{∞} ((−5)ⁿ/(n·6ⁿ)) xⁿ?",
+    options: ["(−6/5, 6/5)", "[−6/5, 6/5]", "(−6/5, 6/5]", "[−6/5, 6/5)"],
     correctIndex: 2,
     explanation:
-      "Der Konvergenzradius ist r=2/3. Bei x=2/3 ergibt sich die konvergente alternierende harmonische Reihe, bei x=−2/3 die divergente harmonische Reihe — also K=(−2/3, 2/3].",
+      "Der Konvergenzradius ist r=6/5. Bei x=6/5 ergibt sich die konvergente alternierende harmonische Reihe, bei x=−6/5 die divergente harmonische Reihe — also K=(−6/5, 6/5].",
     source: "Kapitel 12, Konvergenzbereich",
     free: false,
   },
@@ -902,15 +903,15 @@ export const questions: Question[] = [
     id: "pr-04",
     topic: "Potenzreihen",
     type: "mc",
-    prompt: "Die Funktion f(x) = 1/(1−x) + 1/(1+x) besitzt auf (−1,1) die Potenzreihendarstellung Σaₙxⁿ mit:",
+    prompt: "Die Funktion f(x) = 3/(1−x) + 1/(1+x) besitzt auf (−1,1) die Potenzreihendarstellung Σaₙxⁿ mit:",
     options: [
-      "aₙ = 1 für alle n",
-      "aₙ = 2 falls n gerade, aₙ = 0 falls n ungerade",
-      "aₙ = 0 falls n gerade, aₙ = 2 falls n ungerade",
-      "aₙ = 2 für alle n",
+      "aₙ = 3 für alle n",
+      "aₙ = 4 falls n gerade, aₙ = 2 falls n ungerade",
+      "aₙ = 2 falls n gerade, aₙ = 4 falls n ungerade",
+      "aₙ = 4 für alle n",
     ],
     correctIndex: 1,
-    explanation: "1/(1−x)=Σxⁿ und 1/(1+x)=Σ(−x)ⁿ. Summiert: Σ(1+(−1)ⁿ)xⁿ — die Koeffizienten sind 2 für gerade n und 0 für ungerade n.",
+    explanation: "3/(1−x)=3Σxⁿ und 1/(1+x)=Σ(−x)ⁿ. Summiert: Σ(3+(−1)ⁿ)xⁿ — die Koeffizienten sind 4 für gerade n und 2 für ungerade n.",
     source: "Kapitel 12, Potenzreihendarstellung",
     free: false,
   },
@@ -955,7 +956,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Die Funktionalgleichung exp(x+y) = exp(x)·exp(y) wird über das Cauchy-Produkt der Potenzreihen von exp(x) und exp(y) bewiesen.",
-    source: "Kapitel 13, Exponentialfunktion",
+    source: "Kapitel 12, Exponentialfunktion",
     free: false,
   },
   {
@@ -971,33 +972,33 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "sin(x) = Σ(−1)ⁿx^{2n+1}/(2n+1)! enthält nur ungerade Potenzen von x, daher ändert x↦−x das Vorzeichen jedes Summanden.",
-    source: "Kapitel 13, Sinus und Kosinus",
+    source: "Kapitel 12, Sinus und Kosinus",
     free: false,
   },
   {
     id: "sf-03",
     topic: "Spezielle Funktionen",
     type: "numeric",
-    prompt: "Bestimmen Sie die kleinste Periode a > 0 der Funktion f(x) := sin(x · π/3).",
-    correctValue: 6,
-    explanation: "sin hat Periode 2π. Aus (x+a)π/3 = xπ/3 + 2π folgt a = 6.",
-    source: "Kapitel 13, Periodische Funktionen",
+    prompt: "Bestimmen Sie die kleinste Periode a > 0 der Funktion f(x) := sin(x · 2π/5).",
+    correctValue: 5,
+    explanation: "sin hat Periode 2π. Aus (x+a)·2π/5 = x·2π/5 + 2π folgt a·2π/5 = 2π, also a = 5.",
+    source: "Kapitel 12, Periodische Funktionen",
     free: false,
   },
   {
     id: "sf-04",
     topic: "Spezielle Funktionen",
     type: "mc",
-    prompt: "Bestimmen Sie die Menge M aller x ∈ R mit cos(x·π/4) = 0.",
+    prompt: "Bestimmen Sie die Menge M aller x ∈ R mit cos(x·π/6) = 0.",
     options: [
-      "M = {x ∈ R : x/4 ∈ Z}",
-      "M = {x ∈ R : (x−2)/4 ∈ Z}",
-      "M = {x ∈ R : x/2 ∈ Z}",
-      "M = {x ∈ R : (x−1)/4 ∈ Z}",
+      "M = {x ∈ R : x/6 ∈ Z}",
+      "M = {x ∈ R : (x−3)/6 ∈ Z}",
+      "M = {x ∈ R : x/3 ∈ Z}",
+      "M = {x ∈ R : (x−1)/6 ∈ Z}",
     ],
     correctIndex: 1,
-    explanation: "cos(xπ/4)=0 ⇔ xπ/4 = π/2 + mπ (m∈Z) ⇔ x = 2 + 4m ⇔ (x−2)/4 ∈ Z.",
-    source: "Kapitel 13, Nullstellen von Sinus/Kosinus",
+    explanation: "cos(xπ/6)=0 ⇔ xπ/6 = π/2 + mπ (m∈Z) ⇔ x = 3 + 6m ⇔ (x−3)/6 ∈ Z.",
+    source: "Kapitel 12, Nullstellen von Sinus/Kosinus",
     free: false,
   },
   {
@@ -1013,7 +1014,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Geradheit (f(−x)=f(x)) erzwingt keine Aussage über f(0); z. B. ist cos gerade mit cos(0)=1≠0. Nur bei ungeraden Funktionen folgt zwingend f(0)=0.",
-    source: "Kapitel 13, Gerade und ungerade Funktionen",
+    source: "Kapitel 12, Gerade und ungerade Funktionen",
     free: false,
   },
   {
@@ -1024,7 +1025,7 @@ export const questions: Question[] = [
     prompt: "Berechnen Sie √(1 − cos(π/3)).",
     correctValue: 0.7071,
     explanation: "cos(π/3) = 1/2, also 1−cos(π/3) = 1/2 und √(1/2) ≈ 0.7071.",
-    source: "Kapitel 13, Additionstheoreme",
+    source: "Kapitel 12, Additionstheoreme",
     free: false,
   },
 ];
