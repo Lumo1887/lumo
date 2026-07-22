@@ -130,8 +130,14 @@ export default function ModuleChat({
   const [sending, setSending] = useState(false);
   const [pendingAttachment, setPendingAttachment] = useState<ChatAttachment | null>(null);
   const [attachmentError, setAttachmentError] = useState<string | null>(null);
+  const [isDraggingFile, setIsDraggingFile] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  // Zählt verschachtelte dragenter/dragleave-Events (jedes Kind-Element im
+  // Drop-Bereich feuert eigene Events) — nur bei Zähler 0 gilt "Maus hat den
+  // Drop-Bereich wirklich verlassen". Verhindert Flackern des Overlays beim
+  // Bewegen der Maus über Nachrichten/Buttons innerhalb des Chat-Fensters.
+  const dragCounterRef = useRef(0);
   // Immer aktueller Nachrichtenverlauf als Ref — damit sendMessage() nicht an
   // eine bestimmte Render-Closure von "messages" gebunden ist. Wird u. a.
   // gebraucht, damit der Event-Listener unten (window "lumo:chat-ask") auch
@@ -227,13 +233,10 @@ export default function ModuleChat({
     await sendMessage(input, pendingAttachment ?? undefined);
   }
 
-  async function handleFileSelected(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    // Zurücksetzen, damit das erneute Auswählen derselben Datei den
-    // onChange-Handler wieder auslöst (sonst merkt sich der Browser den
-    // Dateinamen und feuert kein zweites Mal).
-    e.target.value = "";
-    if (!file) return;
+  // Gemeinsame Verarbeitungslogik für eine ausgewählte/gedroppte Datei —
+  // wird sowohl vom klassischen Datei-Picker (Kamera-Button) als auch vom
+  // Drag-and-drop-Handler weiter unten aufgerufen.
+  async function processFile(file: File) {
     setAttachmentError(null);
     const isImage = file.type.startsWith("image/");
     try {
@@ -265,6 +268,52 @@ export default function ModuleChat({
     }
   }
 
+  async function handleFileSelected(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    // Zurücksetzen, damit das erneute Auswählen derselben Datei den
+    // onChange-Handler wieder auslöst (sonst merkt sich der Browser den
+    // Dateinamen und feuert kein zweites Mal).
+    e.target.value = "";
+    if (!file) return;
+    await processFile(file);
+  }
+
+  // Drag-and-drop: erlaubt es, einen Screenshot direkt aus dem Finder
+  // (macOS) oder Explorer (Windows) auf das Chat-Fenster zu ziehen, als
+  // Alternative zum Kamera-Button. dragCounterRef zählt verschachtelte
+  // Enter/Leave-Paare, damit das Overlay nicht flackert, wenn die Maus beim
+  // Ziehen über Kind-Elemente (Nachrichten, Buttons) wandert.
+  function handleDragEnter(e: React.DragEvent<HTMLDivElement>) {
+    if (access !== "unlocked") return;
+    e.preventDefault();
+    if (!Array.from(e.dataTransfer.types).includes("Files")) return;
+    dragCounterRef.current += 1;
+    setIsDraggingFile(true);
+  }
+
+  function handleDragOver(e: React.DragEvent<HTMLDivElement>) {
+    if (access !== "unlocked") return;
+    // Muss preventDefault aufrufen, sonst feuert der Browser kein onDrop.
+    e.preventDefault();
+  }
+
+  function handleDragLeave(e: React.DragEvent<HTMLDivElement>) {
+    if (access !== "unlocked") return;
+    e.preventDefault();
+    dragCounterRef.current = Math.max(0, dragCounterRef.current - 1);
+    if (dragCounterRef.current === 0) setIsDraggingFile(false);
+  }
+
+  async function handleDrop(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault();
+    dragCounterRef.current = 0;
+    setIsDraggingFile(false);
+    if (access !== "unlocked" || sending) return;
+    const file = e.dataTransfer.files?.[0];
+    if (!file) return;
+    await processFile(file);
+  }
+
   // Bridge zum Übungstool: QuizPlayer sitzt (im Layout) als Geschwister-
   // Komponente neben diesem Chat-Widget, ohne gemeinsamen State. Ein
   // "Frag den Chatbot dazu"-Klick bei einer falsch beantworteten Frage
@@ -286,7 +335,19 @@ export default function ModuleChat({
   return (
     <div className="fixed bottom-6 right-6 z-50">
       {open && (
-        <div className="mb-3 flex h-[28rem] w-80 flex-col overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card sm:w-96">
+        <div
+          onDragEnter={handleDragEnter}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+          className="relative mb-3 flex h-[28rem] w-80 flex-col overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card sm:w-96"
+        >
+          {isDraggingFile && access === "unlocked" && (
+            <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 border-2 border-dashed border-brand-400 bg-brand-50/95 text-center text-sm font-medium text-brand-700">
+              <FileIcon />
+              Screenshot hier ablegen
+            </div>
+          )}
           <div className="flex items-center justify-between bg-brand-600 px-4 py-3 text-white">
             <span className="font-semibold">{moduleTitle}-Experte</span>
             <button onClick={() => setOpen(false)} className="text-white/80 hover:text-white">
