@@ -66,17 +66,29 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Formal ordnet eine Wahrscheinlichkeitsfunktion P jedem Ereignis A eine Zahl P(A) zu, die drei Axiomen genügt: P(A) ≥ 0 für jedes Ereignis, P(Ω) = 1 (irgendein Ergebnis tritt sicher ein), und für disjunkte Ereignisse addieren sich die Wahrscheinlichkeiten. Aus diesen drei Axiomen lassen sich alle weiteren Rechenregeln — darunter der Additionssatz aus 1.2 — herleiten.",
           "Ein wichtiger Spezialfall ist die Laplace-Wahrscheinlichkeit: Sind alle n Elementarereignisse eines endlichen Ergebnisraums gleich wahrscheinlich, gilt für ein Ereignis A mit |A| günstigen Ausgängen P(A) = |A| / |Ω| — die Anzahl der günstigen Fälle geteilt durch die Anzahl aller möglichen Fälle. Diese Annahme gleicher Wahrscheinlichkeiten ist nur gerechtfertigt, wenn es dafür einen echten Grund gibt (Symmetrie eines Würfels, ein durchmischtes Kartenspiel) — nicht bei jedem beliebigen Zufallsexperiment.",
+          "Neben dem klassischen (Laplace-) und dem axiomatischen Wahrscheinlichkeitsbegriff aus den obigen Axiomen gibt es einen dritten, den statistischen bzw. frequentistischen Wahrscheinlichkeitsbegriff nach von Mises: Wiederholt man ein Zufallsexperiment sehr oft unter gleichen Bedingungen, pendelt sich die relative Häufigkeit hn(A)/n eines Ereignisses A für wachsendes n um einen festen Wert ein — dieser Grenzwert wird als Wahrscheinlichkeit von A definiert. Anders als beim Laplace-Ansatz braucht man dafür keine Symmetrieannahme, sondern schätzt die Wahrscheinlichkeit direkt aus vielen Wiederholungen — etwa den Ausschussanteil einer Maschine aus den bisherigen Produktionsdaten, ohne die genauen physikalischen Ursachen zu kennen.",
         ],
-        formulas: ["P(A) = |A| / |Ω|  (Laplace-Wahrscheinlichkeit)"],
-        formulasLatex: ["P(A) = \\dfrac{|A|}{|\\Omega|}"],
+        formulas: [
+          "P(A) = |A| / |Ω|  (Laplace-Wahrscheinlichkeit)",
+          "P(A) = lim(n→∞) hn(A) / n  (statistischer Wahrscheinlichkeitsbegriff nach von Mises)",
+        ],
+        formulasLatex: [
+          "P(A) = \\dfrac{|A|}{|\\Omega|}",
+          "P(A) = \\lim_{n\\to\\infty} \\dfrac{h_n(A)}{n}",
+        ],
         terms: [
           {
             term: "Laplace-Experiment",
             definition: "Ein Zufallsexperiment mit endlich vielen, gleich wahrscheinlichen Elementarereignissen.",
           },
+          {
+            term: "Statistischer Wahrscheinlichkeitsbegriff (von Mises)",
+            definition: "Wahrscheinlichkeit als Grenzwert der relativen Häufigkeit eines Ereignisses bei sehr vielen Wiederholungen desselben Zufallsexperiments.",
+          },
         ],
         examples: [
           "Bei einem fairen sechsseitigen Würfel ist P(Augenzahl durch 3 teilbar) = |{3,6}| / |{1,...,6}| = 2/6 = 1/3.",
+          "Eine Fabrik kennt die genaue Ursache für fehlerhafte Teile nicht und kann daher keine Laplace-Wahrscheinlichkeit angeben. Beobachtet man aber über 10.000 produzierte Teile hinweg konstant einen Ausschussanteil von etwa 3%, schätzt man die Fehlerwahrscheinlichkeit nach dem statistischen Wahrscheinlichkeitsbegriff auf P(fehlerhaft) ≈ 0,03.",
         ],
       },
       {
@@ -86,18 +98,21 @@ export const chapters: SkriptChapter[] = [
           "Kombinatorische Zählformeln helfen, |Ω| bzw. |A| zu bestimmen, ohne alle Möglichkeiten einzeln aufzuschreiben. Sollen n unterscheidbare Objekte vollständig angeordnet werden, gibt es dafür n! (n Fakultät) Reihenfolgen. Sollen dagegen nur k von n unterscheidbaren Objekten in einer bestimmten Reihenfolge ausgewählt werden (eine Variation ohne Wiederholung — jedes Objekt darf höchstens einmal vorkommen), gibt es dafür n! / (n−k)! Möglichkeiten.",
           "Kommt es auf die Reihenfolge der k ausgewählten Objekte dagegen nicht an (eine Kombination ohne Wiederholung), muss man durch die Anzahl der Anordnungen der ausgewählten k Objekte teilen: C(n,k) = n! / (k! · (n−k)!) — der Binomialkoeffizient. Er beantwortet z. B. die Frage, auf wie viele Arten man k Personen aus einer Gruppe von n Personen für ein Team auswählen kann.",
           "Darf dasselbe Objekt dagegen mehrfach ausgewählt werden (Ziehen MIT Zurücklegen), kommt eine zweite Unterscheidung hinzu. Zählt die Reihenfolge weiterhin (Variation mit Wiederholung), gibt es für jede der k Positionen unabhängig voneinander n Möglichkeiten, also n^k insgesamt. Zählt die Reihenfolge dagegen nicht (Kombination mit Wiederholung), ist die Herleitung weniger offensichtlich: Man kann sich die Auswahl als Verteilen von k identischen Kugeln auf n Fächer vorstellen, was auf C(n+k−1,k) = (n+k−1)! / (k!·(n−1)!) Möglichkeiten führt. Damit ergeben sich vier Fälle, je nachdem ob die Reihenfolge zählt und ob Wiederholung erlaubt ist.",
+          "Ein fünfter, eigenständiger Fall betrifft die vollständige Anordnung von n Objekten, wenn sich darunter mehrere identische (nicht unterscheidbare) Objekte befinden — die Permutation mit Wiederholung. Wären alle n Objekte unterscheidbar, gäbe es n! Anordnungen; weil aber g1 Objekte einer ersten Sorte, g2 einer zweiten Sorte usw. untereinander nicht unterscheidbar sind, müssen die jeweils redundant gezählten Vertauschungen innerhalb jeder Sorte wieder herausgeteilt werden: P(n; g1,...,gr) = n! / (g1!·g2!·...·gr!), wobei g1+g2+...+gr = n.",
         ],
         formulas: [
           "Variation ohne Wiederholung: n! / (n − k)!",
           "Kombination ohne Wiederholung: C(n,k) = n! / (k! · (n−k)!)",
           "Variation mit Wiederholung: n^k",
           "Kombination mit Wiederholung: C(n+k−1,k) = (n+k−1)! / (k! · (n−1)!)",
+          "Permutation mit Wiederholung: P(n; g1,...,gr) = n! / (g1! · g2! · ... · gr!)",
         ],
         formulasLatex: [
           "\\dfrac{n!}{(n-k)!}",
           "C(n,k) = \\dfrac{n!}{k!\\,(n-k)!}",
           "n^k",
           "C(n+k-1,k) = \\dfrac{(n+k-1)!}{k!\\,(n-1)!}",
+          "P(n; g_1,\\dots,g_r) = \\dfrac{n!}{g_1!\\,g_2!\\,\\cdots\\,g_r!}",
         ],
         table: {
           caption: "Übersicht: Auswahl von k aus n Objekten",
@@ -120,10 +135,15 @@ export const chapters: SkriptChapter[] = [
             term: "Ziehen mit/ohne Zurücklegen",
             definition: "Bei 'mit Zurücklegen' (Wiederholung erlaubt) kann dasselbe Objekt mehrfach gewählt werden, bei 'ohne Zurücklegen' höchstens einmal.",
           },
+          {
+            term: "Permutation mit Wiederholung P(n; g1,...,gr)",
+            definition: "Anzahl unterscheidbarer Anordnungen von n Objekten, wenn sich darunter r Gruppen nicht unterscheidbarer Objekte der Größen g1,...,gr befinden.",
+          },
         ],
         examples: [
           "Ein Vereinsvorstand mit 12 Mitgliedern wählt ein Gremium aus 4 Personen ohne feste Rollenverteilung: C(12,4) = 12! / (4!·8!) = 495 Möglichkeiten. Sollten die 4 Positionen dagegen unterschiedliche Rollen (Vorsitz, Kasse, Schriftführung, Beisitz) sein, wären es 12!/8! = 11.880 Variationen.",
           "Ein 4-stelliger PIN-Code aus den Ziffern 0–9 (Wiederholung erlaubt, Reihenfolge zählt) ist eine Variation mit Wiederholung: 10^4 = 10.000 mögliche Codes. Wählt man dagegen 3 Kugeln Eis aus 5 Sorten, wobei jede Sorte mehrfach gewählt werden darf und nur die Zusammenstellung (nicht die Reihenfolge auf der Waffel) zählt, ist das eine Kombination mit Wiederholung: C(5+3−1,3) = C(7,3) = 7!/(3!·4!) = 35 mögliche Zusammenstellungen.",
+          "Ein Regal enthält 3 rote, 2 blaue und 1 grünes Buch, die nebeneinander aufgestellt werden; Bücher derselben Farbe gelten dabei als nicht unterscheidbar. Die Anzahl unterscheidbarer Anordnungen (nach Farbfolge) ist eine Permutation mit Wiederholung: P(6; 3,2,1) = 6! / (3!·2!·1!) = 720/12 = 60.",
         ],
       },
       {
@@ -185,7 +205,7 @@ export const chapters: SkriptChapter[] = [
           },
         ],
         examples: [
-          "Ein Schnelltest erkennt eine Krankheit, an der 2% der Bevölkerung leiden, mit 95% Wahrscheinlichkeit korrekt (P(pos|krank) = 0,95); bei Gesunden schlägt er in 4% der Fälle fälschlich an (P(pos|gesund) = 0,04). Gesucht: P(krank|pos). Totale Wahrscheinlichkeit: P(pos) = 0,95·0,02 + 0,04·0,98 = 0,019 + 0,0392 = 0,0582. Bayes: P(krank|pos) = 0,019 / 0,0582 ≈ 0,326 — trotz eines auf den ersten Blick zuverlässig wirkenden Tests ist bei positivem Ergebnis nur etwa jede dritte getestete Person tatsächlich erkrankt, weil die Krankheit selten ist.",
+          "Ein Sicherheitsscanner am Eingang eines Firmengebäudes erkennt einen mitgeführten verbotenen Gegenstand mit 90% Wahrscheinlichkeit korrekt (P(Alarm|Gegenstand) = 0,90); ein solcher Gegenstand kommt bei 0,5% aller Einlässe tatsächlich vor. Bei erlaubtem Gepäck löst der Scanner in 6% der Fälle fälschlich Alarm aus (P(Alarm|kein Gegenstand) = 0,06). Gesucht: P(Gegenstand|Alarm). Totale Wahrscheinlichkeit: P(Alarm) = 0,90·0,005 + 0,06·0,995 = 0,0045 + 0,0597 = 0,0642. Bayes: P(Gegenstand|Alarm) = 0,0045 / 0,0642 ≈ 0,070 — obwohl der Scanner einzeln betrachtet zuverlässig wirkt, ist bei ausgelöstem Alarm nur etwa jeder vierzehnte Fall tatsächlich ein echter Fund, weil verbotene Gegenstände sehr selten sind und die Fehlalarme dadurch zahlenmäßig überwiegen.",
         ],
       },
     ],
@@ -303,8 +323,44 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
+        id: "2-8",
+        heading: "2.6 Kovarianz und Linearkombinationen von Zufallsvariablen",
+        body: [
+          "Betrachtet man zwei Zufallsvariablen X und Y gemeinsam, misst die Kovarianz Cov(X,Y) = E(XY) − E(X)·E(Y), ob und wie stark die beiden gemeinsam über oder unter ihrem jeweiligen Erwartungswert liegen. Eine positive Kovarianz bedeutet, dass überdurchschnittliche Werte von X tendenziell mit überdurchschnittlichen Werten von Y einhergehen; bei negativer Kovarianz ist es umgekehrt. Sind X und Y unabhängig, folgt stets Cov(X,Y) = 0 (die Umkehrung gilt im Allgemeinen nicht: Cov(X,Y)=0 bedeutet nur Unkorreliertheit, nicht zwingend Unabhängigkeit).",
+          "Die Kovarianz wird gebraucht, sobald man die Varianz einer Linearkombination mehrerer Zufallsvariablen bestimmen will: Var(aX + bY) = a²·Var(X) + b²·Var(Y) + 2ab·Cov(X,Y). Im Sonderfall unabhängiger (oder auch nur unkorrelierter) Zufallsvariablen entfällt der Kovarianzterm, und es bleibt Var(aX + bY) = a²·Var(X) + b²·Var(Y) — insbesondere gilt dann für die einfache Summe Var(X+Y) = Var(X) + Var(Y).",
+          "Weil der Betrag der Kovarianz von den Einheiten von X und Y abhängt (eine Kovarianz von 6 kann je nach Größenordnung von X und Y viel oder wenig bedeuten), normiert man sie zum Korrelationskoeffizienten ρ(X,Y) = Cov(X,Y) / (√Var(X)·√Var(Y)). Er liegt stets zwischen −1 und +1 und ist damit unabhängig von den Einheiten der beiden Zufallsvariablen vergleichbar — dieselbe Normierungsidee wie beim empirischen Pearson-Korrelationskoeffizienten für Stichprobendaten (siehe Kapitel 4), nur auf theoretischer Ebene für Zufallsvariablen formuliert.",
+        ],
+        formulas: [
+          "Cov(X,Y) = E(XY) − E(X)·E(Y)",
+          "Var(aX + bY) = a²·Var(X) + b²·Var(Y) + 2ab·Cov(X,Y)",
+          "ρ(X,Y) = Cov(X,Y) / (√Var(X)·√Var(Y))",
+        ],
+        formulasLatex: [
+          "\\text{Cov}(X,Y) = E(XY) - E(X)\\cdot E(Y)",
+          "\\text{Var}(aX+bY) = a^2\\text{Var}(X) + b^2\\text{Var}(Y) + 2ab\\,\\text{Cov}(X,Y)",
+          "\\rho(X,Y) = \\dfrac{\\text{Cov}(X,Y)}{\\sqrt{\\text{Var}(X)}\\cdot\\sqrt{\\text{Var}(Y)}}",
+        ],
+        terms: [
+          {
+            term: "Kovarianz Cov(X,Y)",
+            definition: "Maß für den linearen Zusammenhang zweier Zufallsvariablen; Cov(X,Y) = E(XY) − E(X)E(Y).",
+          },
+          {
+            term: "Unkorreliertheit",
+            definition: "X und Y heißen unkorreliert, wenn Cov(X,Y) = 0. Unabhängigkeit impliziert Unkorreliertheit, aber nicht umgekehrt.",
+          },
+          {
+            term: "Korrelationskoeffizient ρ(X,Y)",
+            definition: "Auf den Bereich [−1,1] normierte Kovarianz zweier Zufallsvariablen; misst Stärke und Richtung des linearen Zusammenhangs unabhängig von den Einheiten von X und Y.",
+          },
+        ],
+        examples: [
+          "Ein Handelsunternehmen erzielt wöchentlich einen Umsatz X im Onlineshop mit E(X)=12 (Tsd. €) und Var(X)=9 sowie einen Umsatz Y im stationären Ladengeschäft mit E(Y)=18 und Var(Y)=16; aus den Verkaufsdaten ergibt sich außerdem E(XY)=222. Damit ist Cov(X,Y) = 222 − 12·18 = 222 − 216 = 6 — die Umsätze beider Kanäle schwanken leicht gleichgerichtet, z. B. durch gemeinsame saisonale Effekte. Für den Gesamtumsatz T = X+Y folgt Var(T) = 9 + 16 + 2·6 = 37; für die Differenz D = X−Y (z. B. zur Beobachtung einer Verschiebung zwischen den Kanälen) dagegen Var(D) = 9 + 16 − 2·6 = 13 — die positive Kovarianz verstärkt die Streuung der Summe und dämpft die Streuung der Differenz. Der Korrelationskoeffizient beträgt ρ(X,Y) = 6/(√9·√16) = 6/(3·4) = 0,5 — ein moderater positiver linearer Zusammenhang zwischen den beiden Umsatzkanälen.",
+        ],
+      },
+      {
         id: "2-6",
-        heading: "2.6 Tschebyscheff-Ungleichung",
+        heading: "2.7 Tschebyscheff-Ungleichung",
         body: [
           "Die Tschebyscheff-Ungleichung liefert eine grobe, aber universelle Abschätzung dafür, wie wahrscheinlich große Abweichungen vom Erwartungswert sind — und zwar für jede Zufallsvariable mit endlicher Varianz, unabhängig von ihrer konkreten Verteilung: P(|X − μ| ≥ k·σ) ≤ 1/k² für jedes k > 0.",
           "Für k = 2 folgt daraus z. B., dass höchstens 25% der Werte mehr als zwei Standardabweichungen vom Erwartungswert entfernt liegen können — eine Aussage, die für jede Verteilung gilt, auch wenn man außer μ und σ nichts über sie weiß. Bei bekannter Verteilung (z. B. der Normalverteilung in Kapitel 3) lassen sich meist deutlich schärfere Aussagen treffen.",
@@ -323,10 +379,18 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "2-7",
-        heading: "2.7 Schiefe, Kurtosis und bivariate Zufallsvariablen",
+        heading: "2.8 Schiefe, Kurtosis und bivariate Zufallsvariablen",
         body: [
-          "Über Erwartungswert und Varianz hinaus beschreiben höhere Momente die Form einer Verteilung genauer. Die Schiefe (Skewness) misst die Asymmetrie: Ist sie positiv, hat die Verteilung einen längeren rechten Ausläufer (z. B. Einkommensverteilungen), bei negativer Schiefe einen längeren linken Ausläufer. Die Kurtosis (Wölbung) misst, wie spitz oder flach eine Verteilung im Vergleich zur Normalverteilung ist — ein Exzess über 0 deutet auf schwerere Ränder (mehr Extremwerte) hin als bei der Normalverteilung.",
+          "Über Erwartungswert und Varianz hinaus beschreiben höhere Momente die Form einer Verteilung genauer. Die Schiefe (Skewness) misst die Asymmetrie über das dritte standardisierte Moment γ1 = E[(X−μ)³]/σ³: Ist sie positiv, hat die Verteilung einen längeren rechten Ausläufer (z. B. Einkommensverteilungen), bei negativer Schiefe einen längeren linken Ausläufer. Die (Exzess-)Kurtosis misst über das vierte standardisierte Moment γ2 = E[(X−μ)⁴]/σ⁴ − 3, wie spitz oder flach eine Verteilung im Vergleich zur Normalverteilung ist — ein Exzess über 0 deutet auf schwerere Ränder (mehr Extremwerte) hin als bei der Normalverteilung, ein Exzess unter 0 auf eine flachere Verteilung.",
           "Betrachtet man zwei Zufallsvariablen X und Y gemeinsam (bivariat), interessiert zusätzlich, wie sie zusammenhängen. Die gemeinsame Wahrscheinlichkeitsfunktion f(x,y) beschreibt, mit welcher Wahrscheinlichkeit bestimmte Kombinationen (X=x, Y=y) auftreten; daraus lassen sich die Randverteilungen von X und Y einzeln zurückgewinnen, indem man über die jeweils andere Variable summiert.",
+        ],
+        formulas: [
+          "Schiefe: γ1 = E[(X−μ)³] / σ³",
+          "Exzess-Kurtosis: γ2 = E[(X−μ)⁴] / σ⁴ − 3",
+        ],
+        formulasLatex: [
+          "\\gamma_1 = \\dfrac{E[(X-\\mu)^3]}{\\sigma^3}",
+          "\\gamma_2 = \\dfrac{E[(X-\\mu)^4]}{\\sigma^4} - 3",
         ],
         terms: [
           {
@@ -344,35 +408,7 @@ export const chapters: SkriptChapter[] = [
         ],
         examples: [
           "Vermögensverteilungen sind typischerweise rechtsschief: Die meisten Personen liegen im unteren bis mittleren Bereich, wenige extrem hohe Vermögen ziehen den Mittelwert nach rechts und erzeugen einen langen rechten Ausläufer.",
-        ],
-      },
-      {
-        id: "2-8",
-        heading: "2.8 Kovarianz und Linearkombinationen von Zufallsvariablen",
-        body: [
-          "Betrachtet man zwei Zufallsvariablen X und Y gemeinsam, misst die Kovarianz Cov(X,Y) = E(XY) − E(X)·E(Y), ob und wie stark die beiden gemeinsam über oder unter ihrem jeweiligen Erwartungswert liegen. Eine positive Kovarianz bedeutet, dass überdurchschnittliche Werte von X tendenziell mit überdurchschnittlichen Werten von Y einhergehen; bei negativer Kovarianz ist es umgekehrt. Sind X und Y unabhängig, folgt stets Cov(X,Y) = 0 (die Umkehrung gilt im Allgemeinen nicht: Cov(X,Y)=0 bedeutet nur Unkorreliertheit, nicht zwingend Unabhängigkeit).",
-          "Die Kovarianz wird gebraucht, sobald man die Varianz einer Linearkombination mehrerer Zufallsvariablen bestimmen will: Var(aX + bY) = a²·Var(X) + b²·Var(Y) + 2ab·Cov(X,Y). Im Sonderfall unabhängiger (oder auch nur unkorrelierter) Zufallsvariablen entfällt der Kovarianzterm, und es bleibt Var(aX + bY) = a²·Var(X) + b²·Var(Y) — insbesondere gilt dann für die einfache Summe Var(X+Y) = Var(X) + Var(Y).",
-        ],
-        formulas: [
-          "Cov(X,Y) = E(XY) − E(X)·E(Y)",
-          "Var(aX + bY) = a²·Var(X) + b²·Var(Y) + 2ab·Cov(X,Y)",
-        ],
-        formulasLatex: [
-          "\\text{Cov}(X,Y) = E(XY) - E(X)\\cdot E(Y)",
-          "\\text{Var}(aX+bY) = a^2\\text{Var}(X) + b^2\\text{Var}(Y) + 2ab\\,\\text{Cov}(X,Y)",
-        ],
-        terms: [
-          {
-            term: "Kovarianz Cov(X,Y)",
-            definition: "Maß für den linearen Zusammenhang zweier Zufallsvariablen; Cov(X,Y) = E(XY) − E(X)E(Y).",
-          },
-          {
-            term: "Unkorreliertheit",
-            definition: "X und Y heißen unkorreliert, wenn Cov(X,Y) = 0. Unabhängigkeit impliziert Unkorreliertheit, aber nicht umgekehrt.",
-          },
-        ],
-        examples: [
-          "Ein Handelsunternehmen erzielt wöchentlich einen Umsatz X im Onlineshop mit E(X)=12 (Tsd. €) und Var(X)=9 sowie einen Umsatz Y im stationären Ladengeschäft mit E(Y)=18 und Var(Y)=16; aus den Verkaufsdaten ergibt sich außerdem E(XY)=222. Damit ist Cov(X,Y) = 222 − 12·18 = 222 − 216 = 6 — die Umsätze beider Kanäle schwanken leicht gleichgerichtet, z. B. durch gemeinsame saisonale Effekte. Für den Gesamtumsatz T = X+Y folgt Var(T) = 9 + 16 + 2·6 = 37; für die Differenz D = X−Y (z. B. zur Beobachtung einer Verschiebung zwischen den Kanälen) dagegen Var(D) = 9 + 16 − 2·6 = 13 — die positive Kovarianz verstärkt die Streuung der Summe und dämpft die Streuung der Differenz.",
+          "Eine Zufallsvariable X nimmt die Werte 0, 1 und 4 mit Wahrscheinlichkeiten 0,5 / 0,3 / 0,2 an. Es gilt E(X)=1,1, E(X²)=3,5, also Var(X)=3,5−1,1²=2,29 und σ≈1,513. Mit E(X³)=13,1 und E(X⁴)=51,5 folgt über die Momentzerlegung E[(X−μ)³]=E(X³)−3μE(X²)+3μ²E(X)−μ³=4,212, also γ1=4,212/σ³≈4,212/3,465≈1,22 — deutlich rechtsschief, weil der seltene, aber große Wert 4 den oberen Ausläufer streckt. Ebenso ergibt sich E[(X−μ)⁴]=E(X⁴)−4μE(X³)+6μ²E(X²)−4μ³E(X)+μ⁴≈14,878, also γ2=14,878/σ⁴−3=14,878/5,244−3≈−0,16 — die Verteilung ist trotz ihrer Schiefe minimal flacher als die Normalverteilung, denn Schiefe und Kurtosis beschreiben unabhängige Eigenschaften einer Verteilung.",
         ],
       },
       {
@@ -471,33 +507,8 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
-        id: "3-3",
-        heading: "3.3 Hypergeometrische Verteilung",
-        body: [
-          "Zieht man dagegen ohne Zurücklegen aus einer endlichen Grundgesamtheit vom Umfang N, von denen K die gesuchte Eigenschaft besitzen, folgt die Anzahl X der 'Treffer' unter n gezogenen Elementen einer hypergeometrischen Verteilung: f(x) = [C(K,x) · C(N−K, n−x)] / C(N,n). Anders als bei der Binomialverteilung verändert sich die Trefferwahrscheinlichkeit nach jedem Zug, weil die Grundgesamtheit kleiner wird.",
-          "Für sie gilt E(X) = n · K/N — dieselbe Formel wie bei der Binomialverteilung mit p = K/N. Die Varianz ist jedoch kleiner: Var(X) = n · (K/N) · (1−K/N) · (N−n)/(N−1); der zusätzliche Korrekturfaktor (N−n)/(N−1) heißt Endlichkeitskorrektur und wird für große N im Vergleich zu n vernachlässigbar — dann nähert sich die hypergeometrische Verteilung der Binomialverteilung an.",
-        ],
-        formulas: [
-          "f(x) = [C(K,x)·C(N−K,n−x)] / C(N,n)",
-          "E(X) = n·K/N",
-        ],
-        formulasLatex: [
-          "f(x) = \\dfrac{\\binom{K}{x}\\binom{N-K}{n-x}}{\\binom{N}{n}}",
-          "E(X) = n\\cdot\\dfrac{K}{N}",
-        ],
-        terms: [
-          {
-            term: "Hypergeometrische Verteilung",
-            definition: "Verteilung der Trefferanzahl beim Ziehen ohne Zurücklegen aus einer endlichen Grundgesamtheit.",
-          },
-        ],
-        examples: [
-          "Ein Lagerbestand von 50 Bauteilen enthält 6 fehlerhafte. Bei einer Stichprobe von 10 Bauteilen (ohne Zurücklegen) beträgt die erwartete Anzahl fehlerhafter Teile in der Stichprobe E(X) = 10 · 6/50 = 1,2.",
-        ],
-      },
-      {
         id: "3-4",
-        heading: "3.4 Poisson-Verteilung",
+        heading: "3.3 Poisson-Verteilung",
         body: [
           "Die Poisson-Verteilung modelliert die Anzahl seltener Ereignisse in einem festen Zeit- oder Raumintervall, wenn ein konstanter durchschnittlicher Rate-Parameter λ (Lambda) bekannt ist — etwa die Anzahl der Anrufe in einer Hotline pro Stunde oder die Anzahl der Druckfehler pro Buchseite. Ihre Wahrscheinlichkeitsfunktion lautet f(x) = (λ^x · e^(−λ)) / x! für x = 0, 1, 2, ...",
           "Für die Poisson-Verteilung gilt die bemerkenswerte Eigenschaft E(X) = Var(X) = λ — Erwartungswert und Varianz sind identisch. Sie ergibt sich außerdem als Grenzfall der Binomialverteilung, wenn n sehr groß und p sehr klein wird, während n·p konstant bei λ bleibt (siehe 3.7).",
@@ -518,6 +529,31 @@ export const chapters: SkriptChapter[] = [
         ],
         examples: [
           "Eine Werkstatt erhält im Schnitt λ = 3 Notfallaufträge pro Tag. Die Wahrscheinlichkeit für genau 5 Notfallaufträge an einem Tag beträgt f(5) = (3^5 · e^(−3)) / 5! = (243 · 0,0498) / 120 ≈ 0,1008.",
+        ],
+      },
+      {
+        id: "3-3",
+        heading: "3.4 Hypergeometrische Verteilung",
+        body: [
+          "Zieht man dagegen ohne Zurücklegen aus einer endlichen Grundgesamtheit vom Umfang N, von denen K die gesuchte Eigenschaft besitzen, folgt die Anzahl X der 'Treffer' unter n gezogenen Elementen einer hypergeometrischen Verteilung: f(x) = [C(K,x) · C(N−K, n−x)] / C(N,n). Anders als bei der Binomialverteilung verändert sich die Trefferwahrscheinlichkeit nach jedem Zug, weil die Grundgesamtheit kleiner wird.",
+          "Für sie gilt E(X) = n · K/N — dieselbe Formel wie bei der Binomialverteilung mit p = K/N. Die Varianz ist jedoch kleiner: Var(X) = n · (K/N) · (1−K/N) · (N−n)/(N−1); der zusätzliche Korrekturfaktor (N−n)/(N−1) heißt Endlichkeitskorrektur und wird für große N im Vergleich zu n vernachlässigbar — dann nähert sich die hypergeometrische Verteilung der Binomialverteilung an.",
+        ],
+        formulas: [
+          "f(x) = [C(K,x)·C(N−K,n−x)] / C(N,n)",
+          "E(X) = n·K/N",
+        ],
+        formulasLatex: [
+          "f(x) = \\dfrac{\\binom{K}{x}\\binom{N-K}{n-x}}{\\binom{N}{n}}",
+          "E(X) = n\\cdot\\dfrac{K}{N}",
+        ],
+        terms: [
+          {
+            term: "Hypergeometrische Verteilung",
+            definition: "Verteilung der Trefferanzahl beim Ziehen ohne Zurücklegen aus einer endlichen Grundgesamtheit.",
+          },
+        ],
+        examples: [
+          "Ein Lagerbestand von 50 Bauteilen enthält 6 fehlerhafte. Bei einer Stichprobe von 10 Bauteilen (ohne Zurücklegen) beträgt die erwartete Anzahl fehlerhafter Teile in der Stichprobe E(X) = 10 · 6/50 = 1,2.",
         ],
       },
       {
@@ -556,7 +592,7 @@ export const chapters: SkriptChapter[] = [
         ],
         examples: [
           "Kommen an einem Bankschalter im Schnitt λ = 4 Kund:innen pro Stunde an, beträgt die erwartete Wartezeit bis zur nächsten Ankunft E(X) = 1/4 Stunde = 15 Minuten.",
-          "An einer Ladesäule für E-Autos trifft im Schnitt alle 10 Minuten ein Fahrzeug ein, die Wartezeit X bis zur nächsten Ankunft ist exponentialverteilt mit λ = 0,1 pro Minute. Wartet man bereits 5 Minuten, ohne dass ein Auto angekommen ist, ändert die Gedächtnislosigkeit nichts an der Prognose für die Restwartezeit: Die Wahrscheinlichkeit, ab jetzt noch mindestens 10 weitere Minuten zu warten, beträgt P(X>10) = e^(−0,1·10) = e^(−1) ≈ 0,368 — exakt so hoch, wie am Anfang (ohne jede Vorwartezeit) mindestens 10 Minuten warten zu müssen. — In einem Rechenzentrum fallen zwei unabhängige Server nach exponentialverteilten Zeiten mit Raten λ1 = 1/500 und λ2 = 1/800 (jeweils pro Stunde) aus. Die Zeit bis zum ersten der beiden Ausfälle ist exponentialverteilt mit Rate λ1+λ2 = 1/500 + 1/800 = 0,00325, also mit Erwartungswert 1/0,00325 ≈ 307,7 Stunden.",
+          "An einer Ladesäule für E-Autos trifft im Schnitt alle 10 Minuten ein Fahrzeug ein, die Wartezeit X bis zur nächsten Ankunft ist exponentialverteilt mit λ = 0,1 pro Minute. Wartet man bereits 5 Minuten, ohne dass ein Auto angekommen ist, ändert die Gedächtnislosigkeit nichts an der Prognose für die Restwartezeit: Die Wahrscheinlichkeit, ab jetzt noch mindestens 10 weitere Minuten zu warten, beträgt P(X>10) = e^(−0,1·10) = e^(−1) ≈ 0,368 — exakt so hoch, wie am Anfang (ohne jede Vorwartezeit) mindestens 10 Minuten warten zu müssen. — In einer Kläranlage fallen zwei unabhängige Druckwasserpumpen nach exponentialverteilten Zeiten mit Raten λ1 = 1/650 und λ2 = 1/900 (jeweils pro Stunde) aus. Die Zeit bis zum ersten der beiden Ausfälle ist exponentialverteilt mit Rate λ1+λ2 = 1/650 + 1/900 ≈ 0,00265, also mit Erwartungswert 1/0,00265 ≈ 377,4 Stunden.",
         ],
       },
       {
@@ -612,8 +648,34 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
+        id: "3-tdist",
+        heading: "3.8 Studentsche t-Verteilung",
+        body: [
+          "Bei der Standardisierung einer normalverteilten Zufallsvariable (siehe 3.6) wird die tatsächliche Varianz σ² als bekannt vorausgesetzt. In der Praxis kennt man σ² aber meist nicht und muss sie aus einer Stichprobe schätzen — dadurch kommt eine zusätzliche Portion Unsicherheit ins Spiel, die sich in einer etwas breiteren, flacheren Verteilung als der Standardnormalverteilung niederschlägt: der Studentschen t-Verteilung.",
+          "Formal entsteht die t-Verteilung als Quotient T = Z / √(X/k) aus einer standardnormalverteilten Zufallsvariable Z und einer davon unabhängigen Chi-Quadrat-verteilten Zufallsvariable X mit k Freiheitsgraden (siehe 3.9). Der Parameter k steuert dabei Form und Streuung: Für kleine k ist die t-Verteilung deutlich schwerer-schwänzig als die Standardnormalverteilung (extreme Werte sind wahrscheinlicher), für wachsendes k nähert sie sich ihr immer weiter an und ist ab etwa k > 30 kaum noch von ihr zu unterscheiden.",
+          "Für den Erwartungswert gilt E(T) = 0 (für k > 1) — die t-Verteilung ist wie die Standardnormalverteilung symmetrisch um 0. Die Varianz ist dagegen stets größer als 1: Var(T) = k/(k−2) (für k > 2), was genau die zusätzliche Streuung durch die geschätzte Varianz widerspiegelt.",
+        ],
+        formulas: [
+          "E(T) = 0  (für k > 1)",
+          "Var(T) = k / (k−2)  (für k > 2)",
+        ],
+        formulasLatex: [
+          "E(T) = 0 \\quad (k>1)",
+          "\\text{Var}(T) = \\dfrac{k}{k-2} \\quad (k>2)",
+        ],
+        terms: [
+          {
+            term: "Studentsche t-Verteilung",
+            definition: "Symmetrische, gegenüber der Standardnormalverteilung schwerer-schwänzige Verteilung mit Parameter k (Freiheitsgrade); entsteht als T = Z/√(X/k) aus einer Standardnormal- und einer unabhängigen Chi-Quadrat-Verteilung.",
+          },
+        ],
+        examples: [
+          "Eine t-Verteilung mit k=5 Freiheitsgraden hat E(T)=0 und Var(T) = 5/3 ≈ 1,67 — deutlich mehr Streuung als die Standardnormalverteilung mit Var=1, weil die t-Verteilung schwerere Ränder besitzt. Für k=30 wäre Var(T) = 30/28 ≈ 1,07, schon sehr nah an der Standardnormalverteilung — mit wachsendem k nähert sich die t-Verteilung ihr immer weiter an.",
+        ],
+      },
+      {
         id: "3-8",
-        heading: "3.8 Chi-Quadrat- und F-Verteilung",
+        heading: "3.9 Chi-Quadrat- und F-Verteilung",
         body: [
           "Die Chi-Quadrat-Verteilung mit k Freiheitsgraden entsteht als Verteilung der Summe der Quadrate von k unabhängigen standardnormalverteilten Zufallsvariablen: χ² = Z1² + ... + Zk². Sie ist rechtsschief, nimmt nur nicht-negative Werte an, und wird u. a. bei Anpassungstests und zur Konstruktion von Konfidenzintervallen für Varianzen verwendet. Es gilt E(χ²) = k und Var(χ²) = 2k.",
           "Die F-Verteilung entsteht als Verhältnis zweier unabhängiger, jeweils durch ihre Freiheitsgrade skalierter Chi-Quadrat-Verteilungen: F = (χ₁²/k1) / (χ₂²/k2), mit Freiheitsgraden k1 (Zähler) und k2 (Nenner). Sie ist die Grundlage z. B. für den Vergleich zweier Varianzen und für die Varianzanalyse (ANOVA).",
@@ -636,7 +698,7 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "3-9",
-        heading: "3.9 Approximationen zwischen Verteilungen und die Stetigkeitskorrektur",
+        heading: "3.10 Approximationen zwischen Verteilungen und die Stetigkeitskorrektur",
         body: [
           "Mehrere der in diesem Kapitel behandelten Verteilungen lassen sich unter bestimmten Bedingungen durch eine andere, rechnerisch einfachere Verteilung annähern. Diese Approximationen sind praktisch wertvoll, weil z. B. Binomialwahrscheinlichkeiten mit sehr großem n kaum noch von Hand berechenbar sind, während die Normal- oder Poisson-Näherung mit tabellierten Werten schnell auszuwerten ist. Die folgende Tabelle fasst die vier gebräuchlichsten Approximationen mit ihren Faustregeln zusammen.",
           "Diese Faustregeln sind keine scharfen mathematischen Grenzen, sondern Erfahrungswerte, ab denen der Approximationsfehler in der Praxis vernachlässigbar klein wird — je weiter man sie überschreitet, desto besser die Näherung. Wichtig ist außerdem die Blickrichtung: Die Hypergeometrisch-zu-Binomial-Näherung ersetzt ein Ziehen ohne Zurücklegen durch ein (rechnerisch einfacheres) Ziehen mit Zurücklegen, was gerechtfertigt ist, wenn das Entnehmen einzelner Elemente die Zusammensetzung der Grundgesamtheit kaum verändert.",
@@ -814,23 +876,31 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Analog zur Varianz einer Zufallsvariable (Kapitel 2.4) misst die Varianz s² die durchschnittliche quadrierte Abweichung der Beobachtungen vom arithmetischen Mittel: s² = (1/n) · Σ(xi − x̄)². Sie ist damit der Mittelwert der quadrierten Abweichungen — je weiter die Beobachtungen im Schnitt vom arithmetischen Mittel entfernt liegen, desto größer ist s².",
           "Rechnerisch oft bequemer ist der Verschiebungssatz: s² = (1/n · Σ xi²) − x̄², der ohne vorheriges Bilden der einzelnen Abweichungen (xi − x̄) auskommt. Die Stichprobenstandardabweichung s = √s² liegt wieder in der ursprünglichen Einheit der Daten vor und ist damit meist anschaulicher interpretierbar als die Varianz selbst.",
+          "Eine einfachere, aber seltener verwendete Alternative ist die mittlere absolute Abweichung d(c) = (1/n)·Σ|xi − c|, die statt der quadrierten die absoluten Abweichungen von einem Bezugspunkt c mittelt. Meist wählt man c = x̄ (Abweichung vom arithmetischen Mittel) oder c = Median (der Wert, der d(c) unter allen möglichen Bezugspunkten minimiert, und der wegen fehlender Quadrierung robuster gegenüber Ausreißern ist als die Varianz).",
         ],
         formulas: [
           "s² = (1/n) · Σ (xi − x̄)²",
           "s² = (1/n · Σ xi²) − x̄²  (Verschiebungssatz)",
+          "d(c) = (1/n) · Σ |xi − c|  (mittlere absolute Abweichung)",
         ],
         formulasLatex: [
           "s^2 = \\dfrac{1}{n}\\sum_{i=1}^n (x_i - \\bar{x})^2",
           "s^2 = \\left(\\dfrac{1}{n}\\sum_{i=1}^n x_i^2\\right) - \\bar{x}^2",
+          "d(c) = \\dfrac{1}{n}\\sum_{i=1}^n |x_i - c|",
         ],
         terms: [
           {
             term: "Varianz",
             definition: "Durchschnittliche quadrierte Abweichung der Beobachtungen vom arithmetischen Mittel.",
           },
+          {
+            term: "Mittlere absolute Abweichung d(c)",
+            definition: "Durchschnitt der absoluten (unquadrierten) Abweichungen der Beobachtungen von einem Bezugspunkt c, meist c = x̄ oder c = Median.",
+          },
         ],
         examples: [
           "Für die Werte 4, 6, 8 (x̄=6, n=3): s² = [(4−6)²+(6−6)²+(8−6)²]/3 = (4+0+4)/3 = 8/3 ≈ 2,67, also s ≈ 1,63. Über den Verschiebungssatz: (1/3)(4²+6²+8²) − 6² = 116/3 − 36 = 38,67 − 36 = 2,67 — dasselbe Ergebnis.",
+          "Für dieselben Werte 4, 6, 8 (x̄=6): d(x̄) = (|4−6|+|6−6|+|8−6|)/3 = (2+0+2)/3 = 4/3 ≈ 1,33 — deutlich näher an der Standardabweichung (1,63) als an der Varianz (2,67), weil hier nicht quadriert wird.",
         ],
       },
       {
@@ -884,18 +954,30 @@ export const chapters: SkriptChapter[] = [
         heading: "4.8 Relative Streuungsmaße und gepoolte Datensätze",
         body: [
           "Um die Streuung zweier Datensätze mit unterschiedlichem Niveau (z. B. Gehälter in verschiedenen Ländern mit unterschiedlicher Kaufkraft) fair zu vergleichen, normiert der Variationskoeffizient VK = s / x̄ die Standardabweichung am arithmetischen Mittel — er ist dimensionslos und damit unabhängig von der Einheit oder dem Niveau der Ursprungsdaten.",
+          "Der Variationskoeffizient erbt allerdings die Ausreißerempfindlichkeit von s und x̄. Eine robustere Alternative ist der robuste Quartilsdispersionskoeffizient vr = QA / x0,5, der die halbe Interquartilsspanne QA = (Q3−Q1)/2 auf den Median x0,5 statt auf Streuung und arithmetisches Mittel bezieht — dieselbe Grundidee wie beim Variationskoeffizienten (relative statt absolute Streuung), aber mit robusten statt ausreißeranfälligen Bausteinen.",
           "Werden mehrere Teilstichproben zu einem Gesamtdatensatz zusammengefasst (gepoolt), lässt sich der Gesamtmittelwert als gewichteter Durchschnitt der Teilmittelwerte berechnen; die Gesamtvarianz setzt sich dagegen sowohl aus der durchschnittlichen Streuung innerhalb der Teilgruppen als auch aus der Streuung der Teilgruppen-Mittelwerte untereinander zusammen — zwei Gruppen mit identischer interner Streuung, aber stark unterschiedlichen Mittelwerten, erzeugen insgesamt eine höhere Gesamtvarianz.",
         ],
-        formulas: ["VK = s / x̄"],
-        formulasLatex: ["VK = \\dfrac{s}{\\bar{x}}"],
+        formulas: [
+          "VK = s / x̄",
+          "vr = QA / x0,5, mit QA = (Q3−Q1)/2  (robuster Quartilsdispersionskoeffizient)",
+        ],
+        formulasLatex: [
+          "VK = \\dfrac{s}{\\bar{x}}",
+          "v_r = \\dfrac{Q_A}{x_{0{,}5}}, \\quad Q_A = \\dfrac{Q_3-Q_1}{2}",
+        ],
         terms: [
           {
             term: "Variationskoeffizient",
             definition: "Standardabweichung geteilt durch das arithmetische Mittel; dimensionsloses, relatives Streuungsmaß.",
           },
+          {
+            term: "Robuster Quartilsdispersionskoeffizient vr",
+            definition: "Relatives, ausreißerrobustes Streuungsmaß: halbe Interquartilsspanne QA=(Q3−Q1)/2 geteilt durch den Median x0,5.",
+          },
         ],
         examples: [
           "Abteilung A hat x̄=3.000 € und s=300 €, Abteilung B hat x̄=5.000 € und s=400 €. VK(A) = 300/3.000 = 0,10, VK(B) = 400/5.000 = 0,08 — obwohl B die höhere absolute Streuung hat, ist die relative Streuung in A größer.",
+          "Für eine Lieferzeit-Stichprobe mit Q1=2 Tagen, Median x0,5=3,5 Tagen und Q3=5 Tagen ist QA=(5−2)/2=1,5, also vr=1,5/3,5≈0,43 — ein rein quartilsbasiertes relatives Streuungsmaß, das ein einzelner extremer Ausreißer in den Rohdaten (anders als bei VK) kaum verändern würde.",
         ],
       },
       {
@@ -1068,8 +1150,37 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
+        id: "4-14r",
+        heading: "4.15 Grundlagen der Programmiersprache R",
+        body: [
+          "In vielen Statistik-Klausuren geht es beim R-Teil nicht darum, selbst Code zu schreiben, sondern gegebenen R-Code zu lesen und sein Ergebnis vorherzusagen. Deshalb reicht ein solider Überblick über die wichtigsten Bausteine, ohne dass man R selbst flüssig programmieren können muss.",
+          "Die Grundeinheit in R ist der Vektor: c(2, 5, 8) erzeugt einen Vektor aus drei Zahlen, seq(1, 10, by=2) eine Zahlenfolge mit Schrittweite 2, rep(0, 5) fünf Nullen hintereinander. Auf einzelne Elemente greift man über eckige Klammern zu (x[3] ist das dritte Element), und ein logischer Ausdruck wie x[x > 5] liefert genau die Elemente von x, die größer als 5 sind — R wertet x > 5 zunächst zu einem Vektor aus TRUE/FALSE aus und filtert damit. Fehlende Werte werden als NA dargestellt und von den meisten Funktionen standardmäßig zu NA propagiert, sofern man nicht explizit na.rm=TRUE angibt.",
+          "Für zweidimensionale Daten gibt es Matrizen (matrix(x, nrow=..., ncol=...), Zugriff über m[i,j] auf Zeile i, Spalte j) und Data Frames (meist aus read.csv() eingelesen, Zugriff über df[zeilen, spalten] oder auf eine benannte Spalte über df$spaltenname). Die apply()-Funktion wendet eine Funktion zeilen- oder spaltenweise auf eine Matrix an: apply(m, 1, sum) bildet die Zeilensummen, apply(m, 2, mean) die Spaltenmittelwerte (die zweite Zahl gibt an, ob über Zeilen (1) oder Spalten (2) aggregiert wird).",
+          "Häufigkeitsauszählungen übernimmt table(x) (absolute Häufigkeiten je Ausprägung), prop.table(table(x)) liefert daraus die relativen Häufigkeiten. sort(x) sortiert einen Vektor der Größe nach, cumsum(x) bildet die kumulierten Summen seiner Elemente — eine Kombination, die z. B. beim Auswerten einer empirischen Verteilungsfunktion (siehe 4.3) nützlich ist.",
+          "Für Simulationen erzeugt sample(x, size=n) eine zufällige Auswahl von n Elementen aus dem Vektor x (mit replace=TRUE auch mit Zurücklegen), während set.seed(123) den Zufallsgenerator auf einen festen Startwert setzt, damit eine Simulation reproduzierbar bleibt. Für jede Verteilung aus Kapitel 3 existiert eine passende r-Funktion, die Zufallszahlen aus genau dieser Verteilung zieht: rnorm(n, mean, sd), rbinom(n, size, prob), rpois(n, lambda) und rexp(n, rate) erzeugen jeweils n Zufallszahlen aus Normal-, Binomial-, Poisson- bzw. Exponentialverteilung.",
+          "Zur grafischen Auswertung dienen plot(x, y) für ein einfaches Streudiagramm, hist(x) für ein Histogramm und boxplot(x) für einen Boxplot (siehe 4.9); lines() und abline() ergänzen eine bestehende Grafik um zusätzliche Linien, etwa eine Regressionsgerade oder eine horizontale Referenzlinie.",
+        ],
+        terms: [
+          { term: "c(), seq(), rep()", definition: "Grundfunktionen zum Erzeugen von Vektoren: c() zählt Werte auf, seq() erzeugt eine Zahlenfolge, rep() wiederholt einen Wert." },
+          { term: "x[i], x[x > k]", definition: "Indexierung: x[i] greift auf das i-te Element zu, x[x > k] filtert mit einer logischen Bedingung." },
+          { term: "NA, na.rm=TRUE", definition: "NA markiert einen fehlenden Wert; viele Funktionen (z. B. mean(), sum()) benötigen na.rm=TRUE, um NA-Werte zu ignorieren." },
+          { term: "matrix(), m[i,j]", definition: "matrix() erzeugt eine Matrix, m[i,j] greift auf das Element in Zeile i, Spalte j zu." },
+          { term: "read.csv(), df$spalte, df[zeilen,spalten]", definition: "Einlesen und Zugreifen auf tabellarische Daten (Data Frames)." },
+          { term: "apply(m, MARGIN, FUN)", definition: "Wendet eine Funktion FUN zeilenweise (MARGIN=1) oder spaltenweise (MARGIN=2) auf eine Matrix m an." },
+          { term: "table(x), prop.table(t)", definition: "table() zählt absolute Häufigkeiten je Ausprägung, prop.table() rechnet eine Häufigkeitstabelle in relative Häufigkeiten um." },
+          { term: "sort(x), cumsum(x)", definition: "sort() sortiert einen Vektor der Größe nach, cumsum() bildet die kumulierten Teilsummen." },
+          { term: "sample(x, size, replace=FALSE)", definition: "Zieht eine zufällige Auswahl von size Elementen aus x, mit replace=TRUE auch mit Zurücklegen (siehe 1.4)." },
+          { term: "rnorm(), rbinom(), rpois(), rexp()", definition: "Erzeugen Zufallszahlen aus Normal-, Binomial-, Poisson- bzw. Exponentialverteilung (siehe 3.2, 3.4, 3.5, 3.6)." },
+          { term: "plot(), hist(), boxplot()", definition: "Grundlegende Grafikfunktionen: Streudiagramm, Histogramm, Boxplot (siehe 4.9)." },
+          { term: "lines(), abline()", definition: "Ergänzen eine bestehende Grafik um zusätzliche Linien, z. B. eine Gerade oder Referenzlinie." },
+        ],
+        examples: [
+          "Gegeben sei der Code: x <- c(4, 7, 2, 9, 5); y <- x[x > 4]; sum(y). Der Ausdruck x > 4 wertet elementweise aus und liefert (FALSE, TRUE, FALSE, TRUE, TRUE); y enthält damit die Werte 7, 9 und 5; sum(y) gibt also 21 aus — ohne dass man den Code selbst hätte schreiben müssen, lässt sich das Ergebnis allein durch Nachvollziehen der einzelnen Zeilen bestimmen.",
+        ],
+      },
+      {
         id: "4-15",
-        heading: "4.15 R-Funktionen für Statistik 1 im Überblick",
+        heading: "4.16 R-Funktionen für Statistik 1 im Überblick",
         body: [
           "Praktisch alle in diesem Skript behandelten Kennzahlen und Verteilungen lassen sich in R mit wenigen eingebauten Funktionen berechnen, ohne die Formeln von Hand auszuwerten. Für Verteilungen folgt R durchgehend demselben Namensschema: ein Präfix d (Dichte/Wahrscheinlichkeitsfunktion, also f(x)), p (Verteilungsfunktion F(x)=P(X≤x)), q (Quantilfunktion, die Umkehrung von p) oder r (Zufallszahlen erzeugen), gefolgt vom Verteilungsnamen — z. B. dbinom(), pbinom(), qbinom(), rbinom() für die Binomialverteilung.",
           "Für die deskriptiven Zusammenhangsmaße aus diesem Kapitel sowie zentrale Verteilungsfunktionen aus Kapitel 3 sind folgende Funktionen am gebräuchlichsten (Argumente vereinfacht dargestellt):",
