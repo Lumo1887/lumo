@@ -111,7 +111,7 @@ export default function DashboardContent() {
       <div className="mb-10 max-w-2xl">
         <span className="badge">Willkommen bei Lumo</span>
         <h1 className="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">
-          Skript, Übungstool & KI-Tutor für dein KIT-Modul
+          Skript, Übungstool & KI-Tutor für dein Uni-Modul
         </h1>
         <p className="mt-3 text-ink-600">
           Wähle dein Fach für eine gezielte Auswahl, oder zeig dir gleich alle

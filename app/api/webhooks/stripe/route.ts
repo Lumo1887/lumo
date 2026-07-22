@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
             from: MAIL_FROM,
             to: customerEmail,
             subject: `Dein Zugang zu ${mod.title} ist freigeschaltet — Lumo Learn`,
-            text: `Hallo,\n\nvielen Dank für deinen Kauf! Dein Zugang zu "${mod.title}" (${mod.subtitle}) ist ab sofort freigeschaltet.\n\nBezahlter Betrag: ${priceEur} €\n\nSkript öffnen: ${baseUrl}/module/${mod.slug}/skript\nÜbungstool öffnen: ${baseUrl}/module/${mod.slug}/uebungstool\n\nÜbrigens: Kennst du jemanden, der/die auch ein KIT-Modul lernen muss? In deinem Profil (${baseUrl}/profile) findest du deinen persönlichen Empfehlungslink — für jeden Freund, der darüber kauft, bekommst du selbst ein komplettes Modul gratis.\n\nBei Fragen antworte einfach auf diese E-Mail oder schreib an ${OWNER_EMAIL}.\n\nViel Erfolg beim Lernen!\nLumo Learn`,
+            text: `Hallo,\n\nvielen Dank für deinen Kauf! Dein Zugang zu "${mod.title}" (${mod.subtitle}) ist ab sofort freigeschaltet.\n\nBezahlter Betrag: ${priceEur} €\n\nSkript öffnen: ${baseUrl}/module/${mod.slug}/skript\nÜbungstool öffnen: ${baseUrl}/module/${mod.slug}/uebungstool\n\nÜbrigens: Kennst du jemanden, der/die auch für ein Uni-Modul lernen muss? In deinem Profil (${baseUrl}/profile) findest du deinen persönlichen Empfehlungslink — für jeden Freund, der darüber kauft, bekommst du selbst ein komplettes Modul gratis.\n\nBei Fragen antworte einfach auf diese E-Mail oder schreib an ${OWNER_EMAIL}.\n\nViel Erfolg beim Lernen!\nLumo Learn`,
           }),
           resend.emails.send({
             from: MAIL_FROM,

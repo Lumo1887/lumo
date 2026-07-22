@@ -1,4 +1,4 @@
-# Klausurkompass — Statistik I (KIT, WiWi-Fakultät)
+# Lumo Learn — Skript, Übungstool & KI-Tutor für Uni-Module
 
 Eine günstigere, digitale Alternative zum FuKS Crashkurs: Skript + interaktives
 Übungstool, aufgebaut auf echtem Vorlesungs- und Tutoriumsmaterial, mit

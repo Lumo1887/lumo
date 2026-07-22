@@ -10,8 +10,8 @@ export function generateMetadata({
   const mod = getModule(params.slug);
   if (!mod) return {};
 
-  const title = `${mod.title} KIT — Online-Skript mit allen Kapiteln`;
-  const description = `Kostenloses Online-Skript zu ${mod.subtitle} für das KIT-Modul ${mod.title}: Formeln, Beispiele und Übersichten zum Nachlesen — das erste Kapitel gratis, von Lumo Learn.`;
+  const title = `${mod.title} — Online-Skript mit allen Kapiteln`;
+  const description = `Kostenloses Online-Skript zu ${mod.subtitle} für das Modul ${mod.title}: Formeln, Beispiele und Übersichten zum Nachlesen — das erste Kapitel gratis, von Lumo Learn.`;
 
   return {
     title,

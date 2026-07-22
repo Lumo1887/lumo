@@ -19,12 +19,12 @@ const SITE_URL = "https://www.lumo-learn.de";
 // Anrede in der Produkt-UI erhalten (Begrüßungen, Buttons u. Ä.).
 const SITE_NAME = "Lumo Learn";
 const SITE_DESCRIPTION =
-  "Günstiger und wertvoller als klassische Vorbereitungskurse: Skript, Altklausur-Aufgaben und ein interaktives Übungstool für dein KIT-Modul.";
+  "Günstiger und wertvoller als klassische Vorbereitungskurse: Skript, Altklausur-Aufgaben und ein interaktives Übungstool für dein Uni-Modul.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Lumo Learn — Skripte & Übungstool für KIT-Module",
+    default: "Lumo Learn — Skripte & Übungstool für Uni-Module",
     template: "%s — Lumo Learn",
   },
   description: SITE_DESCRIPTION,
@@ -32,13 +32,12 @@ export const metadata: Metadata = {
     "Lumo Learn",
     "Lumo",
     "Lumo Lernen",
-    "Lumo Learn KIT",
-    "KIT Klausurvorbereitung",
-    "Statistik 1 KIT",
-    "VWL 1 Mikroökonomie KIT",
-    "VWL 2 Makroökonomie KIT",
-    "Mathematik 1 KIT",
-    "Wirtschaftsingenieurwesen KIT Skript",
+    "Klausurvorbereitung Studium",
+    "Statistik 1 Klausur",
+    "VWL 1 Mikroökonomie",
+    "VWL 2 Makroökonomie",
+    "Mathematik 1 Klausur",
+    "Wirtschaftsingenieurwesen Skript",
   ],
   applicationName: SITE_NAME,
   alternates: {
@@ -49,12 +48,12 @@ export const metadata: Metadata = {
     locale: "de_DE",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: "Lumo Learn — Skripte & Übungstool für KIT-Module",
+    title: "Lumo Learn — Skripte & Übungstool für Uni-Module",
     description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary",
-    title: "Lumo Learn — Skripte & Übungstool für KIT-Module",
+    title: "Lumo Learn — Skripte & Übungstool für Uni-Module",
     description: SITE_DESCRIPTION,
   },
   robots: {

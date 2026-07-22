@@ -68,8 +68,9 @@ export default function ImpressumPage() {
       </h2>
       <p className="mt-2 text-ink-700">
         Lumo Learn ist ein privates, von Studierenden betriebenes Projekt und
-        steht in keiner Verbindung zur Fachschaft oder zum Karlsruher
-        Institut für Technologie (KIT). Die Skript- und Übungsinhalte
+        steht in keiner Verbindung zu einer Fachschaft oder Hochschule, deren
+        Vorlesungs- oder Übungsmaterial teilweise als Grundlage für die
+        Inhalte diente. Die Skript- und Übungsinhalte
         wurden mit größtmöglicher Sorgfalt auf Basis öffentlich
         zugänglichen Vorlesungs- und Übungsmaterials erstellt, eine
         Gewähr für Richtigkeit, Vollständigkeit oder Aktualität kann

@@ -117,7 +117,7 @@ export async function POST(request: NextRequest) {
       {
         text:
           `Du bist ein freundlicher, geduldiger Tutor für das Modul "${moduleTitle}" ` +
-          "für Studierende der Wirtschaftswissenschaften am KIT. Du kennst das folgende " +
+          "für Studierende, die sich auf ihre Uni-Klausur vorbereiten. Du kennst das folgende " +
           "Skript sehr genau und beantwortest Fragen dazu klar, mit konkreten " +
           "Rechenbeispielen wo hilfreich, auf Deutsch, in einem unterstützenden, " +
           "nicht-belehrenden Ton. Wenn eine Frage über den Skriptinhalt hinausgeht, " +

@@ -7,10 +7,10 @@ export default function Footer() {
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <p>
             © {new Date().getFullYear()} Lumo Learn — von Studierenden für
-            Studierende am KIT.
+            Studierende.
           </p>
           <p className="text-ink-600/80">
-            Kein offizielles Angebot der Fachschaft oder des KIT.
+            Kein offizielles Angebot einer Hochschule oder Fachschaft.
           </p>
         </div>
         <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 border-t border-ink-100 pt-4 sm:justify-start">

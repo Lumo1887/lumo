@@ -13,8 +13,8 @@ export function generateMetadata({
   const mod = getModule(params.slug);
   if (!mod) return {};
 
-  const title = `${mod.title} KIT — Skript & Übungstool`;
-  const description = `${mod.subtitle} Skript, Altklausur-Aufgaben und KI-Tutor für das KIT-Modul ${mod.title} — von Lumo Learn.`;
+  const title = `${mod.title} — Skript & Übungstool`;
+  const description = `${mod.subtitle} Skript, Altklausur-Aufgaben und KI-Tutor für das Modul ${mod.title} — von Lumo Learn.`;
 
   return {
     title,
@@ -33,9 +33,9 @@ export default function ModulePage({ params }: { params: { slug: string } }) {
   if (mod.status === "coming-soon" || !hasContent) {
     return (
       <div>
-        <span className="badge">KIT · {mod.faculty}</span>
+        <span className="badge">{mod.faculty}</span>
         <h1 className="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">
-          {mod.title} am KIT
+          {mod.title}
         </h1>
         <p className="mt-3 max-w-2xl text-ink-600">{mod.subtitle}</p>
         <div className="card mt-8 max-w-md p-6">
@@ -53,7 +53,7 @@ export default function ModulePage({ params }: { params: { slug: string } }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Course",
-    name: `${mod.title} — KIT`,
+    name: mod.title,
     description: mod.subtitle,
     provider: {
       "@type": "Organization",
@@ -79,9 +79,9 @@ export default function ModulePage({ params }: { params: { slug: string } }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="mb-10">
-        <span className="badge">KIT · {mod.faculty}</span>
+        <span className="badge">{mod.faculty}</span>
         <h1 className="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">
-          {mod.title} am KIT
+          {mod.title}
         </h1>
         <p className="mt-3 max-w-2xl text-ink-600">{mod.subtitle}</p>
       </div>

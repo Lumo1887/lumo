@@ -100,7 +100,7 @@ export default function AgbPage() {
       </h2>
       <p className="mt-2 text-ink-700">
         Die Inhalte werden mit größtmöglicher Sorgfalt erstellt und
-        stellen kein offizielles Angebot der Fachschaft oder des KIT
+        stellen kein offizielles Angebot einer Hochschule oder Fachschaft
         dar. Für die inhaltliche Richtigkeit,
         Vollständigkeit oder Aktualität kann keine Gewähr übernommen
         werden. Wir haften unbeschränkt für Vorsatz und grobe
