@@ -4,6 +4,7 @@ import "./globals.css";
 // echte, typografisch korrekte Formeln (mit Bruchstrich usw.) erscheinen,
 // statt als reiner Unicode-Text. Wird von components/MathFormula.tsx benutzt.
 import "katex/dist/katex.min.css";
+import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ReferralCapture from "@/components/ReferralCapture";
@@ -89,6 +90,7 @@ export default function RootLayout({
         <Navbar />
         <main className="mx-auto max-w-6xl px-6 py-12">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
