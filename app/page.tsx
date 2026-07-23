@@ -1,8 +1,11 @@
-import DashboardContent from "@/components/DashboardContent";
+import SalesHomeContent from "@/components/SalesHomeContent";
 
-// Die Startseite zeigt direkt die Modul-Übersicht statt eines
-// vorgeschalteten Fragebogens — Besucher:innen sollen sofort sehen, was
-// Lumo bietet, statt erst 4 Fragen beantworten zu müssen.
+// TEST (Branch "design-test-sales"): verkaufsorientiertes Redesign der
+// Startseite — Hero mit klarem Nutzenversprechen, echte Kennzahlen statt
+// Fragebogen. "/dashboard" bleibt bewusst unverändert (DashboardContent),
+// damit interne Links und die App für eingeloggte Nutzer:innen von diesem
+// Test unberührt bleiben. Zum Zurückrollen: einfach wieder auf
+// DashboardContent umstellen bzw. den Branch verwerfen.
 export default function HomePage() {
-  return <DashboardContent />;
+  return <SalesHomeContent />;
 }
