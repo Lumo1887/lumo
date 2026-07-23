@@ -47,6 +47,7 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Jede komplexe Zahl z ≠ 0 lässt sich statt durch (Re(z), Im(z)) auch durch ihren Betrag r = |z| und ihren Winkel φ = arg(z) zur positiven reellen Achse beschreiben: z = r(cos φ + i sin φ). Mit der Eulerschen Formel e^(iφ) = cos φ + i sin φ schreibt man dies kompakt als z = r·e^(iφ) (Polarform bzw. Exponentialform). Die Umrechnung in kartesische Form erfolgt über x = r cos φ, y = r sin φ.",
           "Die Polarform macht Multiplikation und Division besonders einfach: Beträge werden multipliziert/dividiert, Winkel werden addiert/subtrahiert. Daraus folgt auch die Formel von Moivre für Potenzen: zⁿ = rⁿ · e^(inφ). Für die n-ten Wurzeln einer komplexen Zahl w = ρ·e^(iψ) ≠ 0 gibt es genau n verschiedene Lösungen zₖ der Gleichung zⁿ = w, die gleichmäßig auf einem Kreis vom Radius ρ^(1/n) verteilt sind: zₖ = ρ^(1/n) · e^(i(ψ+2πk)/n) für k = 0, 1, ..., n−1.",
+          "Dass eine Gleichung zⁿ=w stets genau n Lösungen besitzt, ist ein Spezialfall eines viel allgemeineren Struktursatzes über ℂ, des Fundamentalsatzes der Algebra: Jedes nicht-konstante Polynom P(z) = a0+a1z+...+aₙzⁿ (aᵢ∈ℂ, n≥1) besitzt in ℂ genau n Nullstellen, mit Vielfachheit gezählt — es zerfällt also vollständig in Linearfaktoren P(z)=aₙ(z−z1)···(z−zₙ). Über ℝ gilt das nicht: Reelle Polynome zerfallen oft nur teilweise, weil manche Nullstellen (wie bei z²+1) rein komplex sind.",
         ],
         formulas: [
           "z = r · e^(iφ) = r(cos φ + i sin φ), r=|z|",
@@ -61,6 +62,7 @@ export const chapters: SkriptChapter[] = [
         terms: [
           { term: "Eulersche Formel", definition: "e^(iφ) = cos φ + i sin φ — verbindet die Exponentialfunktion mit Sinus und Kosinus." },
           { term: "Polarform", definition: "Darstellung z = r·e^(iφ) einer komplexen Zahl über Betrag r und Winkel φ statt über Re(z)/Im(z)." },
+          { term: "Fundamentalsatz der Algebra", definition: "Jedes nicht-konstante Polynom vom Grad n mit komplexen Koeffizienten hat in ℂ genau n Nullstellen (mit Vielfachheit gezählt)." },
         ],
         examples: [
           "Gesucht sind alle dritten Wurzeln von w = 8i. In Polarform ist w = 8·e^(iπ/2) (ρ=8, ψ=π/2). Mit n=3 ergeben sich die drei Lösungen zₖ = 8^(1/3) · e^(i(π/2+2πk)/3) = 2·e^(i(π/2+2πk)/3) für k=0,1,2: z0 = 2·e^(iπ/6) = 2(cos30°+i sin30°) = √3+i, z1 = 2·e^(i5π/6) = −√3+i, z2 = 2·e^(i3π/2) = −2i. Probe: (√3+i)³ = 8i (nachrechenbar durch Ausmultiplizieren).",
@@ -85,20 +87,25 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Eine Folge komplexer Zahlen (zₙ) konvergiert gegen einen Grenzwert z ∈ ℂ, wenn |zₙ − z| → 0 für n → ∞ gilt — Konvergenz in ℂ ist also nichts anderes als Konvergenz des reellen Abstands |zₙ−z| gegen 0. Äquivalent dazu konvergiert (zₙ) genau dann gegen z = a+ib, wenn sowohl Re(zₙ) → a als auch Im(zₙ) → b gilt: Man darf Real- und Imaginärteil getrennt betrachten.",
           "Eine komplexe Potenzreihe Σ aₙ(z−z0)ⁿ konvergiert absolut für alle z mit |z−z0| < R und divergiert für |z−z0| > R, wobei R ∈ [0,∞] der Konvergenzradius ist. Für Reihen der Form Σ cⁿzⁿ mit konstantem c ∈ ℂ (geometrische Reihe in cz) liefert bereits die geometrische Reihe den Konvergenzradius R = 1/|c|, da absolute Konvergenz genau |cz| < 1 verlangt.",
+          "Ist der Koeffizient aₙ nicht von der einfachen Form cⁿ (also nicht konstant in n), liefert die Cauchy-Hadamard-Formel den Konvergenzradius allgemein: R = 1/limsup_{n→∞} |aₙ|^(1/n), wobei limsup den größten Häufungspunkt der Folge (|aₙ|^(1/n)) bezeichnet (0 bzw. ∞, falls dieser Ausdruck verschwindet bzw. unbeschränkt wächst, ergibt R=∞ bzw. R=0). Der Spezialfall aₙ=cⁿ von oben ergibt sich daraus, weil |cⁿ|^(1/n)=|c| für jedes n gilt.",
         ],
         formulas: [
           "zₙ → z ⟺ |zₙ−z| → 0 ⟺ Re(zₙ)→Re(z) und Im(zₙ)→Im(z)",
           "Für Σ cⁿzⁿ (c∈ℂ konstant): Konvergenzradius R = 1/|c|",
+          "Allgemein (Cauchy-Hadamard): R = 1 / limsup_{n→∞} |aₙ|^(1/n)",
         ],
         formulasLatex: [
           "z_n \\to z \\iff |z_n - z| \\to 0 \\iff \\operatorname{Re}(z_n)\\to\\operatorname{Re}(z) \\ \\text{und} \\ \\operatorname{Im}(z_n)\\to\\operatorname{Im}(z)",
           "\\text{Für } \\sum c^n z^n \\ (c \\in \\mathbb{C} \\text{ konstant}): \\quad R = \\dfrac{1}{|c|}",
+          "R = \\dfrac{1}{\\displaystyle\\limsup_{n\\to\\infty} |a_n|^{1/n}}",
         ],
         terms: [
           { term: "Konvergenzradius", definition: "Radius R, innerhalb dessen eine Potenzreihe absolut konvergiert und außerhalb dessen sie divergiert." },
+          { term: "Cauchy-Hadamard-Formel", definition: "Allgemeine Formel R=1/limsup|aₙ|^(1/n) für den Konvergenzradius einer Potenzreihe Σaₙzⁿ, unabhängig davon, ob aₙ eine einfache Form wie cⁿ hat." },
         ],
         examples: [
           "Die Folge zₙ = (2n+i)/(n−i) konvergiert gegen 2, denn Re(zₙ) und Im(zₙ) lassen sich durch Erweitern mit dem konjugierten Nenner bestimmen, und für n→∞ dominieren die Terme mit n: zₙ → 2n/n = 2. — Die Potenzreihe Σ (3+4i)ⁿzⁿ hat wegen |3+4i|=5 den Konvergenzradius R = 1/5: Für |z|<1/5 konvergiert sie absolut, für |z|>1/5 divergiert sie.",
+          "Für die Potenzreihe Σ [(n+1)/3ⁿ]·zⁿ ist der Koeffizient aₙ=(n+1)/3ⁿ nicht von der Form cⁿ, die einfache Formel greift also nicht. Mit Cauchy-Hadamard: |aₙ|^(1/n) = (n+1)^(1/n)/3, und da (n+1)^(1/n)→1 für n→∞ (Standardgrenzwert), folgt limsup|aₙ|^(1/n) = 1/3, also R = 1/(1/3) = 3.",
         ],
       },
     ],
@@ -182,23 +189,28 @@ export const chapters: SkriptChapter[] = [
         body: [
           "In der Praxis berechnet man Determinanten meist über die Laplace-Entwicklung (Entwicklungssatz): Man entwickelt nach einer Zeile oder Spalte, wobei jeder Eintrag mit seinem Vorzeichen-behafteten Minor (Determinante der um diese Zeile/Spalte reduzierten Matrix) multipliziert wird. Die Entwicklung nach einer Zeile/Spalte mit vielen Nullen spart am meisten Rechenaufwand.",
           "Alternativ lässt sich die Determinante über eine Summe von n! Termen definieren, die über alle Permutationen π der Zahlen 1,...,n läuft, jeweils gewichtet mit dem Signum sgn(π) der Permutation (+1 für eine gerade, −1 für eine ungerade Anzahl von Vertauschungen/Fehlständen). Für Dreiecksmatrizen (obere oder untere) ist die Determinante besonders einfach: Sie ist gerade das Produkt der Diagonaleinträge, da alle anderen Permutationen einen Nullfaktor enthalten.",
+          "Für 2×2- und 3×3-Matrizen gibt es mit der Regel von Sarrus eine direkte Merkregel, die ohne Laplace-Entwicklung auskommt: Man schreibt die ersten beiden Spalten der Matrix rechts noch einmal an und summiert die drei Produkte entlang der Hauptdiagonalen, abzüglich der drei Produkte entlang der Nebendiagonalen. Wichtig: Diese Regel funktioniert NUR für 2×2 und 3×3 — für 4×4-Matrizen und größer liefert ein analoges Diagonalschema ein falsches Ergebnis, dort bleibt nur Laplace-Entwicklung oder die Permutationsformel.",
         ],
         formulas: [
           "Laplace-Entwicklung nach Zeile i: det(A) = Σⱼ (−1)^(i+j) · aᵢⱼ · Mᵢⱼ",
           "det(A) = Σ_π sgn(π) · a1,π(1) · a2,π(2) · ... · aₙ,π(n)",
           "Dreiecksmatrix: det(A) = a11 · a22 · ... · aₙₙ",
+          "Regel von Sarrus (nur 3×3): det = aei+bfg+cdh − ceg−bdi−afh, für [[a,b,c],[d,e,f],[g,h,i]]",
         ],
         formulasLatex: [
           "\\det(A) = \\sum_j (-1)^{i+j} a_{ij} M_{ij}",
           "\\det(A) = \\sum_{\\pi} \\operatorname{sgn}(\\pi)\\, a_{1,\\pi(1)} a_{2,\\pi(2)} \\cdots a_{n,\\pi(n)}",
           "\\det(A) = a_{11}\\cdot a_{22} \\cdots a_{nn} \\quad (\\text{Dreiecksmatrix})",
+          "\\det\\!\\begin{pmatrix}a&b&c\\\\d&e&f\\\\g&h&i\\end{pmatrix} = aei+bfg+cdh-ceg-bdi-afh",
         ],
         terms: [
           { term: "Minor Mᵢⱼ", definition: "Determinante der Matrix, die durch Streichen der i-ten Zeile und j-ten Spalte entsteht." },
           { term: "Signum sgn(π)", definition: "Vorzeichen einer Permutation: +1 bei gerader, −1 bei ungerader Anzahl von Fehlständen (Inversionen)." },
+          { term: "Regel von Sarrus", definition: "Direkte Merkregel zur Berechnung von 2×2- und 3×3-Determinanten über Diagonalprodukte; funktioniert nicht für größere Matrizen." },
         ],
         examples: [
           "Für A = [[2,1,3],[0,4,1],[5,2,0]] entwickeln wir nach der ersten Spalte (ein Eintrag ist bereits 0): det(A) = 2·det([[4,1],[2,0]]) − 0·(...) + 5·det([[1,3],[4,1]]) = 2·(0−2) + 5·(1−12) = −4 − 55 = −59. — Für die Permutation π mit π(1,2,3,4)=(3,1,4,2) zählt man die Fehlstände (Paare i<j mit π(i)>π(j)): (1,2), (1,4), (3,4) — drei Stück, also sgn(π) = (−1)³ = −1.",
+          "Probe für dieselbe Matrix A=[[2,1,3],[0,4,1],[5,2,0]] mit der Regel von Sarrus: aei+bfg+cdh−ceg−bdi−afh = (2·4·0)+(1·1·5)+(3·0·2) − (3·4·5)−(1·0·0)−(2·1·2) = (0+5+0) − (60+0+4) = 5−64 = −59 — dasselbe Ergebnis wie über die Laplace-Entwicklung.",
         ],
       },
       {
@@ -351,6 +363,7 @@ export const chapters: SkriptChapter[] = [
         ],
         examples: [
           "Für A = [[2,1],[0,2]] ist PA(λ) = (2−λ)², also hat λ=2 die algebraische Vielfachheit 2. Der Eigenraum ist Kern(A−2E) = Kern([[0,1],[0,0]]) = span{(1,0)}, also geometrische Vielfachheit 1 < 2 — A ist bezüglich λ=2 defekt und damit nicht diagonalisierbar.",
+          "Ein Gegenbeispiel mit übereinstimmenden Vielfachheiten, diesmal für eine 3×3-Matrix: A = [[3,0,0],[0,1,2],[0,2,1]] ist blockdiagonal mit den Blöcken [3] und [[1,2],[2,1]]. Die Eigenwerte des 2×2-Blocks ergeben sich aus (1−λ)²−4=0, also λ²−2λ−3=(λ−3)(λ+1)=0, d.h. λ=3 oder λ=−1. Zusammen mit dem Eigenwert 3 des 1×1-Blocks hat A also die Eigenwerte 3 (algebraische Vielfachheit 2, da er aus beiden Blöcken zusammenkommt) und −1 (algebraische Vielfachheit 1). Für λ=3 ist A−3E = [[0,0,0],[0,−2,2],[0,2,−2]]; die zweite und dritte Zeile sind Vielfache voneinander, der Rang ist also 1, und dim(Kern) = 3−1 = 2 — die geometrische Vielfachheit von λ=3 ist damit ebenfalls 2, stimmt also mit der algebraischen überein. A ist folglich (trotz mehrfachem Eigenwert) diagonalisierbar.",
         ],
       },
       {
@@ -401,7 +414,7 @@ export const chapters: SkriptChapter[] = [
         heading: "6.2 Kriterien für Definitheit",
         body: [
           "Neben dem Eigenwertkriterium (alle Eigenwerte positiv ⟺ positiv definit, usw.) gibt es das Hauptminoren-Kriterium (Sylvester-Kriterium): C ist genau dann positiv definit, wenn alle führenden Hauptminoren (die Determinanten der oberen linken k×k-Teilmatrizen für k=1,...,n) positiv sind. Für negative Definitheit müssen die Hauptminoren alternierende Vorzeichen haben, beginnend mit negativ (d1<0, d2>0, d3<0, ...).",
-          "Ist mindestens ein führender Hauptminor negativ, ohne dass das alternierende Muster für negative Definitheit erfüllt ist (oder liegt ein Hauptminor bei 0), deutet das auf Indefinitheit oder Semidefinitheit hin — in diesem Fall hilft das Eigenwertkriterium, um endgültig zu entscheiden.",
+          "Ist mindestens ein führender Hauptminor negativ, ohne dass das alternierende Muster für negative Definitheit erfüllt ist, ist C weder positiv noch negativ definit — es bleiben Indefinitheit oder Semidefinitheit als Möglichkeiten, und das Eigenwertkriterium entscheidet endgültig. Wichtige Einschränkung: Für Semidefinitheit reicht das Kriterium der FÜHRENDEN Hauptminoren (d1,...,dₙ) allein nicht aus — nicht-negative führende Hauptminoren schließen Indefinitheit NICHT sicher aus. Positive Semidefinitheit gilt nur dann, wenn ausnahmslos ALLE Hauptunterdeterminanten (nicht nur die linksbündigen, sondern die Determinante jeder Teilmatrix, die durch Streichen derselben Zeilen- und Spaltenindizes entsteht) nicht-negativ sind. In der Praxis ist es deshalb meist einfacher, bei einem Verdacht auf Semidefinitheit direkt das Eigenwertkriterium zu verwenden, statt alle Hauptunterdeterminanten einzeln zu prüfen.",
         ],
         formulas: [
           "Positiv definit ⟺ alle führenden Hauptminoren d1,...,dₙ > 0",
@@ -419,9 +432,13 @@ export const chapters: SkriptChapter[] = [
             ["Hauptminoren-Kriterium", "d1,...,dₙ alle > 0", "d1<0, d2>0, d3<0, ... (alternierend)", "Muster weder für + noch − definit erfüllt"],
           ],
         },
-        terms: [{ term: "Führender Hauptminor dₖ", definition: "Determinante der oberen linken k×k-Teilmatrix von C." }],
+        terms: [
+          { term: "Führender Hauptminor dₖ", definition: "Determinante der oberen linken k×k-Teilmatrix von C." },
+          { term: "Hauptunterdeterminante", definition: "Determinante einer beliebigen Teilmatrix von C, die durch Streichen derselben Zeilen- und Spaltenindizes entsteht (nicht nur der linksbündigen k×k-Teilmatrizen). Für Semidefinitheit müssen ALLE davon ≥0 sein, nicht nur die führenden." },
+        ],
         examples: [
           "Für D=[[1,2],[2,1]] ist d1=1>0, aber d2=det(D)=1−4=−3<0 — weder das Muster für positiv (beide >0) noch für negativ definit (d1<0,d2>0) ist erfüllt. Die Eigenwerte von D sind 3 und −1 (ein positiver, ein negativer) — D ist also indefinit, was mit dem Hauptminoren-Befund konsistent ist.",
+          "Warnbeispiel zur Semidefinitheits-Falle: Für C = diag(1,0,−1) sind die FÜHRENDEN Hauptminoren d1=1, d2=1·0=0 und d3=1·0·(−1)=0 — alle ≥0, was fälschlich auf positive Semidefinitheit hindeuten könnte. Die Eigenwerte von C sind aber 1, 0 und −1 — gemischtes Vorzeichen, also ist C tatsächlich indefinit. Der Widerspruch löst sich auf, wenn man eine NICHT-führende Hauptunterdeterminante prüft: Streicht man Zeile/Spalte 2, bleibt [[1,0],[0,−1]] mit Determinante −1 < 0 — genau dieser negative Wert (den die rein führenden Hauptminoren nicht erfassen) verrät die Indefinitheit.",
         ],
       },
     ],
@@ -440,15 +457,19 @@ export const chapters: SkriptChapter[] = [
         heading: "7.1 Normen und Normäquivalenz",
         body: [
           "Eine Norm ‖·‖: ℝⁿ → [0,∞) ist eine Abbildung mit drei Eigenschaften: Definitheit (‖⃗x‖=0 ⟺ ⃗x=⃗0), Homogenität (‖λ⃗x‖=|λ|·‖⃗x‖ für λ∈ℝ) und Dreiecksungleichung (‖⃗x+⃗y‖ ≤ ‖⃗x‖+‖⃗y‖). Die gebräuchlichsten Normen auf ℝⁿ sind die 1-Norm ‖⃗x‖1=Σ|xᵢ|, die euklidische Norm ‖⃗x‖2=√(Σxᵢ²) und die Maximumsnorm ‖⃗x‖∞=max|xᵢ|.",
-          "Ein zentraler Satz besagt: Alle Normen auf ℝⁿ sind äquivalent — zu je zwei Normen ‖·‖, ‖·‖' gibt es Konstanten c,C>0 mit c‖⃗x‖ ≤ ‖⃗x‖' ≤ C‖⃗x‖ für alle ⃗x. Das hat wichtige Konsequenzen: Konvergenz einer Folge hängt nicht von der gewählten Norm ab (Kapitel 2), und jede Norm lässt sich als ‖⃗x‖ = ‖A⃗x‖∞ für eine geeignete invertierbare Matrix A schreiben.",
+          "Ein zentraler Satz besagt: Alle Normen auf ℝⁿ sind äquivalent — zu je zwei Normen ‖·‖, ‖·‖' gibt es Konstanten c,C>0 mit c‖⃗x‖ ≤ ‖⃗x‖' ≤ C‖⃗x‖ für alle ⃗x. Das hat wichtige Konsequenzen: Konvergenz einer Folge hängt nicht von der gewählten Norm ab (Kapitel 2). Speziell für Normen, die selbst als Maximum der Beträge mehrerer Linearkombinationen der Koordinaten definiert sind — also von der Form ‖⃗x‖ := max{|⃗a1ᵀ⃗x|,...,|⃗aₖᵀ⃗x|} für feste Vektoren ⃗a1,...,⃗aₖ —, lässt sich das kompakt als ‖⃗x‖ = ‖A⃗x‖∞ schreiben: Man wählt die Zeilen von A gerade als die Vektoren ⃗a1,...,⃗aₖ, dann liefert ‖A⃗x‖∞ automatisch das Maximum der Beträge dieser Linearkombinationen.",
+          "Anschaulich unterscheiden sich Normen auch in der Form ihres Einheitskreises (bzw. im ℝ³ ihrer Einheitssphäre) — der Menge {⃗x : ‖⃗x‖=1} aller Vektoren mit Norm genau 1. Für ‖·‖1 ist das im ℝ² eine Raute mit Eckpunkten (±1,0) und (0,±1), für ‖·‖2 ein gewöhnlicher Kreis mit Radius 1, und für ‖·‖∞ ein achsenparalleles Quadrat mit Eckpunkten (±1,±1). Diese unterschiedliche 'Ausdehnung' bei gleichem Radius 1 erklärt anschaulich die Ungleichungskette ‖⃗x‖∞ ≤ ‖⃗x‖2 ≤ ‖⃗x‖1 aus dem Beispiel unten: Je kleiner der Einheitskreis einer Norm ausfällt, desto größer werden ihre Normwerte für denselben Vektor.",
+          "Jede Norm ‖·‖ auf ℝⁿ induziert außerdem eine Metrik (einen Abstandsbegriff) über d(⃗x,⃗y) := ‖⃗x−⃗y‖ — eine Abbildung d: ℝⁿ×ℝⁿ→[0,∞) mit d(⃗x,⃗y)=0 ⟺ ⃗x=⃗y, Symmetrie d(⃗x,⃗y)=d(⃗y,⃗x) und der Dreiecksungleichung d(⃗x,⃗z) ≤ d(⃗x,⃗y)+d(⃗y,⃗z). Nicht jede Metrik stammt allerdings von einer Norm — Metriken sind der allgemeinere Begriff.",
         ],
         formulas: [
           "‖⃗x‖1 = Σ|xᵢ|, ‖⃗x‖2 = √(Σxᵢ²), ‖⃗x‖∞ = max|xᵢ|",
           "Normäquivalenz: c‖⃗x‖ ≤ ‖⃗x‖' ≤ C‖⃗x‖ für Konstanten c,C>0",
+          "‖⃗x‖ = max{|⃗a1ᵀ⃗x|,...,|⃗aₖᵀ⃗x|} = ‖A⃗x‖∞, mit A = Zeilen ⃗a1,...,⃗aₖ",
         ],
         formulasLatex: [
           "\\|\\vec x\\|_1 = \\sum_i |x_i|, \\quad \\|\\vec x\\|_2 = \\sqrt{\\sum_i x_i^2}, \\quad \\|\\vec x\\|_\\infty = \\max_i |x_i|",
           "c\\|\\vec x\\| \\le \\|\\vec x\\|' \\le C\\|\\vec x\\|",
+          "\\|\\vec x\\| = \\max\\{|\\vec a_1^{\\mathsf T}\\vec x|,\\dots,|\\vec a_k^{\\mathsf T}\\vec x|\\} = \\|A\\vec x\\|_\\infty",
         ],
         table: {
           caption: "Die drei Standardnormen auf ℝⁿ",
@@ -459,9 +480,15 @@ export const chapters: SkriptChapter[] = [
             ["Maximumsnorm ‖·‖∞", "max|xᵢ|", "größte einzelne Komponente"],
           ],
         },
-        terms: [{ term: "Normäquivalenz", definition: "Alle Normen auf ℝⁿ (endlichdimensional) sind äquivalent: je zwei Normen lassen sich wechselseitig durch Konstanten abschätzen." }],
+        terms: [
+          { term: "Normäquivalenz", definition: "Alle Normen auf ℝⁿ (endlichdimensional) sind äquivalent: je zwei Normen lassen sich wechselseitig durch Konstanten abschätzen." },
+          { term: "Einheitskreis/Einheitssphäre einer Norm", definition: "Die Menge {⃗x : ‖⃗x‖=1}; ihre Form (Raute, Kreis, Quadrat, ...) hängt von der gewählten Norm ab." },
+          { term: "Metrik d(⃗x,⃗y)", definition: "Abstandsbegriff mit d(⃗x,⃗y)=0⟺⃗x=⃗y, Symmetrie und Dreiecksungleichung; jede Norm induziert über d(⃗x,⃗y):=‖⃗x−⃗y‖ eine Metrik." },
+        ],
         examples: [
           "Für ⃗x=(3,−4) gilt ‖⃗x‖1=3+4=7, ‖⃗x‖2=√(9+16)=5 und ‖⃗x‖∞=max(3,4)=4 — man sieht ‖⃗x‖∞ ≤ ‖⃗x‖2 ≤ ‖⃗x‖1, also 4 ≤ 5 ≤ 7, ein Spezialfall der allgemeinen Normäquivalenz.",
+          "Gegeben sei die Norm ‖⃗x‖ := max{|x1+2x2|, |2x1−x2|} für ⃗x=(x1,x2)∈ℝ². Mit A=[[1,2],[2,−1]] (Zeilen = die beiden Linearkombinationen) gilt ‖⃗x‖=‖A⃗x‖∞. Probe für ⃗x=(1,1): direkt max{|1+2|,|2−1|}=max{3,1}=3. Über A: A⃗x=(1·1+2·1, 2·1−1·1)=(3,1), also ‖A⃗x‖∞=max(3,1)=3 ✓.",
+          "Vollständiger Normaxiom-Nachweis für die gewichtete Norm ‖⃗x‖w := 2|x1|+3|x2|: (1) Definitheit: ‖⃗x‖w=0 ⟺ 2|x1|+3|x2|=0 ⟺ |x1|=|x2|=0 (da beide Summanden ≥0 sind) ⟺ ⃗x=⃗0. (2) Homogenität: ‖λ⃗x‖w=2|λx1|+3|λx2|=|λ|(2|x1|+3|x2|)=|λ|‖⃗x‖w. (3) Dreiecksungleichung: ‖⃗x+⃗y‖w=2|x1+y1|+3|x2+y2| ≤ 2(|x1|+|y1|)+3(|x2|+|y2|) = ‖⃗x‖w+‖⃗y‖w, wobei im mittleren Schritt die gewöhnliche Dreiecksungleichung für Beträge auf jede Komponente einzeln angewendet wurde. Alle drei Axiome sind erfüllt, ‖·‖w ist also tatsächlich eine Norm.",
         ],
       },
       {
@@ -501,22 +528,27 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Zwei Vektoren ⃗x, ⃗y heißen orthogonal, wenn ⟨⃗x,⃗y⟩=0 gilt. Eine Orthonormalbasis (ONB) ist eine Basis aus paarweise orthogonalen Vektoren der Länge 1. Aus einer beliebigen Basis {⃗v1,...,⃗vₖ} eines Untervektorraums lässt sich mit dem Gram-Schmidt-Verfahren eine ONB konstruieren: Man normiert ⃗v1 zu ⃗u1, zieht von ⃗v2 die Projektion auf ⃗u1 ab und normiert den Rest zu ⃗u2, und verfährt iterativ so weiter — bei jedem Schritt wird von ⃗vⱼ die Projektion auf alle bereits konstruierten ⃗u1,...,⃗u_{j-1} abgezogen, bevor normiert wird.",
           "Die orthogonale Projektion eines Vektors ⃗c auf einen Untervektorraum U mit Orthonormalbasis {⃗u1,...,⃗uₖ} ist P_U(⃗c) = Σⱼ ⟨⃗uⱼ,⃗c⟩·⃗uⱼ. Der Abstand von ⃗c zu U ist dann d(⃗c,U) = ‖⃗c − P_U(⃗c)‖ — dies ist zugleich der kürzeste Abstand von ⃗c zu irgendeinem Punkt in U.",
+          "Diese Formel setzt voraus, dass U ein Untervektorraum ist, also den Ursprung enthält. Soll stattdessen auf eine Gerade g = ⃗x0 + span{⃗v} projiziert werden, die NICHT durch den Ursprung verläuft (ein affiner statt linearer Unterraum), verschiebt man zunächst um ⃗x0: Man projiziert den Differenzvektor ⃗c−⃗x0 auf den linearen Unterraum span{⃗v} und addiert ⃗x0 wieder zurück: P_g(⃗c) = ⃗x0 + P_{span{⃗v}}(⃗c−⃗x0). Der Abstand d(⃗c,g) = ‖⃗c−P_g(⃗c)‖ berechnet sich danach wie gewohnt.",
         ],
         formulas: [
           "Gram-Schmidt: ⃗wⱼ = ⃗vⱼ − Σᵢ<ⱼ ⟨⃗uᵢ,⃗vⱼ⟩⃗uᵢ, dann ⃗uⱼ = ⃗wⱼ/‖⃗wⱼ‖",
           "P_U(⃗c) = Σⱼ ⟨⃗uⱼ,⃗c⟩ · ⃗uⱼ, d(⃗c,U) = ‖⃗c − P_U(⃗c)‖",
+          "Gerade g=⃗x0+span{⃗v}: P_g(⃗c) = ⃗x0 + P_span{⃗v}(⃗c−⃗x0)",
         ],
         formulasLatex: [
           "\\vec w_j = \\vec v_j - \\sum_{i<j} \\langle \\vec u_i, \\vec v_j\\rangle \\vec u_i, \\qquad \\vec u_j = \\dfrac{\\vec w_j}{\\|\\vec w_j\\|}",
           "P_U(\\vec c) = \\sum_j \\langle \\vec u_j, \\vec c\\rangle \\vec u_j, \\qquad d(\\vec c, U) = \\|\\vec c - P_U(\\vec c)\\|",
+          "g = \\vec x_0 + \\operatorname{span}\\{\\vec v\\}: \\quad P_g(\\vec c) = \\vec x_0 + P_{\\operatorname{span}\\{\\vec v\\}}(\\vec c - \\vec x_0)",
         ],
         terms: [
           { term: "Orthonormalbasis (ONB)", definition: "Basis aus paarweise orthogonalen Vektoren der Länge 1." },
           { term: "Gram-Schmidt-Verfahren", definition: "Konstruktionsverfahren, das aus einer beliebigen Basis eine Orthonormalbasis erzeugt." },
           { term: "Orthogonale Projektion P_U", definition: "Abbildung, die einen Vektor auf seinen 'nächstgelegenen' Punkt in einem Untervektorraum U abbildet." },
+          { term: "Projektion auf einen affinen Unterraum", definition: "Projektion auf eine Gerade/Ebene, die nicht durch den Ursprung verläuft: Man projiziert den um den Stützpunkt verschobenen Vektor auf den zugehörigen linearen Unterraum und verschiebt zurück." },
         ],
         examples: [
           "Für ⃗v1=(1,1,0) und ⃗v2=(1,0,1) liefert Gram-Schmidt zunächst ⃗u1 = ⃗v1/‖⃗v1‖ = (1,1,0)/√2. Die Projektion von ⃗v2 auf ⃗u1 ist ⟨⃗u1,⃗v2⟩·⃗u1 = (1/√2)·(1,1,0)/√2 = (1/2,1/2,0). Damit ⃗w2 = ⃗v2 − (1/2,1/2,0) = (1/2,−1/2,1), und normiert ⃗u2 = ⃗w2/‖⃗w2‖ = (1,−1,2)/√6 (da ‖⃗w2‖=√(1/4+1/4+1)=√6/2). — Für U=span{⃗v1} und ⃗c=(0,2,1) ist P_U(⃗c) = ⟨⃗u1,⃗c⟩⃗u1 = (2/√2)·(1,1,0)/√2 = (1,1,0), und der Abstand d(⃗c,U) = ‖(0,2,1)−(1,1,0)‖ = ‖(−1,1,1)‖ = √3.",
+          "Für die Gerade g = (1,0,0) + span{(0,1,1)} (verläuft NICHT durch den Ursprung) und ⃗c=(1,3,1): Zunächst ⃗u = (0,1,1)/‖(0,1,1)‖ = (0,1,1)/√2. Der verschobene Vektor ist ⃗c−⃗x0 = (0,3,1), und ⟨⃗u,⃗c−⃗x0⟩ = (0+3+1)/√2 = 4/√2 = 2√2. Damit P_span{(0,1,1)}(⃗c−⃗x0) = 2√2·(0,1,1)/√2 = (0,2,2), also P_g(⃗c) = (1,0,0)+(0,2,2) = (1,2,2). Der Abstand ist d(⃗c,g) = ‖(1,3,1)−(1,2,2)‖ = ‖(0,1,−1)‖ = √2.",
         ],
       },
     ],
@@ -536,10 +568,20 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Eine Funktion f: D ⊆ ℝⁿ → ℝ hat im Punkt ⃗x0 den Grenzwert L, geschrieben lim_{⃗x→⃗x0} f(⃗x) = L, wenn für JEDE Folge (⃗xₖ) in D\\{⃗x0} mit ⃗xₖ→⃗x0 auch f(⃗xₖ)→L gilt (Folgenkriterium). f heißt stetig in ⃗x0 ∈ D, wenn lim_{⃗x→⃗x0} f(⃗x) = f(⃗x0) gilt. Anders als im Eindimensionalen, wo man den Grenzwert nur von links und von rechts prüfen muss, gibt es im ℝⁿ unendlich viele Annäherungsrichtungen — der Grenzwert muss für ALLE gleich ausfallen.",
           "Praktisch nützlich: Summen, Produkte, Quotienten (im Nenner ≠0) und Verkettungen stetiger Funktionen sind wieder stetig — dieselben Regeln wie im Eindimensionalen gelten also komponentenweise fort. Kritisch wird es nur an 'Ausnahmepunkten' (meist dort, wo ein Bruch formal 0/0 ergibt), an denen man den Grenzwert explizit untersuchen muss.",
+          "Gleichwertig zum Folgenkriterium lässt sich Stetigkeit auch über ein ε-δ-Kriterium fassen, ohne Folgen zu benutzen: f ist stetig in ⃗x0, wenn es zu jedem ε>0 ein δ>0 gibt, sodass für alle ⃗x∈D mit ‖⃗x−⃗x0‖<δ stets |f(⃗x)−f(⃗x0)|<ε gilt. Anschaulich: Egal wie klein die erlaubte Abweichung ε im Funktionswert vorgegeben wird, lässt sich stets eine (eventuell sehr kleine) Umgebung um ⃗x0 finden, innerhalb derer f garantiert nicht mehr als ε von f(⃗x0) abweicht. Welches der beiden gleichwertigen Kriterien man verwendet, ist reine Geschmackssache — das Folgenkriterium eignet sich meist besser, um Unstetigkeit über zwei verschiedene Wege zu widerlegen (siehe 8.2), das ε-δ-Kriterium oft besser für direkte Beweise.",
         ],
-        formulas: ["f stetig in ⃗x0 ⟺ für jede Folge ⃗xₖ→⃗x0 in D gilt f(⃗xₖ) → f(⃗x0)"],
-        formulasLatex: ["f \\ \\text{stetig in } \\vec x_0 \\iff \\text{für jede Folge } \\vec x_k \\to \\vec x_0 \\text{ in } D \\text{ gilt } f(\\vec x_k) \\to f(\\vec x_0)"],
-        terms: [{ term: "Stetigkeit im ℝⁿ", definition: "f ist stetig in ⃗x0, wenn der Grenzwert von f entlang JEDER Folge, die gegen ⃗x0 konvergiert, gleich f(⃗x0) ist." }],
+        formulas: [
+          "f stetig in ⃗x0 ⟺ für jede Folge ⃗xₖ→⃗x0 in D gilt f(⃗xₖ) → f(⃗x0)",
+          "f stetig in ⃗x0 ⟺ ∀ε>0 ∃δ>0: ⃗x∈D, ‖⃗x−⃗x0‖<δ ⟹ |f(⃗x)−f(⃗x0)|<ε",
+        ],
+        formulasLatex: [
+          "f \\ \\text{stetig in } \\vec x_0 \\iff \\text{für jede Folge } \\vec x_k \\to \\vec x_0 \\text{ in } D \\text{ gilt } f(\\vec x_k) \\to f(\\vec x_0)",
+          "f \\ \\text{stetig in } \\vec x_0 \\iff \\forall \\varepsilon>0\\ \\exists \\delta>0:\\ \\|\\vec x - \\vec x_0\\| < \\delta \\implies |f(\\vec x)-f(\\vec x_0)| < \\varepsilon",
+        ],
+        terms: [
+          { term: "Stetigkeit im ℝⁿ", definition: "f ist stetig in ⃗x0, wenn der Grenzwert von f entlang JEDER Folge, die gegen ⃗x0 konvergiert, gleich f(⃗x0) ist." },
+          { term: "ε-δ-Kriterium der Stetigkeit", definition: "Zum Folgenkriterium äquivalente Formulierung: Zu jedem ε>0 muss ein δ>0 existieren, sodass ‖⃗x−⃗x0‖<δ stets |f(⃗x)−f(⃗x0)|<ε garantiert." },
+        ],
         examples: [
           "Die Funktion f(x,y) = (e^(x²+y²)−1)/(x²+y²) für (x,y)≠(0,0) und f(0,0):=1 ist stetig in (0,0): Mit z:=x²+y²→0⁺ gilt (e^z−1)/z → 1 (Grenzwert der Exponentialfunktion, per Regel von L'Hospital: Ableitung von e^z−1 ist e^z→1, Ableitung von z ist 1), was genau f(0,0) entspricht.",
         ],
@@ -570,8 +612,22 @@ export const chapters: SkriptChapter[] = [
       "Dieses abschließende Kapitel fasst kompakt die wichtigsten Grundlagen der mehrdimensionalen Differentiation zusammen, die auch in der Semesterklausur auftauchen können — für eine ausführlichere Behandlung (Kettenregel, Hessematrix, Extremwertaufgaben) empfiehlt sich das Modul 'Mathematik 2: Abschlussklausur'.",
     sections: [
       {
+        id: "9-0",
+        heading: "9.1 Höhenlinien und Niveaumengen",
+        body: [
+          "Für eine Funktion f: ℝⁿ→ℝ ist die Höhenlinie (Niveaumenge) zum Niveau η die Menge Hf(η) := f⁻¹({η}) = {⃗x∈ℝⁿ : f(⃗x)=η} — alle Punkte, an denen f denselben Wert η annimmt. Für n=2 sind das gewöhnlich Kurven in der Ebene (daher der Name, wie bei Höhenlinien auf einer Landkarte); für n=3 spricht man von Niveauflächen.",
+          "Höhenlinien und der Gradient (9.2) hängen eng zusammen: An jedem Punkt ⃗x steht ∇f(⃗x) senkrecht auf der durch ⃗x verlaufenden Höhenlinie. Das ist plausibel, weil sich f entlang einer Höhenlinie per Definition nicht ändert — die Richtungsableitung tangential zur Höhenlinie ist also 0 —, während der Gradient gerade die Richtung des steilsten Anstiegs angibt, senkrecht zu jeder Richtung, in der sich nichts ändert.",
+        ],
+        formulas: ["Hf(η) = f⁻¹({η}) = {⃗x∈ℝⁿ : f(⃗x)=η}"],
+        formulasLatex: ["H_f(\\eta) = f^{-1}(\\{\\eta\\}) = \\{\\vec x \\in \\mathbb{R}^n : f(\\vec x) = \\eta\\}"],
+        terms: [{ term: "Höhenlinie/Niveaumenge Hf(η)", definition: "Menge aller Punkte, an denen f den festen Wert η annimmt; der Gradient steht an jedem Punkt senkrecht auf ihr." }],
+        examples: [
+          "Für f(x,y)=x²+y² ist die Höhenlinie zum Niveau η=4 der Kreis {(x,y) : x²+y²=4} mit Radius 2 um den Ursprung. Der Gradient ∇f(x,y)=(2x,2y) zeigt im Punkt (2,0) auf diesem Kreis in Richtung (4,0), also radial nach außen — tatsächlich senkrecht zur Kreistangente an dieser Stelle.",
+        ],
+      },
+      {
         id: "9-1",
-        heading: "9.1 Gradient und Richtungsableitung",
+        heading: "9.2 Gradient und Richtungsableitung",
         body: [
           "Für eine partiell differenzierbare Funktion f: ℝⁿ→ℝ ist der Gradient ∇f(⃗x) = (∂f/∂x1,...,∂f/∂xₙ) der Vektor aller partiellen Ableitungen. Ist f total differenzierbar, lässt sich die Richtungsableitung in Richtung eines Einheitsvektors ⃗w (‖⃗w‖=1) als Skalarprodukt berechnen: ∂f/∂⃗w (⃗x) = ⟨∇f(⃗x), ⃗w⟩.",
           "Der Gradient zeigt stets in die Richtung des steilsten Anstiegs von f, und sein Betrag ‖∇f(⃗x)‖ ist genau die maximale Richtungsableitung an dieser Stelle; in die Gegenrichtung −∇f(⃗x)/‖∇f(⃗x)‖ nimmt f am steilsten ab.",
@@ -591,7 +647,7 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "9-2",
-        heading: "9.2 Tangentialebene",
+        heading: "9.3 Tangentialebene",
         body: [
           "Ist f: ℝ²→ℝ total differenzierbar im Punkt (x0,y0), so ist die Tangentialebene an den Graphen von f in diesem Punkt gegeben durch z = f(x0,y0) + ⟨∇f(x0,y0), (x−x0, y−y0)⟩ — die beste lineare (affine) Näherung von f in der Nähe von (x0,y0). Sie verallgemeinert die Tangente einer Kurve auf den zweidimensionalen Fall.",
         ],
