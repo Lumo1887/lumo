@@ -164,22 +164,39 @@ export default function SalesHomeContent() {
           </p>
         </div>
 
-        <div className="relative mx-auto w-full max-w-sm">
+        <div className="relative mx-auto w-full max-w-sm pt-4">
           {/* Dekorative Glow-Blobs für mehr Tiefe hinter der Vorschaukarte */}
-          <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-brand-300/40 blur-3xl" />
+          <div className="pointer-events-none absolute -right-8 top-0 h-40 w-40 rounded-full bg-brand-300/40 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-orange-200/50 blur-3xl" />
+
+          {/* Badge, der die Karte eindeutig als Vorschau/Beispiel kennzeichnet
+              — überlappt bewusst den oberen Kartenrand, damit sofort klar
+              ist: das hier ist ein Beispiel dafür, wie ein Skript-Kapitel
+              aussieht, kein Teil der normalen Seite. */}
+          <span className="absolute left-5 top-0 z-10 inline-flex items-center gap-1.5 rounded-full bg-ink-900 px-3.5 py-1.5 text-xs font-bold text-white shadow-md">
+            👀 Vorschau — so sieht dein Skript aus
+          </span>
 
           {/* Echte, funktionierende Vorschau: Live-Ausschnitt aus dem
               tatsächlichen Statistik-1-Skript (Kapitel 1, kostenlos), inkl.
-              echt gerendeter KaTeX-Formel — kein statischer Platzhalter. */}
+              echt gerendeter KaTeX-Formel — kein statischer Platzhalter. Der
+              Fenster-Balken oben (Punkte + Tab-Titel) rahmt die Karte
+              zusätzlich optisch als "Bildschirm-Ausschnitt" ein. */}
           <Link
             href="/module/statistik-1/skript"
             className="relative block overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-glow transition hover:-translate-y-1"
           >
+            <div className="flex items-center gap-2 border-b border-ink-100 bg-ink-50 px-4 py-2.5">
+              <span className="flex gap-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-ink-200" />
+                <span className="h-2.5 w-2.5 rounded-full bg-ink-200" />
+                <span className="h-2.5 w-2.5 rounded-full bg-ink-200" />
+              </span>
+              <span className="text-[11px] font-semibold text-ink-400">
+                Beispielausschnitt: Statistik-I-Skript, Kapitel 1
+              </span>
+            </div>
             <div className="skript-page px-5 py-5">
-              <p className="hand-label mb-1.5 text-[11px] font-bold uppercase tracking-wide text-brand-600">
-                Live aus dem echten Skript · Statistik I
-              </p>
               <h3 className="mb-3 text-sm font-bold text-ink-900">
                 1.6 Satz von Bayes und totale Wahrscheinlichkeit
               </h3>
@@ -196,8 +213,8 @@ export default function SalesHomeContent() {
               </p>
             </div>
             <div className="flex items-center justify-between border-t border-ink-100 bg-ink-50/70 px-4 py-2.5">
-              <span className="text-xs font-bold text-ink-500">
-                Kapitel 1 — kostenlos →
+              <span className="text-xs font-bold text-brand-700">
+                Echtes Kapitel kostenlos ansehen →
               </span>
               <span className="text-xs font-bold text-emerald-700">
                 ✓ Aktuelle Prüfungsordnung
