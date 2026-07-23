@@ -268,16 +268,23 @@ export const chapters: SkriptChapter[] = [
           "Der Erwartungswert E(X) einer Zufallsvariable beschreibt ihren durchschnittlichen Wert bei (gedanklich) unendlich häufiger Wiederholung des zugrunde liegenden Zufallsexperiments. Bei diskreten Zufallsvariablen berechnet er sich als E(X) = Σ xi · f(xi) — jeder mögliche Wert wird mit seiner Wahrscheinlichkeit gewichtet und aufsummiert. Bei stetigen Zufallsvariablen tritt an die Stelle der Summe ein Integral über x·f(x).",
           "Der Erwartungswert ist linear: Für eine Konstante a und b gilt E(aX + b) = a·E(X) + b, und für zwei Zufallsvariablen X und Y gilt stets E(X+Y) = E(X) + E(Y) — unabhängig davon, ob X und Y voneinander abhängen.",
         ],
-        formulas: ["E(X) = Σ xi · f(xi)"],
-        formulasLatex: ["E(X) = \\sum_i x_i \\cdot f(x_i)"],
+        formulas: [
+          "E(X) = Σ xi · f(xi)  (diskret)",
+          "E(X) = ∫ x · f(x) dx  (stetig)",
+        ],
+        formulasLatex: [
+          "E(X) = \\sum_i x_i \\cdot f(x_i)",
+          "E(X) = \\int_{-\\infty}^{\\infty} x \\cdot f(x)\\,dx",
+        ],
         terms: [
           {
             term: "Erwartungswert E(X)",
-            definition: "Der mit den Eintrittswahrscheinlichkeiten gewichtete Durchschnittswert einer Zufallsvariable.",
+            definition: "Der mit den Eintrittswahrscheinlichkeiten (diskret) bzw. der Dichte (stetig) gewichtete Durchschnittswert einer Zufallsvariable.",
           },
         ],
         examples: [
           "Ein Losverkäufer verkauft Lose zu 2 €. Mit Wahrscheinlichkeit 0,01 gewinnt man 50 €, mit Wahrscheinlichkeit 0,99 gewinnt man nichts. Der erwartete Gewinn beträgt E(X) = 0,01·50 + 0,99·0 = 0,50 € — im Schnitt gewinnt man also weniger, als das Los kostet.",
+          "Eine stetige Zufallsvariable X sei gleichverteilt auf dem Intervall [2,6], also mit konstanter Dichte f(x) = 1/4 für 2≤x≤6 (und 0 sonst). Der Erwartungswert ist E(X) = ∫₂⁶ x·(1/4) dx = (1/4)·[x²/2]₂⁶ = (1/4)·(18−2) = 4 — genau die Intervallmitte, wie bei jeder stetigen Gleichverteilung.",
         ],
       },
       {
