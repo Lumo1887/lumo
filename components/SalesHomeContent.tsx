@@ -125,7 +125,7 @@ export default function SalesHomeContent() {
   return (
     <div>
       {/* ---------- Hero ---------- */}
-      <section className="grid grid-cols-1 items-center gap-10 pb-6 pt-2 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+      <section className="grid grid-cols-1 items-center gap-10 pb-6 pt-2 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12">
         <div>
           {reviewCount > 0 && (
             <div className="mb-5 flex items-center gap-2">
@@ -144,15 +144,19 @@ export default function SalesHomeContent() {
             dein Modul und deine Prüfungsordnung. Kein Suchen, kein
             Rätselraten — nur der Stoff, der dran kommt.
           </p>
-          <div className="mt-7 flex flex-wrap items-center gap-4">
-            <a href="#modul-finder" className="btn-primary !px-7 !py-4 !text-base">
+          <div className="mt-7 flex flex-wrap items-center gap-5">
+            <a
+              href="#modul-finder"
+              className="relative inline-flex items-center justify-center rounded-full bg-brand-600 px-10 py-5 text-lg font-extrabold text-white shadow-glow transition hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-brand-700"
+            >
+              <span className="pointer-events-none absolute inset-0 -z-10 animate-pulse rounded-full bg-brand-500/50 blur-xl" />
               Mein Modul finden ↓
             </a>
             <Link
               href="/module/statistik-1/skript"
-              className="btn-secondary !px-6 !py-4 !text-base"
+              className="text-sm font-semibold text-ink-600 underline decoration-ink-300 underline-offset-4 transition hover:text-brand-700 hover:decoration-brand-400"
             >
-              Beispielskript ansehen
+              Beispielskript ansehen →
             </Link>
           </div>
           <p className="mt-6 text-sm font-semibold text-orange-700">
@@ -160,10 +164,10 @@ export default function SalesHomeContent() {
           </p>
         </div>
 
-        <div className="relative">
+        <div className="relative mx-auto w-full max-w-sm">
           {/* Dekorative Glow-Blobs für mehr Tiefe hinter der Vorschaukarte */}
-          <div className="pointer-events-none absolute -right-10 -top-10 h-56 w-56 rounded-full bg-brand-300/40 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-10 -left-10 h-48 w-48 rounded-full bg-orange-200/50 blur-3xl" />
+          <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-brand-300/40 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-orange-200/50 blur-3xl" />
 
           {/* Echte, funktionierende Vorschau: Live-Ausschnitt aus dem
               tatsächlichen Statistik-1-Skript (Kapitel 1, kostenlos), inkl.
@@ -172,34 +176,31 @@ export default function SalesHomeContent() {
             href="/module/statistik-1/skript"
             className="relative block overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-glow transition hover:-translate-y-1"
           >
-            <div className="skript-page px-7 py-7">
-              <p className="hand-label mb-2 text-xs font-bold uppercase tracking-wide text-brand-600">
+            <div className="skript-page px-5 py-5">
+              <p className="hand-label mb-1.5 text-[11px] font-bold uppercase tracking-wide text-brand-600">
                 Live aus dem echten Skript · Statistik I
               </p>
-              <h3 className="mb-4 text-lg font-bold text-ink-900">
+              <h3 className="mb-3 text-sm font-bold text-ink-900">
                 1.6 Satz von Bayes und totale Wahrscheinlichkeit
               </h3>
-              <div className="skript-formula mb-4 shadow-sm">
+              <div className="skript-formula !px-3 !py-2 mb-3 text-xs shadow-sm">
                 <MathFormula
                   latex="P(B_i\mid A) = \dfrac{P(A\mid B_i)\,P(B_i)}{\sum_j P(A\mid B_j)\,P(B_j)}"
                   fallback="P(Bi|A) = [P(A|Bi)·P(Bi)] / Σj P(A|Bj)·P(Bj)"
                 />
               </div>
-              <p className="skript-example shadow-sm">
-                Ein Sicherheitsscanner am Eingang eines Firmengebäudes erkennt
-                einen mitgeführten verbotenen Gegenstand mit 90%
-                Wahrscheinlichkeit korrekt — ein solcher Gegenstand kommt aber
-                nur bei 0,5% aller Einlässe tatsächlich vor. Ergebnis: Bei
-                ausgelöstem Alarm ist nur etwa jeder vierzehnte Fall
-                tatsächlich ein echter Fund.
+              <p className="skript-example !px-3 !py-2 text-xs shadow-sm">
+                Ein Sicherheitsscanner erkennt einen verbotenen Gegenstand mit
+                90% Wahrscheinlichkeit — bei ausgelöstem Alarm ist trotzdem
+                nur etwa jeder vierzehnte Fall ein echter Fund.
               </p>
             </div>
-            <div className="flex items-center justify-between border-t border-ink-100 bg-ink-50/70 px-6 py-4">
-              <span className="text-sm font-bold text-ink-500">
-                Kapitel 1 — kostenlos einsehbar →
+            <div className="flex items-center justify-between border-t border-ink-100 bg-ink-50/70 px-4 py-2.5">
+              <span className="text-xs font-bold text-ink-500">
+                Kapitel 1 — kostenlos →
               </span>
-              <span className="text-sm font-bold text-emerald-700">
-                ✓ Stoff der aktuellen Prüfungsordnung
+              <span className="text-xs font-bold text-emerald-700">
+                ✓ Aktuelle Prüfungsordnung
               </span>
             </div>
           </Link>
