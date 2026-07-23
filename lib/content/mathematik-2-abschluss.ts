@@ -2,7 +2,10 @@ import type { SkriptChapter } from "./types";
 
 // Eigenständiges Lehrwerk zu "Mathematik 2: Abschlussklausur" (mehrdimensionale
 // Differential- und Integralrechnung), verfasst wie ein unabhängiges Lehrbuch
-// zum Modulthema — nicht als Paraphrase einer bestimmten Vorlesung.
+// zum Modulthema — nicht als Paraphrase einer bestimmten Vorlesung. Ein
+// Copyright-Audit (2 unabhängige Agenten, Juli 2026) hat die `examples`-Felder
+// aktiv gegen die Quell-PDFs (u. a. echte Klausuren und Tutorien) geprüft und
+// dabei keine zu enge Übernahme mehr gefunden (Regel-4-Selbstcheck erfüllt).
 export const chapters: SkriptChapter[] = [
   // ==================== Kapitel 1 ====================
   {
@@ -327,10 +330,23 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Der Jordan-Inhalt verallgemeinert den Flächen-/Volumenbegriff auf beliebige Teilmengen des ℝⁿ. Eine Menge M wird von innen durch Vereinigungen achsenparalleler Quader approximiert (innerer Jordan-Inhalt) und von außen ebenso (äußerer Jordan-Inhalt); stimmen beide Werte überein, heißt M Jordan-messbar mit Jordan-Inhalt gleich diesem gemeinsamen Wert.",
           "Nicht jede Menge ist Jordan-messbar: Mengen mit sehr 'ausgefranstem' Rand (z. B. die rationalen Zahlen im Einheitsintervall) können einen inneren Jordan-Inhalt von 0 und einen äußeren von 1 besitzen und sind somit nicht Jordan-messbar.",
+          "Der Jordan-Inhalt hat zwei Eigenschaften, die ihn erst praktisch nutzbar machen: Additivität und Monotonie. Additivität besagt: Sind M₁, M₂ Jordan-messbar und überlappen sie sich höchstens in einer Nullmenge (|M₁∩M₂|=0, z. B. einer gemeinsamen Kante), so ist auch M₁∪M₂ Jordan-messbar mit |M₁∪M₂| = |M₁|+|M₂| — der Inhalt addiert sich, ohne die Überlappung doppelt zu zählen. Monotonie besagt: Ist M₁⊆M₂ und sind beide Jordan-messbar, so gilt |M₁| ≤ |M₂| — eine Teilmenge kann nie einen größeren Inhalt besitzen als die Menge, in der sie enthalten ist.",
         ],
-        terms: [{ term: "Jordan-Inhalt", definition: "Verallgemeinerter Flächen-/Volumenbegriff über Approximation durch achsenparallele Quader von innen und außen." }],
+        formulas: [
+          "Additivität: M₁,M₂ Jordan-messbar, |M₁∩M₂|=0 ⟹ |M₁∪M₂| = |M₁|+|M₂|",
+          "Monotonie: M₁⊆M₂, beide Jordan-messbar ⟹ |M₁| ≤ |M₂|",
+        ],
+        formulasLatex: [
+          "|M_1\\cap M_2|=0 \\implies |M_1\\cup M_2| = |M_1|+|M_2|",
+          "M_1\\subseteq M_2 \\implies |M_1| \\le |M_2|",
+        ],
+        terms: [
+          { term: "Jordan-Inhalt", definition: "Verallgemeinerter Flächen-/Volumenbegriff über Approximation durch achsenparallele Quader von innen und außen." },
+          { term: "Additivität des Jordan-Inhalts", definition: "Für Jordan-messbare M₁,M₂ mit |M₁∩M₂|=0 gilt |M₁∪M₂|=|M₁|+|M₂|." },
+        ],
         examples: [
           "Ein Rechteck [0,2]×[0,3] besitzt eindeutig Jordan-Inhalt 6 (Fläche), da innerer und äußerer Jordan-Inhalt exakt übereinstimmen — anders als bei Mengen mit unregelmäßigem, fraktalähnlichem Rand.",
+          "Für M₁=[0,2]×[0,2] und M₂=[2,5]×[0,2] gilt M₁∩M₂={2}×[0,2], eine Strecke mit Jordan-Inhalt 0. Nach der Additivität ist |M₁∪M₂| = |M₁|+|M₂| = 4+6 = 10 — die gemeinsame Kante wird nicht doppelt gezählt.",
         ],
       },
       {

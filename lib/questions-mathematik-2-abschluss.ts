@@ -22,7 +22,14 @@ export interface Question {
 // ausgetauscht werden, da es sich bei sämtlichen Aufgaben dieses Moduls um
 // rein abstrakte, symbolische Aufgaben ohne konkretes Szenario handelt (reine
 // Funktionsanalyse, Mengen, Integrale) — genau der in CLAUDE.md vorgesehene
-// Ausnahmefall.
+// Ausnahmefall. Ein Copyright-Audit (2 unabhängige Agenten, Juli 2026) hat
+// zusätzlich mehrere zu enge 1:1-Übernahmen (u. a. identische Integrationsbereiche
+// und Ergebnisse aus einer echten Klausur sowie eine fast wortgleiche
+// Tutoriumsaufgabe) gefunden und durch eigenständig neu gewählte Zahlen/
+// Funktionen/Bereiche ersetzt. Außerdem wurden die `source`-Felder korrigiert:
+// Sie verwendeten zuvor eine alte 14-Themen-Nummerierung ("Kapitel 1"–"Kapitel 14"),
+// die nicht mit der tatsächlichen 8-Kapitel-Struktur in
+// lib/content/mathematik-2-abschluss.ts übereinstimmte.
 export const TOPICS = [
   "Jordan-Inhalt und messbare Mengen im Rⁿ",
   "Partielle Differenzierbarkeit und der Gradient",
@@ -51,7 +58,7 @@ export const questions: Question[] = [
     correctValue: 12,
     explanation:
       "Die beiden Rechtecke überlappen sich höchstens in der gemeinsamen Kante {3} × [2] (einer Jordan-Nullmenge), sind also additiv: |M| = 3·2 + 3·2 = 6 + 6 = 12.",
-    source: "Kapitel 1, Jordan-Inhalt",
+    source: "Kapitel 7, Jordan-Inhalt",
     free: true,
   },
   {
@@ -63,7 +70,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Jeder einzelne Punkt lässt sich durch einen Quader mit beliebig kleinem Inhalt überdecken; da nur endlich viele Punkte vorliegen, ist auch die Gesamtüberdeckung beliebig klein, also |M| = 0.",
-    source: "Kapitel 1, Jordan-Inhalt",
+    source: "Kapitel 7, Jordan-Inhalt",
     free: false,
   },
   {
@@ -76,7 +83,7 @@ export const questions: Question[] = [
     tolerance: 0.05,
     explanation:
       "Das Rechteck hat Fläche 4·5 = 20. Der Kreis vom Radius 2 ist bis auf seine untere Hälfte (y < 0) bereits im Rechteck enthalten; die untere Halbkreisfläche beträgt π·4/2 = 2π. Insgesamt |M| = 20 + 2π ≈ 26,28.",
-    source: "Kapitel 1, Jordan-Inhalt (nach Klausur SS22 Nachtermin)",
+    source: "Kapitel 7, Jordan-Inhalt (nach Klausur SS22 Nachtermin)",
     free: false,
   },
   {
@@ -93,7 +100,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Nach dem Randkriterium stimmen äußerer und innerer Jordan-Inhalt genau dann überein, wenn der Rand von M keinen positiven Inhalt beiträgt, also selbst eine Jordan-Nullmenge ist.",
-    source: "Kapitel 1, Randkriterium",
+    source: "Kapitel 7, Randkriterium",
     free: false,
   },
   {
@@ -103,7 +110,7 @@ export const questions: Question[] = [
     prompt: "Gegeben sei M := ([0,4] × [0,3]) ∪ ([4,7] × [3,5]) ⊂ ℝ². Bestimmen Sie |M|.",
     correctValue: 18,
     explanation: "|M| = 4·3 + 3·2 = 12 + 6 = 18, da die beiden Rechtecke nur eine gemeinsame Kante (Inhalt 0) teilen.",
-    source: "Kapitel 1, Jordan-Inhalt",
+    source: "Kapitel 7, Jordan-Inhalt",
     free: false,
   },
 
@@ -115,7 +122,7 @@ export const questions: Question[] = [
     prompt: "Gegeben sei f(x,y) := x³ + 2xy² − 3x. Berechnen Sie ∂f/∂x(1,1).",
     correctValue: 2,
     explanation: "∂f/∂x(x,y) = 3x² + 2y² − 3. Einsetzen von (1,1) liefert 3 + 2 − 3 = 2.",
-    source: "Kapitel 2, Partielle Ableitungen",
+    source: "Kapitel 1, Partielle Ableitungen",
     free: true,
   },
   {
@@ -125,7 +132,7 @@ export const questions: Question[] = [
     prompt: "Gegeben sei f(x,y) := 4x²y³ − 5x. Berechnen Sie ∂f/∂y(1,1).",
     correctValue: 12,
     explanation: "∂f/∂y(x,y) = 12x²y². Einsetzen von (1,1) liefert 12·1·1 = 12.",
-    source: "Kapitel 2, Partielle Ableitungen",
+    source: "Kapitel 1, Partielle Ableitungen",
     free: false,
   },
   {
@@ -142,7 +149,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Anders als im Eindimensionalen folgt aus partieller Differenzierbarkeit nicht einmal Stetigkeit — ein Standardgegenbeispiel ist f(x,y) = 3xy²/(x²+y⁴) für (x,y)≠(0,0), f(0,0)=0, das im Ursprung partiell differenzierbar, aber unstetig ist.",
-    source: "Kapitel 2, Partielle Ableitungen",
+    source: "Kapitel 1, Partielle Ableitungen",
     free: false,
   },
   {
@@ -150,11 +157,11 @@ export const questions: Question[] = [
     topic: "Partielle Differenzierbarkeit und der Gradient",
     type: "numeric",
     prompt:
-      "Gegeben sei f(x,y) := x⁴ + y⁴ − 6x² − 6y². Wie viele stationäre Punkte besitzt f?",
+      "Gegeben sei f(x,y) := x⁴ − 8x² + y⁴ − 2y². Wie viele stationäre Punkte besitzt f?",
     correctValue: 9,
     explanation:
-      "∇f(x,y) = (4x³−12x, 4y³−12y) = (4x(x²−3), 4y(y²−3)). Dies verschwindet genau für x,y ∈ {−√3, 0, √3}, also für 3·3 = 9 Kombinationen.",
-    source: "Kapitel 2, Gradient und stationäre Punkte",
+      "∇f(x,y) = (4x³−16x, 4y³−4y) = (4x(x²−4), 4y(y²−1)). Dies verschwindet genau für x ∈ {−2, 0, 2} und y ∈ {−1, 0, 1}, also für 3·3 = 9 Kombinationen.",
+    source: "Kapitel 1, Gradient und stationäre Punkte",
     free: false,
   },
   {
@@ -164,7 +171,7 @@ export const questions: Question[] = [
     prompt: "Gegeben sei f(x,y) := x²y − 3x. Berechnen Sie ∂f/∂x(2,1).",
     correctValue: 1,
     explanation: "∂f/∂x(x,y) = 2xy − 3. Einsetzen von (2,1) liefert 2·2·1 − 3 = 1.",
-    source: "Kapitel 2, Partielle Ableitungen",
+    source: "Kapitel 1, Partielle Ableitungen",
     free: false,
   },
 
@@ -177,7 +184,7 @@ export const questions: Question[] = [
       "Gegeben sei f : [0,1]² → ℝ, f(x,y) := 3y, sowie für n ∈ ℕ die Partition Zn in n gleich breite Vertikalstreifen [(i−1)/n, i/n] × [0,1]. Bestimmen Sie die Obersumme O(f;Zn) (unabhängig von n).",
     correctValue: 3,
     explanation: "Auf jedem Streifen gilt max f = 3 (bei y=1) und Σ Streifenbreiten = 1, also O(f;Zn) = 3·1 = 3 für jedes n.",
-    source: "Kapitel 3, Ober- und Untersummen",
+    source: "Kapitel 7, Ober- und Untersummen",
     free: true,
   },
   {
@@ -187,7 +194,7 @@ export const questions: Question[] = [
     prompt: "Für dieselbe Funktion f(x,y) := 3y und Partition wie in der vorherigen Aufgabe: Bestimmen Sie die Untersumme U(f;Zn).",
     correctValue: 0,
     explanation: "Auf jedem Streifen gilt min f = 0 (bei y=0), also U(f;Zn) = 0 für jedes n.",
-    source: "Kapitel 3, Ober- und Untersummen",
+    source: "Kapitel 7, Ober- und Untersummen",
     free: false,
   },
   {
@@ -197,7 +204,7 @@ export const questions: Question[] = [
     prompt: "Bestimmen Sie das Riemann-Integral von f(x,y) := x+2y über [0,2]×[0,1] als Grenzwert von Ober- und Untersummen.",
     correctValue: 4,
     explanation: "Für eine Partition in n×n gleich große Rechtecke konvergieren Ober- und Untersumme gegen ∫₀²∫₀¹ (x+2y) dy dx = ∫₀² (x+1) dx = [x²/2+x]₀² = 2+2 = 4.",
-    source: "Kapitel 3, Riemann-Integral",
+    source: "Kapitel 7, Riemann-Integral",
     free: false,
   },
   {
@@ -215,7 +222,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Integrierbarkeit ist über das Infimum aller Obersummen bzw. Supremum aller Untersummen definiert — eine einzelne, geschickt gewählte Partitionsfolge kann zufällig konvergieren, ohne dass die Funktion tatsächlich integrierbar ist.",
-    source: "Kapitel 3, Integrierbarkeitskriterien",
+    source: "Kapitel 7, Integrierbarkeitskriterien",
     free: false,
   },
   {
@@ -226,7 +233,7 @@ export const questions: Question[] = [
       "Gegeben sei f : [0,1]² → ℝ mit f(x,y) := 2 falls x ≤ 1/2 und f(x,y) := 5 falls x > 1/2. Berechnen Sie ∫_{[0,1]²} f(x,y) d(x,y).",
     correctValue: 3.5,
     explanation: "f ist eine Treppenfunktion; das Integral ist 2·(1/2) + 5·(1/2) = 1 + 2,5 = 3,5.",
-    source: "Kapitel 3, Riemann-Integral (nach 11. Tutoriumsblatt)",
+    source: "Kapitel 7, Riemann-Integral (nach 11. Tutoriumsblatt)",
     free: false,
   },
 
@@ -239,7 +246,7 @@ export const questions: Question[] = [
       "Gegeben sei f(x,y) := x² + 3y² und ⃗v := (3/5, 4/5)ᵀ. Berechnen Sie ∂f/∂⃗v(1,2).",
     correctValue: 10.8,
     explanation: "∇f(1,2) = (2, 12)ᵀ. Damit ∂f/∂⃗v(1,2) = ⟨∇f(1,2), ⃗v⟩ = 2·(3/5) + 12·(4/5) = 6/5 + 48/5 = 54/5 = 10,8.",
-    source: "Kapitel 4, Richtungsableitungen",
+    source: "Kapitel 2, Richtungsableitungen",
     free: true,
   },
   {
@@ -257,7 +264,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Für ⃗v=(v₁,v₂) mit ‖⃗v‖₂=1 gilt (h(t⃗v)−h(0))/t = 2v₁v₂/t, was nur für v₁v₂=0 (also entlang der Achsen) gegen einen endlichen Wert (nämlich 0) konvergiert.",
-    source: "Kapitel 4, Richtungsableitungen",
+    source: "Kapitel 2, Richtungsableitungen",
     free: false,
   },
   {
@@ -265,17 +272,17 @@ export const questions: Question[] = [
     topic: "Richtungsableitungen",
     type: "mc",
     prompt:
-      "Es sei g : ℝ² → ℝ differenzierbar, (a,b) kein stationärer Punkt von g, und es gelte ∂g/∂x(a,b) = ∂g/∂y(a,b) ≠ 0. Welche Menge L aller Richtungen ⃗v mit ‖⃗v‖₂=1 und ∂g/∂⃗v(a,b)=0 ergibt sich?",
+      "Es sei g : ℝ² → ℝ differenzierbar, (a,b) kein stationärer Punkt von g, und es gelte ∂g/∂x(a,b) = 2·∂g/∂y(a,b) ≠ 0. Welche Menge L aller Richtungen ⃗v mit ‖⃗v‖₂=1 und ∂g/∂⃗v(a,b)=0 ergibt sich?",
     options: [
-      "L = {±(1,−1)ᵀ/√2}",
-      "L = {±(1,1)ᵀ/√2}",
-      "L = {(1,0)ᵀ, (0,1)ᵀ}",
+      "L = {±(1,−2)ᵀ/√5}",
+      "L = {±(2,−1)ᵀ/√5}",
+      "L = {±(1,2)ᵀ/√5}",
       "L = ∅",
     ],
     correctIndex: 0,
     explanation:
-      "Mit ∇g(a,b)=(c,c)ᵀ, c≠0, gilt ∂g/∂⃗v(a,b) = c·(v₁+v₂) = 0 genau dann, wenn v₁ = −v₂, also ⃗v = ±(1,−1)ᵀ/√2.",
-    source: "Kapitel 4, Richtungsableitungen (nach Klausur SS2025 Haupttermin)",
+      "Mit ∇g(a,b)=(2c,c)ᵀ, c≠0, gilt ∂g/∂⃗v(a,b) = c·(2v₁+v₂) = 0 genau dann, wenn v₂ = −2v₁. Mit ‖⃗v‖₂=1 folgt v₁²+4v₁²=1, also v₁=±1/√5, v₂=∓2/√5, d.h. ⃗v = ±(1,−2)ᵀ/√5.",
+    source: "Kapitel 2, Richtungsableitungen",
     free: false,
   },
   {
@@ -286,7 +293,7 @@ export const questions: Question[] = [
       "Gegeben sei f(x,y) := ln(x²+y²+1) und ⃗v := (3/5, 4/5)ᵀ. Berechnen Sie ∂f/∂⃗v(1,0).",
     correctValue: 0.6,
     explanation: "∇f(1,0) = (2·1/2, 2·0/2)ᵀ = (1,0)ᵀ. Damit ∂f/∂⃗v(1,0) = ⟨(1,0), (3/5,4/5)⟩ = 3/5 = 0,6.",
-    source: "Kapitel 4, Richtungsableitungen",
+    source: "Kapitel 2, Richtungsableitungen",
     free: false,
   },
   {
@@ -297,7 +304,7 @@ export const questions: Question[] = [
       "Es sei f : ℝ² → ℝ differenzierbar mit f(3,y) = y² + 2y für alle y ∈ ℝ. Berechnen Sie ∂f/∂y(3,2).",
     correctValue: 6,
     explanation: "Die erste Schnittfunktion p(y):=f(3,y)=y²+2y hat Ableitung p′(y)=2y+2, also ∂f/∂y(3,2) = p′(2) = 6.",
-    source: "Kapitel 4, Richtungsableitungen (nach Klausur SS2025 Nachtermin)",
+    source: "Kapitel 2, Richtungsableitungen (nach Klausur SS2025 Nachtermin)",
     free: false,
   },
 
@@ -310,7 +317,7 @@ export const questions: Question[] = [
     correctValue: 1,
     tolerance: 0.01,
     explanation: "Mit Fubini gilt ∫_M x/y² d(x,y) = (∫₁³ x dx)·(∫₂⁴ y⁻² dy) = 4 · 0,25 = 1.",
-    source: "Kapitel 5, Satz von Fubini",
+    source: "Kapitel 7, Satz von Fubini",
     free: true,
   },
   {
@@ -321,7 +328,7 @@ export const questions: Question[] = [
     correctValue: 24,
     explanation:
       "Mit Fubini: ∫₀³ (2x+y) dx = 9+3y, also ∫₀² (9+3y) dy = [9y+1,5y²]₀² = 18+6 = 24. Der z-Faktor ist [eᶻ]₀^{log 2} = 2−1 = 1. Insgesamt 24·1 = 24.",
-    source: "Kapitel 5, Satz von Fubini",
+    source: "Kapitel 7, Satz von Fubini",
     free: false,
   },
   {
@@ -337,18 +344,18 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Fubini setzt Integrierbarkeit von f auf dem Quader sowie die Existenz des inneren (eindimensionalen) Integrals für jedes feste x voraus.",
-    source: "Kapitel 5, Satz von Fubini",
+    source: "Kapitel 7, Satz von Fubini",
     free: false,
   },
   {
     id: "fu-04",
     topic: "Eigenschaften des Jordan-Inhalts und der Satz von Fubini",
     type: "numeric",
-    prompt: "Berechnen Sie ∫_{[0,1]×[0,π]} e^{2x}·sin(y) d(x,y).",
-    correctValue: 6.389,
+    prompt: "Berechnen Sie ∫_{[0,1]×[0,π/2]} e^{3x}·cos(y) d(x,y).",
+    correctValue: 6.362,
     tolerance: 0.01,
-    explanation: "Mit Fubini: (∫₀¹ e^{2x} dx)·(∫₀^π sin(y) dy) = [(e²−1)/2]·2 = e²−1 ≈ 6,389.",
-    source: "Kapitel 5, Satz von Fubini (nach Klausur AK HT 2024)",
+    explanation: "Mit Fubini: (∫₀¹ e^{3x} dx)·(∫₀^{π/2} cos(y) dy) = [(e³−1)/3]·1 ≈ 6,362.",
+    source: "Kapitel 7, Satz von Fubini",
     free: false,
   },
   {
@@ -364,7 +371,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Der Jordan-Inhalt ist additiv für Mengen, deren Schnitt eine Nullmenge ist — genau die hier vorausgesetzte Bedingung.",
-    source: "Kapitel 5, Eigenschaften des Jordan-Inhalts",
+    source: "Kapitel 7, Eigenschaften des Jordan-Inhalts",
     free: false,
   },
 
@@ -378,7 +385,7 @@ export const questions: Question[] = [
     correctValue: 14,
     explanation:
       "f(1,2)=1·2+2+2=6, ∇f(1,2)=(2·1·2+2, 1²+1)=(6,2). Die Tangentialebene lautet z=6+6(x−1)+2(y−2). Bei (2,3): z=6+6·1+2·1=14.",
-    source: "Kapitel 6, Tangentialebene",
+    source: "Kapitel 3, Tangentialebene",
     free: true,
   },
   {
@@ -394,7 +401,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Stetige partielle Differenzierbarkeit in einer Umgebung von ⃗x₀ impliziert totale Differenzierbarkeit in ⃗x₀.",
-    source: "Kapitel 6, Totale Differenzierbarkeit",
+    source: "Kapitel 3, Totale Differenzierbarkeit",
     free: false,
   },
   {
@@ -404,7 +411,7 @@ export const questions: Question[] = [
     prompt: "Gegeben sei f(x,y) := e^{3xy} + 2x. Berechnen Sie ∂f/∂x(0,1).",
     correctValue: 5,
     explanation: "∂f/∂x(x,y) = 3y·e^{3xy} + 2. Einsetzen von (0,1) liefert 3·1·1 + 2 = 5.",
-    source: "Kapitel 6, Totale Differenzierbarkeit",
+    source: "Kapitel 3, Totale Differenzierbarkeit",
     free: false,
   },
   {
@@ -420,7 +427,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Totale Differenzierbarkeit verlangt eine affine Approximation mit einem Restterm, der schneller als linear (bezüglich ‖⃗h‖₂) verschwindet.",
-    source: "Kapitel 6, Totale Differenzierbarkeit",
+    source: "Kapitel 3, Totale Differenzierbarkeit",
     free: false,
   },
   {
@@ -430,7 +437,7 @@ export const questions: Question[] = [
     prompt: "Gegeben sei f(x,y) := x² + y³. Der Normalenvektor der Tangentialebene an (1,1) ist ⃗v = (∇f(1,1), c)ᵀ. Bestimmen Sie c.",
     correctValue: -1,
     explanation: "Der Normalenvektor der Tangentialebene ist stets (∇f(⃗x₀), −1)ᵀ, also c = −1.",
-    source: "Kapitel 6, Tangentialebene",
+    source: "Kapitel 3, Tangentialebene",
     free: false,
   },
 
@@ -439,10 +446,10 @@ export const questions: Question[] = [
     id: "nc-01",
     topic: "Normalbereiche und das Prinzip von Cavalieri",
     type: "numeric",
-    prompt: "Gegeben sei ein verallgemeinerter Kegel mit Grundfläche B := [0,3] × [0,2] und Höhe h = 4. Bestimmen Sie das Volumen des Kegels.",
-    correctValue: 8,
-    explanation: "|B| = 6, also Volumen = h·|B|/3 = 4·6/3 = 8.",
-    source: "Kapitel 7, Prinzip von Cavalieri",
+    prompt: "Gegeben sei ein verallgemeinerter Kegel mit Grundfläche B := [0,5] × [0,1] und Höhe h = 6. Bestimmen Sie das Volumen des Kegels.",
+    correctValue: 10,
+    explanation: "|B| = 5, also Volumen = h·|B|/3 = 6·5/3 = 10.",
+    source: "Kapitel 8, Prinzip von Cavalieri",
     free: true,
   },
   {
@@ -454,7 +461,7 @@ export const questions: Question[] = [
     correctValue: 94.25,
     tolerance: 0.05,
     explanation: "|Ku| = π((u+2)²−u²) = π(4u+4). ∫₀³ π(4u+4) du = π[2u²+4u]₀³ = π(18+12) = 30π ≈ 94,25.",
-    source: "Kapitel 7, Prinzip von Cavalieri",
+    source: "Kapitel 8, Prinzip von Cavalieri",
     free: false,
   },
   {
@@ -470,7 +477,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Die Schnittpunkte von x² und x+6 liegen bei x²=x+6 ⟺ x∈{−2,3}. Zwischen diesen Werten liegt die Gerade oberhalb der Parabel.",
-    source: "Kapitel 7, Normalbereiche",
+    source: "Kapitel 8, Normalbereiche",
     free: false,
   },
   {
@@ -481,7 +488,7 @@ export const questions: Question[] = [
     correctValue: 20.833,
     tolerance: 0.01,
     explanation: "∫₋₂³ (x+6−x²) dx = [x²/2+6x−x³/3]₋₂³ = 13,5 − (−7,333) = 20,833 = 125/6.",
-    source: "Kapitel 7, Normalbereiche",
+    source: "Kapitel 8, Normalbereiche",
     free: false,
   },
   {
@@ -492,7 +499,7 @@ export const questions: Question[] = [
     options: ["|K| = ∫ₐᵇ |Ku| du", "|K| = Σ Ku", "|K| = max_u |Ku|", "|K| = ∫ₐᵇ |Ku|² du"],
     correctIndex: 0,
     explanation: "Das Volumen von K ergibt sich als Integral über die Flächeninhalte der horizontalen Schnitte Ku.",
-    source: "Kapitel 7, Prinzip von Cavalieri",
+    source: "Kapitel 8, Prinzip von Cavalieri",
     free: false,
   },
 
@@ -504,7 +511,7 @@ export const questions: Question[] = [
     prompt: "Gegeben sei f(x,y) := (x²−y², 3xy)ᵀ. Berechnen Sie det(Jf(1,1)).",
     correctValue: 12,
     explanation: "Jf(x,y) = ((2x,−2y);(3y,3x)). Bei (1,1): ((2,−2);(3,3)), det = 2·3 − (−2)·3 = 6+6 = 12.",
-    source: "Kapitel 8, Jacobi-Matrix",
+    source: "Kapitel 4, Jacobi-Matrix",
     free: true,
   },
   {
@@ -514,7 +521,7 @@ export const questions: Question[] = [
     prompt: "Gegeben seien g(t) := (t³, cos(t))ᵀ und f(x,y) := 2x + y². Berechnen Sie d/dt (f∘g)(t) an der Stelle t=0.",
     correctValue: 0,
     explanation: "(f∘g)(t) = 2t³ + cos²(t), Ableitung 6t² − 2cos(t)sin(t). Bei t=0: 0 − 0 = 0.",
-    source: "Kapitel 8, Kettenregel",
+    source: "Kapitel 4, Kettenregel",
     free: false,
   },
   {
@@ -530,7 +537,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Die Jacobi-Matrix der Komposition ist das Matrizenprodukt Jf(g(⃗x))·Jg(⃗x), in dieser Reihenfolge.",
-    source: "Kapitel 8, Kettenregel",
+    source: "Kapitel 4, Kettenregel",
     free: false,
   },
   {
@@ -540,7 +547,7 @@ export const questions: Question[] = [
     prompt: "Für Zylinderkoordinaten T(r,φ,z) := (r cos φ, r sin φ, z) gilt det(JT(r,φ,z)) = r. Bestimmen Sie diesen Wert für r=2.",
     correctValue: 2,
     explanation: "Die Jacobi-Determinante der Zylinderkoordinaten ist unabhängig von φ und z gleich r, also 2 für r=2.",
-    source: "Kapitel 8, Jacobi-Matrix",
+    source: "Kapitel 4, Jacobi-Matrix",
     free: false,
   },
   {
@@ -550,7 +557,7 @@ export const questions: Question[] = [
     prompt: "Gegeben sei g(x,y) := (x+y, x−y, xy)ᵀ. Berechnen Sie den Eintrag ∂g₃/∂x an der Stelle (2,1).",
     correctValue: 1,
     explanation: "g₃(x,y)=xy, also ∂g₃/∂x = y. Bei (2,1): y=1.",
-    source: "Kapitel 8, Jacobi-Matrix",
+    source: "Kapitel 4, Jacobi-Matrix",
     free: false,
   },
 
@@ -568,7 +575,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Bei gewöhnlicher Stetigkeit darf δ vom Punkt x abhängen, bei gleichmäßiger Stetigkeit muss ein einziges δ für alle Punkte funktionieren.",
-    source: "Kapitel 9, Gleichmäßige Stetigkeit",
+    source: "Kapitel 7, Gleichmäßige Stetigkeit",
     free: true,
   },
   {
@@ -584,7 +591,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Der Satz von Heine garantiert gleichmäßige Stetigkeit stetiger Funktionen speziell auf kompakten (abgeschlossenen und beschränkten) Mengen.",
-    source: "Kapitel 9, Satz von Heine",
+    source: "Kapitel 7, Satz von Heine",
     free: false,
   },
   {
@@ -594,7 +601,7 @@ export const questions: Question[] = [
     prompt: "Gegeben sei die Treppenfunktion h(x,y) := 2 falls x ≤ 1/2, sonst 6, auf [0,1]². Berechnen Sie ∫ h(x,y) d(x,y).",
     correctValue: 4,
     explanation: "∫h = 2·(1/2) + 6·(1/2) = 1 + 3 = 4.",
-    source: "Kapitel 9, Treppenfunktionen",
+    source: "Kapitel 7, Treppenfunktionen",
     free: false,
   },
   {
@@ -610,7 +617,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Der Mittelwertsatz für Integrale garantiert einen 'mittleren' Wert µ zwischen den Schranken c und d.",
-    source: "Kapitel 9, Mittelwertsatz für Integrale",
+    source: "Kapitel 7, Mittelwertsatz für Integrale",
     free: false,
   },
   {
@@ -621,7 +628,7 @@ export const questions: Question[] = [
       "Es sei M Jordan-messbar mit |M|=3, f auf M integrierbar mit 1 ≤ f ≤ 5 und ∫_M f(⃗x) d⃗x = 9. Bestimmen Sie den Mittelwert µ = (1/|M|)·∫_M f(⃗x) d⃗x.",
     correctValue: 3,
     explanation: "µ = 9/3 = 3, und tatsächlich liegt µ=3 im Intervall [1,5], wie vom Mittelwertsatz gefordert.",
-    source: "Kapitel 9, Mittelwertsatz für Integrale",
+    source: "Kapitel 7, Mittelwertsatz für Integrale",
     free: false,
   },
 
@@ -633,7 +640,7 @@ export const questions: Question[] = [
     prompt: "Gegeben sei f(x,y) := x³y² + 2xy. Berechnen Sie ∂²f/(∂x∂y) an der Stelle (1,1).",
     correctValue: 8,
     explanation: "f_y = 2x³y+2x, also f_yx = 6x²y+2. Bei (1,1): 6+2=8.",
-    source: "Kapitel 10, Satz von Schwarz",
+    source: "Kapitel 5, Satz von Schwarz",
     free: true,
   },
   {
@@ -649,7 +656,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Der Satz von Schwarz benötigt Stetigkeit der zweiten partiellen Ableitungen (C²), sonst kann fₓᵧ ≠ fᵧₓ gelten.",
-    source: "Kapitel 10, Satz von Schwarz",
+    source: "Kapitel 5, Satz von Schwarz",
     free: false,
   },
   {
@@ -659,7 +666,7 @@ export const questions: Question[] = [
     prompt: "Gegeben sei f(x,y) := e^{xy} + x². Berechnen Sie ∂²f/∂x²(0,1).",
     correctValue: 3,
     explanation: "f_x = y·e^{xy}+2x, f_xx = y²e^{xy}+2. Bei (0,1): 1·1+2=3.",
-    source: "Kapitel 10, Höhere Ableitungen",
+    source: "Kapitel 5, Höhere Ableitungen",
     free: false,
   },
   {
@@ -675,7 +682,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Da der Satz von Schwarz unter C²-Voraussetzung fₓᵧ=fᵧₓ garantiert, muss hier die Stetigkeitsvoraussetzung verletzt sein.",
-    source: "Kapitel 10, Satz von Schwarz",
+    source: "Kapitel 5, Satz von Schwarz",
     free: false,
   },
   {
@@ -685,7 +692,7 @@ export const questions: Question[] = [
     prompt: "Gegeben sei f(x,y) := sin(xy) + y³. Berechnen Sie ∂²f/∂y²(0,1).",
     correctValue: 6,
     explanation: "f_y = x·cos(xy) + 3y², f_yy = −x²sin(xy) + 6y. Bei (0,1): 0+6=6.",
-    source: "Kapitel 10, Höhere Ableitungen",
+    source: "Kapitel 5, Höhere Ableitungen",
     free: false,
   },
 
@@ -694,10 +701,10 @@ export const questions: Question[] = [
     id: "gs-01",
     topic: "Der Gradient als Richtung des steilsten Anstiegs",
     type: "numeric",
-    prompt: "Gegeben sei f(x,y) := (x²+y²)·e^{−x²}. Bestimmen Sie ‖∇f(0,1)‖₂ (die maximale Anstiegsrate im Punkt (0,1)).",
-    correctValue: 2,
-    explanation: "∂f/∂x = 2x·e^{−x²} − 2x(x²+y²)e^{−x²}, bei x=0 gleich 0. ∂f/∂y = 2y·e^{−x²}, bei (0,1) gleich 2. Also ‖∇f(0,1)‖₂ = 2.",
-    source: "Kapitel 11, Steilster Anstieg",
+    prompt: "Gegeben sei f(x,y) := (x²+3y²)·e^{−x²}. Bestimmen Sie ‖∇f(0,1)‖₂ (die maximale Anstiegsrate im Punkt (0,1)).",
+    correctValue: 6,
+    explanation: "∂f/∂x = 2x·e^{−x²}·[1−(x²+3y²)], bei x=0 gleich 0. ∂f/∂y = 6y·e^{−x²}, bei (0,1) gleich 6. Also ‖∇f(0,1)‖₂ = 6.",
+    source: "Kapitel 2, Steilster Anstieg",
     free: true,
   },
   {
@@ -708,7 +715,7 @@ export const questions: Question[] = [
     options: ["−∇f(⃗x₀)/‖∇f(⃗x₀)‖₂", "∇f(⃗x₀)/‖∇f(⃗x₀)‖₂", "Senkrecht zu ∇f(⃗x₀), im Uhrzeigersinn", "Es gibt keine eindeutige Richtung"],
     correctIndex: 0,
     explanation: "Der steilste Abstieg zeigt in die dem Gradienten entgegengesetzte Richtung.",
-    source: "Kapitel 11, Steilster Anstieg",
+    source: "Kapitel 2, Steilster Anstieg",
     free: false,
   },
   {
@@ -719,7 +726,7 @@ export const questions: Question[] = [
     correctValue: 8.246,
     tolerance: 0.01,
     explanation: "∇f(1,1) = (2,8)ᵀ, ‖∇f(1,1)‖₂ = √(4+64) = √68 ≈ 8,246.",
-    source: "Kapitel 11, Steilster Anstieg",
+    source: "Kapitel 2, Steilster Anstieg",
     free: false,
   },
   {
@@ -735,7 +742,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Da ⟨∇f(⃗x₀), ⃗v⟩=0 für jede Tangentialrichtung ⃗v an die Höhenlinie gilt, muss ∇f(⃗x₀) orthogonal zu allen solchen ⃗v, also zur Höhenlinie, stehen.",
-    source: "Kapitel 11, Gradient und Höhenlinien",
+    source: "Kapitel 2, Gradient und Höhenlinien",
     free: false,
   },
   {
@@ -746,7 +753,7 @@ export const questions: Question[] = [
     correctValue: 0.832,
     tolerance: 0.01,
     explanation: "∇f(1,2) = (6,4)ᵀ, ‖∇f(1,2)‖₂ = √52 = 2√13. Erste Komponente von ⃗v₀ = 6/(2√13) = 3/√13 ≈ 0,832.",
-    source: "Kapitel 11, Steilster Anstieg",
+    source: "Kapitel 2, Steilster Anstieg",
     free: false,
   },
 
@@ -756,11 +763,11 @@ export const questions: Question[] = [
     topic: "Der Transformationssatz und Koordinatenwechsel",
     type: "numeric",
     prompt:
-      "Gegeben sei B := {(x,y) ∈ ℝ² : x ≤ 0, x²+y² ≤ 16} (linke Hälfte einer Kreisscheibe vom Radius 4). Berechnen Sie ∫_B √(x²+y²) d(x,y) mithilfe von Polarkoordinaten.",
-    correctValue: 67.02,
+      "Gegeben sei B := {(x,y) ∈ ℝ² : x ≥ 0, y ≥ 0, 4 ≤ x²+y² ≤ 25} (Viertel eines Kreisrings im ersten Quadranten, innerer Radius 2, äußerer Radius 5). Berechnen Sie ∫_B √(x²+y²) d(x,y) mithilfe von Polarkoordinaten.",
+    correctValue: 61.26,
     tolerance: 0.1,
-    explanation: "In Polarkoordinaten: ∫_{π/2}^{3π/2} ∫₀⁴ r·r dr dφ = π·[r³/3]₀⁴ = π·64/3 ≈ 67,02.",
-    source: "Kapitel 12, Polarkoordinaten",
+    explanation: "In Polarkoordinaten: ∫₀^{π/2} ∫₂⁵ r·r dr dφ = (π/2)·[r³/3]₂⁵ = (π/2)·(117/3) = 19,5π ≈ 61,26.",
+    source: "Kapitel 8, Polarkoordinaten",
     free: true,
   },
   {
@@ -771,7 +778,7 @@ export const questions: Question[] = [
     correctValue: 33.51,
     tolerance: 0.05,
     explanation: "Volumen einer Kugel = (4/3)πR³ = (4/3)π·8 = 32π/3 ≈ 33,51.",
-    source: "Kapitel 12, Kugelkoordinaten",
+    source: "Kapitel 8, Kugelkoordinaten",
     free: false,
   },
   {
@@ -782,7 +789,7 @@ export const questions: Question[] = [
     options: ["r²·sin(ϑ)", "r·sin(ϑ)", "r²", "r"],
     correctIndex: 0,
     explanation: "Die Jacobi-Determinante der Kugelkoordinaten ist r²·sin(ϑ).",
-    source: "Kapitel 12, Kugelkoordinaten",
+    source: "Kapitel 8, Kugelkoordinaten",
     free: false,
   },
   {
@@ -793,7 +800,7 @@ export const questions: Question[] = [
     correctValue: 19.63,
     tolerance: 0.05,
     explanation: "Flächeninhalt = (1/4)·π·5² = 25π/4 ≈ 19,63.",
-    source: "Kapitel 12, Polarkoordinaten",
+    source: "Kapitel 8, Polarkoordinaten",
     free: false,
   },
   {
@@ -809,7 +816,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Der Transformationssatz verlangt den Betrag der Jacobi-Determinante als zusätzlichen Faktor — bei Polarkoordinaten ist das genau r.",
-    source: "Kapitel 12, Transformationssatz",
+    source: "Kapitel 8, Transformationssatz",
     free: false,
   },
 
@@ -822,7 +829,7 @@ export const questions: Question[] = [
       "Gegeben sei f(x,y) := x³ + y² und ⃗x₀ = (1,2). Bestimmen Sie den Koeffizienten von (x−1) im Taylorpolynom T₂ von f um ⃗x₀ (also ∂f/∂x(⃗x₀)).",
     correctValue: 3,
     explanation: "∂f/∂x(x,y) = 3x², bei (1,2): 3·1 = 3.",
-    source: "Kapitel 13, Taylorpolynome",
+    source: "Kapitel 5, Taylorpolynome",
     free: true,
   },
   {
@@ -838,7 +845,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Der Mittelwertsatz im ℝⁿ verallgemeinert den eindimensionalen MWS über die Schnittfunktion entlang der Verbindungsstrecke.",
-    source: "Kapitel 13, Mittelwertsatz im ℝⁿ",
+    source: "Kapitel 3, Mittelwertsatz im ℝⁿ",
     free: false,
   },
   {
@@ -848,7 +855,7 @@ export const questions: Question[] = [
     prompt: "Es sei f : ℝ³ → ℝ differenzierbar mit ∇f(⃗x)=⃗0 für alle ⃗x und f(⃗0)=7. Bestimmen Sie f(5,5,5).",
     correctValue: 7,
     explanation: "Verschwindet der Gradient überall auf einer konvexen Menge, ist f nach dem Mittelwertsatz konstant, also f(5,5,5)=f(0,0,0)=7.",
-    source: "Kapitel 13, Mittelwertsatz im ℝⁿ",
+    source: "Kapitel 3, Mittelwertsatz im ℝⁿ",
     free: false,
   },
   {
@@ -859,7 +866,7 @@ export const questions: Question[] = [
       "Gegeben sei f(x,y) := x²y mit Hf(1,1) = ((2,2);(2,0)). Berechnen Sie den quadratischen Taylorterm ½·(Δx,Δy)·Hf(1,1)·(Δx,Δy)ᵀ für (Δx,Δy) = (1,0).",
     correctValue: 1,
     explanation: "½·(1,0)·((2,2);(2,0))·(1,0)ᵀ = ½·(2·1+2·0) = ½·2 = 1.",
-    source: "Kapitel 13, Taylorpolynome",
+    source: "Kapitel 5, Taylorpolynome",
     free: false,
   },
   {
@@ -870,7 +877,7 @@ export const questions: Question[] = [
     options: ["2", "1", "3", "Es hat keinen festen Grad"],
     correctIndex: 0,
     explanation: "T₂ besteht aus konstantem, linearem und quadratischem Term — Grad höchstens 2.",
-    source: "Kapitel 13, Taylorpolynome",
+    source: "Kapitel 5, Taylorpolynome",
     free: false,
   },
 
@@ -883,7 +890,7 @@ export const questions: Question[] = [
     correctValue: -162,
     explanation:
       "∇f=⃗0 für x,y∈{−3,0,3}. Die Hessematrix ist in (±3,±3) positiv definit (lokale Minima) mit f(3,3)=81+81−162−162=−162; dies ist wegen f(x,y)→∞ für ‖(x,y)‖₂→∞ das globale Minimum.",
-    source: "Kapitel 14, Lokale Extrema",
+    source: "Kapitel 6, Lokale Extrema",
     free: true,
   },
   {
@@ -894,14 +901,14 @@ export const questions: Question[] = [
     options: ["Ein Sattelpunkt", "Eine strenge lokale Minimalstelle", "Eine strenge lokale Maximalstelle", "Keine Aussage möglich"],
     correctIndex: 0,
     explanation: "Indefinite Hessematrix bedeutet, dass f in manchen Richtungen wächst und in anderen fällt — genau die Definition eines Sattelpunkts.",
-    source: "Kapitel 14, Hessematrix",
+    source: "Kapitel 6, Hessematrix",
     free: false,
   },
   {
     id: "he-03",
     topic: "Lokale Extrema, die Hessematrix und Sattelpunkte",
     type: "mc",
-    prompt: "Gegeben sei f(x,y) := x³ − 6xy² (ein 'Affensattel'). Was liefert die Hessematrix von f im Ursprung?",
+    prompt: "Gegeben sei f(x,y) := y³ − 3x²y (ein 'Affensattel'). Was liefert die Hessematrix von f im Ursprung?",
     options: [
       "Sie ist semidefinit, aber nicht definit — keine Entscheidung über den stationären Punkt möglich.",
       "Sie ist positiv definit — lokales Minimum.",
@@ -910,17 +917,17 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Hf(0,0) ist hier die Nullmatrix (fₓₓ=fₓᵧ=fᵧᵧ=0 im Ursprung), also positiv und negativ semidefinit zugleich, aber nicht definit — obwohl f dort tatsächlich keine Extremstelle besitzt.",
-    source: "Kapitel 14, Sattelpunkte",
+    source: "Kapitel 6, Sattelpunkte",
     free: false,
   },
   {
     id: "he-04",
     topic: "Lokale Extrema, die Hessematrix und Sattelpunkte",
     type: "numeric",
-    prompt: "Gegeben sei f(x,y) := e^{2xy} + 3x. Bestimmen Sie die y-Koordinate des (einzigen) stationären Punkts von f.",
-    correctValue: -1.5,
-    explanation: "∇f=(2y·e^{2xy}+3, 2x·e^{2xy}). Aus der zweiten Gleichung folgt x=0 (da e^{2xy}≠0), eingesetzt in die erste: 2y+3=0, also y=−1,5.",
-    source: "Kapitel 14, Stationäre Punkte",
+    prompt: "Gegeben sei f(x,y) := e^{2xy} + 5y. Bestimmen Sie die x-Koordinate des (einzigen) stationären Punkts von f.",
+    correctValue: -2.5,
+    explanation: "∇f=(2y·e^{2xy}, 2x·e^{2xy}+5). Aus der ersten Gleichung folgt y=0 (da e^{2xy}≠0), eingesetzt in die zweite: 2x+5=0, also x=−2,5.",
+    source: "Kapitel 6, Stationäre Punkte",
     free: false,
   },
   {
@@ -931,7 +938,7 @@ export const questions: Question[] = [
     options: ["Wenn det(H) = ac−b² < 0 gilt.", "Wenn det(H) > 0 gilt.", "Wenn a > 0 und c > 0 gelten.", "Wenn a = c gilt."],
     correctIndex: 0,
     explanation: "Eine negative Determinante bedeutet unterschiedliche Vorzeichen der Eigenwerte — genau die Definition von indefinit.",
-    source: "Kapitel 14, Hessematrix",
+    source: "Kapitel 6, Hessematrix",
     free: false,
   },
 ];
