@@ -52,6 +52,24 @@ export const chapters: SkriptChapter[] = [
           "'Eine Senkung des Leitzinses erhöht kurzfristig die Investitionsnachfrage' ist eine positive Aussage. 'Die Zentralbank sollte den Leitzins senken, um Arbeitsplätze zu schützen' ist eine normative Aussage, die zusätzlich eine Wertentscheidung über Zielgewichtungen enthält.",
         ],
       },
+      {
+        id: "1-3",
+        heading: "1.3 Erwartungsbildung und die Lucas-Kritik",
+        body: [
+          "Wie Menschen ihre Erwartungen über zukünftige ökonomische Größen (Inflation, Einkommen, Zinsen) bilden, beeinflusst maßgeblich, wie Politikmaßnahmen wirken. Bei adaptiven Erwartungen orientieren sich Akteure an vergangenen Beobachtungen und passen ihre Erwartung nur schrittweise an neue Information an — sie 'lernen aus der Vergangenheit'. Bei rationalen Erwartungen nutzen Akteure dagegen alle verfügbare Information (einschließlich des Verständnisses, wie die Wirtschaft und die Politik funktionieren) und liegen im Durchschnitt richtig, auch wenn einzelne Prognosen daneben liegen können.",
+          "Die Lucas-Kritik (nach Robert Lucas) warnt davor, ökonomische Politik allein auf Basis historisch beobachteter Zusammenhänge zu planen: Wenn Akteure rationale Erwartungen bilden, ändert sich ihr Verhalten SOBALD sich die Politik selbst ändert — ein in der Vergangenheit stabiler Zusammenhang (z. B. zwischen Inflation und Arbeitslosigkeit, siehe die Phillipskurve in 11.3) kann zusammenbrechen, wenn Akteure die neue Politik antizipieren und ihre Erwartungen entsprechend anpassen.",
+          "Diese Kritik hat auch methodische Konsequenzen für die empirische Makroökonomik: Da echte kontrollierte Experimente (bei denen man z. B. die Geldpolitik zufällig zwischen sonst identischen Volkswirtschaften variiert) kaum möglich sind, stützt sich die Forschung oft auf natürliche Experimente — Situationen, in denen eine Politikänderung oder ein externer Schock (z. B. eine unerwartete Grenzöffnung, ein Naturkatastrophen-bedingter Nachfrageschock) eine Art Zufallsvariation liefert, die sich für kausale Schlüsse nutzen lässt, ohne dass Forschende die Variation selbst herbeigeführt haben.",
+        ],
+        terms: [
+          { term: "Adaptive Erwartungen", definition: "Erwartungsbildung, die sich primär an vergangenen Beobachtungen orientiert und sich nur schrittweise an neue Information anpasst." },
+          { term: "Rationale Erwartungen", definition: "Erwartungsbildung unter Nutzung aller verfügbaren Information, einschließlich des Verständnisses der Wirkung von Politikmaßnahmen." },
+          { term: "Lucas-Kritik", definition: "Warnung davor, Politik auf Basis historischer Zusammenhänge zu planen, da sich das Verhalten rational erwartender Akteure bei einer Politikänderung selbst mit ändert." },
+          { term: "Natürliches Experiment", definition: "Situation, in der ein externer Schock oder eine Politikänderung eine zufallsähnliche Variation liefert, die für kausale Schlüsse genutzt werden kann, ohne dass Forschende sie herbeigeführt haben." },
+        ],
+        examples: [
+          "Beobachtet eine Zentralbank historisch, dass niedrige Arbeitslosigkeit mit moderat höherer Inflation einhergeht, und versucht sie, durch dauerhaft expansivere Politik die Arbeitslosigkeit permanent zu senken, passen sich bei rationalen Erwartungen die Inflationserwartungen der Akteure an die neue Politik an — der ursprünglich beobachtete Zusammenhang verschwindet, und es bleibt am Ende nur höhere Inflation ohne dauerhaft niedrigere Arbeitslosigkeit (vgl. die langfristig vertikale Phillipskurve, 11.3).",
+        ],
+      },
     ],
   },
   // ==================== Kapitel 2 ====================
@@ -69,11 +87,18 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Das BIP misst den Marktwert aller innerhalb eines Landes in einer Periode neu produzierten Endgüter und Dienstleistungen. 'Endgüter' schließt Vorleistungen aus, um Doppelzählungen zu vermeiden: Der Wert von Mehl, das zu Brot verarbeitet wird, ist bereits im Brotpreis enthalten und wird nicht zusätzlich gezählt.",
           "Es gibt drei rechnerisch äquivalente Wege, das BIP zu ermitteln: über die Entstehungsseite (Summe der Wertschöpfung aller Branchen), über die Verwendungsseite (Summe der Ausgaben für Konsum, Investitionen, Staatsausgaben und Nettoexporte) und über die Verteilungsseite (Summe aller Einkommen: Löhne, Gewinne, Zinsen, Pachten). Da jeder ausgegebene Euro gleichzeitig als Einkommen bei jemand anderem ankommt, müssen alle drei Ansätze zum selben Ergebnis führen.",
+          "Vom BIP zu unterscheiden ist das Bruttonationaleinkommen (BNE): Während das BIP an die INLÄNDISCHE Produktion anknüpft (unabhängig davon, wem die Produktionsfaktoren gehören), erfasst das BNE die Einkommen der INLÄNDISCHEN Bevölkerung (unabhängig davon, wo diese erwirtschaftet wurden). Rechnerisch gilt BNE = BIP + Primäreinkommen aus dem Ausland an Inländer − Primäreinkommen an Ausländer aus dem Inland. Bei einem Land mit vielen im Ausland tätigen Staatsbürger:innen oder hohen Kapitalerträgen aus Auslandsinvestitionen kann das BNE spürbar über dem BIP liegen; bei einem Land mit hohem Anteil ausländischer Unternehmen, deren Gewinne ins Ausland abfließen, kann es umgekehrt darunter liegen.",
         ],
+        formulas: ["BNE = BIP + Primäreinkommen von Inländern im Ausland − Primäreinkommen von Ausländern im Inland"],
+        formulasLatex: ["\\text{BNE} = \\text{BIP} + \\text{Prim\\\"areinkommen Inl\\\"ander im Ausland} - \\text{Prim\\\"areinkommen Ausl\\\"ander im Inland}"],
         terms: [
           {
             term: "Bruttoinlandsprodukt (BIP)",
             definition: "Marktwert aller innerhalb eines Landes in einer Periode neu produzierten Endgüter und Dienstleistungen.",
+          },
+          {
+            term: "Bruttonationaleinkommen (BNE)",
+            definition: "Summe der Einkommen, die der inländischen Bevölkerung zufließen, unabhängig davon, ob sie im In- oder Ausland erwirtschaftet wurden; BNE = BIP + Nettoprimäreinkommen aus dem Ausland.",
           },
         ],
         examples: [
@@ -222,6 +247,40 @@ export const chapters: SkriptChapter[] = [
           "Ein Gläubiger verleiht 10.000 € zu einem fixen Nominalzins von 4%, erwartet dabei 2% Inflation (Realzins 2%). Steigt die tatsächliche Inflation überraschend auf 6%, beträgt der tatsächliche Realzins nur noch etwa −2% — der Gläubiger verliert real, der Schuldner profitiert.",
         ],
       },
+      {
+        id: "3-5",
+        heading: "3.5 Der Verbraucherpreisindex",
+        body: [
+          "Neben dem BIP-Deflator (2.3) ist der Verbraucherpreisindex (VPI) das gebräuchlichste Preismaß. Anders als der BIP-Deflator, der implizit die jeweils AKTUELLEN Produktionsmengen gewichtet, hält der VPI einen FESTEN Warenkorb aus einem Basisjahr fest (ein sogenannter Laspeyres-Index) und bewertet ihn zu den Preisen der jeweils aktuellen Periode: VPI = (Kosten des Basisjahr-Warenkorbs zu aktuellen Preisen / Kosten des Basisjahr-Warenkorbs zu Basisjahr-Preisen) × 100.",
+          "Weil der Warenkorb fest bleibt, überschätzt der VPI die tatsächlich erlebte Teuerung tendenziell in mehrfacher Hinsicht: Der Substitutionsbias entsteht, weil Haushalte bei relativen Preisänderungen zu günstigeren Gütern wechseln, was der Index nicht abbildet. Der Neuproduktbias entsteht, weil neue Güter (z. B. Smartphones) erst mit Verzögerung in den Warenkorb aufgenommen werden. Der Qualitätsbias entsteht, weil Qualitätsverbesserungen eines Guts teilweise fälschlich als reiner Preisanstieg gezählt werden, wenn sie nicht sauber herausgerechnet werden.",
+        ],
+        formulas: ["VPI = (Warenkorb zu aktuellen Preisen / Warenkorb zu Basisjahrpreisen) × 100"],
+        formulasLatex: ["\\text{VPI} = \\dfrac{\\text{Warenkorb zu aktuellen Preisen}}{\\text{Warenkorb zu Basisjahrpreisen}} \\times 100"],
+        terms: [
+          { term: "Verbraucherpreisindex (VPI)", definition: "Laspeyres-Preisindex mit festem Warenkorb aus einem Basisjahr, bewertet zu aktuellen Preisen." },
+          { term: "Substitutionsbias", definition: "Tendenz des VPI, Inflation zu überschätzen, weil er Ausweichreaktionen von Haushalten zu relativ günstigeren Gütern nicht erfasst." },
+        ],
+        examples: [
+          "Ein Warenkorb aus 10 Broten und 5 Kinokarten kostet im Basisjahr (Brot 2€, Kino 10€) insgesamt 10×2+5×10=70€. Im aktuellen Jahr kosten dieselben Mengen zu neuen Preisen (Brot 2,50€, Kino 11€) 10×2,5+5×11=80€. Der VPI beträgt (80/70)×100≈114,3 — die Verbraucherpreise sind um rund 14,3% gegenüber dem Basisjahr gestiegen.",
+        ],
+      },
+      {
+        id: "3-6",
+        heading: "3.6 Geldmengenaggregate, Seigniorage und Deflation",
+        body: [
+          "'Die Geldmenge' ist keine eindeutige Größe, sondern wird je nach Abgrenzung in mehreren Stufen gemessen: M1 umfasst Bargeld plus jederzeit verfügbare Sichteinlagen (das 'engste' Geld), M2 zusätzlich Termineinlagen mit kurzer Kündigungsfrist und Spareinlagen, und M3 zusätzlich noch weniger liquide Anlageformen wie Geldmarktfondsanteile. Je höher die Stufe, desto weniger unmittelbar liquide, aber desto vollständiger die Erfassung des im weiteren Sinne 'geldähnlichen' Vermögens.",
+          "Seigniorage bezeichnet die Einnahmen, die eine Zentralbank (bzw. der Staat) durch die Ausgabe von Geld erzielt: Da die Herstellungskosten von Banknoten und Zentralbankgeld weit unter ihrem Nennwert liegen, entspricht neu geschaffenes Geld näherungsweise zusätzlichen Staatseinnahmen. Wird Seigniorage exzessiv zur Finanzierung von Staatsausgaben genutzt (Gelddrucken statt Besteuerung oder Kreditaufnahme), führt das über die Quantitätstheorie (3.2) zu hoher Inflation — Seigniorage wird deshalb manchmal als 'Inflationssteuer' bezeichnet, da sie die Kaufkraft aller Geldhalter:innen schmälert.",
+          "Das Gegenstück zur Inflation ist die Deflation (ein sinkendes allgemeines Preisniveau), die ökonomisch keineswegs unproblematisch ist: Erwarten Haushalte weiter fallende Preise, verschieben sie Konsum in die Zukunft, was die Nachfrage zusätzlich dämpft und die Preise weiter drückt — eine sich selbst verstärkende Abwärtsspirale (Deflationsspirale). Zusätzlich steigt bei Deflation die reale Schuldenlast bestehender Kredite (Schuldendeflation, siehe auch 10.5), da Nominalschulden konstant bleiben, während Einkommen und Preise sinken. Aus diesem Grund verfolgen viele Zentralbanken (u. a. die EZB seit 2021) ein leicht positives, symmetrisches Inflationsziel von 2% statt eines Ziels von exakt 0%, um einen Sicherheitsabstand zur Deflation zu wahren.",
+        ],
+        terms: [
+          { term: "Geldmengenaggregate M1/M2/M3", definition: "Abstufungen der Geldmenge nach Liquiditätsgrad: M1 = Bargeld + Sichteinlagen; M2 = M1 + kurzfristige Termin-/Spareinlagen; M3 = M2 + weniger liquide Anlageformen." },
+          { term: "Seigniorage", definition: "Einnahmen aus der Geldschöpfung, da die Herstellungskosten von Geld weit unter seinem Nennwert liegen; bei exzessiver Nutzung Treiber hoher Inflation." },
+          { term: "Deflationsspirale", definition: "Sich selbst verstärkender Abwärtsprozess, bei dem erwartete weitere Preisrückgänge Konsum verzögern und die Nachfrage- und Preisschwäche dadurch verstärken." },
+        ],
+        examples: [
+          "Druckt eine Zentralbank Geld im Wert von 5 Mrd. € und die tatsächlichen Herstellungskosten liegen bei nur 10 Mio. €, beträgt die Seigniorage für den Staat netto etwa 4,99 Mrd. € an zusätzlicher Kaufkraft — finanziert letztlich durch den Kaufkraftverlust aller bestehenden Geldhalter:innen infolge der dadurch ausgelösten Inflation.",
+        ],
+      },
     ],
   },
   // ==================== Kapitel 4 ====================
@@ -239,9 +298,16 @@ export const chapters: SkriptChapter[] = [
         body: [
           "In einem Mindestreservesystem müssen Banken nur einen Teil der bei ihnen eingelegten Gelder als Reserve halten (Mindestreservesatz rr); den Rest können sie als Kredite weiterverleihen. Diese Kredite werden wiederum bei anderen Banken eingelegt und teilweise erneut verliehen — wodurch aus einer Ersteinlage über mehrere Runden ein Vielfaches an Giralgeld entsteht.",
           "Bei einem einheitlichen Reservesatz rr und der Annahme, dass Kunden kein Bargeld halten, ergibt sich der maximale Geldschöpfungsmultiplikator als m = 1/rr. Eine Ersteinlage von D erzeugt damit maximal eine Geldmenge von D/rr im Bankensystem.",
+          "In der Realität halten Kunden aber auch Bargeld statt alles auf Bankkonten zu belassen — jeder Euro, der als Bargeld gehalten wird, verlässt den Kreislauf aus Einlage→Kredit→erneuter Einlage und schöpft daher kein weiteres Giralgeld. Bezeichnet cr das Bargeld-Einlagen-Verhältnis (gehaltenes Bargeld je Euro Sichteinlage), lautet der allgemeinere Geldmengenmultiplikator m = (1+cr)/(cr+rr) — er ist stets kleiner als der vereinfachte Multiplikator 1/rr, weil der Bargeldanteil cr die Geldschöpfungskette bremst.",
         ],
-        formulas: ["m = 1 / rr"],
-        formulasLatex: ["m = \\dfrac{1}{rr}"],
+        formulas: [
+          "m = 1 / rr  (vereinfacht, ohne Bargeldhaltung)",
+          "m = (1+cr) / (cr+rr)  (mit Bargeld-Einlagen-Verhältnis cr)",
+        ],
+        formulasLatex: [
+          "m = \\dfrac{1}{rr}",
+          "m = \\dfrac{1+cr}{cr+rr}",
+        ],
         terms: [
           {
             term: "Mindestreservesatz (rr)",
@@ -249,16 +315,39 @@ export const chapters: SkriptChapter[] = [
           },
           {
             term: "Geldschöpfungsmultiplikator",
-            definition: "Faktor, um den sich eine Ersteinlage im Bankensystem maximal vervielfacht: m = 1/rr.",
+            definition: "Faktor, um den sich eine Ersteinlage im Bankensystem maximal vervielfacht: vereinfacht m = 1/rr, allgemein m = (1+cr)/(cr+rr).",
+          },
+          {
+            term: "Bargeld-Einlagen-Verhältnis (cr)",
+            definition: "Von Kunden als Bargeld statt als Bankeinlage gehaltener Anteil; bremst die Geldschöpfungskette.",
           },
         ],
         examples: [
           "Bei einem Mindestreservesatz von 10% (rr=0,1) kann eine Ersteinlage von 5.000 € theoretisch bis zu 5.000/0,1 = 50.000 € an Giralgeld im Bankensystem erzeugen.",
+          "Halten Kunden zusätzlich Bargeld im Umfang von 20% ihrer Sichteinlagen (cr=0,2), sinkt der Multiplikator bei rr=0,1 auf m=(1+0,2)/(0,2+0,1)=1,2/0,3=4 — deutlich unter den vereinfachten Wert 1/0,1=10. Dieselbe Ersteinlage von 5.000 € erzeugt damit nur noch maximal 5.000×4=20.000 € statt 50.000 €.",
+        ],
+      },
+      {
+        id: "4-3",
+        heading: "4.2 Bankbilanzen, Eigenkapital und Einlagensicherung",
+        body: [
+          "Eine Bankbilanz gliedert sich wie jede Bilanz in Aktiva (Kredite an Kund:innen, Wertpapiere, Reserven) und Passiva (Einlagen der Kund:innen, sonstige Verbindlichkeiten, Eigenkapital). Das Eigenkapital ist der Puffer, der zuerst Verluste absorbiert, bevor Einlagen gefährdet wären — je dünner dieser Puffer relativ zur Bilanzsumme, desto verwundbarer die Bank.",
+          "Der Leverage (Verschuldungsgrad) misst das Verhältnis von Bilanzsumme zu Eigenkapital: Leverage = Bilanzsumme / Eigenkapital. Ein hoher Leverage bedeutet, dass schon relativ kleine prozentuale Verluste auf der Aktivseite (z. B. durch notleidende Kredite) das Eigenkapital vollständig aufzehren können — Banken sind wegen ihres typischerweise hohen Leverage besonders anfällig für Vertrauenskrisen im Vergleich zu Unternehmen anderer Branchen.",
+          "Um Vertrauen ins Bankensystem zu stabilisieren und Bank Runs (massenhafte, sich selbst verstärkende Abhebungen aus Angst vor einer Bankpleite) zu verhindern, garantiert die Einlagensicherung Kund:innen die Rückzahlung ihrer Einlagen bis zu einer Obergrenze, selbst wenn die Bank insolvent wird. Das nimmt Kund:innen den Anreiz, bei bloßen Gerüchten über Zahlungsschwierigkeiten vorsorglich abzuheben, und verhindert damit, dass sich eine Bank aus reiner Panik heraus tatsächlich in die Insolvenz manövriert.",
+        ],
+        formulas: ["Leverage = Bilanzsumme / Eigenkapital"],
+        formulasLatex: ["\\text{Leverage} = \\dfrac{\\text{Bilanzsumme}}{\\text{Eigenkapital}}"],
+        terms: [
+          { term: "Leverage (Verschuldungsgrad)", definition: "Verhältnis von Bilanzsumme zu Eigenkapital einer Bank; hoher Leverage bedeutet hohe Verwundbarkeit gegenüber Verlusten." },
+          { term: "Einlagensicherung", definition: "Garantie, Kundeneinlagen bis zu einer Obergrenze auch im Insolvenzfall der Bank zurückzuzahlen; verhindert panikgetriebene Bank Runs." },
+        ],
+        examples: [
+          "Eine Bank hat eine Bilanzsumme von 200 Mio. € und Eigenkapital von 10 Mio. € — der Leverage beträgt 200/10=20. Verliert die Bank durch notleidende Kredite nur 5% ihrer Aktiva (10 Mio. €), ist ihr gesamtes Eigenkapital bereits aufgezehrt, obwohl der Aktivaverlust auf den ersten Blick moderat wirkt.",
         ],
       },
       {
         id: "4-2",
-        heading: "4.2 Instrumente der Zentralbank",
+        heading: "4.3 Instrumente der Zentralbank",
         body: [
           "Zentralbanken steuern die Geldmenge und Zinsen über mehrere Instrumente: Offenmarktgeschäfte (Kauf oder Verkauf von Staatsanleihen, wodurch Zentralbankgeld ins Bankensystem fließt oder abgezogen wird), die Festlegung des Mindestreservesatzes, sowie Leitzinsen, zu denen sich Geschäftsbanken bei der Zentralbank refinanzieren können.",
           "Senkt die Zentralbank den Leitzins oder kauft sie Anleihen auf, erhöht sich tendenziell die im Bankensystem verfügbare Geldmenge, was (über den in Kapitel 10 behandelten LM-Mechanismus) Marktzinsen senkt und Investitionen anregt.",
@@ -309,6 +398,8 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Friktionelle Arbeitslosigkeit entsteht durch den normalen, zeitraubenden Suchprozess zwischen Job und Bewerber:in und ist auch in einer gut funktionierenden Volkswirtschaft nicht vollständig vermeidbar. Strukturelle Arbeitslosigkeit entsteht, wenn Löhne über dem markträumenden Niveau liegen (z. B. durch Mindestlöhne, Gewerkschaftsmacht oder Effizienzlöhne) und dauerhaft mehr Arbeit angeboten als nachgefragt wird.",
           "Konjunkturelle Arbeitslosigkeit entsteht durch temporäre Nachfrageschwäche im Konjunkturzyklus und bildet sich mit der wirtschaftlichen Erholung typischerweise zurück. Die natürliche Arbeitslosenquote fasst friktionelle und strukturelle Arbeitslosigkeit als das Niveau zusammen, das auch bei voller Kapazitätsauslastung der Volkswirtschaft bestehen bleibt.",
+          "Zwei Theorien erklären, warum Löhne selbst OHNE Mindestlohn oder Gewerkschaften über dem markträumenden Niveau verharren können. Die Effizienzlohntheorie besagt: Unternehmen zahlen freiwillig überdurchschnittliche Löhne, weil höhere Löhne Produktivität, Motivation und Betriebstreue erhöhen (und Fluktuationskosten senken) — der Produktivitätsgewinn kann die höheren Lohnkosten übersteigen, sodass ein überhöhter Lohn für das einzelne Unternehmen sogar gewinnmaximal ist, auch wenn dadurch am Gesamtmarkt ein Angebotsüberschuss an Arbeit entsteht. Die Insider-Outsider-Theorie erklärt strukturelle Arbeitslosigkeit dagegen über Verhandlungsmacht: Bereits Beschäftigte ('Insider') können über Kündigungsschutz, Einarbeitungskosten und Gewerkschaftsmacht Löhne durchsetzen, die über dem Niveau liegen, zu dem Arbeitslose ('Outsider') bereit wären zu arbeiten — Outsider haben aber kaum Einfluss auf diese Verhandlungen.",
+          "Die Existenz einer Arbeitslosenversicherung beeinflusst zusätzlich die GESUCHTE Dauer der Jobsuche: Eine großzügigere Versicherung mindert den finanziellen Druck, schnell ein (möglicherweise schlecht passendes) Jobangebot anzunehmen, und kann so die durchschnittliche Sucharbeitslosigkeit verlängern (ein sogenannter Moral-Hazard-Effekt). Diesem Nachteil steht ein Vorteil gegenüber: Eine bessere Absicherung erlaubt es Arbeitssuchenden, gezielter nach einer wirklich passenden Stelle zu suchen, statt aus reiner finanzieller Not den erstbesten Job anzunehmen — was langfristig zu einem besseren Matching zwischen Fähigkeiten und Stellen führen kann.",
         ],
         table: {
           caption: "Die drei Arten von Arbeitslosigkeit",
@@ -332,9 +423,18 @@ export const chapters: SkriptChapter[] = [
             term: "Natürliche Arbeitslosenquote",
             definition: "Summe aus friktioneller und struktureller Arbeitslosigkeit; besteht auch bei voller Kapazitätsauslastung.",
           },
+          {
+            term: "Effizienzlohntheorie",
+            definition: "Erklärt überhöhte Löhne dadurch, dass sie Produktivität, Motivation und Betriebstreue steigern und für Unternehmen deshalb trotz höherer Kosten profitabel sein können.",
+          },
+          {
+            term: "Insider-Outsider-Theorie",
+            definition: "Erklärt strukturelle Arbeitslosigkeit über die Verhandlungsmacht bereits Beschäftigter ('Insider'), die Löhne über dem Niveau durchsetzen können, zu dem Arbeitslose ('Outsider') arbeiten würden.",
+          },
         ],
         examples: [
           "Ein neu ausgebildeter Ingenieur, der drei Monate braucht, um eine passende Stelle zu finden, zählt in dieser Zeit als friktionell arbeitslos — ein normaler Bestandteil eines funktionierenden Arbeitsmarkts.",
+          "Ein Unternehmen zahlt seinen Mitarbeitenden bewusst 15% über dem branchenüblichen Lohn. Die Fluktuation sinkt spürbar, wodurch Einarbeitungskosten für neue Mitarbeitende entfallen, und die Motivation steigt, weil ein Jobverlust nun einen spürbaren Einkommensverlust bedeuten würde — der Produktivitätsgewinn übersteigt die zusätzlichen Lohnkosten, obwohl dadurch am Gesamtmarkt mehr Bewerbungen als offene Stellen entstehen.",
         ],
       },
       {
@@ -510,6 +610,30 @@ export const chapters: SkriptChapter[] = [
           "Zwei Länder mit identischer Sparquote und Bevölkerungswachstum, aber unterschiedlichem Startkapital, nähern sich über Zeit demselben Pro-Kopf-Einkommen an — ein Land mit strukturell niedrigerer Sparquote konvergiert dagegen zu einem dauerhaft niedrigeren Niveau.",
         ],
       },
+      {
+        id: "7-4",
+        heading: "7.4 Endogenes Wachstum: das AK-Modell",
+        body: [
+          "Im Solow-Modell (Kapitel 6) ist dauerhaftes Pro-Kopf-Wachstum nur durch technischen Fortschritt möglich, der dort als EXOGEN vorausgesetzt wird — das Modell erklärt also nicht, WOHER dieser Fortschritt kommt. Modelle endogenen Wachstums schließen diese Lücke, indem sie Wachstum aus Entscheidungen innerhalb des Modells (Spar-/Investitionsverhalten, Forschung) ableiten, statt es von außen vorzugeben.",
+          "Das einfachste Beispiel ist das AK-Modell: Es ersetzt die Cobb-Douglas-Produktionsfunktion mit abnehmenden Grenzerträgen des Kapitals durch die lineare Funktion Y = A·K, bei der A eine konstante Produktivitätskonstante ist. Da hier JEDE zusätzliche Kapitaleinheit denselben Ertrag A abwirft (keine abnehmenden Grenzerträge), führt eine dauerhaft positive Sparquote zu dauerhaftem Pro-Kopf-Wachstum, statt nur zu einem einmaligen Übergang in ein Steady State wie im Solow-Modell.",
+          "Kapitalakkumulation folgt weiterhin Δk = s·f(k) − (δ+n)·k, aber mit f(k)=A·k wird daraus Δk = (sA−δ−n)·k. Die Wachstumsrate von k (und damit von y=Ak) ist konstant bei sA−δ−n — solange sA>δ+n, wächst die Volkswirtschaft dauerhaft, ohne dass ein Steady State erreicht wird, da der Grenzertrag des Kapitals nie sinkt.",
+        ],
+        formulas: [
+          "Y = A·K  (AK-Produktionsfunktion, A konstant)",
+          "Wachstumsrate von k: sA − δ − n  (dauerhaft positiv, falls sA > δ+n)",
+        ],
+        formulasLatex: [
+          "Y = A \\cdot K",
+          "g_k = sA - \\delta - n",
+        ],
+        terms: [
+          { term: "Endogenes Wachstum", definition: "Wachstumstheorie, die den technischen Fortschritt aus modellinternen Entscheidungen (Sparen, Forschung) ableitet, statt ihn wie im Solow-Modell exogen vorzugeben." },
+          { term: "AK-Modell", definition: "Einfachstes endogenes Wachstumsmodell mit linearer Produktionsfunktion Y=A·K ohne abnehmende Grenzerträge des Kapitals; erzeugt dauerhaftes Wachstum bei sA>δ+n." },
+        ],
+        examples: [
+          "Eine Volkswirtschaft im AK-Modell hat A=0,3, eine Sparquote s=0,25, eine Abschreibungsrate δ=0,04 und Bevölkerungswachstum n=0,01. Da sA=0,25×0,3=0,075 größer ist als δ+n=0,05, wächst das Kapital pro Kopf (und damit auch der Output pro Kopf) dauerhaft mit der konstanten Rate 0,075−0,05=0,025, also 2,5% pro Jahr — ohne dass sich je ein Steady State einstellt.",
+        ],
+      },
     ],
   },
   // ==================== Kapitel 8 (Exkurs) ====================
@@ -587,6 +711,23 @@ export const chapters: SkriptChapter[] = [
           "Ersetzt eine Volkswirtschaft den Rückgang fossiler Ressourcen durch verstärkte Investitionen in erneuerbare Energieanlagen (Sachkapital), entspricht dies dem Konzept schwacher Nachhaltigkeit.",
         ],
       },
+      {
+        id: "9-3",
+        heading: "9.3 Gerichteter technischer Fortschritt und die sozialen Kosten von CO₂",
+        body: [
+          "9.1 hat die CO₂-Bepreisung als Werkzeug zur Internalisierung externer Effekte eingeführt — aber wie hoch sollte ein solcher Preis konkret sein? Die sozialen Kosten von CO₂ (Social Cost of Carbon) versuchen genau das zu beziffern: den gegenwärtigen Barwert aller zukünftigen wirtschaftlichen Schäden, die durch die Emission einer zusätzlichen Tonne CO₂ heute verursacht werden (Ernteausfälle, Gesundheitskosten, Sachschäden durch Extremwetter). Integrated Assessment Models (IAMs) verbinden dafür Klimamodelle mit ökonomischen Wachstumsmodellen, um diese Schätzung systematisch herzuleiten — die Ergebnisse hängen jedoch stark von Annahmen über den Diskontsatz künftiger Schäden ab, weshalb Schätzungen der sozialen CO₂-Kosten in der Forschung erheblich streuen.",
+          "Über die reine Bepreisung hinaus stellt sich die Frage, ob technischer Fortschritt selbst gezielt in eine emissionsärmere Richtung gelenkt werden kann. Das Konzept des gerichteten technischen Fortschritts (Directed Technological Change) unterscheidet zwischen 'schmutzigen' Inputs (fossile Energie) und 'sauberen' Inputs (erneuerbare Energie) als jeweils eigenen Faktoren der Produktion: Forschung kann sich auf die Verbesserung des einen oder anderen Inputs konzentrieren, und relative Preise (mitbestimmt durch die CO₂-Bepreisung) lenken, wohin Forschungsanreize fließen. Eine ausreichend hohe, glaubwürdige CO₂-Bepreisung kann so nicht nur kurzfristig Emissionen senken, sondern auch langfristig Innovationsanreize von schmutziger zu sauberer Technologie umlenken.",
+          "Neben der Vermeidung von Emissionen existieren auch Technologien zur nachträglichen Abscheidung: Carbon Capture and Storage (CCS) filtert CO₂ direkt aus Industrieabgasen oder der Umgebungsluft und lagert es dauerhaft (z. B. in geologischen Formationen) ein. CCS ist bislang meist teurer als Vermeidung an der Quelle, gilt aber als potenziell wichtiger Baustein für Sektoren, in denen Emissionen technisch schwer vollständig vermeidbar sind (z. B. Zementproduktion).",
+        ],
+        terms: [
+          { term: "Soziale Kosten von CO₂ (Social Cost of Carbon)", definition: "Geschätzter Barwert aller zukünftigen wirtschaftlichen Schäden durch die Emission einer zusätzlichen Tonne CO₂ heute; theoretische Grundlage für die Höhe einer CO₂-Bepreisung." },
+          { term: "Gerichteter technischer Fortschritt (Directed Technological Change)", definition: "Konzept, wonach Forschungsanreize gezielt zwischen 'schmutzigen' und 'sauberen' Produktionsinputs gelenkt werden können, u. a. durch relative Preise." },
+          { term: "Carbon Capture and Storage (CCS)", definition: "Technologie zur nachträglichen Abscheidung und dauerhaften Einlagerung von CO₂ aus Industrieabgasen oder der Umgebungsluft." },
+        ],
+        examples: [
+          "Führt ein Land eine glaubwürdige, langfristig ansteigende CO₂-Bepreisung ein, verschieben sich Forschungsbudgets von Unternehmen tendenziell weg von der Effizienzsteigerung fossiler Kraftwerke hin zur Kostensenkung von Solar- und Windtechnologie, weil die relative Rentabilität sauberer Innovationen dadurch steigt — ein Beispiel für gerichteten technischen Fortschritt in der Praxis.",
+        ],
+      },
     ],
   },
   // ==================== Kapitel 10 ====================
@@ -653,6 +794,8 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Die LM-Kurve zeigt Kombinationen aus Zins und Produktion, bei denen Geldangebot und Geldnachfrage übereinstimmen: M/P = L(i,Y). Höheres Y erhöht die Transaktionsnachfrage nach Geld; damit der Geldmarkt bei gegebenem Geldangebot im Gleichgewicht bleibt, muss der Zins steigen (Geldnachfrage sinkt mit steigendem Zins) — die LM-Kurve verläuft daher steigend.",
           "Eine expansive Geldpolitik (höheres M) verschiebt die LM-Kurve nach rechts/unten: Bei jedem Y ist nun ein niedrigerer Gleichgewichtszins nötig, um den größeren realen Geldbestand M/P vom Publikum halten zu lassen.",
+          "In der Praxis steuern die meisten Zentralbanken nicht direkt die Geldmenge M, sondern einen Leitzins (Zinssteuerung statt Geldmengensteuerung) — sie passen M so an, wie es nötig ist, um den gewünschten Zins zu erreichen. Der Hauptgrund: Die Geldnachfrage L(i,Y) schwankt kurzfristig unvorhersehbar (z. B. durch Änderungen im Zahlungsverhalten), sodass ein fixes Geldmengenziel bei schwankender Nachfrage zu stark schwankenden, schwer prognostizierbaren Zinsen führen würde. Ein Zinsziel entkoppelt die Politik dagegen von diesen Nachfrageschwankungen und macht die Wirkung auf Investitionen und Konsum berechenbarer.",
+          "Ein Grenzfall der LM-Kurve ist die Liquiditätsfalle: Sinkt der Zins bis nahe an die Nullzinsgrenze (i≈0), wird die Geldnachfrage nahezu unendlich zinselastisch — bei einem derart niedrigen Zins ist das Halten von Bargeld/Sichteinlagen kaum noch mit Opportunitätskosten verbunden, sodass das Publikum jede zusätzliche Geldmenge bereitwillig hält, ohne dass der Zins weiter sinkt. Grafisch wird die LM-Kurve in diesem Bereich horizontal. Konventionelle Geldpolitik (Ausweitung von M) verliert dort ihre Wirkung auf den Zins und damit auf Y — eine zentrale Herausforderung für Zentralbanken in tiefen Rezessionen bei bereits sehr niedrigem Zinsniveau, in denen dann oft auf Fiskalpolitik oder unkonventionelle geldpolitische Instrumente zurückgegriffen wird.",
         ],
         formulas: ["M/P = L(i, Y)"],
         formulasLatex: ["\\dfrac{M}{P} = L(i, Y)"],
@@ -661,9 +804,14 @@ export const chapters: SkriptChapter[] = [
             term: "LM-Kurve",
             definition: "Kombinationen aus Zins und Produktion, bei denen der Geldmarkt im Gleichgewicht ist.",
           },
+          {
+            term: "Liquiditätsfalle",
+            definition: "Zustand nahe der Nullzinsgrenze, in dem die Geldnachfrage nahezu unendlich zinselastisch wird und die LM-Kurve horizontal verläuft — konventionelle Geldpolitik verliert dort ihre Wirkung auf Y.",
+          },
         ],
         examples: [
           "Erhöht die Zentralbank die Geldmenge M, sinkt bei gegebenem Y der Gleichgewichtszins, da das größere reale Geldangebot nur bei niedrigerem Zins vollständig vom Publikum nachgefragt wird.",
+          "Liegt der Leitzins bereits nahe 0% und die Zentralbank weitet die Geldmenge weiter aus, ändert sich der Gleichgewichtszins kaum noch — die Volkswirtschaft befindet sich in der Liquiditätsfalle, und zusätzliche Geldpolitik verpufft weitgehend, während expansive Fiskalpolitik (höheres G) in dieser Situation ungewöhnlich wirksam bleibt, da sie nicht durch steigende Zinsen gedämpft wird (kein Crowding-out, siehe 10.4).",
         ],
       },
       {
@@ -689,6 +837,28 @@ export const chapters: SkriptChapter[] = [
         ],
         examples: [
           "Erhöht der Staat G, steigen sowohl Y als auch der Zins i. Der höhere Zins dämpft private Investitionen leicht (Crowding-out), sodass der Gesamteffekt auf Y kleiner ausfällt als der reine Gütermarktmultiplikator vorhersagen würde.",
+        ],
+      },
+      {
+        id: "10-4",
+        heading: "10.5 Fallstudie: Die Große Depression",
+        body: [
+          "Die Große Depression (1929–1933) ist das historisch bedeutendste Beispiel für einen tiefen, lang anhaltenden Nachfrageeinbruch und liefert bis heute ein Lehrstück für das IS-LM-Modell. Zwei konkurrierende Erklärungen stehen sich gegenüber: Die Ausgabenhypothese sieht die Ursache primär in einem IS-Schock — ein Vertrauenseinbruch nach dem Börsencrash von 1929 ließ Investitionen und Konsum einbrechen, was die IS-Kurve stark nach links verschob. Die Geldhypothese sieht dagegen einen LM-Schock als Hauptursache: Eine Welle von Bankpleiten (siehe Kapitel 4) ließ die Geldmenge drastisch schrumpfen, was die LM-Kurve nach links verschob und den realen Zins trotz nomineller Zinssenkungen effektiv erhöhte.",
+          "Beide Schocks trafen vermutlich gleichzeitig ein und verstärkten sich gegenseitig. Zusätzlich verschärfte der Pigou-Effekt umgekehrt wirken sollende Anpassungsmechanismen: Fallende Preise (Deflation, siehe 3.6) erhöhen zwar normalerweise den realen Wert von Geldvermögen und sollten so die Nachfrage stützen, aber die gleichzeitig steigende REALE Schuldenlast bestehender (nominal fixierter) Kredite wirkte in die Gegenrichtung stärker (Schuldendeflations-Theorie) — Schuldner:innen mussten Konsum und Investitionen einschränken, um ihre real gestiegene Schuldenlast zu bedienen, was die Nachfrageschwäche weiter vertiefte, statt sie über den Pigou-Effekt zu mildern.",
+          "Die zentrale wirtschaftspolitische Lehre aus dieser Episode: Eine restriktive Geldpolitik (Zulassen eines starken Geldmengenrückgangs) und eine anfänglich zurückhaltende Fiskalpolitik verschärften die Krise erheblich — ein Grund, warum Zentralbanken seit der Finanzkrise 2008 (und erneut während der Corona-Pandemie) bei Nachfrageeinbrüchen deutlich aggressiver und schneller mit Geldmengenausweitung reagieren, um einen vergleichbaren LM-Schock zu verhindern.",
+        ],
+        terms: [
+          {
+            term: "Pigou-Effekt",
+            definition: "Mechanismus, wonach fallende Preise den realen Wert von Geldvermögen erhöhen und dadurch die Nachfrage stützen sollten — wurde während der Großen Depression durch den gegenläufigen Schuldendeflations-Effekt überkompensiert.",
+          },
+          {
+            term: "Schuldendeflations-Theorie",
+            definition: "Erklärt, wie Deflation die reale Schuldenlast nominal fixierter Kredite erhöht und Schuldner:innen zu Konsum-/Investitionskürzungen zwingt, was eine Nachfrageschwäche weiter verstärkt.",
+          },
+        ],
+        examples: [
+          "Ein Unternehmen mit einem nominal fixierten Kredit von 1 Mio. € sieht bei 10% Deflation den realen Wert dieser Schuld effektiv um gut 11% steigen (derselbe Nominalbetrag entspricht nun mehr Kaufkraft) — um die höhere reale Last zu bedienen, kürzt es Investitionen, was die gesamtwirtschaftliche Nachfrage weiter schwächt und so die Deflation zusätzlich befeuert.",
         ],
       },
     ],
@@ -790,8 +960,27 @@ export const chapters: SkriptChapter[] = [
       "Sobald eine Volkswirtschaft mit dem Ausland Güter und Kapital austauscht, ändern sich die Wirkungen von Fiskal- und Geldpolitik grundlegend. Dieses Kapitel überträgt das IS-LM-Modell auf offene Volkswirtschaften.",
     sections: [
       {
+        id: "12-0",
+        heading: "12.1 Leistungsbilanz, Kapitalbilanz und die Identität NX=S−I",
+        body: [
+          "Bevor Wechselkurse und Kapitalmobilität ins IS-LM-Modell integriert werden, lohnt ein Blick auf die grundlegende Buchhaltung einer offenen Volkswirtschaft. Die Leistungsbilanz erfasst im Kern den Außenhandel: den Saldo aus Exporten und Importen von Gütern und Dienstleistungen sowie grenzüberschreitende Faktoreinkommen (vgl. BNE, 2.1). Die Kapitalbilanz erfasst dagegen grenzüberschreitende Finanztransaktionen — den Kauf und Verkauf von Vermögenswerten (Wertpapiere, Direktinvestitionen, Kredite) zwischen In- und Ausland.",
+          "Beide Bilanzen sind buchhalterisch spiegelbildlich verknüpft: Ein Leistungsbilanzüberschuss (mehr Exporte als Importe) bedeutet automatisch, dass das Inland per saldo Vermögenswerte gegenüber dem Ausland aufbaut — es exportiert netto Kapital. Formal gilt NX = S−I: Die Nettoexporte entsprechen der Differenz zwischen nationaler Ersparnis S und Investition I. Ein Land, das mehr spart, als es im Inland investiert, muss diese überschüssige Ersparnis zwangsläufig ins Ausland exportieren — genau das drückt sich als Leistungsbilanzüberschuss (positives NX) aus.",
+          "Diese Identität erklärt, warum Leistungsbilanzsalden keine reinen 'Handelsphänomene' sind, sondern eng mit der volkswirtschaftlichen Spar-Investitions-Bilanz zusammenhängen: Ein Land mit chronischem Leistungsbilanzdefizit (NX<0) investiert systematisch mehr, als es selbst spart, und finanziert die Differenz durch Kapitalzuflüsse aus dem Ausland (eine negative Kapitalbilanz im engeren Sinne bzw. eine positive Nettokapitalimportposition).",
+        ],
+        formulas: ["NX = S − I  (Nettoexporte = nationale Ersparnis minus Investition)"],
+        formulasLatex: ["NX = S - I"],
+        terms: [
+          { term: "Leistungsbilanz", definition: "Saldo aus Exporten und Importen von Gütern/Dienstleistungen sowie grenzüberschreitenden Faktoreinkommen." },
+          { term: "Kapitalbilanz", definition: "Saldo grenzüberschreitender Finanztransaktionen (Kauf/Verkauf von Vermögenswerten zwischen In- und Ausland)." },
+          { term: "NX=S−I-Identität", definition: "Buchhalterische Identität: Nettoexporte entsprechen der Differenz zwischen nationaler Ersparnis und Investition." },
+        ],
+        examples: [
+          "Ein Land spart insgesamt 500 Mrd. € (S=500) und investiert im Inland nur 420 Mrd. € (I=420). Nach der Identität NX=S−I muss der Leistungsbilanzsaldo NX=500−420=80 Mrd. € betragen — das Land exportiert netto Güter im Wert von 80 Mrd. € und baut in gleicher Höhe Auslandsvermögen auf.",
+        ],
+      },
+      {
         id: "12-1",
-        heading: "12.1 Wechselkurse und Kaufkraftparität",
+        heading: "12.2 Wechselkurse und Kaufkraftparität",
         body: [
           "Der nominale Wechselkurs e gibt an, wie viele Einheiten Fremdwährung eine Einheit Inlandswährung kauft; der reale Wechselkurs ε = e·P/P* berücksichtigt zusätzlich das relative Preisniveau und bestimmt die preisliche Wettbewerbsfähigkeit von Exporten.",
           "Die Kaufkraftparitätstheorie postuliert, dass sich Wechselkurse langfristig so anpassen, dass identische Güterkörbe in unterschiedlichen Währungen gleich viel kosten. Kurzfristig weichen tatsächliche Wechselkurse aber oft erheblich von diesem Wert ab, u. a. weil viele Güter (z. B. Dienstleistungen) nicht international gehandelt werden.",
@@ -810,7 +999,7 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "12-2",
-        heading: "12.2 Das Mundell-Fleming-Modell bei flexiblen Wechselkursen",
+        heading: "12.3 Das Mundell-Fleming-Modell bei flexiblen Wechselkursen",
         body: [
           "Das Mundell-Fleming-Modell erweitert IS-LM um Nettoexporte, die vom realen Wechselkurs abhängen, und um internationale Kapitalmobilität, die den Inlandszins an den Weltzins bindet. Bei perfekter Kapitalmobilität und flexiblen Wechselkursen ist Geldpolitik hochwirksam: Eine Geldmengenausweitung senkt den Zins, was Kapitalabflüsse und eine Abwertung auslöst — die Abwertung stützt zusätzlich die Nettoexporte und verstärkt den Effekt auf Y.",
           "Fiskalpolitik ist unter denselben Annahmen dagegen weitgehend wirkungslos: Höhere Staatsausgaben würden den Inlandszins über den Weltzins treiben, was Kapitalzuflüsse und eine Aufwertung auslöst — die Aufwertung verdrängt Nettoexporte und kompensiert den ursprünglichen Nachfrageimpuls fast vollständig.",
@@ -827,10 +1016,11 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "12-3",
-        heading: "12.3 Das Trilemma der offenen Volkswirtschaft",
+        heading: "12.4 Das Trilemma der offenen Volkswirtschaft",
         body: [
           "Das Trilemma besagt, dass ein Land nicht gleichzeitig freien Kapitalverkehr, einen fixen Wechselkurs und eine unabhängige Geldpolitik haben kann — höchstens zwei der drei Ziele lassen sich gleichzeitig verwirklichen. Ein Land mit fixem Wechselkurs und freiem Kapitalverkehr muss seine Geldpolitik dem Ankerland unterordnen, da sonst Zinsdifferenzen sofort massive Kapitalbewegungen und Druck auf den fixen Kurs auslösen würden.",
           "Länder wählen daher typischerweise eine von drei Kombinationen: freier Kapitalverkehr mit flexiblem Wechselkurs und unabhängiger Geldpolitik (z. B. USA, Eurozone insgesamt), Kapitalverkehrskontrollen mit fixem Kurs und unabhängiger Geldpolitik (z. B. historisch China), oder fixer Kurs mit freiem Kapitalverkehr und aufgegebener eigener Geldpolitik (z. B. Mitgliedsstaaten der Eurozone gegenüber der EZB).",
+          "Die Wahl zwischen festem und flexiblem Wechselkurs (bei gegebenem Kapitalverkehr) ist selbst eine wirtschaftspolitische Abwägung. Für feste Wechselkurse spricht: geringere Unsicherheit für Außenhandel und grenzüberschreitende Investitionen, eine importierte Preisstabilität von einem glaubwürdigen Ankerland, und Schutz vor selbstverstärkenden spekulativen Wechselkursschwankungen. Für flexible Wechselkurse spricht dagegen: Der Wechselkurs kann als automatischer Puffer gegen asymmetrische Schocks wirken (eine Abwertung dämpft z. B. einen Nachfrageeinbruch automatisch über steigende Nettoexporte), und die Geldpolitik bleibt für eigene, landesspezifische Konjunkturprobleme nutzbar, statt dem Trilemma zufolge aufgegeben werden zu müssen.",
         ],
         table: {
           caption: "Die drei möglichen Kombinationen im Trilemma",
