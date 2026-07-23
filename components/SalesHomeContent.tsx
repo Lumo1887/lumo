@@ -6,7 +6,6 @@ import { modules, STUDIENGAENGE } from "@/lib/modules";
 import SalesModuleCard from "@/components/SalesModuleCard";
 import { fetchAccess } from "@/lib/access";
 import Reviews from "@/components/Reviews";
-import Stars from "@/components/Stars";
 import MathFormula from "@/components/MathFormula";
 
 const comparisonRows = [
@@ -54,8 +53,6 @@ const comparisonRows = [
 export default function SalesHomeContent() {
   const [accessMap, setAccessMap] = useState<Record<string, boolean>>({});
   const [loaded, setLoaded] = useState(false);
-  const [avgRating, setAvgRating] = useState(0);
-  const [reviewCount, setReviewCount] = useState(0);
 
   const activeStudiengang =
     STUDIENGAENGE.find((s) => s.active)?.name ?? STUDIENGAENGE[0]?.name ?? "";
@@ -74,14 +71,6 @@ export default function SalesHomeContent() {
       setAccessMap(map);
       setLoaded(true);
     });
-    fetch("/api/reviews", { cache: "no-store" })
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (cancelled || !data) return;
-        setAvgRating(data.averageRating ?? 0);
-        setReviewCount(data.totalCount ?? 0);
-      })
-      .catch(() => {});
     return () => {
       cancelled = true;
     };
@@ -127,15 +116,6 @@ export default function SalesHomeContent() {
       {/* ---------- Hero ---------- */}
       <section className="grid grid-cols-1 items-center gap-10 pb-6 pt-2 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12">
         <div>
-          {reviewCount > 0 && (
-            <div className="mb-5 flex items-center gap-2">
-              <Stars value={avgRating} size="text-base" />
-              <span className="text-sm font-bold text-ink-600">
-                {avgRating.toFixed(1)}/5 von {reviewCount}{" "}
-                {reviewCount === 1 ? "Bewertung" : "Bewertungen"}
-              </span>
-            </div>
-          )}
           <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-ink-900 sm:text-5xl">
             Bestehe deine Klausur — ohne im Skript zu ertrinken.
           </h1>
