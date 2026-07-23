@@ -137,7 +137,7 @@ export const chapters: SkriptChapter[] = [
         formulasLatex: ["\\vec a \\ \\text{Häufungspunkt von } (\\vec x_k) \\iff \\exists \\text{ Teilfolge } (\\vec x_{k_j}) \\ \\text{mit} \\ \\vec x_{k_j}\\to\\vec a"],
         terms: [{ term: "Häufungspunkt", definition: "Grenzwert einer konvergenten Teilfolge; eine Folge kann mehrere Häufungspunkte besitzen." }],
         examples: [
-          "Die Folge ⃗cₖ = ((−1)ᵏ, k/(k+1)) hat die Häufungspunkte (1,1) und (−1,1): Für gerade k konvergiert die Teilfolge gegen (1,1) (da (−1)ᵏ=1 und k/(k+1)→1), für ungerade k gegen (−1,1). Ein Gegenbeispiel zur 'Umkehrung' aus dem obigen Absatz: aₖ = 1 für gerade k, 0 für ungerade k, und bₖ = 1 für ungerade k, 0 für gerade k. Beide Folgen (aₖ) und (bₖ) haben die Häufungspunkte 0 und 1, aber (1,1) ist KEIN Häufungspunkt von (aₖ,bₖ), da niemals beide Komponenten gleichzeitig nahe bei 1 liegen.",
+          "Die Folge ⃗cₖ = ((−1)ᵏ, k/(k+1)) hat die Häufungspunkte (1,1) und (−1,1): Für gerade k konvergiert die Teilfolge gegen (1,1) (da (−1)ᵏ=1 und k/(k+1)→1), für ungerade k gegen (−1,1). Ein Gegenbeispiel zur 'Umkehrung' aus dem obigen Absatz lässt sich mit einer Dreierperiode konstruieren: aₖ = 1, falls k durch 3 teilbar ist, sonst 0; bₖ = 1, falls k bei Division durch 3 den Rest 1 lässt, sonst 0. Beide Ereignisse ('k durch 3 teilbar' bzw. 'Rest 1') treten für unendlich viele k ein, ebenso ihr jeweiliges Gegenteil — also haben sowohl (aₖ) als auch (bₖ) die Häufungspunkte 0 und 1. Die Kombination (aₖ,bₖ) nimmt aber je nach Rest von k bei Division durch 3 nur die Werte (1,0) [Rest 0], (0,1) [Rest 1] oder (0,0) [Rest 2] an — der Fall (1,1) tritt für kein einziges k ein, weil 'durch 3 teilbar' und 'Rest 1 bei Division durch 3' sich gegenseitig ausschließen. Damit ist (1,1) kein Häufungspunkt von (aₖ,bₖ), obwohl 1 Häufungspunkt jeder einzelnen Komponentenfolge ist.",
         ],
       },
     ],
@@ -304,21 +304,28 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Ein Skalar λ (reell oder komplex) heißt Eigenwert der quadratischen Matrix A, wenn ein Vektor ⃗v ≠ ⃗0 existiert mit A⃗v = λ⃗v; ⃗v heißt dann Eigenvektor zum Eigenwert λ. Diese Bedingung ist äquivalent zu (A − λE)⃗v = ⃗0 mit ⃗v ≠ ⃗0, was wiederum genau dann eine nichttriviale Lösung besitzt, wenn det(A − λE) = 0 gilt. Das charakteristische Polynom PA(λ) := det(A − λE) ist ein Polynom vom Grad n (bei einer n×n-Matrix); seine Nullstellen sind genau die Eigenwerte von A.",
           "Auch bei einer reellen Matrix können komplexe Eigenwerte auftreten — dann treten sie stets in konjugiert komplexen Paaren auf, da das charakteristische Polynom reelle Koeffizienten hat. Für Dreiecks- und Blockdreiecksmatrizen lassen sich die Eigenwerte oft direkt ablesen bzw. aus den Eigenwerten der Blöcke zusammensetzen, da das charakteristische Polynom in ein Produkt der charakteristischen Polynome der Blöcke zerfällt.",
+          "Aus A⃗v=λ⃗v folgen unmittelbar weitere Eigenwert-Beziehungen zum selben Eigenvektor ⃗v: Wendet man A wiederholt an, ergibt sich Aᵏ⃗v = λᵏ⃗v für jedes k∈ℕ — ⃗v ist also auch Eigenvektor von Aᵏ, und zwar zum Eigenwert λᵏ. Ist A zusätzlich invertierbar (äquivalent: kein Eigenwert ist 0), gilt A⁻¹⃗v = (1/λ)⃗v, sodass 1/λ ein Eigenwert von A⁻¹ zum selben Eigenvektor ⃗v ist. Zusätzlich gilt det(A) = λ1·...·λₙ (Produkt aller Eigenwerte, mit algebraischer Vielfachheit gezählt) und Spur(A) = λ1+...+λₙ (Summe aller Eigenwerte) — beides folgt aus der Zerlegung des charakteristischen Polynoms in Linearfaktoren.",
         ],
         formulas: [
           "A⃗v = λ⃗v, ⃗v≠⃗0 ⟺ det(A−λE) = 0",
           "PA(λ) = det(A − λE)  (charakteristisches Polynom)",
+          "A⃗v=λ⃗v ⟹ Aᵏ⃗v=λᵏ⃗v, und (A invertierbar) ⟹ A⁻¹⃗v=(1/λ)⃗v",
+          "det(A) = λ1·...·λₙ, Spur(A) = λ1+...+λₙ",
         ],
         formulasLatex: [
           "A\\vec v = \\lambda \\vec v,\\ \\vec v \\neq \\vec 0 \\iff \\det(A-\\lambda E) = 0",
           "P_A(\\lambda) = \\det(A - \\lambda E)",
+          "A\\vec v=\\lambda \\vec v \\implies A^k \\vec v = \\lambda^k \\vec v, \\quad A \\text{ invertierbar} \\implies A^{-1}\\vec v = \\dfrac{1}{\\lambda}\\vec v",
+          "\\det(A) = \\lambda_1 \\cdots \\lambda_n, \\qquad \\operatorname{Spur}(A) = \\lambda_1 + \\cdots + \\lambda_n",
         ],
         terms: [
           { term: "Eigenwert / Eigenvektor", definition: "λ mit A⃗v=λ⃗v für ein ⃗v≠⃗0; ⃗v heißt zugehöriger Eigenvektor." },
           { term: "Charakteristisches Polynom", definition: "PA(λ) = det(A−λE); seine Nullstellen sind genau die Eigenwerte von A." },
+          { term: "Eigenwerte von Potenzen/Inversen", definition: "Ist λ Eigenwert von A zum Eigenvektor ⃗v, so ist λᵏ Eigenwert von Aᵏ und (bei invertierbarem A) 1/λ Eigenwert von A⁻¹ — jeweils zum selben Eigenvektor ⃗v." },
         ],
         examples: [
-          "Für A = [[4,-2],[1,1]] ist PA(λ) = det([[4−λ,−2],[1,1−λ]]) = (4−λ)(1−λ)+2 = λ²−5λ+6 = (λ−3)(λ−2). Die Eigenwerte sind also λ1=3 und λ2=2. Für λ1=3: (A−3E)=[[1,−2],[1,−2]], Kern davon ist span{(2,1)} — ein Eigenvektor zu λ1=3 ist also (2,1). Für λ2=2: (A−2E)=[[2,−2],[1,−1]], Kern ist span{(1,1)}.",
+          "Für A = [[4,-2],[1,1]] ist PA(λ) = det([[4−λ,−2],[1,1−λ]]) = (4−λ)(1−λ)+2 = λ²−5λ+6 = (λ−3)(λ−2). Die Eigenwerte sind also λ1=3 und λ2=2. Für λ1=3: (A−3E)=[[1,−2],[1,−2]], Kern davon ist span{(2,1)} — ein Eigenvektor zu λ1=3 ist also (2,1). Für λ2=2: (A−2E)=[[2,−2],[1,−1]], Kern ist span{(1,1)}. Zur Probe: det(A)=4·1−(−2)·1=6=3·2=λ1·λ2 ✓ und Spur(A)=4+1=5=3+2=λ1+λ2 ✓.",
+          "Für dieselbe Matrix A=[[4,-2],[1,1]] hat A² denselben Eigenvektor (2,1), aber den Eigenwert 3²=9, sowie den Eigenvektor (1,1) zum Eigenwert 2²=4. Da beide Eigenwerte von A ungleich 0 sind, ist A invertierbar, und A⁻¹ hat dieselben Eigenvektoren mit Eigenwerten 1/3 bzw. 1/2.",
         ],
       },
       {
@@ -463,21 +470,29 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Ein Skalarprodukt ⟨·,·⟩ auf einem reellen Vektorraum V ist eine Abbildung V×V→ℝ, die symmetrisch (⟨⃗x,⃗y⟩=⟨⃗y,⃗x⟩), linear im ersten Argument und positiv definit ist (⟨⃗x,⃗x⟩>0 für ⃗x≠⃗0). Das Standardskalarprodukt auf ℝⁿ ist ⟨⃗x,⃗y⟩ = Σxᵢyᵢ = ⃗xᵀ⃗y; es induziert die euklidische Norm über ‖⃗x‖2 = √⟨⃗x,⃗x⟩. Es gibt aber auch andere, 'exotischere' Skalarprodukte — etwa gewichtete Varianten ⟨⃗x,⃗y⟩ := ⃗xᵀA⃗y für eine positiv definite Matrix A —, deren Axiome man im Einzelfall nachweisen muss.",
           "Für jedes Skalarprodukt gilt die Cauchy-Schwarz-Ungleichung |⟨⃗x,⃗y⟩| ≤ ‖⃗x‖·‖⃗y‖ mit Gleichheit genau dann, wenn ⃗x und ⃗y linear abhängig sind. Sie ist das wichtigste Hilfsmittel, um Ungleichungen mit Skalarprodukten zu beweisen, und garantiert insbesondere, dass der 'Winkel' cos(φ) = ⟨⃗x,⃗y⟩/(‖⃗x‖‖⃗y‖) stets im Intervall [−1,1] liegt.",
+          "Das Konzept 'Skalarprodukt' ist nicht auf ℝⁿ beschränkt — dieselben drei Axiome (Symmetrie, Linearität, positive Definitheit) lassen sich auf ganz anderen Vektorräumen definieren, nur der zugrunde liegende Raum wechselt. Auf dem Raum C[a,b] der stetigen Funktionen auf einem Intervall [a,b] ist ⟨f,g⟩ := ∫ₐᵇ f(t)g(t) dt ein Skalarprodukt (das L²-Skalarprodukt): Symmetrie und Linearität folgen aus den Rechenregeln des Integrals, und ⟨f,f⟩=∫ₐᵇf(t)²dt ist nur dann 0, wenn f auf [a,b] überall 0 ist. Auf dem Raum der m×n-Matrizen ist ⟨A,B⟩ := Spur(AᵀB) ein Skalarprodukt (das Frobenius-Skalarprodukt); es entspricht genau dem Standardskalarprodukt der Einträge, wenn man jede Matrix spaltenweise zu einem langen Vektor auffasst.",
         ],
         formulas: [
           "⟨⃗x,⃗y⟩ = Σᵢ xᵢyᵢ = ⃗xᵀ⃗y  (Standardskalarprodukt)",
           "|⟨⃗x,⃗y⟩| ≤ ‖⃗x‖ · ‖⃗y‖  (Cauchy-Schwarz-Ungleichung)",
+          "⟨f,g⟩ = ∫ₐᵇ f(t)g(t) dt  (L²-Skalarprodukt auf C[a,b])",
+          "⟨A,B⟩ = Spur(AᵀB)  (Frobenius-Skalarprodukt auf Matrizen)",
         ],
         formulasLatex: [
           "\\langle \\vec x, \\vec y\\rangle = \\sum_i x_i y_i = \\vec x^{\\mathsf T}\\vec y",
           "|\\langle \\vec x,\\vec y\\rangle| \\le \\|\\vec x\\|\\cdot\\|\\vec y\\|",
+          "\\langle f,g\\rangle = \\int_a^b f(t)g(t)\\,dt",
+          "\\langle A,B\\rangle = \\operatorname{Spur}(A^{\\mathsf T}B)",
         ],
         terms: [
           { term: "Skalarprodukt", definition: "Symmetrische, bilineare, positiv definite Abbildung V×V→ℝ." },
           { term: "Cauchy-Schwarz-Ungleichung", definition: "|⟨⃗x,⃗y⟩| ≤ ‖⃗x‖‖⃗y‖ für jedes Skalarprodukt und die davon induzierte Norm." },
+          { term: "L²-Skalarprodukt", definition: "Skalarprodukt ⟨f,g⟩=∫ₐᵇf(t)g(t)dt auf dem Raum C[a,b] der stetigen Funktionen." },
+          { term: "Frobenius-Skalarprodukt", definition: "Skalarprodukt ⟨A,B⟩=Spur(AᵀB) auf dem Raum der m×n-Matrizen." },
         ],
         examples: [
           "Für ⃗a=(1,2,2) und ⃗b=(2,1,2) gilt ⟨⃗a,⃗b⟩ = 1·2+2·1+2·2 = 8, während ‖⃗a‖=‖⃗b‖=√(1+4+4)=3. Die Cauchy-Schwarz-Ungleichung liefert |8| ≤ 3·3=9 — erfüllt, mit etwas Abstand zur Gleichheit (⃗a und ⃗b sind nicht parallel).",
+          "Auf C[0,1] mit f(t)=t und g(t)=t² gilt ⟨f,g⟩=∫₀¹t·t² dt=∫₀¹t³dt=[t⁴/4]₀¹=1/4. — Für die Matrizen A=[[1,2],[3,4]] und B=[[0,1],[1,0]] ist AᵀB=[[1,3],[2,4]]·[[0,1],[1,0]]=[[3,1],[4,2]], also ⟨A,B⟩=Spur(AᵀB)=3+2=5 (dasselbe Ergebnis wie die entrywise-Summe 1·0+2·1+3·1+4·0=5).",
         ],
       },
       {

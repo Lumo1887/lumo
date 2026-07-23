@@ -25,7 +25,12 @@ export interface Question {
 // Rechnungen mit komplexen Zahlen, Matrizen, Vektoren und Funktionen) —
 // genau der in CLAUDE.md vorgesehene Ausnahmefall. Alle neuen Zahlenwerte
 // wurden vor Aufnahme in diese Datei per Selbstcheck (Regel 4) gegen die
-// Quell-PDFs abgeglichen.
+// Quell-PDFs abgeglichen. Ein Copyright-Audit (2 unabhängige Agenten,
+// Juli 2026) hat zusätzlich die `examples`-Felder in
+// lib/content/mathematik-2-semester.ts geprüft und dort eine zu enge
+// Übernahme (Häufungspunkt-Gegenbeispiel, Kapitel 2) gefunden und durch
+// eine eigenständige Konstruktion ersetzt — der Selbstcheck deckt seither
+// nachweislich auch die Skript-Beispiele ab, nicht nur diese Fragenbank.
 export const TOPICS = [
   "Grundrechenarten und Betrag komplexer Zahlen",
   "Polarform, Eulersche Formel und n-te Wurzeln",
