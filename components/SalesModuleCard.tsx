@@ -20,12 +20,13 @@ export default function SalesModuleCard({
 
   const content = (
     <div
-      className={`flex h-full flex-col gap-3 rounded-2xl border bg-white p-6 shadow-sm transition ${
-        mod.popular
-          ? "border-brand-300 shadow-[0_8px_26px_rgba(0,0,0,0.06)]"
-          : "border-ink-100"
-      } ${isActive ? "hover:-translate-y-0.5 hover:shadow-md" : "opacity-60"}`}
+      className={`relative flex h-full flex-col gap-3 overflow-hidden rounded-2xl border bg-white p-6 shadow-card transition ${
+        mod.popular ? "border-brand-300" : "border-ink-100"
+      } ${isActive ? "hover:-translate-y-1 hover:shadow-glow" : "opacity-60"}`}
     >
+      {mod.popular && (
+        <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-brand-500 via-brand-400 to-orange-400" />
+      )}
       <div className="flex flex-wrap items-center gap-2">
         <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-700">
           {mod.faculty}
@@ -50,9 +51,12 @@ export default function SalesModuleCard({
       </div>
 
       {isActive && (
-        <p className="text-sm font-semibold text-ink-500">
-          {mod.questionCount} Übungsaufgaben · {mod.chapters.length} Kapitel
-        </p>
+        <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-xs font-semibold text-ink-500">
+          <span>✓ {mod.questionCount} Übungsaufgaben</span>
+          <span>✓ {mod.chapters.length} Kapitel</span>
+          <span>✓ KI-Tutor</span>
+          <span>✓ Klausursimulation</span>
+        </div>
       )}
 
       <div className="mt-auto flex items-center justify-between border-t border-ink-100 pt-3">
@@ -66,7 +70,7 @@ export default function SalesModuleCard({
                 {formatEuro(mod.compareAtCent)}
               </span>
             </div>
-            <span className="rounded-full bg-brand-100 px-2.5 py-1 text-xs font-bold text-brand-700">
+            <span className="rounded-full bg-brand-100 px-2.5 py-1 text-xs font-bold text-brand-700 shadow-sm">
               -{discountPercent}%
             </span>
           </>
@@ -77,9 +81,9 @@ export default function SalesModuleCard({
 
       {isActive && (
         <div
-          className={`mt-1 rounded-xl py-3 text-center text-sm font-bold ${
+          className={`mt-1 rounded-xl py-3 text-center text-sm font-bold transition ${
             locked
-              ? "bg-brand-600 text-white"
+              ? "bg-brand-600 text-white shadow-md hover:shadow-glow"
               : "border-1.5 border border-brand-600 text-brand-700"
           }`}
         >

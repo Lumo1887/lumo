@@ -7,6 +7,7 @@ import SalesModuleCard from "@/components/SalesModuleCard";
 import { fetchAccess } from "@/lib/access";
 import Reviews from "@/components/Reviews";
 import Stars from "@/components/Stars";
+import MathFormula from "@/components/MathFormula";
 
 const comparisonRows = [
   { feature: "Preis", us: "ab 4,99 € pro Modul", them: "oft 100–300 € pro Kurs" },
@@ -159,52 +160,78 @@ export default function SalesHomeContent() {
           </p>
         </div>
 
-        <div className="overflow-hidden rounded-2xl border border-ink-100 shadow-card">
-          <div className="flex h-64 items-center justify-center bg-[repeating-linear-gradient(135deg,#f1eee7,#f1eee7_12px,#e9e4d9_12px,#e9e4d9_24px)]">
-            <span className="rounded-lg bg-white px-4 py-2 font-mono text-xs text-ink-500 shadow-sm">
-              Vorschau: Skript-Seite / Übungsaufgabe
-            </span>
-          </div>
-          <div className="flex items-center justify-between bg-white px-5 py-4">
-            <span className="text-sm font-bold text-ink-500">
-              Statistik I — Übungsaufgabe
-            </span>
-            <span className="text-sm font-bold text-emerald-700">
-              ✓ Stoff der aktuellen Prüfungsordnung
-            </span>
-          </div>
+        <div className="relative">
+          {/* Dekorative Glow-Blobs für mehr Tiefe hinter der Vorschaukarte */}
+          <div className="pointer-events-none absolute -right-10 -top-10 h-56 w-56 rounded-full bg-brand-300/40 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-10 -left-10 h-48 w-48 rounded-full bg-orange-200/50 blur-3xl" />
+
+          {/* Echte, funktionierende Vorschau: Live-Ausschnitt aus dem
+              tatsächlichen Statistik-1-Skript (Kapitel 1, kostenlos), inkl.
+              echt gerendeter KaTeX-Formel — kein statischer Platzhalter. */}
+          <Link
+            href="/module/statistik-1/skript"
+            className="relative block overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-glow transition hover:-translate-y-1"
+          >
+            <div className="skript-page px-7 py-7">
+              <p className="hand-label mb-2 text-xs font-bold uppercase tracking-wide text-brand-600">
+                Live aus dem echten Skript · Statistik I
+              </p>
+              <h3 className="mb-4 text-lg font-bold text-ink-900">
+                1.6 Satz von Bayes und totale Wahrscheinlichkeit
+              </h3>
+              <div className="skript-formula mb-4 shadow-sm">
+                <MathFormula
+                  latex="P(B_i\mid A) = \dfrac{P(A\mid B_i)\,P(B_i)}{\sum_j P(A\mid B_j)\,P(B_j)}"
+                  fallback="P(Bi|A) = [P(A|Bi)·P(Bi)] / Σj P(A|Bj)·P(Bj)"
+                />
+              </div>
+              <p className="skript-example shadow-sm">
+                Ein Sicherheitsscanner am Eingang eines Firmengebäudes erkennt
+                einen mitgeführten verbotenen Gegenstand mit 90%
+                Wahrscheinlichkeit korrekt — ein solcher Gegenstand kommt aber
+                nur bei 0,5% aller Einlässe tatsächlich vor. Ergebnis: Bei
+                ausgelöstem Alarm ist nur etwa jeder vierzehnte Fall
+                tatsächlich ein echter Fund.
+              </p>
+            </div>
+            <div className="flex items-center justify-between border-t border-ink-100 bg-ink-50/70 px-6 py-4">
+              <span className="text-sm font-bold text-ink-500">
+                Kapitel 1 — kostenlos einsehbar →
+              </span>
+              <span className="text-sm font-bold text-emerald-700">
+                ✓ Stoff der aktuellen Prüfungsordnung
+              </span>
+            </div>
+          </Link>
         </div>
       </section>
 
       {/* ---------- Stats (echte, berechnete Zahlen) ---------- */}
-      <div className="flex flex-wrap gap-x-12 gap-y-6 border-y border-ink-100 py-9">
-        <div>
-          <div className="text-2xl font-extrabold text-ink-900">
-            {activeModuleCount} Module
-          </div>
-          <div className="text-sm text-ink-500">bereits verfügbar</div>
-        </div>
-        <div>
-          <div className="text-2xl font-extrabold text-ink-900">
-            {totalQuestions}+
-          </div>
-          <div className="text-sm text-ink-500">Übungsaufgaben insgesamt</div>
-        </div>
-        <div>
-          <div className="text-2xl font-extrabold text-ink-900">
-            ab {(cheapestPriceCent / 100).toLocaleString("de-DE", {
+      <div className="grid grid-cols-2 gap-4 py-10 sm:grid-cols-4">
+        {[
+          { icon: "📚", value: `${activeModuleCount} Module`, label: "bereits verfügbar" },
+          { icon: "✍️", value: `${totalQuestions}+`, label: "Übungsaufgaben insgesamt" },
+          {
+            icon: "💶",
+            value: `ab ${(cheapestPriceCent / 100).toLocaleString("de-DE", {
               style: "currency",
               currency: "EUR",
-            })}
+            })}`,
+            label: "statt 100–300 € im Kurs",
+          },
+          { icon: "⚡", value: "Sofort startklar", label: "keine Wartelisten" },
+        ].map((stat) => (
+          <div
+            key={stat.label}
+            className="rounded-2xl border border-ink-100 bg-white p-5 shadow-card transition hover:-translate-y-0.5 hover:shadow-glow"
+          >
+            <div className="text-2xl">{stat.icon}</div>
+            <div className="mt-2 text-xl font-extrabold text-ink-900">
+              {stat.value}
+            </div>
+            <div className="text-sm text-ink-500">{stat.label}</div>
           </div>
-          <div className="text-sm text-ink-500">statt 100–300 € im Kurs</div>
-        </div>
-        <div>
-          <div className="text-2xl font-extrabold text-ink-900">
-            Sofort startklar
-          </div>
-          <div className="text-sm text-ink-500">keine Wartelisten</div>
-        </div>
+        ))}
       </div>
 
       {/* ---------- Modul-Finder ---------- */}
@@ -217,7 +244,7 @@ export default function SalesHomeContent() {
           Prüfung zählt.
         </p>
 
-        <div className="rounded-2xl border border-ink-100 bg-white p-7 shadow-sm">
+        <div className="rounded-2xl border border-ink-100 bg-white p-7 shadow-card">
           <p className="mb-3 text-xs font-bold uppercase tracking-wide text-ink-400">
             Studiengang
           </p>
