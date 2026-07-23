@@ -127,6 +127,22 @@ export const chapters: SkriptChapter[] = [
           "Für f(x,y)=x²+y² im Punkt (1,1) mit f(1,1)=2, fₓ=2, f_y=2 lautet die Tangentialebene z=2+2(x−1)+2(y−1)=2x+2y−2 — eine gute Näherung von f in unmittelbarer Nähe von (1,1).",
         ],
       },
+      {
+        id: "3-3",
+        heading: "3.3 Der Mittelwertsatz im ℝⁿ",
+        body: [
+          "Der Mittelwertsatz aus der eindimensionalen Analysis (f(b)−f(a)=f'(ξ)(b−a) für ein ξ zwischen a und b) überträgt sich auf Funktionen mehrerer Veränderlicher: Ist f: ℝⁿ→ℝ differenzierbar auf einer offenen Menge, die die Verbindungsstrecke zwischen zwei Punkten x und y vollständig enthält, so existiert ein Punkt ξ auf dieser Strecke (ξ = x + t(y−x) für ein t∈(0,1)) mit f(y)−f(x) = ∇f(ξ)·(y−x).",
+          "Der Beweis führt den mehrdimensionalen Fall auf den eindimensionalen zurück: Man betrachtet die Hilfsfunktion φ(t) := f(x+t(y−x)) für t∈[0,1] — eine gewöhnliche Funktion einer Variablen —, wendet auf φ den bekannten eindimensionalen Mittelwertsatz an, und übersetzt das Ergebnis mit der Kettenregel zurück, da φ'(t) = ∇f(x+t(y−x))·(y−x) gilt.",
+          "Eine wichtige direkte Folgerung: Verschwindet der Gradient einer differenzierbaren Funktion auf einer zusammenhängenden offenen Menge überall, so ist die Funktion dort konstant — denn für je zwei Punkte x,y liefert der Mittelwertsatz f(y)−f(x)=∇f(ξ)·(y−x)=0·(y−x)=0, also f(x)=f(y).",
+        ],
+        formulas: ["f(y)−f(x) = ∇f(ξ)·(y−x), für ξ = x+t(y−x), t∈(0,1)"],
+        formulasLatex: ["f(y)-f(x) = \\nabla f(\\xi)\\cdot(y-x), \\quad \\xi = x+t(y-x),\\ t\\in(0,1)"],
+        terms: [{ term: "Mittelwertsatz im ℝⁿ", definition: "f(y)−f(x)=∇f(ξ)·(y−x) für einen Punkt ξ auf der Verbindungsstrecke zwischen x und y; verallgemeinert den eindimensionalen Mittelwertsatz." }],
+        examples: [
+          "Für f(x,y)=x²+y² und die Punkte x=(0,0), y=(2,2): f(y)−f(x)=8−0=8. Der Mittelwertsatz garantiert ein ξ=t·(2,2)=(2t,2t) auf der Verbindungsstrecke mit ∇f(ξ)·(y−x)=(4t,4t)·(2,2)=16t=8, also t=1/2, ξ=(1,1) — tatsächlich gilt ∇f(1,1)·(2,2)=(2,2)·(2,2)=8 ✓.",
+          "Gilt für eine differenzierbare Funktion g auf einer zusammenhängenden offenen Menge ∇g(x,y)=(0,0) für alle (x,y), so bestätigt der Mittelwertsatz, dass g überall denselben Wert annehmen muss: Für je zwei Punkte x,y wäre g(y)−g(x)=∇g(ξ)·(y−x)=0 sonst nicht erklärbar — g muss konstant sein.",
+        ],
+      },
     ],
   },
   // ==================== Kapitel 4 ====================
@@ -332,8 +348,37 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
+        id: "7-4",
+        heading: "7.3 Treppenfunktionen, gleichmäßige Stetigkeit und der Mittelwertsatz der Integralrechnung",
+        body: [
+          "Eine Treppenfunktion (auf einem Quader Q) ist eine Funktion, die auf endlich vielen achsenparallelen Teilquadern jeweils konstant ist — die einfachste denkbare integrierbare Funktionsklasse, deren Integral einfach die Summe aus (Wert)·(Volumen des Teilquaders) über alle Teilstücke ist. Ober- und Untersummen (7.2) sind nichts anderes als Integrale spezieller Treppenfunktionen, die f von oben bzw. unten approximieren: Die Untersumme ist das Integral der größten Treppenfunktion, die überall ≤f ist, die Obersumme das Integral der kleinsten Treppenfunktion, die überall ≥f ist. Ein wichtiger Spezialfall ist die Indikatorfunktion 1_M(x), die auf einer Menge M den Wert 1 und außerhalb 0 annimmt — ihr Integral über einen umschließenden Quader ist genau der Jordan-Inhalt von M.",
+          "Warum ist nach 7.2 jede stetige Funktion auf einem kompakten Jordan-messbaren Bereich integrierbar? Der Schlüssel ist die gleichmäßige Stetigkeit: f heißt gleichmäßig stetig auf D, wenn zu jedem ε>0 ein δ>0 existiert, sodass für ALLE x,y∈D mit ‖x−y‖<δ stets |f(x)−f(y)|<ε gilt — anders als bei gewöhnlicher Stetigkeit darf δ hier nicht vom betrachteten Punkt abhängen, sondern muss gleichzeitig für den gesamten Definitionsbereich funktionieren. Der Satz von Heine garantiert: Jede stetige Funktion auf einer kompakten Menge ist automatisch gleichmäßig stetig. Das ist der entscheidende Baustein für die Integrierbarkeit: Wird die Zerlegung so fein gewählt, dass jeder Teilquader kleiner als das zu ε passende δ ist, unterscheiden sich Supremum und Infimum von f auf jedem Teilquader um höchstens ε — und damit auch Ober- und Untersumme insgesamt nur noch um höchstens ε mal dem Gesamtvolumen.",
+          "Der Mittelwertsatz der Integralrechnung überträgt eine vertraute eindimensionale Aussage ins Mehrdimensionale: Ist f stetig auf einem kompakten, zusammenhängenden, Jordan-messbaren Bereich B mit positivem Jordan-Inhalt, so existiert ein Punkt ξ∈B mit ∫_B f dV = f(ξ)·|B| — der Integralwert lässt sich also als 'mittlerer Funktionswert' f(ξ) mal Volumen des Bereichs auffassen. Anschaulich muss es mindestens einen Punkt geben, an dem f exakt den Durchschnittswert über B annimmt.",
+        ],
+        formulas: [
+          "Gleichmäßige Stetigkeit: ∀ε>0 ∃δ>0 ∀x,y∈D: ‖x−y‖<δ ⟹ |f(x)−f(y)|<ε",
+          "Mittelwertsatz der Integralrechnung: ∫_B f dV = f(ξ)·|B|, für ein ξ∈B",
+        ],
+        formulasLatex: [
+          "\\forall \\varepsilon>0\\ \\exists \\delta>0\\ \\forall x,y\\in D:\\ \\|x-y\\|<\\delta \\implies |f(x)-f(y)|<\\varepsilon",
+          "\\int_B f\\,dV = f(\\xi)\\cdot|B| \\quad \\text{für ein } \\xi\\in B",
+        ],
+        terms: [
+          { term: "Treppenfunktion", definition: "Funktion, die auf endlich vielen achsenparallelen Teilquadern jeweils konstant ist; einfachste integrierbare Funktionsklasse." },
+          { term: "Indikatorfunktion 1_M", definition: "Funktion mit Wert 1 auf M und 0 außerhalb; ihr Integral über einen umschließenden Quader entspricht dem Jordan-Inhalt von M." },
+          { term: "Gleichmäßige Stetigkeit", definition: "Verschärfung der Stetigkeit: Das δ zu gegebenem ε darf nicht vom betrachteten Punkt abhängen, sondern muss für den gesamten Definitionsbereich gleichzeitig funktionieren." },
+          { term: "Satz von Heine", definition: "Jede stetige Funktion auf einer kompakten Menge ist automatisch gleichmäßig stetig." },
+          { term: "Mittelwertsatz der Integralrechnung", definition: "Für stetiges f auf kompaktem, zusammenhängendem, Jordan-messbarem B existiert ξ∈B mit ∫_B f dV = f(ξ)·|B|." },
+        ],
+        examples: [
+          "Die Indikatorfunktion 1_M für M=[1,3]×[0,2] hat auf dem umschließenden Quader Q=[0,4]×[0,2] das Integral ∫_Q 1_M dV = 1·|M| + 0·|Q\\M| = 2·2 = 4 — exakt der Jordan-Inhalt von M.",
+          "Die Funktion f(x)=1/x ist auf dem offenen Intervall (0,1] stetig, aber NICHT gleichmäßig stetig: Für x nahe 0 ändert sich f beliebig schnell, sodass zu keinem festen δ>0 ein einheitliches ε für alle x funktioniert. Auf dem kompakten Intervall [0,5 ; 1] dagegen ist dieselbe Funktion nach dem Satz von Heine automatisch gleichmäßig stetig — der Unterschied liegt einzig an der fehlenden Kompaktheit von (0,1].",
+          "Für f(x,y)=x+y auf dem Rechteck B=[0,2]×[0,2] (|B|=4) ergibt sich ∫_B(x+y) d(x,y) = ∫₀²∫₀²(x+y) dx dy = ∫₀²(2+2y) dy = [2y+y²]₀² = 8. Der Mittelwertsatz garantiert einen Punkt ξ∈B mit f(ξ)=8/4=2 — tatsächlich erfüllt z. B. ξ=(1,1) mit f(1,1)=2 genau diese Bedingung.",
+        ],
+      },
+      {
         id: "7-3",
-        heading: "7.3 Der Satz von Fubini",
+        heading: "7.4 Der Satz von Fubini",
         body: [
           "Der Satz von Fubini erlaubt es, ein mehrdimensionales Integral als iterierte Folge eindimensionaler Integrale zu berechnen: ∫∫_Q f(x,y) dx dy = ∫(∫f(x,y) dx) dy — man integriert zunächst über eine Variable bei fester anderer, und integriert das Ergebnis anschließend über die verbleibende Variable.",
           "Diese Reduktion auf eindimensionale Integrale ist der praktisch wichtigste Rechenweg für mehrdimensionale Integrale: Ohne Fubini müsste man direkt mit Ober-/Untersummen im Mehrdimensionalen arbeiten, was in der Praxis kaum handhabbar ist.",
