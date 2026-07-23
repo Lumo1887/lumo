@@ -30,7 +30,7 @@ export const questions: Question[] = [
     correctIndex: 2,
     explanation:
       "Transferzahlungen wie Renten oder Arbeitslosengeld stehen keiner neuen Produktion gegenüber und zählen daher nicht zu G — im Gegensatz zu Käufen von Gütern/Dienstleistungen durch den Staat.",
-    source: "Kapitel 1, BIP-Verwendungsrechnung",
+    source: "Kapitel 2, BIP-Verwendungsrechnung",
     free: true,
   },
   {
@@ -193,7 +193,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Am goldenen-Regel-Kapitalstock ist der Konsum pro Kopf im Steady State maximal; die Bedingung erster Ordnung dafür lautet MPK = δ.",
-    source: "Kapitel 2, Goldene Regel",
+    source: "Kapitel 6, Goldene Regel",
     free: false,
   },
 
@@ -263,7 +263,7 @@ export const questions: Question[] = [
     correctValue: 0.5,
     explanation:
       "ΔA/A = ΔY/Y − α·ΔK/K − (1−α)·ΔL/L = 5 % − 0,25·9 % − 0,75·3 % = 5 − 2,25 − 2,25 = 0,5 %.",
-    source: "Kapitel 3, Wachstumsbuchhaltung",
+    source: "Kapitel 7, Wachstumsbilanzierung",
     free: false,
   },
 
@@ -378,7 +378,7 @@ export const questions: Question[] = [
       "Laut Quantitätsgleichung M·V=P·Y wächst die Geldmenge M um 6 % pro Jahr, das reale BIP Y um 1,5 %, die Umlaufgeschwindigkeit V ist konstant. Wie hoch ist näherungsweise die Inflationsrate?",
     correctValue: 4.5,
     explanation: "π ≈ g_M − g_Y = 6 % − 1,5 % = 4,5 % (bei konstanter Umlaufgeschwindigkeit V).",
-    source: "Kapitel 5, Quantitätstheorie",
+    source: "Kapitel 3, Quantitätstheorie",
     free: false,
   },
   {
@@ -391,7 +391,7 @@ export const questions: Question[] = [
       "Der Nominalzins beträgt 7 %, die erwartete Inflation 3 %. Wie hoch ist der Realzins gemäß der (näherungsweisen) Fisher-Gleichung i = r + π^e?",
     correctValue: 4,
     explanation: "r = i − π^e = 7 % − 3 % = 4 %.",
-    source: "Kapitel 5, Fisher-Gleichung",
+    source: "Kapitel 3, Fisher-Gleichung",
     free: false,
   },
   {
@@ -408,7 +408,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Die klassische Dichotomie besagt, dass reale Variablen langfristig unabhängig von nominalen Variablen bestimmt werden — Geld ist langfristig neutral.",
-    source: "Kapitel 5, Klassische Dichotomie",
+    source: "Kapitel 3, Klassische Dichotomie",
     free: false,
   },
   {
@@ -439,7 +439,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Speisekartenkosten bezeichnen genau diese Anpassungskosten; Schuhsohlenkosten dagegen bezeichnen den Aufwand, Bargeldbestände wegen Inflation gering zu halten.",
-    source: "Kapitel 5, Kosten der Inflation",
+    source: "Kapitel 3, Kosten der Inflation",
     free: false,
   },
 
@@ -722,7 +722,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Bei perfekter Kapitalmobilität gleicht sich der inländische Zins sofort dem (exogen gegebenen) Weltzins an — genau das unterscheidet Mundell-Fleming vom geschlossenen IS-LM-Modell.",
-    source: "Kapitel 8, Mundell-Fleming-Annahmen",
+    source: "Kapitel 12, Mundell-Fleming-Annahmen",
     free: false,
   },
 
@@ -730,19 +730,15 @@ export const questions: Question[] = [
   {
     id: "ovii-01",
     topic: "Offene VWL II",
-    type: "mc",
+    type: "numeric",
+    unit: "%",
+    tolerance: 0.1,
     prompt:
-      "Der Nominalzins in Norwegen sei höher als in Schweden, der Realzins sei in beiden Ländern gleich, und es gelte Kaufkraftparität. Welche Aussage ist korrekt?",
-    options: [
-      "Die Inflationserwartungen in Schweden sind höher; der Wechselkurs der norwegischen Krone zur schwedischen Krone wird steigen",
-      "Die Inflationserwartungen in Norwegen sind höher; der Wechselkurs der norwegischen Krone zur schwedischen Krone wird sinken",
-      "Die Inflationserwartungen in Norwegen sind höher; der Wechselkurs der norwegischen Krone zur schwedischen Krone wird steigen",
-      "Die Inflationserwartungen in Schweden sind höher; der Wechselkurs der norwegischen Krone zur schwedischen Krone wird sinken",
-    ],
-    correctIndex: 1,
+      "Der Nominalzins in Australien beträgt 6%, der in Neuseeland 4%. Beide Länder haben denselben Realzins, und es gilt (relative) Kaufkraftparität. Um wie viel Prozent wertet der australische Dollar pro Jahr tendenziell gegenüber dem neuseeländischen Dollar AB (positive Zahl = Abwertung)?",
+    correctValue: 2,
     explanation:
-      "Nach der Fisher-Gleichung (i=r+π^e) impliziert der höhere norwegische Nominalzins bei gleichem Realzins höhere norwegische Inflationserwartungen. Nach relativer Kaufkraftparität wertet die Währung des Landes mit höherer erwarteter Inflation ab — die norwegische Krone wird also gegenüber der schwedischen Krone sinken.",
-    source: "Übungsblatt 7, Aufgabe 3",
+      "Nach der Fisher-Gleichung (i=r+πᵉ) und gleichem Realzins in beiden Ländern folgt πᵉ_AUS − πᵉ_NZ = i_AUS − i_NZ = 6%−4% = 2 Prozentpunkte — Australien hat also die höheren Inflationserwartungen. Nach relativer Kaufkraftparität wertet die Währung mit der höheren erwarteten Inflation um genau diesen Differenzbetrag ab: Der australische Dollar wertet um rund 2% gegenüber dem neuseeländischen Dollar ab.",
+    source: "Übungsblatt 7, Fisher-Effekt und Kaufkraftparität",
     free: false,
   },
   {
@@ -796,7 +792,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Das 'unmögliche Dreieck' besagt, dass fester Wechselkurs, freier Kapitalverkehr und unabhängige Geldpolitik nicht gleichzeitig bestehen können — Mundell-Fleming zeigt genau diesen Mechanismus.",
-    source: "Kapitel 9, Trilemma",
+    source: "Kapitel 12, Trilemma",
     free: false,
   },
   {
@@ -814,7 +810,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Da die Eurozone feste (interne) Wechselkurse und freien Kapitalverkehr gewählt hat, bleibt laut Trilemma keine unabhängige nationale Geldpolitik übrig — daher die gemeinsame EZB.",
-    source: "Kapitel 9, Trilemma-Beispiele",
+    source: "Kapitel 12, Trilemma-Beispiele",
     free: false,
   },
 

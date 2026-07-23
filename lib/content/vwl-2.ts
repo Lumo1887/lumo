@@ -338,8 +338,27 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
+        id: "5-4",
+        heading: "5.3 Das Matching-Modell der natürlichen Arbeitslosenquote",
+        body: [
+          "Die natürliche Arbeitslosenquote lässt sich auch formal aus einem einfachen Fluss-Gleichgewicht herleiten: dem Matching-Modell. In jeder Periode verlieren einige Beschäftigte ihren Job (Job-Separation-Rate s: Anteil der Beschäftigten, deren Arbeitsverhältnis endet) und einige Arbeitslose finden eine neue Stelle (Job-Finding-Rate f: Anteil der Arbeitslosen, der pro Periode eine Stelle findet).",
+          "Im Fluss-Gleichgewicht des Arbeitsmarkts muss der Strom aus Beschäftigung in Arbeitslosigkeit (s mal Anzahl Beschäftigter) genau dem Strom aus Arbeitslosigkeit in Beschäftigung (f mal Anzahl Arbeitsloser) entsprechen — sonst würde sich die Arbeitslosenquote weiter verändern. Löst man diese Gleichgewichtsbedingung auf, ergibt sich die natürliche Arbeitslosenquote als u* = s/(s+f).",
+          "Diese Formel erklärt intuitiv, warum sich natürliche Arbeitslosenquoten zwischen Ländern unterscheiden können: Länder mit hoher Jobsicherheit (niedriges s, z. B. durch starken Kündigungsschutz) haben tendenziell eine niedrigere natürliche Arbeitslosenquote — allerdings oft bei gleichzeitig niedrigerer Job-Finding-Rate f, da Unternehmen bei Neueinstellungen vorsichtiger sind, wenn Kündigungen später schwer rückgängig zu machen sind. Der Nettoeffekt auf u* hängt vom relativen Verhältnis beider Effekte ab.",
+        ],
+        formulas: ["u* = s / (s+f)  (natürliche Arbeitslosenquote im Matching-Modell)"],
+        formulasLatex: ["u^{*} = \\dfrac{s}{s+f}"],
+        terms: [
+          { term: "Job-Separation-Rate (s)", definition: "Anteil der Beschäftigten, deren Arbeitsverhältnis in einer Periode endet." },
+          { term: "Job-Finding-Rate (f)", definition: "Anteil der Arbeitslosen, der in einer Periode eine neue Stelle findet." },
+          { term: "Matching-Modell", definition: "Modell der natürlichen Arbeitslosenquote als Fluss-Gleichgewicht zwischen Job-Verlust- und Job-Findungsrate: u*=s/(s+f)." },
+        ],
+        examples: [
+          "In einer Volkswirtschaft verlieren pro Monat 2,5% der Beschäftigten ihre Stelle (s=0,025), während 22,5% der Arbeitslosen pro Monat eine neue Stelle finden (f=0,225). Die natürliche Arbeitslosenquote beträgt damit u* = 0,025/(0,025+0,225) = 0,025/0,25 = 0,10, also 10%.",
+        ],
+      },
+      {
         id: "5-3",
-        heading: "5.3 Okunsches Gesetz",
+        heading: "5.4 Okunsches Gesetz",
         body: [
           "Das Okunsche Gesetz beschreibt den empirisch beobachteten negativen Zusammenhang zwischen der Veränderung der Arbeitslosenquote und dem Wachstum des realen BIP: Wächst die Wirtschaft schneller als ihr langfristiges Potenzial, sinkt die Arbeitslosenquote, und umgekehrt. Eine gebräuchliche Faustformel lautet: Prozentuale Veränderung der Arbeitslosenquote ≈ −0,5 × (BIP-Wachstum − Potenzialwachstum).",
           "Der Faktor vor der Klammer ist deutlich kleiner als 1, weil Unternehmen bei konjunkturellen Schwankungen nicht proportional Personal auf- und abbauen (sie passen z. B. zunächst Arbeitszeiten oder Überstunden an), sondern gedämpft reagieren.",
@@ -451,8 +470,32 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
+        id: "7-3",
+        heading: "7.2 Wachstumsbilanzierung und das Solow-Residuum",
+        body: [
+          "Die Wachstumsbilanzierung (Growth Accounting) zerlegt das beobachtete BIP-Wachstum in seine Ursprungsbeiträge: Wie viel stammt aus mehr Kapital, wie viel aus mehr Arbeit, und wie viel aus reiner Effizienzsteigerung? Ausgangspunkt ist eine Cobb-Douglas-Produktionsfunktion Y=A·Kᵅ·L^(1−α), wobei A die totale Faktorproduktivität (TFP) misst — alles, was Produktion erhöht, ohne dass mehr Kapital oder Arbeit eingesetzt wird (z. B. bessere Organisation, Technologie, Institutionen).",
+          "Logarithmiert man diese Funktion und leitet nach der Zeit ab, ergibt sich die Wachstumsbilanzierungsgleichung: ΔY/Y = ΔA/A + α·ΔK/K + (1−α)·ΔL/L — das BIP-Wachstum zerfällt additiv in TFP-Wachstum, den mit dem Kapitalanteil α gewichteten Beitrag des Kapitalwachstums, und den mit (1−α) gewichteten Beitrag des Arbeitswachstums.",
+          "Da A selbst nicht direkt beobachtbar ist, wird es in der Praxis als Solow-Residuum aus der Gleichung rückgerechnet: ΔA/A = ΔY/Y − α·ΔK/K − (1−α)·ΔL/L — der Teil des beobachteten Wachstums, der NICHT durch mehr Kapital- oder Arbeitseinsatz erklärt werden kann. Empirisch macht das Solow-Residuum in entwickelten Volkswirtschaften typischerweise einen erheblichen Teil des langfristigen Wachstums aus — ein starker Beleg dafür, dass technischer Fortschritt (7.1) und nicht bloße Faktorakkumulation der wichtigste Wachstumstreiber ist.",
+        ],
+        formulas: [
+          "ΔY/Y = ΔA/A + α·ΔK/K + (1−α)·ΔL/L  (Wachstumsbilanzierung)",
+          "ΔA/A = ΔY/Y − α·ΔK/K − (1−α)·ΔL/L  (Solow-Residuum)",
+        ],
+        formulasLatex: [
+          "\\dfrac{\\Delta Y}{Y} = \\dfrac{\\Delta A}{A} + \\alpha\\dfrac{\\Delta K}{K} + (1-\\alpha)\\dfrac{\\Delta L}{L}",
+          "\\dfrac{\\Delta A}{A} = \\dfrac{\\Delta Y}{Y} - \\alpha\\dfrac{\\Delta K}{K} - (1-\\alpha)\\dfrac{\\Delta L}{L}",
+        ],
+        terms: [
+          { term: "Totale Faktorproduktivität (TFP, A)", definition: "Maß für Produktionseffizienz, das nicht durch mehr Kapital- oder Arbeitseinsatz erklärt wird (Technologie, Organisation, Institutionen)." },
+          { term: "Solow-Residuum", definition: "Aus der Wachstumsbilanzierungsgleichung rückgerechnetes TFP-Wachstum: ΔA/A = ΔY/Y − α·ΔK/K − (1−α)·ΔL/L." },
+        ],
+        examples: [
+          "Eine Volkswirtschaft mit Kapitalanteil α=0,3 verzeichnet ein BIP-Wachstum von 4%, während der Kapitalstock um 6% und die Arbeitskräfte um 1% wachsen. Das Solow-Residuum beträgt ΔA/A = 4% − 0,3×6% − 0,7×1% = 4% − 1,8% − 0,7% = 1,5% — knapp die Hälfte des Wachstums geht auf Effizienzsteigerungen zurück, die nicht durch mehr Kapital oder Arbeit erklärt werden können.",
+        ],
+      },
+      {
         id: "7-2",
-        heading: "7.2 Konvergenz zwischen Ländern",
+        heading: "7.3 Konvergenz zwischen Ländern",
         body: [
           "Die Konvergenzhypothese besagt, dass ärmere Länder (mit niedrigerem Kapital pro Kopf und daher höherem Grenzprodukt des Kapitals) tendenziell schneller wachsen als reiche Länder und so mit der Zeit aufholen — eine direkte Folge der abnehmenden Grenzerträge des Kapitals im Solow-Modell.",
           "Empirisch zeigt sich bedingte statt absoluter Konvergenz: Länder konvergieren jeweils zu ihrem EIGENEN Steady State (das von Sparquote, Bevölkerungswachstum und institutionellen Faktoren abhängt), nicht zu einem gemeinsamen weltweiten Niveau. Deshalb holen nicht automatisch alle armen Länder gegenüber reichen Ländern auf.",
@@ -556,8 +599,37 @@ export const chapters: SkriptChapter[] = [
       "Kurzfristig sind Preise starr, und Nachfrageschwankungen bestimmen die tatsächliche Produktion. Das IS-LM-Modell erklärt, wie Güter- und Geldmarkt gemeinsam Zins und Produktion kurzfristig bestimmen.",
     sections: [
       {
+        id: "10-0",
+        heading: "10.1 Das keynesianische Kreuz und der Multiplikator",
+        body: [
+          "Bevor Zins und Geldmarkt ins Spiel kommen, lässt sich das Gütermarktgleichgewicht in seiner einfachsten Form betrachten: dem keynesianischen Kreuz. Die geplanten Gesamtausgaben E setzen sich zusammen aus E = C0 + c·(Y−T) + I + G, wobei Investitionen I hier zunächst als exogen fix angenommen werden (der Zins spielt noch keine Rolle). Der Konsum folgt einer linearen Konsumfunktion mit autonomem Konsum C0 und marginaler Konsumquote c (0<c<1) — dem Anteil eines zusätzlichen Euro verfügbaren Einkommens, der konsumiert statt gespart wird.",
+          "Gütermarktgleichgewicht verlangt, dass die tatsächliche Produktion Y den geplanten Ausgaben E entspricht: Y=E. Grafisch ist das der Schnittpunkt der 45°-Linie (Y=E) mit der Ausgabenlinie E(Y) — daher der Name 'keynesianisches Kreuz'.",
+          "Steigt eine autonome Ausgabenkomponente (z. B. G um ΔG), steigt das Gleichgewichts-Y um MEHR als ΔG selbst: Der zusätzliche Staatsausgaben-Euro erhöht Einkommen, was wiederum Konsum anregt, was wiederum Einkommen erhöht — ein sich selbst verstärkender, aber konvergierender Prozess. Aus Y=C0+c(Y−T)+I+G folgt Y(1−c)=C0−cT+I+G, also der Staatsausgabenmultiplikator ΔY/ΔG = 1/(1−c).",
+          "Analog erhöht eine Steuersenkung ΔT das verfügbare Einkommen und damit den Konsum, aber nur um c·ΔT (nicht um den vollen Betrag, da ein Teil gespart wird) — der Steuermultiplikator beträgt daher ΔY/ΔT = −c/(1−c), betragsmäßig kleiner als der Staatsausgabenmultiplikator. Erhöht man G und T um denselben Betrag (ausgeglichener Haushalt), ist der Nettoeffekt auf Y trotzdem positiv und entspricht exakt der Ausgabenerhöhung: Der 'ausgeglichener-Haushalt-Multiplikator' ist stets genau 1.",
+        ],
+        formulas: [
+          "E = C0 + c(Y−T) + I + G, Gleichgewicht: Y = E",
+          "Staatsausgabenmultiplikator: ΔY/ΔG = 1/(1−c)",
+          "Steuermultiplikator: ΔY/ΔT = −c/(1−c)",
+        ],
+        formulasLatex: [
+          "E = C_0 + c(Y-T) + I + G, \\quad Y = E",
+          "\\dfrac{\\Delta Y}{\\Delta G} = \\dfrac{1}{1-c}",
+          "\\dfrac{\\Delta Y}{\\Delta T} = \\dfrac{-c}{1-c}",
+        ],
+        terms: [
+          { term: "Marginale Konsumquote (c)", definition: "Anteil eines zusätzlichen Euro verfügbaren Einkommens, der konsumiert statt gespart wird (0<c<1)." },
+          { term: "Keynesianisches Kreuz", definition: "Grafische Darstellung des Gütermarktgleichgewichts Y=E als Schnittpunkt der 45°-Linie mit der Ausgabenlinie." },
+          { term: "Multiplikatoreffekt", definition: "Verstärkung einer autonomen Ausgabenänderung auf das Gleichgewichts-Y durch wiederholte Konsumreaktionen; der Staatsausgabenmultiplikator 1/(1−c) ist betragsmäßig größer als der Steuermultiplikator −c/(1−c)." },
+        ],
+        examples: [
+          "Bei einer marginalen Konsumquote von c=0,75 beträgt der Staatsausgabenmultiplikator 1/(1−0,75)=4. Erhöht der Staat G um 30 Mrd. €, steigt das Gleichgewichts-Y um 4×30=120 Mrd. € — deutlich mehr als der ursprüngliche Ausgabenimpuls selbst. Der Steuermultiplikator beträgt dagegen −0,75/0,25=−3: Eine Steuersenkung um 30 Mrd. € erhöht Y nur um 90 Mrd. €, weniger als die gleich hohe Staatsausgabenerhöhung, weil ein Teil des zusätzlichen verfügbaren Einkommens gespart statt konsumiert wird.",
+          "Erhöht die Regierung sowohl G als auch T um jeweils 50 Mrd. € (ausgeglichener Haushalt), steigt Y trotzdem um genau 50 Mrd. €: Der positive Effekt der höheren Staatsausgaben (200 Mrd. € bei Multiplikator 4) wird durch den negativen Effekt der höheren Steuern (−150 Mrd. € bei Multiplikator −3) nur teilweise kompensiert — der Nettoeffekt entspricht exakt der Ausgabenerhöhung selbst.",
+        ],
+      },
+      {
         id: "10-1",
-        heading: "10.1 Die IS-Kurve: Gleichgewicht am Gütermarkt",
+        heading: "10.2 Die IS-Kurve: Gleichgewicht am Gütermarkt",
         body: [
           "Die IS-Kurve zeigt alle Kombinationen aus Zins i und Produktion Y, bei denen der Gütermarkt im Gleichgewicht ist: Y = C(Y−T) + I(i) + G. Ein höherer Zins verteuert Investitionen, senkt I(i) und damit über den Gütermarktmultiplikator auch das Gleichgewichts-Y — die IS-Kurve verläuft daher fallend im (Y,i)-Diagramm.",
           "Expansive Fiskalpolitik (höheres G oder niedrigeres T) verschiebt die IS-Kurve nach rechts: Bei jedem gegebenen Zins ist nun ein höheres Gleichgewichts-Y erforderlich.",
@@ -577,7 +649,7 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "10-2",
-        heading: "10.2 Die LM-Kurve: Gleichgewicht am Geldmarkt",
+        heading: "10.3 Die LM-Kurve: Gleichgewicht am Geldmarkt",
         body: [
           "Die LM-Kurve zeigt Kombinationen aus Zins und Produktion, bei denen Geldangebot und Geldnachfrage übereinstimmen: M/P = L(i,Y). Höheres Y erhöht die Transaktionsnachfrage nach Geld; damit der Geldmarkt bei gegebenem Geldangebot im Gleichgewicht bleibt, muss der Zins steigen (Geldnachfrage sinkt mit steigendem Zins) — die LM-Kurve verläuft daher steigend.",
           "Eine expansive Geldpolitik (höheres M) verschiebt die LM-Kurve nach rechts/unten: Bei jedem Y ist nun ein niedrigerer Gleichgewichtszins nötig, um den größeren realen Geldbestand M/P vom Publikum halten zu lassen.",
@@ -596,7 +668,7 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "10-3",
-        heading: "10.3 Fiskal- und Geldpolitik im IS-LM-Modell",
+        heading: "10.4 Fiskal- und Geldpolitik im IS-LM-Modell",
         body: [
           "Im Schnittpunkt von IS- und LM-Kurve ergeben sich gleichzeitig Gleichgewichtszins und -produktion. Expansive Fiskalpolitik erhöht Y, treibt aber auch den Zins nach oben, was privat finanzierte Investitionen teilweise verdrängt (Crowding-out) — der Nettoeffekt auf Y bleibt aber typischerweise positiv.",
           "Expansive Geldpolitik erhöht Y und senkt gleichzeitig den Zins, ohne den Crowding-out-Effekt der Fiskalpolitik. Kombiniert man beide Politiken, lässt sich Y erhöhen, während der Zins je nach Dosierung nahezu konstant gehalten wird.",
@@ -654,7 +726,11 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Kurzfristig sind Preise/Löhne starr, sodass Unternehmen auf Nachfrageänderungen primär mit Mengenanpassung reagieren — die kurzfristige AS-Kurve ist daher relativ flach (oder bei völlig starren Preisen horizontal). Langfristig sind alle Preise flexibel, und die Produktion kehrt zu ihrem Potenzialniveau Y* zurück, unabhängig vom Preisniveau — die langfristige AS-Kurve ist vertikal bei Y*.",
           "Ein Nachfrageschock verschiebt daher kurzfristig sowohl Y als auch P, während sich langfristig nur P anpasst und Y zu Y* zurückkehrt — ein zentrales Argument dafür, dass Geldpolitik langfristig neutral ist (sie beeinflusst nur das Preisniveau, nicht die reale Produktion).",
+          "Eine gebräuchliche Mikrofundierung für die kurzfristig flache AS-Kurve ist das Preisstarrheiten-Modell: Ein Anteil (1−s) der Unternehmen kann seinen Preis sofort an die aktuelle Nachfragelage anpassen und setzt p=P+b(Y−Ȳ). Der übrige Anteil s der Unternehmen legt seinen Preis dagegen bereits im Voraus fest, rein basierend auf der erwarteten Preisentwicklung: p=Pᵉ. Das aggregierte Preisniveau ist der gewichtete Durchschnitt beider Gruppen; löst man P=s·Pᵉ+(1−s)·[P+b(Y−Ȳ)] nach P auf, ergibt sich P=Pᵉ+[(1−s)/s]·b·(Y−Ȳ).",
+          "Diese Formel macht explizit, wovon die Steilheit der kurzfristigen AS-Kurve abhängt: Je größer der Anteil s preisstarrer Unternehmen, desto größer der Koeffizient (1−s)/s vor der Nachfragelücke, und desto empfindlicher reagiert das Preisniveau auf Produktionsschwankungen — bei s→0 (fast alle Preise flexibel) nähert sich die AS-Kurve der vertikalen langfristigen Kurve an, bei s→1 (fast alle Preise starr) wird sie nahezu horizontal.",
         ],
+        formulas: ["P = Pᵉ + [(1−s)/s]·b·(Y−Ȳ)  (Preisstarrheiten-Modell)"],
+        formulasLatex: ["P = P^{e} + \\dfrac{1-s}{s}\\cdot b \\cdot (Y-\\bar Y)"],
         table: {
           caption: "Kurz- vs. langfristiges Angebot",
           headers: ["", "Kurzfristig", "Langfristig"],
@@ -672,9 +748,14 @@ export const chapters: SkriptChapter[] = [
             term: "Langfristige AS-Kurve",
             definition: "Vertikale Angebotskurve bei Y* (Potenzialoutput); Nachfrageänderungen wirken langfristig nur auf das Preisniveau.",
           },
+          {
+            term: "Preisstarrheiten-Modell",
+            definition: "Mikrofundierung der kurzfristigen AS-Kurve: Ein Anteil s der Unternehmen legt Preise im Voraus fest (p=Pᵉ), der Rest reagiert flexibel auf die Nachfragelage — daraus folgt P=Pᵉ+[(1−s)/s]·b·(Y−Ȳ).",
+          },
         ],
         examples: [
           "Ein positiver Nachfrageschock (z. B. höhere Staatsausgaben) erhöht kurzfristig sowohl Y über Y* als auch P leicht; langfristig steigen Löhne/Preise weiter, bis Y wieder auf Y* zurückfällt und nur P dauerhaft höher bleibt.",
+          "In einer Volkswirtschaft liegt der Anteil preisstarrer Unternehmen bei s=0,6 und der Reaktionskoeffizient bei b=2. Weicht die tatsächliche Produktion um 3% vom Potenzial ab (Y−Ȳ=0,03), steigt das Preisniveau um [(1−0,6)/0,6]×2×0,03 = 0,667×0,06 ≈ 0,04, also etwa 4 Prozentpunkte über die Erwartung Pᵉ — bei einem höheren Anteil preisstarrer Unternehmen (größerem s) würde derselbe Nachfrageschock einen kleineren Preisanstieg auslösen.",
         ],
       },
       {
