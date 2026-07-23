@@ -210,24 +210,22 @@ export default function SalesHomeContent() {
       {/* ---------- Stats (echte, berechnete Zahlen) ---------- */}
       <div className="grid grid-cols-2 gap-4 py-10 sm:grid-cols-4">
         {[
-          { icon: "📚", value: `${activeModuleCount} Module`, label: "bereits verfügbar" },
-          { icon: "✍️", value: `${totalQuestions}+`, label: "Übungsaufgaben insgesamt" },
+          { value: `${activeModuleCount} Module`, label: "bereits verfügbar" },
+          { value: `${totalQuestions}+`, label: "Übungsaufgaben insgesamt" },
           {
-            icon: "💶",
             value: `ab ${(cheapestPriceCent / 100).toLocaleString("de-DE", {
               style: "currency",
               currency: "EUR",
             })}`,
             label: "statt 100–300 € im Kurs",
           },
-          { icon: "⚡", value: "Sofort startklar", label: "keine Wartelisten" },
+          { value: "Sofort startklar", label: "keine Wartelisten" },
         ].map((stat) => (
           <div
             key={stat.label}
             className="rounded-2xl border border-ink-100 bg-white p-5 shadow-card transition hover:-translate-y-0.5 hover:shadow-glow"
           >
-            <div className="text-2xl">{stat.icon}</div>
-            <div className="mt-2 text-xl font-extrabold text-ink-900">
+            <div className="text-xl font-extrabold text-ink-900">
               {stat.value}
             </div>
             <div className="text-sm text-ink-500">{stat.label}</div>
