@@ -190,7 +190,7 @@ export default function SalesHomeContent() {
                 Beispielausschnitt: Statistik-I-Skript, Kapitel 1
               </span>
             </div>
-            <div className="skript-page px-5 py-5">
+            <div className="skript-page paper-scope px-5 py-5">
               <h3 className="mb-3 text-sm font-bold text-ink-900">
                 1.6 Satz von Bayes und totale Wahrscheinlichkeit
               </h3>
