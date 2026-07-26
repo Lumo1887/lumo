@@ -1,12 +1,98 @@
 import { NextRequest, NextResponse } from "next/server";
+import React from "react";
+import { renderToBuffer } from "@react-pdf/renderer";
 import { stripe, getBaseUrl } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { getResendClient, MAIL_FROM } from "@/lib/resend";
 import { getModule } from "@/lib/modules";
 import { awardReferralCredit } from "@/lib/referral";
+import ReceiptPdfDocument, { type ReceiptData } from "@/lib/pdf/ReceiptPdfDocument";
 import Stripe from "stripe";
 
 const OWNER_EMAIL = "lumolearn@outlook.de";
+const OWNER_NAME = "Carlo Pochert";
+const OWNER_ADDRESS_LINES = ["Gerwigstraße 29", "76131 Karlsruhe", "Deutschland"];
+
+// Erzeugt für einen abgeschlossenen Kauf eine Kleinbetragsrechnung (§33
+// UStDV, siehe ReceiptPdfDocument.tsx) als PDF, legt einen Datensatz in der
+// Supabase-Tabelle "receipts" an (fortlaufende Beleg-Nr. über die
+// bigserial-ID) und lädt das PDF zusätzlich in den privaten Storage-Bucket
+// "receipts" hoch — das ist die dauerhafte Ablage fürs eigene
+// Buchhaltungsarchiv, unabhängig davon, ob der E-Mail-Versand klappt.
+// "best effort": Schlägt irgendein Teilschritt fehl, wird das nur geloggt,
+// der bereits gespeicherte Kauf bleibt davon unberührt.
+async function createReceipt({
+  userId,
+  moduleSlug,
+  sessionId,
+  amountCent,
+  moduleTitle,
+  moduleSubtitle,
+}: {
+  userId: string;
+  moduleSlug: string;
+  sessionId: string;
+  amountCent: number;
+  moduleTitle: string;
+  moduleSubtitle: string;
+}): Promise<{ receiptNumber: string; buffer: Buffer } | null> {
+  try {
+    const { data: receiptRow, error: insertError } = await supabaseAdmin
+      .from("receipts")
+      .insert({
+        user_id: userId,
+        module_slug: moduleSlug,
+        stripe_session_id: sessionId,
+        amount_cent: amountCent,
+      })
+      .select("id")
+      .single();
+
+    if (insertError || !receiptRow) {
+      console.error("Beleg konnte nicht in Supabase angelegt werden:", insertError);
+      return null;
+    }
+
+    const receiptNumber = `LUMO-${new Date().getFullYear()}-${String(receiptRow.id).padStart(6, "0")}`;
+    const amountLabel = `${(amountCent / 100).toFixed(2).replace(".", ",")} €`;
+
+    const data: ReceiptData = {
+      receiptNumber,
+      issueDate: new Date().toLocaleDateString("de-DE"),
+      sellerName: OWNER_NAME,
+      sellerAddressLines: OWNER_ADDRESS_LINES,
+      sellerEmail: OWNER_EMAIL,
+      sellerTaxNumber: process.env.OWNER_TAX_NUMBER || undefined,
+      description: `Zugang zum Modul „${moduleTitle}" (${moduleSubtitle}) — Skript, Übungstool, Karteikarten, Klausursimulation, KI-Tutor`,
+      amountLabel,
+      paymentReference: sessionId,
+    };
+
+    // @react-pdf/renderer erwartet laut Typdefinition ein <Document> direkt,
+    // ReceiptPdfDocument ist aber eine Wrapper-Komponente — funktioniert zur
+    // Laufzeit, TypeScript beschwert sich aber (siehe gleiches Muster in
+    // formelsammlung-pdf/route.ts), daher bewusstes "as any".
+    const buffer = await renderToBuffer(
+      React.createElement(ReceiptPdfDocument, { data }) as any
+    );
+
+    const storagePath = `${userId}/${receiptNumber}.pdf`;
+    const { error: uploadError } = await supabaseAdmin.storage
+      .from("receipts")
+      .upload(storagePath, buffer, { contentType: "application/pdf", upsert: true });
+
+    if (uploadError) {
+      console.error("Beleg-PDF konnte nicht in Supabase Storage hochgeladen werden:", uploadError);
+    } else {
+      await supabaseAdmin.from("receipts").update({ storage_path: storagePath }).eq("id", receiptRow.id);
+    }
+
+    return { receiptNumber, buffer };
+  } catch (err) {
+    console.error("Fehler bei der Belegerstellung:", err);
+    return null;
+  }
+}
 
 // Stripe benötigt den rohen Request-Body, um die Signatur zu prüfen.
 export const runtime = "nodejs";
@@ -66,6 +152,26 @@ export async function POST(req: NextRequest) {
         `[stripe webhook] Kauf gespeichert: Nutzer ${userId}, Modul "${moduleSlug}"`
       );
 
+      const mod = getModule(moduleSlug);
+
+      // Beleg (Kleinbetragsrechnung) erzeugen und dauerhaft in Supabase
+      // Storage ablegen — unabhängig vom E-Mail-Versand, damit das
+      // Buchhaltungsarchiv auch dann existiert, wenn z. B. Resend gerade
+      // nicht erreichbar ist. amount_total statt mod.priceCent, weil das
+      // den tatsächlich gezahlten Betrag abbildet (z. B. bei eingelöstem
+      // Empfehlungs-/Promo-Code).
+      let receipt: { receiptNumber: string; buffer: Buffer } | null = null;
+      if (mod) {
+        receipt = await createReceipt({
+          userId,
+          moduleSlug,
+          sessionId: session.id,
+          amountCent: session.amount_total ?? mod.priceCent,
+          moduleTitle: mod.title,
+          moduleSubtitle: mod.subtitle,
+        });
+      }
+
       // Kaufbestätigungsmail — "best effort": Schlägt der Versand fehl (z. B.
       // weil Resend nicht konfiguriert ist), soll das den bereits
       // gespeicherten Kauf nicht rückgängig machen oder den Webhook wie ein
@@ -75,24 +181,31 @@ export async function POST(req: NextRequest) {
       const resend = getResendClient();
       const customerEmail =
         session.customer_details?.email ?? session.customer_email ?? undefined;
-      const mod = getModule(moduleSlug);
 
       if (resend && customerEmail && mod) {
         const baseUrl = getBaseUrl();
         const priceEur = (mod.priceCent / 100).toFixed(2).replace(".", ",");
+        const receiptAttachment = receipt
+          ? [{ filename: `${receipt.receiptNumber}.pdf`, content: receipt.buffer }]
+          : undefined;
+        const receiptNote = receipt
+          ? `\n\nDen Zahlungsbeleg (${receipt.receiptNumber}) findest du im Anhang — für deine eigenen Unterlagen.`
+          : "";
 
         const results = await Promise.allSettled([
           resend.emails.send({
             from: MAIL_FROM,
             to: customerEmail,
             subject: `Dein Zugang zu ${mod.title} ist freigeschaltet — Lumo Learn`,
-            text: `Hallo,\n\nvielen Dank für deinen Kauf! Dein Zugang zu "${mod.title}" (${mod.subtitle}) ist ab sofort freigeschaltet.\n\nBezahlter Betrag: ${priceEur} €\n\nSkript öffnen: ${baseUrl}/module/${mod.slug}/skript\nÜbungstool öffnen: ${baseUrl}/module/${mod.slug}/uebungstool\n\nÜbrigens: Kennst du jemanden, der/die auch für ein Uni-Modul lernen muss? In deinem Profil (${baseUrl}/profile) findest du deinen persönlichen Empfehlungslink — für jeden Freund, der darüber kauft, bekommst du selbst ein komplettes Modul gratis.\n\nBei Fragen antworte einfach auf diese E-Mail oder schreib an ${OWNER_EMAIL}.\n\nViel Erfolg beim Lernen!\nLumo Learn`,
+            text: `Hallo,\n\nvielen Dank für deinen Kauf! Dein Zugang zu "${mod.title}" (${mod.subtitle}) ist ab sofort freigeschaltet.\n\nBezahlter Betrag: ${priceEur} €${receiptNote}\n\nSkript öffnen: ${baseUrl}/module/${mod.slug}/skript\nÜbungstool öffnen: ${baseUrl}/module/${mod.slug}/uebungstool\n\nÜbrigens: Kennst du jemanden, der/die auch für ein Uni-Modul lernen muss? In deinem Profil (${baseUrl}/profile) findest du deinen persönlichen Empfehlungslink — für jeden Freund, der darüber kauft, bekommst du selbst ein komplettes Modul gratis.\n\nBei Fragen antworte einfach auf diese E-Mail oder schreib an ${OWNER_EMAIL}.\n\nViel Erfolg beim Lernen!\nLumo Learn`,
+            attachments: receiptAttachment,
           }),
           resend.emails.send({
             from: MAIL_FROM,
             to: OWNER_EMAIL,
-            subject: `Neuer Kauf: ${mod.title}`,
-            text: `Neuer Kauf eingegangen.\n\nModul: ${mod.title}\nKunde: ${customerEmail}\nBetrag: ${priceEur} €\nStripe-Session: ${session.id}\nNutzer-ID: ${userId}`,
+            subject: `Neuer Kauf: ${mod.title}${receipt ? ` (Beleg ${receipt.receiptNumber})` : ""}`,
+            text: `Neuer Kauf eingegangen.\n\nModul: ${mod.title}\nKunde: ${customerEmail}\nBetrag: ${priceEur} €\nStripe-Session: ${session.id}\nNutzer-ID: ${userId}${receipt ? `\nBeleg-Nr.: ${receipt.receiptNumber}` : ""}`,
+            attachments: receiptAttachment,
           }),
         ]);
 
