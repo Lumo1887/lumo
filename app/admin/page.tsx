@@ -116,14 +116,19 @@ export default function AdminPage() {
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-ink-900 sm:text-4xl">
-          Admin — Module freischalten
-        </h1>
-        <p className="mt-2 text-ink-600">
-          {users.length} registrierte Nutzer:innen. Freischaltung/Entzug wirkt
-          sofort, genau wie ein Stripe-Kauf.
-        </p>
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-extrabold text-ink-900 sm:text-4xl">
+            Admin — Module freischalten
+          </h1>
+          <p className="mt-2 text-ink-600">
+            {users.length} registrierte Nutzer:innen. Freischaltung/Entzug wirkt
+            sofort, genau wie ein Stripe-Kauf.
+          </p>
+        </div>
+        <Link href="/admin/rechnungen" className="btn-secondary">
+          Käufe & Belege →
+        </Link>
       </div>
 
       <input
