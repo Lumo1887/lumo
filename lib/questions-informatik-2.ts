@@ -57,7 +57,7 @@ export const questions: Question[] = [
     correctIndex: 1,
     explanation:
       "Ein Algorithmus ist die sprachunabhängige, abstrakte Handlungsvorschrift; ein Programm ist ihre konkrete Umsetzung in einer Programmiersprache, sodass ein Rechner sie ausführen kann.",
-    source: "Kapitel 1, Algorithmus versus Programm",
+    source: "Kapitel 4, Algorithmus versus Programm",
     free: true,
   },
   {
@@ -75,7 +75,7 @@ export const questions: Question[] = [
     correctIndex: 2,
     explanation:
       "Der Ablauf ist nicht-deterministisch, da z zufällig gezogen wird. Da unterschiedliche z zu unterschiedlichen Ausgaben ('gerade' vs. 'ungerade') führen, ist der Algorithmus zusätzlich nicht determiniert.",
-    source: "Kapitel 1, Determiniertheit und Determinismus",
+    source: "Kapitel 4, Determiniertheit und Determinismus",
     free: true,
   },
   {
@@ -93,7 +93,7 @@ export const questions: Question[] = [
     correctIndex: 1,
     explanation:
       "Kennt man die Stellen mit Zufallseinfluss, lässt sich gezielter beurteilen, ob dieser Zufall am Ende tatsächlich das Ergebnis verändert oder nicht.",
-    source: "Kapitel 1, Determiniertheit und Determinismus",
+    source: "Kapitel 4, Determiniertheit und Determinismus",
     free: false,
   },
   {
@@ -110,7 +110,7 @@ export const questions: Question[] = [
     correctIndex: 2,
     explanation:
       "Statische Finitheit (endliche Beschreibung) ist bei einem Programm automatisch gegeben, die Terminierung (Anhalten bei jeder Eingabe) muss dagegen separat gezeigt werden.",
-    source: "Kapitel 1, Finitheit, Terminierung und Universalität",
+    source: "Kapitel 4, Finitheit, Terminierung und Universalität",
     free: false,
   },
   {
@@ -123,7 +123,7 @@ export const questions: Question[] = [
     correctIndex: 1,
     explanation:
       "Universalität fordert Korrektheit für die gesamte spezifizierte Eingabemenge — hier versagt der Algorithmus für einen Teil davon.",
-    source: "Kapitel 1, Finitheit, Terminierung und Universalität",
+    source: "Kapitel 4, Finitheit, Terminierung und Universalität",
     free: false,
   },
   {
@@ -140,7 +140,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Direkte Rekursion: f ruft f auf. Indirekte Rekursion: f ruft g auf, das (ggf. über weitere Zwischenschritte) wieder f aufruft.",
-    source: "Kapitel 1, Rekursion",
+    source: "Kapitel 4, Rekursion",
     free: false,
   },
   {
@@ -152,7 +152,7 @@ export const questions: Question[] = [
     correctValue: 6,
     explanation:
       "fakultaet(6) ruft fakultaet(5) auf, das fakultaet(4) aufruft, usw. bis fakultaet(1) — insgesamt 6 Aufrufe für n = 6, 5, 4, 3, 2, 1.",
-    source: "Kapitel 1, Rekursion",
+    source: "Kapitel 4, Rekursion",
     free: false,
   },
 
@@ -161,23 +161,23 @@ export const questions: Question[] = [
     id: "al-01",
     topic: "Aussagenlogik",
     type: "mc",
-    prompt: "Welche Formel ist zu G äquivalent: (F ∧ ¬F) ∨ G ?",
-    options: ["G", "F", "¬G", "F ∧ G"],
+    prompt: "Welche Formel ist zu Q äquivalent: (P ∧ ¬P) ∨ Q ?",
+    options: ["Q", "P", "¬Q", "P ∧ Q"],
     correctIndex: 0,
     explanation:
-      "F ∧ ¬F ist ein Widerspruch, also immer falsch. (falsch ∨ G) ist äquivalent zu G — das neutrale Element der Disjunktion.",
-    source: "Kapitel 2, Aussagen und Junktoren",
+      "P ∧ ¬P ist ein Widerspruch, also immer falsch. (falsch ∨ Q) ist äquivalent zu Q — das neutrale Element der Disjunktion.",
+    source: "Kapitel 1, Aussagen und Junktoren",
     free: true,
   },
   {
     id: "al-02",
     topic: "Aussagenlogik",
     type: "mc",
-    prompt: "Welche Formel ist äquivalent zu (F ⇒ G) ∧ (G ⇒ F)?",
-    options: ["F ⇔ G", "F ∧ G", "F ∨ G", "¬F ∨ ¬G"],
+    prompt: "Welche Formel ist äquivalent zu (P ⇒ Q) ∧ (Q ⇒ P)?",
+    options: ["P ⇔ Q", "P ∧ Q", "P ∨ Q", "¬P ∨ ¬Q"],
     correctIndex: 0,
     explanation: "Die Äquivalenz A ⇔ B ist per Definition gleichbedeutend mit (A ⇒ B) ∧ (B ⇒ A).",
-    source: "Kapitel 2, Aussagen und Junktoren",
+    source: "Kapitel 1, Aussagen und Junktoren",
     free: true,
   },
   {
@@ -189,7 +189,7 @@ export const questions: Question[] = [
     options: ["Konjunktive Normalform (KNF)", "Disjunktive Normalform (DNF)", "Pränexnormalform", "Skolemform"],
     correctIndex: 0,
     explanation: "Eine Konjunktion von Disjunktionen von Literalen ist per Definition die KNF.",
-    source: "Kapitel 2, Äquivalenzumformung und Normalformen",
+    source: "Kapitel 1, Äquivalenzumformung und Normalformen",
     free: false,
   },
   {
@@ -200,7 +200,7 @@ export const questions: Question[] = [
     options: ["¬P ∨ Q", "¬P ∧ Q", "P ∨ ¬Q", "¬P ∨ ¬Q"],
     correctIndex: 0,
     explanation: "Nach De Morgan: ¬(P ∧ ¬Q) ⇔ ¬P ∨ ¬¬Q ⇔ ¬P ∨ Q.",
-    source: "Kapitel 2, Äquivalenzumformung und Normalformen",
+    source: "Kapitel 1, Äquivalenzumformung und Normalformen",
     free: false,
   },
   {
@@ -217,7 +217,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Für A=T,B=T,C=T ist die Formel wahr (erfüllbar), für A=F,B=T,C=F ist sie falsch (also keine Tautologie).",
-    source: "Kapitel 2, Erfüllbarkeit, Allgemeingültigkeit und Modelle",
+    source: "Kapitel 1, Erfüllbarkeit, Allgemeingültigkeit und Modelle",
     free: false,
   },
   {
@@ -234,7 +234,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Das Deduktionstheorem führt den Nachweis einer logischen Folgerung auf einen Unerfüllbarkeitsnachweis zurück: M ⊨ F gdw. M ∪ {¬F} unerfüllbar ist.",
-    source: "Kapitel 2, Exkurs: Resolution und automatisiertes Schließen",
+    source: "Kapitel 1, Exkurs: Resolution und automatisiertes Schließen",
     free: false,
   },
   {
@@ -252,7 +252,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Das Endergebnis kann korrekt sein, der Beweisweg aber Regeln nutzen, die nicht Teil des vereinbarten, in der Klausur zulässigen Regelsatzes sind.",
-    source: "Kapitel 2, Exkurs: Resolution und automatisiertes Schließen",
+    source: "Kapitel 1, Exkurs: Resolution und automatisiertes Schließen",
     free: false,
   },
 
@@ -270,7 +270,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Das Array ist die statische, die Liste die dynamische Datenstruktur.",
-    source: "Kapitel 3, Datenstrukturen und abstrakte Datentypen",
+    source: "Kapitel 6, Datenstrukturen und abstrakte Datentypen",
     free: true,
   },
   {
@@ -287,7 +287,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Ein ADT abstrahiert von der Implementierung und legt nur fest, welche Operationen erlaubt sind und wie sie sich verhalten.",
-    source: "Kapitel 3, Datenstrukturen und abstrakte Datentypen",
+    source: "Kapitel 6, Datenstrukturen und abstrakte Datentypen",
     free: true,
   },
   {
@@ -304,7 +304,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Da jeder Knoten zusätzlich seinen Vorgänger kennt, muss dieser beim Entfernen nicht erst gesucht werden.",
-    source: "Kapitel 3, Einfach und doppelt verkettete Listen",
+    source: "Kapitel 6, Einfach und doppelt verkettete Listen",
     free: false,
   },
   {
@@ -317,7 +317,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Nach PUSH(11), PUSH(22) liegt oben 22 → erstes POP liefert 22. Danach PUSH(33) legt 33 oben ab → zweites POP liefert 33. Übrig bleibt 11 → drittes POP liefert 11.",
-    source: "Kapitel 3, Der Keller (Stack)",
+    source: "Kapitel 6, Der Keller (Stack)",
     free: false,
   },
   {
@@ -325,12 +325,12 @@ export const questions: Question[] = [
     topic: "Datenstrukturen I",
     type: "mc",
     prompt:
-      "Eine anfangs leere Warteschlange wird durch ein zirkuläres Array der Länge 4 realisiert. Nach ENQUEUE(12), ENQUEUE(19), ENQUEUE(31), DEQUEUE(), ENQUEUE(24), ENQUEUE(17), DEQUEUE(), ENQUEUE(9), DEQUEUE() — welche Werte liefern die drei DEQUEUE()-Aufrufe in dieser Reihenfolge?",
-    options: ["12, 19, 31", "31, 19, 12", "12, 31, 19", "19, 12, 31"],
+      "Eine anfangs leere Warteschlange wird durch ein zirkuläres Array der Länge 5 realisiert. Nach ENQUEUE(7), ENQUEUE(14), DEQUEUE(), ENQUEUE(21), ENQUEUE(28), ENQUEUE(35), DEQUEUE(), DEQUEUE(), ENQUEUE(42), DEQUEUE() — welche Werte liefern die vier DEQUEUE()-Aufrufe in dieser Reihenfolge?",
+    options: ["7, 14, 21, 28", "35, 28, 21, 14", "7, 21, 14, 28", "14, 7, 28, 21"],
     correctIndex: 0,
     explanation:
-      "Eine Schlange arbeitet nach dem FIFO-Prinzip: Die drei DEQUEUE-Aufrufe entnehmen die Elemente in der Reihenfolge ihres Einfügens, also 12, dann 19, dann 31.",
-    source: "Kapitel 3, Die Schlange (Queue)",
+      "Eine Schlange arbeitet nach dem FIFO-Prinzip: Die vier DEQUEUE-Aufrufe entnehmen die Elemente exakt in der Reihenfolge ihres Einfügens — 7, 14, 21, 28.",
+    source: "Kapitel 6, Die Schlange (Queue)",
     free: false,
   },
   {
@@ -347,7 +347,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Das Umschichten von S1 nach S2 kehrt die Reihenfolge um, sodass das älteste Element oben auf S2 zu liegen kommt — genau das FIFO-Verhalten einer Queue.",
-    source: "Kapitel 3, Die Schlange (Queue)",
+    source: "Kapitel 6, Die Schlange (Queue)",
     free: false,
   },
 
@@ -365,7 +365,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Gebunden ist ein Vorkommen genau dann, wenn ein Quantor über dieselbe Variable darüber steht.",
-    source: "Kapitel 4, Terme, Formeln und Quantoren",
+    source: "Kapitel 2, Terme, Formeln und Quantoren",
     free: true,
   },
   {
@@ -383,7 +383,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Nur wenn keine Allquantoren vorausgehen, wird durch eine Skolemkonstante ersetzt — andernfalls durch eine von den vorausgehenden Variablen abhängige Skolemfunktion.",
-    source: "Kapitel 4, Bereinigung, Pränexnormalform und Skolemform",
+    source: "Kapitel 2, Bereinigung, Pränexnormalform und Skolemform",
     free: true,
   },
   {
@@ -391,17 +391,17 @@ export const questions: Question[] = [
     topic: "Prädikatenlogik",
     type: "mc",
     prompt:
-      "Sind die Literale {h(k(x), y), h(y, k(z))} unifizierbar? Falls ja, welcher allgemeinste Unifikator ergibt sich?",
+      "Sind die Literale {r(f(x, y), z), r(f(a, b), g(c))} unifizierbar? Falls ja, welcher allgemeinste Unifikator ergibt sich?",
     options: [
-      "Ja, mit {x/z, y/k(z)}",
-      "Ja, mit {x/y, z/k(x)}",
-      "Nein, da k(x) und y nicht kompatibel sind",
-      "Ja, mit {x/k(z), y/z}",
+      "Ja, mit {x/a, y/b, z/g(c)}",
+      "Ja, mit {x/b, y/a, z/g(c)}",
+      "Nein, da f(x,y) und f(a,b) nicht kompatibel sind",
+      "Ja, mit {x/a, y/b, z/c}",
     ],
     correctIndex: 0,
     explanation:
-      "Aus der ersten Position folgt y = k(x); aus der zweiten Position folgt k(x) = k(z), also x = z, und damit y = k(z).",
-    source: "Kapitel 4, Unifikation",
+      "Aus der ersten Position folgt f(x,y) = f(a,b), also x = a und y = b; aus der zweiten Position folgt direkt z = g(c).",
+    source: "Kapitel 2, Unifikation",
     free: false,
   },
   {
@@ -419,7 +419,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Nach Einsetzen von X für die allquantifizierte Variable liegt eine Implikation vor, deren Prämisse für X erfüllt ist — klassischer Modus Ponens.",
-    source: "Kapitel 4, Resolution in der Prädikatenlogik",
+    source: "Kapitel 2, Resolution in der Prädikatenlogik",
     free: false,
   },
   {
@@ -435,7 +435,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "V, FZ und PZ sind die zulässigen Bausteine, aus denen Terme und Formeln über dieser Basis gebildet werden.",
-    source: "Kapitel 4, Terme, Formeln und Quantoren",
+    source: "Kapitel 2, Terme, Formeln und Quantoren",
     free: false,
   },
   {
@@ -451,7 +451,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Nur geschlossenen Formeln lässt sich unabhängig von einer Belegung ein Wahrheitswert zuordnen.",
-    source: "Kapitel 4, Terme, Formeln und Quantoren",
+    source: "Kapitel 2, Terme, Formeln und Quantoren",
     free: false,
   },
 
@@ -462,13 +462,13 @@ export const questions: Question[] = [
     type: "mc",
     prompt: "Worin unterscheiden sich Entwurfsprinzipien von Entwurfstechniken?",
     options: [
-      "Entwurfsprinzipien sind grundsätzliche Denkweisen (z. B. Backtracking, Divide & Conquer), Entwurfstechniken sind konkretere, oft algorithmenklassen-spezifische Vorgehensweisen (z. B. Greedy).",
+      "Entwurfsprinzipien sind grundsätzliche Denkweisen (z. B. schrittweise Verfeinerung, Modularisierung), Entwurfstechniken sind konkretere, problemklassen-spezifische Vorgehensweisen (z. B. Backtracking, Divide & Conquer, Greedy).",
       "Beide Begriffe sind identisch definiert.",
       "Entwurfstechniken sind immer abstrakter als Entwurfsprinzipien.",
       "Entwurfsprinzipien gelten nur für rekursive Algorithmen.",
     ],
     correctIndex: 0,
-    explanation: "Entwurfsprinzipien sind die grundlegenderen, allgemeineren Denkweisen; Entwurfstechniken konkretisieren diese.",
+    explanation: "Entwurfsprinzipien sind die grundlegenderen, allgemeineren Denkweisen (schrittweise Verfeinerung, Modularisierung); Entwurfstechniken wie Backtracking, Divide & Conquer und Greedy konkretisieren diese für bestimmte Problemklassen.",
     source: "Kapitel 5, Entwurfsprinzipien versus Entwurfstechniken",
     free: true,
   },
@@ -563,7 +563,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Bei ungerichteten Kanten gilt (i,j) genau dann, wenn auch (j,i) gilt — daher Symmetrie.",
-    source: "Kapitel 6, Graphen: Grundbegriffe",
+    source: "Kapitel 7, Graphen: Grundbegriffe",
     free: true,
   },
   {
@@ -579,7 +579,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "DFS nutzt (rekursiv oder explizit) einen Keller, BFS eine Schlange.",
-    source: "Kapitel 6, Tiefensuche und Breitensuche",
+    source: "Kapitel 7, Tiefensuche und Breitensuche",
     free: true,
   },
   {
@@ -590,7 +590,7 @@ export const questions: Question[] = [
     options: ["⌈log₂(n+1)⌉ − 1", "n − 1", "log₂(n)", "n / 2"],
     correctIndex: 0,
     explanation: "Ein vollständig balancierter binärer Baum minimiert die Höhe auf ⌈log₂(n+1)⌉ − 1.",
-    source: "Kapitel 6, Bäume und Wurzelgraphen",
+    source: "Kapitel 7, Bäume und Wurzelgraphen",
     free: false,
   },
   {
@@ -600,7 +600,7 @@ export const questions: Question[] = [
     prompt: "Wie hoch ist ein binärer Baum mit 15 Elementen im besten Fall (vollständig balanciert)?",
     correctValue: 3,
     explanation: "⌈log₂(15+1)⌉ − 1 = ⌈log₂16⌉ − 1 = 4 − 1 = 3.",
-    source: "Kapitel 6, Bäume und Wurzelgraphen",
+    source: "Kapitel 7, Bäume und Wurzelgraphen",
     free: false,
   },
   {
@@ -616,7 +616,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Laufen mehrere Wege von der Wurzel auf einem Knoten zusammen, ist der Graph zwar ein Wurzelgraph, aber kein Baum mehr.",
-    source: "Kapitel 6, Bäume und Wurzelgraphen",
+    source: "Kapitel 7, Bäume und Wurzelgraphen",
     free: false,
   },
   {
@@ -627,7 +627,7 @@ export const questions: Question[] = [
     options: ["In-Order", "Pre-Order", "Post-Order", "Level-Order"],
     correctIndex: 0,
     explanation: "In-Order (linker Teilbaum, Knoten, rechter Teilbaum) nutzt genau die Ordnungseigenschaft des Suchbaums aus.",
-    source: "Kapitel 6, Binäre Suchbäume",
+    source: "Kapitel 7, Binäre Suchbäume",
     free: false,
   },
   {
@@ -643,7 +643,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Die drei Fälle unterscheiden sich in der Anzahl der Kinder des zu löschenden Knotens (0, 1 oder 2).",
-    source: "Kapitel 6, Binäre Suchbäume",
+    source: "Kapitel 7, Binäre Suchbäume",
     free: false,
   },
 
@@ -661,7 +661,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Die Existenz von Komplementen ist eines der Huntingtonschen Axiome.",
-    source: "Kapitel 7, Die Huntingtonschen Axiome",
+    source: "Kapitel 3, Die Huntingtonschen Axiome",
     free: true,
   },
   {
@@ -677,7 +677,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Da die Axiome selbst paarweise dual formuliert sind, überträgt sich Gültigkeit auf die duale Aussage.",
-    source: "Kapitel 7, Das Dualitätsprinzip",
+    source: "Kapitel 3, Das Dualitätsprinzip",
     free: true,
   },
   {
@@ -688,7 +688,7 @@ export const questions: Question[] = [
     options: ["a + 1 = 1", "a + 0 = a", "a · 1 = 0", "a′ = 0"],
     correctIndex: 0,
     explanation: "Vertauscht man · mit + und 0 mit 1, wird aus a·0=0 die duale Aussage a+1=1.",
-    source: "Kapitel 7, Das Dualitätsprinzip",
+    source: "Kapitel 3, Das Dualitätsprinzip",
     free: false,
   },
   {
@@ -696,12 +696,12 @@ export const questions: Question[] = [
     topic: "Boolesche Algebra",
     type: "mc",
     prompt:
-      "In einer Booleschen Algebra (M;·,+,′) mit M = {p,q,r,s} gilt: p·q=r, p·s=p, p+q=s, q+r=q. Welches Element ist das neutrale Element bezüglich der Booleschen Summe (≙0) und welches bezüglich des Booleschen Produkts (≙1)?",
-    options: ["r ≙ 0, s ≙ 1", "s ≙ 0, r ≙ 1", "p ≙ 0, q ≙ 1", "q ≙ 0, p ≙ 1"],
+      "In einer Booleschen Algebra (M;·,+,′) mit M = {a,b,c} gilt: a·b=b, a+c=a. Welches Element ist das neutrale Element bezüglich des Booleschen Produkts (≙1) und welches bezüglich der Booleschen Summe (≙0)?",
+    options: ["a ≙ 1, c ≙ 0", "b ≙ 1, a ≙ 0", "c ≙ 1, b ≙ 0", "a ≙ 1, b ≙ 0"],
     correctIndex: 0,
     explanation:
-      "Aus p·s=p folgt, dass s neutral bezüglich · ist (s≙1). Aus q+r=q folgt, dass r neutral bezüglich + ist (r≙0). Damit sind p und q zueinander komplementär (p+q=1, p·q=0).",
-    source: "Kapitel 7, Die Huntingtonschen Axiome",
+      "Aus a·b=b folgt, dass a neutral bezüglich · ist (a≙1). Aus a+c=a folgt, dass c neutral bezüglich + ist (c≙0).",
+    source: "Kapitel 3, Die Huntingtonschen Axiome",
     free: false,
   },
   {
@@ -717,7 +717,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Die Distributivität zerlegt den Ausdruck in zwei Summanden, die beide wegen der Komplement-Gesetze verschwinden.",
-    source: "Kapitel 7, Abgeleitete Gesetze und Bezug zur Aussagenlogik",
+    source: "Kapitel 3, Abgeleitete Gesetze und Bezug zur Aussagenlogik",
     free: false,
   },
 
@@ -732,7 +732,7 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation:
       "Nach den ersten beiden Schritten liegt (2, 7, 9, 4, 6) vor. Die 4 wird an 9 und 7 vorbei bis hinter die 2 einsortiert: (2, 4, 7, 9, 6).",
-    source: "Kapitel 8, Sortieren durch direktes Einfügen",
+    source: "Kapitel 9, Sortieren durch direktes Einfügen",
     free: true,
   },
   {
@@ -748,7 +748,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Maximal unausgeglichene Partitionen führen zu n Rekursionsebenen mit je O(n) Aufwand, insgesamt O(n²).",
-    source: "Kapitel 8, Quicksort",
+    source: "Kapitel 9, Quicksort",
     free: true,
   },
   {
@@ -759,7 +759,7 @@ export const questions: Question[] = [
     options: ["O(n log₂n)", "O(n²)", "O(n)", "O(log n)"],
     correctIndex: 0,
     explanation: "Im Mittel teilt das Pivotelement die Folge einigermaßen ausgeglichen, was zu Tavg = O(n log₂n) führt.",
-    source: "Kapitel 8, Quicksort",
+    source: "Kapitel 9, Quicksort",
     free: false,
   },
   {
@@ -775,7 +775,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Die Heap-Eigenschaft fordert genau diese Beziehung zwischen Eltern- und Kindknoten.",
-    source: "Kapitel 8, Heapsort",
+    source: "Kapitel 9, Heapsort",
     free: false,
   },
   {
@@ -791,7 +791,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Sowohl Aufbau als auch Sortieren benötigen O(n log₂n), was zugleich der unteren Schranke für vergleichsbasierte Verfahren entspricht.",
-    source: "Kapitel 8, Heapsort",
+    source: "Kapitel 9, Heapsort",
     free: false,
   },
   {
@@ -807,7 +807,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "BottomUp-Heapsort ist eine praktische, nicht aber asymptotische Verbesserung: gleiche Komplexitätsklasse, aber weniger Vergleiche.",
-    source: "Kapitel 8, Heapsort",
+    source: "Kapitel 9, Heapsort",
     free: false,
   },
 
@@ -825,7 +825,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Gerader Grad an jedem Knoten stellt sicher, dass jede Kante beim Durchlaufen wieder 'verlassen' werden kann.",
-    source: "Kapitel 9, Eulersche und Hamiltonsche Kreise",
+    source: "Kapitel 10, Eulersche und Hamiltonsche Kreise",
     free: true,
   },
   {
@@ -836,7 +836,7 @@ export const questions: Question[] = [
     options: ["O(m!), da im schlechtesten Fall alle Permutationen der Knoten durchprobiert werden.", "O(n log n)", "O(n²)", "O(n)"],
     correctIndex: 0,
     explanation: "Ohne bekanntes polynomielles Verfahren muss der naive Algorithmus alle m! Knotenpermutationen prüfen.",
-    source: "Kapitel 9, Eulersche und Hamiltonsche Kreise",
+    source: "Kapitel 10, Eulersche und Hamiltonsche Kreise",
     free: true,
   },
   {
@@ -852,7 +852,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Negative Gewichte können dazu führen, dass ein bereits als endgültig markierter Knoten zu kurz eingeschätzt wird.",
-    source: "Kapitel 9, Kürzeste Wege: der Algorithmus von Dijkstra",
+    source: "Kapitel 10, Kürzeste Wege: der Algorithmus von Dijkstra",
     free: false,
   },
   {
@@ -869,7 +869,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Schon eine einzige negative Kante kann die Greedy-Annahme von Dijkstra verletzen.",
-    source: "Kapitel 9, Kürzeste Wege: der Algorithmus von Dijkstra",
+    source: "Kapitel 10, Kürzeste Wege: der Algorithmus von Dijkstra",
     free: false,
   },
   {
@@ -885,7 +885,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Ein erreichbarer negativer Zyklus lässt die Weglänge beliebig sinken — ein kürzester Weg existiert dann nicht.",
-    source: "Kapitel 9, Der Algorithmus von Bellman-Ford",
+    source: "Kapitel 10, Der Algorithmus von Bellman-Ford",
     free: false,
   },
   {
@@ -901,7 +901,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Kruskal ist ein Greedy-Verfahren, das Kanten aufsteigend nach Gewicht betrachtet und Zyklen vermeidet.",
-    source: "Kapitel 9, Minimale Spannbäume: Kruskal und Prim",
+    source: "Kapitel 10, Minimale Spannbäume: Kruskal und Prim",
     free: false,
   },
   {
@@ -917,7 +917,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Prims Laufzeit O(|E|+|V|·log|V|) ist bei |E| ≫ |V| günstiger als Kruskals O(|E|·log|E|).",
-    source: "Kapitel 9, Minimale Spannbäume: Kruskal und Prim",
+    source: "Kapitel 10, Minimale Spannbäume: Kruskal und Prim",
     free: false,
   },
 
@@ -935,7 +935,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Die korrekte aufsteigende Reihenfolge ist: log n < n < n log n < n² < n³ < 2ⁿ < n! < nⁿ.",
-    source: "Kapitel 10, Groß-O-, Ω- und Θ-Notation",
+    source: "Kapitel 8, Groß-O-, Ω- und Θ-Notation",
     free: true,
   },
   {
@@ -947,7 +947,7 @@ export const questions: Question[] = [
     options: ["O(log₂n)", "O(n)", "O(n²)", "O(1)"],
     correctIndex: 0,
     explanation: "Wiederholtes Halbieren bis zu einer Schranke benötigt logarithmisch viele Schritte.",
-    source: "Kapitel 10, Einflussfaktoren und Elementaroperationen",
+    source: "Kapitel 8, Einflussfaktoren und Elementaroperationen",
     free: true,
   },
   {
@@ -964,7 +964,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Da die Schleife nach der Begrenzung höchstens 25-mal läuft, ist der Aufwand konstant bezüglich der ursprünglichen Eingabegröße.",
-    source: "Kapitel 10, Tmin, Tavg und Tmax",
+    source: "Kapitel 8, Tmin, Tavg und Tmax",
     free: false,
   },
   {
@@ -976,7 +976,7 @@ export const questions: Question[] = [
     options: ["O(n²)", "O(n)", "O(n log n)", "O(2ⁿ)"],
     correctIndex: 0,
     explanation: "Die Gesamtzahl der inneren Durchläufe ist 1+2+...+n = n(n+1)/2 = O(n²).",
-    source: "Kapitel 10, Tmin, Tavg und Tmax",
+    source: "Kapitel 8, Tmin, Tavg und Tmax",
     free: false,
   },
   {
@@ -987,7 +987,7 @@ export const questions: Question[] = [
     options: ["Θ(n⁶)", "Θ(n³)", "Θ(n^9)", "Θ(n)"],
     correctIndex: 0,
     explanation: "Für die Θ-Notation zählt allein der am schnellsten wachsende Summand — hier n⁶.",
-    source: "Kapitel 10, Groß-O-, Ω- und Θ-Notation",
+    source: "Kapitel 8, Groß-O-, Ω- und Θ-Notation",
     free: false,
   },
   {
@@ -998,18 +998,18 @@ export const questions: Question[] = [
     options: ["O(nᵏ)", "O(nᵃ)", "O(n^(a+k))", "O(kⁿ)"],
     correctIndex: 0,
     explanation: "(n+a)^k ist für konstantes a und k ein Polynom vom Grad k in n, also O(nᵏ).",
-    source: "Kapitel 10, Groß-O-, Ω- und Θ-Notation",
+    source: "Kapitel 8, Groß-O-, Ω- und Θ-Notation",
     free: false,
   },
   {
     id: "kx-07",
     topic: "Komplexität von Algorithmen",
     type: "mc",
-    prompt: "Welche Θ-Komplexität hat f(n) = 2ⁿ + 5·n³?",
-    options: ["Θ(2ⁿ), da die Exponentialfunktion für große n jedes Polynom dominiert.", "Θ(n³)", "Θ(n³·2ⁿ)", "Θ(n)"],
+    prompt: "Welche Θ-Komplexität hat f(n) = 3ⁿ + 7·n⁴?",
+    options: ["Θ(3ⁿ), da die Exponentialfunktion für große n jedes Polynom dominiert.", "Θ(n⁴)", "Θ(n⁴·3ⁿ)", "Θ(n)"],
     correctIndex: 0,
-    explanation: "Exponentielles Wachstum dominiert jedes Polynom, sodass der n³-Term für die Θ-Klasse irrelevant wird.",
-    source: "Kapitel 10, Groß-O-, Ω- und Θ-Notation",
+    explanation: "Exponentielles Wachstum dominiert jedes Polynom, sodass der n⁴-Term für die Θ-Klasse irrelevant wird.",
+    source: "Kapitel 8, Groß-O-, Ω- und Θ-Notation",
     free: false,
   },
   {
@@ -1025,7 +1025,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "(2n)² = 4n² — die Laufzeit steigt quadratisch mit n, eine Verdopplung von n vervierfacht sie also.",
-    source: "Kapitel 10, Komplexitätsklassen und ihre praktische Bedeutung",
+    source: "Kapitel 8, Komplexitätsklassen und ihre praktische Bedeutung",
     free: false,
   },
   {
@@ -1041,7 +1041,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Tmax erfasst den ungünstigsten Fall — das Maximum des Aufwands über alle Eingaben derselben Größe.",
-    source: "Kapitel 10, Tmin, Tavg und Tmax",
+    source: "Kapitel 8, Tmin, Tavg und Tmax",
     free: false,
   },
 
@@ -1083,10 +1083,10 @@ export const questions: Question[] = [
     topic: "UML: Einführung und Anwendungsfalldiagramme",
     type: "mc",
     prompt:
-      "In einer Fitnessstudio-Verwaltungssoftware gilt: Ein Trainer berechnet Mitgliedsbeiträge; die Studioleitung kann Mitglieder anmelden und deren Mitgliedschaft kündigen; die Kündigung eines Standortleiters ist eine Erweiterung des Anwendungsfalls 'Mitgliedschaft kündigen' unter der Bedingung, dass gegen diesen wiederholt begründete Beschwerden vorliegen; bei jeder Kündigung bzw. Anmeldung wird zusätzlich zwingend eine Mitgliederhistorie protokolliert. Welche UML-Beziehung modelliert den letzten Punkt (Mitgliederhistorie wird immer mit protokolliert)?",
-    options: ["Eine include-Beziehung", "Eine extend-Beziehung", "Eine Generalisierung", "Eine Aggregation"],
+      "Ein Versandhändler betreibt ein Bestellsystem mit drei Akteuren: Ein Kunde kann eine Bestellung aufgeben. Ein Lagermitarbeiter kann Bestellungen stornieren. Storniert stattdessen ein Schichtleiter, ist das eine Erweiterung des Anwendungsfalls 'Bestellung stornieren' unter der Bedingung, dass der Bestellwert 500 GE übersteigt. Bei jeder Stornierung — unabhängig davon, wer sie durchführt — wird zusätzlich zwingend ein Lagerbuchungssatz erzeugt. Welche UML-Beziehung modelliert die Erzeugung des Lagerbuchungssatzes?",
+    options: ["Eine include-Beziehung", "Eine extend-Beziehung", "Eine Generalisierung", "Eine Komposition"],
     correctIndex: 0,
-    explanation: "Da die Mitgliederliste zwingend bei jeder Ausführung mit erstellt wird, handelt es sich um eine include-Beziehung.",
+    explanation: "Da der Lagerbuchungssatz zwingend bei jeder Stornierung miterzeugt wird — unabhängig von der Bedingung des Bestellwerts —, handelt es sich um eine include-Beziehung.",
     source: "Kapitel 11, include, extend und Generalisierung",
     free: false,
   },
@@ -1143,7 +1143,7 @@ export const questions: Question[] = [
     options: ["Geschützt (protected)", "Öffentlich (public)", "Privat (private)", "Paketsichtbar"],
     correctIndex: 0,
     explanation: "+ steht für öffentlich, − für privat, # für geschützt.",
-    source: "Kapitel 12, Klassennotation: Attribute und Operationen",
+    source: "Kapitel 11, Klassennotation: Attribute und Operationen",
     free: true,
   },
   {
@@ -1159,7 +1159,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Existenzabhängigkeit ist der zentrale Unterschied: bei Komposition endet das Teil mit dem Ganzen, bei Aggregation nicht.",
-    source: "Kapitel 12, Assoziation, Aggregation und Komposition",
+    source: "Kapitel 11, Assoziation, Aggregation und Komposition",
     free: true,
   },
   {
@@ -1167,16 +1167,16 @@ export const questions: Question[] = [
     topic: "UML: Klassen- und Objektdiagramme",
     type: "mc",
     prompt:
-      "In einer Fahrschule implementiert die Klasse Fahrlehrer sowohl das Interface Pruefer (Methode abnehmen(kandidat:String)) als auch das Interface Angestellter (Methode unterrichten(stunden:int)). Warum bietet es sich an, Pruefer und Angestellter als separate Interfaces statt als eine gemeinsame Klasse zu modellieren?",
+      "Ein smartes Heizungsthermostat implementiert sowohl das Interface Netzwerkfähig (Methode sendeStatus()) als auch das Interface Energiesparend (Methode reduziereLeistung()); ein einfacher, nicht vernetzter Thermostat implementiert nur Energiesparend, ein reines Funkmodul nur Netzwerkfähig. Warum ist die Modellierung als zwei separate Interfaces hier sinnvoller als eine gemeinsame Oberklasse 'VernetztesEnergiespargerät', von der alle Geräte erben?",
     options: [
-      "Weil eine Person mehrere unabhängige Rollen gleichzeitig einnehmen kann (z. B. Angestellter und amtlich zugelassener Prüfer), und UML nur Mehrfachrealisierung von Interfaces, nicht aber Mehrfachvererbung von Klassen erlaubt.",
-      "Weil Interfaces schneller ausgeführt werden als Klassen.",
-      "Weil Attribute in Interfaces grundsätzlich verboten sind und deshalb jede Klasse mit Attributen zwingend ein Interface braucht.",
-      "Weil UML für Klassen maximal eine Methode pro Klasse erlaubt.",
+      "Weil Geräte in beliebiger Kombination vernetzt und/oder energiesparend sein können — ein Interface pro unabhängiger Fähigkeit bildet diese Kombinationsvielfalt ab, während eine einzige Oberklasse entweder alle Kombinationen einzeln modellieren müsste oder Mehrfachvererbung erfordern würde.",
+      "Weil Interfaces zur Laufzeit schneller ausgeführt werden als Klassen.",
+      "Weil Attribute in Interfaces grundsätzlich verboten sind und deshalb jedes Gerät zwingend zwei Interfaces braucht.",
+      "Weil UML für Geräteklassen maximal eine Methode pro Klasse erlaubt.",
     ],
     correctIndex: 0,
-    explanation: "Interfaces erlauben die flexible Kombination unabhängiger Rollen über Mehrfachrealisierung, was mit einfacher Klassenvererbung nicht ginge.",
-    source: "Kapitel 12, Vererbung, abstrakte Klassen und Interfaces",
+    explanation: "Da Geräte unabhängig voneinander vernetzt und/oder energiesparend sein können, deckt ein Interface pro Fähigkeit alle Kombinationen ab (auch Geräte mit nur einer der beiden Fähigkeiten) — eine gemeinsame Oberklasse könnte diese Flexibilität nur durch Mehrfachvererbung erreichen, die UML für Klassen nicht vorsieht.",
+    source: "Kapitel 11, Vererbung, abstrakte Klassen und Interfaces",
     free: false,
   },
   {
@@ -1192,7 +1192,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Interfaces sind reine Signaturverträge; abstrakte Klassen können bereits teilweise Verhalten und Zustand mitbringen.",
-    source: "Kapitel 12, Vererbung, abstrakte Klassen und Interfaces",
+    source: "Kapitel 11, Vererbung, abstrakte Klassen und Interfaces",
     free: false,
   },
   {
@@ -1208,7 +1208,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Vererbung aus einer gemeinsamen Oberklasse ist das Standardmittel zur Redundanzvermeidung.",
-    source: "Kapitel 12, Assoziation, Aggregation und Komposition",
+    source: "Kapitel 11, Assoziation, Aggregation und Komposition",
     free: false,
   },
   {
@@ -1224,7 +1224,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Die unterstrichene Schreibweise Instanzname:Klassenname ist die Standardnotation für Objekte.",
-    source: "Kapitel 12, Objektdiagramme",
+    source: "Kapitel 11, Objektdiagramme",
     free: false,
   },
   {
@@ -1232,11 +1232,11 @@ export const questions: Question[] = [
     topic: "UML: Klassen- und Objektdiagramme",
     type: "mc",
     prompt:
-      "Ein Krankenhausverbund gliedert sich in mehrere Klinikstandorte: Jeder Standort hat genau eine Zentralapotheke, von der aus ein oder mehrere Stationsapotheken beliefert werden; jede Stationsapotheke versorgt wiederum fünf oder mehr Krankenzimmer mit Medikamenten. Zentralapotheken verschiedener Standorte tauschen bei Engpässen direkt untereinander Bestände aus. Welche UML-Kardinalität muss die Assoziation zwischen einer Zentralapotheke und ihren belieferten Stationsapotheken mindestens haben (auf Seite der Stationsapotheken)?",
-    options: ["1..*", "0..1", "genau 1", "0..*"],
+      "Ein Cloud-Anbieter organisiert seine Infrastruktur in Regionen: Jede Region betreibt genau ein primäres Rechenzentrum, von dem aus zwei oder mehr Edge-Knoten versorgt werden; jeder Edge-Knoten bedient wiederum fünf oder mehr lokale Cache-Server. Jede Region ist außerdem exakt einer festen Partnerregion für Katastrophenfälle zugeordnet (eine feste 1-zu-1-Paarbildung, kein beliebiges Netz untereinander). Welche UML-Kardinalität muss die Assoziation zwischen einem Edge-Knoten und seinen bedienten Cache-Servern mindestens haben (auf Seite der Cache-Server)?",
+    options: ["5..*", "1..*", "0..1", "genau 1"],
     correctIndex: 0,
-    explanation: "'Ein oder mehrere' entspricht der Kardinalität 1..* (mindestens eins, beliebig viele).",
-    source: "Kapitel 12, Assoziation, Aggregation und Komposition",
+    explanation: "'Fünf oder mehr' entspricht der Kardinalität 5..* (mindestens fünf, beliebig viele nach oben).",
+    source: "Kapitel 11, Assoziation, Aggregation und Komposition",
     free: false,
   },
 
@@ -1254,7 +1254,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Die Pfeilspitze (gefüllt vs. offen) unterscheidet synchrone von asynchronen Aufrufen.",
-    source: "Kapitel 13, Sequenzdiagramme: Lebenslinien und Nachrichten",
+    source: "Kapitel 12, Sequenzdiagramme: Lebenslinien und Nachrichten",
     free: true,
   },
   {
@@ -1265,7 +1265,7 @@ export const questions: Question[] = [
     options: ["loop", "alt", "opt", "par"],
     correctIndex: 0,
     explanation: "loop steht für einen wiederholt ausgeführten Ablaufabschnitt.",
-    source: "Kapitel 13, Kontrollstrukturen in Sequenzdiagrammen",
+    source: "Kapitel 12, Kontrollstrukturen in Sequenzdiagrammen",
     free: true,
   },
   {
@@ -1276,7 +1276,7 @@ export const questions: Question[] = [
     options: ["critical", "par", "strict", "opt"],
     correctIndex: 0,
     explanation: "critical markiert einen Ablauf, der nicht durch andere Nachrichten unterbrochen werden darf.",
-    source: "Kapitel 13, Kontrollstrukturen in Sequenzdiagrammen",
+    source: "Kapitel 12, Kontrollstrukturen in Sequenzdiagrammen",
     free: false,
   },
   {
@@ -1287,7 +1287,7 @@ export const questions: Question[] = [
     options: ["David Harel (1987)", "Grady Booch", "Ivar Jacobson", "James Rumbaugh"],
     correctIndex: 0,
     explanation: "David Harel stellte 1987 die Statecharts vor, die UML für Zustandsdiagramme adaptiert.",
-    source: "Kapitel 13, Zustandsdiagramme",
+    source: "Kapitel 12, Zustandsdiagramme",
     free: false,
   },
   {
@@ -1303,7 +1303,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Zustandsdiagramme setzen eine diskrete Zustandsmenge voraus und eignen sich daher nicht für kontinuierliches Verhalten.",
-    source: "Kapitel 13, Zustandsdiagramme",
+    source: "Kapitel 12, Zustandsdiagramme",
     free: false,
   },
   {
@@ -1311,11 +1311,11 @@ export const questions: Question[] = [
     topic: "UML: Verhaltensdiagramme",
     type: "mc",
     prompt:
-      "Bei einer Ruderregatta gibt es drei Akteure: Startrichter, Ruderer und Trainer am Ufer. Das Rennen beginnt mit dem Startsignal; danach misst der Startrichter die Zwischenzeiten, der Ruderer rudert, und der Trainer ruft Anweisungen über Funk zu — alle drei Aktivitäten beginnen gleichzeitig. Welches UML-Konstrukt modelliert diesen gleichzeitigen (parallelen) Start?",
-    options: ["Ein Fork (paralleler Split) direkt nach dem Startschuss", "Eine Entscheidungsraute", "Ein Zustandsübergang", "Eine Swimlane ohne Fork"],
+      "Ein Logistikzentrum verarbeitet eingehende Pakete: Nach der Aktivität 'Paket eintreffen' starten gleichzeitig zwei unabhängige Abläufe — ein Scanner erfasst die Sendungsdaten, während parallel dazu ein Sortierroboter das Paket zur passenden Rampe befördert. Erst wenn BEIDE Abläufe abgeschlossen sind, wird die Aktivität 'Versandbestätigung senden' ausgelöst. Welches UML-Konstrukt modelliert das Zusammenführen der beiden parallelen Abläufe vor der Versandbestätigung?",
+    options: ["Ein Join (paralleles Zusammenführen)", "Ein Fork (paralleler Split)", "Eine Entscheidungsraute", "Ein Zustandsübergang"],
     correctIndex: 0,
-    explanation: "Ein Fork spaltet den Kontrollfluss in mehrere parallel ablaufende Zweige auf.",
-    source: "Kapitel 13, Aktivitätsdiagramme und Swimlanes",
+    explanation: "Ein Join wartet, bis alle eingehenden parallelen Zweige abgeschlossen sind, bevor der Kontrollfluss fortgesetzt wird — das Gegenstück zum Fork, der den Kontrollfluss aufspaltet.",
+    source: "Kapitel 12, Aktivitätsdiagramme und Swimlanes",
     free: false,
   },
   {
@@ -1331,7 +1331,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Swimlanes strukturieren ein Aktivitätsdiagramm nach Verantwortlichkeit, ohne den Kontrollfluss selbst zu verändern.",
-    source: "Kapitel 13, Aktivitätsdiagramme und Swimlanes",
+    source: "Kapitel 12, Aktivitätsdiagramme und Swimlanes",
     free: false,
   },
 ];
