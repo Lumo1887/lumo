@@ -38,7 +38,7 @@ export const questions: Question[] = [
     correctIndex: 1,
     explanation:
       "Das externe Rechnungswesen dokumentiert die Lage für außenstehende Adressaten nach gesetzlichen GoB, während das interne Rechnungswesen der Unternehmensleitung zur Steuerung dient und z. B. kalkulatorische Kosten kennt.",
-    source: "Kapitel 1.1, Zweck und Adressaten der Rechnungslegung",
+    source: "Kapitel 10.1, Abgrenzung von externem und internem Rechnungswesen",
     free: true,
   },
   {
@@ -49,7 +49,7 @@ export const questions: Question[] = [
     options: ["Im November, bei Zahlungseingang", "Im Februar, bei Lieferung", "Anteilig auf November und Februar verteilt", "Erst am Ende des Geschäftsjahres"],
     correctIndex: 1,
     explanation: "Das Realisationsprinzip verlangt, Erträge erst bei wirtschaftlicher Erbringung der Leistung zu erfassen, nicht bei Zahlungseingang.",
-    source: "Kapitel 1.2, Realisationsprinzip",
+    source: "Kapitel 8.1, Realisationsprinzip",
     free: true,
   },
   {
@@ -65,19 +65,19 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Das Matching Principle ordnet Aufwendungen der Periode zu, in der die zugehörigen Erträge entstehen, unabhängig vom Zahlungszeitpunkt.",
-    source: "Kapitel 1.3, Matching Principle",
+    source: "Kapitel 8.2, Matching Principle",
     free: true,
   },
   {
     id: "gr-04",
     topic: "Grundsätze der Rechnungslegung",
     type: "numeric",
-    prompt: "Ein Weingroßhändler hält Aktien mit ursprünglichem Wert von 30.000 €. Der Marktwert fällt zum Bilanzstichtag auf 21.000 €. Welcher Verlust muss nach dem Imparitätsprinzip sofort erfasst werden (in €)?",
-    correctValue: 9000,
+    prompt: "Ein Maschinenbauunternehmen hält Anleihen im Wert von ursprünglich 45.000 €. Der Marktwert fällt zum Bilanzstichtag auf 33.000 €. Welcher Verlust muss nach dem Imparitätsprinzip sofort erfasst werden (in €)?",
+    correctValue: 12000,
     tolerance: 0,
     unit: "€",
-    explanation: "Nach dem Imparitätsprinzip müssen unrealisierte Verluste sofort erfasst werden: 30.000 − 21.000 = 9.000 €.",
-    source: "Kapitel 1.4, Vorsichtsprinzip und Imparitätsprinzip",
+    explanation: "Nach dem Imparitätsprinzip müssen unrealisierte Verluste sofort erfasst werden: 45.000 − 33.000 = 12.000 €.",
+    source: "Kapitel 8.3, Vorsichtsprinzip und Imparitätsprinzip",
     free: true,
   },
   {
@@ -88,7 +88,7 @@ export const questions: Question[] = [
     options: ["Realisationsprinzip", "Going-Concern-Prinzip", "Konsistenzprinzip (Stetigkeitsprinzip)", "Matching Principle"],
     correctIndex: 2,
     explanation: "Das Konsistenzprinzip verlangt, einmal gewählte Bewertungsmethoden beizubehalten, sofern kein sachlicher Grund für einen Wechsel vorliegt.",
-    source: "Kapitel 1.5, Going-Concern-Prinzip und Konsistenzprinzip",
+    source: "Kapitel 8.4, Going-Concern-Prinzip und Konsistenzprinzip",
     free: true,
   },
   // ---------- Zeitwert des Geldes ----------
@@ -101,7 +101,7 @@ export const questions: Question[] = [
     tolerance: 1,
     unit: "€",
     explanation: "EW = 5.000 · (1,08)³ = 5.000 · 1,259712 = 6.298,56 €.",
-    source: "Kapitel 2.1, Endwert bei ein- und mehrperiodiger Verzinsung",
+    source: "Kapitel 1.2, Endwert bei ein- und mehrperiodiger Verzinsung",
     free: false,
   },
   {
@@ -113,7 +113,7 @@ export const questions: Question[] = [
     tolerance: 5,
     unit: "€",
     explanation: "BW = 20.000 / (1,06)^5 = 20.000 / 1,338226 ≈ 14.945,16 €.",
-    source: "Kapitel 2.2, Barwert einer einzelnen Zahlung",
+    source: "Kapitel 1.3, Barwert einer einzelnen Zahlung",
     free: false,
   },
   {
@@ -124,7 +124,7 @@ export const questions: Question[] = [
     options: ["Er ist immer niedriger als der nominale Zinssatz", "Er ist immer gleich dem nominalen Zinssatz", "Er ist immer höher als der nominale Zinssatz", "Das Verhältnis hängt vom Anlagebetrag ab"],
     correctIndex: 2,
     explanation: "Durch häufigeren Zinseszins ist der effektive Jahreszinssatz bei unterjähriger Verzinsung stets höher als der nominale Zinssatz (bei m > 1).",
-    source: "Kapitel 2.3, Unterjährige Verzinsung und effektiver Jahreszins",
+    source: "Kapitel 1.4, Unterjährige Verzinsung und effektiver Jahreszins",
     free: false,
   },
   {
@@ -136,7 +136,7 @@ export const questions: Question[] = [
     tolerance: 0.1,
     unit: "%",
     explanation: "EJZ = (1 + 0,12/12)^12 − 1 = (1,01)^12 − 1 ≈ 1,1268 − 1 = 12,68%.",
-    source: "Kapitel 2.3, Unterjährige Verzinsung und effektiver Jahreszins",
+    source: "Kapitel 1.4, Unterjährige Verzinsung und effektiver Jahreszins",
     free: false,
   },
   {
@@ -148,7 +148,7 @@ export const questions: Question[] = [
     tolerance: 5,
     unit: "€",
     explanation: "EW = 4.000 · e^(0,08·5) = 4.000 · e^0,4 ≈ 4.000 · 1,49182 ≈ 5.967,30 €.",
-    source: "Kapitel 2.4, Stetige Verzinsung",
+    source: "Kapitel 1.5, Stetige Verzinsung",
     free: false,
   },
   // ---------- Der Worksheet Approach ----------
@@ -160,18 +160,23 @@ export const questions: Question[] = [
     options: ["ΔL − ΔV = ΔE − ΔF", "ΔL + ΔV = ΔE + ΔF", "ΔL · ΔV = ΔE · ΔF", "ΔL = ΔV = ΔE = ΔF"],
     correctIndex: 1,
     explanation: "Die Bilanzgleichung des Worksheet Approach lautet ΔL + ΔV = ΔE + ΔF (Änderung liquider Mittel plus Änderung nicht-liquider Vermögensgegenstände = Änderung Eigenkapital plus Änderung Fremdkapital).",
-    source: "Kapitel 3.1, Die Bilanzgleichung des Worksheet Approach",
+    source: "Kapitel 9.2, Die Bilanzgleichung des Worksheet Approach",
     free: false,
   },
   {
     id: "wa-02",
     topic: "Der Worksheet Approach",
     type: "mc",
-    prompt: "Nadja verkauft Keramikschalen im März auf Ziel und erhält die Zahlung erst im April. Welche Grundform liegt im März vor?",
-    options: ["Grundform 4 (Einzahlung und Umsatzerlös gleichzeitig)", "Grundform 5a (Umsatzerlös jetzt, Einzahlung später)", "Grundform 6a (Einzahlung jetzt, Umsatzerlös später)", "Grundform 1 (Auszahlung und Aufwand gleichzeitig)"],
-    correctIndex: 1,
-    explanation: "Da der Umsatzerlös bereits im März entsteht, die Einzahlung aber erst im April erfolgt, handelt es sich um Grundform 5a.",
-    source: "Kapitel 3.2, Die sechs Grundformen der Verbuchung",
+    prompt: "Nadja verkauft Keramikschalen im März auf Ziel und erhält die Zahlung erst im April. Welche Wirkungskategorie liegt im März vor?",
+    options: [
+      "Bilanzverlängerung (die Forderung entsteht als neue Aktivposition, gleichzeitig steigt durch den Ertrag das Eigenkapital)",
+      "Aktivtausch (nur Vermögenspositionen tauschen sich, die Bilanzsumme bleibt gleich)",
+      "Passivtausch (nur Passivpositionen tauschen sich)",
+      "Bilanzverkürzung (eine Aktiv- und eine Passivposition sinken gleichzeitig)",
+    ],
+    correctIndex: 0,
+    explanation: "Im März entsteht eine Forderung (Aktivposition steigt), und gleichzeitig steigt durch den Umsatzerlös das Eigenkapital (Passivposition) — das ist eine Bilanzverlängerung.",
+    source: "Kapitel 9.3, Das Buchungssystem: Soll und Haben",
     free: false,
   },
   {
@@ -182,7 +187,7 @@ export const questions: Question[] = [
     options: ["Ein passiver RAP", "Ein aktiver RAP", "Eine Rückstellung", "Kein RAP nötig, da die Zahlung bereits erfolgt ist"],
     correctIndex: 1,
     explanation: "Weil die Auszahlung bereits erfolgt ist, der Aufwand für die restlichen 3 Monate aber erst im Folgejahr anfällt, entsteht ein aktiver Rechnungsabgrenzungsposten.",
-    source: "Kapitel 3.3, Rechnungsabgrenzungsposten (RAP)",
+    source: "Kapitel 9.4, Rechnungsabgrenzungsposten (RAP)",
     free: false,
   },
   {
@@ -194,7 +199,7 @@ export const questions: Question[] = [
     tolerance: 0,
     unit: "€",
     explanation: "Monatliche Miete = 4.800/8 = 600 €. Bereits verbraucht: 2 Monate = 1.200 €. Verbleibender aktiver RAP für 6 Monate = 6 · 600 = 3.600 €.",
-    source: "Kapitel 3.3, Rechnungsabgrenzungsposten (RAP)",
+    source: "Kapitel 9.4, Rechnungsabgrenzungsposten (RAP)",
     free: false,
   },
   // ---------- Rentenrechnung ----------
@@ -207,7 +212,7 @@ export const questions: Question[] = [
     tolerance: 0,
     unit: "€",
     explanation: "BW = C / r = 60 / 0,06 = 1.000 €.",
-    source: "Kapitel 4.2, Ewige Rente (Perpetuity)",
+    source: "Kapitel 2.1, Ewige Rente (Perpetuity)",
     free: false,
   },
   {
@@ -219,7 +224,7 @@ export const questions: Question[] = [
     tolerance: 1,
     unit: "€",
     explanation: "BW = (50/0,08) · [1 − 1/(1,08)^4] = 625 · [1 − 0,7350] = 625 · 0,2650 ≈ 165,61 €.",
-    source: "Kapitel 4.3, Endliche Rente (Annuität)",
+    source: "Kapitel 2.3, Endliche Rente (Annuität)",
     free: false,
   },
   {
@@ -230,7 +235,7 @@ export const questions: Question[] = [
     options: ["r muss größer als g sein", "g muss größer als r sein", "r und g müssen gleich groß sein", "Die Formel gilt immer, unabhängig vom Verhältnis von r und g"],
     correctIndex: 0,
     explanation: "Die Formel für die ewige wachsende Rente konvergiert nur, wenn der Zinssatz r größer als die Wachstumsrate g ist.",
-    source: "Kapitel 4.4, Renten mit konstantem Wachstum",
+    source: "Kapitel 2.2, Renten mit konstantem Wachstum",
     free: false,
   },
   {
@@ -242,7 +247,7 @@ export const questions: Question[] = [
     tolerance: 0,
     unit: "€",
     explanation: "BW = C / (r − g) = 30 / (0,09 − 0,04) = 30 / 0,05 = 600 €.",
-    source: "Kapitel 4.4, Renten mit konstantem Wachstum",
+    source: "Kapitel 2.2, Renten mit konstantem Wachstum",
     free: false,
   },
   {
@@ -254,7 +259,7 @@ export const questions: Question[] = [
     tolerance: 0.5,
     unit: "€",
     explanation: "BW = 25/1,1 + 45/1,1² = 22,73 + 37,19 ≈ 59,92 €. Genauer: 25/1,1=22,727, 45/1,21=37,190, Summe=59,92 €.",
-    source: "Kapitel 4.1, Barwert eines mehrperiodigen Zahlungsstroms",
+    source: "Kapitel 1.3, Barwert eines mehrperiodigen Zahlungsstroms",
     free: false,
   },
   // ---------- Kosten- und Leistungsrechnung: Grundlagen ----------
@@ -271,7 +276,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Kalkulatorische Kosten sind Kosten des internen Rechnungswesens, die im externen entweder anders (Anderskosten) oder gar nicht (Zusatzkosten) erscheinen.",
-    source: "Kapitel 5.1, Internes versus externes Rechnungswesen und kalkulatorische Kosten",
+    source: "Kapitel 10.1, Internes versus externes Rechnungswesen und kalkulatorische Kosten",
     free: false,
   },
   {
@@ -283,7 +288,7 @@ export const questions: Question[] = [
     tolerance: 0,
     unit: "€",
     explanation: "kalk. Zinsen = [(60.000+6.000)/2] · 0,05 = 33.000 · 0,05 = 1.650 €.",
-    source: "Kapitel 5.1, Internes versus externes Rechnungswesen und kalkulatorische Kosten",
+    source: "Kapitel 10.1, Internes versus externes Rechnungswesen und kalkulatorische Kosten",
     free: false,
   },
   {
@@ -294,7 +299,7 @@ export const questions: Question[] = [
     options: ["Welche Kosten sind angefallen?", "Wo sind die Kosten angefallen?", "Wofür (für welches Produkt) sind die Kosten angefallen?", "Wann werden die Kosten bezahlt?"],
     correctIndex: 1,
     explanation: "Die Kostenstellenrechnung verteilt die Kosten auf die organisatorischen Bereiche, in denen sie angefallen sind — sie beantwortet die 'Wo'-Frage.",
-    source: "Kapitel 5.2, Kostenarten-, Kostenstellen- und Kostenträgerrechnung",
+    source: "Kapitel 10.2, Kostenarten-, Kostenstellen- und Kostenträgerrechnung",
     free: false,
   },
   {
@@ -305,7 +310,7 @@ export const questions: Question[] = [
     options: ["Einzelkosten", "Gemeinkosten", "Kalkulatorische Zinsen", "Variable Stückkosten"],
     correctIndex: 1,
     explanation: "Die Hallenmiete lässt sich nicht eindeutig einem einzelnen Fahrrad zurechnen und muss über einen Verteilungsschlüssel aufgeteilt werden — sie ist damit Gemeinkosten.",
-    source: "Kapitel 5.3, Einzelkosten versus Gemeinkosten",
+    source: "Kapitel 10.3, Einzelkosten versus Gemeinkosten",
     free: false,
   },
   {
@@ -317,7 +322,7 @@ export const questions: Question[] = [
     tolerance: 0,
     unit: "Stück",
     explanation: "Deckungsbeitrag pro Einheit = 3.000 − 1.700 = 1.300 €. Break-even-Menge = 390.000 / 1.300 = 300 Stück.",
-    source: "Kapitel 5.4, Fixe und variable Kosten: die Break-even-Analyse",
+    source: "Kapitel 13.2, Fixe und variable Kosten: die Break-even-Analyse",
     free: false,
   },
   // ---------- Anleihenbewertung ----------
@@ -325,12 +330,12 @@ export const questions: Question[] = [
     id: "an-01",
     topic: "Anleihenbewertung",
     type: "numeric",
-    prompt: "Ein zweijähriger Zerobond mit Nennwert 1.000 € notiert bei 907,03 €. Wie hoch ist die Yield to Maturity (in %, auf 1 Nachkommastelle)?",
-    correctValue: 5.0,
+    prompt: "Ein vierjähriger Zerobond mit Nennwert 3.000 € notiert bei 2.376,28 €. Wie hoch ist die Yield to Maturity (in %, auf 1 Nachkommastelle)?",
+    correctValue: 6.0,
     tolerance: 0.2,
     unit: "%",
-    explanation: "y = (1.000/907,03)^(1/2) − 1 ≈ 1,05 − 1 = 5,0%.",
-    source: "Kapitel 6.1, Zerobonds und Yield to Maturity",
+    explanation: "y = (3.000/2.376,28)^(1/4) − 1 ≈ 1,06 − 1 = 6,0%.",
+    source: "Kapitel 5.4, Zerobonds und Yield to Maturity",
     free: false,
   },
   {
@@ -341,7 +346,7 @@ export const questions: Question[] = [
     options: ["Wenn der Kupon niedriger ist als der Marktzinssatz", "Wenn der Kupon höher ist als der Marktzinssatz", "Immer, unabhängig vom Marktzinssatz", "Nie, Kuponanleihen notieren stets zum Nennwert"],
     correctIndex: 1,
     explanation: "Ist der Kupon höher als der aktuelle Marktzinssatz, ist die Anleihe für Anleger attraktiver und notiert über dem Nennwert (Aufgeld).",
-    source: "Kapitel 6.2, Kuponanleihen",
+    source: "Kapitel 5.2, Kuponanleihen",
     free: false,
   },
   {
@@ -353,7 +358,7 @@ export const questions: Question[] = [
     tolerance: 2,
     unit: "€",
     explanation: "P = 60/1,04 + 1.060/1,04² = 57,69 + 980,03 ≈ 1.037,72 €.",
-    source: "Kapitel 6.2, Kuponanleihen",
+    source: "Kapitel 5.1, Kuponanleihen",
     free: false,
   },
   {
@@ -364,7 +369,7 @@ export const questions: Question[] = [
     options: ["Der Preis steigt", "Der Preis bleibt unverändert", "Der Preis sinkt", "Der Preis wird unabhängig vom Zinssatz"],
     correctIndex: 2,
     explanation: "Steigt der Marktzinssatz, werden die fixen Kupons bestehender Anleihen im Vergleich zu neuen Anleihen weniger attraktiv, weshalb ihr Preis sinkt.",
-    source: "Kapitel 6.2, Kuponanleihen",
+    source: "Kapitel 5.2, Kuponanleihen",
     free: false,
   },
   {
@@ -380,7 +385,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Ratings sind unabhängige Bonitätsbeurteilungen und beeinflussen direkt den Zinssatz: Ein schlechteres Rating führt zu einem höheren geforderten Zinssatz.",
-    source: "Kapitel 6.3, Ratings",
+    source: "Kapitel 5.5, Ratings",
     free: false,
   },
   // ---------- Bewertungswahlrechte ----------
@@ -393,7 +398,7 @@ export const questions: Question[] = [
     tolerance: 0,
     unit: "€",
     explanation: "ABt = (AW − RW)/T = (60.000 − 6.000)/4 = 13.500 €.",
-    source: "Kapitel 7.1, Planmäßige Abschreibung: linear und degressiv",
+    source: "Kapitel 11.1, Planmäßige Abschreibung: linear und degressiv",
     free: false,
   },
   {
@@ -405,7 +410,7 @@ export const questions: Question[] = [
     tolerance: 0,
     unit: "€",
     explanation: "außerplanmäßige Abschreibung = 2.400.000 − 150.000 = 2.250.000 €.",
-    source: "Kapitel 7.2, Außerplanmäßige Abschreibung",
+    source: "Kapitel 11.4, Außerplanmäßige Abschreibung",
     free: false,
   },
   {
@@ -421,7 +426,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Nach dem Imparitätsprinzip müssen absehbare künftige Verpflichtungen bereits in der laufenden Periode als Aufwand erfasst werden.",
-    source: "Kapitel 7.3, Rückstellungen",
+    source: "Kapitel 11.4, Rückstellungen",
     free: false,
   },
   {
@@ -432,7 +437,7 @@ export const questions: Question[] = [
     options: ["LIFO", "FIFO", "Gleitender Durchschnitt", "Alle drei Verfahren liefern immer denselben Gewinn"],
     correctIndex: 1,
     explanation: "Bei FIFO werden die günstigeren, älteren Einkaufspreise als Aufwand verbucht, was bei steigenden Preisen zum höchsten Gewinn führt.",
-    source: "Kapitel 7.4, Vorratsbewertung: FIFO, LIFO und gleitender Durchschnitt",
+    source: "Kapitel 11.2, Vorratsbewertung: FIFO, LIFO und gleitender Durchschnitt",
     free: false,
   },
   {
@@ -444,7 +449,7 @@ export const questions: Question[] = [
     tolerance: 0,
     unit: "€",
     explanation: "FIFO: zuerst 100 kg zu 5 € (=500 €), dann 200 kg zu 7 € (=1.400 €). Wareneinsatz = 500+1.400 = 1.900 €.",
-    source: "Kapitel 7.4, Vorratsbewertung: FIFO, LIFO und gleitender Durchschnitt",
+    source: "Kapitel 11.2, Vorratsbewertung: FIFO, LIFO und gleitender Durchschnitt",
     free: false,
   },
   {
@@ -460,7 +465,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Bei der Vollkostenrechnung (AC) werden sowohl variable als auch fixe Fertigungskosten in den Herstellungskosten aktiviert, bei der Teilkostenrechnung (VC) nur die variablen.",
-    source: "Kapitel 7.5, Voll- versus Teilkostenrechnung (AC vs. VC)",
+    source: "Kapitel 11.5, Voll- versus Teilkostenrechnung (AC vs. VC)",
     free: false,
   },
   // ---------- Investitionsrechnung: Kapitalwert und Payback ----------
@@ -473,7 +478,7 @@ export const questions: Question[] = [
     tolerance: 2,
     unit: "€",
     explanation: "KW = −18.000 + 20.000/1,08 = −18.000 + 18.518,52 ≈ 518,52 €.",
-    source: "Kapitel 8.1, Der Kapitalwert (Net Present Value)",
+    source: "Kapitel 3.1, Der Kapitalwert (Net Present Value)",
     free: false,
   },
   {
@@ -484,7 +489,7 @@ export const questions: Question[] = [
     options: ["sein Kapitalwert kleiner als 0 ist", "sein Kapitalwert größer als 0 ist", "seine Amortisationsdauer kürzer als 1 Jahr ist", "der interne Zinssatz gleich 0 ist"],
     correctIndex: 1,
     explanation: "Die Kapitalwertmethode empfiehlt, ein Projekt genau dann durchzuführen, wenn sein Kapitalwert positiv ist.",
-    source: "Kapitel 8.1, Der Kapitalwert (Net Present Value)",
+    source: "Kapitel 3.1, Der Kapitalwert (Net Present Value)",
     free: false,
   },
   {
@@ -496,7 +501,7 @@ export const questions: Question[] = [
     tolerance: 0,
     unit: "Jahre",
     explanation: "Kumulierte Rückflüsse: Jahr 1: 15.000, Jahr 2: 40.000, Jahr 3: 60.000 — die Anfangsauszahlung ist nach 3 Jahren gedeckt.",
-    source: "Kapitel 8.2, Amortisationsrechnung (Payback-Methode)",
+    source: "Kapitel 3.2, Amortisationsrechnung (Payback-Methode)",
     free: false,
   },
   {
@@ -512,7 +517,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Die Payback-Methode berücksichtigt weder den Diskontierungseffekt innerhalb der Amortisationsdauer noch Zahlungen, die danach anfallen.",
-    source: "Kapitel 8.2, Amortisationsrechnung (Payback-Methode)",
+    source: "Kapitel 3.2, Amortisationsrechnung (Payback-Methode)",
     free: false,
   },
   {
@@ -524,7 +529,7 @@ export const questions: Question[] = [
     tolerance: 2,
     unit: "€",
     explanation: "KW = −9.000 + 9.900/1,05 = −9.000 + 9.428,57 ≈ 428,57 €.",
-    source: "Kapitel 8.1, Der Kapitalwert (Net Present Value)",
+    source: "Kapitel 3.1, Der Kapitalwert (Net Present Value)",
     free: false,
   },
   // ---------- Betriebsabrechnungsbogen ----------
@@ -541,7 +546,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Vorkostenstellen (Hilfskostenstellen) bedienen andere Kostenstellen, während Endkostenstellen letztlich den Produkten (Kostenträgern) zugerechnet werden.",
-    source: "Kapitel 9.1, Aufbau des Betriebsabrechnungsbogens",
+    source: "Kapitel 12.1, Aufbau des Betriebsabrechnungsbogens",
     free: false,
   },
   {
@@ -553,7 +558,7 @@ export const questions: Question[] = [
     tolerance: 0,
     unit: "€",
     explanation: "Anbauverfahren: Verrechnungspreis = 9.000 / 450 = 20 € pro Stunde.",
-    source: "Kapitel 9.2, Anbauverfahren",
+    source: "Kapitel 12.2, Anbauverfahren",
     free: false,
   },
   {
@@ -569,7 +574,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Nur das Gleichungsverfahren lässt wechselseitige Leistungsbeziehungen zwischen Vorkostenstellen zu und löst sie über ein Gleichungssystem simultan auf.",
-    source: "Kapitel 9.4, Gleichungsverfahren",
+    source: "Kapitel 12.2, Gleichungsverfahren",
     free: false,
   },
   {
@@ -581,7 +586,7 @@ export const questions: Question[] = [
     tolerance: 0,
     unit: "€",
     explanation: "Im Stufenleiterverfahren wird beim zuerst abgerechneten Kostenstelle der gesamte Output berücksichtigt: 9.000 / 500 = 18 € pro Stunde.",
-    source: "Kapitel 9.3, Stufenleiterverfahren",
+    source: "Kapitel 12.2, Stufenleiterverfahren",
     free: false,
   },
   {
@@ -592,7 +597,7 @@ export const questions: Question[] = [
     options: ["Ja, das Gleichungsverfahren erhöht immer die Gesamtkosten", "Nein, die Gesamtsumme bleibt gleich, nur die Verteilung auf die Kostenstellen ändert sich", "Ja, das Anbauverfahren senkt immer die Gesamtkosten", "Das hängt von der Anzahl der Endkostenstellen ab"],
     correctIndex: 1,
     explanation: "Alle drei Verfahren verändern lediglich die Verteilung der Kosten auf die Kostenstellen, nicht die Gesamtsumme.",
-    source: "Kapitel 9.1, Aufbau des Betriebsabrechnungsbogens",
+    source: "Kapitel 12.1, Aufbau des Betriebsabrechnungsbogens",
     free: false,
   },
   // ---------- Interner Zinssatz und Kapitalwertrate ----------
@@ -605,7 +610,7 @@ export const questions: Question[] = [
     tolerance: 0,
     unit: "%",
     explanation: "IZS löst 0 = −50 + 60/(1+IZS), also IZS = 60/50 − 1 = 20%.",
-    source: "Kapitel 10.1, Der interne Zinssatz und seine Entscheidungsregel",
+    source: "Kapitel 4.1, Der interne Zinssatz und seine Entscheidungsregel",
     free: false,
   },
   {
@@ -616,7 +621,7 @@ export const questions: Question[] = [
     options: ["Immer genau 1", "Höchstens n", "Immer n+1", "Nie mehr als 2, unabhängig von n"],
     correctIndex: 1,
     explanation: "Bei n Vorzeichenwechseln im Zahlungsstrom können bis zu n unterschiedliche interne Zinssätze auftreten.",
-    source: "Kapitel 10.2, Problem: mehrere interne Zinssätze",
+    source: "Kapitel 4.2, Problem: mehrere interne Zinssätze",
     free: false,
   },
   {
@@ -632,7 +637,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Größenprobleme und Timing-Probleme können dazu führen, dass IZSM und Kapitalwertmethode bei sich ausschließenden Projekten unterschiedliche Rangfolgen liefern.",
-    source: "Kapitel 10.3, Problem: sich gegenseitig ausschließende Projekte",
+    source: "Kapitel 4.2, Problem: sich gegenseitig ausschließende Projekte",
     free: false,
   },
   {
@@ -648,7 +653,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Die Betrachtung des Differenzprojekts (Projekt A minus Projekt B) liefert eine mit der Kapitalwertmethode konsistente Entscheidung.",
-    source: "Kapitel 10.3, Problem: sich gegenseitig ausschließende Projekte",
+    source: "Kapitel 4.2, Problem: sich gegenseitig ausschließende Projekte",
     free: false,
   },
   {
@@ -660,7 +665,7 @@ export const questions: Question[] = [
     tolerance: 0.02,
     unit: "",
     explanation: "KWR = BW(zukünftige Zahlungen) / Anfangsauszahlung = 33,60 / 30 = 1,12.",
-    source: "Kapitel 10.4, Exkurs: Die Kapitalwertrate (Profitability Index)",
+    source: "Kapitel 4.3, Exkurs: Die Kapitalwertrate (Profitability Index)",
     free: false,
   },
   // ---------- Kalkulationsverfahren ----------
@@ -673,7 +678,7 @@ export const questions: Question[] = [
     tolerance: 0.005,
     unit: "€",
     explanation: "Selbstkosten/Liter = 90.000/500.000 + 19.200/480.000 = 0,18 + 0,04 = 0,22 €.",
-    source: "Kapitel 11.1, Divisionskalkulation",
+    source: "Kapitel 12.3, Divisionskalkulation",
     free: false,
   },
   {
@@ -689,7 +694,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Äquivalenzziffern rechnen ähnliche Produktvarianten in ein einheitliches 'Einheitsprodukt' um, um sie einheitlich zu kalkulieren.",
-    source: "Kapitel 11.2, Äquivalenzziffernkalkulation",
+    source: "Kapitel 12.4, Äquivalenzziffernkalkulation",
     free: false,
   },
   {
@@ -701,7 +706,7 @@ export const questions: Question[] = [
     tolerance: 0.02,
     unit: "€",
     explanation: "Selbstkosten/RE = 56.000/80.000 = 0,70 €. Stückkosten = 1,6 · 0,70 = 1,12 €.",
-    source: "Kapitel 11.2, Äquivalenzziffernkalkulation",
+    source: "Kapitel 12.4, Äquivalenzziffernkalkulation",
     free: false,
   },
   {
@@ -717,7 +722,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Die Zuschlagskalkulation unterstellt, dass die Höhe der Einzelkosten proportional die Höhe der zugehörigen Gemeinkosten verursacht.",
-    source: "Kapitel 11.3, Zuschlagskalkulation",
+    source: "Kapitel 12.3, Zuschlagskalkulation",
     free: false,
   },
   {
@@ -733,7 +738,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Die Maschinenstundensatzkalkulation trennt maschinenabhängige Gemeinkosten heraus und ist daher bei stark maschinenintensiven Bereichen genauer als eine reine Zuschlagskalkulation.",
-    source: "Kapitel 11.4, Maschinenstundensatzkalkulation",
+    source: "Kapitel 12.3, Maschinenstundensatzkalkulation",
     free: false,
   },
   // ---------- Eigenkapitalfinanzierung ----------
@@ -750,7 +755,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Vorzugsaktien kombinieren häufig einen höheren Dividendenanspruch mit dem Verzicht auf das Stimmrecht.",
-    source: "Kapitel 12.1, Aktien: Stamm- und Vorzugsaktien",
+    source: "Kapitel 6.2, Aktien: Stamm- und Vorzugsaktien",
     free: false,
   },
   {
@@ -762,7 +767,7 @@ export const questions: Question[] = [
     tolerance: 0.1,
     unit: "€",
     explanation: "Mischkurs = (20·8.000.000 + 12·2.000.000) / 10.000.000 = (160.000.000+24.000.000)/10.000.000 = 18,40 €.",
-    source: "Kapitel 12.3, Kapitalerhöhung und Bezugsrecht",
+    source: "Kapitel 6.5, Kapitalerhöhung und Bezugsrecht",
     free: false,
   },
   {
@@ -778,7 +783,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Bei Cum-Cum wird die Steuer einmal gezahlt und einmal erstattet (an einen eigentlich nicht Berechtigten), bei Cum-Ex wird sie einmal gezahlt, aber zweimal erstattet.",
-    source: "Kapitel 12.4, Exkurs: Cum-Cum- und Cum-Ex-Geschäfte",
+    source: "Kapitel 6.6, Exkurs: Cum-Cum- und Cum-Ex-Geschäfte",
     free: false,
   },
   {
@@ -794,7 +799,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "In perfekten Kapitalmärkten bleibt der Kurs beim Aktienrückkauf unverändert; lediglich die Anzahl ausstehender Aktien verringert sich.",
-    source: "Kapitel 12.5, Ausschüttungspolitik: Dividende versus Aktienrückkauf",
+    source: "Kapitel 6.4, Ausschüttungspolitik: Dividende versus Aktienrückkauf",
     free: false,
   },
   {
@@ -805,7 +810,7 @@ export const questions: Question[] = [
     options: ["Meist positiv, da Kapital im Unternehmen verbleibt", "Meist negativ, da sie als schlechtes Signal über die Unternehmenszukunft interpretiert wird", "Immer neutral, da Dividenden keine Signalwirkung haben", "Nur bei Vorzugsaktien reagiert der Kurs überhaupt"],
     correctIndex: 1,
     explanation: "Eine Dividendenkürzung wird meist als negatives Signal über die Zukunftsaussichten interpretiert und löst typischerweise eine negative Kursreaktion aus.",
-    source: "Kapitel 12.5, Ausschüttungspolitik: Dividende versus Aktienrückkauf",
+    source: "Kapitel 6.4, Ausschüttungspolitik: Dividende versus Aktienrückkauf",
     free: false,
   },
   // ---------- Deckungsbeitragsrechnung ----------
@@ -846,7 +851,7 @@ export const questions: Question[] = [
     tolerance: 0,
     unit: "€",
     explanation: "Betriebsergebnis = Gesamtdeckungsbeitrag − Fixkosten = 65.400 − 44.000 = 21.400 €.",
-    source: "Kapitel 13.2, Vom Gesamtdeckungsbeitrag zum Betriebsergebnis",
+    source: "Kapitel 13.1, Vom Gesamtdeckungsbeitrag zum Betriebsergebnis",
     free: false,
   },
   {
@@ -862,7 +867,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Ein positiver Deckungsbeitrag bedeutet, dass das Produkt zur Fixkostendeckung beiträgt — der Gesamtverlust entsteht, wenn die Summe aller Deckungsbeiträge die Fixkosten nicht vollständig deckt.",
-    source: "Kapitel 13.2, Vom Gesamtdeckungsbeitrag zum Betriebsergebnis",
+    source: "Kapitel 13.1, Vom Gesamtdeckungsbeitrag zum Betriebsergebnis",
     free: false,
   },
   // ---------- Portfoliotheorie und CAPM ----------
@@ -875,7 +880,7 @@ export const questions: Question[] = [
     tolerance: 0,
     unit: "%",
     explanation: "μ = (0+10+20)/3 = 10%.",
-    source: "Kapitel 14.1, Erwartete Rendite und Risiko einzelner Wertpapiere",
+    source: "Kapitel 7.1, Erwartete Rendite und Risiko einzelner Wertpapiere",
     free: false,
   },
   {
@@ -891,7 +896,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Die Portfoliovarianz σw² = w1²σ1² + w2²σ2² + 2w1w2·cov1,2 enthält zusätzlich einen Kovarianzterm, der bei der einfachen gewichteten Summe fehlen würde.",
-    source: "Kapitel 14.2, Portfoliorendite und Kovarianz",
+    source: "Kapitel 7.1, Portfoliorendite und Kovarianz",
     free: false,
   },
   {
@@ -907,19 +912,19 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Eine negative Korrelation führt zu einem starken Diversifikationseffekt, der das Portfoliorisiko deutlich senken kann.",
-    source: "Kapitel 14.3, Effizienzlinie und Diversifikation",
+    source: "Kapitel 7.2, Effizienzlinie und Diversifikation",
     free: false,
   },
   {
     id: "pf-04",
     topic: "Portfoliotheorie und CAPM",
     type: "numeric",
-    prompt: "Bei einem risikolosen Zinssatz von 3%, einer erwarteten Marktrendite von 10% und einem Beta von 1,5 — wie hoch ist die erwartete Rendite nach dem CAPM (in %)?",
-    correctValue: 13.5,
+    prompt: "Bei einem risikolosen Zinssatz von 4%, einer erwarteten Marktrendite von 11% und einem Beta von 0,8 — wie hoch ist die erwartete Rendite nach dem CAPM (in %)?",
+    correctValue: 9.6,
     tolerance: 0.2,
     unit: "%",
-    explanation: "μj = r + (μM − r)·βj = 3% + (10% − 3%)·1,5 = 3% + 10,5% = 13,5%.",
-    source: "Kapitel 14.4, Kapitalmarktlinie und Wertpapiermarktlinie (CAPM)",
+    explanation: "μj = r + (μM − r)·βj = 4% + (11% − 4%)·0,8 = 4% + 5,6% = 9,6%.",
+    source: "Kapitel 7.3, Kapitalmarktlinie und Wertpapiermarktlinie (CAPM)",
     free: false,
   },
   {
@@ -935,7 +940,7 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Der Beta-Faktor βj = covj,M / varM misst, wie stark ein Wertpapier zum systematischen Risiko des Marktportfolios beiträgt.",
-    source: "Kapitel 14.4, Kapitalmarktlinie und Wertpapiermarktlinie (CAPM)",
+    source: "Kapitel 7.3, Kapitalmarktlinie und Wertpapiermarktlinie (CAPM)",
     free: false,
   },
 ];
