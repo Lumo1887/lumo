@@ -12,7 +12,7 @@
 
   /* "ink"-Graustufen als CSS-Variablen (R G B, ohne Kommas — Tailwind baut
      daraus rgb(var(--ink-N) / <alpha-value>), siehe tailwind.config.ts).
-     Damit werden alle bestehenden text-ink-*/bg-ink-*/border-ink-* Klassen
+     Damit werden alle bestehenden text-ink, bg-ink und border-ink Klassen
      im ganzen Code automatisch dark-mode-fähig, ohne dass jede Datei
      einzeln angefasst werden muss. */
   --ink-50: 248 250 252;
