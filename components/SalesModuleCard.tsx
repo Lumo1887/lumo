@@ -28,11 +28,11 @@ export default function SalesModuleCard({
         <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-brand-500 via-brand-400 to-orange-400" />
       )}
       <div className="flex flex-wrap items-center gap-2">
-        <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-700">
+        <span className="rounded-full bg-brand-50 dark:bg-brand-900/40 px-3 py-1 text-xs font-bold text-brand-700 dark:text-brand-200">
           {mod.faculty}
         </span>
         {mod.popular && (
-          <span className="rounded-full bg-orange-100 px-3 py-1 text-xs font-bold text-orange-700">
+          <span className="rounded-full bg-orange-100 dark:bg-orange-900/40 px-3 py-1 text-xs font-bold text-orange-700 dark:text-orange-300">
             🔥 Beliebt
           </span>
         )}
@@ -70,7 +70,7 @@ export default function SalesModuleCard({
                 {formatEuro(mod.compareAtCent)}
               </span>
             </div>
-            <span className="rounded-full bg-brand-100 px-2.5 py-1 text-xs font-bold text-brand-700 shadow-sm">
+            <span className="rounded-full bg-brand-100 dark:bg-brand-900/40 px-2.5 py-1 text-xs font-bold text-brand-700 dark:text-brand-200 shadow-sm">
               -{discountPercent}%
             </span>
           </>

@@ -27,7 +27,7 @@ export default function ModuleCard({
           <div className="flex items-center gap-2">
             <span className="badge">{mod.faculty}</span>
             {mod.popular && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-orange-100 px-2.5 py-1 text-xs font-semibold text-orange-700">
+              <span className="inline-flex items-center gap-1 rounded-full bg-orange-100 dark:bg-orange-900/40 px-2.5 py-1 text-xs font-semibold text-orange-700 dark:text-orange-300">
                 🔥 Beliebt
               </span>
             )}
