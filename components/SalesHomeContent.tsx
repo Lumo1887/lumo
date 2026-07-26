@@ -153,7 +153,7 @@ export default function SalesHomeContent() {
               — überlappt bewusst den oberen Kartenrand, damit sofort klar
               ist: das hier ist ein Beispiel dafür, wie ein Skript-Kapitel
               aussieht, kein Teil der normalen Seite. */}
-          <span className="absolute left-5 top-0 z-10 inline-flex items-center gap-1.5 rounded-full bg-ink-900 px-3.5 py-1.5 text-xs font-bold text-white shadow-md">
+          <span className="absolute left-5 top-0 z-10 inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-3.5 py-1.5 text-xs font-bold text-white shadow-md">
             <svg
               width="13"
               height="13"
@@ -178,7 +178,7 @@ export default function SalesHomeContent() {
               zusätzlich optisch als "Bildschirm-Ausschnitt" ein. */}
           <Link
             href="/module/statistik-1/skript"
-            className="relative block overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-glow transition hover:-translate-y-1"
+            className="relative block overflow-hidden rounded-2xl border border-ink-100 bg-white dark:bg-ink-100 shadow-glow transition hover:-translate-y-1"
           >
             <div className="flex items-center gap-2 border-b border-ink-100 bg-ink-50 px-4 py-2.5">
               <span className="flex gap-1.5">
@@ -234,7 +234,7 @@ export default function SalesHomeContent() {
         ].map((stat) => (
           <div
             key={stat.label}
-            className="rounded-2xl border border-ink-100 bg-white p-5 shadow-card transition hover:-translate-y-0.5 hover:shadow-glow"
+            className="rounded-2xl border border-ink-100 bg-white dark:bg-ink-100 p-5 shadow-card transition hover:-translate-y-0.5 hover:shadow-glow"
           >
             <div className="text-xl font-extrabold text-ink-900">
               {stat.value}
@@ -254,7 +254,7 @@ export default function SalesHomeContent() {
           Prüfung zählt.
         </p>
 
-        <div className="rounded-2xl border border-ink-100 bg-white p-7 shadow-card">
+        <div className="rounded-2xl border border-ink-100 bg-white dark:bg-ink-100 p-7 shadow-card">
           <p className="mb-3 text-xs font-bold uppercase tracking-wide text-ink-400">
             Studiengang
           </p>
@@ -296,7 +296,7 @@ export default function SalesHomeContent() {
                 onClick={() => setSubject(s)}
                 className={`rounded-full px-5 py-2 text-sm font-bold transition ${
                   subject === s
-                    ? "bg-ink-900 text-white"
+                    ? "bg-slate-900 text-white"
                     : "border border-ink-200 text-ink-700 hover:border-brand-300"
                 }`}
               >

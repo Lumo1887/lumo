@@ -149,7 +149,7 @@ export default function ExamSimulation({ moduleSlug }: { moduleSlug: string }) {
   if (phase === "start") {
     return (
       <div className="mx-auto max-w-2xl">
-        <div className="card border-2 border-ink-200 p-8 font-serif sm:p-10">
+        <div className="card paper-scope border-2 border-ink-200 p-8 font-serif sm:p-10">
           <div className="border-b-2 border-ink-900 pb-4 text-center">
             <p className="text-xs uppercase tracking-widest text-ink-500">Klausursimulation — Lumo Learn</p>
             <h1 className="mt-2 text-2xl font-bold text-ink-900">Klausur: {mod?.title ?? moduleSlug}</h1>
@@ -270,7 +270,7 @@ export default function ExamSimulation({ moduleSlug }: { moduleSlug: string }) {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <div className="sticky top-0 z-10 mb-4 flex items-center justify-between rounded-xl border border-ink-200 bg-white/95 px-4 py-3 shadow-card backdrop-blur">
+      <div className="sticky top-0 z-10 mb-4 flex items-center justify-between rounded-xl border border-ink-200 bg-white/95 dark:bg-ink-100/95 px-4 py-3 shadow-card backdrop-blur">
         <span className="text-sm font-semibold text-ink-900">
           Aufgabe {current + 1} von {examQuestions.length}
         </span>

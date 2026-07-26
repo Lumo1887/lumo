@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabaseClient";
 import { isAdminEmail } from "@/lib/admin";
 import Logo from "@/components/Logo";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Navbar() {
   const router = useRouter();
@@ -37,7 +38,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ink-100 bg-white/80 shadow-sm backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-ink-100 bg-white/80 dark:bg-ink-100/85 shadow-sm backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Logo />
 
@@ -52,30 +53,33 @@ export default function Navbar() {
           )}
         </nav>
 
-        {loaded && email ? (
-          <div className="flex items-center gap-3">
-            <Link
-              href="/profile"
-              className="hidden max-w-[160px] truncate text-sm text-ink-600 hover:text-brand-700 sm:inline"
-              title="Zum Profil"
-            >
-              {email}
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          {loaded && email ? (
+            <div className="flex items-center gap-3">
+              <Link
+                href="/profile"
+                className="hidden max-w-[160px] truncate text-sm text-ink-600 hover:text-brand-700 sm:inline"
+                title="Zum Profil"
+              >
+                {email}
+              </Link>
+              <Link href="/profile" className="btn-secondary !px-4 !py-2 text-sm sm:hidden">
+                Profil
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="btn-secondary !px-4 !py-2 text-sm"
+              >
+                Abmelden
+              </button>
+            </div>
+          ) : (
+            <Link href="/login" className="btn-primary !px-5 !py-2 text-sm">
+              Anmelden
             </Link>
-            <Link href="/profile" className="btn-secondary !px-4 !py-2 text-sm sm:hidden">
-              Profil
-            </Link>
-            <button
-              onClick={handleLogout}
-              className="btn-secondary !px-4 !py-2 text-sm"
-            >
-              Abmelden
-            </button>
-          </div>
-        ) : (
-          <Link href="/login" className="btn-primary !px-5 !py-2 text-sm">
-            Anmelden
-          </Link>
-        )}
+          )}
+        </div>
       </div>
     </header>
   );

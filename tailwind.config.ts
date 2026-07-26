@@ -1,6 +1,11 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  // Klassenbasierter Darkmode statt "media" (prefers-color-scheme): so kann
+  // der Toggle-Button in der Navbar die Einstellung überschreiben und in
+  // localStorage merken, statt blind dem Betriebssystem zu folgen — siehe
+  // components/ThemeToggle.tsx und das Anti-FOUC-Script in app/layout.tsx.
+  darkMode: "class",
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -21,14 +26,22 @@ const config: Config = {
           800: "#5b21b6",
           900: "#4c1d95",
         },
+        // "ink" liest jetzt aus CSS-Variablen (--ink-50 … --ink-900, definiert
+        // in app/globals.css unter :root bzw. .dark) statt aus festen Hex-
+        // Werten. Dadurch passen sich ALLE bestehenden text-ink-*/bg-ink-*/
+        // border-ink-* Klassen im gesamten Code automatisch an den Darkmode
+        // an, ohne dass jede einzelne Stelle im Code angefasst werden muss —
+        // einzige Ausnahme: Bereiche mit der Klasse "paper-scope" (Skript-
+        // Lesetext, Klausur-Deckblatt) setzen die Variablen lokal wieder auf
+        // die hellen Werte zurück, siehe globals.css.
         ink: {
-          50: "#f8fafc",
-          100: "#f1f5f9",
-          200: "#e2e8f0",
-          600: "#475569",
-          700: "#334155",
-          800: "#1e293b",
-          900: "#0f172a",
+          50: "rgb(var(--ink-50) / <alpha-value>)",
+          100: "rgb(var(--ink-100) / <alpha-value>)",
+          200: "rgb(var(--ink-200) / <alpha-value>)",
+          600: "rgb(var(--ink-600) / <alpha-value>)",
+          700: "rgb(var(--ink-700) / <alpha-value>)",
+          800: "rgb(var(--ink-800) / <alpha-value>)",
+          900: "rgb(var(--ink-900) / <alpha-value>)",
         },
       },
       borderRadius: {

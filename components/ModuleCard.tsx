@@ -17,7 +17,7 @@ export default function ModuleCard({
       }`}
     >
       {isActive && locked && (
-        <span className="absolute right-4 top-4 flex items-center gap-1 rounded-full bg-ink-900/85 px-3 py-1 text-xs font-semibold text-white shadow-md backdrop-blur">
+        <span className="absolute right-4 top-4 flex items-center gap-1 rounded-full bg-slate-900/85 px-3 py-1 text-xs font-semibold text-white shadow-md backdrop-blur">
           🔒 Gesperrt
         </span>
       )}

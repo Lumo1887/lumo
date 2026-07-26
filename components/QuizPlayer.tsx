@@ -380,14 +380,14 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
                 <div className="mt-3 flex flex-wrap gap-2">
                   <button
                     onClick={() => askChatbotAboutCurrent()}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-white px-3 py-1.5 text-xs font-semibold text-brand-700 transition hover:border-brand-300 hover:bg-brand-50"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-white dark:bg-ink-100 px-3 py-1.5 text-xs font-semibold text-brand-700 transition hover:border-brand-300 hover:bg-brand-50"
                   >
                     💬 Frag den Chatbot dazu
                   </button>
                   <button
                     onClick={() => handlePracticeAgain()}
                     disabled={practiceLoading}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-ink-200 bg-white px-3 py-1.5 text-xs font-semibold text-ink-700 transition hover:border-ink-300 hover:bg-ink-50 disabled:opacity-60"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-ink-200 bg-white dark:bg-ink-100 px-3 py-1.5 text-xs font-semibold text-ink-700 transition hover:border-ink-300 hover:bg-ink-50 disabled:opacity-60"
                   >
                     {practiceLoading ? "Generiere Übungsfrage…" : "🔁 Warum war das falsch? Nochmal üben"}
                   </button>
@@ -399,7 +399,7 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
               )}
 
               {practiceQuestion && (
-                <div className="mt-4 rounded-lg border border-dashed border-brand-300 bg-white p-4">
+                <div className="mt-4 rounded-lg border border-dashed border-brand-300 bg-white dark:bg-ink-100 p-4">
                   <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-brand-700">
                     Zusatzübung zum selben Thema
                   </p>

@@ -404,7 +404,7 @@ export default function ModuleChat({
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          className="relative mb-3 flex h-[28rem] w-80 flex-col overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card sm:w-96"
+          className="relative mb-3 flex h-[28rem] w-80 flex-col overflow-hidden rounded-2xl border border-ink-100 bg-white dark:bg-ink-100 shadow-card sm:w-96"
         >
           {isDraggingFile && access === "unlocked" && (
             <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 border-2 border-dashed border-brand-400 bg-brand-50/95 text-center text-sm font-medium text-brand-700">

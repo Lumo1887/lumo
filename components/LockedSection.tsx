@@ -37,7 +37,7 @@ export default function LockedSection({
       <div className="pointer-events-none max-h-64 select-none overflow-hidden opacity-50 blur-[2px]">
         {children}
       </div>
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-white/80 p-6 text-center">
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-white/80 dark:bg-ink-100/85 p-6 text-center">
         <span className="badge">Freischalten für {formatEuro(priceCent)}</span>
         <p className="max-w-sm text-sm text-ink-700">
           Schalte alle Kapitel des Skripts und das komplette Übungstool für

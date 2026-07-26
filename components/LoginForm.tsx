@@ -96,7 +96,7 @@ export default function LoginForm() {
                 setInfo(null);
               }}
               className={`flex-1 rounded-full py-2 transition ${
-                mode === "login" ? "bg-white shadow-sm text-brand-700" : "text-ink-600"
+                mode === "login" ? "bg-white dark:bg-ink-200 shadow-sm text-brand-700" : "text-ink-600"
               }`}
             >
               Anmelden
@@ -108,7 +108,7 @@ export default function LoginForm() {
                 setInfo(null);
               }}
               className={`flex-1 rounded-full py-2 transition ${
-                mode === "signup" ? "bg-white shadow-sm text-brand-700" : "text-ink-600"
+                mode === "signup" ? "bg-white dark:bg-ink-200 shadow-sm text-brand-700" : "text-ink-600"
               }`}
             >
               Registrieren

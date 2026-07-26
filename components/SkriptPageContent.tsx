@@ -382,7 +382,7 @@ export default function SkriptPageContent({ moduleSlug }: { moduleSlug: string }
         </ol>
       </nav>
 
-      <article className="skript-page skript-body card overflow-hidden px-6 py-8 sm:px-10 sm:py-10">
+      <article className="skript-page skript-body paper-scope card overflow-hidden px-6 py-8 sm:px-10 sm:py-10">
         {chapters.map((chapter) => {
           const isLocked = !chapter.free && !unlocked;
           return (

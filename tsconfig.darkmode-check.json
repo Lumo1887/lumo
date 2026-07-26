@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "next-env.d.ts",
+    "components/ThemeToggle.tsx",
+    "components/Navbar.tsx",
+    "components/ExamSimulation.tsx",
+    "components/SkriptPageContent.tsx",
+    "components/ModuleCard.tsx",
+    "components/SalesHomeContent.tsx",
+    "components/Footer.tsx",
+    "components/LockedSection.tsx",
+    "components/LoginForm.tsx",
+    "components/ModuleChat.tsx",
+    "components/QuizPlayer.tsx",
+    "components/SalesModuleCard.tsx",
+    "components/WiderrufForm.tsx",
+    "app/layout.tsx",
+    "tailwind.config.ts"
+  ]
+}

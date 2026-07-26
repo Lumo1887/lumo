@@ -20,7 +20,7 @@ export default function SalesModuleCard({
 
   const content = (
     <div
-      className={`relative flex h-full flex-col gap-3 overflow-hidden rounded-2xl border bg-white p-6 shadow-card transition ${
+      className={`relative flex h-full flex-col gap-3 overflow-hidden rounded-2xl border bg-white dark:bg-ink-100 p-6 shadow-card transition ${
         mod.popular ? "border-brand-300" : "border-ink-100"
       } ${isActive ? "hover:-translate-y-1 hover:shadow-glow" : "opacity-60"}`}
     >

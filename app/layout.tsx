@@ -79,8 +79,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="de">
+    // suppressHydrationWarning: das Anti-FOUC-Script unten setzt die Klasse
+    // "dark" auf <html>, bevor React hydratisiert — ohne dieses Flag meldet
+    // React eine (harmlose) Attribut-Abweichung zwischen Server- und
+    // Client-Markup. Gängiges Muster, z. B. auch von next-themes verwendet.
+    <html lang="de" suppressHydrationWarning>
       <body className="gradient-bg min-h-screen font-sans antialiased">
+        {/* Darkmode VOR dem ersten Render setzen (kein Flackern): liest die
+            gespeicherte Wahl aus localStorage bzw. fällt auf die
+            Systemeinstellung zurück. Der Schlüssel "lumo-theme" muss mit
+            components/ThemeToggle.tsx übereinstimmen. */}
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('lumo-theme');var d=t==='dark'||(t!=='light'&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(d){document.documentElement.classList.add('dark');}}catch(e){}})();`,
+          }}
+        />
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger

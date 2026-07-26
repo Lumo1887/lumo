@@ -74,7 +74,7 @@ export default function WiderrufForm() {
   }
 
   return (
-    <div id="formular" className="rounded-xl border border-ink-100 bg-white p-5 sm:p-6">
+    <div id="formular" className="rounded-xl border border-ink-100 bg-white dark:bg-ink-100 p-5 sm:p-6">
       {step === "form" && (
         <form onSubmit={handleContinue} className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
