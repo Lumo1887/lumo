@@ -14,7 +14,7 @@ export function generateMetadata({
   if (!mod) return {};
 
   const title = `${mod.title} — Skript & Übungstool`;
-  const description = `${mod.subtitle} Skript, Altklausur-Aufgaben und KI-Tutor für das Modul ${mod.title} — von Lumo Learn.`;
+  const description = `${mod.subtitle} Skript, Altklausur-Aufgaben und KI-Tutor für das WiWi-Modul ${mod.title} — von Lumo Learn.`;
 
   return {
     title,

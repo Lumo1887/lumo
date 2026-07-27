@@ -20,16 +20,21 @@ const SITE_URL = "https://www.lumo-learn.de";
 // Anrede in der Produkt-UI erhalten (Begrüßungen, Buttons u. Ä.).
 const SITE_NAME = "Lumo Learn";
 const SITE_DESCRIPTION =
-  "Günstiger und wertvoller als klassische Vorbereitungskurse: Skript, Altklausur-Aufgaben und ein interaktives Übungstool für dein Uni-Modul.";
+  "WiWi-Skripte, Altklausur-Aufgaben und ein interaktives Übungstool für dein Wirtschaftsingenieurwesen-Modul — günstiger und wertvoller als klassische Vorbereitungskurse.";
+const SITE_TITLE = "Wirtschaftsingenieurwesen Skripte & Übungstool — Lumo Learn";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Lumo Learn — Skripte & Übungstool für Uni-Module",
+    default: SITE_TITLE,
     template: "%s — Lumo Learn",
   },
   description: SITE_DESCRIPTION,
   keywords: [
+    "WiWi Skript",
+    "Wirtschaftsingenieurwesen Skripte",
+    "Wirtschaftsingenieurwesen Klausurvorbereitung",
+    "WiWi Klausurvorbereitung",
     "Lumo Learn",
     "Lumo",
     "Lumo Lernen",
@@ -49,12 +54,12 @@ export const metadata: Metadata = {
     locale: "de_DE",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: "Lumo Learn — Skripte & Übungstool für Uni-Module",
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary",
-    title: "Lumo Learn — Skripte & Übungstool für Uni-Module",
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },
   robots: {
