@@ -294,7 +294,7 @@ export default function ExamSimulation({ moduleSlug }: { moduleSlug: string }) {
                 i === current
                   ? "bg-brand-600 text-white"
                   : isAnswered
-                  ? "bg-green-100 text-green-800"
+                  ? "bg-brand-100 text-brand-800"
                   : "bg-ink-100 text-ink-500"
               }`}
             >
