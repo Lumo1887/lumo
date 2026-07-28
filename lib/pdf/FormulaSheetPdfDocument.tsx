@@ -1,6 +1,7 @@
 import { Document, Page, Text, View, Svg, Circle, Line, Image, Font, StyleSheet } from "@react-pdf/renderer";
-import type { SkriptChapter } from "@/lib/content/types";
+import type { SkriptChapter, SkriptSection } from "@/lib/content/types";
 import { PDF_FORMULA_POINTS_PER_PIXEL, type RenderedFormula } from "@/lib/pdf/renderLatex";
+import type { FormulaSheetGroup } from "@/lib/pdf/formulaSheetGroups";
 
 // Hinweis: Font.register ist idempotent (ein erneuter Aufruf mit demselben
 // Familiennamen überschreibt einfach dieselbe Registrierung) — daher hier
@@ -192,22 +193,74 @@ function FormulaCell({
   );
 }
 
+function SectionFormulaCells({
+  chapterId,
+  section,
+  formulaImages,
+}: {
+  chapterId: string;
+  section: SkriptSection;
+  formulaImages: Record<string, RenderedFormula>;
+}) {
+  return (
+    <>
+      {(section.formulas ?? []).map((f, i) => {
+        const key = `${chapterId}__${section.id}__${i}`;
+        return (
+          <FormulaCell
+            key={key}
+            sectionHeading={section.heading}
+            formula={formulaImages[key]}
+            fallbackText={f}
+          />
+        );
+      })}
+    </>
+  );
+}
+
 export default function FormulaSheetPdfDocument({
   chapters,
   formulaImages,
   moduleTitle,
   moduleSubtitle,
+  themeGroups,
 }: {
   chapters: SkriptChapter[];
   formulaImages: Record<string, RenderedFormula>;
   moduleTitle: string;
   moduleSubtitle: string;
+  themeGroups?: FormulaSheetGroup[];
 }) {
   // Nur Kapitel, die überhaupt mindestens eine Formel enthalten — ein
   // Kapitel ohne Formeln würde sonst als leere Kopfzeile auftauchen.
   const chaptersWithFormulas = chapters.filter((chapter) =>
     chapter.sections.some((section) => section.formulas && section.formulas.length > 0)
   );
+
+  // Nachschlagetabelle Section-ID -> (Kapitel-ID, Section), aufgebaut aus den
+  // bereits nach Zugriffsrechten gefilterten "chapters" — eine Section, deren
+  // Kapitel gesperrt ist, taucht hier also gar nicht erst auf und wird beim
+  // themenbasierten Rendering automatisch übersprungen statt fälschlich
+  // angezeigt zu werden.
+  const sectionIndex = new Map<string, { chapterId: string; section: SkriptSection }>();
+  for (const chapter of chapters) {
+    for (const section of chapter.sections) {
+      sectionIndex.set(section.id, { chapterId: chapter.id, section });
+    }
+  }
+
+  const groupsWithContent = (themeGroups ?? [])
+    .map((group) => ({
+      heading: group.heading,
+      entries: group.sectionIds
+        .map((sectionId) => sectionIndex.get(sectionId))
+        .filter((entry): entry is { chapterId: string; section: SkriptSection } => Boolean(entry))
+        .filter((entry) => (entry.section.formulas?.length ?? 0) > 0),
+    }))
+    .filter((group) => group.entries.length > 0);
+
+  const useThemeGroups = groupsWithContent.length > 0;
 
   return (
     <Document title={`Lumo Learn Formelsammlung — ${moduleTitle}`}>
@@ -229,28 +282,39 @@ export default function FormulaSheetPdfDocument({
           </Text>
         )}
 
-        {chaptersWithFormulas.map((chapter) => (
-          <View key={chapter.id} wrap>
-            <Text style={styles.chapterTitle}>
-              Kapitel {chapter.number}: {chapter.title}
-            </Text>
-            <View style={styles.formulaGrid}>
-              {chapter.sections.flatMap((section) =>
-                (section.formulas ?? []).map((f, i) => {
-                  const key = `${chapter.id}__${section.id}__${i}`;
-                  return (
-                    <FormulaCell
-                      key={key}
-                      sectionHeading={section.heading}
-                      formula={formulaImages[key]}
-                      fallbackText={f}
+        {useThemeGroups
+          ? groupsWithContent.map((group) => (
+              <View key={group.heading} wrap>
+                <Text style={styles.chapterTitle}>{group.heading}</Text>
+                <View style={styles.formulaGrid}>
+                  {group.entries.map(({ chapterId, section }) => (
+                    <SectionFormulaCells
+                      key={section.id}
+                      chapterId={chapterId}
+                      section={section}
+                      formulaImages={formulaImages}
                     />
-                  );
-                })
-              )}
-            </View>
-          </View>
-        ))}
+                  ))}
+                </View>
+              </View>
+            ))
+          : chaptersWithFormulas.map((chapter) => (
+              <View key={chapter.id} wrap>
+                <Text style={styles.chapterTitle}>
+                  Kapitel {chapter.number}: {chapter.title}
+                </Text>
+                <View style={styles.formulaGrid}>
+                  {chapter.sections.map((section) => (
+                    <SectionFormulaCells
+                      key={section.id}
+                      chapterId={chapter.id}
+                      section={section}
+                      formulaImages={formulaImages}
+                    />
+                  ))}
+                </View>
+              </View>
+            ))}
 
         <PageFooter />
       </Page>

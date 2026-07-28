@@ -6,6 +6,7 @@ import { getModuleChapters } from "@/lib/content/registry";
 import { getModule } from "@/lib/modules";
 import FormulaSheetPdfDocument from "@/lib/pdf/FormulaSheetPdfDocument";
 import { renderLatexToPng, type RenderedFormula } from "@/lib/pdf/renderLatex";
+import { FORMULA_SHEET_GROUPS } from "@/lib/pdf/formulaSheetGroups";
 
 export const runtime = "nodejs";
 
@@ -67,6 +68,7 @@ export async function GET(request: NextRequest) {
       formulaImages,
       moduleTitle: mod.title,
       moduleSubtitle: mod.subtitle,
+      themeGroups: FORMULA_SHEET_GROUPS[moduleSlug],
     }) as any
   );
 
