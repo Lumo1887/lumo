@@ -87,6 +87,20 @@ sagen muss:
    Kapitels sollte am Ende noch einmal daraufhin durchgegangen werden, ob
    irgendwo eine Formel fehlt, die in einer Klausur drankäme.
 
+   **Eine Formel, die nur im Fließtext (`body`) als Unicode-Text steht, zählt
+   NICHT als erfüllt — sie muss zusätzlich im strukturierten `formulas`/
+   `formulasLatex`-Array stehen.** Grund: Nur Einträge in diesem Array werden
+   per KaTeX als echte, prominent sichtbare Formel gerendert (siehe Abschnitt
+   "Formeln: echtes Rendering" unten); im Fließtext versteckte Formeln gehen
+   beim schnellen Nachschlagen unter, obwohl der Text sie technisch "erwähnt".
+   Genau dieser Fehler ist z. B. bei Statistik 1 passiert: f(x) = λ·e^(−λx) für
+   die Exponentialverteilung stand nur im `body`-Absatz, nicht im `formulas`-
+   Array — ausgerechnet die Formel, die in einer Klausur am häufigsten
+   gebraucht wird. Bei jedem Audit/Review muss deshalb aktiv geprüft werden,
+   ob JEDE im Fließtext vorkommende Formel auch strukturiert im `formulas`/
+   `formulasLatex`-Array der jeweiligen Section auftaucht — nicht nur, ob eine
+   Formel irgendwo im Text steht.
+
 4. **Pflicht-Selbstcheck vor Abschluss eines Moduls (neu oder Audit).** Jedes
    `examples`-Beispiel im Skript und jede Aufgabe in der Fragenbank, die auf
    einer echten Quelle beruht, muss aktiv gegen den tatsächlichen Quelltext

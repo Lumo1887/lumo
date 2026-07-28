@@ -245,7 +245,17 @@ export const chapters: SkriptChapter[] = [
         heading: "2.2 Die Verteilungsfunktion",
         body: [
           "Die Verteilungsfunktion F(x) = P(X ≤ x) gibt für jeden Wert x an, mit welcher Wahrscheinlichkeit die Zufallsvariable höchstens x annimmt. Sie ist für diskrete und stetige Zufallsvariablen gleichermaßen definiert und immer monoton wachsend von 0 (für x gegen −∞) bis 1 (für x gegen +∞).",
-          "Bei diskreten Zufallsvariablen ist F(x) eine Treppenfunktion, die an jeder möglichen Ausprägung um f(x) nach oben springt. Bei stetigen Zufallsvariablen ist F(x) dagegen eine stetige Kurve, und es gilt der Zusammenhang F(x) = ∫ f(t) dt von −∞ bis x — die Verteilungsfunktion ist die aufsummierte (integrierte) Dichte.",
+          "Bei diskreten Zufallsvariablen ist F(x) eine Treppenfunktion, die an jeder möglichen Ausprägung um f(x) nach oben springt: F(x) = Σ f(xi) über alle xi ≤ x. Bei stetigen Zufallsvariablen ist F(x) dagegen eine stetige Kurve, und es gilt der Zusammenhang F(x) = ∫ f(t) dt von −∞ bis x — die Verteilungsfunktion ist die aufsummierte (integrierte) Dichte.",
+        ],
+        formulas: [
+          "F(x) = P(X ≤ x)",
+          "F(x) = Σ f(xi)  über alle xi ≤ x  (diskret)",
+          "F(x) = ∫ f(t) dt  von −∞ bis x  (stetig)",
+        ],
+        formulasLatex: [
+          "F(x) = P(X\\le x)",
+          "F(x) = \\sum_{x_i \\le x} f(x_i) \\quad (\\text{diskret})",
+          "F(x) = \\int_{-\\infty}^{x} f(t)\\,dt \\quad (\\text{stetig})",
         ],
         figure: {
           type: "distribution-function",
@@ -726,8 +736,16 @@ export const chapters: SkriptChapter[] = [
           "Die Chi-Quadrat-Verteilung mit k Freiheitsgraden entsteht als Verteilung der Summe der Quadrate von k unabhängigen standardnormalverteilten Zufallsvariablen: χ² = Z1² + ... + Zk². Sie ist rechtsschief, nimmt nur nicht-negative Werte an, und wird u. a. bei Anpassungstests und zur Konstruktion von Konfidenzintervallen für Varianzen verwendet. Es gilt E(χ²) = k und Var(χ²) = 2k.",
           "Die F-Verteilung entsteht als Verhältnis zweier unabhängiger, jeweils durch ihre Freiheitsgrade skalierter Chi-Quadrat-Verteilungen: F = (χ₁²/k1) / (χ₂²/k2), mit Freiheitsgraden k1 (Zähler) und k2 (Nenner). Sie ist die Grundlage z. B. für den Vergleich zweier Varianzen und für die Varianzanalyse (ANOVA).",
         ],
-        formulas: ["E(χ²) = k, Var(χ²) = 2k"],
-        formulasLatex: ["E(\\chi^2) = k, \\quad \\text{Var}(\\chi^2) = 2k"],
+        formulas: [
+          "χ² = Z1² + ... + Zk²",
+          "E(χ²) = k, Var(χ²) = 2k",
+          "F = (χ₁²/k1) / (χ₂²/k2)",
+        ],
+        formulasLatex: [
+          "\\chi^2 = Z_1^2 + \\dots + Z_k^2",
+          "E(\\chi^2) = k, \\quad \\text{Var}(\\chi^2) = 2k",
+          "F = \\dfrac{\\chi_1^2/k_1}{\\chi_2^2/k_2}",
+        ],
         terms: [
           {
             term: "Chi-Quadrat-Verteilung",
@@ -853,6 +871,8 @@ export const chapters: SkriptChapter[] = [
           "Analog zur theoretischen Verteilungsfunktion aus Kapitel 2.2 lässt sich auch für eine konkrete Stichprobe eine empirische Verteilungsfunktion F(x) bilden: Sie gibt an, welcher Anteil der Beobachtungen höchstens den Wert x aufweist. Für n geordnete Beobachtungswerte ist F(x) eine Treppenfunktion, die an jedem beobachteten Wert um dessen relative Häufigkeit nach oben springt.",
           "Die empirische Verteilungsfunktion ist die Grundlage vieler weiterer Kennzahlen: Median und Quantile (4.5) lassen sich direkt als Umkehrfunktion von F ablesen, und der Vergleich zweier empirischer Verteilungsfunktionen (z. B. verschiedener Gruppen) zeigt anschaulich, welche Gruppe tendenziell höhere oder niedrigere Werte aufweist.",
         ],
+        formulas: ["F(x) = (Anzahl der Beobachtungen ≤ x) / n"],
+        formulasLatex: ["F(x) = \\dfrac{\\#\\{i : x_i \\le x\\}}{n}"],
         figure: {
           type: "distribution-function",
           caption: "Abb. 4.1 — Empirische Verteilungsfunktion: Treppenfunktion von 0 bis 1, ein Sprung an jedem beobachteten Wert.",
@@ -1034,6 +1054,8 @@ export const chapters: SkriptChapter[] = [
           "Die Fünf-Zahlen-Zusammenfassung fasst eine Verteilung kompakt über Minimum, Q1, Median, Q3 und Maximum zusammen. Grafisch wird sie im Boxplot dargestellt: eine Box von Q1 bis Q3 mit einer Linie beim Median, sowie 'Whiskers', die bis zum letzten Wert innerhalb des 1,5-fachen IQR reichen; Werte außerhalb dieses Bereichs werden häufig einzeln als potenzielle Ausreißer markiert.",
           "Das Histogramm stellt dagegen klassierte Häufigkeiten (siehe 4.2) als aneinandergrenzende Balken dar, deren Höhe (bzw. bei ungleichen Klassenbreiten: Fläche) proportional zur Häufigkeit der jeweiligen Klasse ist. Während der Boxplot besonders gut zum schnellen Vergleich mehrerer Gruppen geeignet ist, zeigt das Histogramm die Form der Verteilung (z. B. Schiefe oder mehrere Gipfel) deutlich detaillierter.",
         ],
+        formulas: ["Whisker-Grenzen = [Q1 − 1,5·IQR ; Q3 + 1,5·IQR]"],
+        formulasLatex: ["[Q_1 - 1{,}5\\cdot IQR;\\; Q_3 + 1{,}5\\cdot IQR]"],
         figure: {
           type: "boxplot",
           caption: "Abb. 4.2 — Boxplot: Median, Quartile (Box = IQR) und Ausreißer auf einen Blick.",
@@ -1082,8 +1104,14 @@ export const chapters: SkriptChapter[] = [
           "Für zwei nominalskalierte Merkmale lässt sich der Zusammenhang über eine Kontingenztabelle (Kreuztabelle der gemeinsamen Häufigkeiten) untersuchen; darauf aufbauende Maße wie Cramérs V verdichten die Stärke des Zusammenhangs zu einer einzigen Zahl zwischen 0 (kein Zusammenhang) und 1 (perfekter Zusammenhang).",
           "Für zwei metrisch skalierte Merkmale X und Y misst die Kovarianz Cov(X,Y) = (1/(n−1))·Σ(xi−x̄)(yi−ȳ), ob hohe X-Werte tendenziell mit hohen oder niedrigen Y-Werten einhergehen. Weil ihr Vorzeichen zwar die Richtung, ihr Betrag aber keine direkt interpretierbare Stärke des Zusammenhangs anzeigt (er hängt von den Einheiten ab), normiert man sie zum Korrelationskoeffizienten nach Pearson: r = Cov(X,Y) / (sx · sy), der stets zwischen −1 und +1 liegt und damit unabhängig von den Einheiten der Ausgangsdaten vergleichbar ist.",
         ],
-        formulas: ["r = Cov(X,Y) / (sx · sy)"],
-        formulasLatex: ["r = \\dfrac{\\text{Cov}(X,Y)}{s_x\\,s_y}"],
+        formulas: [
+          "Cov(X,Y) = (1/(n−1)) · Σ (xi−x̄)(yi−ȳ)",
+          "r = Cov(X,Y) / (sx · sy)",
+        ],
+        formulasLatex: [
+          "\\text{Cov}(X,Y) = \\dfrac{1}{n-1}\\sum_{i=1}^n (x_i-\\bar{x})(y_i-\\bar{y})",
+          "r = \\dfrac{\\text{Cov}(X,Y)}{s_x\\,s_y}",
+        ],
         terms: [
           {
             term: "Kovarianz",
@@ -1109,10 +1137,12 @@ export const chapters: SkriptChapter[] = [
         formulas: [
           "x̄_w = (Σ wi·xi) / (Σ wi)  (gewichtetes arithmetisches Mittel)",
           "H = n / Σ(1/xi)  (harmonisches Mittel, ungewichtet)",
+          "H_w = (Σ wi) / (Σ wi/xi)  (harmonisches Mittel, gewichtet)",
         ],
         formulasLatex: [
           "\\bar{x}_w = \\dfrac{\\sum_i w_i x_i}{\\sum_i w_i}",
           "H = \\dfrac{n}{\\sum_i \\frac{1}{x_i}}",
+          "H_w = \\dfrac{\\sum_i w_i}{\\sum_i \\frac{w_i}{x_i}}",
         ],
         terms: [
           {
