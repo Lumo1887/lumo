@@ -107,9 +107,6 @@ export default function SalesHomeContent() {
   const activeModuleCount = modules.filter((m) => m.status === "active").length;
   const totalQuestions = modules.reduce((sum, m) => sum + m.questionCount, 0);
   const cheapestPriceCent = Math.min(...modules.map((m) => m.priceCent));
-  const referenceDiscount = Math.round(
-    ((modules[0].compareAtCent - modules[0].priceCent) / modules[0].compareAtCent) * 100
-  );
 
   return (
     <div>
@@ -326,9 +323,6 @@ export default function SalesHomeContent() {
               ? "Alle Module"
               : "Beliebteste Module"}
           </h2>
-          <span className="rounded-full bg-orange-100 px-4 py-2 text-sm font-bold text-orange-700">
-            🔥 -{referenceDiscount}% ggü. klassischen Vorbereitungskursen
-          </span>
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
