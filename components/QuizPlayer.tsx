@@ -351,7 +351,7 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
                   value={numericInput}
                   onChange={(e) => setNumericInput(e.target.value)}
                   placeholder="Deine Antwort"
-                  className="w-full max-w-xs rounded-lg border border-ink-200 px-4 py-2 text-sm focus:border-brand-500 focus:outline-none"
+                  className="w-full max-w-xs rounded-lg border border-ink-200 bg-ink-50 px-4 py-2 text-sm text-ink-900 placeholder:text-ink-600 focus:border-brand-500 focus:outline-none"
                 />
                 {current.unit && (
                   <span className="text-sm text-ink-600">{current.unit}</span>
@@ -442,7 +442,7 @@ export default function QuizPlayer({ moduleSlug }: { moduleSlug: string }) {
                           value={practiceNumericInput}
                           onChange={(e) => setPracticeNumericInput(e.target.value)}
                           placeholder="Deine Antwort"
-                          className="w-full max-w-xs rounded-lg border border-ink-200 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none"
+                          className="w-full max-w-xs rounded-lg border border-ink-200 bg-ink-50 px-3 py-2 text-sm text-ink-900 placeholder:text-ink-600 focus:border-brand-500 focus:outline-none"
                         />
                         {practiceQuestion.unit && (
                           <span className="text-sm text-ink-600">{practiceQuestion.unit}</span>

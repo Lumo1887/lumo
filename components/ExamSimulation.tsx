@@ -338,7 +338,7 @@ export default function ExamSimulation({ moduleSlug }: { moduleSlug: string }) {
               value={typeof answers[current] === "string" ? (answers[current] as string) : ""}
               onChange={(e) => setAnswer(current, e.target.value)}
               placeholder="Deine Antwort"
-              className="w-full max-w-xs rounded-lg border border-ink-200 px-4 py-2 text-sm focus:border-brand-500 focus:outline-none"
+              className="w-full max-w-xs rounded-lg border border-ink-200 bg-ink-50 px-4 py-2 text-sm text-ink-900 placeholder:text-ink-600 focus:border-brand-500 focus:outline-none"
             />
             {currentQ.unit && <span className="text-sm text-ink-600">{currentQ.unit}</span>}
           </div>

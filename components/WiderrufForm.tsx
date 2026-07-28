@@ -85,7 +85,7 @@ export default function WiderrufForm() {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-lg border border-ink-200 px-3 py-2 text-sm focus:border-brand-400 focus:outline-none"
+                className="w-full rounded-lg border border-ink-200 bg-ink-50 px-3 py-2 text-sm text-ink-900 placeholder:text-ink-600 focus:border-brand-400 focus:outline-none"
               />
             </label>
             <label className="block text-sm">
@@ -97,7 +97,7 @@ export default function WiderrufForm() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-lg border border-ink-200 px-3 py-2 text-sm focus:border-brand-400 focus:outline-none"
+                className="w-full rounded-lg border border-ink-200 bg-ink-50 px-3 py-2 text-sm text-ink-900 placeholder:text-ink-600 focus:border-brand-400 focus:outline-none"
               />
             </label>
           </div>

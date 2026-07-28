@@ -142,7 +142,7 @@ export default function ReferralBanner({
               <select
                 value={selectedSlug}
                 onChange={(e) => setSelectedSlug(e.target.value)}
-                className="rounded-lg border border-ink-200 px-3 py-1.5 text-sm focus:border-brand-500 focus:outline-none"
+                className="rounded-lg border border-ink-200 bg-ink-50 px-3 py-1.5 text-sm text-ink-900 focus:border-brand-500 focus:outline-none"
               >
                 <option value="">Modul auswählen…</option>
                 {redeemableModules.map((m) => (

@@ -556,7 +556,7 @@ export default function ModuleChat({
                   placeholder={
                     pendingAttachment ? "Was möchtest du dazu wissen? (optional)" : "Frag etwas zum Skript…"
                   }
-                  className="min-w-0 flex-1 rounded-full border border-ink-100 px-4 py-2 text-sm outline-none focus:border-brand-300"
+                  className="min-w-0 flex-1 rounded-full border border-ink-100 bg-ink-50 px-4 py-2 text-sm text-ink-900 placeholder:text-ink-600 outline-none focus:border-brand-300"
                 />
                 <button
                   onClick={handleSend}

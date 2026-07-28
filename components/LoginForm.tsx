@@ -138,7 +138,7 @@ export default function LoginForm() {
             placeholder="E-Mail-Adresse"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-lg border border-ink-200 px-4 py-2.5 text-sm focus:border-brand-500 focus:outline-none"
+            className="w-full rounded-lg border border-ink-200 bg-ink-50 px-4 py-2.5 text-sm text-ink-900 placeholder:text-ink-600 focus:border-brand-500 focus:outline-none"
           />
           {mode !== "forgot" && (
             <input
@@ -148,7 +148,7 @@ export default function LoginForm() {
               placeholder="Passwort"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg border border-ink-200 px-4 py-2.5 text-sm focus:border-brand-500 focus:outline-none"
+              className="w-full rounded-lg border border-ink-200 bg-ink-50 px-4 py-2.5 text-sm text-ink-900 placeholder:text-ink-600 focus:border-brand-500 focus:outline-none"
             />
           )}
 

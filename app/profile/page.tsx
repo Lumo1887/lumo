@@ -157,7 +157,7 @@ export default function ProfilePage() {
             value={confirmText}
             onChange={(e) => setConfirmText(e.target.value)}
             placeholder="LÖSCHEN"
-            className="w-full max-w-xs rounded-lg border border-red-200 px-3 py-2 text-sm focus:border-red-400 focus:outline-none"
+            className="w-full max-w-xs rounded-lg border border-red-200 bg-ink-50 px-3 py-2 text-sm text-ink-900 placeholder:text-ink-600 focus:border-red-400 focus:outline-none"
           />
           <button
             onClick={handleDeleteAccount}

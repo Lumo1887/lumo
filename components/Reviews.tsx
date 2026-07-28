@@ -7,7 +7,7 @@ import Stars from "@/components/Stars";
 import ReviewCard, { type ReviewItem } from "@/components/ReviewCard";
 
 const inputClass =
-  "w-full rounded-lg border border-ink-200 px-4 py-2.5 text-sm focus:border-brand-500 focus:outline-none";
+  "w-full rounded-lg border border-ink-200 bg-ink-50 px-4 py-2.5 text-sm text-ink-900 placeholder:text-ink-600 focus:border-brand-500 focus:outline-none";
 
 function StarPicker({
   value,

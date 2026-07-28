@@ -333,7 +333,7 @@ export default function SkriptPageContent({ moduleSlug }: { moduleSlug: string }
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder={searchPlaceholder}
-          className="w-full rounded-lg border border-ink-200 px-4 py-2.5 text-sm focus:border-brand-500 focus:outline-none"
+          className="w-full rounded-lg border border-ink-200 bg-ink-50 px-4 py-2.5 text-sm text-ink-900 placeholder:text-ink-600 focus:border-brand-500 focus:outline-none"
         />
         {searchQuery.trim().length >= 2 && (
           <div className="card absolute z-40 mt-1 w-full overflow-hidden p-0">
