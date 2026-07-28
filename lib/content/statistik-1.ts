@@ -470,10 +470,25 @@ export const chapters: SkriptChapter[] = [
         heading: "3.1 Diskrete Gleichverteilung und Bernoulli-Verteilung",
         body: [
           "Bei der diskreten Gleichverteilung sind alle n möglichen Werte einer Zufallsvariable gleich wahrscheinlich, f(x) = 1/n für jeden der n Werte — das Modell für Laplace-Experimente wie Würfeln oder Ziehen aus einem gut gemischten Kartenspiel.",
-          "Die Bernoulli-Verteilung modelliert dagegen ein einzelnes Experiment mit genau zwei möglichen Ausgängen, üblicherweise 'Erfolg' (X=1) mit Wahrscheinlichkeit p und 'Misserfolg' (X=0) mit Wahrscheinlichkeit 1−p. Für sie gilt E(X) = p und Var(X) = p·(1−p) — die Varianz ist am größten bei p = 0,5 (maximale Unsicherheit) und sinkt gegen 0, je näher p an 0 oder 1 liegt.",
+          "Die Bernoulli-Verteilung modelliert dagegen ein einzelnes Experiment mit genau zwei möglichen Ausgängen, üblicherweise 'Erfolg' (X=1) mit Wahrscheinlichkeit p und 'Misserfolg' (X=0) mit Wahrscheinlichkeit 1−p. Kompakt lässt sich das als f(x) = p^x·(1−p)^(1−x) für x∈{0,1} schreiben. Für sie gilt E(X) = p und Var(X) = p·(1−p) — die Varianz ist am größten bei p = 0,5 (maximale Unsicherheit) und sinkt gegen 0, je näher p an 0 oder 1 liegt.",
+          "Zu jeder Verteilung gehört neben f(x) auch die Verteilungsfunktion F(x) = P(X≤x), die kumulierte Wahrscheinlichkeit bis zu einem Wert x. Bei der diskreten Gleichverteilung auf {1,...,n} steigt F(x) treppenförmig in n gleich großen Stufen von 1/n an: F(x) = x/n für x=1,...,n. Die Bernoulli-Verteilung hat eine noch einfachere, zweistufige Treppenfunktion: F(x)=0 für x<0, F(x)=1−p für 0≤x<1, und F(x)=1 für x≥1.",
         ],
-        formulas: ["E(X) = p, Var(X) = p·(1−p)  (Bernoulli-Verteilung)"],
-        formulasLatex: ["E(X) = p, \\quad \\text{Var}(X) = p(1-p)"],
+        formulas: [
+          "f(x) = 1/n, F(x) = x/n  (diskrete Gleichverteilung, x=1,...,n)",
+          "f(x) = p^x·(1−p)^(1−x)  (Bernoulli-Verteilung, x∈{0,1})",
+          "F(x) = 0 für x<0; 1−p für 0≤x<1; 1 für x≥1  (Bernoulli-Verteilung)",
+          "E(X) = p, Var(X) = p·(1−p)  (Bernoulli-Verteilung)",
+        ],
+        formulasLatex: [
+          "f(x) = \\dfrac{1}{n}, \\quad F(x) = \\dfrac{x}{n} \\quad (x=1,\\dots,n)",
+          "f(x) = p^x (1-p)^{1-x} \\quad (x\\in\\{0,1\\})",
+          "F(x) = \\begin{cases} 0 & x<0 \\\\ 1-p & 0\\le x<1 \\\\ 1 & x\\ge 1 \\end{cases}",
+          "E(X) = p, \\quad \\text{Var}(X) = p(1-p)",
+        ],
+        figure: {
+          type: "distribution-function",
+          caption: "Abb. 3.0 — Verteilungsfunktion F(x) einer diskreten Verteilung: treppenförmiger Anstieg von 0 auf 1.",
+        },
         terms: [
           {
             term: "Bernoulli-Verteilung",
@@ -482,6 +497,8 @@ export const chapters: SkriptChapter[] = [
         ],
         examples: [
           "Ob ein einzelnes produziertes Bauteil fehlerhaft ist (p = 0,03) oder nicht, lässt sich als Bernoulli-Variable modellieren: E(X) = 0,03, Var(X) = 0,03·0,97 = 0,0291.",
+          "Das Balkendiagramm der diskreten Gleichverteilung eines fairen Würfels (n=6) zeigt sechs gleich hohe Balken der Höhe 1/6 bei den Werten 1 bis 6; die Verteilungsfunktion ist eine Treppe mit sechs gleich großen Stufen: F(1)=1/6, F(2)=2/6, ..., F(6)=1.",
+          "Bei einer Bernoulli-Verteilung mit p=0,3 zeigt das Balkendiagramm nur zwei Balken: einen bei x=0 mit Höhe 0,7 und einen bei x=1 mit Höhe 0,3. Die Verteilungsfunktion springt entsprechend bei x=0 von 0 auf 0,7 und bei x=1 von 0,7 auf 1 — dazwischen bleibt sie konstant.",
         ],
       },
       {
@@ -490,13 +507,16 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Wiederholt man ein Bernoulli-Experiment n-mal unabhängig voneinander mit stets gleicher Erfolgswahrscheinlichkeit p, folgt die Anzahl der Erfolge X einer Binomialverteilung B(n,p). Ihre Wahrscheinlichkeitsfunktion lautet f(x) = C(n,x) · p^x · (1−p)^(n−x) — der Binomialkoeffizient zählt, auf wie viele Arten sich x Erfolge auf n Versuche verteilen können.",
           "Für die Binomialverteilung gilt E(X) = n·p und Var(X) = n·p·(1−p). Typische Anwendungsfälle sind die Anzahl fehlerhafter Teile in einer Stichprobe fester Größe (bei Ziehen mit Zurücklegen bzw. aus einer sehr großen Grundgesamtheit) oder die Anzahl der Ja-Stimmen bei n unabhängigen Befragten.",
+          "Eine geschlossene Formel ohne Summenzeichen existiert für F(x) nicht — sie wird stets als Summe der Einzelwahrscheinlichkeiten geschrieben: F(x) = Σ_{i=0}^{x} f(i). In der Praxis wird F(x) tabelliert oder per Software berechnet.",
         ],
         formulas: [
           "f(x) = C(n,x) · p^x · (1−p)^(n−x)",
+          "F(x) = Σ_{i=0}^{x} C(n,i) · p^i · (1−p)^(n−i)",
           "E(X) = n·p, Var(X) = n·p·(1−p)",
         ],
         formulasLatex: [
           "f(x) = \\binom{n}{x} p^x (1-p)^{n-x}",
+          "F(x) = \\sum_{i=0}^{x} \\binom{n}{i} p^i (1-p)^{n-i}",
           "E(X) = np, \\quad \\text{Var}(X) = np(1-p)",
         ],
         figure: {
@@ -511,6 +531,7 @@ export const chapters: SkriptChapter[] = [
         ],
         examples: [
           "Von 20 unabhängig befragten Passanten geben erfahrungsgemäß 40% an, Fahrrad zu fahren (p=0,4). Die erwartete Anzahl Radfahrender unter den 20 Befragten ist E(X) = 20·0,4 = 8, mit Var(X) = 20·0,4·0,6 = 4,8.",
+          "Das Balkendiagramm von B(20; 0,4) hat seinen höchsten Balken beim Erwartungswert x=8 und fällt nach beiden Seiten ab, ist dabei aber (weil p≠0,5) leicht rechtsschief: Werte über 8 kommen etwas seltener vor als symmetrisch gespiegelte Werte unter 8. Bei p=0,5 wäre die Balkenverteilung exakt symmetrisch (wie in Abbildung 3.1); je größer n wird, desto mehr nähert sich die Form ohnehin einer Glockenkurve an (siehe 3.7).",
         ],
       },
       {
@@ -519,13 +540,16 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Die Poisson-Verteilung modelliert die Anzahl seltener Ereignisse in einem festen Zeit- oder Raumintervall, wenn ein konstanter durchschnittlicher Rate-Parameter λ (Lambda) bekannt ist — etwa die Anzahl der Anrufe in einer Hotline pro Stunde oder die Anzahl der Druckfehler pro Buchseite. Ihre Wahrscheinlichkeitsfunktion lautet f(x) = (λ^x · e^(−λ)) / x! für x = 0, 1, 2, ...",
           "Für die Poisson-Verteilung gilt die bemerkenswerte Eigenschaft E(X) = Var(X) = λ — Erwartungswert und Varianz sind identisch. Sie ergibt sich außerdem als Grenzfall der Binomialverteilung, wenn n sehr groß und p sehr klein wird, während n·p konstant bei λ bleibt (siehe 3.7).",
+          "Wie bei der Binomialverteilung existiert auch hier keine geschlossene Formel für F(x) ohne Summenzeichen: F(x) = Σ_{i=0}^{x} f(i).",
         ],
         formulas: [
           "f(x) = (λ^x · e^(−λ)) / x!",
+          "F(x) = Σ_{i=0}^{x} (λ^i · e^(−λ)) / i!",
           "E(X) = Var(X) = λ",
         ],
         formulasLatex: [
           "f(x) = \\dfrac{\\lambda^x e^{-\\lambda}}{x!}",
+          "F(x) = \\sum_{i=0}^{x} \\dfrac{\\lambda^i e^{-\\lambda}}{i!}",
           "E(X) = \\text{Var}(X) = \\lambda",
         ],
         terms: [
@@ -536,6 +560,7 @@ export const chapters: SkriptChapter[] = [
         ],
         examples: [
           "Eine Werkstatt erhält im Schnitt λ = 3 Notfallaufträge pro Tag. Die Wahrscheinlichkeit für genau 5 Notfallaufträge an einem Tag beträgt f(5) = (3^5 · e^(−3)) / 5! = (243 · 0,0498) / 120 ≈ 0,1008.",
+          "Bei kleinem λ (z. B. λ=1) ist das Balkendiagramm stark rechtsschief: Der höchste Balken liegt bei x=0 oder x=1, und die Wahrscheinlichkeiten fallen nach rechts schnell ab. Mit wachsendem λ (z. B. λ=15) rückt das Maximum nach rechts, die Verteilung wird zunehmend symmetrischer und ähnelt optisch immer mehr einer Glockenkurve (Normalapproximation ab λ≥9, siehe 3.10).",
         ],
       },
       {
@@ -544,13 +569,16 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Zieht man dagegen ohne Zurücklegen aus einer endlichen Grundgesamtheit vom Umfang N, von denen K die gesuchte Eigenschaft besitzen, folgt die Anzahl X der 'Treffer' unter n gezogenen Elementen einer hypergeometrischen Verteilung: f(x) = [C(K,x) · C(N−K, n−x)] / C(N,n). Anders als bei der Binomialverteilung verändert sich die Trefferwahrscheinlichkeit nach jedem Zug, weil die Grundgesamtheit kleiner wird.",
           "Für sie gilt E(X) = n · K/N — dieselbe Formel wie bei der Binomialverteilung mit p = K/N. Die Varianz ist jedoch kleiner: Var(X) = n · (K/N) · (1−K/N) · (N−n)/(N−1); der zusätzliche Korrekturfaktor (N−n)/(N−1) heißt Endlichkeitskorrektur und wird für große N im Vergleich zu n vernachlässigbar — dann nähert sich die hypergeometrische Verteilung der Binomialverteilung an.",
+          "Auch hier lässt sich F(x) nur als Summe schreiben: F(x) = Σ_{i=0}^{x} f(i).",
         ],
         formulas: [
           "f(x) = [C(K,x)·C(N−K,n−x)] / C(N,n)",
+          "F(x) = Σ_{i=0}^{x} [C(K,i)·C(N−K,n−i)] / C(N,n)",
           "E(X) = n·K/N",
         ],
         formulasLatex: [
           "f(x) = \\dfrac{\\binom{K}{x}\\binom{N-K}{n-x}}{\\binom{N}{n}}",
+          "F(x) = \\sum_{i=0}^{x} \\dfrac{\\binom{K}{i}\\binom{N-K}{n-i}}{\\binom{N}{n}}",
           "E(X) = n\\cdot\\dfrac{K}{N}",
         ],
         terms: [
@@ -561,24 +589,29 @@ export const chapters: SkriptChapter[] = [
         ],
         examples: [
           "Ein Lagerbestand von 50 Bauteilen enthält 6 fehlerhafte. Bei einer Stichprobe von 10 Bauteilen (ohne Zurücklegen) beträgt die erwartete Anzahl fehlerhafter Teile in der Stichprobe E(X) = 10 · 6/50 = 1,2.",
+          "Das Balkendiagramm der hypergeometrischen Verteilung sieht der Binomialverteilung sehr ähnlich (glockenartig, Maximum um den Erwartungswert), ist aber wegen der Endlichkeitskorrektur etwas schmaler/weniger gestreut — je kleiner die Stichprobe n im Vergleich zur Grundgesamtheit N, desto weniger sind beide Formen überhaupt unterscheidbar (5%-Regel, siehe 3.10).",
         ],
       },
       {
         id: "3-5",
         heading: "3.5 Stetige Gleichverteilung und Exponentialverteilung",
         body: [
-          "Bei der stetigen Gleichverteilung auf einem Intervall [a,b] ist die Dichte über das gesamte Intervall konstant, f(x) = 1/(b−a); jeder gleich lange Teilabschnitt des Intervalls ist gleich wahrscheinlich. Es gilt E(X) = (a+b)/2 und Var(X) = (b−a)²/12.",
-          "Die Exponentialverteilung modelliert Wartezeiten zwischen zufälligen Ereignissen bei konstanter Rate λ (verwandt mit der Poisson-Verteilung: Wenn Ereignisse Poisson-verteilt mit Rate λ auftreten, ist die Zeit bis zum nächsten Ereignis exponentialverteilt). Ihre Dichte lautet f(x) = λ·e^(−λx) für x ≥ 0, mit E(X) = 1/λ und Var(X) = 1/λ².",
+          "Bei der stetigen Gleichverteilung auf einem Intervall [a,b] ist die Dichte über das gesamte Intervall konstant, f(x) = 1/(b−a); jeder gleich lange Teilabschnitt des Intervalls ist gleich wahrscheinlich. Es gilt E(X) = (a+b)/2 und Var(X) = (b−a)²/12. Anders als bei diskreten Verteilungen lässt sich F(x) hier als geschlossene Formel angeben, ohne Summenzeichen: F(x) = (x−a)/(b−a) für a≤x≤b (sowie F(x)=0 für x<a und F(x)=1 für x>b) — eine schlichte Gerade, die linear von 0 auf 1 ansteigt.",
+          "Die Exponentialverteilung modelliert Wartezeiten zwischen zufälligen Ereignissen bei konstanter Rate λ (verwandt mit der Poisson-Verteilung: Wenn Ereignisse Poisson-verteilt mit Rate λ auftreten, ist die Zeit bis zum nächsten Ereignis exponentialverteilt). Ihre Dichte lautet f(x) = λ·e^(−λx) für x ≥ 0, mit E(X) = 1/λ und Var(X) = 1/λ². Auch ihre Verteilungsfunktion hat eine geschlossene Form: F(x) = 1−e^(−λx) für x≥0 — genau dieser Ausdruck steckt bereits implizit in der Gedächtnislosigkeits-Eigenschaft weiter unten, da P(X>t)=1−F(t)=e^(−λt).",
           "Eine bemerkenswerte Eigenschaft der Exponentialverteilung ist die Gedächtnislosigkeit: Hat man bereits s Zeiteinheiten ohne Ereignis gewartet, ist die Wahrscheinlichkeit, danach noch mindestens t weitere Zeiteinheiten warten zu müssen, genauso groß wie die ursprüngliche Wahrscheinlichkeit, überhaupt mindestens t Zeiteinheiten zu warten — die bereits verstrichene Wartezeit 'zählt nicht'. Formal gilt P(X > s+t | X > s) = P(X > t). Eine zweite nützliche Eigenschaft betrifft zwei unabhängige exponentialverteilte Zufallsvariablen X ~ Exp(λ1) und Y ~ Exp(λ2): Das Minimum min(X,Y) ist wieder exponentialverteilt, und zwar mit der Summenrate λ1+λ2 — anschaulich tritt das erste von zwei unabhängigen Ereignissen mit der Summe der Einzelraten auf.",
         ],
         formulas: [
+          "Gleichverteilung: f(x) = 1/(b−a), F(x) = (x−a)/(b−a)  für a≤x≤b",
           "Gleichverteilung: E(X) = (a+b)/2, Var(X) = (b−a)²/12",
+          "Exponentialverteilung: f(x) = λ·e^(−λx), F(x) = 1−e^(−λx)  für x≥0",
           "Exponentialverteilung: E(X) = 1/λ, Var(X) = 1/λ²",
           "Gedächtnislosigkeit: P(X > s+t | X > s) = P(X > t)",
           "Minimum unabhängiger Exponentialverteilungen: min(X,Y) ~ Exp(λ1 + λ2)",
         ],
         formulasLatex: [
+          "f(x) = \\dfrac{1}{b-a}, \\quad F(x) = \\dfrac{x-a}{b-a} \\quad (a\\le x\\le b)",
           "E(X) = \\dfrac{a+b}{2}, \\quad \\text{Var}(X) = \\dfrac{(b-a)^2}{12}",
+          "f(x) = \\lambda e^{-\\lambda x}, \\quad F(x) = 1-e^{-\\lambda x} \\quad (x\\ge 0)",
           "E(X) = \\dfrac{1}{\\lambda}, \\quad \\text{Var}(X) = \\dfrac{1}{\\lambda^2}",
           "P(X > s+t \\mid X > s) = P(X > t)",
           "\\min(X,Y) \\sim \\text{Exp}(\\lambda_1 + \\lambda_2)",
@@ -600,6 +633,8 @@ export const chapters: SkriptChapter[] = [
         examples: [
           "Kommen an einem Bankschalter im Schnitt λ = 4 Kund:innen pro Stunde an, beträgt die erwartete Wartezeit bis zur nächsten Ankunft E(X) = 1/4 Stunde = 15 Minuten.",
           "An einer Ladesäule für E-Autos trifft im Schnitt alle 10 Minuten ein Fahrzeug ein, die Wartezeit X bis zur nächsten Ankunft ist exponentialverteilt mit λ = 0,1 pro Minute. Wartet man bereits 5 Minuten, ohne dass ein Auto angekommen ist, ändert die Gedächtnislosigkeit nichts an der Prognose für die Restwartezeit: Die Wahrscheinlichkeit, ab jetzt noch mindestens 10 weitere Minuten zu warten, beträgt P(X>10) = e^(−0,1·10) = e^(−1) ≈ 0,368 — exakt so hoch, wie am Anfang (ohne jede Vorwartezeit) mindestens 10 Minuten warten zu müssen. — In einer Kläranlage fallen zwei unabhängige Druckwasserpumpen nach exponentialverteilten Zeiten mit Raten λ1 = 1/650 und λ2 = 1/900 (jeweils pro Stunde) aus. Die Zeit bis zum ersten der beiden Ausfälle ist exponentialverteilt mit Rate λ1+λ2 = 1/650 + 1/900 ≈ 0,00265, also mit Erwartungswert 1/0,00265 ≈ 377,4 Stunden.",
+          "Die Dichte der stetigen Gleichverteilung auf [2,8] ist eine flache Rechteckfläche der Höhe f(x)=1/6 zwischen x=2 und x=8 (und 0 außerhalb); ihre Verteilungsfunktion F(x) ist dort eine einfache ansteigende Gerade von F(2)=0 bis F(8)=1, z. B. F(5)=(5−2)/6=0,5.",
+          "Die Dichte der Exponentialverteilung startet bei f(0)=λ am höchsten Punkt und fällt danach stetig, streng monoton gegen 0 ab (nie negativ, nie ganz 0) — je größer λ, desto steiler der Abfall. Die zugehörige Verteilungsfunktion F(x)=1−e^(−λx) startet bei F(0)=0, steigt zunächst schnell und flacht danach immer mehr ab, ohne die 1 je exakt zu erreichen.",
         ],
       },
       {
@@ -607,15 +642,17 @@ export const chapters: SkriptChapter[] = [
         heading: "3.6 Normalverteilung",
         body: [
           "Die Normalverteilung N(μ,σ²) ist die bekannteste stetige Verteilung: eine symmetrische, glockenförmige Dichte um den Erwartungswert μ mit Streuung σ. Ihre Dichtefunktion lautet f(x) = 1/(σ√(2π)) · e^(−(x−μ)²/(2σ²)). Viele natürliche Messgrößen (Körpergröße, Messfehler, Summen vieler unabhängiger Einflüsse) sind näherungsweise normalverteilt — ein Grund dafür liefert der zentrale Grenzwertsatz in 3.7.",
-          "Zur Berechnung von Wahrscheinlichkeiten wird jede Normalverteilung auf die Standardnormalverteilung Z ~ N(0,1) zurückgeführt, indem man standardisiert: Z = (X − μ)/σ. Für Z liegen tabellierte Werte der Verteilungsfunktion Φ(z) vor. Als Faustregel gilt: Etwa 68% aller Werte liegen innerhalb einer Standardabweichung um μ, etwa 95% innerhalb von zwei und etwa 99,7% innerhalb von drei Standardabweichungen.",
+          "Zur Berechnung von Wahrscheinlichkeiten wird jede Normalverteilung auf die Standardnormalverteilung Z ~ N(0,1) zurückgeführt, indem man standardisiert: Z = (X − μ)/σ. Für Z liegen tabellierte Werte der Verteilungsfunktion Φ(z) vor. Als Faustregel gilt: Etwa 68% aller Werte liegen innerhalb einer Standardabweichung um μ, etwa 95% innerhalb von zwei und etwa 99,7% innerhalb von drei Standardabweichungen. Da f(x) selbst nicht elementar integrierbar ist, wird auch F(x) einer beliebigen Normalverteilung auf die tabellierte Standardnormalverteilung zurückgeführt: F(x) = Φ((x−μ)/σ).",
           "Eine wichtige Eigenschaft der Normalverteilung: Jede Linearkombination unabhängiger normalverteilter Zufallsvariablen ist wieder normalverteilt. Sind X ~ N(μX,σX²) und Y ~ N(μY,σY²) unabhängig, gilt für a,b ∈ ℝ stets aX + bY ~ N(a·μX + b·μY, a²·σX² + b²·σY²) — insbesondere ist damit auch die Summe X+Y wieder normalverteilt, mit Erwartungswert μX+μY und (wegen Unabhängigkeit, also Cov(X,Y)=0 nach 2.8) Varianz σX²+σY².",
         ],
         formulas: [
           "Z = (X − μ) / σ  (Standardisierung)",
+          "F(x) = Φ((x − μ) / σ)",
           "Für unabhängige X~N(μX,σX²), Y~N(μY,σY²): aX+bY ~ N(a·μX+b·μY, a²·σX²+b²·σY²)",
         ],
         formulasLatex: [
           "Z = \\dfrac{X-\\mu}{\\sigma}",
+          "F(x) = \\Phi\\!\\left(\\dfrac{x-\\mu}{\\sigma}\\right)",
           "aX+bY \\sim N\\!\\left(a\\mu_X + b\\mu_Y,\\ a^2\\sigma_X^2 + b^2\\sigma_Y^2\\right)",
         ],
         figure: {
@@ -635,6 +672,7 @@ export const chapters: SkriptChapter[] = [
         examples: [
           "Füllmengen einer Abfüllanlage sind N(500, 16) verteilt (μ=500 ml, σ=4 ml). Die Wahrscheinlichkeit für eine Füllmenge unter 492 ml entspricht Z = (492−500)/4 = −2, also P(X<492) = Φ(−2) ≈ 0,0228 — etwa 2,3%.",
           "Zwei Gepäckstücke werden unabhängig voneinander gewogen: Koffer 1 hat Gewicht X ~ N(18, 4) kg, Koffer 2 hat Gewicht Y ~ N(22, 9) kg. Das Gesamtgewicht T = X+Y ist damit normalverteilt mit E(T) = 18+22 = 40 kg und Var(T) = 4+9 = 13, also σT = √13 ≈ 3,61 kg. Erlaubt die Fluggesellschaft maximal 42 kg Gesamtgewicht, ergibt sich Z = (42−40)/3,61 ≈ 0,55 und damit P(T>42) = 1−Φ(0,55) ≈ 1−0,711 = 0,289 — mit knapp 29% Wahrscheinlichkeit wird das Gesamtlimit überschritten.",
+          "Die Dichte f(x) ist immer symmetrisch glockenförmig um μ (siehe Abbildung 3.2): Eine kleine Streuung σ ergibt eine schmale, hohe Glocke, eine große Streuung σ eine breite, flache. Die Verteilungsfunktion F(x)=Φ((x−μ)/σ) ist dagegen eine S-förmige (sigmoide) Kurve, die bei 0 beginnt, bei x=μ genau den Wert 0,5 durchläuft (F(μ)=Φ(0)=0,5, da die Fläche links und rechts von μ gleich groß ist) und sich für große x der 1 annähert.",
         ],
       },
       {
@@ -678,6 +716,7 @@ export const chapters: SkriptChapter[] = [
         ],
         examples: [
           "Eine t-Verteilung mit k=5 Freiheitsgraden hat E(T)=0 und Var(T) = 5/3 ≈ 1,67 — deutlich mehr Streuung als die Standardnormalverteilung mit Var=1, weil die t-Verteilung schwerere Ränder besitzt. Für k=30 wäre Var(T) = 30/28 ≈ 1,07, schon sehr nah an der Standardnormalverteilung — mit wachsendem k nähert sich die t-Verteilung ihr immer weiter an.",
+          "Optisch sieht die Dichte der t-Verteilung der Glockenkurve der Standardnormalverteilung (Abbildung 3.2) sehr ähnlich — symmetrisch um 0, mit einem Gipfel in der Mitte —, ist bei kleinem k aber sichtbar flacher in der Mitte und mit dickeren, weiter nach außen reichenden Rändern ('schwerere Schwänze'). Zeichnet man beide Kurven für k=5 übereinander, liegt die t-Verteilung in den Randbereichen (etwa ab |t|>2) merklich über der Normalverteilung; für k=30 sind beide Kurven fast deckungsgleich.",
         ],
       },
       {
@@ -701,6 +740,7 @@ export const chapters: SkriptChapter[] = [
         ],
         examples: [
           "Eine Chi-Quadrat-Verteilung mit k=10 Freiheitsgraden hat Erwartungswert 10 und Varianz 20 — je mehr Freiheitsgrade, desto symmetrischer und breiter wird die Verteilung.",
+          "Die Dichte der Chi-Quadrat-Verteilung beginnt bei x=0 (negative Werte sind unmöglich, da sie aus Quadratsummen entsteht) und ist rechtsschief: Bei kleinem k (z. B. k=2) fällt die Kurve von einem hohen Punkt nahe x=0 stetig ab; bei größerem k (z. B. k=10) verschiebt sich der Gipfel nach rechts (etwa bei x=k−2) und die Form wird zunehmend symmetrischer. Die F-Verteilung sieht ähnlich aus — ebenfalls auf x≥0 beschränkt und rechtsschief —, ihre genaue Form hängt aber von zwei Freiheitsgraden (k1, k2) statt nur einem ab.",
         ],
       },
       {
