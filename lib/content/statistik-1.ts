@@ -97,21 +97,21 @@ export const chapters: SkriptChapter[] = [
         body: [
           "Kombinatorische Zählformeln helfen, |Ω| bzw. |A| zu bestimmen, ohne alle Möglichkeiten einzeln aufzuschreiben. Sollen n unterscheidbare Objekte vollständig angeordnet werden, gibt es dafür n! (n Fakultät) Reihenfolgen. Sollen dagegen nur k von n unterscheidbaren Objekten in einer bestimmten Reihenfolge ausgewählt werden (eine Variation ohne Wiederholung — jedes Objekt darf höchstens einmal vorkommen), gibt es dafür n! / (n−k)! Möglichkeiten.",
           "Kommt es auf die Reihenfolge der k ausgewählten Objekte dagegen nicht an (eine Kombination ohne Wiederholung), muss man durch die Anzahl der Anordnungen der ausgewählten k Objekte teilen: C(n,k) = n! / (k! · (n−k)!) — der Binomialkoeffizient. Er beantwortet z. B. die Frage, auf wie viele Arten man k Personen aus einer Gruppe von n Personen für ein Team auswählen kann.",
-          "Darf dasselbe Objekt dagegen mehrfach ausgewählt werden (Ziehen MIT Zurücklegen), kommt eine zweite Unterscheidung hinzu. Zählt die Reihenfolge weiterhin (Variation mit Wiederholung), gibt es für jede der k Positionen unabhängig voneinander n Möglichkeiten, also n^k insgesamt. Zählt die Reihenfolge dagegen nicht (Kombination mit Wiederholung), ist die Herleitung weniger offensichtlich: Man kann sich die Auswahl als Verteilen von k identischen Kugeln auf n Fächer vorstellen, was auf C(n+k−1,k) = (n+k−1)! / (k!·(n−1)!) Möglichkeiten führt. Damit ergeben sich vier Fälle, je nachdem ob die Reihenfolge zählt und ob Wiederholung erlaubt ist.",
+          "Darf dasselbe Objekt dagegen mehrfach ausgewählt werden (Ziehen MIT Zurücklegen), kommt eine zweite Unterscheidung hinzu. Zählt die Reihenfolge weiterhin (Variation mit Wiederholung), gibt es für jede der k Positionen unabhängig voneinander n Möglichkeiten, also n^k insgesamt. Zählt die Reihenfolge dagegen nicht (Kombination mit Wiederholung), ist die Herleitung weniger offensichtlich: Man kann sich die Auswahl als Verteilen von k identischen Kugeln auf n Fächer vorstellen, was auf C(n+k−1,k) = (n+k−1)! / (k!·(n+k−1−k)!) Möglichkeiten führt. Damit ergeben sich vier Fälle, je nachdem ob die Reihenfolge zählt und ob Wiederholung erlaubt ist.",
           "Ein fünfter, eigenständiger Fall betrifft die vollständige Anordnung von n Objekten, wenn sich darunter mehrere identische (nicht unterscheidbare) Objekte befinden — die Permutation mit Wiederholung. Wären alle n Objekte unterscheidbar, gäbe es n! Anordnungen; weil aber g1 Objekte einer ersten Sorte, g2 einer zweiten Sorte usw. untereinander nicht unterscheidbar sind, müssen die jeweils redundant gezählten Vertauschungen innerhalb jeder Sorte wieder herausgeteilt werden: P(n; g1,...,gr) = n! / (g1!·g2!·...·gr!), wobei g1+g2+...+gr = n.",
         ],
         formulas: [
           "Variation ohne Wiederholung: n! / (n − k)!",
           "Kombination ohne Wiederholung: C(n,k) = n! / (k! · (n−k)!)",
           "Variation mit Wiederholung: n^k",
-          "Kombination mit Wiederholung: C(n+k−1,k) = (n+k−1)! / (k! · (n−1)!)",
+          "Kombination mit Wiederholung: C(n+k−1,k) = (n+k−1)! / (k! · (n+k−1−k)!)",
           "Permutation mit Wiederholung: P(n; g1,...,gr) = n! / (g1! · g2! · ... · gr!)",
         ],
         formulasLatex: [
           "\\dfrac{n!}{(n-k)!}",
           "C(n,k) = \\dfrac{n!}{k!\\,(n-k)!}",
           "n^k",
-          "C(n+k-1,k) = \\dfrac{(n+k-1)!}{k!\\,(n-1)!}",
+          "C(n+k-1,k) = \\dfrac{(n+k-1)!}{k!\\,(n+k-1-k)!}",
           "P(n; g_1,\\dots,g_r) = \\dfrac{n!}{g_1!\\,g_2!\\,\\cdots\\,g_r!}",
         ],
         table: {
@@ -119,7 +119,7 @@ export const chapters: SkriptChapter[] = [
           headers: ["", "ohne Wiederholung", "mit Wiederholung"],
           rows: [
             ["Variation (Reihenfolge zählt)", "n! / (n−k)!", "n^k"],
-            ["Kombination (Reihenfolge egal)", "C(n,k) = n! / (k!·(n−k)!)", "C(n+k−1,k) = (n+k−1)! / (k!·(n−1)!)"],
+            ["Kombination (Reihenfolge egal)", "C(n,k) = n! / (k!·(n−k)!)", "C(n+k−1,k) = (n+k−1)! / (k!·(n+k−1−k)!)"],
           ],
         },
         terms: [
