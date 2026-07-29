@@ -176,6 +176,30 @@ generisch und muss für neue Module NICHT angefasst werden — nur die
 `formulasLatex`-Einträge in der jeweiligen `lib/content/<slug>.ts` müssen
 stimmen.
 
+**Jede Formel bekommt ihre eigene, optisch abgesetzte Box — nie mehrere
+Formeln in einem gemeinsamen Container.** In `SkriptPageContent.tsx`
+(Online-Skript) lag früher die `.skript-formula`-Klasse (Rahmen/Hintergrund)
+auf dem äußeren Wrapper um die gesamte `formulas`-Liste einer Section, mit
+nur ~4px Abstand zwischen den Einträgen — bei Sections mit mehreren Formeln
+(z. B. 5 Formeln in Kapitel 1.4 von Statistik 1) verschwammen diese optisch
+zu einem unübersichtlichen Block ohne erkennbare Trennung. Fix: Jede Formel
+bekommt ihr eigenes `<div className="skript-formula">`, der äußere Wrapper
+hat nur noch Abstand (`space-y-3`), keine eigene Kartenoptik. Der PDF-Export
+(`lib/pdf/SkriptPdfDocument.tsx`) hatte dieses Muster von Anfang an richtig
+(ein `formulaBox`-`View` pro Formel) — als Referenz, falls die Web-Ansicht
+je wieder regressiert.
+
+**Formel-Vollständigkeit ist ein wiederkehrendes Problem, nicht nur ein
+Einzelfall (siehe auch die Exponentialverteilungs-f(x)-Regel oben).** Bei
+derselben Session, in der obige Regel schon existierte, wurden trotzdem noch
+zwei weitere Fälle gefunden (σ=√Var(X) in 2.4, s=√s² in 4.6 von Statistik 1)
+— beide Formeln standen im Fließtext, aber nicht im `formulas`/`formulasLatex`-
+Array. Ein einmaliger Audit-Durchgang reicht offenbar nicht zuverlässig aus.
+Deshalb beim Prüfen eines Abschnitts nicht nur fragen "hat diese Section ein
+`formulas`-Array", sondern jede einzelne im Fließtext vorkommende Gleichung
+(jedes "X = ...") explizit gegen die Einträge im Array abhaken, bevor der
+Abschnitt als vollständig gilt.
+
 ## Neues Modul anlegen — Quellmaterial
 
 Rohe Quell-PDFs für neue Module (Vorlesungsfolien, Übungsblätter, Tutorien)

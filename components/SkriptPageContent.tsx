@@ -95,9 +95,9 @@ function SectionContent({
         </div>
       )}
       {section.formulas && section.formulas.length > 0 && (
-        <div className="skript-formula mb-4 space-y-1">
+        <div className="mb-4 space-y-3">
           {section.formulas.map((f, i) => (
-            <div key={i}>
+            <div key={i} className="skript-formula">
               <MathFormula latex={section.formulasLatex?.[i]} fallback={f} />
             </div>
           ))}

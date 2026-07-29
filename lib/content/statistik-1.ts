@@ -304,8 +304,16 @@ export const chapters: SkriptChapter[] = [
           "Die Varianz Var(X) misst, wie stark die Werte einer Zufallsvariable im Mittel um ihren Erwartungswert streuen: Var(X) = E[(X − μ)²], wobei μ = E(X). Rechnerisch praktischer ist häufig der Verschiebungssatz: Var(X) = E(X²) − [E(X)]², bei dem man nur den Erwartungswert von X und von X² braucht.",
           "Weil die Varianz in quadrierten Einheiten gemessen wird (z. B. €² statt €), zieht man für eine anschauliche Streuungsangabe meist die Wurzel und erhält die Standardabweichung σ = √Var(X), die wieder in der ursprünglichen Einheit von X vorliegt.",
         ],
-        formulas: ["Var(X) = E(X²) − [E(X)]²"],
-        formulasLatex: ["\\text{Var}(X) = E(X^2) - [E(X)]^2"],
+        formulas: [
+          "Var(X) = E[(X − μ)²]  (Definition)",
+          "Var(X) = E(X²) − [E(X)]²  (Verschiebungssatz)",
+          "σ = √Var(X)  (Standardabweichung)",
+        ],
+        formulasLatex: [
+          "\\text{Var}(X) = E[(X-\\mu)^2]",
+          "\\text{Var}(X) = E(X^2) - [E(X)]^2",
+          "\\sigma = \\sqrt{\\text{Var}(X)}",
+        ],
         terms: [
           {
             term: "Varianz",
@@ -948,11 +956,13 @@ export const chapters: SkriptChapter[] = [
         formulas: [
           "s² = (1/n) · Σ (xi − x̄)²",
           "s² = (1/n · Σ xi²) − x̄²  (Verschiebungssatz)",
+          "s = √s²  (Standardabweichung)",
           "d(c) = (1/n) · Σ |xi − c|  (mittlere absolute Abweichung)",
         ],
         formulasLatex: [
           "s^2 = \\dfrac{1}{n}\\sum_{i=1}^n (x_i - \\bar{x})^2",
           "s^2 = \\left(\\dfrac{1}{n}\\sum_{i=1}^n x_i^2\\right) - \\bar{x}^2",
+          "s = \\sqrt{s^2}",
           "d(c) = \\dfrac{1}{n}\\sum_{i=1}^n |x_i - c|",
         ],
         terms: [
