@@ -477,7 +477,7 @@ export const chapters: SkriptChapter[] = [
     sections: [
       {
         id: "3-1",
-        heading: "3.1 Diskrete Gleichverteilung und Bernoulli-Verteilung",
+        heading: "3.1 Diskrete Gleichverteilung U{1,...,n} und Bernoulli-Verteilung Bernoulli(p)",
         body: [
           "Bei der diskreten Gleichverteilung sind alle n möglichen Werte einer Zufallsvariable gleich wahrscheinlich, f(x) = 1/n für jeden der n Werte — das Modell für Laplace-Experimente wie Würfeln oder Ziehen aus einem gut gemischten Kartenspiel.",
           "Die Bernoulli-Verteilung modelliert dagegen ein einzelnes Experiment mit genau zwei möglichen Ausgängen, üblicherweise 'Erfolg' (X=1) mit Wahrscheinlichkeit p und 'Misserfolg' (X=0) mit Wahrscheinlichkeit 1−p. Kompakt lässt sich das als f(x) = p^x·(1−p)^(1−x) für x∈{0,1} schreiben. Für sie gilt E(X) = p und Var(X) = p·(1−p) — die Varianz ist am größten bei p = 0,5 (maximale Unsicherheit) und sinkt gegen 0, je näher p an 0 oder 1 liegt.",
@@ -513,7 +513,7 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "3-2",
-        heading: "3.2 Binomialverteilung",
+        heading: "3.2 Binomialverteilung B(n,p)",
         body: [
           "Wiederholt man ein Bernoulli-Experiment n-mal unabhängig voneinander mit stets gleicher Erfolgswahrscheinlichkeit p, folgt die Anzahl der Erfolge X einer Binomialverteilung B(n,p). Ihre Wahrscheinlichkeitsfunktion lautet f(x) = C(n,x) · p^x · (1−p)^(n−x) — der Binomialkoeffizient zählt, auf wie viele Arten sich x Erfolge auf n Versuche verteilen können.",
           "Für die Binomialverteilung gilt E(X) = n·p und Var(X) = n·p·(1−p). Typische Anwendungsfälle sind die Anzahl fehlerhafter Teile in einer Stichprobe fester Größe (bei Ziehen mit Zurücklegen bzw. aus einer sehr großen Grundgesamtheit) oder die Anzahl der Ja-Stimmen bei n unabhängigen Befragten.",
@@ -546,7 +546,7 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "3-4",
-        heading: "3.3 Poisson-Verteilung",
+        heading: "3.3 Poisson-Verteilung Poisson(λ)",
         body: [
           "Die Poisson-Verteilung modelliert die Anzahl seltener Ereignisse in einem festen Zeit- oder Raumintervall, wenn ein konstanter durchschnittlicher Rate-Parameter λ (Lambda) bekannt ist — etwa die Anzahl der Anrufe in einer Hotline pro Stunde oder die Anzahl der Druckfehler pro Buchseite. Ihre Wahrscheinlichkeitsfunktion lautet f(x) = (λ^x · e^(−λ)) / x! für x = 0, 1, 2, ...",
           "Für die Poisson-Verteilung gilt die bemerkenswerte Eigenschaft E(X) = Var(X) = λ — Erwartungswert und Varianz sind identisch. Sie ergibt sich außerdem als Grenzfall der Binomialverteilung, wenn n sehr groß und p sehr klein wird, während n·p konstant bei λ bleibt (siehe 3.7).",
@@ -575,7 +575,7 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "3-3",
-        heading: "3.4 Hypergeometrische Verteilung",
+        heading: "3.4 Hypergeometrische Verteilung H(N,K,n)",
         body: [
           "Zieht man dagegen ohne Zurücklegen aus einer endlichen Grundgesamtheit vom Umfang N, von denen K die gesuchte Eigenschaft besitzen, folgt die Anzahl X der 'Treffer' unter n gezogenen Elementen einer hypergeometrischen Verteilung: f(x) = [C(K,x) · C(N−K, n−x)] / C(N,n). Anders als bei der Binomialverteilung verändert sich die Trefferwahrscheinlichkeit nach jedem Zug, weil die Grundgesamtheit kleiner wird.",
           "Für sie gilt E(X) = n · K/N — dieselbe Formel wie bei der Binomialverteilung mit p = K/N. Die Varianz ist jedoch kleiner: Var(X) = n · (K/N) · (1−K/N) · (N−n)/(N−1); der zusätzliche Korrekturfaktor (N−n)/(N−1) heißt Endlichkeitskorrektur und wird für große N im Vergleich zu n vernachlässigbar — dann nähert sich die hypergeometrische Verteilung der Binomialverteilung an.",
@@ -604,7 +604,7 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "3-5",
-        heading: "3.5 Stetige Gleichverteilung und Exponentialverteilung",
+        heading: "3.5 Stetige Gleichverteilung U(a,b) und Exponentialverteilung Exp(λ)",
         body: [
           "Bei der stetigen Gleichverteilung auf einem Intervall [a,b] ist die Dichte über das gesamte Intervall konstant, f(x) = 1/(b−a); jeder gleich lange Teilabschnitt des Intervalls ist gleich wahrscheinlich. Es gilt E(X) = (a+b)/2 und Var(X) = (b−a)²/12. Anders als bei diskreten Verteilungen lässt sich F(x) hier als geschlossene Formel angeben, ohne Summenzeichen: F(x) = (x−a)/(b−a) für a≤x≤b (sowie F(x)=0 für x<a und F(x)=1 für x>b) — eine schlichte Gerade, die linear von 0 auf 1 ansteigt.",
           "Die Exponentialverteilung modelliert Wartezeiten zwischen zufälligen Ereignissen bei konstanter Rate λ (verwandt mit der Poisson-Verteilung: Wenn Ereignisse Poisson-verteilt mit Rate λ auftreten, ist die Zeit bis zum nächsten Ereignis exponentialverteilt). Ihre Dichte lautet f(x) = λ·e^(−λx) für x ≥ 0, mit E(X) = 1/λ und Var(X) = 1/λ². Auch ihre Verteilungsfunktion hat eine geschlossene Form: F(x) = 1−e^(−λx) für x≥0 — genau dieser Ausdruck steckt bereits implizit in der Gedächtnislosigkeits-Eigenschaft weiter unten, da P(X>t)=1−F(t)=e^(−λt).",
@@ -649,7 +649,7 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "3-6",
-        heading: "3.6 Normalverteilung",
+        heading: "3.6 Normalverteilung N(μ,σ²)",
         body: [
           "Die Normalverteilung N(μ,σ²) ist die bekannteste stetige Verteilung: eine symmetrische, glockenförmige Dichte um den Erwartungswert μ mit Streuung σ. Ihre Dichtefunktion lautet f(x) = 1/(σ√(2π)) · e^(−(x−μ)²/(2σ²)). Viele natürliche Messgrößen (Körpergröße, Messfehler, Summen vieler unabhängiger Einflüsse) sind näherungsweise normalverteilt — ein Grund dafür liefert der zentrale Grenzwertsatz in 3.7.",
           "Zur Berechnung von Wahrscheinlichkeiten wird jede Normalverteilung auf die Standardnormalverteilung Z ~ N(0,1) zurückgeführt, indem man standardisiert: Z = (X − μ)/σ. Für Z liegen tabellierte Werte der Verteilungsfunktion Φ(z) vor. Als Faustregel gilt: Etwa 68% aller Werte liegen innerhalb einer Standardabweichung um μ, etwa 95% innerhalb von zwei und etwa 99,7% innerhalb von drei Standardabweichungen. Da f(x) selbst nicht elementar integrierbar ist, wird auch F(x) einer beliebigen Normalverteilung auf die tabellierte Standardnormalverteilung zurückgeführt: F(x) = Φ((x−μ)/σ).",
@@ -704,7 +704,7 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "3-tdist",
-        heading: "3.8 Studentsche t-Verteilung",
+        heading: "3.8 Studentsche t-Verteilung t(k)",
         body: [
           "Bei der Standardisierung einer normalverteilten Zufallsvariable (siehe 3.6) wird die tatsächliche Varianz σ² als bekannt vorausgesetzt. In der Praxis kennt man σ² aber meist nicht und muss sie aus einer Stichprobe schätzen — dadurch kommt eine zusätzliche Portion Unsicherheit ins Spiel, die sich in einer etwas breiteren, flacheren Verteilung als der Standardnormalverteilung niederschlägt: der Studentschen t-Verteilung.",
           "Formal entsteht die t-Verteilung als Quotient T = Z / √(X/k) aus einer standardnormalverteilten Zufallsvariable Z und einer davon unabhängigen Chi-Quadrat-verteilten Zufallsvariable X mit k Freiheitsgraden (siehe 3.9). Der Parameter k steuert dabei Form und Streuung: Für kleine k ist die t-Verteilung deutlich schwerer-schwänzig als die Standardnormalverteilung (extreme Werte sind wahrscheinlicher), für wachsendes k nähert sie sich ihr immer weiter an und ist ab etwa k > 30 kaum noch von ihr zu unterscheiden.",
@@ -731,7 +731,7 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "3-8",
-        heading: "3.9 Chi-Quadrat- und F-Verteilung",
+        heading: "3.9 Chi-Quadrat-Verteilung χ²(k) und F-Verteilung F(k1,k2)",
         body: [
           "Die Chi-Quadrat-Verteilung mit k Freiheitsgraden entsteht als Verteilung der Summe der Quadrate von k unabhängigen standardnormalverteilten Zufallsvariablen: χ² = Z1² + ... + Zk². Sie ist rechtsschief, nimmt nur nicht-negative Werte an, und wird u. a. bei Anpassungstests und zur Konstruktion von Konfidenzintervallen für Varianzen verwendet. Es gilt E(χ²) = k und Var(χ²) = 2k.",
           "Die F-Verteilung entsteht als Verhältnis zweier unabhängiger, jeweils durch ihre Freiheitsgrade skalierter Chi-Quadrat-Verteilungen: F = (χ₁²/k1) / (χ₂²/k2), mit Freiheitsgraden k1 (Zähler) und k2 (Nenner). Sie ist die Grundlage z. B. für den Vergleich zweier Varianzen und für die Varianzanalyse (ANOVA).",
