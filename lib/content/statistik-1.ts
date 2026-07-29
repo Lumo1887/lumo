@@ -1112,14 +1112,14 @@ export const chapters: SkriptChapter[] = [
         heading: "4.11 Zusammenhangsmaße: Kontingenz, Kovarianz und Korrelation",
         body: [
           "Für zwei nominalskalierte Merkmale lässt sich der Zusammenhang über eine Kontingenztabelle (Kreuztabelle der gemeinsamen Häufigkeiten) untersuchen; darauf aufbauende Maße wie Cramérs V verdichten die Stärke des Zusammenhangs zu einer einzigen Zahl zwischen 0 (kein Zusammenhang) und 1 (perfekter Zusammenhang).",
-          "Für zwei metrisch skalierte Merkmale X und Y misst die Kovarianz Cov(X,Y) = (1/(n−1))·Σ(xi−x̄)(yi−ȳ), ob hohe X-Werte tendenziell mit hohen oder niedrigen Y-Werten einhergehen. Weil ihr Vorzeichen zwar die Richtung, ihr Betrag aber keine direkt interpretierbare Stärke des Zusammenhangs anzeigt (er hängt von den Einheiten ab), normiert man sie zum Korrelationskoeffizienten nach Pearson: r = Cov(X,Y) / (sx · sy), der stets zwischen −1 und +1 liegt und damit unabhängig von den Einheiten der Ausgangsdaten vergleichbar ist.",
+          "Für zwei metrisch skalierte Merkmale X und Y misst die Kovarianz Cov(X,Y) = (1/n)·Σ(xi−x̄)(yi−ȳ), ob hohe X-Werte tendenziell mit hohen oder niedrigen Y-Werten einhergehen. Weil ihr Vorzeichen zwar die Richtung, ihr Betrag aber keine direkt interpretierbare Stärke des Zusammenhangs anzeigt (er hängt von den Einheiten ab), normiert man sie zum Korrelationskoeffizienten nach Pearson: r = Cov(X,Y) / (sx · sy), der stets zwischen −1 und +1 liegt und damit unabhängig von den Einheiten der Ausgangsdaten vergleichbar ist.",
         ],
         formulas: [
-          "Cov(X,Y) = (1/(n−1)) · Σ (xi−x̄)(yi−ȳ)",
+          "Cov(X,Y) = (1/n) · Σ (xi−x̄)(yi−ȳ)",
           "r = Cov(X,Y) / (sx · sy)",
         ],
         formulasLatex: [
-          "\\text{Cov}(X,Y) = \\dfrac{1}{n-1}\\sum_{i=1}^n (x_i-\\bar{x})(y_i-\\bar{y})",
+          "\\text{Cov}(X,Y) = \\dfrac{1}{n}\\sum_{i=1}^n (x_i-\\bar{x})(y_i-\\bar{y})",
           "r = \\dfrac{\\text{Cov}(X,Y)}{s_x\\,s_y}",
         ],
         terms: [
