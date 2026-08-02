@@ -11,8 +11,11 @@ export default function LoginForm() {
   const searchParams = useSearchParams();
   const next = searchParams.get("next") ?? "/dashboard";
   const resetFailed = searchParams.get("error") === "reset";
+  const purchaseIntent = searchParams.get("intent") === "purchase";
 
-  const [mode, setMode] = useState<Mode>(resetFailed ? "forgot" : "login");
+  const [mode, setMode] = useState<Mode>(
+    resetFailed ? "forgot" : purchaseIntent ? "signup" : "login"
+  );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);

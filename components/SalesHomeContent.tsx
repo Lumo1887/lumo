@@ -5,7 +5,6 @@ import Link from "next/link";
 import { modules, STUDIENGAENGE } from "@/lib/modules";
 import SalesModuleCard from "@/components/SalesModuleCard";
 import { fetchAccess } from "@/lib/access";
-import Reviews from "@/components/Reviews";
 import MathFormula from "@/components/MathFormula";
 
 const comparisonRows = [
@@ -393,8 +392,6 @@ export default function SalesHomeContent() {
           </table>
         </div>
       </section>
-
-      <Reviews />
     </div>
   );
 }

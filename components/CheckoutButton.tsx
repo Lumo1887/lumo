@@ -31,7 +31,7 @@ export default function CheckoutButton({
     } = await supabase.auth.getUser();
 
     if (!user) {
-      router.push(`/login?next=${encodeURIComponent(pathname)}`);
+      router.push(`/login?next=${encodeURIComponent(pathname)}&intent=purchase`);
       return;
     }
 
@@ -56,7 +56,7 @@ export default function CheckoutButton({
       const data = await res.json();
 
       if (data.requiresLogin) {
-        router.push(`/login?next=${encodeURIComponent(pathname)}`);
+        router.push(`/login?next=${encodeURIComponent(pathname)}&intent=purchase`);
         return;
       }
 

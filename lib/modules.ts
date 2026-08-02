@@ -39,10 +39,10 @@ export const modules: ModuleDefinition[] = [
     priceCent: 499,
     compareAtCent: 1500,
     chapters: [
-      "Deskriptive Statistik",
       "Wahrscheinlichkeitsrechnung",
       "Zufallsvariablen",
       "Verteilungsmodelle",
+      "Deskriptive Statistik",
     ],
     questionCount: 45,
     studiengang: "Wirtschaftsingenieurwesen",
