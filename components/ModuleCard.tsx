@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ModuleDefinition, formatEuro } from "@/lib/modules";
+import ModuleInterestForm from "@/components/ModuleInterestForm";
 
 export default function ModuleCard({
   mod,
@@ -57,7 +58,9 @@ export default function ModuleCard({
           </span>
         </div>
       ) : (
-        <div className="mt-6 text-sm text-ink-600">Trag dich für Updates ein.</div>
+        <div className="mt-6">
+          <ModuleInterestForm moduleSlug={mod.slug} />
+        </div>
       )}
     </div>
   );

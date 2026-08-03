@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ModuleDefinition, formatEuro } from "@/lib/modules";
+import ModuleInterestForm from "@/components/ModuleInterestForm";
 
 // Verkaufsorientierte Modul-Karte für die Test-Startseite
 // (components/SalesHomeContent.tsx) — bewusst nur mit echten, aus
@@ -75,7 +76,7 @@ export default function SalesModuleCard({
             </span>
           </>
         ) : (
-          <p className="text-sm text-ink-600">Trag dich für Updates ein.</p>
+          <ModuleInterestForm moduleSlug={mod.slug} />
         )}
       </div>
 
