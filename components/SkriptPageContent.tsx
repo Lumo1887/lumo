@@ -6,8 +6,6 @@ import { getModuleChapters, type SkriptSection } from "@/lib/content/registry";
 import { getModule } from "@/lib/modules";
 import SkriptFigure from "@/components/SkriptFigures";
 import MathFormula from "@/components/MathFormula";
-import ReadAloudButton from "@/components/ReadAloudButton";
-import { buildSectionSpeechText } from "@/lib/textToSpeech";
 import { fetchAccess } from "@/lib/access";
 
 type PurchaseLike = string | { moduleSlug?: string; module_slug?: string; slug?: string };
@@ -36,12 +34,7 @@ function SectionContent({
       data-section-id={interactive ? section.id : undefined}
       className="mb-10 scroll-mt-24 last:mb-0"
     >
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <h3 className="mb-1 text-xl font-semibold text-ink-900">{section.heading}</h3>
-        {interactive && (
-          <ReadAloudButton id={section.id} text={buildSectionSpeechText(section)} />
-        )}
-      </div>
+      <h3 className="mb-1 text-xl font-semibold text-ink-900">{section.heading}</h3>
       <div className="skript-heading-rule" />
       {section.body[0] && <p className="mb-4">{section.body[0]}</p>}
       {section.terms && section.terms.length > 0 && (
