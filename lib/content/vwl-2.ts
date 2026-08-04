@@ -106,8 +106,31 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
+        id: "2-entstehung",
+        heading: "2.2 Die Entstehungsrechnung",
+        body: [
+          "Auf der Entstehungsseite ergibt sich das BIP als Summe der Wertschöpfung aller Branchen einer Volkswirtschaft. Die Wertschöpfung eines Betriebs ist der Produktionswert (der Wert aller hergestellten Güter und Dienstleistungen) abzüglich der Vorleistungen (der von anderen Betrieben zugekauften Güter, die in die eigene Produktion eingehen). Summiert man diese Wertschöpfung über alle Branchen, werden Vorleistungen automatisch nur einmal erfasst, ohne dass man vorab zwischen End- und Zwischengütern unterscheiden müsste — ein alternativer Weg zum selben Ziel wie die Beschränkung auf Endgüter in 2.1.",
+          "Für die vollständige amtliche Berechnung wird die so ermittelte Bruttowertschöpfung noch um Gütersteuern (die den Marktpreis erhöhen, z. B. die Mehrwertsteuer) erhöht und um Gütersubventionen vermindert, um von Herstellungs- auf Marktpreise umzurechnen. Für die grundlegende Idee reicht die einfache Summe der Wertschöpfung aller Sektoren.",
+        ],
+        formulas: ["BIP = Σi Wertschöpfungi = Σi (Produktionswerti − Vorleistungeni)"],
+        formulasLatex: ["\\text{BIP} = \\sum_i \\text{Wertsch\\\"opfung}_i = \\sum_i (\\text{Produktionswert}_i - \\text{Vorleistungen}_i)"],
+        terms: [
+          {
+            term: "Wertschöpfung",
+            definition: "Produktionswert eines Betriebs oder einer Branche abzüglich der zugekauften Vorleistungen.",
+          },
+          {
+            term: "Entstehungsrechnung",
+            definition: "Ermittlung des BIP als Summe der Wertschöpfung aller Branchen einer Volkswirtschaft.",
+          },
+        ],
+        examples: [
+          "Eine Volkswirtschaft mit drei Sektoren erzielt folgende Produktionswerte und Vorleistungen: Landwirtschaft (Produktionswert 150 Mrd. €, Vorleistungen 50 Mrd. €, Wertschöpfung 100 Mrd. €), Industrie (1.400 Mrd. €, 700 Mrd. €, Wertschöpfung 700 Mrd. €) und Dienstleistungen (2.000 Mrd. €, 800 Mrd. €, Wertschöpfung 1.200 Mrd. €). Das BIP über die Entstehungsrechnung beträgt damit 100+700+1.200 = 2.000 Mrd. €.",
+        ],
+      },
+      {
         id: "2-2",
-        heading: "2.2 Die Verwendungsgleichung",
+        heading: "2.3 Die Verwendungsrechnung",
         body: [
           "Auf der Verwendungsseite zerlegt sich das BIP (Y) in vier Komponenten: Y = C + I + G + NX. C ist der private Konsum, I sind die Bruttoinvestitionen (Anlageinvestitionen plus Lagerveränderungen), G sind die Staatsausgaben für Güter und Dienstleistungen (ohne Transferzahlungen, die keine Gegenleistung darstellen), und NX sind die Nettoexporte (Exporte minus Importe).",
           "Diese Gleichung ist eine Identität — sie gilt per Definition, nicht als ökonomische Verhaltenshypothese. Sie ist aber der Ausgangspunkt für Modelle wie das IS-LM-Modell (Kapitel 10), die erklären, wie sich diese Komponenten in Reaktion auf Zinssätze, Einkommen und Politikmaßnahmen verändern.",
@@ -116,7 +139,7 @@ export const chapters: SkriptChapter[] = [
         formulasLatex: ["Y = C + I + G + NX"],
         terms: [
           {
-            term: "Verwendungsgleichung",
+            term: "Verwendungsrechnung",
             definition: "Zerlegung des BIP in Konsum, Investitionen, Staatsausgaben und Nettoexporte: Y = C+I+G+NX.",
           },
         ],
@@ -125,8 +148,35 @@ export const chapters: SkriptChapter[] = [
         ],
       },
       {
+        id: "2-verteilung",
+        heading: "2.4 Die Verteilungsrechnung",
+        body: [
+          "Auf der Verteilungsseite ergibt sich das BIP als Summe aller Einkommen, die bei der Produktion entstehen. Das Arbeitnehmerentgelt W umfasst Löhne und Gehälter einschließlich der Sozialbeiträge der Arbeitgeber; die Unternehmens- und Vermögenseinkommen R umfassen Gewinne, Zinsen und Pachten, die den Eigentümer:innen von Kapital und Boden zufließen. Da jeder ausgegebene Euro der Verwendungsseite gleichzeitig als Einkommen bei jemandem ankommt, müssen Verwendungs- und Verteilungsrechnung zum selben Ergebnis führen.",
+          "Weil das BIP eine Bruttogröße ist, kommen zu den beiden Einkommenskomponenten noch die Abschreibungen D hinzu (der Wertverlust des Kapitalstocks durch Verschleiß, der bei einer Nettobetrachtung bereits abgezogen wäre). Ergänzt man außerdem die Produktionsabgaben abzüglich Subventionen T (die Differenz zwischen Markt- und Herstellungspreisen, siehe 2.2), ergibt sich das BIP zu Marktpreisen.",
+        ],
+        formulas: ["Y = W + R + D + T  (Arbeitnehmerentgelt + Unternehmens-/Vermögenseinkommen + Abschreibungen + Produktionsabgaben − Subventionen)"],
+        formulasLatex: ["Y = W + R + D + T"],
+        terms: [
+          {
+            term: "Arbeitnehmerentgelt (W)",
+            definition: "Löhne und Gehälter der Beschäftigten einschließlich der Sozialbeiträge der Arbeitgeber.",
+          },
+          {
+            term: "Unternehmens- und Vermögenseinkommen (R)",
+            definition: "Gewinne, Zinsen und Pachten, die den Eigentümer:innen von Kapital und Boden zufließen.",
+          },
+          {
+            term: "Verteilungsrechnung",
+            definition: "Ermittlung des BIP als Summe aller bei der Produktion entstehenden Einkommen: Y = W+R+D+T.",
+          },
+        ],
+        examples: [
+          "In derselben Volkswirtschaft wie in 2.2 beträgt das Arbeitnehmerentgelt W=1.100 Mrd. €, die Unternehmens- und Vermögenseinkommen R=650 Mrd. €, die Abschreibungen D=180 Mrd. € und die Produktionsabgaben abzüglich Subventionen T=70 Mrd. €. Die Verteilungsrechnung ergibt Y = 1.100+650+180+70 = 2.000 Mrd. € — exakt derselbe Wert wie über die Entstehungs- und die Verwendungsrechnung, wie es die Definition der drei äquivalenten Berechnungswege verlangt.",
+        ],
+      },
+      {
         id: "2-3",
-        heading: "2.3 Real versus nominal: der BIP-Deflator",
+        heading: "2.5 Real versus nominal: der BIP-Deflator",
         body: [
           "Das nominale BIP bewertet die Produktion einer Periode zu den in dieser Periode geltenden Preisen; es kann also allein durch Preisanstiege wachsen, ohne dass real mehr produziert wurde. Das reale BIP bewertet dieselbe Produktionsmenge dagegen zu den Preisen eines festen Basisjahres und isoliert damit das tatsächliche Mengenwachstum.",
           "Das Verhältnis beider Größen liefert den BIP-Deflator: BIP-Deflator = (nominales BIP / reales BIP) × 100. Er misst die durchschnittliche Preisveränderung aller in der Volkswirtschaft produzierten Güter und ist damit ein umfassenderes Preismaß als der Verbraucherpreisindex, der nur einen festen Warenkorb betrachtet.",
@@ -145,7 +195,7 @@ export const chapters: SkriptChapter[] = [
       },
       {
         id: "2-4",
-        heading: "2.4 Grenzen des BIP als Wohlstandsmaß",
+        heading: "2.6 Grenzen des BIP als Wohlstandsmaß",
         body: [
           "Das BIP erfasst nur marktvermittelte Aktivität. Unbezahlte Arbeit (Hausarbeit, Ehrenamt), Freizeit, Umweltschäden und die Verteilung des Wohlstands innerhalb der Bevölkerung bleiben unberücksichtigt. Zwei Länder mit identischem BIP pro Kopf können sich in Lebensqualität, Ungleichheit und Nachhaltigkeit stark unterscheiden.",
           "Auch Schattenwirtschaft und selbst hergestellte, nicht verkaufte Güter fehlen in der offiziellen Statistik, ebenso Ereignisse, die das BIP erhöhen, obwohl sie den Wohlstand kaum steigern (z. B. Wiederaufbaukosten nach einer Naturkatastrophe zählen als zusätzliche Produktion, obwohl sie nur einen vorherigen Verlust ausgleichen).",
