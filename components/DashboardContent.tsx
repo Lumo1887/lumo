@@ -6,6 +6,7 @@ import { modules, STUDIENGAENGE } from "@/lib/modules";
 import ModuleCard from "@/components/ModuleCard";
 import { fetchAccess } from "@/lib/access";
 import Reviews from "@/components/Reviews";
+import { SIMILAR_UNIS, SIMILAR_UNI_NOTE } from "@/lib/similarUnis";
 
 const comparisonRows = [
   {
@@ -59,6 +60,7 @@ export default function DashboardContent() {
   const [studiengang, setStudiengang] = useState<string>(activeStudiengang);
   const [subject, setSubject] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
+  const [uni, setUni] = useState<string>("");
 
   useEffect(() => {
     let cancelled = false;
@@ -177,10 +179,36 @@ export default function DashboardContent() {
         {subject && (
           <button
             onClick={resetFilter}
-            className="mt-5 text-sm font-medium text-ink-500 underline"
+            className="mt-5 block text-sm font-medium text-ink-500 underline"
           >
             Filter zurücksetzen — alle Module anzeigen
           </button>
+        )}
+
+        <p className="mt-5 text-sm font-semibold text-ink-900">
+          Deine Uni (optional)
+        </p>
+        <select
+          value={uni}
+          onChange={(e) => setUni(e.target.value)}
+          className="mt-2 w-full max-w-xs rounded-lg border border-ink-200 bg-ink-50 px-4 py-2 text-sm text-ink-900 focus:border-brand-500 focus:outline-none sm:w-auto"
+        >
+          <option value="">— nicht angeben —</option>
+          {SIMILAR_UNIS.map((u) => (
+            <option key={u} value={u}>
+              {u}
+            </option>
+          ))}
+        </select>
+        {uni && uni !== "Andere Uni" && (
+          <p className="mt-3 max-w-xl text-xs leading-relaxed text-ink-500">
+            🎓 {uni} hat laut Modulhandbuch einen sehr ähnlichen Aufbau. {SIMILAR_UNI_NOTE}
+          </p>
+        )}
+        {uni === "Andere Uni" && (
+          <p className="mt-3 max-w-xl text-xs leading-relaxed text-ink-500">
+            {SIMILAR_UNI_NOTE}
+          </p>
         )}
       </div>
 
