@@ -8,6 +8,7 @@ import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ReferralCapture from "@/components/ReferralCapture";
+import { SIMILAR_UNI_SHORT_NAMES } from "@/lib/similarUnis";
 
 // Vercel liefert die Seite tatsächlich unter der www-Version aus
 // (lumo-learn.de leitet per Redirect auf www.lumo-learn.de weiter) — diese
@@ -44,6 +45,8 @@ export const metadata: Metadata = {
     "VWL 2 Makroökonomie",
     "Mathematik 1 Klausur",
     "Wirtschaftsingenieurwesen Skript",
+    ...SIMILAR_UNI_SHORT_NAMES.map((uni) => `${uni} Wirtschaftsingenieurwesen`),
+    ...SIMILAR_UNI_SHORT_NAMES.map((uni) => `${uni} Klausurvorbereitung`),
   ],
   applicationName: SITE_NAME,
   alternates: {
