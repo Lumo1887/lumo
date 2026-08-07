@@ -45,15 +45,21 @@ const config: Config = {
         },
       },
       borderRadius: {
-        xl2: "1.25rem",
+        xl2: "1.5rem",
+        xl3: "2rem",
       },
       boxShadow: {
-        // Basis-Schatten für Karten (dezent)
-        soft: "0 10px 40px -12px rgba(76, 29, 149, 0.25)",
-        // Kräftigerer, moderner Schatten mit zwei Ebenen für mehr Tiefe
-        card: "0 25px 50px -12px rgba(76, 29, 149, 0.30), 0 10px 25px -10px rgba(15, 23, 42, 0.18)",
-        // Leuchtender Hover-Schatten (z. B. für Modul-Karten & Buttons)
-        glow: "0 0 0 1px rgba(139, 92, 246, 0.18), 0 30px 55px -15px rgba(139, 92, 246, 0.45)",
+        // Dezenter, neutraler Basis-Schatten (statt kräftigem Lila-Ton) —
+        // wirkt als flache, moderne Elevation statt als farbiger "Glow".
+        soft: "0 10px 30px -14px rgba(15, 23, 42, 0.18)",
+        // Card-Schatten: zwei neutrale Ebenen für Tiefe, keine Farbsättigung.
+        // Ersetzt den vorherigen, sehr kräftigen Lila-Schatten, der auf
+        // modernen Referenzseiten (Linear, Vercel) eher gedämpft/neutral ist.
+        card: "0 20px 45px -28px rgba(15, 23, 42, 0.30), 0 2px 10px -4px rgba(15, 23, 42, 0.10)",
+        // Leuchtender Hover-Schatten (z. B. für Modul-Karten & primäre
+        // Buttons) — bewusst schwächer/kleiner als vorher, damit er als
+        // Akzent statt als dominanter Effekt wirkt.
+        glow: "0 0 0 1px rgba(139, 92, 246, 0.16), 0 18px 38px -16px rgba(139, 92, 246, 0.38)",
       },
     },
   },

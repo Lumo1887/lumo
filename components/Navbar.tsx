@@ -38,16 +38,22 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ink-100 bg-white/80 dark:bg-ink-100/85 shadow-sm backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-ink-100 bg-white/75 dark:bg-ink-100/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Logo />
 
         <nav className="hidden items-center gap-8 text-sm font-medium text-ink-700 sm:flex">
-          <Link href="/dashboard" className="hover:text-brand-700">
+          <Link
+            href="/dashboard"
+            className="relative py-1 transition-colors hover:text-brand-700 after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:rounded-full after:bg-brand-600 after:transition-all after:duration-300 hover:after:w-full"
+          >
             Dashboard
           </Link>
           {loaded && isAdminEmail(email) && (
-            <Link href="/admin" className="hover:text-brand-700">
+            <Link
+              href="/admin"
+              className="relative py-1 transition-colors hover:text-brand-700 after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:rounded-full after:bg-brand-600 after:transition-all after:duration-300 hover:after:w-full"
+            >
               Admin
             </Link>
           )}

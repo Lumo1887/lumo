@@ -114,8 +114,12 @@ export default function SalesHomeContent() {
       {/* ---------- Hero ---------- */}
       <section className="grid grid-cols-1 items-center gap-10 pb-6 pt-2 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12">
         <div>
-          <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-ink-900 sm:text-5xl">
-            Bestehe deine Klausur — ohne im Skript zu ertrinken.
+          <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-ink-900 sm:text-5xl lg:text-6xl">
+            Bestehe deine{" "}
+            <span className="bg-gradient-to-r from-brand-600 to-fuchsia-500 bg-clip-text text-transparent">
+              Klausur
+            </span>{" "}
+            — ohne im Skript zu ertrinken.
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-600">
             Skript, Übungsaufgaben und ein KI-Tutor, exakt zugeschnitten auf
