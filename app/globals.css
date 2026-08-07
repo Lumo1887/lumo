@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Kalam:wght@400;700&family=Sora:wght@600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Sora:wght@600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -7,7 +7,14 @@
 :root {
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: "Lora", Georgia, "Times New Roman", serif;
-  --font-hand: "Kalam", "Segoe Print", cursive;
+  /* War frueher "Kalam" (Handschrift-Font) fuer Begriffs-Box-Ueberschriften,
+     Tabellenkoepfe und Kapitel-Label im Skript — auf Nutzerwunsch durch
+     Sora ersetzt (dieselbe Schrift wie das Lumo-Logo), da die Handschrift-
+     Optik nach dem Modernisierungs-Pass nicht mehr zum restlichen Look
+     passte. Variablenname bleibt "--font-hand" um alle bestehenden
+     Verbraucher (.skript-term-name, .skript-table th, .hand-label) nicht
+     anfassen zu muessen. */
+  --font-hand: "Sora", "Inter", system-ui, sans-serif;
   --font-logo: "Sora", "Inter", system-ui, sans-serif;
 
   /* "ink"-Graustufen als CSS-Variablen (R G B, ohne Kommas — Tailwind baut
